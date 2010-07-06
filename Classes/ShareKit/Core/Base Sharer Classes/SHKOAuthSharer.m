@@ -1,0 +1,272 @@
+//
+//  SHKOAuthSharer.m
+//  ShareKit
+//
+//  Created by Nathan Weiner on 6/21/10.
+
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+//
+
+#import "SHKOAuthSharer.h"
+#import "SHKOAuthView.h"
+#import "OAuthConsumer.h"
+
+
+@implementation SHKOAuthSharer
+
+@synthesize consumerKey, secretKey, authorizeCallbackURL;
+@synthesize authorizeURL, requestURL, accessURL;
+@synthesize consumer, requestToken, accessToken;
+@synthesize signatureProvider;
+@synthesize authorizeResponseQueryVars;
+
+
+- (void)dealloc
+{
+	[consumerKey release];
+	[secretKey release];
+	[authorizeCallbackURL release];
+	[authorizeURL release];
+	[requestURL release];
+	[accessURL release];
+	[consumer release];
+	[requestToken release];
+	[accessToken release];
+	[signatureProvider release];
+	[authorizeResponseQueryVars release];
+	
+	[super dealloc];
+}
+
+
+
+#pragma mark -
+#pragma mark Authorization
+
+- (BOOL)isAuthorized
+{		
+	return [self restoreAccessToken];
+}
+
+- (void)promptAuthorization
+{		
+	[self tokenRequest];
+}
+
+
+#pragma mark Request
+
+- (void)tokenRequest
+{
+	[[SHKActivityIndicator currentIndicator] displayActivity:@"Connecting..."];
+	
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:requestURL
+                                                                   consumer:consumer
+                                                                      token:nil   // we don't have a Token yet
+                                                                      realm:nil   // our service provider doesn't specify a realm
+														   signatureProvider:signatureProvider];
+																
+	
+	[oRequest setHTTPMethod:@"POST"];
+	
+	[self tokenRequestModifyRequest:oRequest];
+	
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                         delegate:self
+                didFinishSelector:@selector(tokenRequestTicket:didFinishWithData:)
+                  didFailSelector:@selector(tokenRequestTicket:didFailWithError:)];
+	[fetcher start];	
+	[oRequest release];
+	
+	//NSLog(@"%@", oRequest.URL);
+	//NSLog(@"request %@", [[NSString alloc] initWithData:[oRequest HTTPBody] encoding:NSUTF8StringEncoding]);
+}
+
+- (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
+{
+	// Subclass to add custom paramaters and headers
+}
+
+- (void)tokenRequestTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+{
+	//NSLog(@"tokenRequestTicketResponse %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	if (ticket.didSucceed) 
+	{
+		NSString *responseBody = [[NSString alloc] initWithData:data
+													   encoding:NSUTF8StringEncoding];
+		self.requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+		[responseBody release];
+		
+		[self tokenAuthorize];
+	}
+	
+	else
+		// TODO - better error handling here
+		[self tokenRequestTicket:ticket didFailWithError:[SHK error:@"There was a problem requesting authorization from %@", [self sharerTitle]]];
+}
+
+- (void)tokenRequestTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	[[[[UIAlertView alloc] initWithTitle:@"Request Error"
+								 message:error!=nil?[error localizedDescription]:@"There was an error while sharing"
+								delegate:nil
+					   cancelButtonTitle:@"Close"
+					   otherButtonTitles:nil] autorelease] show];
+}
+
+
+#pragma mark Authorize 
+
+- (void)tokenAuthorize
+{	
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", authorizeURL.absoluteString, requestToken.key]];
+	
+	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
+	[[SHK currentHelper] showViewController:auth];	
+	[auth release];
+}
+
+- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error;
+{
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	
+	if (!success)
+	{
+		[[[[UIAlertView alloc] initWithTitle:@"Authorize Error"
+									 message:error!=nil?[error localizedDescription]:@"There was an error while authorizing"
+									delegate:nil
+						   cancelButtonTitle:@"Close"
+						   otherButtonTitles:nil] autorelease] show];
+	}	
+	
+	else 
+	{
+		self.authorizeResponseQueryVars = queryParams;
+		
+		[self tokenAccess];
+	}
+}
+
+
+#pragma mark Access
+
+- (void)tokenAccess
+{	
+	[[SHKActivityIndicator currentIndicator] displayActivity:@"Authenticating..."];
+	
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:accessURL
+                                                                   consumer:consumer
+                                                                      token:requestToken 
+                                                                      realm:nil   // our service provider doesn't specify a realm
+                                                          signatureProvider:signatureProvider]; // use the default method, HMAC-SHA1
+	
+    [oRequest setHTTPMethod:@"POST"];
+	
+	[self tokenAccessModifyRequest:oRequest];
+	
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                         delegate:self
+                didFinishSelector:@selector(tokenAccessTicket:didFinishWithData:)
+                  didFailSelector:@selector(tokenAccessTicket:didFailWithError:)];
+	[fetcher start];
+	[oRequest release];
+}
+
+- (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
+{
+	// Subclass to add custom paramaters or headers	
+}
+
+- (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+{
+	//NSLog(@"tokenAccessTicketResponse %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	if (ticket.didSucceed) 
+	{
+		NSString *responseBody = [[NSString alloc] initWithData:data
+													   encoding:NSUTF8StringEncoding];
+		self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+		[responseBody release];
+		
+		[self storeAccessToken];
+		
+		if (shareAfterAuth)
+			[self share];
+	}
+	
+	
+	else
+		// TODO - better error handling here
+		[self tokenAccessTicket:ticket didFailWithError:[SHK error:@"There was a problem requesting access from %@", [self sharerTitle]]];
+}
+
+- (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	[[[[UIAlertView alloc] initWithTitle:@"Access Error"
+								 message:error!=nil?[error localizedDescription]:@"There was an error while sharing"
+								delegate:nil
+					   cancelButtonTitle:@"Close"
+					   otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)storeAccessToken
+{	
+	[SHK setAuthValue:accessToken.key
+					 forKey:@"accessKey"
+				  forSharer:[self sharerId]];
+	
+	[SHK setAuthValue:accessToken.secret
+					 forKey:@"accessSecret"
+				  forSharer:[self sharerId]];
+}
+
+- (BOOL)restoreAccessToken
+{
+	self.consumer = [[[OAConsumer alloc] initWithKey:consumerKey secret:secretKey] autorelease];
+	
+	if (accessToken != nil)
+		return YES;
+		
+	NSString *key = [SHK getAuthValueForKey:@"accessKey"
+				  forSharer:[self sharerId]];
+	
+	NSString *secret = [SHK getAuthValueForKey:@"accessSecret"
+				  forSharer:[self sharerId]];
+	
+	if (key != nil && secret != nil)
+	{
+		self.accessToken = [[[OAToken alloc] initWithKey:key secret:secret] autorelease];
+		return accessToken != nil;
+	}
+	
+	return NO;
+}
+
+@end
