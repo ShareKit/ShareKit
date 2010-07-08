@@ -1,9 +1,22 @@
-The project hosted on github is for contributions and ongoing development.  It should not be used in existing projects.
-
-For stable releases, please visit:
-http://getsharekit.com
-
-For documentation and install instructions, please visit:
-http://getsharekit.com/install
+The code hosted here on github is for ongoing development and contributions  and may contain untested code.  Please use a stable release from http://getsharekit.com for use in your own app.
 
 ***
+
+To download a stable release visits:
+http://getsharekit.com/install
+
+Installation instructions:
+http://getsharekit.com/install
+
+How to add new services:
+http://getsharekit.com/add
+
+How to customize the look of ShareKit:
+http://getsharekit.com/customize
+
+Full documentation:
+http://getsharekit.com/docs
+
+***
+
+Follow @IdeaShower or http://getsharekit.com/blog for updates
