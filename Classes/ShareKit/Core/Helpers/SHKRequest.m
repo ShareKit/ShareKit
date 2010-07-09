@@ -131,7 +131,7 @@
 
 - (void)finish
 {
-	self.success = response.statusCode == 200;
+	self.success = (response.statusCode == 200 || response.statusCode == 201);
 	
 	if ([delegate respondsToSelector:isFinishedSelector])
 		[delegate performSelector:isFinishedSelector withObject:self];
