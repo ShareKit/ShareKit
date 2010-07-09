@@ -52,11 +52,6 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	return YES;
 }
 
-- (BOOL)shouldAutoShare
-{	
-	return [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldAutoShare", [self sharerId]]];
-}
-
 #pragma mark -
 #pragma mark Authorization
 

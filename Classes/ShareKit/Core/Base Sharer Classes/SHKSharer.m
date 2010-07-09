@@ -285,18 +285,18 @@
 	if (![[self class] requiresAuthentication])
 		return YES;
 	
-	// Default implementation assumes the service needs all values from authorization keys.
-	// Subclass to customize requirements
+	// Checks to make sure we just have at least one variable from the authorization form
+	// If the send request fails it'll reprompt the user for their new login anyway
 	
 	NSString *sharerId = [self sharerId];
 	NSArray *fields = [self authorizationFormFields];
 	for (SHKFormFieldSettings *field in fields)
 	{
-		if (![SHK getAuthValueForKey:field.key forSharer:sharerId])
-			return NO;
+		if ([SHK getAuthValueForKey:field.key forSharer:sharerId] != nil)
+			return YES;
 	}
 	
-	return YES;
+	return NO;
 }
 
 - (BOOL)authorize

@@ -235,7 +235,7 @@
 #pragma mark -
 
 - (void)shortenURL
-{
+{	
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:@"Shortening URL..."];
 	

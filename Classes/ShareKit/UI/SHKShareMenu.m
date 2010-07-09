@@ -263,7 +263,7 @@
 	
 	else 
 	{
-		[objc_getClass([[rowData objectForKey:@"className"] UTF8String]) shareItem:item]; // TODO - make this warning go away
+		[objc_getClass([[rowData objectForKey:@"className"] UTF8String]) shareItem:item];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}
