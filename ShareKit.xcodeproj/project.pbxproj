@@ -13,6 +13,7 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		3D384B5311E6AD2000C8056C /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D384B5111E6AD2000C8056C /* SHKInstapaper.m */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43A5370011DBE3B9004A1712 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
 		43A5370111DBE3B9004A1712 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
@@ -95,6 +96,8 @@
 		28AD735F0D9D9599002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		28F335F01007B36200424DE2 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D384B5111E6AD2000C8056C /* SHKInstapaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKInstapaper.m; path = Classes/ShareKit/Sharers/Services/Instapaper/SHKInstapaper.m; sourceTree = SOURCE_ROOT; };
+		3D384B5211E6AD2000C8056C /* SHKInstapaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKInstapaper.h; path = Classes/ShareKit/Sharers/Services/Instapaper/SHKInstapaper.h; sourceTree = SOURCE_ROOT; };
 		4312CF7B11CB33E200E61D7A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
@@ -317,6 +320,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3D384B4D11E6ACF700C8056C /* Instapaper */ = {
+			isa = PBXGroup;
+			children = (
+				3D384B5211E6AD2000C8056C /* SHKInstapaper.h */,
+				3D384B5111E6AD2000C8056C /* SHKInstapaper.m */,
+			);
+			path = Instapaper;
+			sourceTree = "<group>";
+		};
 		4362EB3311B9937300E3DB3A /* Example Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,6 +545,7 @@
 				43A536C111DBE3B9004A1712 /* Delicious */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
+				3D384B4D11E6ACF700C8056C /* Instapaper */,
 				43A536E111DBE3B9004A1712 /* Pinboard */,
 				43A536E411DBE3B9004A1712 /* Read It Later */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
@@ -803,6 +816,7 @@
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				43A53C0911DC07A9004A1712 /* SHKCustomShareMenuCell.m in Sources */,
 				43A53C1211DC08B1004A1712 /* SHKCustomShareMenu.m in Sources */,
+				3D384B5311E6AD2000C8056C /* SHKInstapaper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
