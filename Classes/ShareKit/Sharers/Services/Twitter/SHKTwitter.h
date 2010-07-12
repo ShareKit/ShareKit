@@ -31,12 +31,10 @@
 
 @interface SHKTwitter : SHKOAuthSharer 
 {	
-	BOOL xAuth;	
-	NSString *myTwitterUsername;	
+	BOOL xAuth;		
 }
 
 @property BOOL xAuth;
-@property (nonatomic, retain) NSString *myTwitterUsername;
 
 
 #pragma mark -

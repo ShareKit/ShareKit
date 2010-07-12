@@ -33,7 +33,7 @@
 @synthesize shareDelegate;
 @synthesize item, pendingForm, request;
 @synthesize lastError;
-@synthesize quiet, shareAfterAuth;
+@synthesize quiet, pendingAction;
 
 - (void)dealloc
 {
@@ -163,6 +163,12 @@
 	{
 		self.shareDelegate = self;
 		self.item = [[[SHKItem alloc] init] autorelease];
+				
+		if ([self respondsToSelector:@selector(modalPresentationStyle)])
+			self.modalPresentationStyle = [SHK modalPresentationStyle];
+		
+		if ([self respondsToSelector:@selector(modalTransitionStyle)])
+			self.modalTransitionStyle = [SHK modalTransitionStyle];
 	}
 	return self;
 }
@@ -267,7 +273,7 @@
 {
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
 	if (![self authorize])
-		self.shareAfterAuth = YES;
+		self.pendingAction = SHKPendingShare;
 	
 	// A. First check if auto share is set	
 	// B. If it is, try to send
@@ -395,6 +401,11 @@
 
 - (NSArray *)authorizationFormFields
 {
+	return [[self class] authorizationFormFields];
+}
+
++ (NSArray *)authorizationFormFields
+{
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],			
@@ -402,6 +413,11 @@
 }
 
 - (NSString *)authorizationFormCaption
+{
+	return [[self class] authorizationFormCaption];
+}
+
++ (NSString *)authorizationFormCaption
 {
 	return nil;
 }
@@ -613,6 +629,19 @@
 	
 }
 
+#pragma mark -
+#pragma mark Pending Actions
+
+- (void)tryPendingAction
+{
+	switch (pendingAction) 
+	{
+		case SHKPendingShare:
+			[self share];
+			break;
+	}
+}
+
 
 
 #pragma mark -
@@ -620,6 +649,14 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
     return YES;
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+	
+	// Remove the SHK view wrapper from the window
+	[[SHK currentHelper] viewWasDismissed];
 }
 
 

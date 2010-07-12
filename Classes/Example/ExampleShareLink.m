@@ -65,7 +65,7 @@
 	self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 	webView.delegate = self;
 	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://apple.com/"]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://apple.com"]]];
 		
 	self.view = webView;
 }

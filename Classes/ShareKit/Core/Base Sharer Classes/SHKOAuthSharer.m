@@ -95,9 +95,6 @@
                   didFailSelector:@selector(tokenRequestTicket:didFailWithError:)];
 	[fetcher start];	
 	[oRequest release];
-	
-	//NSLog(@"%@", oRequest.URL);
-	//NSLog(@"request %@", [[NSString alloc] initWithData:[oRequest HTTPBody] encoding:NSUTF8StringEncoding]);
 }
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
@@ -107,7 +104,8 @@
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	//NSLog(@"tokenRequestTicketResponse %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+		SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -170,16 +168,27 @@
 	}
 }
 
+- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
+{
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];	
+}
+
 
 #pragma mark Access
 
 - (void)tokenAccess
-{	
-	[[SHKActivityIndicator currentIndicator] displayActivity:@"Authenticating..."];
+{
+	[self tokenAccess:NO];
+}
+
+- (void)tokenAccess:(BOOL)refresh
+{
+	if (!refresh)
+		[[SHKActivityIndicator currentIndicator] displayActivity:@"Authenticating..."];
 	
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:accessURL
                                                                    consumer:consumer
-                                                                      token:requestToken 
+																	   token:(refresh ? accessToken : requestToken)
                                                                       realm:nil   // our service provider doesn't specify a realm
                                                           signatureProvider:signatureProvider]; // use the default method, HMAC-SHA1
 	
@@ -202,7 +211,8 @@
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	//NSLog(@"tokenAccessTicketResponse %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+		SHKLog(@"tokenAccessTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -215,8 +225,7 @@
 		
 		[self storeAccessToken];
 		
-		if (shareAfterAuth)
-			[self share];
+		[self tryPendingAction];
 	}
 	
 	
@@ -244,7 +253,26 @@
 	
 	[SHK setAuthValue:accessToken.secret
 					 forKey:@"accessSecret"
-				  forSharer:[self sharerId]];
+			forSharer:[self sharerId]];
+	
+	[SHK setAuthValue:accessToken.sessionHandle
+			   forKey:@"sessionHandle"
+			forSharer:[self sharerId]];
+}
+
++ (void)deleteStoredAccessToken
+{
+	[SHK setAuthValue:nil
+			   forKey:@"accessKey"
+			forSharer:[self sharerId]];
+	
+	[SHK setAuthValue:nil
+			   forKey:@"accessSecret"
+			forSharer:[self sharerId]];
+	
+	[SHK setAuthValue:nil
+			   forKey:@"sessionHandle"
+			forSharer:[self sharerId]];
 }
 
 - (BOOL)restoreAccessToken
@@ -258,15 +286,50 @@
 				  forSharer:[self sharerId]];
 	
 	NSString *secret = [SHK getAuthValueForKey:@"accessSecret"
-				  forSharer:[self sharerId]];
+									 forSharer:[self sharerId]];
+	
+	NSString *sessionHandle = [SHK getAuthValueForKey:@"sessionHandle"
+									 forSharer:[self sharerId]];
 	
 	if (key != nil && secret != nil)
 	{
 		self.accessToken = [[[OAToken alloc] initWithKey:key secret:secret] autorelease];
+		
+		if (sessionHandle != nil)
+			accessToken.sessionHandle = sessionHandle;
+		
 		return accessToken != nil;
 	}
 	
 	return NO;
 }
+
+
+#pragma mark Expired
+
+- (void)refreshToken
+{
+	self.pendingAction = SHKPendingRefreshToken;
+	[self tokenAccess:YES];
+}
+
+#pragma mark -
+#pragma mark Pending Actions
+#pragma mark -
+#pragma mark Pending Actions
+
+- (void)tryPendingAction
+{
+	switch (pendingAction) 
+	{
+		case SHKPendingRefreshToken:
+			[self tryToSend]; // try to resend
+			break;
+			
+		default:			
+			[super tryPendingAction];			
+	}
+}
+
 
 @end

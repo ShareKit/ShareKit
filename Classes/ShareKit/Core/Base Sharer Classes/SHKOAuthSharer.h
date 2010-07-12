@@ -78,12 +78,14 @@
 - (void)tokenAuthorize;
 
 - (void)tokenAccess;
+- (void)tokenAccess:(BOOL)refresh;
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest;
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 - (void)storeAccessToken;
 - (BOOL)restoreAccessToken;
+- (void)refreshToken;
 
 
 @end

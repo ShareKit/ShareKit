@@ -55,9 +55,9 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 #pragma mark -
 #pragma mark Authorization
 
-- (NSString *)authorizationFormCaption
++ (NSString *)authorizationFormCaption
 {
-	return @"Set up a free account at http://instapaper.com";
+	return @"Create a free account at Instapaper.com";
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
@@ -95,9 +95,9 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	else {
     NSString *errorMessage = nil;
     if (aRequest.response.statusCode == 403)
-      errorMessage = @"Invalid username or password.";
+      errorMessage = @"Sorry, Instapaper did not accept your credentials. Please try again.";
     else
-      errorMessage = @"The service encountered an error. Please try again later.";
+      errorMessage = @"Sorry, Instapaper encountered an error. Please try again.";
       
 		[[[[UIAlertView alloc] initWithTitle:@"Login Error"
                                  message:errorMessage
@@ -148,10 +148,10 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 {
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:@"Invalid username or password."] shouldRelogin:YES];
+			[self sendDidFailWithError:[SHK error:@"Sorry, Instapaper did not accept your credentials. Please try again."] shouldRelogin:YES];
 			return;
 		}
-    else if (aRequest.response.statusCode == 500) {
+    else if (aRequest.response.statusCode == 500) {		
       [self sendDidFailWithError:[SHK error:@"The service encountered an error. Please try again later."]];
       return;
     }

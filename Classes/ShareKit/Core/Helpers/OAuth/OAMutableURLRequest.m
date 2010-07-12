@@ -25,6 +25,7 @@
 
 
 #import "OAMutableURLRequest.h"
+#import "SHKConfig.h"
 
 
 @interface OAMutableURLRequest (Private)
@@ -223,7 +224,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 					 [[[self URL] URLStringWithoutQuery] URLEncodedString],
 					 [normalizedRequestParameters URLEncodedString]];
 	
-	//NSLog(@"ret %@", ret);
+	SHKLog(@"OAMutableURLRequest parameters %@", normalizedRequestParameters);
 	
 	return ret;
 }

@@ -30,24 +30,18 @@
 	navigationController.topViewController.title = @"Examples";
 	[navigationController setToolbarHidden:NO];
 	
-	[self performSelector:@selector(test) withObject:nil afterDelay:0.5];
+	[self performSelector:@selector(testOffline) withObject:nil afterDelay:0.5];
 	
 	return YES;
 }
 
-- (void)test
+- (void)testOffline
 {	
 	[SHK flushOfflineQueue];
-	//[SHKFacebook shareURL:[NSURL URLWithString:@"http://ideashower.com"]];	
 }
 
-- (void)test2
+- (void)applicationWillTerminate:(UIApplication *)application 
 {
-	[[SHKActivityIndicator currentIndicator] displayCompleted:@"Saved!"];
-}
-
-
-- (void)applicationWillTerminate:(UIApplication *)application {
 	// Save data if appropriate
 }
 

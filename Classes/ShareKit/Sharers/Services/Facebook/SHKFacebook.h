@@ -41,12 +41,12 @@ typedef enum
 @interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>
 {
 	FBSession *session;
-	SHKFacebookPendingAction pendingAction;
+	SHKFacebookPendingAction pendingFacebookAction;
 	FBLoginDialog *login;
 }
 
 @property (retain) FBSession *session;
-@property SHKFacebookPendingAction pendingAction;
+@property SHKFacebookPendingAction pendingFacebookAction;
 @property (retain) FBLoginDialog *login;
 
 @end

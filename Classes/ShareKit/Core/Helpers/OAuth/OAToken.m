@@ -29,7 +29,7 @@
 
 @implementation OAToken
 
-@synthesize key, secret;
+@synthesize key, secret, sessionHandle;
 
 #pragma mark init
 
@@ -39,6 +39,7 @@
 	{
 		self.key = @"";
 		self.secret = @"";
+		self.sessionHandle = @"";
 	}
     return self;
 }
@@ -65,6 +66,8 @@
 				self.key = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			} else if ([[elements objectAtIndex:0] isEqualToString:@"oauth_token_secret"]) {
 				self.secret = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			} else if ([[elements objectAtIndex:0] isEqualToString:@"oauth_session_handle"]) {
+				self.sessionHandle = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			}
 		}
 	}    
@@ -89,6 +92,7 @@
 {
 	[key release];
 	[secret release];
+	[sessionHandle release];
 	[super dealloc];
 }
 

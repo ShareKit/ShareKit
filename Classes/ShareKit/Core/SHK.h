@@ -52,7 +52,7 @@
 	NSOperationQueue *offlineQueue;
 }
 
-@property (nonatomic, retain) UIViewController *rootViewController;
+@property (nonatomic, assign) UIViewController *rootViewController;
 @property (nonatomic, retain) UIViewController *currentView;
 @property (nonatomic, retain) UIViewController *pendingView;
 @property BOOL isDismissingView;
@@ -75,7 +75,10 @@
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;
 - (UIViewController *)getTopViewController;
+
 + (UIBarStyle)barStyle;
++ (UIModalPresentationStyle)modalPresentationStyle;
++ (UIModalTransitionStyle)modalTransitionStyle;
 
 #pragma mark -
 #pragma mark Favorites
@@ -93,6 +96,9 @@
 
 + (NSString *)getAuthValueForKey:(NSString *)key forSharer:(NSString *)sharerId;
 + (void)setAuthValue:(NSString *)value forKey:(NSString *)key forSharer:(NSString *)sharerId;
+
++ (void)logoutOfAll;
++ (void)logoutOfService:(NSString *)sharerId;
 
 #pragma mark -
 #pragma mark Offline Support

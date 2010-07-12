@@ -26,6 +26,7 @@
 //
 
 #import "SHKRequest.h"
+#import "SHKConfig.h"
 
 #define SHK_TIMEOUT 90
 
@@ -94,7 +95,7 @@
 	}
 	
 	// Start Connection
-	//NSLog(@"SHKRequest: %@?%@\n\n%@", url, params, [request allHTTPHeaderFields]);
+	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", url, params);
 	self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
 	[request release];
 	[connection release];

@@ -151,7 +151,7 @@
 
 - (void)cancel
 {
-	[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"User cancelled login"]];
+	[delegate tokenAuthorizeCancelledView:self];
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 }
 

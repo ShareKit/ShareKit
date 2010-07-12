@@ -161,7 +161,7 @@
 {
 	id class;
 	NSMutableArray *sectionData = [NSMutableArray arrayWithCapacity:0];	
-	NSArray *source = [[SHK sharersDictionary] objectForKey:section];;
+	NSArray *source = [[SHK sharersDictionary] objectForKey:section];
 	
 	for( NSString *sharerClassName in source)
 	{

@@ -42,6 +42,13 @@
 @end
 
 
+typedef enum 
+{
+	SHKPendingNone,
+	SHKPendingShare,
+	SHKPendingRefreshToken
+} SHKSharerPendingAction;
+
 
 @interface SHKSharer : UINavigationController <SHKSharerDelegate>
 {	
@@ -54,7 +61,7 @@
 	NSError *lastError;
 	
 	BOOL quiet;
-	BOOL shareAfterAuth;
+	SHKSharerPendingAction pendingAction;
 }
 
 @property (nonatomic, retain)	id<SHKSharerDelegate> shareDelegate;
@@ -66,7 +73,7 @@
 @property (nonatomic, retain) NSError *lastError;
 
 @property BOOL quiet;
-@property BOOL shareAfterAuth;
+@property SHKSharerPendingAction pendingAction;
 
 
 
@@ -135,6 +142,8 @@
 - (void)authorizationFormSave:(SHKFormController *)form;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
++ (NSArray *)authorizationFormFields;
++ (NSString *)authorizationFormCaption;
 
 
 #pragma mark -
@@ -155,6 +164,11 @@
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
 - (void)shareFormValidate:(SHKFormController *)form;
 - (void)shareFormSave:(SHKFormController *)form;
+
+#pragma mark -
+#pragma mark Pending Actions
+
+- (void)tryPendingAction;
 
 #pragma mark -
 #pragma mark Delegate Notifications

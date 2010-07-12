@@ -33,6 +33,7 @@
 @protocol SHKOAuthViewDelegate
 
 - (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error;
+- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView;
 - (NSURL *)authorizeCallbackURL;
 
 @end

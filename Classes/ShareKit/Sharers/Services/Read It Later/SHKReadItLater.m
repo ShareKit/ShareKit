@@ -61,9 +61,9 @@
 #pragma mark -
 #pragma mark Authorization
 
-- (NSString *)authorizationFormCaption
++ (NSString *)authorizationFormCaption
 {
-	return @"Set up a free account at http://readitlaterlist.com";
+	return @"Create a free account at Readitlaterlist.com";
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form

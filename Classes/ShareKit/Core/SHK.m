@@ -28,7 +28,6 @@
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
 #import "SHKViewControllerWrapper.h"
-#import "SHKNavController.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
@@ -37,7 +36,8 @@
 
 @implementation SHK
 
-@synthesize rootViewController, currentView, pendingView, isDismissingView;
+@synthesize currentView, pendingView, isDismissingView;
+@synthesize rootViewController;
 @synthesize offlineQueue;
 
 static SHK *currentHelper = nil;
@@ -55,7 +55,6 @@ static SHK *currentHelper = nil;
 
 - (void)dealloc
 {
-	[rootViewController release];
 	[currentView release];
 	[pendingView release];
 	[offlineQueue release];
@@ -68,8 +67,9 @@ static SHK *currentHelper = nil;
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc
-{
-	[[self currentHelper] setRootViewController:vc];
+{	
+	SHK *helper = [self currentHelper];
+	[helper setRootViewController:vc];	
 }
 
 - (void)showViewController:(UIViewController *)vc
@@ -118,9 +118,16 @@ static SHK *currentHelper = nil;
 	if (![vc respondsToSelector:@selector(pushViewController:animated:)])
 	{
 		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-		[topViewController presentModalViewController:nav animated:YES];
-		nav.navigationBar.barStyle = 
-		nav.toolbar.barStyle = [SHK barStyle];
+		
+		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
+			nav.modalPresentationStyle = [SHK modalPresentationStyle];
+		
+		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
+			nav.modalTransitionStyle = [SHK modalTransitionStyle];
+		
+		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
+		
+		[topViewController presentModalViewController:nav animated:YES];			
 		self.currentView = nav;
 	}
 	
@@ -176,19 +183,47 @@ static SHK *currentHelper = nil;
 		topViewController = topViewController.modalViewController;
 	return topViewController;
 }
-
+			
 + (UIBarStyle)barStyle
 {
 	if ([SHKBarStyle isEqualToString:@"UIBarStyleBlack"])		
 		return UIBarStyleBlack;
-
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlack"])		
-			return UIBarStyleBlackOpaque;
 	
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlack"])		
-			return UIBarStyleBlackTranslucent;
+	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackOpaque"])		
+		return UIBarStyleBlackOpaque;
+	
+	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackTranslucent"])		
+		return UIBarStyleBlackTranslucent;
 	
 	return UIBarStyleDefault;
+}
+
++ (UIModalPresentationStyle)modalPresentationStyle
+{
+	if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFullScreen"])		
+		return UIModalPresentationFullScreen;
+	
+	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationPageSheet"])		
+		return UIModalPresentationPageSheet;
+	
+	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFormSheet"])		
+		return UIModalPresentationFormSheet;
+	
+	return UIModalPresentationCurrentContext;
+}
+
++ (UIModalTransitionStyle)modalTransitionStyle
+{
+	if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])		
+		return UIModalTransitionStyleFlipHorizontal;
+	
+	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleCrossDissolve"])		
+		return UIModalTransitionStyleCrossDissolve;
+	
+	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStylePartialCurl"])		
+		return UIModalTransitionStylePartialCurl;
+	
+	return UIModalTransitionStyleCoverVertical;
 }
 
 
@@ -266,9 +301,7 @@ static SHK *currentHelper = nil;
 #pragma mark -
 #pragma mark Credentials
 
-#define SHK_AUTH_PREFIX @"SHK_AUTH_"
-
-// TODO someone with more keychain experience may want to clean this up.  The use of SFHFKeychainUtils may be unnecessary bloat?
+// TODO someone with more keychain experience may want to clean this up.  The use of SFHFKeychainUtils may be unnecessary?
 
 + (NSString *)getAuthValueForKey:(NSString *)key forSharer:(NSString *)sharerId
 {
@@ -276,9 +309,9 @@ static SHK *currentHelper = nil;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@_%@_%@",SHK_AUTH_PREFIX,sharerId,key]];
+	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
 #else
-	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:sharerId error:nil];
+	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
 #endif
 }
 
@@ -288,10 +321,41 @@ static SHK *currentHelper = nil;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@_%@_%@",SHK_AUTH_PREFIX,sharerId,key]];
+	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
 #else
-	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:sharerId updateExisting:YES error:nil];
+	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] updateExisting:YES error:nil];
 #endif
+}
+
++ (void)logoutOfAll
+{
+	NSArray *sharers = [[SHK sharersDictionary] objectForKey:@"services"];
+	for (NSString *sharerId in sharers)
+		[self logoutOfService:sharerId];
+}
+
++ (void)logoutOfService:(NSString *)sharerId
+{	
+	// TODO - can we just clear the keychain of a specific service name in one go rather than enumerating through each auth value?
+	
+	SHKSharer *class = (SHKSharer *)NSClassFromString(sharerId);
+	
+	// oauth web service
+	if ([class respondsToSelector:@selector(deleteStoredAccessToken)])
+		[class performSelector:@selector(deleteStoredAccessToken)];
+	
+	// web service
+	else 
+	{
+		NSArray *authFields = [class authorizationFormFields];
+		if (authFields != nil)
+		{
+			for(SHKFormFieldSettings *field in authFields)
+				[SHK setAuthValue:nil forKey:field.key forSharer:sharerId];
+		}
+	}
+
+	
 }
 
 

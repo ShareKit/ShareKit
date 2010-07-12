@@ -31,7 +31,7 @@
 @implementation SHKFacebook
 
 @synthesize session;
-@synthesize pendingAction;
+@synthesize pendingFacebookAction;
 @synthesize login;
 
 
@@ -97,7 +97,7 @@
 
 - (void)promptAuthorization
 {
-	self.pendingAction = SHKFacebookPendingLogin;
+	self.pendingFacebookAction = SHKFacebookPendingLogin;
 	self.login = [[[FBLoginDialog alloc] init] autorelease];
 	[login show];
 }
@@ -114,7 +114,7 @@
 {			
 	if (item.shareType == SHKShareTypeURL)
 	{
-		self.pendingAction = SHKFacebookPendingStatus;
+		self.pendingFacebookAction = SHKFacebookPendingStatus;
 		
 		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
@@ -136,7 +136,7 @@
 	
 	else if (item.shareType == SHKShareTypeImage)
 	{		
-		self.pendingAction = SHKFacebookPendingImage;
+		self.pendingFacebookAction = SHKFacebookPendingImage;
 		
 		FBPermissionDialog* dialog = [[[FBPermissionDialog alloc] init] autorelease];
 		dialog.delegate = self;
@@ -158,18 +158,18 @@
 
 - (void)dialogDidSucceed:(FBDialog*)dialog
 {
-	if (pendingAction == SHKFacebookPendingImage)
+	if (pendingFacebookAction == SHKFacebookPendingImage)
 		[self sendImage];
 	
 	// TODO - the dialog has a SKIP button.  Skipping still calls this even though it doesn't appear to post.
 	//		- need to intercept the skip and handle it as a cancel?
-	else if (pendingAction == SHKFacebookPendingStatus)
+	else if (pendingFacebookAction == SHKFacebookPendingStatus)
 		[self sendDidFinish];
 }
 
 - (void)dialogDidCancel:(FBDialog*)dialog
 {
-	if (pendingAction == SHKFacebookPendingStatus)
+	if (pendingFacebookAction == SHKFacebookPendingStatus)
 		[self sendDidCancel];
 }
 
@@ -184,9 +184,9 @@
 - (void)session:(FBSession*)session didLogin:(FBUID)uid 
 {
 	// Try to share again
-	if (pendingAction == SHKFacebookPendingLogin)
+	if (pendingFacebookAction == SHKFacebookPendingLogin)
 	{
-		self.pendingAction = SHKFacebookPendingNone;
+		self.pendingFacebookAction = SHKFacebookPendingNone;
 		[self share];
 	}
 }

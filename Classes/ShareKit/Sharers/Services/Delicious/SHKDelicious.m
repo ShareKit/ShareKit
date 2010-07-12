@@ -28,6 +28,14 @@
 #import "SHKDelicious.h"
 #import "OAuthConsumer.h"
 
+
+// You can leave this be.  The user will actually never see this url.  ShareKit just looks for
+// when delicious redirects to this url and intercepts it.  It can be any url.
+#define SHKDeliciousCallbackUrl		@"http://getsharekit.com/oauthcallback"
+
+
+// http://github.com/jdg/oauthconsumer/blob/master/OATokenManager.m
+
 @implementation SHKDelicious
 
 
@@ -78,7 +86,14 @@
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+	if (pendingAction == SHKPendingRefreshToken)
+	{
+		if (accessToken.sessionHandle != nil)
+			[oRequest setOAuthParameterName:@"oauth_session_handle" withValue:accessToken.sessionHandle];	
+	}
+		
+	else
+		[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
 - (BOOL)handleResponse:(SHKRequest *)aRequest
@@ -168,16 +183,36 @@
 	return NO;
 }
 
+
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
-{	
+{		
 	if (ticket.didSucceed && [ticket.body rangeOfString:@"\"done\""].location != NSNotFound) 
 	{
 		// Do anything?
 	}
 	
 	else 
-		// TODO - better error handling
-		[self sendTicket:ticket didFailWithError:[SHK error:@"There was a problem saving to Delicious"]];
+	{	
+		if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+			SHKLog(@"SHKDelicious sendTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+
+		// Look for oauth problems		
+		// TODO - I'd prefer to use regex for this but that would require OS4 or adding a regex library
+		NSError *error;
+		NSString *body = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+				
+		// Expired token
+		if ([body rangeOfString:@"token_expired"].location != NSNotFound)
+		{
+			[self refreshToken];				
+			return;
+		}
+		
+		else
+			error = [SHK error:@"There was a problem saving to Delicious"];
+		
+		[self sendTicket:ticket didFailWithError:error];
+	}
 	
 	// Notify delegate
 	[self sendDidFinish];

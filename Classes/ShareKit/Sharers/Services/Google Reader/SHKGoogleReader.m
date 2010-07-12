@@ -70,12 +70,12 @@ Google Reader API is unoffical, this was hobbled together from:
 #pragma mark -
 #pragma mark Authorization
 
-- (NSString *)authorizationFormCaption
++ (NSString *)authorizationFormCaption
 {
-	return @"Set up a free account at http://google.com/reader";
+	return @"Create a free account at Google.com/reader";
 }
 
-- (NSArray *)authorizationFormFields
++ (NSArray *)authorizationFormFields
 {
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:@"Email" key:@"email" type:SHKFormFieldTypeText start:nil],

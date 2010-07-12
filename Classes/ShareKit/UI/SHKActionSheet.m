@@ -84,7 +84,7 @@
 - (void)actionSheet:(SHKActionSheet *)as clickedButtonAtIndex:(NSInteger)buttonIndex
 {
 	// Sharers
-	if (buttonIndex < as.sharers.count)
+	if (buttonIndex >= 0 && buttonIndex < as.sharers.count)
 	{
 		[objc_getClass([[as.sharers objectAtIndex:buttonIndex] UTF8String]) performSelector:@selector(shareItem:) withObject:item];
 	}

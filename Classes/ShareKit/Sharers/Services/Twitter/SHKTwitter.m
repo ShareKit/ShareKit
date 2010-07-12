@@ -33,21 +33,11 @@
 @implementation SHKTwitter
 
 @synthesize xAuth;
-@synthesize myTwitterUsername;
-
-- (void)dealloc
-{
-	[myTwitterUsername release];
-	[super dealloc];
-}
 
 - (id)init
 {
 	if (self = [super init])
-	{		
-		// Enter your app's twitter account if you'd like to ask the user to follow it when logging in
-		self.myTwitterUsername = [SHKTwitterUsername isEqualToString:@""] ? nil : SHKTwitterUsername;
-	
+	{	
 		// OAUTH		
 		self.consumerKey = SHKTwitterConsumerKey;		
 		self.secretKey = SHKTwitterSecret;
@@ -123,20 +113,20 @@
 
 #pragma mark xAuth
 
-- (NSString *)authorizationFormCaption
++ (NSString *)authorizationFormCaption
 {
-	return @"Sign up for a free account at http://twitter.com";
+	return @"Create a free account at Twitter.com";
 }
 
-- (NSArray *)authorizationFormFields
++ (NSArray *)authorizationFormFields
 {
-	if (myTwitterUsername == nil)
+	if ([SHKTwitterUsername isEqualToString:@""])
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:[NSString stringWithFormat:@"Follow %@",myTwitterUsername] key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			[SHKFormFieldSettings label:[NSString stringWithFormat:@"Follow %@",SHKTwitterUsername] key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
 			nil];
 }
 
@@ -257,7 +247,7 @@
 	
 	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	
-	if ([result rangeOfString:@"http://bit.ly"].location == NSNotFound)
+	if (result == nil || [NSURL URLWithString:result] == nil)
 	{
 		// TODO - better error message
 		[[[[UIAlertView alloc] initWithTitle:@"Shorten URL Error"
@@ -341,6 +331,7 @@
 {	
 	// TODO better error handling here
 	
+	
 	if (ticket.didSucceed) 
 		[self sendDidFinish];
 	
@@ -359,7 +350,7 @@
 	// remove it so in case of other failures this doesn't get hit again
 	[item setCustomValue:nil forKey:@"followMe"];
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/friendships/create/%@.json", myTwitterUsername]]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/friendships/create/%@.json", SHKTwitterUsername]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil
