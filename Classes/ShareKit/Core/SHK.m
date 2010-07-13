@@ -327,6 +327,18 @@ static SHK *currentHelper = nil;
 #endif
 }
 
++ (void)removeAuthValueForKey:(NSString *)key forSharer:(NSString *)sharerId
+{
+#if TARGET_IPHONE_SIMULATOR
+	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
+	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
+	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+#else
+	[SFHFKeychainUtils deleteItemForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
+#endif
+}
+
 + (void)logoutOfAll
 {
 	NSArray *sharers = [[SHK sharersDictionary] objectForKey:@"services"];
@@ -336,26 +348,7 @@ static SHK *currentHelper = nil;
 
 + (void)logoutOfService:(NSString *)sharerId
 {	
-	// TODO - can we just clear the keychain of a specific service name in one go rather than enumerating through each auth value?
-	
-	SHKSharer *class = (SHKSharer *)NSClassFromString(sharerId);
-	
-	// oauth web service
-	if ([class respondsToSelector:@selector(deleteStoredAccessToken)])
-		[class performSelector:@selector(deleteStoredAccessToken)];
-	
-	// web service
-	else 
-	{
-		NSArray *authFields = [class authorizationFormFields];
-		if (authFields != nil)
-		{
-			for(SHKFormFieldSettings *field in authFields)
-				[SHK setAuthValue:nil forKey:field.key forSharer:sharerId];
-		}
-	}
-
-	
+	[NSClassFromString(sharerId) logout];	
 }
 
 

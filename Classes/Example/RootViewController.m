@@ -28,7 +28,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;
+    return 4;//5;
 }
 
 
@@ -60,6 +60,9 @@
 			cell.textLabel.text = @"Sharing a File";
 			break;
 			
+		//case 4:
+		//	cell.textLabel.text = @"Logout of All Services";
+		//	break;
 	}
 
     return cell;
@@ -89,6 +92,9 @@
 			[self.navigationController pushViewController:[[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
 			break;
 			
+		//case 4:
+		//	[SHK logoutOfAll];
+		//	break;			
 			
 	}
 }

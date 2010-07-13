@@ -262,17 +262,16 @@
 
 + (void)deleteStoredAccessToken
 {
-	[SHK setAuthValue:nil
-			   forKey:@"accessKey"
-			forSharer:[self sharerId]];
+	NSString *sharerId = [self sharerId];
 	
-	[SHK setAuthValue:nil
-			   forKey:@"accessSecret"
-			forSharer:[self sharerId]];
-	
-	[SHK setAuthValue:nil
-			   forKey:@"sessionHandle"
-			forSharer:[self sharerId]];
+	[SHK removeAuthValueForKey:@"accessKey" forSharer:sharerId];
+	[SHK removeAuthValueForKey:@"accessSecret" forSharer:sharerId];
+	[SHK removeAuthValueForKey:@"sessionHandle" forSharer:sharerId];
+}
+
++ (void)logout
+{
+	[self deleteStoredAccessToken];
 }
 
 - (BOOL)restoreAccessToken

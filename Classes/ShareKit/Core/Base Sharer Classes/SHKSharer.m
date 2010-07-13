@@ -422,6 +422,17 @@
 	return nil;
 }
 
++ (void)logout
+{
+	NSString *sharerId = [self sharerId];
+	NSArray *authFields = [self authorizationFormFields];
+	if (authFields != nil)
+	{
+		for(SHKFormFieldSettings *field in authFields)
+			[SHK removeAuthValueForKey:field.key forSharer:sharerId];
+	}	
+}
+
 
 
 

@@ -107,6 +107,14 @@
 	
 }
 
++ (void)logout
+{
+	FBSession *fbSession = [FBSession sessionForApplication:SHKFacebookKey
+													 secret:SHKFacebookSecret
+												   delegate:[[[self alloc] init] autorelease]];
+	[fbSession logout];
+}
+
 #pragma mark -
 #pragma mark Share API Methods
 

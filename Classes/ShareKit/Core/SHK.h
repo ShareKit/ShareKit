@@ -1,4 +1,4 @@
-//
+å//
 //  SHK.h
 //  ShareKit
 //
@@ -25,7 +25,7 @@
 //
 //
 
-#define SHK_VERSION @"0.1.0"
+#define SHK_VERSION @"0.1.6"
 
 
 #import <Foundation/Foundation.h>
@@ -96,6 +96,7 @@
 
 + (NSString *)getAuthValueForKey:(NSString *)key forSharer:(NSString *)sharerId;
 + (void)setAuthValue:(NSString *)value forKey:(NSString *)key forSharer:(NSString *)sharerId;
++ (void)removeAuthValueForKey:(NSString *)key forSharer:(NSString *)sharerId;
 
 + (void)logoutOfAll;
 + (void)logoutOfService:(NSString *)sharerId;
