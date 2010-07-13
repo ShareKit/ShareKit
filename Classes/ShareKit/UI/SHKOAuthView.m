@@ -78,9 +78,7 @@
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{	
-	NSLog(@"url %@", request.URL);
-	
+{		
 	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString].location != NSNotFound)
 	{
 		// Get query
