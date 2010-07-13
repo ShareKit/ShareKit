@@ -38,7 +38,6 @@
 - (void)testOffline
 {	
 	[SHK flushOfflineQueue];
-	[SHK logoutOfAll];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application 
