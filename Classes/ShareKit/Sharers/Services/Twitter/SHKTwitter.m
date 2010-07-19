@@ -115,7 +115,7 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return @"Create a free account at Twitter.com";
+	return SKLocalizedString(@"Create a free account at Twitter.com");
 }
 
 + (NSArray *)authorizationFormFields
