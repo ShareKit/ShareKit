@@ -63,14 +63,14 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return @"Create a free account at Readitlaterlist.com";
+	return SKLocalizedString(@"Create a free account at Readitlaterlist.com");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:@"Logging In..."];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Logging In...")];
 	
 	
 	// Authorize the user through the server
@@ -102,10 +102,10 @@
 	
 	else
 	{
-		[[[[UIAlertView alloc] initWithTitle:@"Login Error"
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Login Error")
 									 message:[request.headers objectForKey:@"X-Error"]
 									delegate:nil
-						   cancelButtonTitle:@"Close"
+						   cancelButtonTitle:SKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 	}
 }
@@ -119,8 +119,8 @@
 {	
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:@"Title" key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:@"Tags" key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:item.tags],
 				nil];
 	
 	return nil;

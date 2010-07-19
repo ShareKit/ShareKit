@@ -59,13 +59,13 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 #pragma mark Authorization
 
 - (NSString *)authorizationFormCaption{
-	return @"Set up a free account at http://tumblr.com";
+	return SKLocalizedString(@"Set up a free account at http://tumblr.com");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form{
 	// Display an activity indicator
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:@"Logging In..."];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Logging In...")];
 	
 	
 	// Authorize the user through the server
@@ -94,14 +94,14 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	else {
         NSString *errorMessage = nil;
         if (aRequest.response.statusCode == 403)
-            errorMessage = @"Invalid email or password.";
+            errorMessage = SKLocalizedString(@"Invalid email or password.");
         else
-            errorMessage = @"The service encountered an error. Please try again later.";
+            errorMessage = SKLocalizedString(@"The service encountered an error. Please try again later.");
         
-		[[[[UIAlertView alloc] initWithTitle:@"Login Error"
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Login Error")
                                      message:errorMessage
                                     delegate:nil
-                           cancelButtonTitle:@"Close"
+                           cancelButtonTitle:SKLocalizedString(@"Close")
                            otherButtonTitles:nil] autorelease] show];
 	}
 }
@@ -110,11 +110,11 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 #pragma mark Authorize form
 - (NSArray *)authorizationFormFields{
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:@"Email"
+			[SHKFormFieldSettings label:SKLocalizedString(@"Email")
                                     key:@"email"
                                    type:SHKFormFieldTypeText
                                   start:nil],
-			[SHKFormFieldSettings label:@"Password"
+			[SHKFormFieldSettings label:SKLocalizedString(@"Password")
                                     key:@"password"
                                    type:SHKFormFieldTypePassword
                                   start:nil],			
@@ -126,32 +126,32 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:@"Tags"
+            [SHKFormFieldSettings label:SKLocalizedString(@"Tags")
                                     key:@"tags"
                                    type:SHKFormFieldTypeText
                                   start:item.tags],
-            [SHKFormFieldSettings label:@"Slug"
+            [SHKFormFieldSettings label:SKLocalizedString(@"Slug")
                                     key:@"slug"
                                    type:SHKFormFieldTypeText
                                   start:nil],
-            [SHKFormFieldSettings label:@"Private"
+            [SHKFormFieldSettings label:SKLocalizedString(@"Private")
                                     key:@"private"
                                    type:SHKFormFieldTypeSwitch
                                   start:SHKFormFieldSwitchOff],
-            [SHKFormFieldSettings label:@"Send to Twitter"
+            [SHKFormFieldSettings label:SKLocalizedString(@"Send to Twitter")
                                     key:@"twitter"
                                    type:SHKFormFieldTypeSwitch
                                   start:SHKFormFieldSwitchOff],
             nil
      ];
     if([item shareType] == SHKShareTypeImage){
-        [baseArray insertObject:[SHKFormFieldSettings label:@"Caption"
+        [baseArray insertObject:[SHKFormFieldSettings label:SKLocalizedString(@"Caption")
                                                         key:@"caption"
                                                        type:SHKFormFieldTypeText
                                                       start:nil] 
                         atIndex:0];
     }else{
-        [baseArray insertObject:[SHKFormFieldSettings label:@"Title"
+        [baseArray insertObject:[SHKFormFieldSettings label:SKLocalizedString(@"Title")
                                                         key:@"title"
                                                        type:SHKFormFieldTypeText
                                                       start:item.title]
@@ -310,15 +310,15 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 - (void)sendFinished:(SHKRequest *)aRequest{
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:@"Invalid email or password."] shouldRelogin:YES];
+			[self sendDidFailWithError:[SHK error:SKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
 			return;
 		}
         else if (aRequest.response.statusCode == 500) {
-            [self sendDidFailWithError:[SHK error:@"The service encountered an error. Please try again later."]];
+            [self sendDidFailWithError:[SHK error:SKLocalizedString(@"The service encountered an error. Please try again later.")]];
             return;
         }
         
-		[self sendDidFailWithError:[SHK error:@"There was a sending your post to Tumblr."]];
+		[self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was a sending your post to Tumblr.")]];
 		return;
 	}
     
@@ -352,14 +352,14 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
         [self sendDidFinish];
     }else{
         if(response.statusCode == 403) {
-            [self sendDidFailWithError:[SHK error:@"Invalid email or password."] shouldRelogin:YES];
+            [self sendDidFailWithError:[SHK error:SKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
             return;
         }
         else if (response.statusCode == 500) {
-            [self sendDidFailWithError:[SHK error:@"The service encountered an error. Please try again later."]];
+            [self sendDidFailWithError:[SHK error:SKLocalizedString(@"The service encountered an error. Please try again later.")]];
             return;
         }
-        [self sendDidFailWithError:[SHK error:@"There was a sending your post to Tumblr."]];
+        [self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was a sending your post to Tumblr.")]];
     }
     
 }

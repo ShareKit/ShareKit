@@ -138,7 +138,7 @@ void SHKSwizzle(Class c, SEL orig, SEL new)
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
-	return [self mail:[NSString stringWithFormat:@"Attached: %@", title]
+	return [self mail:[NSString stringWithFormat:SKLocalizedString(@"Attached: %@"), title]
 			  subject:filename to:nil cc:nil bcc:nil 
 		   attachment:file attachmentMimeType:mimeType attachmentFileName:filename];
 }

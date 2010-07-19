@@ -53,7 +53,7 @@
 																							  target:self
 																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send to Twitter"
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Send to Twitter")
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
 																				 action:@selector(save)];
@@ -186,20 +186,20 @@
 {	
 	if (textView.text.length > (hasAttachment?115:140))
 	{
-		[[[[UIAlertView alloc] initWithTitle:@"Message is too long"
-									 message:@"Twitter posts can only be 140 characters in length."
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Message is too long")
+									 message:SKLocalizedString(@"Twitter posts can only be 140 characters in length.")
 									delegate:nil
-						   cancelButtonTitle:@"Close"
+						   cancelButtonTitle:SKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		return;
 	}
 	
 	else if (textView.text.length == 0)
 	{
-		[[[[UIAlertView alloc] initWithTitle:@"Message is empty"
-									 message:@"You must enter a message in order to post."
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Message is empty")
+									 message:SKLocalizedString(@"You must enter a message in order to post.")
 									delegate:nil
-						   cancelButtonTitle:@"Close"
+						   cancelButtonTitle:SKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		return;
 	}

@@ -124,9 +124,9 @@
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeText start:nil],
-			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:[NSString stringWithFormat:@"Follow %@",SHKTwitterUsername] key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			[SHKFormFieldSettings label:SKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
+			[SHKFormFieldSettings label:SKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
+			[SHKFormFieldSettings label:[NSString stringWithFormat:SKLocalizedString(@"Follow %@"),SHKTwitterUsername] key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
 			nil];
 }
 
@@ -227,7 +227,7 @@
 - (void)shortenURL
 {	
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:@"Shortening URL..."];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Shortening URL...")];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
 																		 SHKBitLyLogin,
@@ -250,10 +250,10 @@
 	if (result == nil || [NSURL URLWithString:result] == nil)
 	{
 		// TODO - better error message
-		[[[[UIAlertView alloc] initWithTitle:@"Shorten URL Error"
-									 message:@"We could not shorten the URL."
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Shorten URL Error")
+									 message:SKLocalizedString(@"We could not shorten the URL.")
 									delegate:nil
-						   cancelButtonTitle:@"Continue"
+						   cancelButtonTitle:SKLocalizedString(@"Continue")
 						   otherButtonTitles:nil] autorelease] show];
 		
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];

@@ -57,14 +57,14 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 
 + (NSString *)authorizationFormCaption
 {
-	return @"Create a free account at Instapaper.com";
+	return SKLocalizedString(@"Create a free account at Instapaper.com");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:@"Logging In..."];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Logging In...")];
 	
 	
 	// Authorize the user through the server
@@ -95,14 +95,14 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	else {
     NSString *errorMessage = nil;
     if (aRequest.response.statusCode == 403)
-      errorMessage = @"Sorry, Instapaper did not accept your credentials. Please try again.";
+      errorMessage = SKLocalizedString(@"Sorry, Instapaper did not accept your credentials. Please try again.");
     else
-      errorMessage = @"Sorry, Instapaper encountered an error. Please try again.";
+      errorMessage = SKLocalizedString(@"Sorry, Instapaper encountered an error. Please try again.");
       
-		[[[[UIAlertView alloc] initWithTitle:@"Login Error"
+		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Login Error")
                                  message:errorMessage
                                 delegate:nil
-                       cancelButtonTitle:@"Close"
+                       cancelButtonTitle:SKLocalizedString(@"Close")
                        otherButtonTitles:nil] autorelease] show];
 	}
 }
@@ -148,15 +148,15 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 {
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:@"Sorry, Instapaper did not accept your credentials. Please try again."] shouldRelogin:YES];
+			[self sendDidFailWithError:[SHK error:SKLocalizedString(@"Sorry, Instapaper did not accept your credentials. Please try again.")] shouldRelogin:YES];
 			return;
 		}
     else if (aRequest.response.statusCode == 500) {		
-      [self sendDidFailWithError:[SHK error:@"The service encountered an error. Please try again later."]];
+      [self sendDidFailWithError:[SHK error:SKLocalizedString(@"The service encountered an error. Please try again later.")]];
       return;
     }
     
-		[self sendDidFailWithError:[SHK error:@"There was a problem saving to Instapaper."]];
+		[self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was a problem saving to Instapaper.")]];
 		return;
 	}
   

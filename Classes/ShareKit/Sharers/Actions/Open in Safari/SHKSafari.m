@@ -37,7 +37,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Open in Safari";
+	return SKLocalizedString(@"Open in Safari");
 }
 
 + (BOOL)canShareURL

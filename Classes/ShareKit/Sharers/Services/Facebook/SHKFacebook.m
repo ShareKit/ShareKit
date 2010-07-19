@@ -126,7 +126,7 @@
 		
 		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
-		dialog.userMessagePrompt = @"Enter your message:";
+		dialog.userMessagePrompt = SKLocalizedString(@"Enter your message:");
 		dialog.attachment = [NSString stringWithFormat:
 							 @"{\
 							 \"name\":\"%@\",\

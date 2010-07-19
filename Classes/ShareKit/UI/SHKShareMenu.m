@@ -52,13 +52,13 @@
 {
 	if (self = [super initWithStyle:style])
 	{
-		self.title = @"Share";
+		self.title = SKLocalizedString(@"Share");
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
 																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit"
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Edit")
 																				  style:UIBarButtonItemStyleBordered
 																				 target:self
 																				 action:@selector(edit)];
@@ -279,10 +279,10 @@
 	if ([[tableData objectAtIndex:section] count])
 	{
 		if (section == 0)
-			return @"Actions";
+			return SKLocalizedString(@"Actions");
 		
 		else if (section == 1)
-			return @"Services";
+			return SKLocalizedString(@"Services");
 	}
 	
 	return nil;
@@ -314,7 +314,7 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:@"Edit"
+	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Edit")
 																				 style:UIBarButtonItemStyleBordered
 																							  target:self
 																							  action:@selector(edit)] autorelease] animated:YES];

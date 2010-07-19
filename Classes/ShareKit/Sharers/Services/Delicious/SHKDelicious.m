@@ -100,7 +100,7 @@
 {
 	NSString *response = [aRequest getResult];
 	
-	if ([response isEqualToString:@"401 Forbidden"])
+	if ([response isEqualToString:SKLocalizedString(@"401 Forbidden")])
 	{
 		[self sendDidFailShouldRelogin];		
 		return NO;		
@@ -117,10 +117,10 @@
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:@"Title" key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:@"Tags" key:@"tags" type:SHKFormFieldTypeText start:item.tags],
-				[SHKFormFieldSettings label:@"Notes" key:@"text" type:SHKFormFieldTypeText start:item.text],
-				[SHKFormFieldSettings label:@"Shared" key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SKLocalizedString(@"Shared") key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
 	return nil;
@@ -209,7 +209,7 @@
 		}
 		
 		else
-			error = [SHK error:@"There was a problem saving to Delicious"];
+			error = [SHK error:SKLocalizedString(@"There was a problem saving to Delicious.")];
 		
 		[self sendTicket:ticket didFailWithError:error];
 	}
