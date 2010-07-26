@@ -63,7 +63,7 @@
 		class = NSClassFromString(sharerId);
 		if ([class canShare]) {
 			[as addButtonWithTitle: [class sharerTitle] ];
-      [activeSharer addObject:as];
+      [activeSharer addObject:sharerId];
     }
 	}
 
