@@ -56,13 +56,19 @@
 	as.sharers = [SHK favoriteSharersForType:type];
 	
 	// Add buttons for each favoriate sharer
+  NSMutableArray *activeSharer = [NSMutableArray array];
 	id class;
 	for(NSString *sharerId in as.sharers)
 	{
 		class = NSClassFromString(sharerId);
-		if ([class canShare])
+		if ([class canShare]) {
 			[as addButtonWithTitle: [class sharerTitle] ];
+      [activeSharer addObject:as];
+    }
 	}
+
+  // filter out sharers that cannot share
+  as.sharers = activeSharer;
 	
 	// Add More button
 	[as addButtonWithTitle:SKLocalizedString(@"More...")];
