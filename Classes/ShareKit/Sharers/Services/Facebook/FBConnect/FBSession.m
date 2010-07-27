@@ -69,7 +69,7 @@ static FBSession* sharedSession = nil;
 - (void)save {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   if (_uid) {
-    [defaults setInteger:_uid forKey:@"FBUserId"];
+    [defaults setObject:[NSNumber numberWithLongLong:_uid] forKey:@"FBUserId"];
   } else {
     [defaults removeObjectForKey:@"FBUserId"];
   }
@@ -226,7 +226,7 @@ static FBSession* sharedSession = nil;
 
 - (BOOL)resume {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  FBUID uid = [defaults integerForKey:@"FBUserId"];
+  FBUID uid = [[defaults objectForKey:@"FBUserId"] longLongValue];
   if (uid) {
     NSDate* expirationDate = [defaults objectForKey:@"FBSessionExpires"];
     if (!expirationDate || [expirationDate timeIntervalSinceNow] > 0) {
@@ -244,6 +244,16 @@ static FBSession* sharedSession = nil;
   return NO;
 }
 
+- (void)cancelLogin {
+  if (![self isConnected]) {
+    for (id<FBSessionDelegate> delegate in _delegates) {
+      if ([delegate respondsToSelector:@selector(sessionDidNotLogin:)]) {
+        [delegate sessionDidNotLogin:self];
+      }
+    }
+  }
+}
+
 - (void)logout {
   if (_sessionKey) {
     for (id<FBSessionDelegate> delegate in _delegates) {
@@ -252,13 +262,8 @@ static FBSession* sharedSession = nil;
       }
     }
 
-    // Remove cookies that UIWebView may have stored
-    NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray* facebookCookies = [cookies cookiesForURL:
-      [NSURL URLWithString:@"http://login.facebook.com"]];
-    for (NSHTTPCookie* cookie in facebookCookies) {
-      [cookies deleteCookie:cookie];
-    }
+    [self deleteFacebookCookies];
+    
 
     _uid = 0;
     [_sessionKey release];
@@ -275,12 +280,22 @@ static FBSession* sharedSession = nil;
       }
     }
   } else {
+    [self deleteFacebookCookies];
     [self unsave];
   }
 }
 
 - (void)send:(FBRequest*)request {
   [self performRequest:request enqueue:YES];
+}
+
+- (void)deleteFacebookCookies {
+		NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray* facebookCookies = [cookies cookiesForURL:
+      [NSURL URLWithString:@"http://login.facebook.com"]];
+    for (NSHTTPCookie* cookie in facebookCookies) {
+				[cookies deleteCookie:cookie];
+    }
 }
 
 @end

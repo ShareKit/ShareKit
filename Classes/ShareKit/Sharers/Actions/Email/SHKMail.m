@@ -148,6 +148,12 @@
 		if (item.image)
 			[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, 1) mimeType:@"image/jpeg" fileName:@"Image.jpg"];		
 		
+		// fallback
+		if (body == nil)
+			body = @"";
+		
+		// sig
+		body = [body stringByAppendingFormat:@"<br/><br/>Sent from %@", SHKMyAppName];
 		
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];

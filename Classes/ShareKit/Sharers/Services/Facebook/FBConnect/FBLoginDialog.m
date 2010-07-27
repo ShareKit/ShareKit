@@ -27,8 +27,6 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 
 @implementation FBLoginDialog
 
-//@synthesize session = _session;
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
 
@@ -78,9 +76,13 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 }
 
 - (void)dialogWillDisappear {
-	[_webView stringByEvaluatingJavaScriptFromString:@"email.blur();"];
+  [_webView stringByEvaluatingJavaScriptFromString:@"email.blur();"];
 
   [_getSessionRequest cancel];
+  
+  if (![_session isConnected]) {
+    [_session cancelLogin];
+  }
 }
 
 - (void)dialogDidSucceed:(NSURL*)url {
@@ -104,7 +106,7 @@ static NSString* kLoginURL = @"http://www.facebook.com/login.php";
 
 - (void)request:(FBRequest*)request didLoad:(id)result {
   NSDictionary* object = result;
-  FBUID uid = [[object objectForKey:@"uid"] intValue];
+  FBUID uid = [[object objectForKey:@"uid"] longLongValue];
   NSString* sessionKey = [object objectForKey:@"session_key"];
   NSString* sessionSecret = [object objectForKey:@"secret"];
   NSTimeInterval expires = [[object objectForKey:@"expires"] floatValue];

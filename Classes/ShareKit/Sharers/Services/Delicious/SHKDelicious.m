@@ -143,28 +143,24 @@
 		
 		[oRequest setHTTPMethod:@"GET"];
 				
-		OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url"
-																		  value:SHKEncodeURL(item.URL)];
 		
-		OARequestParameter *descParam = [[OARequestParameter alloc] initWithName:@"description"
-																		  value:SHKEncode(item.title)];
+		OARequestParameter *urlParam = [OARequestParameter requestParameterWithName:@"url"
+																			  value:[item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 		
-		OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags"
-																		  value:SHKEncode(item.tags)];
+		OARequestParameter *descParam = [OARequestParameter requestParameterWithName:@"description"
+																			   value:SHKStringOrBlank(item.title)];
 		
-		OARequestParameter *extendedParam = [[OARequestParameter alloc] initWithName:@"extended"
-																		  value:SHKEncode(item.text)];
+		OARequestParameter *tagsParam = [OARequestParameter requestParameterWithName:@"tags"
+																			   value:SHKStringOrBlank(item.tags)];
 		
-		OARequestParameter *sharedParam = [[OARequestParameter alloc] initWithName:@"shared"
-																		  value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
-
+		OARequestParameter *extendedParam = [OARequestParameter requestParameterWithName:@"extended"
+																				   value:SHKStringOrBlank(item.text)];
+		
+		OARequestParameter *sharedParam = [OARequestParameter requestParameterWithName:@"shared"
+																				 value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+		
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:descParam, extendedParam, sharedParam, tagsParam, urlParam, nil]];
-		[urlParam release];
-		 [descParam release];
-		 [tagsParam release];
-		 [extendedParam release];
-		 [sharedParam release];
 		
 		OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 							 delegate:self

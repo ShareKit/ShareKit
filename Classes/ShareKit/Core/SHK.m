@@ -531,6 +531,10 @@ static NSDictionary *sharersDictionary = nil;
 @end
 
 
+NSString * SHKStringOrBlank(NSString * value)
+{
+	return value == nil ? @"" : value;
+}
 
 NSString * SHKEncode(NSString * value)
 {

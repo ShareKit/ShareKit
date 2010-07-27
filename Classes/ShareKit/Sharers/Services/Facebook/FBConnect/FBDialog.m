@@ -156,10 +156,16 @@ static CGFloat kBorderWidth = 10;
   CGPoint center = CGPointMake(
     frame.origin.x + ceil(frame.size.width/2),
     frame.origin.y + ceil(frame.size.height/2));
-  
-  CGFloat width = frame.size.width - kPadding * 2;
-  CGFloat height = frame.size.height - kPadding * 2;
-  
+
+  CGFloat scale_factor = 1.0f;
+  if (FBIsDeviceIPad()) {
+    // On the iPad the dialog's dimensions should only be 60% of the screen's
+    scale_factor = 0.6f;
+  }
+
+  CGFloat width = floor(scale_factor * frame.size.width) - kPadding * 2;
+  CGFloat height = floor(scale_factor * frame.size.height) - kPadding * 2;
+
   _orientation = [UIApplication sharedApplication].statusBarOrientation;
   if (UIInterfaceOrientationIsLandscape(_orientation)) {
     self.frame = CGRectMake(kPadding, kPadding, height, width);
@@ -319,17 +325,22 @@ static CGFloat kBorderWidth = 10;
     [_closeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     [_closeButton addTarget:self action:@selector(cancel)
       forControlEvents:UIControlEventTouchUpInside];
-	_closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
-    _closeButton.showsTouchWhenHighlighted = YES;
+	if ([_closeButton respondsToSelector:@selector(titleLabel)]) {
+		_closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+	} else { // This triggers a deprecation warning but at least it will work on OS 2.x
+		_closeButton.font = [UIFont boldSystemFontOfSize:12];
+	}
+	_closeButton.showsTouchWhenHighlighted = YES;
     _closeButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin
       | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:_closeButton];
     
+    CGFloat titleLabelFontSize = (FBIsDeviceIPad() ? 18 : 14);
     _titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     _titleLabel.text = kDefaultTitle;
     _titleLabel.backgroundColor = [UIColor clearColor];
     _titleLabel.textColor = [UIColor whiteColor];
-    _titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    _titleLabel.font = [UIFont boldSystemFontOfSize:titleLabelFontSize];
     _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin
       | UIViewAutoresizingFlexibleBottomMargin;
     [self addSubview:_titleLabel];
@@ -444,17 +455,26 @@ static CGFloat kBorderWidth = 10;
 // UIKeyboardNotifications
 
 - (void)keyboardWillShow:(NSNotification*)notification {
+  if (FBIsDeviceIPad()) {
+    // On the iPad the screen is large enough that we don't need to 
+    // resize the dialog to accomodate the keyboard popping up
+    return;
+  }
+
   UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
   if (UIInterfaceOrientationIsLandscape(orientation)) {
     _webView.frame = CGRectInset(_webView.frame,
-      - (kPadding + kBorderWidth),
-      - (kPadding + kBorderWidth) - _titleLabel.frame.size.height);
+      -(kPadding + kBorderWidth),
+      -(kPadding + kBorderWidth) - _titleLabel.frame.size.height);
   }
 
   _showingKeyboard = YES;
 }
 
 - (void)keyboardWillHide:(NSNotification*)notification {
+  if (FBIsDeviceIPad()) {
+    return;
+  }
   UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
   if (UIInterfaceOrientationIsLandscape(orientation)) {
     _webView.frame = CGRectInset(_webView.frame,

@@ -17,7 +17,11 @@
 #import "FBLoginButton.h"
 #import "FBLoginDialog.h"
 
+#import <dlfcn.h>
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+static UIAccessibilityTraits *traitImage = nil, *traitButton = nil;
 
 @implementation FBLoginButton
 
@@ -25,6 +29,14 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
+
++ (void)initialize {
+	if (self == [FBLoginButton class]) {
+		// Try to load the accessibility trait values on OS 3.0
+		traitImage = dlsym(RTLD_SELF, "UIAccessibilityTraitImage");
+		traitButton = dlsym(RTLD_SELF, "UIAccessibilityTraitButton");
+	}
+}
 
 - (UIImage*)buttonImage {
   if (_session.isConnected) {
@@ -137,6 +149,28 @@
 
 - (void)sessionDidLogout:(FBSession*)session {
   [self updateImage];
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// UIAccessibility informal protocol (on 3.0 only)
+
+- (BOOL)isAccessibilityElement {
+	return YES;
+}
+
+- (UIAccessibilityTraits)accessibilityTraits {
+	if (traitImage && traitButton)
+		return [super accessibilityTraits]|*traitImage|*traitButton;
+	else
+		return [super accessibilityTraits];
+}
+
+- (NSString *)accessibilityLabel {
+	if (_session.isConnected) {
+		return NSLocalizedString(@"Disconnect from Facebook", @"Accessibility label");
+	} else {
+		return NSLocalizedString(@"Connect to Facebook", @"Accessibility label");
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////

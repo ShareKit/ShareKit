@@ -25,7 +25,7 @@
 //
 //
 
-#define SHK_VERSION @"0.2.0b1"
+#define SHK_VERSION @"0.2.0"
 
 #import <Foundation/Foundation.h>
 #import "SHKConfig.h"
@@ -121,6 +121,7 @@
 @end
 
 
+NSString * SHKStringOrBlank(NSString * value);
 NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
 NSString* SHKLocalizedString(NSString* key, ...);
