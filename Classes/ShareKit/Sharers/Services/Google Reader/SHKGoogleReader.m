@@ -72,14 +72,14 @@ Google Reader API is unoffical, this was hobbled together from:
 
 + (NSString *)authorizationFormCaption
 {
-	return SKLocalizedString(@"Create a free account at Google.com/reader");
+	return SHKLocalizedString(@"Create a free account at %@", @"Google.com/reader");
 }
 
 + (NSArray *)authorizationFormFields
 {
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SKLocalizedString(@"Email") key:@"email" type:SHKFormFieldTypeText start:nil],
-			[SHKFormFieldSettings label:SKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Email") key:@"email" type:SHKFormFieldTypeText start:nil],
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
 			nil];
 }
 
@@ -87,7 +87,7 @@ Google Reader API is unoffical, this was hobbled together from:
 {
 	// Display an activity indicator
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Logging In...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
 	// Authorize the user through the server
@@ -155,15 +155,15 @@ Google Reader API is unoffical, this was hobbled together from:
 		NSString *message = nil;
 		
 		if (error != nil)
-			message = [error isEqualToString:@"BadAuthentication"] ? SKLocalizedString(@"Incorrect username and password") : error;
+			message = [error isEqualToString:@"BadAuthentication"] ? SHKLocalizedString(@"Incorrect username and password") : error;
 		
 		if (message == nil) // TODO - Could use some clearer message here.
-			message = SKLocalizedString(@"There was an error logging into Google Reader");			
+			message = SHKLocalizedString(@"There was an error logging into Google Reader");			
 		
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Login Error")
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
 									 message:message
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];	
 	}
 }
@@ -176,8 +176,8 @@ Google Reader API is unoffical, this was hobbled together from:
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SKLocalizedString(@"Note") key:@"text" type:SHKFormFieldTypeText start:item.text],
-				[SHKFormFieldSettings label:SKLocalizedString(@"Public") key:@"share" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Note") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Public") key:@"share" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
 	return nil;
@@ -262,7 +262,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		[self sendWithToken:[request getResult]];
 	
 	else
-		[self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was a problem authenticating your account.")]]; // TODO better error handling/message
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem authenticating your account.")]]; // TODO better error handling/message
 }
 
 - (void)sendWithToken:(NSString *)token
@@ -294,7 +294,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		[self sendDidFinish];
 	
 	else
-		[self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was a problem saving your note.")]]; // TODO better error handling/message	
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving your note.")]]; // TODO better error handling/message	
 }
 
 

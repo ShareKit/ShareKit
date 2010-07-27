@@ -161,7 +161,9 @@
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:0];
 		
 	[dictionary setObject:[NSNumber numberWithInt:shareType] forKey:@"shareType"];
-	[dictionary setObject:custom forKey:@"custom"];
+	
+	if (custom != nil)
+		[dictionary setObject:custom forKey:@"custom"];
 	
 	if (URL != nil)
 		[dictionary setObject:[URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"URL"];

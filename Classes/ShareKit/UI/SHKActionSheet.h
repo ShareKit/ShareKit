@@ -41,6 +41,5 @@
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type;
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;
-- (void)actionSheet:(SHKActionSheet *)as clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 @end

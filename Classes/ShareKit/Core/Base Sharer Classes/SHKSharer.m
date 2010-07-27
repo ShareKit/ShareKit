@@ -181,26 +181,14 @@
 {
 	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
 	
-	switch (i.shareType) 
-	{
-		case SHKShareTypeURL:
-			return [self shareURL:i.URL title:i.title];
-			break;
-			
-		case SHKShareTypeImage:
-			return [self shareImage:i.image title:i.title];
-			break;
-			
-		case SHKShareTypeText:
-			return [self shareText:i.text];
-			break;
-			
-		case SHKShareTypeFile:
-			return [self shareFile:i.data filename:i.filename mimeType:i.mimeType title:i.title];
-			break;
-	}
+	// Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+	controller.item = i;
 	
-	return nil;
+	// share and/or show UI
+	[controller share];
+	
+	return [controller autorelease];
 }
 
 + (id)shareURL:(NSURL *)url
@@ -322,10 +310,10 @@
 	{
 		if (!quiet)
 		{
-			[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Offline")
-										 message:[NSString stringWithFormat:SKLocalizedString(@"You must be online to login to %@"), [self sharerTitle]]
+			[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
+										 message:SHKLocalizedString(@"You must be online to login to %@", [self sharerTitle])
 										delegate:nil
-							   cancelButtonTitle:SKLocalizedString(@"Close")
+							   cancelButtonTitle:SHKLocalizedString(@"Close")
 							   otherButtonTitles:nil] autorelease] show];
 		}
 		return;
@@ -349,7 +337,7 @@
 - (void)authorizationFormShow
 {	
 	// Create the form
-	SHKCustomFormController *form = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped title:SKLocalizedString(@"Login") rightButtonTitle:SKLocalizedString(@"Login")];
+	SHKCustomFormController *form = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
 	[form addSection:[self authorizationFormFields] header:nil footer:[self authorizationFormCaption]];
 	form.delegate = self;
 	form.validateSelector = @selector(authorizationFormValidate:);
@@ -407,8 +395,8 @@
 + (NSArray *)authorizationFormFields
 {
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
-			[SHKFormFieldSettings label:SKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
 			nil];
 }
 
@@ -450,7 +438,7 @@
 	{	
 		SHKCustomFormController *rootView = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped 
 																		 title:nil
-															  rightButtonTitle:[NSString stringWithFormat:SKLocalizedString(@"Send to %@"), [[self class] sharerTitle]]
+															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
 		[rootView addSection:[self shareFormFieldsForType:item.shareType] header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
 		
@@ -458,10 +446,10 @@
 		{
 			[rootView addSection:
 			[NSArray arrayWithObject:
-			[SHKFormFieldSettings label:SKLocalizedString(@"Auto Share") key:@"autoShare" type:SHKFormFieldTypeSwitch start:([self shouldAutoShare]?SHKFormFieldSwitchOn:SHKFormFieldSwitchOff)]
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Auto Share") key:@"autoShare" type:SHKFormFieldTypeSwitch start:([self shouldAutoShare]?SHKFormFieldSwitchOn:SHKFormFieldSwitchOff)]
 			 ]
 						header:nil
-						footer:SKLocalizedString(@"Enable auto share to skip this step in the future.")];
+						footer:SHKLocalizedString(@"Enable auto share to skip this step in the future.")];
 		}
 		
 		rootView.delegate = self;
@@ -484,7 +472,7 @@
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
 				nil];
 	
 	return nil;
@@ -577,10 +565,10 @@
 	
 	else if (!quiet)
 	{
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Offline")
-									 message:[NSString stringWithFormat:SKLocalizedString(@"You must be online in order to share with %@"), [self sharerTitle]]
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
+									 message:SHKLocalizedString(@"You must be online in order to share with %@", [self sharerTitle])
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		
 		return YES;
@@ -609,13 +597,13 @@
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:[NSString stringWithFormat:SKLocalizedString(@"Saving to %@"), [[self class] sharerTitle]]];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[self class] sharerTitle])];
 }
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer
 {
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayCompleted:SKLocalizedString(@"Saved!")];
+		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
@@ -624,10 +612,10 @@
 	{
 		[[SHKActivityIndicator currentIndicator] hide];
 		
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Error")
-									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SKLocalizedString(@"There was an error while sharing")
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
+									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		
 		if (shouldRelogin)
@@ -688,7 +676,7 @@
 
 - (void)sendDidFailShouldRelogin
 {
-	[self sendDidFailWithError:[SHK error:SKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
+	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
 }
 
 - (void)sendDidFailWithError:(NSError *)error

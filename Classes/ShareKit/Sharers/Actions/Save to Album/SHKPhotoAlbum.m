@@ -1,8 +1,8 @@
 //
-//  SHKMail.h
+//  SHKPhotoAlbum.m
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/17/10.
+//  Created by Richard Johnson on 7/22/10.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,15 +25,56 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import "SHKSharer.h"
-#import <MessageUI/MessageUI.h>
+#import "SHKPhotoAlbum.h"
 
-@interface SHKMail : SHKSharer <MFMailComposeViewControllerDelegate>
+
+@implementation SHKPhotoAlbum
+
+#pragma mark -
+#pragma mark Configuration : Service Definition
+
++ (NSString *)sharerTitle
 {
-
+	return @"Save to Photo Album";
 }
 
-- (BOOL)sendMail;
++ (BOOL)canShareImage
+{
+	return YES;
+}
+
++ (BOOL)shareRequiresInternetConnection
+{
+	return NO;
+}
+
++ (BOOL)requiresAuthentication
+{
+	return NO;
+}
+
+
+#pragma mark -
+#pragma mark Configuration : Dynamic Enable
+
+- (BOOL)shouldAutoShare
+{
+	return YES;
+}
+
+
+#pragma mark -
+#pragma mark Share API Methods
+
+- (BOOL)send
+{	
+	if (item.shareType == SHKShareTypeImage)
+		UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
+	
+	// Notify user
+	[[SHKActivityIndicator currentIndicator] displayCompleted:@"Saved!"];
+	
+	return YES;
+}
 
 @end

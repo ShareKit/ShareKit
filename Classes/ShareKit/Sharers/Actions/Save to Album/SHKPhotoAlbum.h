@@ -1,8 +1,8 @@
 //
-//  SHKMail.h
+//  SHKPhotoAlbum.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/17/10.
+//  Created by Richard Johnson on 7/22/10.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,13 +27,10 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import <MessageUI/MessageUI.h>
 
-@interface SHKMail : SHKSharer <MFMailComposeViewControllerDelegate>
+@interface SHKPhotoAlbum : SHKSharer 
 {
 
 }
-
-- (BOOL)sendMail;
 
 @end

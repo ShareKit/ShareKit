@@ -32,6 +32,8 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
+#import </usr/include/objc/objc-class.h>
+#import <MessageUI/MessageUI.h>
 
 
 @implementation SHK
@@ -41,7 +43,7 @@
 @synthesize offlineQueue;
 
 static SHK *currentHelper = nil;
-
+BOOL SHKinit;
 
 
 + (SHK *)currentHelper
@@ -52,6 +54,16 @@ static SHK *currentHelper = nil;
 	return currentHelper;
 }
 
++ (void)initialize
+{
+	[super initialize];
+	
+	if (!SHKinit)
+	{
+		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+		SHKinit = YES;
+	}
+}
 
 - (void)dealloc
 {
@@ -143,6 +155,11 @@ static SHK *currentHelper = nil;
 	self.pendingView = nil;		
 }
 
+- (void)hideCurrentViewController
+{
+	[self hideCurrentViewControllerAnimated:YES];
+}
+
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated
 {
 	if (isDismissingView)
@@ -162,6 +179,13 @@ static SHK *currentHelper = nil;
 	}
 }
 
+- (void)showPendingView
+{
+    if (pendingView)
+        [self showViewController:pendingView];
+}
+
+
 - (void)viewWasDismissed
 {
 	self.isDismissingView = NO;
@@ -171,7 +195,10 @@ static SHK *currentHelper = nil;
 	
 	if (pendingView)
 	{
-		[self showViewController:pendingView];
+		// This is an ugly way to do it, but it works.
+		// There seems to be an issue chaining modal views otherwise
+		// See: http://github.com/ideashower/ShareKit/issues#issue/24
+		[self performSelector:@selector(showPendingView) withObject:nil afterDelay:0.02];
 		return;
 	}
 }
@@ -249,7 +276,7 @@ static SHK *currentHelper = nil;
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter", nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 				break;
 				
 			case SHKShareTypeFile:
@@ -259,6 +286,23 @@ static SHK *currentHelper = nil;
 		
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
+	}
+	
+	// Make sure the favorites are not using any exclusions, remove them if they are.
+	NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+	if (exclusions != nil)
+	{
+		NSMutableArray *newFavs = [favoriteSharers mutableCopy];
+		for(NSString *sharerId in exclusions)
+		{
+			[newFavs removeObject:sharerId];
+		}
+		
+		// Update
+		favoriteSharers = [NSArray arrayWithArray:newFavs];
+		[self setFavorites:favoriteSharers forType:type];
+		
+		[newFavs release];
 	}
 	
 	return favoriteSharers;
@@ -516,14 +560,33 @@ NSString * SHKEncodeURL(NSURL * value)
 	return result;
 }
 
+void SHKSwizzle(Class c, SEL orig, SEL new)
+{
+    Method origMethod = class_getInstanceMethod(c, orig);
+    Method newMethod = class_getInstanceMethod(c, new);
+    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
+		class_replaceMethod(c, new, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+	else
+		method_exchangeImplementations(origMethod, newMethod);
+}
 
-NSString* SKLocalizedString(NSString* key) {
-  static NSBundle* bundle = nil;
-  if (!bundle) {
-    NSString* path = [[[NSBundle mainBundle] resourcePath]
-                      stringByAppendingPathComponent:@"ShareKit.bundle"];
-    bundle = [[NSBundle bundleWithPath:path] retain];
-  }
-  
-  return [bundle localizedStringForKey:key value:key table:nil];
+NSString* SHKLocalizedString(NSString* key, ...) 
+{
+	static NSBundle* bundle = nil;
+	if (!bundle) 
+	{
+		NSString* path = [[[NSBundle mainBundle] resourcePath]
+						  stringByAppendingPathComponent:@"ShareKit.bundle"];
+		bundle = [[NSBundle bundleWithPath:path] retain];
+	}
+	
+	// Localize the format
+	NSString *localizedStringFormat = [bundle localizedStringForKey:key value:key table:nil];
+	
+	va_list args;
+    va_start(args, key);
+    NSString *string = [[[NSString alloc] initWithFormat:localizedStringFormat arguments:args] autorelease];
+    va_end(args);
+	
+	return string;
 }

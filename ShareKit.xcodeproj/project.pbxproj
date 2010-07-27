@@ -15,6 +15,8 @@
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43150A8D11E78697008C6B68 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
+		432B13FC11FF45CF00291B37 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 432B13FB11FF45CF00291B37 /* ShareKit.bundle */; };
+		432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
 		43A5370011DBE3B9004A1712 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
 		43A5370111DBE3B9004A1712 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
 		43A5370211DBE3B9004A1712 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */; };
@@ -81,11 +83,11 @@
 		43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */; };
 		43A53C0911DC07A9004A1712 /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */; };
 		43A53C1211DC08B1004A1712 /* SHKCustomShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */; };
+		43B934B511FE682600C9D3F3 /* SHKFBStreamDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B934B411FE682600C9D3F3 /* SHKFBStreamDialog.m */; };
 		43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */; };
 		43C91DF511EBAE4800F31FAE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
-		7882FB2511F5005F006E7742 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7882FB2411F5005F006E7742 /* ShareKit.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,9 @@
 		4312CF7B11CB33E200E61D7A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43150A8B11E78697008C6B68 /* SHKInstapaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKInstapaper.h; sourceTree = "<group>"; };
 		43150A8C11E78697008C6B68 /* SHKInstapaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKInstapaper.m; sourceTree = "<group>"; };
+		432B13FB11FF45CF00291B37 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = ShareKit.bundle; path = ../ShareKit.bundle; sourceTree = "<group>"; };
+		432B147A11FF4B0700291B37 /* SHKPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPhotoAlbum.h; sourceTree = "<group>"; };
+		432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPhotoAlbum.m; sourceTree = "<group>"; };
 		43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		43A5367611DBE3B9004A1712 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -232,12 +237,13 @@
 		43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomShareMenuCell.m; sourceTree = "<group>"; };
 		43A53C1011DC08B1004A1712 /* SHKCustomShareMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomShareMenu.h; sourceTree = "<group>"; };
 		43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomShareMenu.m; sourceTree = "<group>"; };
+		43B934B311FE682600C9D3F3 /* SHKFBStreamDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFBStreamDialog.h; sourceTree = "<group>"; };
+		43B934B411FE682600C9D3F3 /* SHKFBStreamDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFBStreamDialog.m; sourceTree = "<group>"; };
 		43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		43C91DF311EBAE4800F31FAE /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
 		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
 		43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		7882FB2411F5005F006E7742 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -331,6 +337,15 @@
 			path = Instapaper;
 			sourceTree = "<group>";
 		};
+		432B147911FF4B0700291B37 /* Save to Album */ = {
+			isa = PBXGroup;
+			children = (
+				432B147A11FF4B0700291B37 /* SHKPhotoAlbum.h */,
+				432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */,
+			);
+			path = "Save to Album";
+			sourceTree = "<group>";
+		};
 		4362EB3311B9937300E3DB3A /* Example Project */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,7 +361,6 @@
 				43A5383311DBE493004A1712 /* RootViewController.m */,
 				43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */,
 				43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */,
-				7882FB2411F5005F006E7742 /* ShareKit.bundle */,
 			);
 			name = "Example Project";
 			sourceTree = "<group>";
@@ -377,6 +391,7 @@
 				43A5367311DBE3B9004A1712 /* Base Sharer Classes */,
 				43A5367811DBE3B9004A1712 /* Categories */,
 				43A5367B11DBE3B9004A1712 /* Helpers */,
+				432B13FB11FF45CF00291B37 /* ShareKit.bundle */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -509,6 +524,7 @@
 				43A536B711DBE3B9004A1712 /* Copy */,
 				43A536BA11DBE3B9004A1712 /* Email */,
 				43A536BD11DBE3B9004A1712 /* Open in Safari */,
+				432B147911FF4B0700291B37 /* Save to Album */,
 			);
 			path = Actions;
 			sourceTree = "<group>";
@@ -570,6 +586,8 @@
 				43A536C511DBE3B9004A1712 /* FBConnect */,
 				43A536DC11DBE3B9004A1712 /* SHKFacebook.h */,
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
+				43B934B311FE682600C9D3F3 /* SHKFBStreamDialog.h */,
+				43B934B411FE682600C9D3F3 /* SHKFBStreamDialog.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -730,6 +748,7 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ShareKit" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -759,7 +778,7 @@
 				43A5382811DBE480004A1712 /* example.pdf in Resources */,
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
-				7882FB2511F5005F006E7742 /* ShareKit.bundle in Resources */,
+				432B13FC11FF45CF00291B37 /* ShareKit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +854,8 @@
 				43A53C1211DC08B1004A1712 /* SHKCustomShareMenu.m in Sources */,
 				43150A8D11E78697008C6B68 /* SHKInstapaper.m in Sources */,
 				43C91DF511EBAE4800F31FAE /* SHKTumblr.m in Sources */,
+				43B934B511FE682600C9D3F3 /* SHKFBStreamDialog.m in Sources */,
+				432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -854,7 +875,7 @@
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = ShareKit;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -870,7 +891,7 @@
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = ShareKit;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -886,7 +907,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -902,7 +923,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

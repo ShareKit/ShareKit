@@ -76,7 +76,7 @@
 
 - (void)tokenRequest
 {
-	[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Connecting...")];
+	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
 	
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:requestURL
                                                                    consumer:consumer
@@ -121,17 +121,17 @@
 	
 	else
 		// TODO - better error handling here
-		[self tokenRequestTicket:ticket didFailWithError:[SHK error:SKLocalizedString(@"There was a problem requesting authorization from %@"), [self sharerTitle]]];
+		[self tokenRequestTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting authorization from %@"), [self sharerTitle]]];
 }
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[[SHKActivityIndicator currentIndicator] hide];
 	
-	[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Request Error")
-								 message:error!=nil?[error localizedDescription]:SKLocalizedString(@"There was an error while sharing")
+	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Request Error")
+								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 								delegate:nil
-					   cancelButtonTitle:SKLocalizedString(@"Close")
+					   cancelButtonTitle:SHKLocalizedString(@"Close")
 					   otherButtonTitles:nil] autorelease] show];
 }
 
@@ -153,10 +153,10 @@
 	
 	if (!success)
 	{
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Authorize Error")
-									 message:error!=nil?[error localizedDescription]:SKLocalizedString(@"There was an error while authorizing")
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+									 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 	}	
 	
@@ -184,7 +184,7 @@
 - (void)tokenAccess:(BOOL)refresh
 {
 	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Authenticating...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
 	
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:accessURL
                                                                    consumer:consumer
@@ -231,17 +231,17 @@
 	
 	else
 		// TODO - better error handling here
-		[self tokenAccessTicket:ticket didFailWithError:[SHK error:SKLocalizedString(@"There was a problem requesting access from %@"), [self sharerTitle]]];
+		[self tokenAccessTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting access from %@", [self sharerTitle])]];
 }
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[[SHKActivityIndicator currentIndicator] hide];
 	
-	[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Access Error")
-								 message:error!=nil?[error localizedDescription]:SKLocalizedString(@"There was an error while sharing")
+	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
+								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 								delegate:nil
-					   cancelButtonTitle:SKLocalizedString(@"Close")
+					   cancelButtonTitle:SHKLocalizedString(@"Close")
 					   otherButtonTitles:nil] autorelease] show];
 }
 

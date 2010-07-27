@@ -44,22 +44,6 @@
 
 @implementation SHKMail
 
-#import </usr/include/objc/objc-class.h>
-void SHKSwizzle(Class c, SEL orig, SEL new)
-{
-    Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, new);
-    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-        class_replaceMethod(c, new, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-    else
-		method_exchangeImplementations(origMethod, newMethod);
-}
-
-+ (void)initialize
-{	
-	SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));
-}
-
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -113,68 +97,68 @@ void SHKSwizzle(Class c, SEL orig, SEL new)
 }
 
 
-#pragma mark -
-#pragma mark Share Types
-
-+ (id)shareURL:(NSURL *)url
-{
-	return [self shareURL:url title:nil];
-}
-
-+ (id)shareURL:(NSURL *)url title:(NSString *)title
-{
-	return 	[self mail:url.absoluteString subject:title to:nil cc:nil bcc:nil attachment:nil attachmentMimeType:nil attachmentFileName:nil];
-}
-
-+ (id)shareImage:(UIImage *)image title:(NSString *)title
-{
-	return 	[self mail:nil subject:title to:nil cc:nil bcc:nil attachment:UIImageJPEGRepresentation(image, 1) attachmentMimeType:@"image/jpeg" attachmentFileName:@"Image.jpg"];
-}
-
-+ (id)shareText:(NSString *)text
-{
-	return 	[self mail:text subject:nil to:nil cc:nil bcc:nil attachment:nil attachmentMimeType:nil attachmentFileName:nil];
-}
-
-+ (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
-{
-	return [self mail:[NSString stringWithFormat:SKLocalizedString(@"Attached: %@"), title]
-			  subject:filename to:nil cc:nil bcc:nil 
-		   attachment:file attachmentMimeType:mimeType attachmentFileName:filename];
-}
-
-
-
 
 #pragma mark -
 #pragma mark Share API Methods
 
-+ (id)mail:(NSString *)body
-	subject:(NSString *)subject 
-		 to:(NSArray *)to 
-		 cc:(NSArray *)cc 
-		bcc:(NSArray *)bcc
- attachment:(NSData *)attachment
-attachmentMimeType:(NSString *)mimeType
-attachmentFileName:(NSString *)filename
+- (BOOL)send
 {
+	if (![self validateItem])
+		return NO;
+	
+	return [self sendMail]; // Put the actual sending action in another method to make subclassing SHKMail easier
+}
+
+- (BOOL)sendMail
+{	
 	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
-	mailController.mailComposeDelegate = [[[self alloc] init] autorelease];
+	mailController.mailComposeDelegate = self;
 	
-	[mailController setSubject:subject];
+	NSString *body = [item customValueForKey:@"body"];
+	
+	if (body == nil)
+	{
+		if (item.text != nil)
+			body = item.text;
+		
+		if (item.URL != nil)
+		{	
+			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			
+			if (body != nil)
+				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
+			
+			else
+				body = urlStr;
+		}
+		
+		if (item.data)
+		{
+			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
+			
+			if (body != nil)
+				body = [body stringByAppendingFormat:@"<br/><br/>%@", attachedStr];
+			
+			else
+				body = attachedStr;
+			
+			[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
+		}
+		
+		if (item.image)
+			[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, 1) mimeType:@"image/jpeg" fileName:@"Image.jpg"];		
+		
+		
+		// save changes to body
+		[item setCustomValue:body forKey:@"body"];
+	}
+	
+	[mailController setSubject:item.title];
 	[mailController setMessageBody:body isHTML:YES];
-	
-	[mailController setToRecipients:to];
-	[mailController setCcRecipients:cc];
-	[mailController setBccRecipients:bcc];
-	
-	if (attachment)
-		[mailController addAttachmentData:attachment mimeType:mimeType fileName:filename];
-	
-	// How to allow devs to attach present the view how they want o
+			
 	[[SHK currentHelper] showViewController:mailController];
 	
-	return mailController;
+	return YES;
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error

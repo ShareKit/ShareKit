@@ -48,7 +48,7 @@
 
 @property (nonatomic) CGFloat labelWidth;
 
-@property (nonatomic, retain) UITextField *textField;
+@property (nonatomic, retain, getter=getTextField) UITextField *textField;
 @property (nonatomic, retain) UISwitch *toggle;
 
 @property (nonatomic, retain) NSString *tmpValue;

@@ -41,4 +41,6 @@
 @property (nonatomic, retain) UILabel *counter;
 @property BOOL hasAttachment;
 
+- (void)layoutCounter;
+
 @end

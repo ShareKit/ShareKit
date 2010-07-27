@@ -1,4 +1,4 @@
-    //
+//
 //  SHKTwitterForm.m
 //  ShareKit
 //
@@ -53,7 +53,7 @@
 																							  target:self
 																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Send to Twitter")
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send to Twitter"
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
 																				 action:@selector(save)];
@@ -114,22 +114,37 @@
 	
 	// 3.2 and above
 	/*if (UIKeyboardFrameEndUserInfoKey)
-	{		
-		[[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
-		if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) 
-			keyboardHeight = keyboardFrame.size.height;
-		else
-			keyboardHeight = keyboardFrame.size.width;
-	}
-	
-	// < 3.2
-	else 
-	{*/
-		[[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
-		keyboardHeight = keyboardFrame.size.height;
+	 {		
+	 [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
+	 if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) 
+	 keyboardHeight = keyboardFrame.size.height;
+	 else
+	 keyboardHeight = keyboardFrame.size.width;
+	 }
+	 
+	 // < 3.2
+	 else 
+	 {*/
+	[[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
+	keyboardHeight = keyboardFrame.size.height;
 	//}
-
-	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height-keyboardHeight);
+	
+	// Find the bottom of the screen (accounting for keyboard overlay)
+	// This is pretty much only for pagesheet's on the iPad
+	UIInterfaceOrientation orient = [[UIApplication sharedApplication] statusBarOrientation];
+	BOOL inLandscape = orient == UIInterfaceOrientationLandscapeLeft || orient == UIInterfaceOrientationLandscapeRight;
+	BOOL upsideDown = orient == UIInterfaceOrientationPortraitUpsideDown || orient == UIInterfaceOrientationLandscapeRight;
+	
+	CGPoint topOfViewPoint = [self.view convertPoint:CGPointZero toView:nil];
+	CGFloat topOfView = inLandscape ? topOfViewPoint.x : topOfViewPoint.y;
+	
+	CGFloat screenHeight = inLandscape ? [[UIScreen mainScreen] applicationFrame].size.width : [[UIScreen mainScreen] applicationFrame].size.height;
+	
+	CGFloat distFromBottom = screenHeight - ((upsideDown ? screenHeight - topOfView : topOfView ) + self.view.bounds.size.height) + ([UIApplication sharedApplication].statusBarHidden || upsideDown ? 0 : 20);							
+	CGFloat maxViewHeight = self.view.bounds.size.height - keyboardHeight + distFromBottom;
+	
+	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,maxViewHeight);
+	[self layoutCounter];
 }
 
 #pragma mark -
@@ -138,10 +153,7 @@
 {
 	if (counter == nil)
 	{
-		self.counter = [[UILabel alloc] initWithFrame:CGRectMake(textView.bounds.size.width-150-15,
-																 textView.bounds.size.height-15-9,
-																 150,
-																 15)];
+		self.counter = [[UILabel alloc] initWithFrame:CGRectZero];
 		counter.backgroundColor = [UIColor clearColor];
 		counter.opaque = NO;
 		counter.font = [UIFont boldSystemFontOfSize:14];
@@ -151,6 +163,7 @@
 		counter.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 		
 		[self.view addSubview:counter];
+		[self layoutCounter];
 		
 		[counter release];
 	}
@@ -158,6 +171,14 @@
 	int count = (hasAttachment?115:140) - textView.text.length;
 	counter.text = [NSString stringWithFormat:@"%@%i", hasAttachment ? @"Image + ":@"" , count];
 	counter.textColor = count >= 0 ? [UIColor blackColor] : [UIColor redColor];
+}
+
+- (void)layoutCounter
+{
+	counter.frame = CGRectMake(textView.bounds.size.width-150-15,
+							   textView.bounds.size.height-15-9,
+							   150,
+							   15);
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -186,24 +207,24 @@
 {	
 	if (textView.text.length > (hasAttachment?115:140))
 	{
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Message is too long")
-									 message:SKLocalizedString(@"Twitter posts can only be 140 characters in length.")
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Message is too long")
+									 message:SHKLocalizedString(@"Twitter posts can only be 140 characters in length.")
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		return;
 	}
 	
 	else if (textView.text.length == 0)
 	{
-		[[[[UIAlertView alloc] initWithTitle:SKLocalizedString(@"Message is empty")
-									 message:SKLocalizedString(@"You must enter a message in order to post.")
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Message is empty")
+									 message:SHKLocalizedString(@"You must enter a message in order to post.")
 									delegate:nil
-						   cancelButtonTitle:SKLocalizedString(@"Close")
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		return;
 	}
-		
+	
 	[(SHKTwitter *)delegate sendForm:self];
 	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];

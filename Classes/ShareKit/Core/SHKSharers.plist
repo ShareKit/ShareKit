@@ -4,6 +4,7 @@
 <dict>
 	<key>actions</key>
 	<array>
+		<string>SHKPhotoAlbum</string>
 		<string>SHKCopy</string>
 		<string>SHKMail</string>
 		<string>SHKSafari</string>

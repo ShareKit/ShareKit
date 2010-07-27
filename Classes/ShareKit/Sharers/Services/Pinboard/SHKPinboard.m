@@ -51,14 +51,14 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return SKLocalizedString(@"Create an account at http://pinboard.in");
+	return SHKLocalizedString(@"Create an account at %@", @"http://pinboard.in");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator	
 	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SKLocalizedString(@"Logging In...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
 	// Authorize the user through the server
@@ -82,7 +82,7 @@
 {
 	NSString *response = [aRequest getResult];
 	
-	if ([response isEqualToString:SKLocalizedString(@"401 Forbidden")])
+	if ([response isEqualToString:SHKLocalizedString(@"401 Forbidden")])
 	{
 		[self sendDidFailShouldRelogin];		
 		return NO;		
@@ -110,10 +110,10 @@
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:SKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:item.tags],
-				[SHKFormFieldSettings label:SKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:item.text],
-				[SHKFormFieldSettings label:SKLocalizedString(@"Shared") key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Shared") key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
 	return nil;
@@ -167,7 +167,7 @@
 		}
 	}
 	
-	[self sendDidFailWithError:[SHK error:SKLocalizedString(@"There was an error saving to Pinboard")]];		
+	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Pinboard")]];		
 }
 
 @end

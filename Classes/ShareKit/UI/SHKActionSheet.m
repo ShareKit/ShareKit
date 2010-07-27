@@ -44,37 +44,30 @@
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
-	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SKLocalizedString(@"Share")
+	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
 													  delegate:self
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
 	as.item = [[[SHKItem alloc] init] autorelease];
 	as.item.shareType = type;
-	as.delegate = as;
 	
 	as.sharers = [SHK favoriteSharersForType:type];
 	
 	// Add buttons for each favoriate sharer
-  NSMutableArray *activeSharer = [NSMutableArray array];
 	id class;
 	for(NSString *sharerId in as.sharers)
 	{
 		class = NSClassFromString(sharerId);
-		if ([class canShare]) {
+		if ([class canShare])
 			[as addButtonWithTitle: [class sharerTitle] ];
-      [activeSharer addObject:sharerId];
-    }
 	}
-
-  // filter out sharers that cannot share
-  as.sharers = activeSharer;
 	
 	// Add More button
-	[as addButtonWithTitle:SKLocalizedString(@"More...")];
+	[as addButtonWithTitle:SHKLocalizedString(@"More...")];
 	
 	// Add Cancel button
-	[as addButtonWithTitle:SKLocalizedString(@"Cancel")];
+	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
 	as.cancelButtonIndex = as.numberOfButtons -1;
 	
 	return [as autorelease];
@@ -87,22 +80,24 @@
 	return as;
 }
 
-- (void)actionSheet:(SHKActionSheet *)as clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
 	// Sharers
-	if (buttonIndex >= 0 && buttonIndex < as.sharers.count)
+	if (buttonIndex >= 0 && buttonIndex < sharers.count)
 	{
-		[objc_getClass([[as.sharers objectAtIndex:buttonIndex] UTF8String]) performSelector:@selector(shareItem:) withObject:item];
+		[NSClassFromString([sharers objectAtIndex:buttonIndex]) performSelector:@selector(shareItem:) withObject:item];
 	}
 	
 	// More
-	else if (buttonIndex == as.sharers.count)
+	else if (buttonIndex == sharers.count)
 	{
 		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
-		shareMenu.item = as.item;
+		shareMenu.item = item;
 		[[SHK currentHelper] showViewController:shareMenu];
 		[shareMenu release];
 	}
+	
+	[super dismissWithClickedButtonIndex:buttonIndex animated:animated];
 }
 
 @end

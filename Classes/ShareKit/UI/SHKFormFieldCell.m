@@ -48,29 +48,33 @@
 	[super dealloc];
 }
 
+- (UITextField *)getTextField
+{
+	if (textField == nil)
+	{
+		self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0,0,0,25)];
+		textField.clearsOnBeginEditing = NO;
+		textField.returnKeyType = UIReturnKeyDone;
+		textField.font = [UIFont systemFontOfSize:17];
+		textField.textColor = [UIColor darkGrayColor];
+		textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+		textField.delegate = form;
+		[self.contentView addSubview:textField];
+		[textField release];
+		
+		[self setValue:tmpValue];
+	}
+	return textField;
+}
+
 - (void)layoutSubviews 
 {
 	[super layoutSubviews];	
 	
 	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypePassword)
 	{
-		if (textField == nil)
-		{
-			self.textField = [[UITextField alloc] initWithFrame:CGRectMake(0,0,0,25)];
-			textField.clearsOnBeginEditing = NO;
-			textField.returnKeyType = UIReturnKeyDone;
-			textField.font = [UIFont systemFontOfSize:17];
-			textField.textColor = [UIColor darkGrayColor];
-			textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-			textField.delegate = form;
-			[self.contentView addSubview:textField];
-			[textField release];
-			
-			[self setValue:tmpValue];
-		}		
+		self.textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
 		
-		textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
-				
 		textField.frame = CGRectMake(labelWidth + SHK_FORM_CELL_PAD_LEFT, 
 									 2 + round(self.contentView.bounds.size.height/2 - textField.bounds.size.height/2),
 									 self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT - SHK_FORM_CELL_PAD_LEFT - labelWidth,
@@ -106,7 +110,7 @@
 {
 	// don't actually select the row
 	//[super setSelected:selected animated:animated];
-
+	
 	if (selected)
 		[textField becomeFirstResponder];
 	

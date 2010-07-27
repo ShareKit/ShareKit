@@ -52,13 +52,13 @@
 {
 	if (self = [super initWithStyle:style])
 	{
-		self.title = SKLocalizedString(@"Share");
+		self.title = SHKLocalizedString(@"Share");
 		
 		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
 																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Edit")
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
 																				  style:UIBarButtonItemStyleBordered
 																				 target:self
 																				 action:@selector(edit)];
@@ -263,7 +263,7 @@
 	
 	else 
 	{
-		[objc_getClass([[rowData objectForKey:@"className"] UTF8String]) shareItem:item];
+		[NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}
@@ -279,10 +279,10 @@
 	if ([[tableData objectAtIndex:section] count])
 	{
 		if (section == 0)
-			return SKLocalizedString(@"Actions");
+			return SHKLocalizedString(@"Actions");
 		
 		else if (section == 1)
-			return SKLocalizedString(@"Services");
+			return SHKLocalizedString(@"Services");
 	}
 	
 	return nil;
@@ -314,7 +314,7 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SKLocalizedString(@"Edit")
+	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
 																				 style:UIBarButtonItemStyleBordered
 																							  target:self
 																							  action:@selector(edit)] autorelease] animated:YES];

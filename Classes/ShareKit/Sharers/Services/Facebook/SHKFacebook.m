@@ -26,7 +26,7 @@
 //
 
 #import "SHKFacebook.h"
-
+#import "SHKFBStreamDialog.h"
 
 @implementation SHKFacebook
 
@@ -53,6 +53,11 @@
 }
 
 + (BOOL)canShareURL
+{
+	return YES;
+}
+
++ (BOOL)canShareText
 {
 	return YES;
 }
@@ -124,9 +129,9 @@
 	{
 		self.pendingFacebookAction = SHKFacebookPendingStatus;
 		
-		FBStreamDialog* dialog = [[[FBStreamDialog alloc] init] autorelease];
+		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
-		dialog.userMessagePrompt = SKLocalizedString(@"Enter your message:");
+		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
 		dialog.attachment = [NSString stringWithFormat:
 							 @"{\
 							 \"name\":\"%@\",\
@@ -135,6 +140,22 @@
 							 item.title == nil ? SHKEncodeURL(item.URL) : SHKEncode(item.title),
 							 SHKEncodeURL(item.URL)
 							 ];
+		dialog.defaultStatus = item.text;
+		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
+							  SHKEncode(SHKMyAppName),
+							  SHKEncode(SHKMyAppURL)];
+		[dialog show];
+		
+	}
+	
+	else if (item.shareType == SHKShareTypeText)
+	{
+		self.pendingFacebookAction = SHKFacebookPendingStatus;
+		
+		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
+		dialog.delegate = self;
+		dialog.userMessagePrompt = @"Enter your message:";
+		dialog.defaultStatus = item.text;
 		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
 							  SHKEncode(SHKMyAppName),
 							  SHKEncode(SHKMyAppURL)];
