@@ -119,9 +119,19 @@
 
 + (void)logout
 {
-	FBSession *fbSession = [FBSession sessionForApplication:SHKFacebookKey
-													 secret:SHKFacebookSecret
-												   delegate:[[[self alloc] init] autorelease]];
+	FBSession *fbSession; 
+	
+	if(!SHKFacebookUseSessionProxy){
+		fbSession = [FBSession sessionForApplication:SHKFacebookKey
+												 secret:SHKFacebookSecret
+											   delegate:self];
+		
+	}else {
+		fbSession = [FBSession sessionForApplication:SHKFacebookKey
+										getSessionProxy:SHKFacebookSessionProxyURL
+											   delegate:self];
+	}
+
 	[fbSession logout];
 }
 
