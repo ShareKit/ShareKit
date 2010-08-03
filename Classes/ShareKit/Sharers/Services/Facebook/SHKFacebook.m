@@ -34,7 +34,6 @@
 @synthesize pendingFacebookAction;
 @synthesize login;
 
-
 - (void)dealloc
 {
 	[session.delegates removeObject:self];
@@ -72,8 +71,6 @@
 	return NO; // TODO - would love to make this work
 }
 
-
-
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -82,8 +79,6 @@
 	return YES; // FBConnect presents its own dialog
 }
 
-
-
 #pragma mark -
 #pragma mark Authentication
 
@@ -91,9 +86,19 @@
 {	
 	if (session == nil)
 	{
-		self.session = [FBSession sessionForApplication:SHKFacebookKey
-											 secret:SHKFacebookSecret
-										   delegate:self];
+		
+		if(!SHKFacebookUseSessionProxy){
+			self.session = [FBSession sessionForApplication:SHKFacebookKey
+													 secret:SHKFacebookSecret
+												   delegate:self];
+			
+		}else {
+			self.session = [FBSession sessionForApplication:SHKFacebookKey
+											getSessionProxy:SHKFacebookSessionProxyURL
+												   delegate:self];
+		}
+
+		
 		return [session resume];
 	}
 	
