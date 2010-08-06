@@ -121,7 +121,7 @@
 	
 	else
 		// TODO - better error handling here
-		[self tokenRequestTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting authorization from %@"), [self sharerTitle]]];
+		[self tokenRequestTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting authorization from %@", [self sharerTitle])]];
 }
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
