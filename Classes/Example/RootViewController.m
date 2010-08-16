@@ -45,19 +45,19 @@
 	switch (indexPath.row) 
 	{
 		case 0:
-			cell.textLabel.text = @"Sharing a Link";
+			cell.textLabel.text = SHKLocalizedString(@"Sharing a Link");
 			break;
 			
 		case 1:
-			cell.textLabel.text = @"Sharing an Image";
+			cell.textLabel.text = SHKLocalizedString(@"Sharing an Image");
 			break;
 			
 		case 2:
-			cell.textLabel.text = @"Sharing Text";
+			cell.textLabel.text = SHKLocalizedString(@"Sharing Text");
 			break;
 			
 		case 3:
-			cell.textLabel.text = @"Sharing a File";
+			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
 			break;
 			
 		//case 4:

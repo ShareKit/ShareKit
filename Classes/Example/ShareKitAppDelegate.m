@@ -27,7 +27,7 @@
 	[window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
 	
-	navigationController.topViewController.title = @"Examples";
+	navigationController.topViewController.title = SHKLocalizedString(@"Examples");
 	[navigationController setToolbarHidden:NO];
 	
 	[self performSelector:@selector(testOffline) withObject:nil afterDelay:0.5];
