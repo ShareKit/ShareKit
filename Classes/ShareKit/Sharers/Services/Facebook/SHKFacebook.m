@@ -103,7 +103,7 @@
 - (void)promptAuthorization
 {
 	self.pendingFacebookAction = SHKFacebookPendingLogin;
-	self.login = [[[FBLoginDialog alloc] init] autorelease];
+	self.login = [[[FBLoginDialog alloc] initWithSession:[self session]] autorelease];
 	[login show];
 }
 
