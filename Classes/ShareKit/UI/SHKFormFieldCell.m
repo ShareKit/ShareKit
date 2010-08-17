@@ -74,6 +74,8 @@
 	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypePassword)
 	{
 		self.textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
+		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		
 		textField.frame = CGRectMake(labelWidth + SHK_FORM_CELL_PAD_LEFT, 
 									 2 + round(self.contentView.bounds.size.height/2 - textField.bounds.size.height/2),
