@@ -523,9 +523,12 @@
 	}
 	
 	// Update shouldAutoShare
-	NSDictionary *advancedOptions = [form formValuesForSection:1];
-	if ([advancedOptions objectForKey:@"autoShare"] != nil)
-		[self setShouldAutoShare:[[advancedOptions objectForKey:@"autoShare"] isEqualToString:SHKFormFieldSwitchOn]];	
+	if ([[self class] canAutoShare])
+	{
+		NSDictionary *advancedOptions = [form formValuesForSection:1];
+		if ([advancedOptions objectForKey:@"autoShare"] != nil)
+			[self setShouldAutoShare:[[advancedOptions objectForKey:@"autoShare"] isEqualToString:SHKFormFieldSwitchOn]];	
+	}
 	
 	// Send the share
 	[self tryToSend];
@@ -549,6 +552,10 @@
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
+			break;
+			
+		case SHKShareTypeFile:
+			return (item.data != nil);
 			break;
 	}
 	
