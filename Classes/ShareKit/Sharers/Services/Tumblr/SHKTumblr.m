@@ -219,7 +219,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
         }
         else if([item shareType] == SHKShareTypeImage){
             
-            NSData *imageData = UIImageJPEGRepresentation([item image], 90);
+            NSData *imageData = UIImageJPEGRepresentation([item image], 0.9);
             NSMutableURLRequest *aRequest = [[[NSMutableURLRequest alloc] init] autorelease];
             [aRequest setURL:[NSURL URLWithString:kTumblrWriteURL]];
             [aRequest setHTTPMethod:@"POST"];
