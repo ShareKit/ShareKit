@@ -458,11 +458,15 @@
 		//NSLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
 		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
 		//NSLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
-		NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
-		//NSLog(@"extracted string: %@",urlString);
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
-		[self sendStatus];
+		if (startingRange != NSNotFound && endingRange != NSNotFound) {
+			NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
+			//NSLog(@"extracted string: %@",urlString);
+			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
+			[self sendStatus];
+		}
+		
+		
 	} else {
 		[self sendDidFailWithError:nil];
 	}
