@@ -78,10 +78,10 @@
 }
 
 // TODO use img.ly to support this
-//+ (BOOL)canShareImage
-//{
-//	return YES;
-//}
++ (BOOL)canShareImage
+{
+	return YES;
+}
 
 
 #pragma mark -
@@ -293,12 +293,11 @@
 	
 	else
 	{	
-		//if (item.shareType == SHKShareTypeImage)
-		//	[self sendImage];
-		
-		//else
+		if (item.shareType == SHKShareTypeImage) {
+			[self sendImage];
+		} else {
 			[self sendStatus];
-		
+		}
 		
 		// Notify delegate
 		[self sendDidStart];	
@@ -348,6 +347,128 @@
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
+	[self sendDidFailWithError:error];
+}
+
+- (void)sendImage {
+	
+	NSURL *serviceURL = nil;
+	if([item customValueForKey:@"profile_update"]){
+		serviceURL = [NSURL URLWithString:@"http://api.twitter.com/1/account/update_profile_image.json"];
+	} else {
+		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
+	}
+	
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
+																	consumer:consumer
+																	   token:accessToken
+																	   realm:@"http://api.twitter.com/"
+														   signatureProvider:signatureProvider];
+	[oRequest setHTTPMethod:@"GET"];
+	
+	if([item customValueForKey:@"profile_update"]){
+		[oRequest prepare];
+	} else {
+		[oRequest prepare];
+
+		NSDictionary * headerDict = [oRequest allHTTPHeaderFields];
+		NSString * oauthHeader = [NSString stringWithString:[headerDict valueForKey:@"Authorization"]];
+		
+		[oRequest release];
+		oRequest = nil;
+		
+		serviceURL = [NSURL URLWithString:@"http://img.ly/api/2/upload.xml"];
+		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
+												   consumer:consumer
+													  token:accessToken
+													  realm:@"http://api.twitter.com/"
+										  signatureProvider:signatureProvider];
+		[oRequest setHTTPMethod:@"POST"];
+		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
+		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
+	}
+		
+	CGFloat compression = 0.9f;
+	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
+	
+	while ([imageData length] > 700000 && compression > 0.1) {
+		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
+		compression -= 0.1;
+		imageData = UIImageJPEGRepresentation([item image], compression);
+		
+	}
+	
+	NSString *boundary = @"0xKhTmLbOuNdArY";
+	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+	[oRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
+	
+	NSMutableData *body = [NSMutableData data];
+	NSString *dispKey = @"";
+	if([item customValueForKey:@"profile_update"]){
+		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
+	} else {
+		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
+	}
+
+	
+	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:imageData];
+	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	if([item customValueForKey:@"profile_update"]){
+		// no ops
+	} else {
+		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"message\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+		[body appendData:[[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
+		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
+	}
+	
+	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	// setting the body of the post to the reqeust
+	[oRequest setHTTPBody:body];
+		
+	// Notify delegate
+	[self sendDidStart];
+		
+	// Start the request
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																						  delegate:self
+																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
+																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
+	
+	[fetcher start];
+	
+	
+	[oRequest release];
+}
+
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+	// TODO better error handling here
+	// NSLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	if (ticket.didSucceed) {
+		[self sendDidFinish];
+		// Finished uploading Image, now need to posh the message and url in twitter
+		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
+		//NSLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
+		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
+		//NSLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
+		NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
+		//NSLog(@"extracted string: %@",urlString);
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
+		[self sendStatus];
+	} else {
+		[self sendDidFailWithError:nil];
+	}
+}
+
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
 	[self sendDidFailWithError:error];
 }
 
