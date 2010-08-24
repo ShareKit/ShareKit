@@ -43,6 +43,7 @@
     NSString *nonce;
     NSString *timestamp;
 	NSMutableDictionary *extraOAuthParameters;
+	BOOL didPrepare;
 }
 @property(readonly) NSString *signature;
 @property(readonly) NSString *nonce;

@@ -70,6 +70,8 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		
 		[self _generateTimestamp];
 		[self _generateNonce];
+		
+		didPrepare = NO;
 	}
     return self;
 }
@@ -109,6 +111,8 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		
 		timestamp = [aTimestamp retain];
 		nonce = [aNonce retain];
+		
+		didPrepare = NO;
 	}
     return self;
 }
@@ -141,6 +145,10 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 
 - (void)prepare 
 {
+	if (didPrepare) {
+		return;
+	}
+	didPrepare = YES;
     // sign
 	// Secrets must be urlencoded before concatenated with '&'
 	// TODO: if later RSA-SHA1 support is added then a little code redesign is needed
@@ -175,7 +183,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
                              timestamp,
                              nonce,
 							 extraParameters];
-	
+    
     [self setValue:oauthHeader forHTTPHeaderField:@"Authorization"];
 }
 
@@ -199,7 +207,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 {
     // OAuth Spec, Section 9.1.1 "Normalize Request Parameters"
     // build a sorted array of both request parameters and OAuth header parameters
-    NSMutableArray *parameterPairs = [NSMutableArray  arrayWithCapacity:(6 + [[self parameters] count])]; // 6 being the number of OAuth params in the Signature Base String
+    NSMutableArray *parameterPairs = [NSMutableArray  arrayWithCapacity:(6)]; // 6 being the number of OAuth params in the Signature Base String
     
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_consumer_key" value:consumer.key] URLEncodedNameValuePair]];
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_signature_method" value:[signatureProvider name]] URLEncodedNameValuePair]];
@@ -211,9 +219,16 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
         [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_token" value:token.key] URLEncodedNameValuePair]];
     }
     
-    for (OARequestParameter *param in [self parameters]) {
-        [parameterPairs addObject:[param URLEncodedNameValuePair]];
-    }
+	
+	for(NSString *parameterName in [[extraOAuthParameters allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
+		[parameterPairs addObject:[[OARequestParameter requestParameterWithName:[parameterName URLEncodedString] value: [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]] URLEncodedNameValuePair]];
+	}
+	
+	if (![[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"multipart/form-data"]) {
+		for (OARequestParameter *param in [self parameters]) {
+			[parameterPairs addObject:[param URLEncodedNameValuePair]];
+		}
+	}
     
     NSArray *sortedPairs = [parameterPairs sortedArrayUsingSelector:@selector(compare:)];
     NSString *normalizedRequestParameters = [sortedPairs componentsJoinedByString:@"&"];
