@@ -182,7 +182,7 @@
 
 	[[FBRequest requestWithDelegate:self] call:@"facebook.photos.upload"
 	params:[NSDictionary dictionaryWithObjectsAndKeys:item.title, @"caption", nil]
-	dataParam:UIImageJPEGRepresentation(item.image,100)];
+	dataParam:UIImageJPEGRepresentation(item.image,1.0)];
 }
 
 - (void)dialogDidSucceed:(FBDialog*)dialog
