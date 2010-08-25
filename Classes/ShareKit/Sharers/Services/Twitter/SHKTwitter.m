@@ -459,7 +459,7 @@
 		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
 		//NSLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
 		
-		if (startingRange != NSNotFound && endingRange != NSNotFound) {
+		if (startingRange.location != NSNotFound && endingRange.location != NSNotFound) {
 			NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
 			//NSLog(@"extracted string: %@",urlString);
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
