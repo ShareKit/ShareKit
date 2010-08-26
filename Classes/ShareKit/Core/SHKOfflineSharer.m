@@ -45,12 +45,13 @@
 	[super dealloc];
 }
 
-- (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s
+- (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s uid:(NSString *)u
 {
 	if (self = [super init])
 	{
 		self.item = i;
 		self.sharerId = s;
+		self.uid = u;
 	}
 	return self;
 }
@@ -91,17 +92,19 @@
 	NSString *path;
 	if (item.shareType == SHKShareTypeImage)
 	{
-		path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:uid];
+		path = [[SHK offlineQueuePath] stringByAppendingPathComponent:uid];
 		sharer.item.image = [UIImage imageWithContentsOfFile:path];
 		[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+		
 	}
 	
 	// reload file from disk and remove the file
 	else if (item.shareType == SHKShareTypeFile)						
 	{
 		path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:uid];
-		sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueueListPath] stringByAppendingPathComponent:uid]];
-		[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+		sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueuePath] stringByAppendingPathComponent:uid]];
+		[[NSFileManager defaultManager] removeItemAtPath:path error:nil]; 
+
 	}
 	
 	[sharer tryToSend];	

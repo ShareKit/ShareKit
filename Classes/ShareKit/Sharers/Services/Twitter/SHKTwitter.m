@@ -378,7 +378,6 @@
 		// this is the error message for revoked access
 		if ([errorMessage isEqualToString:@"Invalid / used nonce"])
 		{
-			NSError *error = [NSError errorWithDomain:@"Twitter" code:1 userInfo:[NSDictionary dictionaryWithObject:@"Invalid Login" forKey:NSLocalizedDescriptionKey]];
 			[self sendDidFailShouldRelogin];
 		}
 		else 

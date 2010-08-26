@@ -46,7 +46,7 @@
 @property (nonatomic, retain) NSThread *runLoopThread;
 @property (nonatomic, retain) SHKSharer *sharer;
 
-- (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s;
+- (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s uid:(NSString *)u;
 
 - (void)share;
 - (BOOL)shouldRun;

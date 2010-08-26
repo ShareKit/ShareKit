@@ -418,19 +418,23 @@ static NSDictionary *sharersDictionary = nil;
 #pragma mark -
 #pragma mark Offline Support
 
-+ (NSString *)offlineQueueListPath
++ (NSString *)offlineQueuePath
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
 	NSString *cache = [paths objectAtIndex:0];
 	NSString *SHKPath = [cache stringByAppendingPathComponent:@"SHK"];
-	NSString *listPath = [SHKPath stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
 	
 	// Check if the path exists, otherwise create it
 	if (![fileManager fileExistsAtPath:SHKPath]) 
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
 	
-	return listPath;	
+	return SHKPath;
+}
+
++ (NSString *)offlineQueueListPath
+{
+	return [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
 }
 
 + (NSMutableArray *)getOfflineQueueList
@@ -451,11 +455,11 @@ static NSDictionary *sharersDictionary = nil;
 	
 	// store image in cache
 	if (item.shareType == SHKShareTypeImage && item.image)
-		[UIImageJPEGRepresentation(item.image, 100) writeToFile:[[self offlineQueueListPath] stringByAppendingPathComponent:uid] atomically:YES];
+		[UIImageJPEGRepresentation(item.image, 1) writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
 	
 	// store file in cache
 	else if (item.shareType == SHKShareTypeFile)
-		[item.data writeToFile:[[self offlineQueueListPath] stringByAppendingPathComponent:uid] atomically:YES];
+		[item.data writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
 	
 	// Open queue list
 	NSMutableArray *queueList = [self getOfflineQueueList];
@@ -496,19 +500,21 @@ static NSDictionary *sharersDictionary = nil;
 			helper.offlineQueue = [[NSOperationQueue alloc] init];		
 	
 		SHKItem *item;
-		NSString *sharerId;
+		NSString *sharerId, *uid;
 		
 		for (NSDictionary *entry in queueList)
 		{
 			item = [SHKItem itemFromDictionary:[entry objectForKey:@"item"]];
 			sharerId = [entry objectForKey:@"sharer"];
+			uid = [entry objectForKey:@"uid"];
 			
 			if (item != nil && sharerId != nil)
-				[helper.offlineQueue addOperation:[[[SHKOfflineSharer alloc] initWithItem:item forSharer:sharerId] autorelease]];
+				[helper.offlineQueue addOperation:[[[SHKOfflineSharer alloc] initWithItem:item forSharer:sharerId uid:uid] autorelease]];
 		}
 		
 		// Remove offline queue - TODO: only do this if everything was successful?
 		[[NSFileManager defaultManager] removeItemAtPath:[self offlineQueueListPath] error:nil];
+
 	}
 }
 
@@ -529,6 +535,7 @@ static NSDictionary *sharersDictionary = nil;
 
 + (BOOL)connected 
 {
+	//return NO; // force for offline testing
 	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);

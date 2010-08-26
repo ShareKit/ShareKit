@@ -104,11 +104,12 @@
 #pragma mark -
 #pragma mark Offline Support
 
-+ (void)flushOfflineQueue;
++ (NSString *)offlineQueuePath;
 + (NSString *)offlineQueueListPath;
 + (NSMutableArray *)getOfflineQueueList;
 + (void)saveOfflineQueueList:(NSMutableArray *)queueList;
 + (BOOL)addToOfflineQueue:(SHKItem *)item forSharer:(NSString *)sharerId;
++ (void)flushOfflineQueue;
 
 #pragma mark -
 
