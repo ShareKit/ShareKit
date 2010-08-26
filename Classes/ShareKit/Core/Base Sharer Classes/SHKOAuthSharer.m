@@ -272,6 +272,20 @@
 + (void)logout
 {
 	[self deleteStoredAccessToken];
+	
+	// Clear cookies (for OAuth, doesn't affect XAuth)
+	// TODO - move the authorizeURL out of the init call (into a define) so we don't have to create an object just to get it
+	SHKOAuthSharer *sharer = [[self alloc] init];
+	if (sharer.authorizeURL)
+	{
+		NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+		NSArray *cookies = [storage cookiesForURL:sharer.authorizeURL];
+		for (NSHTTPCookie *each in cookies) 
+		{
+			[storage deleteCookie:each];
+		}
+	}
+	[sharer release];
 }
 
 - (BOOL)restoreAccessToken

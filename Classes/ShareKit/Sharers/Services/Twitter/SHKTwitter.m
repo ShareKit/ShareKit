@@ -143,10 +143,10 @@
 		NSDictionary *formValues = [pendingForm formValues];
 		
 		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
-																			 value:SHKEncode([formValues objectForKey:@"username"])] autorelease];
+																			 value:[formValues objectForKey:@"username"]] autorelease];
 		
 		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
-																			 value:SHKEncode([formValues objectForKey:@"password"])] autorelease];
+																			 value:[formValues objectForKey:@"password"]] autorelease];
 		
 		OARequestParameter *mode = [[[OARequestParameter alloc] initWithName:@"x_auth_mode"
 																			 value:@"client_auth"] autorelease];
@@ -167,7 +167,11 @@
 		
 		else
 		{
-			[self tokenAccessTicket:ticket didFailWithError:[SHK error:[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]]];
+			NSString *response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+			
+			SHKLog(@"tokenAccessTicket Response Body: %@", response);
+			
+			[self tokenAccessTicket:ticket didFailWithError:[SHK error:response]];
 			return;
 		}
 	}
@@ -263,11 +267,17 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Continue")
 						   otherButtonTitles:nil] autorelease] show];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 	}
 	
 	else
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, result] forKey:@"status"];
+	{		
+		///if already a bitly login, use url instead
+		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
+			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+	}
 
 	[self showTwitterForm];
 }
@@ -336,13 +346,47 @@
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {	
 	// TODO better error handling here
-	
-	
+		
 	if (ticket.didSucceed) 
 		[self sendDidFinish];
 	
 	else
-		[self sendDidFailWithError:nil];
+	{		
+		if (SHKDebugShowLogs)
+			SHKLog(@"Twitter Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+		
+		// CREDIT: Oliver Drobnik
+		
+		NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
+		
+		// in case our makeshift parsing does not yield an error message
+		NSString *errorMessage = @"Unknown Error";		
+		
+		NSScanner *scanner = [NSScanner scannerWithString:string];
+		
+		// skip until error message
+		[scanner scanUpToString:@"\"error\":\"" intoString:nil];
+		
+		
+		if ([scanner scanString:@"\"error\":\"" intoString:nil])
+		{
+			// get the message until the closing double quotes
+			[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
+		}
+		
+		
+		// this is the error message for revoked access
+		if ([errorMessage isEqualToString:@"Invalid / used nonce"])
+		{
+			NSError *error = [NSError errorWithDomain:@"Twitter" code:1 userInfo:[NSDictionary dictionaryWithObject:@"Invalid Login" forKey:NSLocalizedDescriptionKey]];
+			[self sendDidFailShouldRelogin];
+		}
+		else 
+		{
+			NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+			[self sendDidFailWithError:error];
+		}
+	}
 }
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
@@ -390,6 +434,11 @@
 		
 	CGFloat compression = 0.9f;
 	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
+	
+	// TODO
+	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
+	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
+	// to an appropriate size (max of img.ly) and then start trying to compress.
 	
 	while ([imageData length] > 700000 && compression > 0.1) {
 		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);

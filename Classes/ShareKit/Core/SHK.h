@@ -25,7 +25,7 @@
 //
 //
 
-#define SHK_VERSION @"0.2.0"
+#define SHK_VERSION @"0.2.1"
 
 #import <Foundation/Foundation.h>
 #import "SHKConfig.h"
@@ -70,6 +70,7 @@
 #pragma mark -
 #pragma mark View Management
 
++ (void)setRootViewController:(UIViewController *)vc;
 - (void)showViewController:(UIViewController *)vc;
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;

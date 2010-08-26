@@ -1,27 +1,27 @@
 //
-//  OAMutableURLRequest.m
-//  OAuthConsumer
+// OAMutableURLRequest.m
+// OAuthConsumer
 //
-//  Created by Jon Crosby on 10/19/07.
-//  Copyright 2007 Kaboomerang LLC. All rights reserved.
+// Created by Jon Crosby on 10/19/07.
+// Copyright 2007 Kaboomerang LLC. All rights reserved.
 //
-//  Permission is hereby granted, free of charge, to any person obtaining a copy
-//  of this software and associated documentation files (the "Software"), to deal
-//  in the Software without restriction, including without limitation the rights
-//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-//  copies of the Software, and to permit persons to whom the Software is
-//  furnished to do so, subject to the following conditions:
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
 //
-//  The above copyright notice and this permission notice shall be included in
-//  all copies or substantial portions of the Software.
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
 //
-//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-//  THE SOFTWARE.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 
 #import "OAMutableURLRequest.h"
@@ -43,12 +43,12 @@
 		 consumer:(OAConsumer *)aConsumer
 			token:(OAToken *)aToken
             realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider 
+signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 {
     if (self = [super initWithURL:aUrl
 					  cachePolicy:NSURLRequestReloadIgnoringCacheData
 				  timeoutInterval:10.0])
-	{    
+	{
 		consumer = [aConsumer retain];
 		
 		// empty token for Unauthorized Request Token transaction
@@ -59,13 +59,13 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		
 		if (aRealm == nil)
 			realm = [[NSString alloc] initWithString:@""];
-		else 
+		else
 			realm = [aRealm retain];
 		
 		// default to HMAC-SHA1
 		if (aProvider == nil)
 			signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
-		else 
+		else
 			signatureProvider = [aProvider retain];
 		
 		[self _generateTimestamp];
@@ -84,12 +84,12 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
             realm:(NSString *)aRealm
 signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
             nonce:(NSString *)aNonce
-        timestamp:(NSString *)aTimestamp 
+        timestamp:(NSString *)aTimestamp
 {
 	if (self = [super initWithURL:aUrl
 					  cachePolicy:NSURLRequestReloadIgnoringCacheData
 				  timeoutInterval:10.0])
-	{    
+	{
 		consumer = [aConsumer retain];
 		
 		// empty token for Unauthorized Request Token transaction
@@ -100,13 +100,13 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		
 		if (aRealm == nil)
 			realm = [[NSString alloc] initWithString:@""];
-		else 
+		else
 			realm = [aRealm retain];
 		
 		// default to HMAC-SHA1
 		if (aProvider == nil)
 			signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
-		else 
+		else
 			signatureProvider = [aProvider retain];
 		
 		timestamp = [aTimestamp retain];
@@ -143,7 +143,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	[extraOAuthParameters setObject:parameterValue forKey:parameterName];
 }
 
-- (void)prepare 
+- (void)prepare
 {
 	if (didPrepare) {
 		return;
@@ -172,7 +172,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		[extraParameters appendFormat:@", %@=\"%@\"",
 		 [parameterName URLEncodedString],
 		 [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]];
-	}	
+	}
     
     NSString *oauthHeader = [NSString stringWithFormat:@"OAuth realm=\"%@\", oauth_consumer_key=\"%@\", %@oauth_signature_method=\"%@\", oauth_signature=\"%@\", oauth_timestamp=\"%@\", oauth_nonce=\"%@\", oauth_version=\"1.0\"%@",
                              [realm URLEncodedString],
@@ -190,12 +190,12 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 #pragma mark -
 #pragma mark Private
 
-- (void)_generateTimestamp 
+- (void)_generateTimestamp
 {
     timestamp = [[NSString stringWithFormat:@"%d", time(NULL)] retain];
 }
 
-- (void)_generateNonce 
+- (void)_generateNonce
 {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
@@ -203,11 +203,11 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
     nonce = (NSString *)string;
 }
 
-- (NSString *)_signatureBaseString 
+- (NSString *)_signatureBaseString
 {
     // OAuth Spec, Section 9.1.1 "Normalize Request Parameters"
     // build a sorted array of both request parameters and OAuth header parameters
-    NSMutableArray *parameterPairs = [NSMutableArray  arrayWithCapacity:(6)]; // 6 being the number of OAuth params in the Signature Base String
+    NSMutableArray *parameterPairs = [NSMutableArray arrayWithCapacity:(6)]; // 6 being the number of OAuth params in the Signature Base String
     
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_consumer_key" value:consumer.key] URLEncodedNameValuePair]];
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_signature_method" value:[signatureProvider name]] URLEncodedNameValuePair]];

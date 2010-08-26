@@ -145,6 +145,7 @@ typedef enum
 + (NSArray *)authorizationFormFields;
 + (NSString *)authorizationFormCaption;
 + (void)logout;
++ (BOOL)isServiceAuthorized;
 
 #pragma mark -
 #pragma mark API Implementation

@@ -32,7 +32,7 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
-#import </usr/include/objc/objc-class.h>
+#import <objc/objc-class.h>
 #import <MessageUI/MessageUI.h>
 
 
@@ -145,7 +145,13 @@ BOOL SHKinit;
 	
 	// Show the nav controller
 	else
-	{
+	{		
+		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
+			vc.modalPresentationStyle = [SHK modalPresentationStyle];
+		
+		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
+			vc.modalTransitionStyle = [SHK modalTransitionStyle];
+		
 		[topViewController presentModalViewController:vc animated:YES];
 		[(UINavigationController *)vc navigationBar].barStyle = 
 		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
@@ -564,28 +570,20 @@ NSString * SHKEncodeURL(NSURL * value)
 	return result;
 }
 
-void SHKSwizzle(Class c, SEL orig, SEL new)
+void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 {
     Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, new);
+    Method newMethod = class_getInstanceMethod(c, newClassName);
     if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-		class_replaceMethod(c, new, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
+		class_replaceMethod(c, newClassName, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
 	else
 		method_exchangeImplementations(origMethod, newMethod);
 }
 
 NSString* SHKLocalizedString(NSString* key, ...) 
 {
-	static NSBundle* bundle = nil;
-	if (!bundle) 
-	{
-		NSString* path = [[[NSBundle mainBundle] resourcePath]
-						  stringByAppendingPathComponent:@"ShareKit.bundle"];
-		bundle = [[NSBundle bundleWithPath:path] retain];
-	}
-	
 	// Localize the format
-	NSString *localizedStringFormat = [bundle localizedStringForKey:key value:key table:nil];
+	NSString *localizedStringFormat = NSLocalizedString(key, key);
 	
 	va_list args;
     va_start(args, key);

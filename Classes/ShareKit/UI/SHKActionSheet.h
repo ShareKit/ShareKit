@@ -30,12 +30,12 @@
 
 @interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
 {		
-	NSArray *sharers;
+	NSMutableArray *sharers;
 	
 	SHKItem *item;
 }
 
-@property (retain) NSArray *sharers;
+@property (retain) NSMutableArray *sharers;
 
 @property (retain) SHKItem *item;
 

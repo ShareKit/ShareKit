@@ -15,6 +15,16 @@
 
 @implementation RootViewController
 
+- (void)loadView
+{
+	[super loadView];
+	
+	self.toolbarItems = [NSArray arrayWithObjects:
+						 [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease],
+						 nil
+						 ];	
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
@@ -103,6 +113,26 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
     return YES;
+}
+
+
+#pragma mark -
+
+- (void)logout
+{
+	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
+								 message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
+								delegate:self
+					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
+					   otherButtonTitles:@"Logout",nil] autorelease] show];
+	
+	[SHK logoutOfAll];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex == 0)
+		[SHK logoutOfAll];
 }
 
 

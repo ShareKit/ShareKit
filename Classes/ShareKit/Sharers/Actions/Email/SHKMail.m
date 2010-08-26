@@ -103,6 +103,8 @@
 
 - (BOOL)send
 {
+	self.quiet = YES;
+	
 	if (![self validateItem])
 		return NO;
 	
@@ -153,7 +155,11 @@
 			body = @"";
 		
 		// sig
-		body = [body stringByAppendingFormat:@"<br/><br/>Sent from %@", SHKMyAppName];
+		if (SHKSharedWithSignature)
+		{
+			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKMyAppName)];
+		}
 		
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];
@@ -170,6 +176,22 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	
+	switch (result) 
+	{
+		case MFMailComposeResultSent:
+			[self sendDidFinish];
+			break;
+		case MFMailComposeResultSaved:
+			[self sendDidFinish];
+			break;
+		case MFMailComposeResultCancelled:
+			[self sendDidCancel];
+			break;
+		case MFMailComposeResultFailed:
+			[self sendDidFailWithError:nil];
+			break;
+	}
 }
 
 

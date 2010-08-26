@@ -62,6 +62,7 @@
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
 	
 	self.view = webView;
+	[webView release];
 }
 
 - (void)share

@@ -421,6 +421,16 @@
 	}	
 }
 
+// Credit: GreatWiz
++ (BOOL)isServiceAuthorized 
+{	
+	SHKSharer *controller = [[self alloc] init];
+	BOOL isAuthorized = [controller isAuthorized];
+	[controller release];
+	
+	return isAuthorized;	
+}
+
 
 
 
@@ -672,13 +682,17 @@
 - (void)sendDidStart
 {		
 	if ([shareDelegate respondsToSelector:@selector(sharerStartedSending:)])
-		[shareDelegate performSelector:@selector(sharerStartedSending:) withObject:self];
+		[shareDelegate performSelector:@selector(sharerStartedSending:) withObject:self];	
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidStartNotification" object:self];
 }
 
 - (void)sendDidFinish
 {	
 	if ([shareDelegate respondsToSelector:@selector(sharerFinishedSending:)])
 		[shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFinish" object:self];
 }
 
 - (void)sendDidFailShouldRelogin
@@ -697,12 +711,16 @@
 		
 	if ([shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
 		[(SHKSharer *)shareDelegate sharer:self failedWithError:error shouldRelogin:shouldRelogin];
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFailWithError" object:self];
 }
 
 - (void)sendDidCancel
 {
 	if ([shareDelegate respondsToSelector:@selector(sharerCancelledSending:)])
 		[shareDelegate performSelector:@selector(sharerCancelledSending:) withObject:self];	
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidCancel" object:self];
 }
 
 

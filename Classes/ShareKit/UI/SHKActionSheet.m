@@ -52,15 +52,19 @@
 	as.item = [[[SHKItem alloc] init] autorelease];
 	as.item.shareType = type;
 	
-	as.sharers = [SHK favoriteSharersForType:type];
-	
-	// Add buttons for each favoriate sharer
+	as.sharers = [NSMutableArray arrayWithCapacity:0];
+	NSArray *favoriteSharers = [SHK favoriteSharersForType:type];
+		
+	// Add buttons for each favorite sharer
 	id class;
-	for(NSString *sharerId in as.sharers)
+	for(NSString *sharerId in favoriteSharers)
 	{
 		class = NSClassFromString(sharerId);
 		if ([class canShare])
+		{
 			[as addButtonWithTitle: [class sharerTitle] ];
+			[as.sharers addObject:sharerId];
+		}
 	}
 	
 	// Add More button
