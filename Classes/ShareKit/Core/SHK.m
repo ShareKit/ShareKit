@@ -32,7 +32,7 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
-#import <objc/objc-class.h>
+#import </usr/include/objc/objc-class.h>
 #import <MessageUI/MessageUI.h>
 
 
