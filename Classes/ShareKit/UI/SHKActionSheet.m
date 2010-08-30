@@ -45,10 +45,11 @@
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
 	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
-													  delegate:self
+													  delegate:nil
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
+  as.delegate = as;
 	as.item = [[[SHKItem alloc] init] autorelease];
 	as.item.shareType = type;
 	
