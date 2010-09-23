@@ -149,7 +149,7 @@ static SHKActivityIndicator *currentIndicator = nil;
 	[self showSpinner];	
 	
 	[centerMessageLabel removeFromSuperview];
-	centerMessageLabel = nil;
+	self.centerMessageLabel = nil;
 	
 	if ([self superview] == nil)
 		[self show];
@@ -163,7 +163,7 @@ static SHKActivityIndicator *currentIndicator = nil;
 	[self setSubMessage:m];
 	
 	[spinner removeFromSuperview];
-	spinner = nil;
+	self.spinner = nil;
 	
 	if ([self superview] == nil)
 		[self show];
