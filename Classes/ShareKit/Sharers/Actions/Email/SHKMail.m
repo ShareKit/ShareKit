@@ -121,6 +121,12 @@
 - (BOOL)sendMail
 {	
 	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
+	if (!mailController) {
+		// e.g. no mail account registered (will show alert)
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+		return YES;
+	}
+	
 	mailController.mailComposeDelegate = self;
 	
 	NSString *body = [item customValueForKey:@"body"];
