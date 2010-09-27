@@ -31,18 +31,19 @@ static NSString* kPermissionURL = @"http://www.facebook.com/connect/prompt_permi
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
 
+- (void)redirectToLoginDelayed {
+  _redirectTimer = nil;
+  
+  // This loads the login page, which will just redirect back to the callback url
+  // since the login cookies are set
+  [super load];
+}
+
 - (void)redirectToLogin {
   _redirectTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self
     selector:@selector(redirectToLoginDelayed) userInfo:nil repeats:NO];
 }
 
-- (void)redirectToLoginDelayed {
-  _redirectTimer = nil;
-
-  // This loads the login page, which will just redirect back to the callback url
-  // since the login cookies are set
-  [super load];
-}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // NSObject

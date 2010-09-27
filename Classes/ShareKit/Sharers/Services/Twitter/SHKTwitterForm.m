@@ -107,6 +107,8 @@
     return YES;
 }
 
+//#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (void)keyboardWillShow:(NSNotification *)notification
 {	
 	CGRect keyboardFrame;
@@ -125,6 +127,7 @@
 	 // < 3.2
 	 else 
 	 {*/
+
 	[[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
 	keyboardHeight = keyboardFrame.size.height;
 	//}
@@ -146,6 +149,7 @@
 	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,maxViewHeight);
 	[self layoutCounter];
 }
+//#pragma GCC diagnostic pop  
 
 #pragma mark -
 

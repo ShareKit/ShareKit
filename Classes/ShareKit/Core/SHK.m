@@ -34,6 +34,7 @@
 #import "Reachability.h"
 #import </usr/include/objc/objc-class.h>
 #import <MessageUI/MessageUI.h>
+#import "SHKMail.h"
 
 
 @implementation SHK
@@ -291,6 +292,8 @@ BOOL SHKinit;
 			case SHKShareTypeFile:
 				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail", nil];
 				break;
+      default:
+        return nil;
 		}
 		
 		// Save defaults to prefs
