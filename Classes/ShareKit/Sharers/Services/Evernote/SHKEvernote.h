@@ -24,11 +24,9 @@
 
 @interface SHKEvernote : SHKSharer {}
 
-- (void)authFinished:(BOOL)success;
 - (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password;
 - (EDAMNotebook *)defaultNoteBookFromNoteStore:(EDAMNoteStoreClient *)noteStore authToken:(NSString *)authToken;
 - (NSString *)enMediaTagWithResource:(EDAMResource *)src width:(CGFloat)width height:(CGFloat)height;
-- (void)sendFinished:(BOOL)success;
 
 @end
 

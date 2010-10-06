@@ -22,6 +22,14 @@
 
 @end
 
+@interface SHKEvernote(private)
+
+- (void)authFinished:(BOOL)success;
+- (void)sendFinished:(BOOL)success;
+
+@end
+
+
 @implementation SHKEvernote
 
 
@@ -57,12 +65,17 @@
 }
 
 - (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password {
+
   THTTPClient *userStoreHTTPClient = [[[THTTPClient alloc] initWithURL:[NSURL URLWithString:kEvernoteUserStoreURL]] autorelease];
   TBinaryProtocol *userStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:userStoreHTTPClient] autorelease];
   EDAMUserStoreClient *userStore = [[[EDAMUserStoreClient alloc] initWithProtocol:userStoreProtocol] autorelease];
+
 	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDMA" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
   if(!versionOK) {
-  	[[[[UIAlertView alloc] initWithTitle:@"EDMA Error" message:@"EDMA Version is too old." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:nil] autorelease] show];
+  	[[[[UIAlertView alloc] initWithTitle:@"EDMA Error"
+    														 message:@"EDMA Version is too old."
+                                delegate:nil cancelButtonTitle:@"Close"
+                       otherButtonTitles:nil] autorelease] show];
   	return nil;
   }
   return [userStore authenticate :username :password :SHKEvernoteConsumerKey :SHKEvernoteSecretKey];
@@ -145,32 +158,70 @@
 	NSString *authToken;
   NSURL *noteStoreURL;
 	@try {
+  	////////////////////////////////////////////////
+  	// Authentication
+  	////////////////////////////////////////////////
 		EDAMAuthenticationResult *authResult = [self getAuthenticationResultForUsername:[self getAuthValueForKey:@"username"] password:[self getAuthValueForKey:@"password"]];
     EDAMUser *user = [authResult user];
     authToken    = [authResult authenticationToken];
-    noteStoreURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kEvernoteNetStoreURLBase, [user shardId]]];
+    noteStoreURL = [NSURL URLWithString:[kEvernoteNetStoreURLBase stringByAppendingString:[user shardId]]];
+
+  	////////////////////////////////////////////////
+    // Make clients
+  	////////////////////////////////////////////////
     THTTPClient *noteStoreHTTPClient = [[[THTTPClient alloc] initWithURL:noteStoreURL] autorelease];
     TBinaryProtocol *noteStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:noteStoreHTTPClient] autorelease];
     EDAMNoteStoreClient *noteStore = [[[EDAMNoteStoreClient alloc] initWithProtocol:noteStoreProtocol] autorelease];
-		SHKEvernoteItem *enItem;
-		NSMutableArray *resources;
-		EDAMNote *note;
+
+  	////////////////////////////////////////////////
+    // Make EDAMNote contents
+  	////////////////////////////////////////////////
+		SHKEvernoteItem *enItem = nil;
+		NSMutableArray *resources = nil;
+		EDAMNote *note = nil;
 		if([item isKindOfClass:[SHKEvernoteItem class]]) {
-			enItem = ((SHKEvernoteItem *)item);
-			if(enItem.note) note = ((SHKEvernoteItem *)item).note;
+			enItem = (SHKEvernoteItem *)item;
+			note = enItem.note;
 			resources = [note.resources mutableCopy];
 		}
-		if(!resources) resources = [[NSMutableArray alloc] init];
-		if(!note) note = [[[EDAMNote alloc] init] autorelease];
+
+		if(!resources)
+    	resources = [[NSMutableArray alloc] init];
+		if(!note)
+    	note = [[[EDAMNote alloc] init] autorelease];
+
+		
 		EDAMNoteAttributes *atr = [note attributesIsSet] ? [note.attributes retain] : [[EDAMNoteAttributes alloc] init];
-		if(![atr sourceURLIsSet]&&enItem.URL) [atr setSourceURL:[enItem.URL absoluteString]];
-		if(![note notebookGuidIsSet]) [note setNotebookGuid:[[self defaultNoteBookFromNoteStore:noteStore authToken:authToken] guid]];
-		note.title = item.title.length > 0 ? item.title : [note titleIsSet] ? note.title: SHKLocalizedString(@"Untitled");
-		if(![note tagNamesIsSet]&&item.tags) [note setTagNames:[item.tags componentsSeparatedByString:@" "]];
+
+		if(![atr sourceURLIsSet]&&enItem.URL)
+    	[atr setSourceURL:[enItem.URL absoluteString]];
+		if(![note notebookGuidIsSet])
+    	[note setNotebookGuid:[[self defaultNoteBookFromNoteStore:noteStore authToken:authToken] guid]];
+
+		note.title = item.title.length > 0 ?
+    	item.title :
+      ( [note titleIsSet] ?
+            note.title :
+            SHKLocalizedString(@"Untitled") );
+
+		if(![note tagNamesIsSet]&&item.tags)
+    	[note setTagNames:[item.tags componentsSeparatedByString:@" "]];
+
 		if(![note contentIsSet]) {
 			NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
-			if(item.title.length>0) [contentStr appendFormat:@"<h1>%@</h1>",item.title];
-			if(item.text.length>0 ) [contentStr appendFormat:@"<p>%@</p>"  ,item.text];
+      NSString * strURL = [item.URL absoluteString];
+
+      if(strURL.length>0) {
+        if(item.title.length>0)
+        	[contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];
+      	[contentStr appendFormat:@"<p><a href=\"%@\">%@</a></p>",strURL,strURL];
+        atr.sourceURL = strURL;
+      } else if(item.title.length>0)
+        [contentStr appendFormat:@"<h1>%@</h1>",item.title];
+
+			if(item.text.length>0 )
+      	[contentStr appendFormat:@"<p>%@</p>",item.text];
+
 			if(item.image) {
 				EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
 				NSData *rawimg = UIImageJPEGRepresentation(item.image, 0.6);
@@ -181,6 +232,7 @@
 				[resources addObject:img];
 				[contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:item.image.size.width height:item.image.size.height]]];
 			}
+
 			if(item.data) {
 				EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
 				EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.data size:[item.data length] body:item.data] autorelease];
@@ -194,6 +246,12 @@
 			[note setContent:contentStr];
 			[contentStr release];
 		}
+    
+    
+  	////////////////////////////////////////////////
+    // Replace <img> HTML elements with en-media elements
+  	////////////////////////////////////////////////
+
 		for(EDAMResource *res in resources) {
 			if(![res dataIsSet]&&[res attributesIsSet]&&res.attributes.sourceURL.length>0&&[res.mime isEqualToString:@"image/jpeg"]) {
 				@try {
@@ -209,7 +267,7 @@
 					}
 				}
 				@catch (NSException * e) {
-					NSLog(@"%@",e);
+					NSLog(@"Caught: %@",e);
 				}
 			}
 		}
@@ -227,7 +285,7 @@
   @catch (NSException * e) {
     NSLog(@"%@",e);
   }
-	[self performSelectorOnMainThread:@selector(_sendFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:FALSE];
+	[self performSelectorOnMainThread:@selector(_sendFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:YES];
 	[pool release];
 }
 
