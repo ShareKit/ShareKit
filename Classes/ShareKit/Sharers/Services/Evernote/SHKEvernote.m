@@ -1,4 +1,10 @@
-//  Created by Atsushi Nagase on 8/27/10.
+//
+//  SHKEvernote
+//  ShareKit Evernote Additions
+//
+//  Created by Atsushi Nagase on 8/28/10.
+//  Copyright 2010 LittleApps Inc. All rights reserved.
+//
 
 #import "SHKEvernote.h"
 #import "THTTPClient.h"
