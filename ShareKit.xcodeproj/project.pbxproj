@@ -87,27 +87,10 @@
 		43C91DF511EBAE4800F31FAE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
-		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
-		8563E2AD125C8558002D729F /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E289125C8558002D729F /* EDAMLimits.m */; };
-		8563E2AE125C8558002D729F /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E28B125C8558002D729F /* Errors.m */; };
-		8563E2AF125C8558002D729F /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E28D125C8558002D729F /* NoteStore.m */; };
-		8563E2B0125C8558002D729F /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E28F125C8558002D729F /* Types.m */; };
-		8563E2B1125C8558002D729F /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E291125C8558002D729F /* UserStore.m */; };
-		8563E2B2125C8558002D729F /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E295125C8558002D729F /* TBinaryProtocol.m */; };
-		8563E2B3125C8558002D729F /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E298125C8558002D729F /* TProtocolException.m */; };
-		8563E2B4125C8558002D729F /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E29B125C8558002D729F /* TProtocolUtil.m */; };
-		8563E2B5125C8558002D729F /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E29E125C8558002D729F /* TApplicationException.m */; };
-		8563E2B6125C8558002D729F /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E2A0125C8558002D729F /* TException.m */; };
-		8563E2B7125C8558002D729F /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E2A5125C8558002D729F /* THTTPClient.m */; };
-		8563E2B8125C8558002D729F /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E2A7125C8558002D729F /* TMemoryBuffer.m */; };
-		8563E2B9125C8558002D729F /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E2AA125C8558002D729F /* TTransportException.m */; };
-		8563E2BA125C8558002D729F /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E2AC125C8558002D729F /* TSharedProcessorFactory.m */; };
-		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
-		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		042A55A81288E635005A00B8 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = ../../projects/ShareKit/Classes/ShareKit/Localization/zh_CN.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* ShareKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -260,46 +243,8 @@
 		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
 		43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		8563E282125C8512002D729F /* SHKEvernote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKEvernote.h; sourceTree = "<group>"; };
-		8563E283125C8512002D729F /* SHKEvernote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKEvernote.m; sourceTree = "<group>"; };
-		8563E288125C8558002D729F /* EDAMLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMLimits.h; sourceTree = "<group>"; };
-		8563E289125C8558002D729F /* EDAMLimits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMLimits.m; sourceTree = "<group>"; };
-		8563E28A125C8558002D729F /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
-		8563E28B125C8558002D729F /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
-		8563E28C125C8558002D729F /* NoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteStore.h; sourceTree = "<group>"; };
-		8563E28D125C8558002D729F /* NoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteStore.m; sourceTree = "<group>"; };
-		8563E28E125C8558002D729F /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		8563E28F125C8558002D729F /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
-		8563E290125C8558002D729F /* UserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStore.h; sourceTree = "<group>"; };
-		8563E291125C8558002D729F /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
-		8563E294125C8558002D729F /* TBinaryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBinaryProtocol.h; sourceTree = "<group>"; };
-		8563E295125C8558002D729F /* TBinaryProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBinaryProtocol.m; sourceTree = "<group>"; };
-		8563E296125C8558002D729F /* TProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocol.h; sourceTree = "<group>"; };
-		8563E297125C8558002D729F /* TProtocolException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolException.h; sourceTree = "<group>"; };
-		8563E298125C8558002D729F /* TProtocolException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolException.m; sourceTree = "<group>"; };
-		8563E299125C8558002D729F /* TProtocolFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolFactory.h; sourceTree = "<group>"; };
-		8563E29A125C8558002D729F /* TProtocolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolUtil.h; sourceTree = "<group>"; };
-		8563E29B125C8558002D729F /* TProtocolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolUtil.m; sourceTree = "<group>"; };
-		8563E29D125C8558002D729F /* TApplicationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TApplicationException.h; sourceTree = "<group>"; };
-		8563E29E125C8558002D729F /* TApplicationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TApplicationException.m; sourceTree = "<group>"; };
-		8563E29F125C8558002D729F /* TException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TException.h; sourceTree = "<group>"; };
-		8563E2A0125C8558002D729F /* TException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TException.m; sourceTree = "<group>"; };
-		8563E2A1125C8558002D729F /* TProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessor.h; sourceTree = "<group>"; };
-		8563E2A2125C8558002D729F /* TProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessorFactory.h; sourceTree = "<group>"; };
-		8563E2A4125C8558002D729F /* THTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THTTPClient.h; sourceTree = "<group>"; };
-		8563E2A5125C8558002D729F /* THTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THTTPClient.m; sourceTree = "<group>"; };
-		8563E2A6125C8558002D729F /* TMemoryBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMemoryBuffer.h; sourceTree = "<group>"; };
-		8563E2A7125C8558002D729F /* TMemoryBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMemoryBuffer.m; sourceTree = "<group>"; };
-		8563E2A8125C8558002D729F /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
-		8563E2A9125C8558002D729F /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
-		8563E2AA125C8558002D729F /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
-		8563E2AB125C8558002D729F /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
-		8563E2AC125C8558002D729F /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
-		8563E340125C884A002D729F /* NSData+md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+md5.h"; sourceTree = "<group>"; };
-		8563E341125C884A002D729F /* NSData+md5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+md5.m"; sourceTree = "<group>"; };
-		8563E437125C8D1E002D729F /* de */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		43FF9C7312270E9F00ADE53C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		43FF9C7512270EB900ADE53C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -430,7 +375,6 @@
 				43A536B511DBE3B9004A1712 /* Sharers */,
 				43A536ED11DBE3B9004A1712 /* UI */,
 				43A536B211DBE3B9004A1712 /* Reachability */,
-				8563E285125C8558002D729F /* Vendors */,
 			);
 			path = ShareKit;
 			sourceTree = "<group>";
@@ -467,8 +411,6 @@
 		43A5367811DBE3B9004A1712 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				8563E340125C884A002D729F /* NSData+md5.h */,
-				8563E341125C884A002D729F /* NSData+md5.m */,
 				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
 				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
 			);
@@ -619,7 +561,6 @@
 			isa = PBXGroup;
 			children = (
 				43A536C111DBE3B9004A1712 /* Delicious */,
-				8563E281125C8512002D729F /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
@@ -784,106 +725,9 @@
 		43FF9C7112270E7F00ADE53C /* Localization */ = {
 			isa = PBXGroup;
 			children = (
-				8563E436125C8D1E002D729F /* Localizable.strings */,
+				43FF9C7212270E9F00ADE53C /* Localizable.strings */,
 			);
 			name = Localization;
-			sourceTree = "<group>";
-		};
-		8563E281125C8512002D729F /* Evernote */ = {
-			isa = PBXGroup;
-			children = (
-				8563E282125C8512002D729F /* SHKEvernote.h */,
-				8563E283125C8512002D729F /* SHKEvernote.m */,
-			);
-			path = Evernote;
-			sourceTree = "<group>";
-		};
-		8563E285125C8558002D729F /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				8563E286125C8558002D729F /* Evernote */,
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
-		8563E286125C8558002D729F /* Evernote */ = {
-			isa = PBXGroup;
-			children = (
-				8563E287125C8558002D729F /* edam */,
-				8563E292125C8558002D729F /* thrift */,
-			);
-			path = Evernote;
-			sourceTree = "<group>";
-		};
-		8563E287125C8558002D729F /* edam */ = {
-			isa = PBXGroup;
-			children = (
-				8563E288125C8558002D729F /* EDAMLimits.h */,
-				8563E289125C8558002D729F /* EDAMLimits.m */,
-				8563E28A125C8558002D729F /* Errors.h */,
-				8563E28B125C8558002D729F /* Errors.m */,
-				8563E28C125C8558002D729F /* NoteStore.h */,
-				8563E28D125C8558002D729F /* NoteStore.m */,
-				8563E28E125C8558002D729F /* Types.h */,
-				8563E28F125C8558002D729F /* Types.m */,
-				8563E290125C8558002D729F /* UserStore.h */,
-				8563E291125C8558002D729F /* UserStore.m */,
-			);
-			path = edam;
-			sourceTree = "<group>";
-		};
-		8563E292125C8558002D729F /* thrift */ = {
-			isa = PBXGroup;
-			children = (
-				8563E293125C8558002D729F /* protocol */,
-				8563E29C125C8558002D729F /* server */,
-				8563E29D125C8558002D729F /* TApplicationException.h */,
-				8563E29E125C8558002D729F /* TApplicationException.m */,
-				8563E29F125C8558002D729F /* TException.h */,
-				8563E2A0125C8558002D729F /* TException.m */,
-				8563E2A1125C8558002D729F /* TProcessor.h */,
-				8563E2A2125C8558002D729F /* TProcessorFactory.h */,
-				8563E2A3125C8558002D729F /* transport */,
-				8563E2AB125C8558002D729F /* TSharedProcessorFactory.h */,
-				8563E2AC125C8558002D729F /* TSharedProcessorFactory.m */,
-			);
-			path = thrift;
-			sourceTree = "<group>";
-		};
-		8563E293125C8558002D729F /* protocol */ = {
-			isa = PBXGroup;
-			children = (
-				8563E294125C8558002D729F /* TBinaryProtocol.h */,
-				8563E295125C8558002D729F /* TBinaryProtocol.m */,
-				8563E296125C8558002D729F /* TProtocol.h */,
-				8563E297125C8558002D729F /* TProtocolException.h */,
-				8563E298125C8558002D729F /* TProtocolException.m */,
-				8563E299125C8558002D729F /* TProtocolFactory.h */,
-				8563E29A125C8558002D729F /* TProtocolUtil.h */,
-				8563E29B125C8558002D729F /* TProtocolUtil.m */,
-			);
-			path = protocol;
-			sourceTree = "<group>";
-		};
-		8563E29C125C8558002D729F /* server */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = server;
-			sourceTree = "<group>";
-		};
-		8563E2A3125C8558002D729F /* transport */ = {
-			isa = PBXGroup;
-			children = (
-				8563E2A4125C8558002D729F /* THTTPClient.h */,
-				8563E2A5125C8558002D729F /* THTTPClient.m */,
-				8563E2A6125C8558002D729F /* TMemoryBuffer.h */,
-				8563E2A7125C8558002D729F /* TMemoryBuffer.m */,
-				8563E2A8125C8558002D729F /* TTransport.h */,
-				8563E2A9125C8558002D729F /* TTransportException.h */,
-				8563E2AA125C8558002D729F /* TTransportException.m */,
-			);
-			path = transport;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -913,7 +757,6 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ShareKit" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -922,12 +765,6 @@
 				German,
 				en,
 				de,
-<<<<<<< HEAD
-				ja,
-=======
-				zh_CN,
-				zh,
->>>>>>> f925b98... Added localization strings for Simplified Chinese.
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -950,7 +787,7 @@
 				43A5382811DBE480004A1712 /* example.pdf in Resources */,
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
-				8563E43A125C8D1E002D729F /* Localizable.strings in Resources */,
+				43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1028,40 +865,17 @@
 				43C91DF511EBAE4800F31FAE /* SHKTumblr.m in Sources */,
 				43B934B511FE682600C9D3F3 /* SHKFBStreamDialog.m in Sources */,
 				432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */,
-				8563E284125C8512002D729F /* SHKEvernote.m in Sources */,
-				8563E2AD125C8558002D729F /* EDAMLimits.m in Sources */,
-				8563E2AE125C8558002D729F /* Errors.m in Sources */,
-				8563E2AF125C8558002D729F /* NoteStore.m in Sources */,
-				8563E2B0125C8558002D729F /* Types.m in Sources */,
-				8563E2B1125C8558002D729F /* UserStore.m in Sources */,
-				8563E2B2125C8558002D729F /* TBinaryProtocol.m in Sources */,
-				8563E2B3125C8558002D729F /* TProtocolException.m in Sources */,
-				8563E2B4125C8558002D729F /* TProtocolUtil.m in Sources */,
-				8563E2B5125C8558002D729F /* TApplicationException.m in Sources */,
-				8563E2B6125C8558002D729F /* TException.m in Sources */,
-				8563E2B7125C8558002D729F /* THTTPClient.m in Sources */,
-				8563E2B8125C8558002D729F /* TMemoryBuffer.m in Sources */,
-				8563E2B9125C8558002D729F /* TTransportException.m in Sources */,
-				8563E2BA125C8558002D729F /* TSharedProcessorFactory.m in Sources */,
-				8563E342125C884A002D729F /* NSData+md5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		8563E436125C8D1E002D729F /* Localizable.strings */ = {
+		43FF9C7212270E9F00ADE53C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-<<<<<<< HEAD
-				8563E437125C8D1E002D729F /* de */,
-				8563E438125C8D1E002D729F /* en */,
-				8563E439125C8D1E002D729F /* ja */,
-=======
 				43FF9C7312270E9F00ADE53C /* en */,
 				43FF9C7512270EB900ADE53C /* de */,
-				042A55A81288E635005A00B8 /* zh_CN */,
->>>>>>> f925b98... Added localization strings for Simplified Chinese.
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1079,15 +893,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
-				HEADER_SEARCH_PATHS = "Classes/ShareKit/Vendors/Evernote/**";
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = ShareKit;
-<<<<<<< HEAD
-				SDKROOT = iphoneos4.1;
-=======
-				SDKROOT = iphoneos;
->>>>>>> f925b98... Added localization strings for Simplified Chinese.
+				SDKROOT = iphoneos4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1100,11 +909,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
-				HEADER_SEARCH_PATHS = "Classes/ShareKit/Vendors/Evernote/**";
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = ShareKit;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1120,7 +928,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1136,7 +944,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
