@@ -80,6 +80,9 @@ typedef enum
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
+- (void)shortenURL;
+- (void)shortenURLFinished:(SHKRequest *)aRequest;
+
 + (NSString *)sharerTitle;
 - (NSString *)sharerTitle;
 + (NSString *)sharerId;

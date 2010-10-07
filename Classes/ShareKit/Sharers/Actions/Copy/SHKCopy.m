@@ -71,22 +71,28 @@
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)send
-{	
-	if (item.shareType == SHKShareTypeURL)
-		[[UIPasteboard generalPasteboard] setString:item.URL.absoluteString];
+- (BOOL)send {	
 	
-	else
+	if (item.shareType == SHKShareTypeURL) [self shortenURL];
+	else {
 		[[UIPasteboard generalPasteboard] setImage:item.image];
-	
-	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
-	
-	// Notify delegate, but quietly
-	self.quiet = YES;
-	[self sendDidFinish];
-	
+		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
+	}
 	return YES;
 }
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest {
+	[super shortenURLFinished:aRequest];
+	
+	NSString *urlStr = [item customValueForKey:@"shortenURL"]; 
+	if(urlStr==nil||urlStr.length==0) 
+		urlStr = item.URL.absoluteString;
+
+	[[UIPasteboard generalPasteboard] setString:urlStr];
+
+	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
+	
+}
+
 
 @end
