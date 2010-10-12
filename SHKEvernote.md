@@ -62,6 +62,7 @@ This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 	SHKEvernoteItem *item = [[SHKEvernoteItem alloc] init] autorelease];
 	item.title = noteTitle;
 	item.shareType = SHKShareTypeURL;
+	item.note = note;
 	
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[actionSheet showFromToolbar:self.navigationController.toolbar]; 
