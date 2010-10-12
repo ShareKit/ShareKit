@@ -105,8 +105,10 @@
 {
 	if (![self validateItem])
 		return NO;
-	
-	[self shortenURL];
+	if(kSHKEmailShouldShortenURLs)
+		[self shortenURL];
+	else
+		[self sendMail];
 	return YES; // Put the actual sending action in another method to make subclassing SHKMail easier
 }
 

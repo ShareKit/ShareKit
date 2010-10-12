@@ -73,7 +73,12 @@
 
 - (BOOL)send {	
 	
-	if (item.shareType == SHKShareTypeURL) [self shortenURL];
+	if (item.shareType == SHKShareTypeURL) {
+		if(kSHKCopyShouldShortenURLs)
+			[self shortenURL];
+		else
+			[self copyToPasteboard:item.URL.absoluteString];
+	}
 	else {
 		[[UIPasteboard generalPasteboard] setImage:item.image];
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
@@ -87,12 +92,14 @@
 	NSString *urlStr = [item customValueForKey:@"shortenURL"]; 
 	if(urlStr==nil||urlStr.length==0) 
 		urlStr = item.URL.absoluteString;
-
-	[[UIPasteboard generalPasteboard] setString:urlStr];
-
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
-	
+	[self copyToPasteboard:urlStr];
 }
+
+- (void)copyToPasteboard:(NSString *)urlStr {
+	[[UIPasteboard generalPasteboard] setString:urlStr];
+	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
+}
+
 
 
 @end

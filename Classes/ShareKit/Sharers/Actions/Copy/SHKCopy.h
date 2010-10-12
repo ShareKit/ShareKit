@@ -33,4 +33,6 @@
 
 }
 
+- (void)copyToPasteboard:(NSString *)urlStr;
+
 @end
