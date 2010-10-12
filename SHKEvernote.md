@@ -14,7 +14,9 @@ When you received an API Key, define them to `SHKEvernoteConsumerKey` and `SHKEv
 
 ## Sending custom EDAM content
 If you want to send custom EDAM content, use `SHKEvernoteItem` instead of `SHKItem`.
+
 This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
+
 
 	#import SHKEvernote.h
 	
@@ -30,7 +32,7 @@ This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 	// Resources to embed
 	NSMutableArray *resources = [NSMutableArray array];
 
-	[content appendString:@"<p><a href=€"http://www.apple.com/€">Apple </a></p>"];
+	[content appendString:@"<p><a href=\"http://www.apple.com/\">Apple </a></p>"];
 
 	// Image to clip
 	NSString *myImageURL = @"http://images.apple.com/iphone/home/images/route-facetime-20100923.png";
@@ -47,7 +49,7 @@ This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 	[resources addObject:imgResource];
 	// Plural embed images are supported,
 	// but this makes slow sharing process
-	[content appendFormat:@"<p><img src=€"%@€" /></p>",myImageURL];
+	[content appendFormat:@"<p><img src=\"%@\" /></p>",myImageURL];
 	// img element will be replaced with en-media element automatically.
 	
 	
