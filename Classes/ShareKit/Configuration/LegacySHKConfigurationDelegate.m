@@ -71,7 +71,10 @@
 						 nil];
 	}
 	
-	NSLog(@"Default configuration: %@", configuration);
+	if(SHKDebugShowLogs) {
+		SHKLog(@"Legacy configuration: %@", configuration);
+	}
+
     return self;	
 }
 

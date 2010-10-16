@@ -26,19 +26,39 @@
 //
 
 #import "SHKConfiguration.h"
+#import "SHKConfig.h"
 #import "LegacySHKConfigurationDelegate.h"
 
 static SHKConfiguration *sharedInstance = nil;
 
 @implementation SHKConfiguration
 
+@synthesize delegate;
+
 #pragma mark -
-#pragma mark class instance methods
+#pragma mark Instance methods
+
+- (id)configurationValue:(NSString*)selector
+{
+	SHKLog(@"Looking for a configuration value for %@.", selector);
+
+	SEL sel = NSSelectorFromString(selector);
+	if ([delegate respondsToSelector:sel]) {
+		NSString *value = [delegate performSelector:sel];
+		if (value) {
+			SHKLog(@"Found configuration value for %@: %@", selector, value);
+			return value;
+		}
+	}
+
+	SHKLog(@"Didn't find a configuration value for %@.", selector);
+	return nil;
+}
 
 #pragma mark -
 #pragma mark Singleton methods
 
-@synthesize delegate;
+// Singleton template based on http://stackoverflow.com/questions/145154
 
 + (SHKConfiguration*)sharedInstance
 {
@@ -100,22 +120,6 @@ static SHKConfiguration *sharedInstance = nil;
 
 - (id)autorelease {
     return self;
-}
-
-- (id)configurationValue:(NSString*)selector
-{
-	NSLog(@"Looking for a configuration value for %@.", selector);
-	NSString *value;
-	SEL sel = NSSelectorFromString(selector);
-	if ([delegate respondsToSelector:sel]) {
-		value = [delegate performSelector:sel];
-		if (value) {
-			NSLog(@"Found configuration value for %@: %@", selector, value);
-			return value;
-		}
-	}
-	NSLog(@"Didn't find a configuration value for %@.", selector);
-	return nil;
 }
 
 @end
