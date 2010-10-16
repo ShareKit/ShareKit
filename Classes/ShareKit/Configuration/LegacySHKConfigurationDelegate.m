@@ -92,14 +92,4 @@
 		return configValue;
 	}
 }
-
-- (void)forwardInvocation:(NSInvocation *)anInvocation
-{
-	NSString *configValue = [configuration objectForKey:NSStringFromSelector([anInvocation selector])];
-	if(configValue == nil) {
-		[super forwardInvocation:anInvocation];
-	} else {
-		[anInvocation setReturnValue:configValue];
-	}
-}
 @end
