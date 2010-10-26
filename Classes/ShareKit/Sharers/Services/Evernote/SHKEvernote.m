@@ -89,6 +89,7 @@
 }
 
 - (void)_authorizationFormValidate:(NSDictionary *)args {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	BOOL success = NO;
   @try {
 		EDAMAuthenticationResult *authResult = [self getAuthenticationResultForUsername:[args valueForKey:@"username"] password:[args valueForKey:@"password"]];
@@ -97,7 +98,8 @@
   @catch (NSException * e) {
 		NSLog(@"Caught %@: %@ %@", [e name], [e reason],e);
 	}	
-	[self performSelectorOnMainThread:@selector(_authFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:FALSE];
+	[self performSelectorOnMainThread:@selector(_authFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:YES];
+    [pool release];
 }
 
 - (void)_authFinished:(NSDictionary *)args {
