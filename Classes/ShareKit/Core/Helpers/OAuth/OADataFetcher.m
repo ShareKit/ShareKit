@@ -52,6 +52,7 @@
         [delegate performSelector:didFailSelector
                        withObject:ticket
                        withObject:error];
+		[ticket release];
     } else {
         OAServiceTicket *ticket = [[OAServiceTicket alloc] initWithRequest:request
                                                                   response:response
@@ -59,6 +60,7 @@
         [delegate performSelector:didFinishSelector
                        withObject:ticket
                        withObject:responseData];
+		[ticket release];
     }   
 }
 
