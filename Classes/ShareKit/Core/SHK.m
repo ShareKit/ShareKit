@@ -199,6 +199,9 @@ BOOL SHKinit;
 	if (currentView != nil)
 		currentView = nil;
 	
+    if (rootViewController != nil)
+        rootViewController = nil;
+
 	if (pendingView)
 	{
 		// This is an ugly way to do it, but it works.
