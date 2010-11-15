@@ -49,7 +49,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Email";
+	return SHKLocalizedString(@"Email");
 }
 
 + (BOOL)canShareText

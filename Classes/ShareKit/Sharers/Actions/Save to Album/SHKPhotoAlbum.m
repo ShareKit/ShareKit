@@ -35,7 +35,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Save to Photo Album";
+	return SHKLocalizedString(@"Save to Photo Album");
 }
 
 + (BOOL)canShareImage
@@ -72,7 +72,7 @@
 		UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
 	
 	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:@"Saved!"];
+	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
 	
 	return YES;
 }
