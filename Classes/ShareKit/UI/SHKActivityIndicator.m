@@ -149,7 +149,7 @@ static SHKActivityIndicator *currentIndicator = nil;
 	[self showSpinner];	
 	
 	[centerMessageLabel removeFromSuperview];
-	centerMessageLabel = nil;
+	self.centerMessageLabel = nil;
 	
 	if ([self superview] == nil)
 		[self show];
@@ -163,7 +163,7 @@ static SHKActivityIndicator *currentIndicator = nil;
 	[self setSubMessage:m];
 	
 	[spinner removeFromSuperview];
-	spinner = nil;
+	self.spinner = nil;
 	
 	if ([self superview] == nil)
 		[self show];
@@ -262,6 +262,9 @@ static SHKActivityIndicator *currentIndicator = nil;
 	
 	if (orientation == UIDeviceOrientationPortraitUpsideDown)
 		self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, SHKdegreesToRadians(180));	
+		
+	else if (orientation == UIDeviceOrientationPortrait)
+		self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, SHKdegreesToRadians(0)); 
 	
 	else if (orientation == UIDeviceOrientationLandscapeLeft)
 		self.transform = CGAffineTransformRotate(CGAffineTransformIdentity, SHKdegreesToRadians(90));	

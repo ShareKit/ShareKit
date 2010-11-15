@@ -1,8 +1,8 @@
 //
-//  SHKMail.m
+//  SHKTextMessage.m
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/17/10.
+//  Created by Jeremy Lyman on 9/21/10.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,13 +25,13 @@
 //
 //
 
-#import "SHKMail.h"
+#import "SHKTextMessage.h"
 
 
-@implementation MFMailComposeViewController (SHK)
+@implementation MFMessageComposeViewController (SHK)
 
 - (void)SHKviewDidDisappear:(BOOL)animated
-{	
+{
 	[super viewDidDisappear:animated];
 	
 	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
@@ -43,14 +43,14 @@
 
 
 
-@implementation SHKMail
+@implementation SHKTextMessage
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
 + (NSString *)sharerTitle
 {
-	return SHKLocalizedString(@"Email");
+	return @"SMS";
 }
 
 + (BOOL)canShareText
@@ -65,12 +65,12 @@
 
 + (BOOL)canShareImage
 {
-	return YES;
+	return NO;
 }
 
 + (BOOL)canShareFile
 {
-	return YES;
+	return NO;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -89,7 +89,7 @@
 
 + (BOOL)canShare
 {
-	return [MFMailComposeViewController canSendMail];
+	return [MFMessageComposeViewController canSendText];
 }
 
 - (BOOL)shouldAutoShare
@@ -109,24 +109,17 @@
 	if (![self validateItem])
 		return NO;
 	
-	return [self sendMail]; // Put the actual sending action in another method to make subclassing SHKMail easier
+	return [self sendText]; // Put the actual sending action in another method to make subclassing SHKTextMessage easier
 }
 
-- (BOOL)sendMail
+- (BOOL)sendText
 {	
-	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
-	if (!mailController) {
-		// e.g. no mail account registered (will show alert)
-		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-		return YES;
-	}
+	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
+	composeView.messageComposeDelegate = self;
 	
-	mailController.mailComposeDelegate = self;
+	NSString * body = [item customValueForKey:@"body"];
 	
-	NSString *body = [item customValueForKey:@"body"];
-	
-	if (body == nil)
-	{
+	if (!body) {
 		if (item.text != nil)
 			body = item.text;
 		
@@ -141,63 +134,38 @@
 				body = urlStr;
 		}
 		
-		if (item.data)
-		{
-			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
-			
-			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", attachedStr];
-			
-			else
-				body = attachedStr;
-		}
-		
 		// fallback
 		if (body == nil)
 			body = @"";
-		
-		// sig
-		if (SHKSharedWithSignature)
-		{
-			body = [body stringByAppendingString:@"<br/><br/>"];
-			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKMyAppName)];
-		}
 		
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];
 	}
 	
-	if (item.data)		
-		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
-	
-	if (item.image)
-		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, 1) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
-	
-	[mailController setSubject:item.title];
-	[mailController setMessageBody:body isHTML:YES];
-			
-	[[SHK currentHelper] showViewController:mailController];
+	[composeView setBody:body];
+	[[SHK currentHelper] showViewController:composeView];
 	
 	return YES;
 }
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
+				 didFinishWithResult:(MessageComposeResult)result 
 {
+	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	
-	switch (result) 
+	switch (result)
 	{
-		case MFMailComposeResultSent:
-			[self sendDidFinish];
-			break;
-		case MFMailComposeResultSaved:
-			[self sendDidFinish];
-			break;
-		case MFMailComposeResultCancelled:
+		case MessageComposeResultCancelled:
 			[self sendDidCancel];
 			break;
-		case MFMailComposeResultFailed:
+		case MessageComposeResultSent:
+			[self sendDidFinish];
+			break;
+		case MessageComposeResultFailed:
 			[self sendDidFailWithError:nil];
+			break;
+		default:
 			break;
 	}
 }

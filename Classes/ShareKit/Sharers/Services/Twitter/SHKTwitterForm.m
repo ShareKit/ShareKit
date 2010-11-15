@@ -201,6 +201,7 @@
 - (void)cancel
 {	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[(SHKTwitter *)delegate sendDidCancel];
 }
 
 - (void)save

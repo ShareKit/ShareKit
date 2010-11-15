@@ -1,8 +1,8 @@
 //
-//  SHKFormFieldCell.h
+//  SHKTextMessage.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/17/10.
+//  Created by Jeremy Lyman on 9/21/10.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,37 +25,15 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-#import "SHK.h"
+#import <Foundation/Foundation.h>
+#import <MessageUI/MessageUI.h>
+#import "SHKSharer.h"
 
-@class SHKFormController;
-
-@interface SHKFormFieldCell : UITableViewCell 
+@interface SHKTextMessage : SHKSharer <MFMessageComposeViewControllerDelegate>
 {
-	SHKFormFieldSettings *settings;
 	
-	CGFloat labelWidth;
-	
-	UITextField *textField;
-	UISwitch *toggle;
-	
-	NSString *tmpValue;
-	
-	SHKFormController *form;
 }
 
-@property (nonatomic, retain) SHKFormFieldSettings *settings;
-
-@property (nonatomic) CGFloat labelWidth;
-
-@property (nonatomic, retain, getter=getTextField) UITextField *textField;
-@property (nonatomic, retain) UISwitch *toggle;
-
-@property (nonatomic, retain) NSString *tmpValue;
-
-@property (nonatomic, assign) SHKFormController *form;
-
-- (void)setValue:(NSString *)value;
-- (NSString *)getValue;
+- (BOOL)sendText;
 
 @end

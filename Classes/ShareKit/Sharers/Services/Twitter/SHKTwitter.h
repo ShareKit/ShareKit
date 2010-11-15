@@ -45,6 +45,9 @@
 #pragma mark -
 #pragma mark Share API Methods
 
+- (void)shortenURL;
+- (void)shortenURLFinished:(SHKRequest *)aRequest;
+
 - (void)sendForm:(SHKTwitterForm *)form;
 
 - (void)sendStatus;

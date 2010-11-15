@@ -53,72 +53,86 @@
 #pragma mark Authentication
 
 // Return the form fields required to authenticate the user with the service
-+ (NSArray *)authorizationFormFields {
++ (NSArray *)authorizationFormFields 
+{
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],			
 			nil];
 }
 
-+ (NSString *)authorizationFormCaption {
-	return SHKLocalizedString(@"Create a free account at %@", @"www.evernote.com/Registration.action");
++ (NSString *)authorizationFormCaption 
+{
+	return SHKLocalizedString(@"Create a free account at %@", @"Evernote.com");
 }
 
-- (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password {
-
-  THTTPClient *userStoreHTTPClient = [[[THTTPClient alloc] initWithURL:[NSURL URLWithString:kEvernoteUserStoreURL]] autorelease];
-  TBinaryProtocol *userStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:userStoreHTTPClient] autorelease];
-  EDAMUserStoreClient *userStore = [[[EDAMUserStoreClient alloc] initWithProtocol:userStoreProtocol] autorelease];
-
-	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDMA" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
-  if(!versionOK) {
-  	[[[[UIAlertView alloc] initWithTitle:@"EDMA Error"
-    														 message:@"EDMA Version is too old."
-                                delegate:nil cancelButtonTitle:@"Close"
-                       otherButtonTitles:nil] autorelease] show];
-  	return nil;
-  }
-  return [userStore authenticate :username :password :SHKEvernoteConsumerKey :SHKEvernoteSecretKey];
-}
-
-- (void)authorizationFormValidate:(SHKFormController *)form {
+- (void)authorizationFormValidate:(SHKFormController *)form 
+{
+	// Display an activity indicator
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+	
+	// Authorize the user through the server
 	self.pendingForm = form;
 	[NSThread detachNewThreadSelector:@selector(_authorizationFormValidate:) toTarget:self withObject:[form formValues]];
 }
 
-- (void)_authorizationFormValidate:(NSDictionary *)args {
+- (void)_authorizationFormValidate:(NSDictionary *)args 
+{
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	BOOL success = NO;
-  @try {
+	@try {
 		EDAMAuthenticationResult *authResult = [self getAuthenticationResultForUsername:[args valueForKey:@"username"] password:[args valueForKey:@"password"]];
 		success = authResult&&[authResult userIsSet]&&[authResult authenticationTokenIsSet];
-  }
-  @catch (NSException * e) {
-		NSLog(@"Caught %@: %@ %@", [e name], [e reason],e);
+	}
+	@catch (NSException * e) {
+		SHKLog(@"Caught %@: %@ %@", [e name], [e reason],e);
 	}	
 	[self performSelectorOnMainThread:@selector(_authFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:YES];
     [pool release];
 }
 
-- (void)_authFinished:(NSDictionary *)args {
+- (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password 
+{
+	THTTPClient *userStoreHTTPClient = [[[THTTPClient alloc] initWithURL:[NSURL URLWithString:SHKEvernoteUserStoreURL]] autorelease];
+	TBinaryProtocol *userStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:userStoreHTTPClient] autorelease];
+	EDAMUserStoreClient *userStore = [[[EDAMUserStoreClient alloc] initWithProtocol:userStoreProtocol] autorelease];
+
+	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDMA" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
+	if(!versionOK) 
+	{
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"EDMA Error")
+									 message:SHKLocalizedString(@"EDMA Version is too old.")
+									delegate:nil 
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
+						   otherButtonTitles:nil] autorelease] show];
+		return nil;
+	}
+	return [userStore authenticate :username :password :SHKEvernoteConsumerKey :SHKEvernoteSecretKey];
+}
+
+- (void)_authFinished:(NSDictionary *)args 
+{
 	[self authFinished:[[args valueForKey:@"success"] isEqualToString:@"1"]];
 }
 
-- (void)authFinished:(BOOL)success {
+- (void)authFinished:(BOOL)success 
+{
 	[[SHKActivityIndicator currentIndicator] hide];
-  if(!success) {
+	if(!success)
+	{
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error") message:SHKLocalizedString(@"Your username and password did not match") delegate:nil cancelButtonTitle:SHKLocalizedString(@"Close") otherButtonTitles:nil] autorelease] show];
-    return;
-  }
-  [pendingForm saveForm];
+		return;
+	}
+	else
+		[pendingForm saveForm];
 }
 
 #pragma mark -
 #pragma mark Share Form
 
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type 
+{
 	return [NSArray arrayWithObjects:
 	 [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
 	 //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:item.text],
@@ -126,9 +140,8 @@
 	 nil];
 }
 
-// + (BOOL)canAutoShare { return NO; }
-
-- (void)shareFormValidate:(SHKCustomFormController *)form {	
+- (void)shareFormValidate:(SHKCustomFormController *)form 
+{	
 	[form saveForm];
 }
 
@@ -159,6 +172,8 @@
 	BOOL success = NO;
 	NSString *authToken;
   NSURL *noteStoreURL;
+	NSString *errorMessage = nil;
+	BOOL shouldRelogin = NO;
 	@try {
   	////////////////////////////////////////////////
   	// Authentication
@@ -166,7 +181,7 @@
 		EDAMAuthenticationResult *authResult = [self getAuthenticationResultForUsername:[self getAuthValueForKey:@"username"] password:[self getAuthValueForKey:@"password"]];
     EDAMUser *user = [authResult user];
     authToken    = [authResult authenticationToken];
-    noteStoreURL = [NSURL URLWithString:[kEvernoteNetStoreURLBase stringByAppendingString:[user shardId]]];
+    noteStoreURL = [NSURL URLWithString:[SHKEvernoteNetStoreURLBase stringByAppendingString:[user shardId]]];
 
   	////////////////////////////////////////////////
     // Make clients
@@ -269,7 +284,7 @@
 					}
 				}
 				@catch (NSException * e) {
-					NSLog(@"Caught: %@",e);
+					SHKLog(@"Caught: %@",e);
 				}
 			}
 		}
@@ -280,14 +295,56 @@
     [note setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
     EDAMNote *createdNote = [noteStore createNote:authToken :note];
     if (createdNote != NULL) {
-      NSLog(@"Created note: %@", [createdNote title]);
+      SHKLog(@"Created note: %@", [createdNote title]);
 			success = YES;
     }
   }
-  @catch (NSException * e) {
-    NSLog(@"%@",e);
-  }
-	[self performSelectorOnMainThread:@selector(_sendFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:YES];
+  @catch (EDAMUserException * e) 
+	{
+		SHKLog(@"%@",e);
+		
+		NSString *errorName;		
+		switch (e.errorCode) 
+		{
+			case EDAMErrorCode_BAD_DATA_FORMAT:
+				errorName = @"Invalid format";
+				break;
+			case EDAMErrorCode_PERMISSION_DENIED:
+				errorName = @"Permission Denied";
+				break;
+			case EDAMErrorCode_INTERNAL_ERROR:
+				errorName = @"Internal Evernote Error";
+				break;
+			case EDAMErrorCode_DATA_REQUIRED:
+				errorName = @"Data Required";
+				break;
+			case EDAMErrorCode_QUOTA_REACHED:
+				errorName = @"Quota Reached";
+				break;
+			case EDAMErrorCode_INVALID_AUTH:
+				errorName = @"Invalid Auth";
+				shouldRelogin = YES;
+				break;
+			case EDAMErrorCode_AUTH_EXPIRED:
+				errorName = @"Auth Expired";
+				shouldRelogin = YES;
+				break;
+			case EDAMErrorCode_DATA_CONFLICT:
+				errorName = @"Data Conflict";
+				break;
+			default:
+				errorName = @"Unknown error from Evernote";
+				break;
+		}
+		
+		errorMessage = [NSString stringWithFormat:@"Evernote Error on %@: %@", e.parameter, errorName];
+	}
+	[self performSelectorOnMainThread:@selector(_sendFinished:)
+						   withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+									   success?@"1":@"0",@"success",
+									   errorMessage==nil?@"":errorMessage,@"errorMessage",
+									   shouldRelogin?@"1":@"0",@"shouldRelogin",
+									   nil] waitUntilDone:YES];
 	[pool release];
 }
 
@@ -296,8 +353,21 @@
 	return [NSString stringWithFormat:@"<en-media type=\"%@\" %@hash=\"%@\"/>",src.mime,sizeAtr,[src.data.body md5]];
 }
 
-- (void)_sendFinished:(NSDictionary *)args {
-	[self sendFinished:[[args valueForKey:@"success"] isEqualToString:@"1"]];
+- (void)_sendFinished:(NSDictionary *)args 
+{
+	if (![[args valueForKey:@"success"] isEqualToString:@"1"])
+	{
+		if ([[args valueForKey:@"shouldRelogin"] isEqualToString:@"1"])
+		{
+			[self sendDidFailShouldRelogin];
+			return;
+		}
+		
+		[self sendDidFailWithError:[SHK error:[args valueForKey:@"errorMessage"]]];
+		return;
+	}
+	
+	[self sendDidFinish];
 }
 
 
@@ -305,7 +375,7 @@
 	if (success) {
 		[self sendDidFinish];
 	} else {
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing")] shouldRelogin:YES];
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")] shouldRelogin:NO];
 	}
 }
 

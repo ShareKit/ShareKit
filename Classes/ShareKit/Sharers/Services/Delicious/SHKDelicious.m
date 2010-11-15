@@ -91,7 +91,7 @@
 		if (accessToken.sessionHandle != nil)
 			[oRequest setOAuthParameterName:@"oauth_session_handle" withValue:accessToken.sessionHandle];	
 	}
-		
+	
 	else
 		[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
@@ -133,55 +133,51 @@
 
 - (BOOL)send
 {	
-	if ([self validateItem]) {
-		[self shortenURL];
+	if ([self validateItem])
+	{			
+		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
+																		consumer:consumer
+																		   token:accessToken
+																		   realm:nil
+															   signatureProvider:nil];
+		
+		[oRequest setHTTPMethod:@"GET"];
+		
+		
+		OARequestParameter *urlParam = [OARequestParameter requestParameterWithName:@"url"
+																			  value:[item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+		
+		OARequestParameter *descParam = [OARequestParameter requestParameterWithName:@"description"
+																			   value:SHKStringOrBlank(item.title)];
+		
+		OARequestParameter *tagsParam = [OARequestParameter requestParameterWithName:@"tags"
+																			   value:SHKStringOrBlank(item.tags)];
+		
+		OARequestParameter *extendedParam = [OARequestParameter requestParameterWithName:@"extended"
+																				   value:SHKStringOrBlank(item.text)];
+		
+		OARequestParameter *sharedParam = [OARequestParameter requestParameterWithName:@"shared"
+																				 value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+		
+		
+		[oRequest setParameters:[NSArray arrayWithObjects:descParam, extendedParam, sharedParam, tagsParam, urlParam, nil]];
+		
+		OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																							  delegate:self
+																					 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+																					   didFailSelector:@selector(sendTicket:didFailWithError:)];	
+		
+		[fetcher start];
+		[oRequest release];
+		
+		// Notify delegate
+		[self sendDidStart];
+		
 		return YES;
 	}
 	
 	return NO;
 }
-
-- (void)shortenURLFinished:(SHKRequest *)aRequest {
-	[super shortenURLFinished:aRequest];
-	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
-																																	consumer:consumer
-																																		 token:accessToken
-																																		 realm:nil
-																												 signatureProvider:nil];
-	
-	[oRequest setHTTPMethod:@"GET"];
-	
-	OARequestParameter *urlParam = [OARequestParameter requestParameterWithName:@"url"
-																																				value:[[item customValueForKey:@"shortenURL"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-	
-	OARequestParameter *descParam = [OARequestParameter requestParameterWithName:@"description"
-																																				 value:SHKStringOrBlank(item.title)];
-	
-	OARequestParameter *tagsParam = [OARequestParameter requestParameterWithName:@"tags"
-																																				 value:SHKStringOrBlank(item.tags)];
-	
-	OARequestParameter *extendedParam = [OARequestParameter requestParameterWithName:@"extended"
-																																						 value:SHKStringOrBlank(item.text)];
-	
-	OARequestParameter *sharedParam = [OARequestParameter requestParameterWithName:@"shared"
-																																					 value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
-	
-	
-	[oRequest setParameters:[NSArray arrayWithObjects:descParam, extendedParam, sharedParam, tagsParam, urlParam, nil]];
-	
-	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																																												delegate:self
-																																							 didFinishSelector:@selector(sendTicket:didFinishWithData:)
-																																								 didFailSelector:@selector(sendTicket:didFailWithError:)];	
-	
-	[fetcher start];
-	[oRequest release];
-	
-	// Notify delegate
-	[self sendDidStart];
-}
-
 
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
@@ -195,12 +191,12 @@
 	{	
 		if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 			SHKLog(@"SHKDelicious sendTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-
+		
 		// Look for oauth problems		
 		// TODO - I'd prefer to use regex for this but that would require OS4 or adding a regex library
 		NSError *error;
 		NSString *body = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-				
+		
 		// Expired token
 		if ([body rangeOfString:@"token_expired"].location != NSNotFound)
 		{

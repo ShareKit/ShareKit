@@ -143,13 +143,13 @@
 		NSDictionary *formValues = [pendingForm formValues];
 		
 		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
-																			 value:[formValues objectForKey:@"username"]] autorelease];
+																		   value:[formValues objectForKey:@"username"]] autorelease];
 		
 		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
-																			 value:[formValues objectForKey:@"password"]] autorelease];
+																		   value:[formValues objectForKey:@"password"]] autorelease];
 		
 		OARequestParameter *mode = [[[OARequestParameter alloc] initWithName:@"x_auth_mode"
-																			 value:@"client_auth"] autorelease];
+																	   value:@"client_auth"] autorelease];
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
 	}
@@ -175,7 +175,7 @@
 			return;
 		}
 	}
-
+	
 	[super tokenAccessTicket:ticket didFinishWithData:data];		
 }
 
@@ -228,26 +228,57 @@
 
 #pragma mark -
 
-
-
-#pragma mark -
-
-- (void)shortenURL {	
+- (void)shortenURL
+{	
 	if (![SHK connected])
 	{
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 		[self showTwitterForm];		
 		return;
 	}
-	[super shortenURL];
+	
+	if (!quiet)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																		  SHKBitLyLogin,
+																		  SHKBitLyKey,																		  
+																		  SHKEncodeURL(item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
 }
 
-- (void)shortenURLFinished:(SHKRequest *)aRequest {
-	[super shortenURLFinished:aRequest];
-	NSString *result = [item customValueForKey:@"shortenURL"];
-	if(result==nil||result.length==0) 
-		result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, result] forKey:@"status"];
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (result == nil || [NSURL URLWithString:result] == nil)
+	{
+		// TODO - better error message
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
+									 message:SHKLocalizedString(@"We could not shorten the URL.")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Continue")
+						   otherButtonTitles:nil] autorelease] show];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+	}
+	
+	else
+	{		
+		///if already a bitly login, use url instead
+		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
+			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+	}
+	
 	[self showTwitterForm];
 }
 
@@ -290,10 +321,10 @@
 - (void)sendStatus
 {
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.twitter.com/1/statuses/update.json"]
-																   consumer:consumer
-																	  token:accessToken
-																	  realm:nil
-														  signatureProvider:nil];
+																	consumer:consumer
+																	   token:accessToken
+																	   realm:nil
+														   signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
@@ -304,10 +335,10 @@
 	[statusParam release];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-						 delegate:self
-				didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
-				  didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
-
+																						  delegate:self
+																				 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
+																				   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+	
 	[fetcher start];
 	[oRequest release];
 }
@@ -315,7 +346,7 @@
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {	
 	// TODO better error handling here
-		
+	
 	if (ticket.didSucceed) 
 		[self sendDidFinish];
 	
@@ -345,7 +376,7 @@
 		
 		
 		// this is the error message for revoked access
-		if ([errorMessage isEqualToString:@"Invalid / used nonce"])
+		if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."])
 		{
 			[self sendDidFailShouldRelogin];
 		}
@@ -382,7 +413,7 @@
 		[oRequest prepare];
 	} else {
 		[oRequest prepare];
-
+		
 		NSDictionary * headerDict = [oRequest allHTTPHeaderFields];
 		NSString * oauthHeader = [NSString stringWithString:[headerDict valueForKey:@"Authorization"]];
 		
@@ -399,7 +430,7 @@
 		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
 		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
 	}
-		
+	
 	CGFloat compression = 0.9f;
 	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
 	
@@ -426,7 +457,7 @@
 	} else {
 		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
 	}
-
+	
 	
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
@@ -447,10 +478,10 @@
 	
 	// setting the body of the post to the reqeust
 	[oRequest setHTTPBody:body];
-		
+	
 	// Notify delegate
 	[self sendDidStart];
-		
+	
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																						  delegate:self
@@ -508,9 +539,9 @@
 	[oRequest setHTTPMethod:@"POST"];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-						 delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
-				didFinishSelector:nil
-				  didFailSelector:nil];	
+																						  delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
+																				 didFinishSelector:nil
+																				   didFailSelector:nil];	
 	
 	[fetcher start];
 	[oRequest release];

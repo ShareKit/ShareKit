@@ -32,7 +32,8 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
-#import </usr/include/objc/objc-class.h>
+#import <objc/runtime.h>
+#import <objc/message.h>
 #import <MessageUI/MessageUI.h>
 
 
@@ -60,7 +61,11 @@ BOOL SHKinit;
 	
 	if (!SHKinit)
 	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
+		
+		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
+			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+		
 		SHKinit = YES;
 	}
 }
@@ -285,12 +290,15 @@ BOOL SHKinit;
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",nil];
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail", nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
 				break;
+			
+			default:
+				favoriteSharers = [NSArray array];
 		}
 		
 		// Save defaults to prefs
