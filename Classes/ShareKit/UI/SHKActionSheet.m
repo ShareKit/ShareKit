@@ -49,11 +49,7 @@
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
-<<<<<<< HEAD
 	as.delegate = as;
-=======
-  as.delegate = as;
->>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 	as.item = [[[SHKItem alloc] init] autorelease];
 	as.item.shareType = type;
 	

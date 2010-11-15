@@ -183,12 +183,5 @@ typedef enum
 
 @end
 
-// JAB: Just to get the bloody things declared.
-@protocol AuthEvents
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)tokenFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
-@end
-
 
 

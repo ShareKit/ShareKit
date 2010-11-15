@@ -168,6 +168,7 @@
 		4379F3251291B86500D2A41E /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/ShareKit/Localization/fr.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		4379F3B01291C45700D2A41E /* SHKTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTextMessage.h; sourceTree = "<group>"; };
 		4379F3B11291C45700D2A41E /* SHKTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTextMessage.m; sourceTree = "<group>"; };
+		4379F3EA1291CA1700D2A41E /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Classes/ShareKit/Localization/ko.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthSharer.h; sourceTree = "<group>"; };
 		43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		43A5367611DBE3B9004A1712 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer.h; sourceTree = "<group>"; };
@@ -309,7 +310,6 @@
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		43FF9C7312270E9F00ADE53C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		43FF9C7512270EB900ADE53C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		43FF9C7712270ED900ADE53C /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Classes/ShareKit/Localization/ko.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -933,6 +933,7 @@
 				zh_CN,
 				eu,
 				fr,
+				ko,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1062,16 +1063,13 @@
 			children = (
 				43FF9C7312270E9F00ADE53C /* en */,
 				43FF9C7512270EB900ADE53C /* de */,
-<<<<<<< HEAD
 				4379F2D31291ACD800D2A41E /* ja */,
 				4379F2D41291ACE600D2A41E /* eu */,
 				4379F2D51291ACF700D2A41E /* nl */,
 				4379F2D61291AD0300D2A41E /* vi */,
 				4379F2D71291AD0F00D2A41E /* zh_CN */,
 				4379F3251291B86500D2A41E /* fr */,
-=======
-				43FF9C7712270ED900ADE53C /* ko */,
->>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
+				4379F3EA1291CA1700D2A41E /* ko */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1092,11 +1090,7 @@
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
 				PRODUCT_NAME = ShareKit;
-<<<<<<< HEAD
 				SDKROOT = iphoneos;
-=======
-				SDKROOT = iphoneos4.1;
->>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1128,11 +1122,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				PREBINDING = NO;
-<<<<<<< HEAD
 				SDKROOT = iphoneos;
-=======
-				SDKROOT = iphoneos4.1;
->>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
