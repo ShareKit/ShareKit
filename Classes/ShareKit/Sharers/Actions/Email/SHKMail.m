@@ -103,13 +103,20 @@
 
 - (BOOL)send
 {
-	self.quiet = YES;
-	
 	if (![self validateItem])
 		return NO;
-	
-	return [self sendMail]; // Put the actual sending action in another method to make subclassing SHKMail easier
+	if(kSHKEmailShouldShortenURLs)
+		[self shortenURL];
+	else
+		[self sendMail];
+	return YES; // Put the actual sending action in another method to make subclassing SHKMail easier
 }
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest {
+	[super shortenURLFinished:aRequest];
+	[self sendMail];
+}
+
 
 - (BOOL)sendMail
 {	
@@ -125,11 +132,12 @@
 		
 		if (item.URL != nil)
 		{	
-			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *urlStr = [item customValueForKey:@"shortenURL"]; 
+			if(urlStr==nil||urlStr.length==0) 
+				urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
 				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
-			
 			else
 				body = urlStr;
 		}
@@ -155,11 +163,7 @@
 			body = @"";
 		
 		// sig
-		if (SHKSharedWithSignature)
-		{
-			body = [body stringByAppendingString:@"<br/><br/>"];
-			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKMyAppName)];
-		}
+		body = [body stringByAppendingFormat:@"<br/><br/>Sent from %@", SHKMyAppName];
 		
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];
@@ -176,22 +180,6 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	
-	switch (result) 
-	{
-		case MFMailComposeResultSent:
-			[self sendDidFinish];
-			break;
-		case MFMailComposeResultSaved:
-			[self sendDidFinish];
-			break;
-		case MFMailComposeResultCancelled:
-			[self sendDidCancel];
-			break;
-		case MFMailComposeResultFailed:
-			[self sendDidFailWithError:nil];
-			break;
-	}
 }
 
 

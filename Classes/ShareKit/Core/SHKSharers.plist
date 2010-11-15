@@ -11,6 +11,7 @@
 	</array>
 	<key>services</key>
 	<array>
+		<string>SHKEvernote</string>
 		<string>SHKTwitter</string>
 		<string>SHKPinboard</string>
 		<string>SHKDelicious</string>

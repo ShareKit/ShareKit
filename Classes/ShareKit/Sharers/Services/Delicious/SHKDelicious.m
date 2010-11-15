@@ -133,51 +133,55 @@
 
 - (BOOL)send
 {	
-	if ([self validateItem])
-	{			
-		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
-																		consumer:consumer
-																		   token:accessToken
-																		   realm:nil
-															   signatureProvider:nil];
-		
-		[oRequest setHTTPMethod:@"GET"];
-				
-		
-		OARequestParameter *urlParam = [OARequestParameter requestParameterWithName:@"url"
-																			  value:[item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-		
-		OARequestParameter *descParam = [OARequestParameter requestParameterWithName:@"description"
-																			   value:SHKStringOrBlank(item.title)];
-		
-		OARequestParameter *tagsParam = [OARequestParameter requestParameterWithName:@"tags"
-																			   value:SHKStringOrBlank(item.tags)];
-		
-		OARequestParameter *extendedParam = [OARequestParameter requestParameterWithName:@"extended"
-																				   value:SHKStringOrBlank(item.text)];
-		
-		OARequestParameter *sharedParam = [OARequestParameter requestParameterWithName:@"shared"
-																				 value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
-		
-		
-		[oRequest setParameters:[NSArray arrayWithObjects:descParam, extendedParam, sharedParam, tagsParam, urlParam, nil]];
-		
-		OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-							 delegate:self
-					didFinishSelector:@selector(sendTicket:didFinishWithData:)
-					  didFailSelector:@selector(sendTicket:didFailWithError:)];	
-		
-		[fetcher start];
-		[oRequest release];
-		
-		// Notify delegate
-		[self sendDidStart];
-		
+	if ([self validateItem]) {
+		[self shortenURL];
 		return YES;
 	}
 	
 	return NO;
 }
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest {
+	[super shortenURLFinished:aRequest];
+	
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
+																																	consumer:consumer
+																																		 token:accessToken
+																																		 realm:nil
+																												 signatureProvider:nil];
+	
+	[oRequest setHTTPMethod:@"GET"];
+	
+	OARequestParameter *urlParam = [OARequestParameter requestParameterWithName:@"url"
+																																				value:[[item customValueForKey:@"shortenURL"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	
+	OARequestParameter *descParam = [OARequestParameter requestParameterWithName:@"description"
+																																				 value:SHKStringOrBlank(item.title)];
+	
+	OARequestParameter *tagsParam = [OARequestParameter requestParameterWithName:@"tags"
+																																				 value:SHKStringOrBlank(item.tags)];
+	
+	OARequestParameter *extendedParam = [OARequestParameter requestParameterWithName:@"extended"
+																																						 value:SHKStringOrBlank(item.text)];
+	
+	OARequestParameter *sharedParam = [OARequestParameter requestParameterWithName:@"shared"
+																																					 value:[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+	
+	
+	[oRequest setParameters:[NSArray arrayWithObjects:descParam, extendedParam, sharedParam, tagsParam, urlParam, nil]];
+	
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																																												delegate:self
+																																							 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+																																								 didFailSelector:@selector(sendTicket:didFailWithError:)];	
+	
+	[fetcher start];
+	[oRequest release];
+	
+	// Notify delegate
+	[self sendDidStart];
+}
+
 
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
