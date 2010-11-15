@@ -35,6 +35,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
+#import "SHKMail.h"
 
 
 @implementation SHK
@@ -296,9 +297,14 @@ BOOL SHKinit;
 			case SHKShareTypeFile:
 				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
 				break;
+<<<<<<< HEAD
 			
 			default:
 				favoriteSharers = [NSArray array];
+=======
+      default:
+        return nil;
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 		}
 		
 		// Save defaults to prefs

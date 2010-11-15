@@ -34,9 +34,14 @@
 {
 	[super viewDidDisappear:animated];
 	
+<<<<<<< HEAD
 	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
 	if (self.modalViewController == nil)
 		[[SHK currentHelper] viewWasDismissed];
+=======
+	// Remove the SHK view wrapper from the window
+	[[SHK currentHelper] viewWasDismissed];
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 }
 
 @end
@@ -50,7 +55,11 @@
 
 + (NSString *)sharerTitle
 {
+<<<<<<< HEAD
 	return @"SMS";
+=======
+	return @"Text";
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 }
 
 + (BOOL)canShareText
@@ -116,7 +125,11 @@
 {	
 	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
 	composeView.messageComposeDelegate = self;
+<<<<<<< HEAD
 	
+=======
+		
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 	NSString * body = [item customValueForKey:@"body"];
 	
 	if (!body) {
@@ -138,10 +151,24 @@
 		if (body == nil)
 			body = @"";
 		
+<<<<<<< HEAD
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];
 	}
 	
+=======
+		// sig
+		if (SHKSharedWithSignature)
+		{
+			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKMyAppName)];
+		}
+		
+		// save changes to body
+		[item setCustomValue:body forKey:@"body"];
+	}
+		
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 	[composeView setBody:body];
 	[[SHK currentHelper] showViewController:composeView];
 	
@@ -149,8 +176,12 @@
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
+<<<<<<< HEAD
 				 didFinishWithResult:(MessageComposeResult)result 
 {
+=======
+				 didFinishWithResult:(MessageComposeResult)result {
+>>>>>>> ca11f25750bfab8732343db72ad1767a82a7a0d7
 	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	

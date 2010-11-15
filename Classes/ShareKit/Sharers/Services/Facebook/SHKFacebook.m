@@ -169,7 +169,7 @@
 		
 		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
-		dialog.userMessagePrompt = @"Enter your message:";
+		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
 		dialog.defaultStatus = item.text;
 		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
 							  SHKEncode(SHKMyAppName),
