@@ -43,12 +43,27 @@
 #define SHKDeliciousSecretKey		@""
 
 // Facebook - http://www.facebook.com/developers
-// If SHKFacebookUseSessionProxy is enabled then SHKFacebookSecret is ignored and should be left blank
+// iOS SDK - https://github.com/facebook/facebook-ios-sdk
+/*
+ Important Facebook settings to get right:
+ 
+ URL Schemes
+ ---
+ You must create a URL scheme in your Info.plist that is in the format fb[app_id]. See the documentation on the iOS SDK under Authentication and Authorization for more details. This is to allow
+ the new Single Sign-on capabilities of the iOS SDK to callback to your application, should it use fast app switching to authenticate in the Facebook app or Safari.
+ 
+ Modify AppDelegate class
+ ---
+ You must implement the application:handleOpenURL: method in your AppDelegate class. In this method, call the handleOpenURL: method on the facebook property of an SHKFacebook instance.
+ 
+ For example:
+ - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+		SHKFacebook *facebookSharer = [[[SHKFacebook alloc] init] autorelease];
+		return [[facebookSharer facebook] handleOpenURL:url];
+ }
+ */
+#define SHKFacebookAppId			@""
 
-#define SHKFacebookUseSessionProxy  NO 
-#define SHKFacebookKey				@""
-#define SHKFacebookSecret			@""
-#define SHKFacebookSessionProxyURL  @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
 #define SHKReadItLaterKey			@""
@@ -74,6 +89,12 @@
 #define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+
+// Evernote - http://www.evernote.com/about/developer/api/
+#define SHKEvernoteUserStoreURL		@""
+#define SHKEvernoteSecretKey		@""
+#define SHKEvernoteConsumerKey		@""
+#define SHKEvernoteNetStoreURLBase	@""
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
