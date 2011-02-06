@@ -4,6 +4,8 @@
 *.perspective
 *.perspectivev3
 *.mode1v3
+*.xcworkspace
+*xcuserdata
 build
 .DS_Store
 Classes/ShareKit/SHKConfig.h
