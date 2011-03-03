@@ -139,7 +139,7 @@
 		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
 																		consumer:consumer
 																		   token:accessToken
-																		   realm:nil
+																		   realm:@"yahooapis.com"
 															   signatureProvider:nil];
 		
 		[oRequest setHTTPMethod:@"GET"];
@@ -199,9 +199,9 @@
 		NSString *body = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		
 		// Expired token
-		if ([body rangeOfString:@"token_expired"].location != NSNotFound)
+		if ([body rangeOfString:@"token_expired"].location != NSNotFound || [body rangeOfString:@"Please provide valid credentials"].location != NSNotFound)
 		{
-			[self refreshToken];				
+			[self refreshToken];
 			return;
 		}
 		
