@@ -35,6 +35,7 @@ Google Reader API is unoffical, this was hobbled together from:
 */
 
 
+#import "SHKConfiguration.h"
 #import "SHKGoogleReader.h"
 
 
@@ -102,7 +103,7 @@ Google Reader API is unoffical, this was hobbled together from:
 - (void)getSession:(NSString *)email password:(NSString *)password
 {
 	NSString *params = [NSMutableString stringWithFormat:@"service=reader&source=%@&Email=%@&Passwd=%@&accountType=GOOGLE",
-						[NSString stringWithFormat:@"ShareKit-%@-%@", SHKEncode(SHKMyAppName), SHK_VERSION],
+						[NSString stringWithFormat:@"ShareKit-%@-%@", SHKEncode(SHKCONFIG(appName)), SHK_VERSION],
 						SHKEncode(email),
 						SHKEncode(password)
 						];
@@ -270,8 +271,8 @@ Google Reader API is unoffical, this was hobbled together from:
 	NSString *params = [NSMutableString stringWithFormat:@"T=%@&linkify=false&snippet=%@&srcTitle=%@&srcUrl=%@&title=%@&url=%@&share=%@",
 						token,
 						SHKEncode(item.text),
-						SHKEncode(SHKMyAppName),
-						SHKEncode(SHKMyAppURL),		
+						SHKEncode(SHKCONFIG(appName)),
+						SHKEncode(SHKCONFIG(appURL)),		
 						SHKEncode(item.title),					
 						SHKEncodeURL(item.URL),
 						[item customBoolForSwitchKey:@"share"]?@"true":@""

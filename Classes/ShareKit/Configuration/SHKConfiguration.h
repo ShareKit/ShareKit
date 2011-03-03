@@ -62,9 +62,7 @@
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
 
-//- (NSNumber*)SHK_MAX_FAV_COUNT;
-//- (NSString*)SHK_FAVS_PREFIX_KEY;
-//- (NSString*)SHK_AUTH_PREFIX;
+// Advanced Configuration
 - (NSNumber*)maxFavCount;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;

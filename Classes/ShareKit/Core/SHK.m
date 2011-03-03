@@ -27,6 +27,7 @@
 
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
+#import "SHKConfiguration.h"
 #import "SHKViewControllerWrapper.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
@@ -227,13 +228,13 @@ BOOL SHKinit;
 			
 + (UIBarStyle)barStyle
 {
-	if ([SHKBarStyle isEqualToString:@"UIBarStyleBlack"])		
+	if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlack"])
 		return UIBarStyleBlack;
 	
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackOpaque"])		
+	else if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlackOpaque"])
 		return UIBarStyleBlackOpaque;
 	
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackTranslucent"])		
+	else if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlackTranslucent"])
 		return UIBarStyleBlackTranslucent;
 	
 	return UIBarStyleDefault;
@@ -241,13 +242,13 @@ BOOL SHKinit;
 
 + (UIModalPresentationStyle)modalPresentationStyle
 {
-	if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFullScreen"])		
+	if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFullScreen"])
 		return UIModalPresentationFullScreen;
 	
-	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationPageSheet"])		
+	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationPageSheet"])
 		return UIModalPresentationPageSheet;
 	
-	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFormSheet"])		
+	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFormSheet"])
 		return UIModalPresentationFormSheet;
 	
 	return UIModalPresentationCurrentContext;
@@ -255,13 +256,13 @@ BOOL SHKinit;
 
 + (UIModalTransitionStyle)modalTransitionStyle
 {
-	if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])		
+	if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
 		return UIModalTransitionStyleFlipHorizontal;
 	
-	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleCrossDissolve"])		
+	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
 		return UIModalTransitionStyleCrossDissolve;
 	
-	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStylePartialCurl"])		
+	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStylePartialCurl"])
 		return UIModalTransitionStylePartialCurl;
 	
 	return UIModalTransitionStyleCoverVertical;
@@ -274,7 +275,7 @@ BOOL SHKinit;
 
 + (NSArray *)favoriteSharersForType:(SHKShareType)type
 {	
-	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHK_FAVS_PREFIX_KEY, type]];
+	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 		
 	// set defaults
 	if (favoriteSharers == nil)
@@ -332,7 +333,7 @@ BOOL SHKinit;
 	[favs removeObject:className];
 	[favs insertObject:className atIndex:0];
 	
-	while (favs.count > SHK_MAX_FAV_COUNT)
+	while (favs.count > [SHKCONFIG(maxFavCount) intValue])
 		[favs removeLastObject];
 	
 	[self setFavorites:favs forType:type];
@@ -342,19 +343,19 @@ BOOL SHKinit;
 
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type
 {
-	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHK_FAVS_PREFIX_KEY, type]];
+	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 }
 
 #pragma mark -
 
 + (NSDictionary *)getUserExclusions
 {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHK_FAVS_PREFIX_KEY]];
+	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
 }
 
 + (void)setUserExclusions:(NSDictionary *)exclusions
 {
-	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHK_FAVS_PREFIX_KEY]];	
+	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
 }
 
 
@@ -370,9 +371,9 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
+	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] error:nil];
 #endif
 }
 
@@ -382,9 +383,9 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] updateExisting:YES error:nil];
+	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] updateExisting:YES error:nil];
 #endif
 }
 
@@ -394,9 +395,9 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils deleteItemForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
+	[SFHFKeychainUtils deleteItemForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] error:nil];
 #endif
 }
 

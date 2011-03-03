@@ -25,6 +25,7 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKShareMenu.h"
 #import "SHK.h"
 #import "SHKSharer.h"
@@ -170,7 +171,7 @@
 			[sectionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:sharerClassName,@"className",[class sharerTitle],@"name",nil]];
 	}
 
-	if (sectionData.count && SHKShareMenuAlphabeticalOrder)
+	if (sectionData.count && [SHKCONFIG(shareMenuAlphabeticalOrder) boolValue])
 		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
 	
 	return sectionData;

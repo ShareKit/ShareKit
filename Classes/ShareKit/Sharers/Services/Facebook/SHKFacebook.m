@@ -25,6 +25,7 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKFacebook.h"
 #import "SHKFBStreamDialog.h"
 
@@ -87,14 +88,14 @@
 	if (session == nil)
 	{
 		
-		if(!SHKFacebookUseSessionProxy){
-			self.session = [FBSession sessionForApplication:SHKFacebookKey
-													 secret:SHKFacebookSecret
+		if(![SHKCONFIG(facebookUseSessionProxy) boolValue]){
+			self.session = [FBSession sessionForApplication:SHKCONFIG(facebookKey)
+													 secret:SHKCONFIG(facebookSecret)
 												   delegate:self];
 			
 		}else {
-			self.session = [FBSession sessionForApplication:SHKFacebookKey
-											getSessionProxy:SHKFacebookSessionProxyURL
+			self.session = [FBSession sessionForApplication:SHKCONFIG(facebookKey)
+											getSessionProxy:SHKCONFIG(facebookSessionProxyURL)
 												   delegate:self];
 		}
 
@@ -121,14 +122,14 @@
 {
 	FBSession *fbSession; 
 	
-	if(!SHKFacebookUseSessionProxy){
-		fbSession = [FBSession sessionForApplication:SHKFacebookKey
-												 secret:SHKFacebookSecret
+	if(![SHKCONFIG(facebookUseSessionProxy) boolValue]){
+		fbSession = [FBSession sessionForApplication:SHKCONFIG(facebookKey)
+												 secret:SHKCONFIG(facebookSecret)
 											   delegate:self];
 		
 	}else {
-		fbSession = [FBSession sessionForApplication:SHKFacebookKey
-										getSessionProxy:SHKFacebookSessionProxyURL
+		fbSession = [FBSession sessionForApplication:SHKCONFIG(facebookKey)
+										getSessionProxy:SHKCONFIG(facebookSessionProxyURL)
 											   delegate:self];
 	}
 
@@ -157,8 +158,8 @@
 							 ];
 		dialog.defaultStatus = item.text;
 		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
-							  SHKEncode(SHKMyAppName),
-							  SHKEncode(SHKMyAppURL)];
+							  SHKEncode(SHKCONFIG(appName)),
+							  SHKEncode(SHKCONFIG(appURL))];
 		[dialog show];
 		
 	}
@@ -172,8 +173,8 @@
 		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
 		dialog.defaultStatus = item.text;
 		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
-							  SHKEncode(SHKMyAppName),
-							  SHKEncode(SHKMyAppURL)];
+							  SHKEncode(SHKCONFIG(appName)),
+							  SHKEncode(SHKCONFIG(appURL))];
 		[dialog show];
 		
 	}
