@@ -149,10 +149,19 @@
 	item.title = [dictionary objectForKey:@"title"];
 	item.text = [dictionary objectForKey:@"text"];
 	item.tags = [dictionary objectForKey:@"tags"];	
-		
+	
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
 	
+	if ([dictionary objectForKey:@"mimeType"] != nil)
+		item.mimeType = [dictionary objectForKey:@"mimeType"];
+
+	if ([dictionary objectForKey:@"filename"] != nil)
+		item.filename = [dictionary objectForKey:@"filename"];
+
+	if ([dictionary objectForKey:@"image"] != nil)
+		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
+
 	return [item autorelease];
 }
 
@@ -176,6 +185,18 @@
 	
 	if (tags != nil)
 		[dictionary setObject:tags forKey:@"tags"];
+	
+	if (mimeType != nil)
+		[dictionary setObject:mimeType forKey:@"mimeType"];
+	
+	if (filename != nil)
+		[dictionary setObject:filename forKey:@"filename"];
+	
+	if (data != nil)
+		[dictionary setObject:data forKey:@"data"];
+	
+	if (image != nil)
+		[dictionary setObject:UIImagePNGRepresentation(image) forKey:@"image"];
 	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	

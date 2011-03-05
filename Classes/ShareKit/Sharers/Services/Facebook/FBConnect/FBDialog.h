@@ -1,10 +1,10 @@
 /*
- * Copyright 2009 Facebook
+ * Copyright 2010 Facebook
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *    http://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing, software
@@ -14,14 +14,21 @@
  * limitations under the License.
 */
 
-#import "FBConnectGlobal.h"
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @protocol FBDialogDelegate;
-@class FBSession;
+
+/**
+ * Do not use this interface directly, instead, use dialog in Facebook.h
+ *
+ * Facebook dialog interface for start the facebook webView UIServer Dialog.
+ */
 
 @interface FBDialog : UIView <UIWebViewDelegate> {
   id<FBDialogDelegate> _delegate;
-  FBSession* _session;
+  NSMutableDictionary *_params;
+  NSString * _serverURL;
   NSURL* _loadingURL;
   UIWebView* _webView;
   UIActivityIndicatorView* _spinner;
@@ -30,6 +37,9 @@
   UIButton* _closeButton;
   UIDeviceOrientation _orientation;
   BOOL _showingKeyboard;
+
+  // Ensures that UI elements behind the dialog are disabled.
+  UIView* _modalBackgroundView;
 }
 
 /**
@@ -38,19 +48,20 @@
 @property(nonatomic,assign) id<FBDialogDelegate> delegate;
 
 /**
- * The session for which the login is taking place.
+ * The parameters.
  */
-@property(nonatomic,assign) FBSession* session;
+@property(nonatomic, retain) NSMutableDictionary* params;
 
 /**
- * The title that is shown in the header atop the view;
+ * The title that is shown in the header atop the view.
  */
 @property(nonatomic,copy) NSString* title;
 
-/**
- * Creates the view but does not display it.
- */
-- (id)initWithSession:(FBSession*)session;
+- (NSString *) getStringFromUrl: (NSString*) url needle:(NSString *) needle;
+
+- (id)initWithURL: (NSString *) loadingURL
+           params: (NSMutableDictionary *) params
+         delegate: (id <FBDialogDelegate>) delegate;
 
 /**
  * Displays the view with an animation.
@@ -69,8 +80,8 @@
 /**
  * Displays a URL in the dialog.
  */
-- (void)loadURL:(NSString*)url method:(NSString*)method get:(NSDictionary*)getParams
-        post:(NSDictionary*)postParams;
+- (void)loadURL:(NSString*)url
+            get:(NSDictionary*)getParams;
 
 /**
  * Hides the view and notifies delegates of success or cancellation.
@@ -97,15 +108,21 @@
  *
  * Implementations must call dismissWithSuccess:YES at some point to hide the dialog.
  */
-- (void)dialogDidSucceed:(NSURL*)url;
+- (void)dialogDidSucceed:(NSURL *)url;
 
-- (void)bounce2AnimationStopped;
-- (void)keyboardWillShow:(NSNotification*)notification;
-- (void)keyboardWillHide:(NSNotification*)notification;
+/**
+ * Subclasses should override to process data returned from the server in a 'fbconnect' url.
+ *
+ * Implementations must call dismissWithSuccess:YES at some point to hide the dialog.
+ */
+- (void)dialogDidCancel:(NSURL *)url;
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+ *Your application should implement this delegate
+ */
 @protocol FBDialogDelegate <NSObject>
 
 @optional
@@ -113,28 +130,38 @@
 /**
  * Called when the dialog succeeds and is about to be dismissed.
  */
-- (void)dialogDidSucceed:(FBDialog*)dialog;
+- (void)dialogDidComplete:(FBDialog *)dialog;
+
+/**
+ * Called when the dialog succeeds with a returning url.
+ */
+- (void)dialogCompleteWithUrl:(NSURL *)url;
+
+/**
+ * Called when the dialog get canceled by the user.
+ */
+- (void)dialogDidNotCompleteWithUrl:(NSURL *)url;
 
 /**
  * Called when the dialog is cancelled and is about to be dismissed.
  */
-- (void)dialogDidCancel:(FBDialog*)dialog;
+- (void)dialogDidNotComplete:(FBDialog *)dialog;
 
 /**
  * Called when dialog failed to load due to an error.
  */
-- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError*)error;
+- (void)dialog:(FBDialog*)dialog didFailWithError:(NSError *)error;
 
 /**
  * Asks if a link touched by a user should be opened in an external browser.
  *
- * If a user touches a link, the default behavior is to open the link in the Safari browser, 
+ * If a user touches a link, the default behavior is to open the link in the Safari browser,
  * which will cause your app to quit.  You may want to prevent this from happening, open the link
  * in your own internal browser, or perhaps warn the user that they are about to leave your app.
  * If so, implement this method on your delegate and return NO.  If you warn the user, you
  * should hold onto the URL and once you have received their acknowledgement open the URL yourself
  * using [[UIApplication sharedApplication] openURL:].
  */
-- (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url;
+- (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL *)url;
 
 @end
