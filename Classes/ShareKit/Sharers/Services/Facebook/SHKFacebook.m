@@ -34,7 +34,7 @@ static NSString *const SHKFacebookPendingItem = @"SHKFacebookPendingItem";
 
 - (Facebook*)facebook {
 	if (!facebook) {
-		facebook = [[Facebook alloc] initWithAppId:SHKFacebookAppId];
+		facebook = [[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId)];
 		facebook.sessionDelegate = self;
 		facebook.accessToken = [self getAuthValueForKey:SHKFacebookAccessToken];
 		facebook.expirationDate = (NSDate*)[[NSUserDefaults standardUserDefaults] objectForKey:SHKFacebookExpirationDate];
@@ -90,7 +90,7 @@ static NSString *const SHKFacebookPendingItem = @"SHKFacebookPendingItem";
 }
 
 + (void)logout {
-	Facebook *fb = [[[Facebook alloc] initWithAppId:SHKFacebookAppId] autorelease];
+	Facebook *fb = [[[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId)] autorelease];
 	fb.accessToken = [[[[self alloc] init] autorelease] getAuthValueForKey:SHKFacebookAccessToken];
 	fb.expirationDate = (NSDate*)[[NSUserDefaults standardUserDefaults] objectForKey:SHKFacebookExpirationDate];
 	[fb logout:self];

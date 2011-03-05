@@ -46,19 +46,7 @@
 	return @"";
 }
 
-- (NSNumber*)facebookUseSessionProxy {
-	return [NSNumber numberWithInt:0];
-}
-
-- (NSString*)facebookKey {
-	return @"";
-}
-
-- (NSString*)facebookSecret {
-	return @"";
-}
-
-- (NSString*)facebookSessionProxyURL {
+- (NSString*)facebookAppId {
 	return @"";
 }
 

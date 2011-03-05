@@ -36,10 +36,7 @@
 - (NSString*)appURL;
 - (NSString*)deliciousConsumerKey;
 - (NSString*)deliciousSecretKey;
-- (NSNumber*)facebookUseSessionProxy;
-- (NSString*)facebookKey;
-- (NSString*)facebookSecret;
-- (NSString*)facebookSessionProxyURL;
+- (NSString*)facebookAppId;
 - (NSString*)readItLaterKey;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
