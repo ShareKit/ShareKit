@@ -64,10 +64,11 @@
 	// Authorize the user through the server
 	NSDictionary *formValues = [form formValues];
 	
+	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 													[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/get",
 													 SHKEncode([formValues objectForKey:@"username"]),
-													 SHKEncode([formValues objectForKey:@"password"])
+													 password
 													 ]]
 											params:nil
 										  delegate:self
@@ -128,10 +129,11 @@
 {	
 	if ([self validateItem])
 	{			
+		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 														[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
 														 SHKEncode([self getAuthValueForKey:@"username"]),
-														 SHKEncode([self getAuthValueForKey:@"password"]),
+														 password,
 														 SHKEncodeURL(item.URL),
 														 SHKEncode(item.title),
 														 SHKEncode(item.tags),
