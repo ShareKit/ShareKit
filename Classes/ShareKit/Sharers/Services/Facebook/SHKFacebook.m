@@ -67,13 +67,6 @@ static NSString *const SHKFacebookPendingItem = @"SHKFacebookPendingItem";
 }
 
 #pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare {
-	return YES; // FBConnect presents its own dialog
-}
-
-#pragma mark -
 #pragma mark Authentication
 
 - (BOOL)isAuthorized {
@@ -101,6 +94,16 @@ static NSString *const SHKFacebookPendingItem = @"SHKFacebookPendingItem";
 
 #pragma mark -
 #pragma mark Share API Methods
+
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
+{
+	if (type == SHKShareTypeURL)
+		return [NSArray arrayWithObjects:
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Comment") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				nil];
+	return nil;
+}
 
 - (BOOL)send {
 	if (item.shareType == SHKShareTypeURL) {
