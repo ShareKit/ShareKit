@@ -97,20 +97,26 @@ static NSString *const SHKFacebookPendingItem = @"SHKFacebookPendingItem";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	if (type == SHKShareTypeURL)
+	if (type == SHKShareTypeURL) {
+		NSString *description = [item customValueForKey:@"description"];
+		if(description == nil) description = @"";
 		return [NSArray arrayWithObjects:
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Description") key:@"description" type:SHKFormFieldTypeText start:description],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Comment") key:@"text" type:SHKFormFieldTypeText start:item.text],
 				nil];
+	}
 	return nil;
 }
 
 - (BOOL)send {
 	if (item.shareType == SHKShareTypeURL) {
+		NSLog(@"Description: %@", [item customValueForKey:@"description"]);
 		NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 									   [item.URL absoluteString], @"link",
 									   item.title, @"name",
-									   item.text, @"caption",
+									   item.text, @"message",
+									   [item customValueForKey:@"description"], @"description",
 									   nil];
 		
 		if ([item customValueForKey:@"image"]) {
