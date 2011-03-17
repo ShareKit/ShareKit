@@ -254,11 +254,14 @@
 		BOOL newOn = !toggle.on;
 		[toggle setOn:newOn animated:YES];
 		
-		if (newOn)
+		if (newOn) {
 			[exclusions removeObjectForKey:[rowData objectForKey:@"className"]];
 		
-		else 
-			[exclusions setObject:@"1" forKey:[rowData objectForKey:@"className"]];
+		} else {
+			NSString *sharerId = [rowData objectForKey:@"className"];
+			[exclusions setObject:@"1" forKey:sharerId];
+			[SHK logoutOfService:sharerId];
+		}
 
 		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
