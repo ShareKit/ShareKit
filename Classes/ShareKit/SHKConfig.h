@@ -86,6 +86,11 @@
 #define SHKSharedWithSignature		0
 
 
+// Flickr - http://www.flickr.com/services/apps/create/
+#define SHKFlickrConsumerKey @""	// The consumer key
+#define SHKFlickrSecretKey @""		// The secret key
+#define SHKFlickrCallbackUrl @"app://flickr"	// The user defined callback url
+
 
 /*
  UI Configuration : Basic
