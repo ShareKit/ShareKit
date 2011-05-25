@@ -18,6 +18,7 @@
 		1940B6A5138D45F900217886 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1940B698138D45F900217886 /* SBJsonBase.m */; };
 		1940B6A6138D45F900217886 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1940B69A138D45F900217886 /* SBJsonParser.m */; };
 		1940B6A7138D45F900217886 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1940B69C138D45F900217886 /* SBJsonWriter.m */; };
+		19DDAEB0138D7686004A7C34 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -1054,6 +1055,7 @@
 				1940B6A5138D45F900217886 /* SBJsonBase.m in Sources */,
 				1940B6A6138D45F900217886 /* SBJsonParser.m in Sources */,
 				1940B6A7138D45F900217886 /* SBJsonWriter.m in Sources */,
+				19DDAEB0138D7686004A7C34 /* SHKEvernote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
