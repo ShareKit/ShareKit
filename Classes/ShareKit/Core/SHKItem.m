@@ -150,6 +150,11 @@
 	item.text = [dictionary objectForKey:@"text"];
 	item.tags = [dictionary objectForKey:@"tags"];	
 		
+  NSData *imageData = [dictionary objectForKey:@"image"];
+  if (imageData) {
+    item.image = [UIImage imageWithData:imageData];
+  }
+  
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
 	
@@ -177,6 +182,11 @@
 	if (tags != nil)
 		[dictionary setObject:tags forKey:@"tags"];
 	
+  if (image != nil)
+  {
+    NSData *imageData = UIImagePNGRepresentation(image);
+    [dictionary setObject:imageData forKey:@"image"];
+  }
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
 	return dictionary;
