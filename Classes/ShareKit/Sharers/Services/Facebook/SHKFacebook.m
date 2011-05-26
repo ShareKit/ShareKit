@@ -27,13 +27,15 @@
 
 #import "SHKFacebook.h"
 
-NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
-NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
-NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
+static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
+static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
+static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 @interface SHKFacebook()
 + (Facebook*)facebook;
 + (void)flushAccessToken;
++ (NSString *)storedImagePath:(UIImage*)image;
++ (UIImage*)storedImage:(NSString*)imagePath;
 @end
 
 @implementation SHKFacebook
@@ -62,6 +64,37 @@ NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   [defaults removeObjectForKey:kSHKFacebookAccessTokenKey];
   [defaults removeObjectForKey:kSHKFacebookExpiryDateKey];
   [defaults synchronize];
+}
+
++ (NSString *)storedImagePath:(UIImage*)image
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *cache = [paths objectAtIndex:0];
+	NSString *imagePath = [cache stringByAppendingPathComponent:@"SHKImage"];
+	
+	// Check if the path exists, otherwise create it
+	if (![fileManager fileExistsAtPath:imagePath]) 
+		[fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
+	
+  NSString *uid = [NSString stringWithFormat:@"img-%i-%i", [[NSDate date] timeIntervalSince1970], arc4random()];    
+  // store image in cache
+  NSData *imageData = UIImagePNGRepresentation(image);
+  imagePath = [imagePath stringByAppendingPathComponent:uid];
+  [imageData writeToFile:imagePath atomically:YES];
+  
+	return imagePath;
+}
+
++ (UIImage*)storedImage:(NSString*)imagePath {
+  NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+  UIImage *image = nil;
+  if (imageData) {
+    image = [UIImage imageWithData:imageData];
+  }
+  // Unlink the stored file:
+  [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
+  return image;
 }
 
 + (BOOL)handleOpenURL:(NSURL*)url 
@@ -121,8 +154,12 @@ NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)promptAuthorization
 {
-  [[NSUserDefaults standardUserDefaults] setObject:[self.item dictionaryRepresentation] 
-                                            forKey:kSHKStoredItemKey];
+  NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
+  if (item.image)
+  {
+    [itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+  }
+  [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
   [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
                                      @"offline_access", nil] 
                            delegate:self];
@@ -238,6 +275,10 @@ NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   if (storedItem)
   {
     self.item = [SHKItem itemFromDictionary:storedItem];
+    NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+    if (imagePath) {
+      self.item.image = [SHKFacebook storedImage:imagePath];
+    }
     [defaults removeObjectForKey:kSHKStoredItemKey];
   }
   [defaults synchronize];
