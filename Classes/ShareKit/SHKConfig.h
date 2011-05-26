@@ -43,10 +43,17 @@
 #define SHKDeliciousSecretKey		@""
 
 // Facebook - http://www.facebook.com/developers
-// If SHKFacebookUseSessionProxy is enabled then SHKFacebookSecret is ignored and should be left blank
-
+// SHKFacebookAppID is the Application ID provided by Facebook
+// SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
+// The CFBundleURLSchemes in your App-Info.plist should be "fb" + the concatenation of these two IDs.
+// Example: 
+//    SHKFacebookAppID = 555
+//    SHKFacebookLocalAppID = funk
+// 
+//    Your CFBundleURLSchemes entry: fb555funk
 #define SHKFacebookUseSessionProxy  NO 
 #define SHKFacebookAppID      @""
+#define SHKFacebookLocalAppID      @""
 #define SHKFacebookSessionProxyURL  @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
