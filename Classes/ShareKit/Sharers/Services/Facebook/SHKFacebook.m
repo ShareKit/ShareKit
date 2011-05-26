@@ -160,9 +160,16 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
     [itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
   }
   [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
-  [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-                                     @"offline_access", nil] 
-                           delegate:self];
+  if ((! SHKFacebookLocalAppID) || [SHKFacebookLocalAppID isEqualToString:@""]) {
+    [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
+                                       @"offline_access", nil] 
+                             delegate:self];
+  } else {
+    [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
+                                       @"offline_access", nil] 
+                             delegate:self
+                           localAppId:SHKFacebookLocalAppID];
+  }
 }
 
 - (void)authFinished:(SHKRequest *)req
