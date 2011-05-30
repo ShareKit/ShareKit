@@ -212,7 +212,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
     if (item.title) 
-      [params setObject:item.title forKey:@"name"];
+      [params setObject:item.title forKey:@"caption"];
     if (item.text) 
       [params setObject:item.text forKey:@"message"];
     [params setObject:item.image forKey:@"picture"];
