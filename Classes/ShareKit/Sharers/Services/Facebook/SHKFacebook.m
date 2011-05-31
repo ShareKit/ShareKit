@@ -99,7 +99,12 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 + (BOOL)handleOpenURL:(NSURL*)url 
 {
-  return [[SHKFacebook facebook] handleOpenURL:url];
+  Facebook *fb = [SHKFacebook facebook];
+  if (! fb.sessionDelegate) {
+    SHKFacebook *sharer = [[[SHKFacebook alloc] init] autorelease];
+    fb.sessionDelegate = sharer;
+  }
+  return [fb handleOpenURL:url];
 }
 
 #pragma mark -
