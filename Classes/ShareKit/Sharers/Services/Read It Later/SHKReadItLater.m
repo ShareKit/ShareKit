@@ -27,6 +27,7 @@
 
 // SHOULD FUNCS - can these be implemented like dataSource and delegate on tableview?
 
+#import "SHKConfiguration.h"
 #import "SHKReadItLater.h"
 
 
@@ -77,7 +78,7 @@
 	NSDictionary *formValues = [form formValues];
 	
 	NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@",
-						SHKReadItLaterKey,
+						SHKCONFIG(readItLaterKey),
 						SHKEncode([formValues objectForKey:@"username"]),
 						SHKEncode([formValues objectForKey:@"password"])
 						];
@@ -143,7 +144,7 @@
 						  SHKEncodeURL(item.URL), SHKEncode(item.tags)];
 		
 		NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@%@%@",
-									SHKReadItLaterKey,
+									SHKCONFIG(readItLaterKey),
 							SHKEncode([self getAuthValueForKey:@"username"]),
 							SHKEncode([self getAuthValueForKey:@"password"]),
 							new,

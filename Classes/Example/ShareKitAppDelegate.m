@@ -45,6 +45,11 @@
 	// Save data if appropriate
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+	SHKFacebook *facebookSharer = [[[SHKFacebook alloc] init] autorelease];
+	return [[facebookSharer facebook] handleOpenURL:url];
+}
+
 
 #pragma mark -
 #pragma mark Memory management

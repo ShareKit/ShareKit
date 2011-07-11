@@ -43,12 +43,27 @@
 #define SHKDeliciousSecretKey		@""
 
 // Facebook - http://www.facebook.com/developers
-// If SHKFacebookUseSessionProxy is enabled then SHKFacebookSecret is ignored and should be left blank
+// iOS SDK - https://github.com/facebook/facebook-ios-sdk
+/*
+ Important Facebook settings to get right:
+ 
+ URL Schemes
+ ---
+ You must create a URL scheme in your Info.plist that is in the format fb[app_id]. See the documentation on the iOS SDK under Authentication and Authorization for more details. This is to allow
+ the new Single Sign-on capabilities of the iOS SDK to callback to your application, should it use fast app switching to authenticate in the Facebook app or Safari.
+ 
+ Modify AppDelegate class
+ ---
+ You must implement the application:handleOpenURL: method in your AppDelegate class. In this method, call the handleOpenURL: method on the facebook property of an SHKFacebook instance.
+ 
+ For example:
+ - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+		SHKFacebook *facebookSharer = [[[SHKFacebook alloc] init] autorelease];
+		return [[facebookSharer facebook] handleOpenURL:url];
+ }
+ */
+#define SHKFacebookAppId			@""
 
-#define SHKFacebookUseSessionProxy  NO 
-#define SHKFacebookKey				@""
-#define SHKFacebookSecret			@""
-#define SHKFacebookSessionProxyURL  @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
 #define SHKReadItLaterKey			@""
@@ -74,6 +89,12 @@
 #define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+
+// Evernote - http://www.evernote.com/about/developer/api/
+#define SHKEvernoteUserStoreURL		@""
+#define SHKEvernoteSecretKey		@""
+#define SHKEvernoteConsumerKey		@""
+#define SHKEvernoteNetStoreURLBase	@""
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
@@ -118,12 +139,6 @@
 #define SHKModalPresentationStyle	@"UIModalPresentationFormSheet" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 #define SHKModalTransitionStyle		@"UIModalTransitionStyleCoverVertical" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-
-// Append 'Shared With 'Signature to Email (and related forms)
-#define SHKSharedWithSignature		0
-
 /*
  UI Configuration : Advanced
  ------
@@ -136,23 +151,16 @@
 /*
  Debugging
  ------
- To show debug output in the console:
- 1. uncomment section A below
- 2. comment out section B below
- 
- To hide debug output in the console:
- 1. uncomment section B below
- 2. comment out section A below
+ To show debug output in the console, define _SHKDebugShowLogs somewhere.
  */
 
-// A : show debug output
-//#define SHKDebugShowLogs			1
-//#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-
-// B : hide debug output
-#define SHKDebugShowLogs			0
-#define SHKLog( s, ... ) 
-
+#ifdef _SHKDebugShowLogs
+	#define SHKDebugShowLogs			1
+	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+	#define SHKDebugShowLogs			0
+	#define SHKLog( s, ... )
+#endif
 
 
 /*

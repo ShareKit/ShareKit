@@ -28,6 +28,7 @@
 // TODO - SHKTwitter supports offline sharing, however the url cannot be shortened without an internet connection.  Need a graceful workaround for this.
 
 
+#import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 
 @implementation SHKTwitter
@@ -39,12 +40,12 @@
 	if (self = [super init])
 	{	
 		// OAUTH		
-		self.consumerKey = SHKTwitterConsumerKey;		
-		self.secretKey = SHKTwitterSecret;
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKTwitterCallbackUrl];// HOW-TO: In your Twitter application settings, use the "Callback URL" field.  If you do not have this field in the settings, set your application type to 'Browser'.
+		self.consumerKey = SHKCONFIG(twitterConsumerKey);		
+		self.secretKey = SHKCONFIG(twitterSecret);
+ 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(twitterCallbackUrl)];// HOW-TO: In your Twitter application settings, use the "Callback URL" field.  If you do not have this field in the settings, set your application type to 'Browser'.
 		
 		// XAUTH
-		self.xAuth = SHKTwitterUseXAuth?YES:NO;
+		self.xAuth = [SHKCONFIG(twitterUseXAuth) boolValue]?YES:NO;
 		
 		
 		// -- //
@@ -120,13 +121,13 @@
 
 + (NSArray *)authorizationFormFields
 {
-	if ([SHKTwitterUsername isEqualToString:@""])
+	if ([SHKCONFIG(twitterUsername) isEqualToString:@""])
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow %@", SHKTwitterUsername) key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow %@", SHKCONFIG(twitterUsername)) key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
 			nil];
 }
 
@@ -241,8 +242,8 @@
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-																		  SHKBitLyLogin,
-																		  SHKBitLyKey,																		  
+																		 SHKCONFIG(bitLyLogin),
+																		  SHKCONFIG(bitLyKey),																		  
 																		  SHKEncodeURL(item.URL)
 																		  ]]
 											 params:nil
@@ -530,7 +531,7 @@
 	// remove it so in case of other failures this doesn't get hit again
 	[item setCustomValue:nil forKey:@"followMe"];
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/friendships/create/%@.json", SHKTwitterUsername]]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.twitter.com/1/friendships/create/%@.json", SHKCONFIG(twitterUsername)]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil

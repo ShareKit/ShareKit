@@ -26,6 +26,7 @@
 //
 
 #import "SHK.h"
+#import "SHKConfiguration.h"
 #import "SHKCustomFormController.h"
 #import "SHKCustomFormFieldCell.h"
 
@@ -134,8 +135,8 @@
 {
 	[super viewDidLoad];
 	
-	if (SHKFormBgColorRed != -1)		
-		self.tableView.backgroundColor = [UIColor colorWithRed:SHKFormBgColorRed/255 green:SHKFormBgColorGreen/255 blue:SHKFormBgColorBlue/255 alpha:1];
+	if ([SHKCONFIG(formBgColorRed) intValue] != -1)
+		self.tableView.backgroundColor = [UIColor colorWithRed:[SHKCONFIG(formBgColorRed) intValue]/255 green:[SHKCONFIG(formBgColorGreen) intValue]/255 blue:[SHKCONFIG(formBgColorBlue) intValue]/255 alpha:1];
 }
 
 
@@ -162,8 +163,8 @@
         cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.form = self;
 		
-		if (SHKFormFontColorRed != -1)		
-			cell.textLabel.textColor = [UIColor colorWithRed:SHKFormFontColorRed/255 green:SHKFormFontColorGreen/255 blue:SHKFormFontColorBlue/255 alpha:1];
+		if ([SHKCONFIG(formFontColorRed) intValue] != -1)
+			cell.textLabel.textColor = [UIColor colorWithRed:[SHKCONFIG(formFontColorRed) intValue]/255 green:[SHKCONFIG(formFontColorGreen) intValue]/255 blue:[SHKCONFIG(formFontColorBlue) intValue]/255 alpha:1];
 	}
 	
 	// Since we are reusing table cells, make sure to save any existing values before overwriting

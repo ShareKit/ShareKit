@@ -25,6 +25,7 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKDelicious.h"
 #import "OAuthConsumer.h"
 
@@ -43,8 +44,8 @@
 {
 	if (self = [super init])
 	{		
-		self.consumerKey = SHKDeliciousConsumerKey;		
-		self.secretKey = SHKDeliciousSecretKey;
+		self.consumerKey = SHKCONFIG(deliciousConsumerKey);		
+		self.secretKey = SHKCONFIG(deliciousSecretKey);
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKDeliciousCallbackUrl];// HOW-TO: In your Twitter application settings, use the "Callback URL" field.  If you do not have this field in the settings, set your application type to 'Browser'.
 		
 		
@@ -138,7 +139,7 @@
 		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.del.icio.us/v2/posts/add"]
 																		consumer:consumer
 																		   token:accessToken
-																		   realm:nil
+																		   realm:@"yahooapis.com"
 															   signatureProvider:nil];
 		
 		[oRequest setHTTPMethod:@"GET"];
@@ -198,9 +199,9 @@
 		NSString *body = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		
 		// Expired token
-		if ([body rangeOfString:@"token_expired"].location != NSNotFound)
+		if ([body rangeOfString:@"token_expired"].location != NSNotFound || [body rangeOfString:@"Please provide valid credentials"].location != NSNotFound)
 		{
-			[self refreshToken];				
+			[self refreshToken];
 			return;
 		}
 		

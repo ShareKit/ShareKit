@@ -25,6 +25,7 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKMail.h"
 
 
@@ -157,10 +158,10 @@
 			body = @"";
 		
 		// sig
-		if (SHKSharedWithSignature)
+		if ([SHKCONFIG(sharedWithSignature) boolValue])
 		{
 			body = [body stringByAppendingString:@"<br/><br/>"];
-			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKMyAppName)];
+			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
 		
 		// save changes to body

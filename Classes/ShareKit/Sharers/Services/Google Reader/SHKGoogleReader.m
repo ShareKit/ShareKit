@@ -35,6 +35,7 @@ Google Reader API is unoffical, this was hobbled together from:
 */
 
 
+#import "SHKConfiguration.h"
 #import "SHKGoogleReader.h"
 
 
@@ -102,7 +103,7 @@ Google Reader API is unoffical, this was hobbled together from:
 - (void)getSession:(NSString *)email password:(NSString *)password
 {
 	NSString *params = [NSMutableString stringWithFormat:@"service=reader&source=%@&Email=%@&Passwd=%@&accountType=GOOGLE",
-						[NSString stringWithFormat:@"ShareKit-%@-%@", SHKEncode(SHKMyAppName), SHK_VERSION],
+						[NSString stringWithFormat:@"ShareKit-%@-%@", SHKEncode(SHKCONFIG(appName)), SHK_VERSION],
 						SHKEncode(email),
 						SHKEncode(password)
 						];
@@ -266,15 +267,21 @@ Google Reader API is unoffical, this was hobbled together from:
 }
 
 - (void)sendWithToken:(NSString *)token
-{		
+{
+	// If autosharing is turned on, use the value their, otherwise, default to the setting from the form.
+	BOOL publicShare = [item customBoolForSwitchKey:@"share"];
+	if([self shouldAutoShare]) {
+		 publicShare = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_isPublic", [self sharerId]]];
+	}
+
 	NSString *params = [NSMutableString stringWithFormat:@"T=%@&linkify=false&snippet=%@&srcTitle=%@&srcUrl=%@&title=%@&url=%@&share=%@",
 						token,
 						SHKEncode(item.text),
-						SHKEncode(SHKMyAppName),
-						SHKEncode(SHKMyAppURL),		
+						SHKEncode(SHKCONFIG(appName)),
+						SHKEncode(SHKCONFIG(appURL)),		
 						SHKEncode(item.title),					
 						SHKEncodeURL(item.URL),
-						[item customBoolForSwitchKey:@"share"]?@"true":@""
+						publicShare?@"true":@""
 						];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.google.com/reader/api/0/item/edit"]
@@ -297,5 +304,19 @@ Google Reader API is unoffical, this was hobbled together from:
 		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving your note.")]]; // TODO better error handling/message	
 }
 
+- (void)shareFormSave:(SHKFormController *)form
+{
+	[super shareFormSave:form];
 
+	// If the user turned autoshare on, record whether they want the links public or not when they're shared.
+	NSDictionary *formValues = [form formValues];
+	for(NSString *key in formValues)
+	{
+		if ([key isEqualToString:@"share"])
+		{
+			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_isPublic", [self sharerId]]];
+			break;
+		}
+	}
+}
 @end

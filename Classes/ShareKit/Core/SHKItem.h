@@ -37,7 +37,7 @@ typedef enum
 } SHKShareType;
 
 
-@interface SHKItem : NSObject 
+@interface SHKItem : NSObject
 {	
 	SHKShareType shareType;
 	
