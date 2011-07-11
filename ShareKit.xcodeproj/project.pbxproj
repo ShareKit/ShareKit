@@ -105,6 +105,9 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
+		AAACDC9613CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACDC9113CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.m */; };
+		AAACDC9713CB7A6F00A2118F /* LegacySHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACDC9313CB7A6F00A2118F /* LegacySHKConfigurationDelegate.m */; };
+		AAACDC9813CB7A6F00A2118F /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACDC9513CB7A6F00A2118F /* SHKConfiguration.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -309,6 +312,12 @@
 		43FF9C7312270E9F00ADE53C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		43FF9C7512270EB900ADE53C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AAACDC9013CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurationDelegate.h; sourceTree = "<group>"; };
+		AAACDC9113CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSHKConfigurationDelegate.m; sourceTree = "<group>"; };
+		AAACDC9213CB7A6F00A2118F /* LegacySHKConfigurationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegacySHKConfigurationDelegate.h; sourceTree = "<group>"; };
+		AAACDC9313CB7A6F00A2118F /* LegacySHKConfigurationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacySHKConfigurationDelegate.m; sourceTree = "<group>"; };
+		AAACDC9413CB7A6F00A2118F /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
+		AAACDC9513CB7A6F00A2118F /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -562,6 +571,7 @@
 		43A5367111DBE3B9004A1712 /* ShareKit */ = {
 			isa = PBXGroup;
 			children = (
+				AAACDC8F13CB7A6F00A2118F /* Configuration */,
 				43A536EC11DBE3B9004A1712 /* SHKConfig.h */,
 				43A536AD11DBE3B9004A1712 /* Customize UI */,
 				43A5367211DBE3B9004A1712 /* Core */,
@@ -896,6 +906,19 @@
 			name = Localization;
 			sourceTree = "<group>";
 		};
+		AAACDC8F13CB7A6F00A2118F /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				AAACDC9013CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.h */,
+				AAACDC9113CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.m */,
+				AAACDC9213CB7A6F00A2118F /* LegacySHKConfigurationDelegate.h */,
+				AAACDC9313CB7A6F00A2118F /* LegacySHKConfigurationDelegate.m */,
+				AAACDC9413CB7A6F00A2118F /* SHKConfiguration.h */,
+				AAACDC9513CB7A6F00A2118F /* SHKConfiguration.m */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1056,6 +1079,9 @@
 				3B06B64D12EF841800FC0583 /* SBJsonParser.m in Sources */,
 				3B06B64E12EF841800FC0583 /* SBJsonWriter.m in Sources */,
 				3B06B65312EF842800FC0583 /* SHKFacebook.m in Sources */,
+				AAACDC9613CB7A6F00A2118F /* DefaultSHKConfigurationDelegate.m in Sources */,
+				AAACDC9713CB7A6F00A2118F /* LegacySHKConfigurationDelegate.m in Sources */,
+				AAACDC9813CB7A6F00A2118F /* SHKConfiguration.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
