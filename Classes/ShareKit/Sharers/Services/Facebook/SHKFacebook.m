@@ -26,6 +26,7 @@
 //
 
 #import "SHKFacebook.h"
+#import "SHKConfiguration.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
@@ -50,7 +51,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   static Facebook *facebook=nil;
   @synchronized([SHKFacebook class]) {
     if (! facebook)
-      facebook = [[Facebook alloc] initWithAppId:SHKFacebookAppID];
+      facebook = [[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId)];
   }
   return facebook;
 }

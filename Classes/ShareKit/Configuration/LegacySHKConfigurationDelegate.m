@@ -38,7 +38,7 @@
 						 SHKMyAppURL, @"appURL", 
 						 SHKDeliciousConsumerKey, @"deliciousConsumerKey", 
 						 SHKDeliciousSecretKey, @"deliciousSecretKey", 
-						 SHKFacebookAppId, @"facebookAppId",
+						 SHKFacebookAppID, @"facebookAppId",
 						 SHKReadItLaterKey, @"readItLaterKey", 
 						 SHKTwitterConsumerKey, @"twitterConsumerKey", 
 						 SHKTwitterSecret, @"twitterSecret", 
