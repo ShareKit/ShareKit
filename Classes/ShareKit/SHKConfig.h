@@ -43,27 +43,18 @@
 #define SHKDeliciousSecretKey		@""
 
 // Facebook - http://www.facebook.com/developers
-// iOS SDK - https://github.com/facebook/facebook-ios-sdk
-/*
- Important Facebook settings to get right:
- 
- URL Schemes
- ---
- You must create a URL scheme in your Info.plist that is in the format fb[app_id]. See the documentation on the iOS SDK under Authentication and Authorization for more details. This is to allow
- the new Single Sign-on capabilities of the iOS SDK to callback to your application, should it use fast app switching to authenticate in the Facebook app or Safari.
- 
- Modify AppDelegate class
- ---
- You must implement the application:handleOpenURL: method in your AppDelegate class. In this method, call the handleOpenURL: method on the facebook property of an SHKFacebook instance.
- 
- For example:
- - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-		SHKFacebook *facebookSharer = [[[SHKFacebook alloc] init] autorelease];
-		return [[facebookSharer facebook] handleOpenURL:url];
- }
- */
-#define SHKFacebookAppId			@""
-
+// SHKFacebookAppID is the Application ID provided by Facebook
+// SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
+// The CFBundleURLSchemes in your App-Info.plist should be "fb" + the concatenation of these two IDs.
+// Example: 
+//    SHKFacebookAppID = 555
+//    SHKFacebookLocalAppID = funk
+// 
+//    Your CFBundleURLSchemes entry: fb555funk
+#define SHKFacebookUseSessionProxy  NO 
+#define SHKFacebookAppID      @""
+//#define SHKFacebookLocalAppID      @""
+#define SHKFacebookSessionProxyURL  @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
 #define SHKReadItLaterKey			@""
@@ -100,11 +91,6 @@
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
 
-// Evernote http://www.evernote.com/about/developer/api/
-#define SHKEvernoteConsumerKey      @""
-#define SHKEvernoteSecretKey        @""
-#define SHKEvernoteUserStoreURL     @""
-#define SHKEvernoteNetStoreURLBase  @""
 
 // ShareMenu Ordering
 #define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
@@ -138,6 +124,12 @@
 // iPad views
 #define SHKModalPresentationStyle	@"UIModalPresentationFormSheet" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 #define SHKModalTransitionStyle		@"UIModalTransitionStyleCoverVertical" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
+
+// ShareMenu Ordering
+#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
+
+// Append 'Shared With 'Signature to Email (and related forms)
+#define SHKSharedWithSignature		0
 
 /*
  UI Configuration : Advanced
