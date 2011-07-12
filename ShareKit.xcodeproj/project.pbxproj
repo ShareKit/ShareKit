@@ -108,6 +108,13 @@
 		AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurationDelegate.m */; };
 		AAACE01C13CCB1F500A2118F /* LegacySHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01813CCB1F500A2118F /* LegacySHKConfigurationDelegate.m */; };
 		AAACE01D13CCB1F500A2118F /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */; };
+		AAACE06213CCBED400A2118F /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05513CCBED400A2118F /* LFHTTPRequest.m */; };
+		AAACE06313CCBED400A2118F /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05713CCBED400A2118F /* LFSiteReachability.m */; };
+		AAACE06413CCBED400A2118F /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
+		AAACE06513CCBED400A2118F /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05C13CCBED400A2118F /* ObjectiveFlickr.m */; };
+		AAACE06613CCBED400A2118F /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05F13CCBED400A2118F /* OFXMLMapper.m */; };
+		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
+		AAACE07513CCC10200A2118F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAACE07413CCC10200A2118F /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -318,6 +325,21 @@
 		AAACE01813CCB1F500A2118F /* LegacySHKConfigurationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacySHKConfigurationDelegate.m; sourceTree = "<group>"; };
 		AAACE01913CCB1F500A2118F /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
 		AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
+		AAACE05413CCBED400A2118F /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFHTTPRequest.h; sourceTree = "<group>"; };
+		AAACE05513CCBED400A2118F /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHTTPRequest.m; sourceTree = "<group>"; };
+		AAACE05613CCBED400A2118F /* LFSiteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSiteReachability.h; sourceTree = "<group>"; };
+		AAACE05713CCBED400A2118F /* LFSiteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSiteReachability.m; sourceTree = "<group>"; };
+		AAACE05813CCBED400A2118F /* LFWebAPIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFWebAPIKit.h; sourceTree = "<group>"; };
+		AAACE05913CCBED400A2118F /* NSData_LFHTTPFormExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSData_LFHTTPFormExtensions.h; sourceTree = "<group>"; };
+		AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSData_LFHTTPFormExtensions.m; sourceTree = "<group>"; };
+		AAACE05B13CCBED400A2118F /* ObjectiveFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveFlickr.h; sourceTree = "<group>"; };
+		AAACE05C13CCBED400A2118F /* ObjectiveFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectiveFlickr.m; sourceTree = "<group>"; };
+		AAACE05D13CCBED400A2118F /* OFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFUtilities.h; sourceTree = "<group>"; };
+		AAACE05E13CCBED400A2118F /* OFXMLMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFXMLMapper.h; sourceTree = "<group>"; };
+		AAACE05F13CCBED400A2118F /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
+		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
+		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
+		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -331,6 +353,7 @@
 				4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */,
 				43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */,
 				43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */,
+				AAACE07513CCC10200A2118F /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -401,6 +424,7 @@
 				43C91D1B11EB963600F31FAE /* Resources-iPad */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				AAACE07413CCC10200A2118F /* CFNetwork.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -717,8 +741,8 @@
 		43A536B511DBE3B9004A1712 /* Sharers */ = {
 			isa = PBXGroup;
 			children = (
-				AAACE01413CCB1F500A2118F /* Configuration */,
 				43A536B611DBE3B9004A1712 /* Actions */,
+				AAACE01413CCB1F500A2118F /* Configuration */,
 				43A536C011DBE3B9004A1712 /* Services */,
 			);
 			path = Sharers;
@@ -769,6 +793,7 @@
 				43A536C111DBE3B9004A1712 /* Delicious */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
+				AAACE05313CCBED400A2118F /* Flickr */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
 				43A536E111DBE3B9004A1712 /* Pinboard */,
@@ -919,6 +944,27 @@
 			name = Configuration;
 			path = Classes/ShareKit/Configuration;
 			sourceTree = SOURCE_ROOT;
+		};
+		AAACE05313CCBED400A2118F /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				AAACE05413CCBED400A2118F /* LFHTTPRequest.h */,
+				AAACE05513CCBED400A2118F /* LFHTTPRequest.m */,
+				AAACE05613CCBED400A2118F /* LFSiteReachability.h */,
+				AAACE05713CCBED400A2118F /* LFSiteReachability.m */,
+				AAACE05813CCBED400A2118F /* LFWebAPIKit.h */,
+				AAACE05913CCBED400A2118F /* NSData_LFHTTPFormExtensions.h */,
+				AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */,
+				AAACE05B13CCBED400A2118F /* ObjectiveFlickr.h */,
+				AAACE05C13CCBED400A2118F /* ObjectiveFlickr.m */,
+				AAACE05D13CCBED400A2118F /* OFUtilities.h */,
+				AAACE05E13CCBED400A2118F /* OFXMLMapper.h */,
+				AAACE05F13CCBED400A2118F /* OFXMLMapper.m */,
+				AAACE06013CCBED400A2118F /* SHKFlickr.h */,
+				AAACE06113CCBED400A2118F /* SHKFlickr.m */,
+			);
+			path = Flickr;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -1083,6 +1129,12 @@
 				AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurationDelegate.m in Sources */,
 				AAACE01C13CCB1F500A2118F /* LegacySHKConfigurationDelegate.m in Sources */,
 				AAACE01D13CCB1F500A2118F /* SHKConfiguration.m in Sources */,
+				AAACE06213CCBED400A2118F /* LFHTTPRequest.m in Sources */,
+				AAACE06313CCBED400A2118F /* LFSiteReachability.m in Sources */,
+				AAACE06413CCBED400A2118F /* NSData_LFHTTPFormExtensions.m in Sources */,
+				AAACE06513CCBED400A2118F /* ObjectiveFlickr.m in Sources */,
+				AAACE06613CCBED400A2118F /* OFXMLMapper.m in Sources */,
+				AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,7 +27,8 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb${FACEBOOK_APP_ID}</string>
+				<string>fb[appId]</string>
+				<string>app://flickr</string>
 			</array>
 		</dict>
 	</array>
@@ -41,16 +42,5 @@
 	<string>MainWindow</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-iPad</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string></string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fb[appId]</string>
-			</array>
-		</dict>
-	</array>
 </dict>
 </plist>

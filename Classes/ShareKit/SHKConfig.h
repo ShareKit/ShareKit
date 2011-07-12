@@ -99,6 +99,16 @@
 #define SHKSharedWithSignature		0
 
 
+// Flickr - http://www.flickr.com/services/apps/create/
+/*
+ 1 - This requires the CFNetwork.framework 
+ 2 - One needs to setup the flickr app as a "web service" on the flickr authentication flow settings, and enter in your app's custom callback URL scheme. 
+ 3 - make sure you define and create the same URL scheme in your apps info.plist. It can be as simple as yourapp://flickr */
+
+#define SHKFlickrConsumerKey @""	// The consumer key
+#define SHKFlickrSecretKey @""		// The secret key
+#define SHKFlickrCallbackUrl @"app://flickr"	// The user defined callback url
+
 
 /*
  UI Configuration : Basic
