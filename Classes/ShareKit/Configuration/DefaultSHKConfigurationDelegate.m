@@ -150,4 +150,8 @@
 	return @"SHK_AUTH_";
 }
 
+- (NSString*)sharersPlistName {
+	return @"SHKSharers.plist";
+}
+
 @end

@@ -68,6 +68,7 @@
 						 [NSNumber numberWithInt:SHK_MAX_FAV_COUNT], @"maxFavCount", 
 						 SHK_FAVS_PREFIX_KEY, @"favsPrefixKey", 
 						 SHK_AUTH_PREFIX, @"authPrefix", 
+						 SHKSSharersPlistName, @"sharersPlistName",
 						 nil];
 	}
 	

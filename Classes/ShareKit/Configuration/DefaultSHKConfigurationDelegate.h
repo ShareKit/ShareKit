@@ -62,5 +62,5 @@
 - (NSNumber*)maxFavCount;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
-
+- (NSString*)sharersPlistName;
 @end

@@ -141,6 +141,10 @@
 // Append 'Shared With 'Signature to Email (and related forms)
 #define SHKSharedWithSignature		0
 
+// Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but 
+// this allows you to subclass a sharer and have the subclass be used.
+#define SHKSSharersPlistName		@"SHKSharers.plist"
+
 /*
  UI Configuration : Advanced
  ------

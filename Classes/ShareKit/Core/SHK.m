@@ -421,7 +421,7 @@ static NSDictionary *sharersDictionary = nil;
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"SHKSharers.plist"]] retain];
+		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
 	
 	return sharersDictionary;
 }

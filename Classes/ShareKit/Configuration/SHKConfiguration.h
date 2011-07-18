@@ -58,6 +58,7 @@
 - (NSNumber*)formBgColorBlue;
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
+- (NSString*)sharersPlistName;
 
 // Advanced Configuration
 - (NSNumber*)maxFavCount;
