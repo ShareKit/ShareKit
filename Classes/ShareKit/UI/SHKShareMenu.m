@@ -30,12 +30,14 @@
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKCustomShareMenuCell.h"
+#import "SHKShareItemDelegate.h"
 
 @implementation SHKShareMenu
 
 @synthesize item;
 @synthesize tableData;
 @synthesize exclusions;
+@synthesize shareDelegate;
 
 #pragma mark -
 #pragma mark Initialization
@@ -45,6 +47,7 @@
 	[item release];
 	[tableData release];
 	[exclusions release];
+	[shareDelegate release];
     [super dealloc];
 }
 
@@ -268,7 +271,13 @@
 	
 	else 
 	{
-		[NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
+		bool doShare = YES;
+		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
+		{
+			doShare = [shareDelegate aboutToShareItem:item withSharer:NSClassFromString([rowData objectForKey:@"className"])];
+		}
+		if(doShare)
+			[NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}

@@ -29,16 +29,19 @@
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKCustomShareMenu.h"
+#import "SHKShareItemDelegate.h"
+
 #import <Foundation/NSObjCRuntime.h>
 
 @implementation SHKActionSheet
 
-@synthesize item, sharers;
+@synthesize item, sharers, shareDelegate;
 
 - (void)dealloc
 {
 	[item release];
 	[sharers release];
+	[shareDelegate release];
 	[super dealloc];
 }
 
@@ -90,13 +93,20 @@
 	// Sharers
 	if (buttonIndex >= 0 && buttonIndex < sharers.count)
 	{
-		[NSClassFromString([sharers objectAtIndex:buttonIndex]) performSelector:@selector(shareItem:) withObject:item];
+		bool doShare = YES;
+		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
+		{
+			doShare = [shareDelegate aboutToShareItem:item withSharer:NSClassFromString([sharers objectAtIndex:buttonIndex])];
+		}
+		if(doShare)
+			[NSClassFromString([sharers objectAtIndex:buttonIndex]) performSelector:@selector(shareItem:) withObject:item];
 	}
 	
 	// More
 	else if (buttonIndex == sharers.count)
 	{
 		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
+		shareMenu.shareDelegate = shareDelegate;
 		shareMenu.item = item;
 		[[SHK currentHelper] showViewController:shareMenu];
 		[shareMenu release];

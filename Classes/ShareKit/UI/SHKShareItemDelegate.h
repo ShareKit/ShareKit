@@ -1,8 +1,7 @@
-//
-//  SHKShareMenu.h
+//  SHKShareItemDelegate.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/18/10.
+//  Created by Steve Troppoli on 7/12/11.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,37 +23,20 @@
 //  THE SOFTWARE.
 //
 //
+#import <Foundation/Foundation.h>
 
-#import <UIKit/UIKit.h>
-#import "SHK.h"
-
-@protocol SHKShareItemDelegate;
-
-@interface SHKShareMenu : UITableViewController 
-{
-	SHKItem *item;
-	NSMutableArray *tableData;
-	NSMutableDictionary *exclusions;
-	id<SHKShareItemDelegate> shareDelegate;
-}
-
-@property (nonatomic, retain) SHKItem *item;
-@property (retain) NSMutableArray *tableData;
-@property (retain) NSMutableDictionary *exclusions;
-@property (retain) id<SHKShareItemDelegate> shareDelegate;
-
-
-- (void)rebuildTableDataAnimated:(BOOL)animated;
-- (NSMutableArray *)section:(NSString *)section;
-- (NSDictionary *)rowDataAtIndexPath:(NSIndexPath *)indexPath;
-
-#pragma mark -
-#pragma mark Toolbar Buttons
-
-- (void)cancel;
-- (void)edit;
-- (void)save;
-
-
-
+#include "SHK.h"
+@protocol SHKShareItemDelegate<NSObject>
+@required
+/** Called just before shareItem is called with this item on sharer. This gives you 
+ a last minute chance to customize the data in the item before the share takes place.
+ For example when posting a photo to a web service, there isn't any point in generating
+ compressing and sending over the wire a 4000X4000 image if the max size for the service
+ is 600X600.
+ @param item - item that is being shared
+ @param sharer - the sharer that will share the item
+ @returns YES if the item should be shared by ShareKit, NO is the callee is going
+ to handle it. This is useful if generating the image at the appropriate size for
+ the service is an async process.*/
+-(BOOL) aboutToShareItem:(SHKItem*)item withSharer:(Class)sharer;
 @end
