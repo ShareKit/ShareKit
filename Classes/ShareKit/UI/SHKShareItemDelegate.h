@@ -26,6 +26,9 @@
 #import <Foundation/Foundation.h>
 
 #include "SHK.h"
+
+@class SHKSharer;
+
 @protocol SHKShareItemDelegate<NSObject>
 @required
 /** Called just before shareItem is called with this item on sharer. This gives you 
@@ -38,5 +41,5 @@
  @returns YES if the item should be shared by ShareKit, NO is the callee is going
  to handle it. This is useful if generating the image at the appropriate size for
  the service is an async process.*/
--(BOOL) aboutToShareItem:(SHKItem*)item withSharer:(Class)sharer;
+-(BOOL) aboutToShareItem:(SHKItem*)item withSharer:(SHKSharer*)sharer;
 @end

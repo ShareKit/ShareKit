@@ -38,6 +38,8 @@
 - (void)sharerFinishedSending:(SHKSharer *)sharer;
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sharerCancelledSending:(SHKSharer *)sharer;
+@optional
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success;	
 
 @end
 
@@ -112,6 +114,8 @@ typedef enum
 
 + (id)shareItem:(SHKItem *)i;
 
+- (void)loadItem:(SHKItem *)i;
+
 + (id)shareURL:(NSURL *)url;
 + (id)shareURL:(NSURL *)url title:(NSString *)title;
 
@@ -180,6 +184,10 @@ typedef enum
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;
+/*	called when an auth request returns. This is helpful if you need to use a service somewhere else in your
+	application other than sharing. It lets you use the same stored auth creds and login screens.
+ */
+- (void)authDidFinish:(BOOL)success;	
 
 @end
 

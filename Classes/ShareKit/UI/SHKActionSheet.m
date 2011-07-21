@@ -94,12 +94,14 @@
 	if (buttonIndex >= 0 && buttonIndex < sharers.count)
 	{
 		bool doShare = YES;
+		SHKSharer* sharer = [[[NSClassFromString([sharers objectAtIndex:buttonIndex]) alloc] init] autorelease];
+		[sharer loadItem:item];
 		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
 		{
-			doShare = [shareDelegate aboutToShareItem:item withSharer:NSClassFromString([sharers objectAtIndex:buttonIndex])];
+			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
 		}
 		if(doShare)
-			[NSClassFromString([sharers objectAtIndex:buttonIndex]) performSelector:@selector(shareItem:) withObject:item];
+			[sharer share];
 	}
 	
 	// More

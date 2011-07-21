@@ -109,6 +109,7 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 

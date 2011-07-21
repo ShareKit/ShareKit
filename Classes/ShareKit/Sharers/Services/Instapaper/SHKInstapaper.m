@@ -105,6 +105,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                        cancelButtonTitle:SHKLocalizedString(@"Close")
                        otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 #pragma mark -

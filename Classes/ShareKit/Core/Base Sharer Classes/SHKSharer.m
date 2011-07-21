@@ -194,6 +194,14 @@
 	return [controller autorelease];
 }
 
+- (void)loadItem:(SHKItem *)i
+{
+	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
+	
+	// Create controller set share options
+	self.item = i;
+}
+
 + (id)shareURL:(NSURL *)url
 {
 	return [self shareURL:url title:nil];
@@ -648,6 +656,11 @@
 	
 }
 
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
+{
+	
+}
+
 #pragma mark -
 #pragma mark Pending Actions
 
@@ -729,5 +742,12 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidCancel" object:self];
 }
 
+- (void)authDidFinish:(BOOL)success	
+{
+	if ([shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)])
+		[shareDelegate performSelector:@selector(sharerAuthDidFinish:success:) withObject:self withObject:[NSNumber numberWithBool:success]];	
+	
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
+}
 
 @end

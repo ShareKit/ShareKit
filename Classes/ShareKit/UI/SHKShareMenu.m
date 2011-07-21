@@ -272,12 +272,14 @@
 	else 
 	{
 		bool doShare = YES;
+		SHKSharer* sharer = [[[NSClassFromString([rowData objectForKey:@"className"]) alloc] init] autorelease];
+		[sharer loadItem:item];
 		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
 		{
-			doShare = [shareDelegate aboutToShareItem:item withSharer:NSClassFromString([rowData objectForKey:@"className"])];
+			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
 		}
 		if(doShare)
-			[NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
+			[sharer share];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}

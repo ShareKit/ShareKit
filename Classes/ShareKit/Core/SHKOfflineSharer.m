@@ -153,4 +153,9 @@
 	[self finish];
 }
 
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
+{
+
+}
+
 @end

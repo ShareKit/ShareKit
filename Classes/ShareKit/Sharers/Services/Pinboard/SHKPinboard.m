@@ -101,6 +101,7 @@
 	{
 		[pendingForm saveForm];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 

@@ -104,6 +104,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                            cancelButtonTitle:SHKLocalizedString(@"Close")
                            otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 #pragma mark -

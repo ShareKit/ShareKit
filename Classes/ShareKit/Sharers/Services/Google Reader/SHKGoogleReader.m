@@ -167,6 +167,7 @@ Google Reader API is unoffical, this was hobbled together from:
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];	
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 

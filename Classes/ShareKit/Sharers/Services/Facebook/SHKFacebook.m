@@ -180,6 +180,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)authFinished:(SHKRequest *)req
 {		
+	[self authDidFinish:req.success];
 }
 
 + (void)logout
@@ -279,24 +280,25 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)fbDidLogin 
 {
-  NSString *accessToken = [[SHKFacebook facebook] accessToken];
-  NSDate *expiryDate = [[SHKFacebook facebook] expirationDate];
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
-  [defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
-  NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
-  if (storedItem)
-  {
-    self.item = [SHKItem itemFromDictionary:storedItem];
-    NSString *imagePath = [storedItem objectForKey:@"imagePath"];
-    if (imagePath) {
-      self.item.image = [SHKFacebook storedImage:imagePath];
-    }
-    [defaults removeObjectForKey:kSHKStoredItemKey];
-  }
-  [defaults synchronize];
-  if (self.item) 
-    [self share];
+	NSString *accessToken = [[SHKFacebook facebook] accessToken];
+	NSDate *expiryDate = [[SHKFacebook facebook] expirationDate];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
+	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
+	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
+	if (storedItem)
+	{
+		self.item = [SHKItem itemFromDictionary:storedItem];
+		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+		if (imagePath) {
+			self.item.image = [SHKFacebook storedImage:imagePath];
+		}
+		[defaults removeObjectForKey:kSHKStoredItemKey];
+	}
+	[defaults synchronize];
+	if (self.item) 
+		[self share];
+	[self authDidFinish:true];
 }
 
 #pragma mark FBRequestDelegate methods

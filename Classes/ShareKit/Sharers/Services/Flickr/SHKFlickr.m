@@ -149,6 +149,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 		[self flickrRequest].sessionInfo = kGetAuthTokenStep;
 		[flickrRequest callAPIMethodWithGET:@"flickr.auth.getToken" arguments:[NSDictionary dictionaryWithObjectsAndKeys:frob, @"frob", nil]];
 	}
+	[self authFinished:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {

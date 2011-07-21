@@ -232,6 +232,8 @@
 	else
 		// TODO - better error handling here
 		[self tokenAccessTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting access from %@", [self sharerTitle])]];
+
+	[self authDidFinish:ticket.didSucceed];
 }
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error

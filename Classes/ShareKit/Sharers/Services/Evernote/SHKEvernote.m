@@ -126,6 +126,7 @@
 	}
 	else
 		[pendingForm saveForm];
+	[self authDidFinish:success];
 }
 
 #pragma mark -
