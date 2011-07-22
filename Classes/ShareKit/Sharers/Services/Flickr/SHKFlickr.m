@@ -97,6 +97,43 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	[auth release];
 }
 
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type{
+    if([self.item shareType] == SHKShareTypeImage){
+		NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
+															 key:@"title"
+															type:SHKFormFieldTypeText
+														   start:nil],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
+															 key:@"description"
+															type:SHKFormFieldTypeText
+														   start:nil],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
+															 key:@"tags"
+															type:SHKFormFieldTypeText
+														   start:nil],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
+															 key:@"is_public"
+															type:SHKFormFieldTypeSwitch
+														   start:SHKFormFieldSwitchOn],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Friend")
+															 key:@"is_friend"
+															type:SHKFormFieldTypeSwitch
+														   start:SHKFormFieldSwitchOn],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Family")
+															 key:@"is_family"
+															type:SHKFormFieldTypeSwitch
+														   start:SHKFormFieldSwitchOn],
+									 nil
+									 ];
+		
+		return baseArray;
+	}else {
+		return [super shareFormFieldsForType:type];
+	}
+	
+}
+
 - (BOOL)send
 {	
 	if (self.flickrUserName != nil) {
@@ -120,7 +157,15 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	NSData *JPEGData = UIImageJPEGRepresentation(item.image, 1.0);
 	
 	self.flickrRequest.sessionInfo = kUploadImageStep;
-	[self.flickrRequest uploadImageStream:[NSInputStream inputStreamWithData:JPEGData] suggestedFilename:item.title MIMEType:@"image/jpeg" arguments:[NSDictionary dictionaryWithObjectsAndKeys:@"0", @"is_public", nil]];	
+	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
+						  item.title, @"title",
+						  [item customValueForKey:@"description"], @"description",
+						  item.tags, @"tags",
+						  [item customValueForKey:@"is_public"], @"is_public",
+						  [item customValueForKey:@"is_friend"], @"is_friend",
+						  [item customValueForKey:@"is_family"], @"is_family",
+						  nil];
+	[self.flickrRequest uploadImageStream:[NSInputStream inputStreamWithData:JPEGData] suggestedFilename:item.title MIMEType:@"image/jpeg" arguments:args];	
 }
 
 - (NSURL *)authorizeCallbackURL {
@@ -149,7 +194,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 		[self flickrRequest].sessionInfo = kGetAuthTokenStep;
 		[flickrRequest callAPIMethodWithGET:@"flickr.auth.getToken" arguments:[NSDictionary dictionaryWithObjectsAndKeys:frob, @"frob", nil]];
 	}
-	[self authFinished:success];
+	[self authDidFinish:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {
@@ -172,6 +217,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
+#if 0
 	if (inRequest.sessionInfo == kUploadImageStep) {
 		
         NSString *photoID = [[inResponseDictionary valueForKeyPath:@"photoid"] textContent];
@@ -183,6 +229,12 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 		
 		[self sendDidFinish];
 	}
+#else
+	if (inRequest.sessionInfo == kUploadImageStep) {
+		// best I can tell we can set all the props during upload.
+		[self sendDidFinish];
+	}
+#endif
 	else {
 		
 		if (inRequest.sessionInfo == kGetAuthTokenStep) {
