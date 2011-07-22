@@ -7,6 +7,7 @@
 //
 
 #import "SHKTumblr.h"
+#import "SHKConfiguration.h"
 
 static NSString * const kTumblrAuthenticationURL = @"https://www.tumblr.com/api/authenticate";
 static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
@@ -171,6 +172,12 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                                        SHKEncode([self getAuthValueForKey:@"email"]),
                                        SHKEncode([self getAuthValueForKey:@"password"])];
             
+            //set generator param
+            NSString *generator = SHKCONFIG(appName);
+            if(generator){
+                [params appendFormat:@"&generator=%@", generator];
+            }
+            
             //set send to twitter param
             if([item customBoolForSwitchKey:@"twitter"]){
                 [params appendFormat:@"&send-to-twitter=auto"];
@@ -247,6 +254,15 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"type\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"photo" dataUsingEncoding:NSUTF8StringEncoding]];
+
+			//set generator param
+            NSString *generator = SHKCONFIG(appName);
+            if(generator){
+                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
+                                  dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[@"Content-Disposition: form-data; name=\"generator\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[generator dataUsingEncoding:NSUTF8StringEncoding]];
+            }
 
             if([item tags]){
                 [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
