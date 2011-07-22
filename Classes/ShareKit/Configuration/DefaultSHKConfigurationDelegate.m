@@ -154,4 +154,8 @@
 	return @"SHKSharers.plist";
 }
 
+- (NSNumber*)allowOffline {
+	return [NSNumber numberWithBool:true];
+}
+
 @end

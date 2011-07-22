@@ -69,6 +69,7 @@
 						 SHK_FAVS_PREFIX_KEY, @"favsPrefixKey", 
 						 SHK_AUTH_PREFIX, @"authPrefix", 
 						 SHKSSharersPlistName, @"sharersPlistName",
+						 SHK_ALLOW_OFFLINE, @"allowOffline", 
 						 nil];
 	}
 	

@@ -63,4 +63,5 @@
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;
+- (NSNumber*)allowOffline;
 @end

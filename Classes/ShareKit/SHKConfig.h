@@ -178,3 +178,4 @@
 #define SHK_MAX_FAV_COUNT			3
 #define SHK_FAVS_PREFIX_KEY			@"SHK_FAVS_"
 #define SHK_AUTH_PREFIX				@"SHK_AUTH_"
+#define SHK_ALLOW_OFFLINE			1

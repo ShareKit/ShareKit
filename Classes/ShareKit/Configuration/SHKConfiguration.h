@@ -64,6 +64,7 @@
 - (NSNumber*)maxFavCount;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
+- (NSNumber*)allowOffline;
 
 @end
 
