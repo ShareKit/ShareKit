@@ -236,6 +236,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	}
 #endif
 	else {
+		[[SHKActivityIndicator currentIndicator] hide];
 		
 		if (inRequest.sessionInfo == kGetAuthTokenStep) {
 			[self setAndStoreFlickrAuthToken:[[inResponseDictionary valueForKeyPath:@"auth.token"] textContent]];
