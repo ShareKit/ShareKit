@@ -203,10 +203,10 @@ BOOL SHKinit;
 	self.isDismissingView = NO;
 	
 	if (currentView != nil)
-		currentView = nil;
+		self.currentView = nil;
 	
     if (rootViewController != nil)
-        rootViewController = nil;
+        self.rootViewController = nil;
 
 	if (pendingView)
 	{
