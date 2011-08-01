@@ -66,7 +66,7 @@ typedef enum
 	SHKSharerPendingAction pendingAction;
 }
 
-@property (nonatomic, retain)	id<SHKSharerDelegate> shareDelegate;
+@property (nonatomic, assign)	id<SHKSharerDelegate> shareDelegate;
 
 @property (retain) SHKItem *item;
 @property (retain) SHKFormController *pendingForm;
@@ -144,6 +144,7 @@ typedef enum
 - (void)authorizationFormShow;
 - (void)authorizationFormValidate:(SHKFormController *)form;
 - (void)authorizationFormSave:(SHKFormController *)form;
+- (void)authorizationFormCancel:(SHKFormController *)form;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
 + (NSArray *)authorizationFormFields;
@@ -169,6 +170,7 @@ typedef enum
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
 - (void)shareFormValidate:(SHKFormController *)form;
 - (void)shareFormSave:(SHKFormController *)form;
+- (void)shareFormCancel:(SHKFormController *)form;
 
 #pragma mark -
 #pragma mark Pending Actions

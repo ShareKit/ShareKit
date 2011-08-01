@@ -34,6 +34,7 @@
 	id delegate;
 	SEL validateSelector;
 	SEL saveSelector;	
+	SEL cancelSelector;	
 	
 	NSMutableArray *sections;
 	NSMutableDictionary *values;
@@ -45,9 +46,10 @@
 	BOOL autoSelect;
 }
 
-@property (retain) id delegate;
+@property (assign) id delegate;
 @property SEL validateSelector;
 @property SEL saveSelector;
+@property SEL cancelSelector;
 
 @property (retain) NSMutableArray *sections;
 @property (retain) NSMutableDictionary *values;

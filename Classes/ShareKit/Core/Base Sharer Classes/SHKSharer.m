@@ -38,7 +38,7 @@
 - (void)dealloc
 {
 	[item release];
-	[shareDelegate release];
+	shareDelegate = nil;
 	[pendingForm release];
 	[request release];
 	[lastError release];
@@ -270,6 +270,9 @@
 
 - (void)share
 {
+	if (self.shareDelegate == self) {	// if no one has set the delegate away from us, we need to live till the end of sharing.
+		[self retain];
+	}
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
 	if (![self authorize])
 		self.pendingAction = SHKPendingShare;
@@ -353,6 +356,7 @@
 	form.delegate = self;
 	form.validateSelector = @selector(authorizationFormValidate:);
 	form.saveSelector = @selector(authorizationFormSave:);
+	form.cancelSelector = @selector(authorizationFormCancel:);
 	form.autoSelect = YES;
 	
 	[[SHK currentHelper] showViewController:form];
@@ -396,6 +400,11 @@
 		
 	// -- Try to share again
 	[self share];
+}
+
+- (void)authorizationFormCancel:(SHKFormController *)form
+{
+	[self sendDidCancel];
 }
 
 - (NSArray *)authorizationFormFields
@@ -476,6 +485,7 @@
 		rootView.delegate = self;
 		rootView.validateSelector = @selector(shareFormValidate:);
 		rootView.saveSelector = @selector(shareFormSave:);
+		rootView.cancelSelector = @selector(shareFormCancel:);
 		
 		[self pushViewController:rootView animated:NO];
 		
@@ -555,6 +565,10 @@
 	[self tryToSend];
 }
 
+- (void)shareFormCancel:(SHKFormController *)form
+{
+	[self sendDidCancel];
+}
 
 #pragma mark -
 #pragma mark API Implementation
@@ -632,6 +646,8 @@
 {
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+	if(self.shareDelegate == self)
+		[self autorelease];	// see share
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
@@ -649,11 +665,15 @@
 		if (shouldRelogin)
 			[self promptAuthorization];
 	}
+	if (self.shareDelegate == self && !shouldRelogin) {
+		[self autorelease];	// see share
+	}
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)sharer
 {
-	
+	if(self.shareDelegate == self)
+		[self autorelease];	// see share
 }
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success

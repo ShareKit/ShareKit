@@ -33,7 +33,7 @@
 
 @implementation SHKFormController
 
-@synthesize delegate, validateSelector, saveSelector; 
+@synthesize delegate, validateSelector, saveSelector, cancelSelector; 
 @synthesize sections, values;
 @synthesize labelWidth;
 @synthesize activeField;
@@ -42,7 +42,7 @@
 
 - (void)dealloc 
 {
-	[delegate release];
+	delegate = nil;
 	[sections release];
 	[values release];
 	[activeField release];
@@ -234,6 +234,7 @@
 - (void)cancel
 {
 	[self close];
+	[delegate performSelector:cancelSelector withObject:self];
 }
 
 - (void)validateForm
