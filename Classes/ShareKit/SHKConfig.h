@@ -82,6 +82,15 @@
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Evernote - http://www.evernote.com/about/developer/api/
+/*	You need to set to sandbox until you get approved by evernote
+// Sandbox
+#define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
+#define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
+
+// Or production
+#define SHKEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
+#define SHKEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
+*/
 #define SHKEvernoteUserStoreURL		@""
 #define SHKEvernoteSecretKey		@""
 #define SHKEvernoteConsumerKey		@""

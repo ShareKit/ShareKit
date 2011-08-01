@@ -42,6 +42,10 @@
 - (NSString*)twitterCallbackUrl;
 - (NSNumber*)twitterUseXAuth;
 - (NSString*)twitterUsername;
+- (NSString*)evernoteUserStoreURL;
+- (NSString*)evernoteNetStoreURLBase;
+- (NSString*)evernoteConsumerKey;
+- (NSString*)evernoteSecret;
 - (NSString*)bitLyLogin;
 - (NSString*)bitLyKey;
 - (NSNumber*)shareMenuAlphabeticalOrder;

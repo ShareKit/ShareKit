@@ -74,6 +74,22 @@
 	return @"";
 }
 
+- (NSString*)evernoteUserStoreURL {
+	return @"";
+}
+
+- (NSString*)evernoteNetStoreURLBase {
+	return @"";
+}
+
+- (NSString*)evernoteConsumerKey {
+	return @"";
+}
+
+- (NSString*)evernoteSecret {
+	return @"";
+}
+
 - (NSString*)bitLyLogin {
 	return @"";
 }
