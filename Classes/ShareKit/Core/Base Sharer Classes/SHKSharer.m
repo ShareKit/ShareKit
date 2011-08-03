@@ -27,6 +27,7 @@
 
 #import "SHKSharer.h"
 #import "SHKActivityIndicator.h"
+#import "SHKConfiguration.h"
 
 @implementation SHKSharer
 
@@ -602,7 +603,7 @@
 	if (![[self class] shareRequiresInternetConnection] || [SHK connected])
 		return [self send];
 	
-	else if ([[self class] canShareOffline])
+	else if ([SHKCONFIG(allowOffline) boolValue] == TRUE && [[self class] canShareOffline])
 		return [SHK addToOfflineQueue:item forSharer:[self sharerId]];
 	
 	else if (!quiet)
