@@ -128,7 +128,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Tags")
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag,Tag")
                                     key:@"tags"
                                    type:SHKFormFieldTypeText
                                   start:item.tags],
