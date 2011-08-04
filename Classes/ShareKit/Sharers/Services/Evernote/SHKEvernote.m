@@ -150,8 +150,6 @@
 #pragma mark -
 #pragma mark Implementation
 
-- (BOOL)validateItem {  return [super validateItem]; }
-
 - (EDAMNotebook *)defaultNoteBookFromNoteStore:(EDAMNoteStoreClient *)noteStore authToken:(NSString *)authToken {
 	NSArray *notebooks = [noteStore listNotebooks:authToken];
 	for(int i = 0; i < [notebooks count]; i++) {
