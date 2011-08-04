@@ -287,7 +287,7 @@
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validate
+- (BOOL)validateItem
 {
 	NSString *status = [item customValueForKey:@"status"];
 	return status != nil && status.length >= 0 && status.length <= 140;
@@ -299,24 +299,19 @@
 	if (xAuth && [item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
-	if (![self validate])
-		[self show];
+	if (![self validateItem])
+		return NO;
 	
-	else
-	{	
-		if (item.shareType == SHKShareTypeImage) {
-			[self sendImage];
-		} else {
-			[self sendStatus];
-		}
-		
-		// Notify delegate
-		[self sendDidStart];	
-		
-		return YES;
+	if (item.shareType == SHKShareTypeImage) {
+		[self sendImage];
+	} else {
+		[self sendStatus];
 	}
 	
-	return NO;
+	// Notify delegate
+	[self sendDidStart];	
+	
+	return YES;
 }
 
 - (void)sendStatus
