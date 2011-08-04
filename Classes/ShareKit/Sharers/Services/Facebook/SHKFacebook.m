@@ -160,22 +160,25 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)promptAuthorization
 {
-  NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
-  if (item.image)
-  {
-    [itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
-  }
-  [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
-#ifdef SHKFacebookLocalAppID
-  [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-                                     @"offline_access", nil]
-                           delegate:self
-                         localAppId:SHKFacebookLocalAppID];
-#else
-  [[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-                                     @"offline_access", nil]
-                           delegate:self];
-#endif
+	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
+	if (item.image)
+	{
+		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+	}
+	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
+	
+	if (![SHKCONFIG(facebookLocalAppId) isEqualToString:@""]) {
+		[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
+										   @"offline_access", nil]
+								 delegate:self
+							   localAppId:SHKCONFIG(facebookLocalAppId)];
+		
+	}else {
+		[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
+										   @"offline_access", nil]
+								 delegate:self];
+		
+	}
 }
 
 - (void)authFinished:(SHKRequest *)req
@@ -195,49 +198,51 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (BOOL)send
 {			
-  NSMutableDictionary *params = [NSMutableDictionary dictionary];
-  NSString *actions = [NSString stringWithFormat:@"{\"name\":\"Get %@\",\"link\":\"%@\"}",  
-                       SHKMyAppName, SHKMyAppURL];
-  [params setObject:actions forKey:@"actions"];
-
+ 	if (![self validateItem])
+		return NO;
+	NSMutableDictionary *params = [NSMutableDictionary dictionary];
+	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"Get %@\",\"link\":\"%@\"}",  
+						 SHKMyAppName, SHKMyAppURL];
+	[params setObject:actions forKey:@"actions"];
+	
 	if (item.shareType == SHKShareTypeURL && item.URL)
 	{
-    NSString *url = [item.URL absoluteString];
-    [params setObject:url forKey:@"link"];
-    [params setObject:item.title == nil ? url : item.title
-               forKey:@"name"];    
-    if (item.text)
-      [params setObject:item.text forKey:@"message"];
-    NSString *pictureURI = [item customValueForKey:@"picture"];
-    if (pictureURI)
-      [params setObject:pictureURI forKey:@"picture"];
+		NSString *url = [item.URL absoluteString];
+		[params setObject:url forKey:@"link"];
+		[params setObject:item.title == nil ? url : item.title
+				   forKey:@"name"];    
+		if (item.text)
+			[params setObject:item.text forKey:@"message"];
+		NSString *pictureURI = [item customValueForKey:@"picture"];
+		if (pictureURI)
+			[params setObject:pictureURI forKey:@"picture"];
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
-    [params setObject:item.text forKey:@"message"];
+		[params setObject:item.text forKey:@"message"];
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
-    if (item.title) 
-      [params setObject:item.title forKey:@"caption"];
-    if (item.text) 
-      [params setObject:item.text forKey:@"message"];
-    [params setObject:item.image forKey:@"picture"];
-    // There does not appear to be a way to add the photo 
-    // via the dialog option:
-    [[SHKFacebook facebook] requestWithGraphPath:@"me/photos"
-                                       andParams:params
-                                   andHttpMethod:@"POST"
-                                     andDelegate:self];
-    return YES;
+		if (item.title) 
+			[params setObject:item.title forKey:@"caption"];
+		if (item.text) 
+			[params setObject:item.text forKey:@"message"];
+		[params setObject:item.image forKey:@"picture"];
+		// There does not appear to be a way to add the photo 
+		// via the dialog option:
+		[[SHKFacebook facebook] requestWithGraphPath:@"me/photos"
+										   andParams:params
+									   andHttpMethod:@"POST"
+										 andDelegate:self];
+		return YES;
 	} 
-  else 
-    // There is nothing to send
-    return NO;
-  
-  [[SHKFacebook facebook] dialog:@"feed"
-                       andParams:params 
-                     andDelegate:self];
+	else 
+		// There is nothing to send
+		return NO;
+	
+	[[SHKFacebook facebook] dialog:@"feed"
+						 andParams:params 
+					   andDelegate:self];
 	return YES;
 }
 

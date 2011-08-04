@@ -50,6 +50,10 @@
 	return @"";
 }
 
+- (NSString*)facebookLocalAppId {
+	return @"";
+}
+
 - (NSString*)readItLaterKey {
 	return @"";
 }
@@ -171,6 +175,10 @@
 }
 
 - (NSNumber*)allowOffline {
+	return [NSNumber numberWithBool:true];
+}
+
+- (NSNumber*)allowAutoShare {
 	return [NSNumber numberWithBool:true];
 }
 

@@ -69,6 +69,7 @@
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSNumber*)allowOffline;
+- (NSNumber*)allowAutoShare;
 
 @end
 

@@ -39,6 +39,7 @@
 						 SHKDeliciousConsumerKey, @"deliciousConsumerKey", 
 						 SHKDeliciousSecretKey, @"deliciousSecretKey", 
 						 SHKFacebookAppID, @"facebookAppId",
+						 SHKFacebookLocalAppID, @"facebookLocalAppId",
 						 SHKReadItLaterKey, @"readItLaterKey", 
 						 SHKTwitterConsumerKey, @"twitterConsumerKey", 
 						 SHKTwitterSecret, @"twitterSecret", 
@@ -49,7 +50,6 @@
 						 SHKEvernoteNetStoreURLBase, @"evernoteNetStoreURLBase", 
 						 SHKEvernoteConsumerKey, @"evernoteConsumerKey", 
 						 SHKEvernoteSecretKey, @"evernoteSecret", 
-						 SHKFacebookAppID, @"facebookAppId",
 						 SHKFlickrConsumerKey, @"flickrConsumerKey", 
 						 SHKFlickrSecretKey, @"flickrSecretKey", 
 						 SHKFlickrCallbackUrl, @"flickrCallbackUrl", 
@@ -73,6 +73,7 @@
 						 SHK_AUTH_PREFIX, @"authPrefix", 
 						 SHKSSharersPlistName, @"sharersPlistName",
 						 [NSNumber numberWithInt:SHK_ALLOW_OFFLINE], @"allowOffline", 
+						 [NSNumber numberWithInt:SHK_ALLOW_AUTOSHARE], @"allowAutoShare", 
 						 nil];
 	}
 	

@@ -277,11 +277,13 @@
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
 	if (![self authorize])
 		self.pendingAction = SHKPendingShare;
-	
-	// A. First check if auto share is set	
+
+	// A. First check if auto share is set and isn't nobbled off	
 	// B. If it is, try to send
 	// If either A or B fail, display the UI
-	else if (![self shouldAutoShare] || ![self tryToSend])
+	else if ([SHKCONFIG(allowAutoShare) boolValue] == FALSE ||	// this calls show and would skip try to send... but for sharers with no UI, try to send gets called in show
+			 ![self shouldAutoShare] || 
+			 ![self tryToSend])
 		[self show];
 }
 
@@ -473,7 +475,7 @@
 									   ];
 		[rootView addSection:[self shareFormFieldsForType:item.shareType] header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
 		
-		if ([[self class] canAutoShare])
+		if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
 		{
 			[rootView addSection:
 			[NSArray arrayWithObject:
@@ -555,7 +557,7 @@
 	}
 	
 	// Update shouldAutoShare
-	if ([[self class] canAutoShare])
+	if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
 	{
 		NSDictionary *advancedOptions = [form formValuesForSection:1];
 		if ([advancedOptions objectForKey:@"autoShare"] != nil)
