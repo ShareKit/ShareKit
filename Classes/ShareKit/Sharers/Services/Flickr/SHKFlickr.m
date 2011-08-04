@@ -136,6 +136,9 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 
 - (BOOL)send
 {	
+	if([item customValueForKey:@"is_public"] == nil)	// make sure we have all the data from the form.
+		return NO;
+	
 	if (self.flickrUserName != nil) {
 		[self sendPhoto];
 	}
