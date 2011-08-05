@@ -171,8 +171,13 @@
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
-	if (item.image)
-		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, 1) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+	if (item.image){
+		float jpgQuality = 1;
+		if ([item customValueForKey:@"jpgQuality"] != nil) {
+			jpgQuality = [[item customValueForKey:@"jpgQuality"] floatValue];
+		}
+		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+	}
 	
 	[mailController setSubject:item.title];
 	[mailController setMessageBody:body isHTML:YES];
