@@ -114,7 +114,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Email")
                                     key:@"email"
-                                   type:SHKFormFieldTypeText
+                                   type:SHKFormFieldTypeTextNoCorrect
                                   start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password")
                                     key:@"password"

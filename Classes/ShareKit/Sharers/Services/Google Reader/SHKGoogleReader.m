@@ -79,7 +79,7 @@ Google Reader API is unoffical, this was hobbled together from:
 + (NSArray *)authorizationFormFields
 {
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Email") key:@"email" type:SHKFormFieldTypeText start:nil],
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Email") key:@"email" type:SHKFormFieldTypeTextNoCorrect start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
 			nil];
 }

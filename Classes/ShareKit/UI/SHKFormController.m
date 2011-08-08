@@ -101,7 +101,9 @@
 		for (SHKFormFieldSettings *field in fields)
 		{
 			// only use text field rows
-			if (field.type != SHKFormFieldTypeText && field.type != SHKFormFieldTypePassword)
+			if (field.type != SHKFormFieldTypeText && 
+				field.type != SHKFormFieldTypeTextNoCorrect &&
+				field.type != SHKFormFieldTypePassword)
 				continue;
 			
 			size = [field.label sizeWithFont:[UIFont boldSystemFontOfSize:17]];

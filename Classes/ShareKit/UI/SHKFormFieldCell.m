@@ -57,8 +57,6 @@
 		textField.returnKeyType = UIReturnKeyDone;
 		textField.font = [UIFont systemFontOfSize:17];
 		textField.textColor = [UIColor darkGrayColor];
-		textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-		textField.autocorrectionType = UITextAutocorrectionTypeNo;
 		textField.delegate = form;
 		[self.contentView addSubview:textField];
 		[textField release];
@@ -72,9 +70,14 @@
 {
 	[super layoutSubviews];	
 	
-	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypePassword)
+	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypeTextNoCorrect || settings.type == SHKFormFieldTypePassword)
 	{
 		self.textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
+		
+		if(settings.type == SHKFormFieldTypePassword || settings.type == SHKFormFieldTypeTextNoCorrect){
+			textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+			textField.autocorrectionType = UITextAutocorrectionTypeNo;
+		}
 		
 		textField.frame = CGRectMake(labelWidth + SHK_FORM_CELL_PAD_LEFT, 
 									 2 + round(self.contentView.bounds.size.height/2 - textField.bounds.size.height/2),
@@ -140,6 +143,7 @@
 			break;
 			
 		case SHKFormFieldTypeText:
+		case SHKFormFieldTypeTextNoCorrect:
 		case SHKFormFieldTypePassword:
 			textField.text = value;
 			break;

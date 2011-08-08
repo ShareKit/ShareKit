@@ -57,7 +57,7 @@
 + (NSArray *)authorizationFormFields 
 {
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeText start:nil],
+			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
 			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],			
 			nil];
 }

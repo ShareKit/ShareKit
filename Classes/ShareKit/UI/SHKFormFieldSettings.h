@@ -30,6 +30,7 @@
 typedef enum 
 {
 	SHKFormFieldTypeText,
+	SHKFormFieldTypeTextNoCorrect,
 	SHKFormFieldTypePassword,
 	SHKFormFieldTypeSwitch
 } SHKFormFieldType;
