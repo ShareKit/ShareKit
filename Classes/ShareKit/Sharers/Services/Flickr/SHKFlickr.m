@@ -160,9 +160,10 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	NSData *JPEGData = UIImageJPEGRepresentation(item.image, 1.0);
 	
 	self.flickrRequest.sessionInfo = kUploadImageStep;
+	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  item.title, @"title",
-						  [item customValueForKey:@"description"], @"description",
+						  descript, @"description",
 						  item.tags, @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
 						  [item customValueForKey:@"is_friend"], @"is_friend",
