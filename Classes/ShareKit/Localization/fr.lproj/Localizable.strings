@@ -50,7 +50,7 @@
 
 "Invalid email or password." = "E-mail ou mot de passe incorrect";
 "The service encountered an error. Please try again later." = "Ce service n'est pas disponible actuellement. Veuillez réessayer ultérieurement.";
-"There was a sending your post to Tumblr." = "Votre message n'a pas pu être envoyer sur Tumblr.";
+"There was an error sending your post to Tumblr." = "Votre message n'a pas pu être envoyer sur Tumblr.";
 
 "There was an error saving to Pinboard" = "Une erreur a empêcher la sauvegarde sur Pinboard";
 

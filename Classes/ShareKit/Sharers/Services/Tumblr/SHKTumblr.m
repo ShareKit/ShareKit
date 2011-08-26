@@ -376,7 +376,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
             [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
             return;
         }
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a sending your post to Tumblr.")]];
+        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error sending your post to Tumblr.")]];
     }
     
 }
