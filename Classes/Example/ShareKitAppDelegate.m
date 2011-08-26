@@ -11,6 +11,7 @@
 
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
+#import "SHKConfiguration.h"
 
 @implementation ShareKitAppDelegate
 
@@ -47,16 +48,8 @@
 
 - (BOOL)handleOpenURL:(NSURL*)url
 {
-  NSDictionary *info = [[NSBundle mainBundle] infoDictionary];
-  NSNumber *index = [info objectForKey:@"FacebookURLTypeIndex"];
-  if (! index) return YES;
-  
-  NSArray *urlTypes = [info objectForKey:@"CFBundleURLTypes"];
-  if ((! urlTypes) || ([urlTypes count] <= [index integerValue])) return YES;
-  
-  NSDictionary *facebookURL = [urlTypes objectAtIndex:[index integerValue]];
-  NSString *scheme = [[facebookURL objectForKey:@"CFBundleURLSchemes"] lastObject];
-  if ([[url scheme] isEqualToString:scheme])
+	NSString* scheme = [url scheme];
+  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
     return [SHKFacebook handleOpenURL:url];
   return YES;
 }
