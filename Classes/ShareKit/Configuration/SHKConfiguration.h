@@ -70,6 +70,8 @@
 - (NSString*)authPrefix;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
+- (NSNumber*)usePlaceholders;
+
 
 @end
 

@@ -70,4 +70,5 @@
 - (NSString*)sharersPlistName;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
+- (NSNumber*)usePlaceholders;
 @end

@@ -182,4 +182,8 @@
 	return [NSNumber numberWithBool:true];
 }
 
+- (NSNumber*)usePlaceholders {
+	return [NSNumber numberWithBool:false];
+}
+
 @end

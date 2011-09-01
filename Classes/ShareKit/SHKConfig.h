@@ -161,7 +161,8 @@
  check out http://getsharekit.com/customize
  */
 
-
+// turn on to use placeholders in edit fields instead of labels to the left for input fields.
+#define SHKUsePlaceholders 0
 
 /*
  Debugging

@@ -91,27 +91,29 @@
 	
 	[sections addObject:dict];
 	
-	// Find the max length of the labels so we can use this value to align the left side of all form fields
-	// TODO - should probably save this per section for flexibility
-	if (sections.count == 1)
-	{
-		CGFloat newWidth = 0;
-		CGSize size;
-		
-		for (SHKFormFieldSettings *field in fields)
+	if (!SHKCONFIG(usePlaceholders)) {
+		// Find the max length of the labels so we can use this value to align the left side of all form fields
+		// TODO - should probably save this per section for flexibility
+		if (sections.count == 1)
 		{
-			// only use text field rows
-			if (field.type != SHKFormFieldTypeText && 
-				field.type != SHKFormFieldTypeTextNoCorrect &&
-				field.type != SHKFormFieldTypePassword)
-				continue;
+			CGFloat newWidth = 0;
+			CGSize size;
 			
-			size = [field.label sizeWithFont:[UIFont boldSystemFontOfSize:17]];
-			if (size.width > newWidth)
-				newWidth = size.width;
+			for (SHKFormFieldSettings *field in fields)
+			{
+				// only use text field rows
+				if (field.type != SHKFormFieldTypeText && 
+					field.type != SHKFormFieldTypeTextNoCorrect &&
+					field.type != SHKFormFieldTypePassword)
+					continue;
+				
+				size = [field.label sizeWithFont:[UIFont boldSystemFontOfSize:17]];
+				if (size.width > newWidth)
+					newWidth = size.width;
+			}
+			
+			self.labelWidth = newWidth;
 		}
-		
-		self.labelWidth = newWidth;
 	}
 }
 
@@ -174,8 +176,19 @@
 		[values setObject:[cell getValue] forKey:cell.settings.key];
     
 	cell.settings = [self rowSettingsForIndexPath:indexPath];
-	cell.labelWidth = labelWidth;
-	cell.textLabel.text = cell.settings.label;
+	if(SHKCONFIG(usePlaceholders))
+	{
+		cell.textField.placeholder = cell.settings.label;
+		if(cell.settings.type != SHKFormFieldTypeText &&
+		   cell.settings.type != SHKFormFieldTypePassword &&
+		   cell.settings.type != SHKFormFieldTypeTextNoCorrect)
+		{
+			cell.textLabel.text = cell.settings.label;
+		}
+	}else{
+		cell.labelWidth = labelWidth;
+		cell.textLabel.text = cell.settings.label;
+	}
 	
 	NSString *value = [values objectForKey:cell.settings.key];
 	if (value == nil && cell.settings.start != nil)
