@@ -1,3 +1,13 @@
+**Status Update — Sunday, September 4 2011**
+
+In order to make it easier for new users to choose a canonical fork of ShareKit, the ShareKit community has decided to band together and take responsibility for collecting useful commits into what we're calling "ShareKit 2.0". In the next week or two, we'll be working to test and release the first officially stable version of ShareKit since February, with more frequent updates expected thereafter.
+
+You can follow the initial planning at https://github.com/ideashower/ShareKit/issues/283.
+
+Many thanks to @ideashower for birthing ShareKit. Pending more relevant instructions, here is his original ReadMe, unedited. We'll have more up-to-date instructions posted here soon: https://github.com/ShareKit/ShareKit.
+
+----
+
 The code hosted here on github is for ongoing development and contributions  and may contain untested code.  Please use a stable release from http://getsharekit.com for use in your own app.
 
 ## Further installation instructions:
