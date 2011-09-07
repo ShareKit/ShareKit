@@ -340,6 +340,7 @@
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
 		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F99B19B51414075600503C7B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Classes/ShareKit/Localization/ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1009,6 +1010,7 @@
 				eu,
 				fr,
 				ko,
+				ru,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1153,6 +1155,7 @@
 				4379F2D71291AD0F00D2A41E /* zh_CN */,
 				4379F3251291B86500D2A41E /* fr */,
 				4379F3EA1291CA1700D2A41E /* ko */,
+				F99B19B51414075600503C7B /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
