@@ -1,38 +1,37 @@
-**Status Update — Sunday, September 4 2011**
+ShareKit 2.0
+============
 
 In order to make it easier for new users to choose a canonical fork of ShareKit, the ShareKit community has decided to band together and take responsibility for collecting useful commits into what we're calling "ShareKit 2.0". In the next week or two, we'll be working to test and release the first officially stable version of ShareKit since February, with more frequent updates expected thereafter.
 
 You can follow the initial planning at https://github.com/ideashower/ShareKit/issues/283.
 
-Many thanks to @ideashower for birthing ShareKit. Pending more relevant instructions, here is his original ReadMe, unedited. We'll have more up-to-date instructions posted here soon: https://github.com/ShareKit/ShareKit.
+Many thanks to @ideashower for birthing ShareKit.
 
-----
+Installation
+------------
 
-The code hosted here on github is for ongoing development and contributions  and may contain untested code.  Please use a stable release from http://getsharekit.com for use in your own app.
+1. Download and unpack the [latest stable release](https://github.com/clozach/ShareKit/archives/master).
+2. Include SHKFacebook.h at the top of your AppDelegate.m:
 
-## Further installation instructions:
+        #import "SHKFacebook.h"
 
-0. At the top of your AppDelegate.m file, be sure to include SHKFacebook.h:
+3. In your AppDelegate, include these two methods (or merge if you already use them, remembering to properly delegate):
 
-#import "SHKFacebook.h"
+        - (BOOL)application:(UIApplication *)application 
+                    openURL:(NSURL *)url 
+          sourceApplication:(NSString *)sourceApplication 
+                 annotation:(id)annotation 
+        {
+            return [SHKFacebook handleOpenURL:url];
+        }
 
-1. In your AppDelegate, include these two methods (or merge if you already use them, remembering to properly delegate):
+        - (BOOL)application:(UIApplication *)application 
+              handleOpenURL:(NSURL *)url 
+        {
+            return [SHKFacebook handleOpenURL:url];
+        }
 
-- (BOOL)application:(UIApplication *)application 
-            openURL:(NSURL *)url 
-  sourceApplication:(NSString *)sourceApplication 
-         annotation:(id)annotation 
-{
-  return [SHKFacebook handleOpenURL:url];
-}
-
-- (BOOL)application:(UIApplication *)application 
-      handleOpenURL:(NSURL *)url 
-{
-  return [SHKFacebook handleOpenURL:url];
-}
-
-2. In your App-Info.plist, include this property:
+4. In your App-Info.plist, include this property...
 
         <key>CFBundleURLTypes</key>
         <array>
@@ -46,21 +45,16 @@ The code hosted here on github is for ongoing development and contributions  and
                 </dict>
         </array>
 
-Where fb${FACEBOOK_APP_ID} looks like fb1234
+...where ```fb${FACEBOOK_APP_ID}``` looks like ```fb1234```
 
-3. Finally, in SHKConfig.h, set the facebook API ID:
+5. Finally, in SHKConfig.h, set the facebook API ID:
 
-#define SHKFacebookAppID      @"1234"
+        #define SHKFacebookAppID @"1234"
 
-4. Follow the standard ShareKit instructions below
+Where to go next
+----------------
 
-***
-
-To download a stable release visit:
-http://getsharekit.com/install
-
-Installation instructions:
-http://getsharekit.com/install
+With the caveat that <font color="red">the release on getsharekit.com is obsolete as of this writing</font>:
 
 How to add new services:
 http://getsharekit.com/add
@@ -70,7 +64,3 @@ http://getsharekit.com/customize
 
 Full documentation:
 http://getsharekit.com/docs
-
-***
-
-Follow @IdeaShower or http://getsharekit.com/blog for updates
