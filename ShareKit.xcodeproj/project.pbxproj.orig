@@ -341,9 +341,12 @@
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
 		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+<<<<<<< HEAD:ShareKit.xcodeproj/project.pbxproj
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKLogout.h; path = "Logout of All Services/SHKLogout.h"; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKLogout.m; path = "Logout of All Services/SHKLogout.m"; sourceTree = "<group>"; };
+=======
 		F99B19B51414075600503C7B /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = Classes/ShareKit/Localization/ru.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+>>>>>>> upstream/master:ShareKit.xcodeproj/project.pbxproj
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
