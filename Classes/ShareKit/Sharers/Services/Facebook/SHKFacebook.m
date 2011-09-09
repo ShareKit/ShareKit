@@ -43,6 +43,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)dealloc
 {
+  if ([SHKFacebook facebook].sessionDelegate == self)
+    [SHKFacebook facebook].sessionDelegate = nil;
 	[super dealloc];
 }
 
