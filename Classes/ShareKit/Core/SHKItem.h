@@ -71,16 +71,16 @@ typedef enum
 @property (nonatomic, retain)	NSString *mimeType;
 @property (nonatomic, retain)	NSString *filename;
 
-+ (SHKItem *)URL:(NSURL *)url title:(NSString *)title;
-+ (SHKItem *)image:(UIImage *)image title:(NSString *)title;
-+ (SHKItem *)text:(NSString *)text;
-+ (SHKItem *)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
++ (id)URL:(NSURL *)url title:(NSString *)title;
++ (id)image:(UIImage *)image title:(NSString *)title;
++ (id)text:(NSString *)text;
++ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
 - (void)setCustomValue:(NSString *)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
 - (BOOL)customBoolForSwitchKey:(NSString *)key;
 
 - (NSDictionary *)dictionaryRepresentation;
-+ (SHKItem *)itemFromDictionary:(NSDictionary *)dictionary;
++ (id)itemFromDictionary:(NSDictionary *)dictionary;
 
 @end
