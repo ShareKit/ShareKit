@@ -220,6 +220,11 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
 		[params setObject:item.text forKey:@"message"];
+        [[SHKFacebook facebook] requestWithGraphPath:@"me/feed"
+                                           andParams:params
+                                       andHttpMethod:@"POST"
+                                         andDelegate:self];
+        return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
