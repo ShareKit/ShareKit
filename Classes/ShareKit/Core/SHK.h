@@ -128,3 +128,79 @@ NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
 NSString* SHKLocalizedString(NSString* key, ...);
 void SHKSwizzle(Class c, SEL orig, SEL newClassName);
+
+
+#pragma mark -
+#pragma mark iOS Version Testing
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_2_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_2_0 478.23
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_2_1
+#define kCFCoreFoundationVersionNumber_iPhoneOS_2_1 478.26
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_2_2
+#define kCFCoreFoundationVersionNumber_iPhoneOS_2_2 478.29
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_3_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_3_0 478.47
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_3_1
+#define kCFCoreFoundationVersionNumber_iPhoneOS_3_1 478.52
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_3_2
+#define kCFCoreFoundationVersionNumber_iPhoneOS_3_2 478.61
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_4_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_4_0 550.32
+#endif
+
+#ifndef kCFCoreFoundationVersionNumber_iPhoneOS_5_0
+#define kCFCoreFoundationVersionNumber_iPhoneOS_5_0 666.1
+#endif
+
+#ifndef IF_IOS4_OR_GREATER(...)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 40000
+#define IF_IOS4_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_4_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IF_IOS4_OR_GREATER(...)
+#endif
+#endif
+
+#ifndef IF_PRE_IOS4(...)
+#define IF_PRE_IOS4(...) \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iPhoneOS_4_0) \
+{ \
+__VA_ARGS__ \
+}
+#endif
+
+#ifndef IF_IOS5_OR_GREATER(...)
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 50000
+#define IF_IOS5_OR_GREATER(...) \
+if (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iPhoneOS_5_0) \
+{ \
+__VA_ARGS__ \
+}
+#else
+#define IF_IOS5_OR_GREATER(...)
+#endif
+#endif
+
+#ifndef IF_PRE_IOS5(...)
+#define IF_PRE_IOS5(...)  \
+if (kCFCoreFoundationVersionNumber < kCFCoreFoundationVersionNumber_iPhoneOS_5_0)  \
+{ \
+__VA_ARGS__ \
+}
+#endif
