@@ -119,6 +119,11 @@
 #define SHKFlickrCallbackUrl @"app://flickr"	// The user defined callback url
 
 
+// LinkedIn - https://developer.linkedin.com/documents/authentication
+#define SHKLinkedInConsumerKey		@""
+#define SHKLinkedInSecret			@""
+#define SHKLinkedInCallbackUrl		@""
+
 /*
  UI Configuration : Basic
  ------
