@@ -98,6 +98,8 @@ static unsigned char workspace[64];
     state[4] += e;
     /* Wipe variables */
     a = b = c = d = e = 0;
+    
+    (void)a; (void)b; (void)c; (void)d; (void)e;
 }
 
 
@@ -159,6 +161,9 @@ unsigned char finalcount[8];
     }
     /* Wipe variables */
     i = j = 0;
+    
+    (void)i; (void)j;
+    
     memset(context->buffer, 0, 64);
     memset(context->state, 0, 20);
     memset(context->count, 0, 8);
