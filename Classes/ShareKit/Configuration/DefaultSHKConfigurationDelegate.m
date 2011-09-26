@@ -94,6 +94,14 @@
 	return @"";
 }
 
+- (NSString*)foursquareV2ClientId {
+    return @"";
+}
+
+- (NSString*)foursquareV2RedirectURI {
+    return @"";
+}
+
 - (NSString*)bitLyLogin {
 	return @"";
 }
