@@ -27,14 +27,15 @@
 
 #import "SHKFoursquareV2.h"
 #import "SHKFoursquareV2OAuthView.h"
+#import "SHKFoursquareV2VenuesForm.h"
+#import "SHKFoursquareV2CheckInForm.h"
 #import "SHKConfiguration.h"
 
 #import "NSString+URLEncoding.h"
 
-#import "JSON.h"
-
 static NSString *authorizeURL = @"https://foursquare.com/oauth2/authenticate";
 static NSString *accessTokenKey = @"accessToken";
+
 
 @interface SHKFoursquareV2 ()
 
@@ -49,12 +50,16 @@ static NSString *accessTokenKey = @"accessToken";
 @synthesize clientId = _clientId;
 @synthesize authorizeCallbackURL = _authorizeCallbackURL;
 @synthesize accessToken = _accessToken;
+@synthesize location = _location;
+@synthesize venue = _venue;
 
 - (void)dealloc
 {
     self.clientId = nil;
     self.authorizeCallbackURL = nil;
     self.accessToken = nil;
+    self.location = nil;
+    self.venue = nil;
     
     [super dealloc];
 }
@@ -76,6 +81,15 @@ static NSString *accessTokenKey = @"accessToken";
 + (NSString *)sharerTitle
 {
 	return @"Foursquare";
+}
+
++ (BOOL)canShare
+{
+    // Check if location services are enabled and for iOS 4.2 and higher test if this app is allowed to use it
+    return ([CLLocationManager locationServicesEnabled] &&
+            (![CLLocationManager respondsToSelector:@selector(authorizationStatus)] ||
+             [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized || 
+             [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined));
 }
 
 + (BOOL)canShareURL
@@ -127,9 +141,11 @@ static NSString *accessTokenKey = @"accessToken";
 
 - (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error
 {
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     if (success) {
         self.accessToken = [queryParams objectForKey:@"access_token"];
         [self storeAccessToken];
+        [self tryPendingAction];
     }
     else
     {
@@ -144,6 +160,7 @@ static NSString *accessTokenKey = @"accessToken";
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
 {
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];	
     [self authDidFinish:NO];
 }
 
@@ -184,5 +201,62 @@ static NSString *accessTokenKey = @"accessToken";
         [storage deleteCookie:each];
     }
 }
+
+#pragma mark -
+#pragma mark UI
+- (void)show
+{
+	if (item.shareType == SHKShareTypeText)
+	{
+		[self showFoursquareV2VenuesForm];
+	}
+}
+
+- (void)showFoursquareV2VenuesForm
+{
+	SHKFoursquareV2VenuesForm *venuesForm = [[SHKFoursquareV2VenuesForm alloc] initWithDelegate:self];	
+	
+	[self pushViewController:venuesForm animated:NO];
+	
+	[[SHK currentHelper] showViewController:self];	
+    
+    [venuesForm release];
+}
+
+- (void)showFoursquareV2CheckInForm;
+{
+	SHKFoursquareV2CheckInForm *checkInForm = [[SHKFoursquareV2CheckInForm alloc] initWithDelegate:self];
+	
+	[self pushViewController:checkInForm animated:YES];
+    
+    [checkInForm release];
+}
+
+- (void)startCheckInRequest
+{
+    [self sendDidStart];
+    
+    self.request = [SHKFoursquareV2Request requestCheckinLocation:self.location venue:self.venue message:self.item.text delegate:self isFinishedSelector:@selector(finishCheckInRequest:) accessToken:self.accessToken autostart:YES];
+}
+
+- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender
+{
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+    
+    if (sender.success)
+    {
+        [self sendDidFinish];
+    }
+    else
+    {
+        NSError *error = sender.foursquareError;
+        
+        [self sendDidFailWithError:error shouldRelogin:error.foursquareRelogin];
+    }
+    
+    self.request = nil;
+}
+
+
 
 @end

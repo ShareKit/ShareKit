@@ -1,5 +1,5 @@
 //
-//  SHKFoursquareV2.h
+//  SHKFoursquareV2CheckInForm.h
 //  ShareKit
 //
 //  Created by Robin Hos (Everdune) on 9/26/11.
@@ -24,44 +24,22 @@
 //  THE SOFTWARE.
 //
 //
-//  Notes: 
-//
-//  1) This sharer assumes SBJSON is present (this will automatically be the
-//     case if the Facebook sharer is included 
-//
-//  2) The sharer needs the location services which are not available in the simulator
-//     (it will show up on a real device)
-//
-//
 
-#import "SHKSharer.h"
+#import <UIKit/UIKit.h>
 
+#import "SHKFoursquareV2.h"
 #import "SHKFoursquareV2Request.h"
 #import "SHKFoursquareV2Venue.h"
 
-@interface SHKFoursquareV2 : SHKSharer {
-    NSString *_clientId;
-    NSURL *_authorizeCallbackURL;
+@interface SHKFoursquareV2CheckInForm : UIViewController<UITextViewDelegate> {
+    SHKFoursquareV2 *_delegate;
     
-    NSString *_accessToken;
-    
-    CLLocation *_location;
-    SHKFoursquareV2Venue *_venue;
+	UITextView *_textView;
+	UILabel *_counter;
 }
 
-@property (nonatomic, copy) NSString *clientId;
-@property (nonatomic, copy) NSURL *authorizeCallbackURL;
+@property (nonatomic, assign) SHKFoursquareV2 *delegate;
 
-@property (nonatomic, copy) NSString *accessToken;
-
-@property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) SHKFoursquareV2Venue *venue;
-
-
-- (void)showFoursquareV2VenuesForm;
-- (void)showFoursquareV2CheckInForm;
-
-- (void)startCheckInRequest;
-- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender;
+- (id)initWithDelegate:(SHKFoursquareV2*)delegate;
 
 @end

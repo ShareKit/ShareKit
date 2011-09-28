@@ -1,5 +1,5 @@
 //
-//  SHKFoursquareV2.h
+//  SHKFoursquareV2VenuesForm.h
 //  ShareKit
 //
 //  Created by Robin Hos (Everdune) on 9/26/11.
@@ -24,44 +24,41 @@
 //  THE SOFTWARE.
 //
 //
-//  Notes: 
-//
-//  1) This sharer assumes SBJSON is present (this will automatically be the
-//     case if the Facebook sharer is included 
-//
-//  2) The sharer needs the location services which are not available in the simulator
-//     (it will show up on a real device)
-//
-//
 
-#import "SHKSharer.h"
-
+#import <UIKit/UIKit.h>
+#import "SHKFoursquareV2.h"
 #import "SHKFoursquareV2Request.h"
-#import "SHKFoursquareV2Venue.h"
 
-@interface SHKFoursquareV2 : SHKSharer {
-    NSString *_clientId;
-    NSURL *_authorizeCallbackURL;
+@interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate> {
+    SHKFoursquareV2 *_delegate;
+    SHKFoursquareV2Request *_request;
     
-    NSString *_accessToken;
-    
+    CLLocationManager *_locationManager;
     CLLocation *_location;
-    SHKFoursquareV2Venue *_venue;
+    
+    NSString *_query;
+    
+    NSMutableArray *_venues;
+    NSMutableArray *_filteredVenues;
 }
 
-@property (nonatomic, copy) NSString *clientId;
-@property (nonatomic, copy) NSURL *authorizeCallbackURL;
+@property (nonatomic, assign) SHKFoursquareV2 *delegate;
+@property (nonatomic, retain) SHKFoursquareV2Request *request;
 
-@property (nonatomic, copy) NSString *accessToken;
-
+@property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) SHKFoursquareV2Venue *venue;
 
+@property (nonatomic, copy) NSString *query;
 
-- (void)showFoursquareV2VenuesForm;
-- (void)showFoursquareV2CheckInForm;
+@property (nonatomic, retain) NSMutableArray *venues;
+@property (nonatomic, retain) NSMutableArray *filteredVenues;
 
-- (void)startCheckInRequest;
-- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender;
+- (id)initWithDelegate:(SHKFoursquareV2*)delegate;
+
+- (void)startMonitoringLocation;
+- (void)stopMonitoringLocation;
+
+- (void)startloadingVenues;
+- (void)finishLoadingVenues:(SHKFoursquareV2Request*)request;
 
 @end

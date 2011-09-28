@@ -1,5 +1,5 @@
 //
-//  SHKFoursquareV2.h
+//  NSError+SHKFoursquareV2.h
 //  ShareKit
 //
 //  Created by Robin Hos (Everdune) on 9/26/11.
@@ -24,44 +24,17 @@
 //  THE SOFTWARE.
 //
 //
-//  Notes: 
-//
-//  1) This sharer assumes SBJSON is present (this will automatically be the
-//     case if the Facebook sharer is included 
-//
-//  2) The sharer needs the location services which are not available in the simulator
-//     (it will show up on a real device)
-//
-//
 
-#import "SHKSharer.h"
+#import <Foundation/Foundation.h>
 
-#import "SHKFoursquareV2Request.h"
-#import "SHKFoursquareV2Venue.h"
+extern NSString *SHKFoursquareV2ErrorDomain;
+extern NSString *SHKFoursquareV2ErrorTypeKey;
+extern NSString *SHKFoursquareV2MetaKey;
 
-@interface SHKFoursquareV2 : SHKSharer {
-    NSString *_clientId;
-    NSURL *_authorizeCallbackURL;
-    
-    NSString *_accessToken;
-    
-    CLLocation *_location;
-    SHKFoursquareV2Venue *_venue;
-}
+@interface NSError (SHKFoursquareV2)
 
-@property (nonatomic, copy) NSString *clientId;
-@property (nonatomic, copy) NSURL *authorizeCallbackURL;
+@property (nonatomic, readonly, getter=getFoursquareRelogin) BOOL foursquareRelogin;
 
-@property (nonatomic, copy) NSString *accessToken;
-
-@property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) SHKFoursquareV2Venue *venue;
-
-
-- (void)showFoursquareV2VenuesForm;
-- (void)showFoursquareV2CheckInForm;
-
-- (void)startCheckInRequest;
-- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender;
++ (NSError*)errorWithFoursquareMeta:(NSDictionary*)meta;
 
 @end

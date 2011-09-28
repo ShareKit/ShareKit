@@ -1,5 +1,5 @@
 //
-//  SHKFoursquareV2.h
+//  SHKFoursquareV2Venue.m
 //  ShareKit
 //
 //  Created by Robin Hos (Everdune) on 9/26/11.
@@ -24,44 +24,50 @@
 //  THE SOFTWARE.
 //
 //
-//  Notes: 
-//
-//  1) This sharer assumes SBJSON is present (this will automatically be the
-//     case if the Facebook sharer is included 
-//
-//  2) The sharer needs the location services which are not available in the simulator
-//     (it will show up on a real device)
-//
-//
 
-#import "SHKSharer.h"
-
-#import "SHKFoursquareV2Request.h"
 #import "SHKFoursquareV2Venue.h"
 
-@interface SHKFoursquareV2 : SHKSharer {
-    NSString *_clientId;
-    NSURL *_authorizeCallbackURL;
+@implementation SHKFoursquareV2Venue
+
+@synthesize venueId = _venueId;
+@synthesize name = _name;
+@synthesize address = _address;
+@synthesize icon = _icon;
+
+- (void)dealloc
+{
+    self.venueId = nil;
+    self.name = nil;
+    self.address = nil;
+    self.icon = nil;
     
-    NSString *_accessToken;
-    
-    CLLocation *_location;
-    SHKFoursquareV2Venue *_venue;
+    [super dealloc];
 }
 
-@property (nonatomic, copy) NSString *clientId;
-@property (nonatomic, copy) NSURL *authorizeCallbackURL;
++ (id)venueFromDictionary:(NSDictionary*)dictionary
+{
+    SHKFoursquareV2Venue *venue = [[[self alloc] init] autorelease];
+    
+    venue.venueId = [dictionary objectForKey:@"id"];
+    venue.name = [dictionary objectForKey:@"name"];
+    
+    NSDictionary *location = [dictionary objectForKey:@"location"];
+    venue.address = [location objectForKey:@"address"];
+    
+    // Find primary category and get the icon
+    NSArray *categories = [dictionary objectForKey:@"categories"];
+    for (NSUInteger i = 0; i < [categories count]; ++i) 
+    {
+        NSDictionary *category = [categories objectAtIndex:i];
+        NSNumber *primary = [category objectForKey:@"primary"];
+        if ([primary boolValue]) {
+            venue.icon = [category objectForKey:@"icon"];
+            break;
+        }
+    }
+    
+    return venue;
+}
 
-@property (nonatomic, copy) NSString *accessToken;
-
-@property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) SHKFoursquareV2Venue *venue;
-
-
-- (void)showFoursquareV2VenuesForm;
-- (void)showFoursquareV2CheckInForm;
-
-- (void)startCheckInRequest;
-- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender;
 
 @end
