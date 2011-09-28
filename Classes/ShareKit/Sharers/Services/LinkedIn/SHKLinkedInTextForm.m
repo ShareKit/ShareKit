@@ -66,7 +66,7 @@
 	
 	self.view.backgroundColor = [UIColor whiteColor];
 	
-	self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
+	self.textView = [[[UITextView alloc] initWithFrame:self.view.bounds] autorelease];
 	textView.delegate = self;
 	textView.font = [UIFont systemFontOfSize:15];
 	textView.contentInset = UIEdgeInsetsMake(5,5,0,0);
