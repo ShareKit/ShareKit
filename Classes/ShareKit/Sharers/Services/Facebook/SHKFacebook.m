@@ -198,11 +198,11 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (BOOL)send
 {			
-    if (![self validateItem])
+ 	if (![self validateItem])
 		return NO;
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"Get %@\",\"link\":\"%@\"}", 
-                         SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
+	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"Get %@\",\"link\":\"%@\"}",  
+						 SHKMyAppName, SHKMyAppURL];
 	[params setObject:actions forKey:@"actions"];
 	
 	if (item.shareType == SHKShareTypeURL && item.URL)
@@ -269,11 +269,6 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 - (void)dialogDidCancel:(FBDialog*)dialog
 {
   [self sendDidCancel];
-}
-
-- (void)dialogDidNotComplete:(FBDialog *)dialog
-{
-    [self sendDidCancel];  
 }
 
 - (void)dialog:(FBDialog *)dialog didFailWithError:(NSError *)error 
