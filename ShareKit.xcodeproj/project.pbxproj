@@ -1023,7 +1023,6 @@
 				eu,
 				fr,
 				ko,
-				ru,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1169,7 +1168,6 @@
 				4379F2D71291AD0F00D2A41E /* zh_CN */,
 				4379F3251291B86500D2A41E /* fr */,
 				4379F3EA1291CA1700D2A41E /* ko */,
-				F99B19B51414075600503C7B /* ru */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
