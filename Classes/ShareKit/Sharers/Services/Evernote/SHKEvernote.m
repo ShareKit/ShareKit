@@ -152,7 +152,7 @@
 
 - (EDAMNotebook *)defaultNoteBookFromNoteStore:(EDAMNoteStoreClient *)noteStore authToken:(NSString *)authToken {
 	NSArray *notebooks = [noteStore listNotebooks:authToken];
-	for(int i = 0; i < [notebooks count]; i++) {
+	for(NSUInteger i = 0; i < [notebooks count]; i++) {
 		EDAMNotebook *notebook = (EDAMNotebook*)[notebooks objectAtIndex:i];
 		if([notebook defaultNotebook]) return notebook;
 	}

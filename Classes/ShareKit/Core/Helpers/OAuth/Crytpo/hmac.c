@@ -36,7 +36,7 @@
 
 void hmac_sha1(const unsigned char *inText, int inTextLength, unsigned char* inKey, const unsigned int inKeyLengthConst, unsigned char *outDigest)
 {
-const int B = 64;
+const unsigned int B = 64;
 const size_t L = 20;
 
 SHA1_CTX theSHA1Context;
@@ -60,7 +60,7 @@ memcpy(k_ipad, inKey, inKeyLength);
 memcpy(k_opad, inKey, inKeyLength);
 
 /* XOR key with ipad and opad values */
-int i;
+unsigned int i;
 for (i = 0; i < B; i++)
 	{
 	k_ipad[i] ^= 0x36;
