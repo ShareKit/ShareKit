@@ -1369,7 +1369,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldBeginWithName: @"viewedPromotions" type: TType_LIST fieldID: 5];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__viewedPromotions count]];
-        int i7;
+        NSUInteger i7;
         for (i7 = 0; i7 < [__viewedPromotions count]; i7++)
         {
           [outProtocol writeString: [__viewedPromotions objectAtIndex: i7]];
@@ -1391,7 +1391,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldBeginWithName: @"recentMailedAddresses" type: TType_LIST fieldID: 7];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__recentMailedAddresses count]];
-        int i9;
+        NSUInteger i9;
         for (i9 = 0; i9 < [__recentMailedAddresses count]; i9++)
         {
           [outProtocol writeString: [__recentMailedAddresses objectAtIndex: i9]];
@@ -5763,7 +5763,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldBeginWithName: @"tagGuids" type: TType_LIST fieldID: 12];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__tagGuids count]];
-        int i20;
+        NSUInteger i20;
         for (i20 = 0; i20 < [__tagGuids count]; i20++)
         {
           [outProtocol writeString: [__tagGuids objectAtIndex: i20]];
@@ -5778,7 +5778,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldBeginWithName: @"resources" type: TType_LIST fieldID: 13];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__resources count]];
-        int i22;
+        NSUInteger i22;
         for (i22 = 0; i22 < [__resources count]; i22++)
         {
           [[__resources objectAtIndex: i22] write: outProtocol];
@@ -5800,7 +5800,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldBeginWithName: @"tagNames" type: TType_LIST fieldID: 15];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__tagNames count]];
-        int i24;
+        NSUInteger i24;
         for (i24 = 0; i24 < [__tagNames count]; i24++)
         {
           [outProtocol writeString: [__tagNames objectAtIndex: i24]];

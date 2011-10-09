@@ -72,7 +72,7 @@
 {
     NSMutableString *encodedParameterPairs = [NSMutableString stringWithCapacity:256];
     
-    int position = 1;
+    NSUInteger position = 1;
     for (OARequestParameter *requestParameter in parameters) 
 	{
         [encodedParameterPairs appendString:[requestParameter URLEncodedNameValuePair]];
