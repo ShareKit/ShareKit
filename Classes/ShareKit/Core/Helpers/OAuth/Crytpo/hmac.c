@@ -58,7 +58,7 @@ memcpy(k_ipad, inKey, inKeyLength);
 memcpy(k_opad, inKey, inKeyLength);
 
 /* XOR key with ipad and opad values */
-int i;
+size_t i;
 for (i = 0; i < B; i++)
 	{
 	k_ipad[i] ^= 0x36;
