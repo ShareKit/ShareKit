@@ -27,6 +27,10 @@
 
 - (void)authFinished:(BOOL)success;
 - (void)sendFinished:(BOOL)success;
+- (void)_authFinished:(NSDictionary *)args;
+- (void)_sendFinished:(NSDictionary *)args;
+- (void)_authorizationFormValidate:(NSDictionary *)args;
+- (void)_send;
 
 @end
 

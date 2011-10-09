@@ -14,6 +14,8 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 @interface SHKTumblr()
 - (void)finish;
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
 @end
 
 @implementation SHKTumblr

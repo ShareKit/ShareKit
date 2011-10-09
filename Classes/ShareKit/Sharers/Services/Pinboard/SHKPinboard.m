@@ -27,6 +27,13 @@
 
 #import "SHKPinboard.h"
 
+/**
+ Private helper methods
+ */
+@interface SHKPinboard ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
 
 @implementation SHKPinboard
 

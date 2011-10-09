@@ -29,6 +29,11 @@
 static NSString * const kInstapaperAuthenticationURL = @"https://www.instapaper.com/api/authenticate";
 static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api/add";
 
+@interface SHKInstapaper ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
+
 @implementation SHKInstapaper
 
 #pragma mark -
