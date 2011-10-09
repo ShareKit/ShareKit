@@ -73,8 +73,9 @@
 
 - (void)start
 {
-	self.data = [[NSMutableData alloc] initWithLength:0];
-	[data release];
+	NSMutableData *aData = [[NSMutableData alloc] initWithLength:0];
+    self.data = aData;
+	[aData release];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
 																  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -96,9 +97,10 @@
 	
 	// Start Connection
 	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", url, params);
-	self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	[request release];
-	[connection release];
+	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    [request release];
+    self.connection = aConnection;	
+	[aConnection release];
 }
 
 
@@ -107,8 +109,9 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)theResponse 
 {
 	self.response = theResponse;
-	self.headers = [[response allHeaderFields] mutableCopy];
-	[headers release];
+	NSDictionary *aHeaders = [[response allHeaderFields] mutableCopy];
+	self.headers = aHeaders;
+	[aHeaders release];
 	
 	[data setLength:0];
 }

@@ -517,8 +517,11 @@ static NSDictionary *sharersDictionary = nil;
 	{
 		SHK *helper = [self currentHelper];
 		
-		if (helper.offlineQueue == nil)
-			helper.offlineQueue = [[NSOperationQueue alloc] init];		
+		if (helper.offlineQueue == nil) {
+            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;	
+            [aQueue release];
+        }
 	
 		SHKItem *item;
 		NSString *sharerId, *uid;
