@@ -79,7 +79,7 @@
 	id <SHKConfigurationDelegate> delegate;
 }
 
-@property (nonatomic,readonly) id <SHKConfigurationDelegate> delegate;
+@property (nonatomic,readonly,retain) id <SHKConfigurationDelegate> delegate;
 
 + (SHKConfiguration*)sharedInstance;
 
