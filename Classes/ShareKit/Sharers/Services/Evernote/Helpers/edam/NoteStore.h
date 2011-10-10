@@ -16,6 +16,18 @@
 #import "Errors.h"
 #import "Limits.h"
 
+#ifndef __has_feature      // Optional.
+#define __has_feature(x) 0 // Compatibility with non-clang compilers.
+#endif
+
+#ifndef NS_RETURNS_NOT_RETAINED
+#if __has_feature(attribute_ns_returns_not_retained)
+#define NS_RETURNS_NOT_RETAINED __attribute__((ns_returns_not_retained))
+#else
+#define NS_RETURNS_NOT_RETAINED
+#endif
+#endif
+
 @interface EDAMSyncState : NSObject <NSCoding> {
   EDAMTimestamp __currentTime;
   EDAMTimestamp __fullSyncBefore;
@@ -511,7 +523,7 @@
 - (int32_t) expungeNote: (NSString *) authenticationToken : (EDAMGuid) guid;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
 - (int32_t) expungeNotes: (NSString *) authenticationToken : (NSArray *) noteGuids;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
 - (int32_t) expungeInactiveNotes: (NSString *) authenticationToken;  // throws EDAMUserException *, EDAMSystemException *, TException
-- (EDAMNote *) copyNote: (NSString *) authenticationToken : (EDAMGuid) noteGuid : (EDAMGuid) toNotebookGuid __attribute__((ns_returns_not_retained));  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
+- (EDAMNote *) copyNote: (NSString *) authenticationToken : (EDAMGuid) noteGuid : (EDAMGuid) toNotebookGuid NS_RETURNS_NOT_RETAINED;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
 - (NSArray *) listNoteVersions: (NSString *) authenticationToken : (EDAMGuid) noteGuid;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
 - (EDAMNote *) getNoteVersion: (NSString *) authenticationToken : (EDAMGuid) noteGuid : (int32_t) updateSequenceNum : (BOOL) withResourcesData : (BOOL) withResourcesRecognition : (BOOL) withResourcesAlternateData;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
 - (EDAMResource *) getResource: (NSString *) authenticationToken : (EDAMGuid) guid : (BOOL) withData : (BOOL) withRecognition : (BOOL) withAttributes : (BOOL) withAlternateData;  // throws EDAMUserException *, EDAMSystemException *, EDAMNotFoundException *, TException
