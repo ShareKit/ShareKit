@@ -39,8 +39,7 @@
 
 - (void)dealloc 
 {
-	[delegate release];
-	[textView release];
+    [textView release];
 	[counter release];
     [super dealloc];
 }

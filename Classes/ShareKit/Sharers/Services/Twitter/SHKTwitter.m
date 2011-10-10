@@ -216,6 +216,7 @@
 	rootView.hasAttachment = item.image != nil;
 	
 	[self pushViewController:rootView animated:NO];
+    [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
