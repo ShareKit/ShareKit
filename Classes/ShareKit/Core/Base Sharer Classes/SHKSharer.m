@@ -491,6 +491,7 @@
 		rootView.cancelSelector = @selector(shareFormCancel:);
 		
 		[self pushViewController:rootView animated:NO];
+        [rootView release];
 		
 		[[SHK currentHelper] showViewController:self];
 	}
