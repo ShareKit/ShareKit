@@ -30,7 +30,11 @@
 
 
 @interface SHKItem()
-@property (nonatomic, retain)	NSMutableDictionary *custom;
+
+@property (nonatomic, retain) NSMutableDictionary *custom;
+
+- (NSString *)shareTypeToString:(SHKShareType)shareType;
+
 @end
 
 
@@ -201,6 +205,41 @@
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
 	return dictionary;
+}
+
+- (NSString *)description {
+    
+    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nImage:%@\nTitle: %@\nText: %@\nTags:%@", [self shareTypeToString:self.shareType], [self.URL absoluteString], [self.image description], self.title, self.text, self.tags];
+    
+    return result;
+}
+
+- (NSString *)shareTypeToString:(SHKShareType)type {
+    
+    NSString *result = nil;
+    
+    switch(type) {
+            
+        case SHKShareTypeUndefined:
+            result = @"SHKShareTypeUndefined";
+            break;
+        case SHKShareTypeURL:
+            result = @"SHKShareTypeURL";
+            break;
+        case SHKShareTypeText:
+            result = @"SHKShareTypeText";
+            break;
+        case SHKShareTypeImage:
+            result = @"SHKShareTypeImage";
+            break;
+        case SHKShareTypeFile:
+            result = @"SHKShareTypeFile";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
 }
 
 @end
