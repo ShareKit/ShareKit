@@ -119,6 +119,10 @@
 #define SHKFlickrCallbackUrl @"app://flickr"	// The user defined callback url
 
 
+// Foursquare V2 - https://developer.foursquare.com
+#define SHKFoursquareV2ClientId @""
+#define SHKFoursquareV2RedirectURI @""
+
 /*
  UI Configuration : Basic
  ------
