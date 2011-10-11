@@ -60,14 +60,14 @@
 }
 
 
-+ (SHKItem *)URL:(NSURL *)url
++ (id)URL:(NSURL *)url
 {
 	return [self URL:url title:nil];
 }
 
-+ (SHKItem *)URL:(NSURL *)url title:(NSString *)title
++ (id)URL:(NSURL *)url title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeURL;
 	item.URL = url;
 	item.title = title;
@@ -75,14 +75,14 @@
 	return [item autorelease];
 }
 
-+ (SHKItem *)image:(UIImage *)image
++ (id)image:(UIImage *)image
 {
 	return [SHKItem image:image title:nil];
 }
 
-+ (SHKItem *)image:(UIImage *)image title:(NSString *)title
++ (id)image:(UIImage *)image title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeImage;
 	item.image = image;
 	item.title = title;
@@ -90,18 +90,18 @@
 	return [item autorelease];
 }
 
-+ (SHKItem *)text:(NSString *)text
++ (id)text:(NSString *)text
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeText;
 	item.text = text;
 	
 	return [item autorelease];
 }
 
-+ (SHKItem *)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
++ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeFile;
 	item.data = data;
 	item.filename = filename;
@@ -138,9 +138,9 @@
 
 #pragma mark -
 
-+ (SHKItem *)itemFromDictionary:(NSDictionary *)dictionary
++ (id)itemFromDictionary:(NSDictionary *)dictionary
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = [[dictionary objectForKey:@"shareType"] intValue];	
 	
 	if ([dictionary objectForKey:@"URL"] != nil)
