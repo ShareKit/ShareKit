@@ -54,7 +54,7 @@
 						 SHKFlickrSecretKey, @"flickrSecretKey", 
 						 SHKFlickrCallbackUrl, @"flickrCallbackUrl", 
                          SHKFoursquareV2ClientId, @"foursquareV2ClientId",
-                         SHKFoursquareV2RedirectURI, @"foursquareV2RedirectURI"
+                         SHKFoursquareV2RedirectURI, @"foursquareV2RedirectURI",
 						 SHKBitLyLogin, @"bitLyLogin",
                          SHKBitLyKey, @"bitLyKey", 
 						 [NSNumber numberWithInt:SHKShareMenuAlphabeticalOrder], @"shareMenuAlphabeticalOrder", 
