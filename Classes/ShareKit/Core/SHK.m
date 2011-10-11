@@ -179,21 +179,27 @@ BOOL SHKinit;
 
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated
 {
-	if (isDismissingView)
-		return;
-	
-	if (currentView != nil)
-	{
-		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
-		{
-			self.isDismissingView = YES;
-			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
-		}
-		
-		else
-			self.currentView = nil;
-	}
+    if (isDismissingView)
+        return;
+
+    if (currentView != nil)
+    {
+        // Dismiss the modal view
+        if ([currentView parentViewController] != nil)
+        {
+            self.isDismissingView = YES;
+            [[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+        }
+        else if( [ currentView respondsToSelector: @selector( presentingViewController )] &&
+                [ currentView presentingViewController ] != nil )
+        {
+            self.isDismissingView = YES;
+            [[currentView presentingViewController ] dismissModalViewControllerAnimated:animated];
+        }
+
+        else
+            self.currentView = nil;
+    }
 }
 
 - (void)showPendingView
