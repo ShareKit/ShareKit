@@ -110,6 +110,18 @@
 	return @"";
 }
 
+- (NSString*)linkedInConsumerKey {
+	return @"";
+}
+
+- (NSString*)linkedInSecret {
+	return @"";
+}
+
+- (NSString*)linkedInCallbackUrl {
+	return @"";
+}
+
 - (NSNumber*)shareMenuAlphabeticalOrder {
 	return [NSNumber numberWithInt:0];
 }

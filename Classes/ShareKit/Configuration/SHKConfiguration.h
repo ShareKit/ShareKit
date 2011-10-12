@@ -50,6 +50,9 @@
 - (NSString*)bitLyKey;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSString*)linkedInConsumerKey;
+- (NSString*)linkedInSecret;
+- (NSString*)linkedInCallbackUrl;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;

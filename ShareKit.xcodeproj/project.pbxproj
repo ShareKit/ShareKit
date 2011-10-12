@@ -122,6 +122,9 @@
 		C042A6211430AB7800DF9AF6 /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
 		C042A6241430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
 		C05E48091430D9BC008F2366 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
+		C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
+		C0AD00F9142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */; };
+		C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */; };
 		E68738C01416795C00D8C3DD /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 /* End PBXBuildFile section */
 
@@ -354,6 +357,12 @@
 		C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2OAuthView.m; sourceTree = "<group>"; };
 		C05E48071430D9BC008F2366 /* SHKFoursquareV2Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2Request.h; sourceTree = "<group>"; };
 		C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2Request.m; sourceTree = "<group>"; };
+		C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedIn.h; sourceTree = "<group>"; };
+		C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedIn.m; sourceTree = "<group>"; };
+		C0AD00F4142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedInOAMutableURLRequest.h; sourceTree = "<group>"; };
+		C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedInOAMutableURLRequest.m; sourceTree = "<group>"; };
+		C0AD00F6142B7B6D000862D9 /* SHKLinkedInTextForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedInTextForm.h; sourceTree = "<group>"; };
+		C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedInTextForm.m; sourceTree = "<group>"; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKLogout.h; path = "Logout of All Services/SHKLogout.h"; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKLogout.m; path = "Logout of All Services/SHKLogout.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -815,6 +824,7 @@
 				AAACE05313CCBED400A2118F /* Flickr */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
+				C0AD00F1142B7B6D000862D9 /* LinkedIn */,
 				43A536E111DBE3B9004A1712 /* Pinboard */,
 				43A536E411DBE3B9004A1712 /* Read It Later */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
@@ -995,6 +1005,19 @@
 				C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */,
 			);
 			path = FoursquareV2;
+			sourceTree = "<group>";
+		};
+		C0AD00F1142B7B6D000862D9 /* LinkedIn */ = {
+			isa = PBXGroup;
+			children = (
+				C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */,
+				C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */,
+				C0AD00F4142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.h */,
+				C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */,
+				C0AD00F6142B7B6D000862D9 /* SHKLinkedInTextForm.h */,
+				C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */,
+			);
+			path = LinkedIn;
 			sourceTree = "<group>";
 		};
 		E68738B6141677C000D8C3DD /* Logout */ = {
@@ -1185,6 +1208,9 @@
 				C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */,
 				C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */,
 				C0276D7F14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m in Sources */,
+				C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */,
+				C0AD00F9142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m in Sources */,
+				C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
