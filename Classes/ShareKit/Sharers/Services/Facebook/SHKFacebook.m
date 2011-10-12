@@ -43,6 +43,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)dealloc
 {
+  if ([SHKFacebook facebook].sessionDelegate == self)
+    [SHKFacebook facebook].sessionDelegate = nil;
 	[super dealloc];
 }
 
@@ -278,7 +280,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)dialog:(FBDialog *)dialog didFailWithError:(NSError *)error 
 {
-  [self sendDidFailWithError:error];
+  if (error.code != NSURLErrorCancelled)
+    [self sendDidFailWithError:error];
 }
 
 - (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
