@@ -1,3 +1,4 @@
+"Examples" = "Beispiele";
 "Email" = "Email";
 "Username" = "Username";
 "Password" = "Passwort";
@@ -94,3 +95,4 @@
 "Sharing Text" = "Teile Text";
 "Sharing a File" = "Teile Datei";
 "Logout of All Services" = "Aus allen Services ausloggen";
+"Logout" = "Abmelden";

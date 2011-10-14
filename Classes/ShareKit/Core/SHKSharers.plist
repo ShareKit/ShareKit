@@ -9,6 +9,7 @@
 		<string>SHKMail</string>
 		<string>SHKSafari</string>
 		<string>SHKTextMessage</string>
+		<string>SHKLogout</string>
 	</array>
 	<key>services</key>
 	<array>
@@ -22,6 +23,8 @@
 		<string>SHKInstapaper</string>
 		<string>SHKTumblr</string>
 		<string>SHKFlickr</string>
+		<string>SHKFoursquareV2</string>
+		<string>SHKLinkedIn</string>
 	</array>
 </dict>
 </plist>

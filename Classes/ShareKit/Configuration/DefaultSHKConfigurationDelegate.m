@@ -94,11 +94,31 @@
 	return @"";
 }
 
+- (NSString*)foursquareV2ClientId {
+    return @"";
+}
+
+- (NSString*)foursquareV2RedirectURI {
+    return @"";
+}
+
 - (NSString*)bitLyLogin {
 	return @"";
 }
 
 - (NSString*)bitLyKey {
+	return @"";
+}
+
+- (NSString*)linkedInConsumerKey {
+	return @"";
+}
+
+- (NSString*)linkedInSecret {
+	return @"";
+}
+
+- (NSString*)linkedInCallbackUrl {
 	return @"";
 }
 

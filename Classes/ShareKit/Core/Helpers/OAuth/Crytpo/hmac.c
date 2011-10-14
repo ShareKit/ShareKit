@@ -29,13 +29,14 @@
  */
 
 #include "sha1.h"
+#include "hmac.h"
 
 #include <stdlib.h>
 #include <string.h>
 
-void hmac_sha1(const unsigned char *inText, size_t inTextLength, unsigned char* inKey, size_t inKeyLength, unsigned char *outDigest)
+void hmac_sha1(const unsigned char *inText, int inTextLength, unsigned char* inKey, const unsigned int inKeyLengthConst, unsigned char *outDigest)
 {
-const size_t B = 64;
+const int B = 64;
 const size_t L = 20;
 
 SHA1_CTX theSHA1Context;
@@ -43,6 +44,7 @@ unsigned char k_ipad[B + 1]; /* inner padding - key XORd with ipad */
 unsigned char k_opad[B + 1]; /* outer padding - key XORd with opad */
 
 /* if key is longer than 64 bytes reset it to key=SHA1 (key) */
+unsigned int inKeyLength = inKeyLengthConst;
 if (inKeyLength > B)
 	{
 	SHA1Init(&theSHA1Context);

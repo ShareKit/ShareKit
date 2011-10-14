@@ -44,16 +44,16 @@
 @synthesize rootViewController, currentRootViewController;
 @synthesize offlineQueue;
 
-static SHK *currentHelper = nil;
+static SHK *_currentHelper = nil;
 BOOL SHKinit;
 
 
 + (SHK *)currentHelper
 {
-	if (currentHelper == nil)
-		currentHelper = [[SHK alloc] init];
+	if (_currentHelper == nil)
+		_currentHelper = [[super allocWithZone:NULL] init];
 	
-	return currentHelper;
+	return _currentHelper;
 }
 
 + (void)initialize
@@ -179,21 +179,27 @@ BOOL SHKinit;
 
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated
 {
-	if (isDismissingView)
-		return;
-	
-	if (currentView != nil)
-	{
-		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
-		{
-			self.isDismissingView = YES;
-			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
-		}
-		
-		else
-			self.currentView = nil;
-	}
+    if (isDismissingView)
+        return;
+
+    if (currentView != nil)
+    {
+        // Dismiss the modal view
+        if ([currentView parentViewController] != nil)
+        {
+            self.isDismissingView = YES;
+            [[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+        }
+        else if( [ currentView respondsToSelector: @selector( presentingViewController )] &&
+                [ currentView presentingViewController ] != nil )
+        {
+            self.isDismissingView = YES;
+            [[currentView presentingViewController ] dismissModalViewControllerAnimated:animated];
+        }
+
+        else
+            self.currentView = nil;
+    }
 }
 
 - (void)showPendingView
@@ -517,8 +523,11 @@ static NSDictionary *sharersDictionary = nil;
 	{
 		SHK *helper = [self currentHelper];
 		
-		if (helper.offlineQueue == nil)
-			helper.offlineQueue = [[NSOperationQueue alloc] init];		
+		if (helper.offlineQueue == nil) {
+            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;	
+            [aQueue release];
+        }
 	
 		SHKItem *item;
 		NSString *sharerId, *uid;
@@ -560,6 +569,39 @@ static NSDictionary *sharersDictionary = nil;
 	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);
+}
+
+#pragma mark -
+#pragma mark Singleton System Overrides
+
++ (id)allocWithZone:(NSZone *)zone
+{	
+    return [[self currentHelper] retain];	
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{	
+    return self;	
+}
+
+- (id)retain
+{	
+    return self;	
+}
+
+- (NSUInteger)retainCount
+{	
+    return NSUIntegerMax;  //denotes an object that cannot be released	
+}
+
+- (oneway void)release
+{	
+    //do nothing	
+}
+
+- (id)autorelease
+{	
+    return self;	
 }
 
 @end
@@ -608,10 +650,21 @@ void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 		method_exchangeImplementations(origMethod, newMethod);
 }
 
+NSString* SHKLocalizedStringFormat(NSString* key)
+{
+  static NSBundle* bundle = nil;
+  if (nil == bundle) {
+    NSString* path = [[[NSBundle mainBundle] resourcePath]
+                      stringByAppendingPathComponent:@"ShareKit.bundle"];
+    bundle = [[NSBundle bundleWithPath:path] retain];
+  }
+  return [bundle localizedStringForKey:key value:key table:nil];
+}
+
 NSString* SHKLocalizedString(NSString* key, ...) 
 {
 	// Localize the format
-	NSString *localizedStringFormat = NSLocalizedString(key, key);
+	NSString *localizedStringFormat = SHKLocalizedStringFormat(key);
 	
 	va_list args;
     va_start(args, key);
