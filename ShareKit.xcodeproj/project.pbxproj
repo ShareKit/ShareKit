@@ -107,6 +107,7 @@
 		7A46B9DA143DEF9500AA3781 /* DefaultSHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A46B9D5143DEF9500AA3781 /* DefaultSHKConfigurationDelegate.m */; };
 		7A46B9DB143DEF9500AA3781 /* LegacySHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A46B9D7143DEF9500AA3781 /* LegacySHKConfigurationDelegate.m */; };
 		7A46B9DC143DEF9500AA3781 /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A46B9D9143DEF9500AA3781 /* SHKConfiguration.m */; };
+		90E765A61418F2480026B656 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		AAACE06213CCBED400A2118F /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05513CCBED400A2118F /* LFHTTPRequest.m */; };
 		AAACE06313CCBED400A2118F /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05713CCBED400A2118F /* LFSiteReachability.m */; };
 		AAACE06413CCBED400A2118F /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
@@ -327,6 +328,7 @@
 		7A46B9D8143DEF9500AA3781 /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
 		7A46B9D9143DEF9500AA3781 /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		90E765A51418F2480026B656 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		AAACE05413CCBED400A2118F /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFHTTPRequest.h; sourceTree = "<group>"; };
 		AAACE05513CCBED400A2118F /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHTTPRequest.m; sourceTree = "<group>"; };
 		AAACE05613CCBED400A2118F /* LFSiteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSiteReachability.h; sourceTree = "<group>"; };
@@ -629,6 +631,7 @@
 				43A536B511DBE3B9004A1712 /* Sharers */,
 				43A536ED11DBE3B9004A1712 /* UI */,
 				43A536B211DBE3B9004A1712 /* Reachability */,
+				90E765A51418F2480026B656 /* ShareKit.bundle */,
 			);
 			path = ShareKit;
 			sourceTree = "<group>";
@@ -1098,6 +1101,7 @@
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
 				4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */,
 				1940B69E138D45F900217886 /* FBDialog.bundle in Resources */,
+				90E765A61418F2480026B656 /* ShareKit.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
