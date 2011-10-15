@@ -185,14 +185,29 @@ BOOL SHKinit;
 	if (currentView != nil)
 	{
 		// Dismiss the modal view
+IF_PRE_IOS5(
 		if ([currentView parentViewController] != nil)
 		{
 			self.isDismissingView = YES;
 			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
 		}
-		
 		else
 			self.currentView = nil;
+)
+IF_IOS5_OR_GREATER(
+		if ([currentView parentViewController] != nil)
+		{
+			self.isDismissingView = YES;
+			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+		}
+		else if([currentView presentingViewController] != nil)
+		{
+			self.isDismissingView = YES;
+			[[currentView presentingViewController] dismissModalViewControllerAnimated:animated];
+		}
+		else
+			self.currentView = nil;
+)
 	}
 }
 
