@@ -35,14 +35,15 @@
 @synthesize centerMessageLabel, subMessageLabel;
 @synthesize spinner;
 
-static SHKActivityIndicator *_currentIndicator = nil;
+static SHKActivityIndicator *currentIndicator = nil;
 
 
 + (SHKActivityIndicator *)currentIndicator
 {
-	if (_currentIndicator == nil)
+	if (currentIndicator == nil)
 	{
-		UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];		
+		UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+		
 		CGFloat width = 160;
 		CGFloat height = 160;
 		CGRect centeredFrame = CGRectMake(round(keyWindow.bounds.size.width/2 - width/2),
@@ -50,24 +51,27 @@ static SHKActivityIndicator *_currentIndicator = nil;
 										  width,
 										  height);
 		
-		_currentIndicator = [[super allocWithZone:NULL] initWithFrame:centeredFrame];
+		currentIndicator = [[SHKActivityIndicator alloc] initWithFrame:centeredFrame];
 		
-		_currentIndicator.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-		_currentIndicator.opaque = NO;
-		_currentIndicator.alpha = 0;		
-		_currentIndicator.layer.cornerRadius = 10;		
-		_currentIndicator.userInteractionEnabled = NO;
-		_currentIndicator.autoresizesSubviews = YES;
-		_currentIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |  UIViewAutoresizingFlexibleTopMargin |  UIViewAutoresizingFlexibleBottomMargin;		
-		[_currentIndicator setProperRotation:NO];
+		currentIndicator.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+		currentIndicator.opaque = NO;
+		currentIndicator.alpha = 0;
 		
-		[[NSNotificationCenter defaultCenter] addObserver:_currentIndicator
+		currentIndicator.layer.cornerRadius = 10;
+		
+		currentIndicator.userInteractionEnabled = NO;
+		currentIndicator.autoresizesSubviews = YES;
+		currentIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |  UIViewAutoresizingFlexibleTopMargin |  UIViewAutoresizingFlexibleBottomMargin;
+		
+		[currentIndicator setProperRotation:NO];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:currentIndicator
 												 selector:@selector(setProperRotation)
 													 name:UIDeviceOrientationDidChangeNotification
 												   object:nil];
 	}
 	
-	return _currentIndicator;
+	return currentIndicator;
 }
 
 #pragma mark -
@@ -132,10 +136,11 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (void)hidden
 {
-	if (_currentIndicator.alpha > 0)
+	if (currentIndicator.alpha > 0)
 		return;
 	
-	[_currentIndicator removeFromSuperview];
+	[currentIndicator removeFromSuperview];
+	currentIndicator = nil;
 }
 
 - (void)displayActivity:(NSString *)m
@@ -273,40 +278,6 @@ static SHKActivityIndicator *_currentIndicator = nil;
 		[UIView commitAnimations];
 }
 
-#pragma mark -
-#pragma mark Singleton System Overrides
 
-+ (id)allocWithZone:(NSZone *)zone{
-	
-    return [[self currentIndicator] retain];	
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-	
-    return self;	
-}
-
-- (id)retain
-{
-	
-    return self;	
-}
-
-- (NSUInteger)retainCount
-{
-	
-    return NSUIntegerMax;  //denotes an object that cannot be released	
-}
-
-- (oneway void)release
-{	
-    //do nothing	
-}
-
-- (id)autorelease
-{	
-    return self;	
-}
 
 @end
