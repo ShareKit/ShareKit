@@ -49,14 +49,10 @@
 	{		
         self.title = SHKLocalizedString(@"Foursquare");
         
-//		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-//																							  target:self
-//																							  action:@selector(cancel)];
-		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Check In")
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Check In")
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(save)];
+																				 action:@selector(save)] autorelease];
     }
     return self;
 }
