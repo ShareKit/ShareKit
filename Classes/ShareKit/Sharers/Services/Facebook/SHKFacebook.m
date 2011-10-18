@@ -31,6 +31,7 @@
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
+static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 @interface SHKFacebook()
 + (Facebook*)facebook;
@@ -64,6 +65,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults removeObjectForKey:kSHKFacebookAccessTokenKey];
   [defaults removeObjectForKey:kSHKFacebookExpiryDateKey];
+  [defaults removeObjectForKey:kSHKFacebookUserInfo];
   [defaults synchronize];
 }
 
@@ -235,7 +237,13 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 									   andHttpMethod:@"POST"
 										 andDelegate:self];
 		return YES;
-	} 
+	}
+    else if (item.shareType == SHKShareTypeUserInfo)
+    {
+        [self setQuiet:YES];
+        [[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
+        return YES;
+    } 
 	else 
 		// There is nothing to send
 		return NO;
@@ -320,7 +328,13 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)request:(FBRequest *)request didLoad:(id)result
 {
-  [self sendDidFinish];
+    NSLog(@"result: %@", [result description]);
+    
+    if ([result objectForKey:@"username"]){        
+        [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
+    }     
+
+    [self sendDidFinish];
 }
 
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 

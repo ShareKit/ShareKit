@@ -265,6 +265,17 @@
 	return [controller autorelease];
 }
 
++ (id)getUserInfo
+{
+    // Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+	controller.item.shareType = SHKShareTypeUserInfo;
+    
+	// share and/or show UI
+	[controller share];
+    
+    return [controller autorelease];
+}
 
 #pragma mark -
 #pragma mark Commit Share
@@ -595,6 +606,9 @@
 		case SHKShareTypeFile:
 			return (item.data != nil);
 			break;
+            
+        case SHKShareTypeUserInfo:
+            return YES;
 
 		default:
 			break;

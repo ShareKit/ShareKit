@@ -1,0 +1,3 @@
+[submodule "JSONKit"]
+	path = Classes/ShareKit/JSONKit
+	url = git://github.com/johnezang/JSONKit.git
