@@ -138,6 +138,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	return NO; // TODO - would love to make this work
 }
 
++ (BOOL)canGetUserInfo
+{
+    return YES;
+}
+
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 

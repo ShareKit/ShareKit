@@ -94,6 +94,11 @@
 	return NO;
 }
 
++ (BOOL)canGetUserInfo
+{
+    return NO;
+}
+
 + (BOOL)shareRequiresInternetConnection
 {
 	return YES;
@@ -115,22 +120,21 @@
 	{
 		case SHKShareTypeURL:
 			return [self canShareURL];
-			break;
 			
 		case SHKShareTypeImage:
 			return [self canShareImage];
-			break;
 			
 		case SHKShareTypeText:
 			return [self canShareText];
-			break;
 			
 		case SHKShareTypeFile:
 			return [self canShareFile];
-			break;
+            
+        case SHKShareTypeUserInfo:
+			return [self canGetUserInfo];
 			
 		default: 
-			return NO;
+			break;
 	}
 	return NO;
 }
@@ -593,23 +597,21 @@
 	{
 		case SHKShareTypeURL:
 			return (item.URL != nil);
-			break;			
 			
 		case SHKShareTypeImage:
 			return (item.image != nil);
-			break;			
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
-			break;
 			
 		case SHKShareTypeFile:
 			return (item.data != nil);
-			break;
             
         case SHKShareTypeUserInfo:
-            return YES;
-
+        {    
+            BOOL result = [[self class] canGetUserInfo];
+            return result; 
+        }   
 		default:
 			break;
 	}

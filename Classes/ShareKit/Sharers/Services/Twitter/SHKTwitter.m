@@ -94,6 +94,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return YES;
 }
 
++ (BOOL)canGetUserInfo
+{
+    return YES;
+}
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
