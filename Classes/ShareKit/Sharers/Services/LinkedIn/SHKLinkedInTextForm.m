@@ -46,14 +46,14 @@
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)];
+																							  action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to LinkedIn")
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to LinkedIn")
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(save)];
+																				 action:@selector(save)] autorelease];
     }
     return self;
 }
