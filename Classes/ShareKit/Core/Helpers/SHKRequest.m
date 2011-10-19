@@ -47,6 +47,7 @@
 	[data release];
 	[result release];
 	[response release];
+    [headers release];
 	[super dealloc];
 }
 
