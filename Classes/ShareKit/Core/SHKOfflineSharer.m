@@ -77,7 +77,7 @@
 - (void)share
 {	
 	// create sharer
-	self.sharer = [[NSClassFromString(sharerId) alloc] init];
+	self.sharer = [[[NSClassFromString(sharerId) alloc] init] autorelease];
 	sharer.item = item;
 	sharer.quiet = YES;
 	sharer.shareDelegate = self;
@@ -108,7 +108,6 @@
 	}
 	
 	[sharer tryToSend];	
-	[sharer release];
 }
 
 - (BOOL)shouldRun
