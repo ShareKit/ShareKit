@@ -39,8 +39,7 @@
 
 - (void)dealloc 
 {
-	[delegate release];
-	[textView release];
+    [textView release];
 	[counter release];
     [super dealloc];
 }
@@ -49,14 +48,14 @@
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)];
+																							  action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to Twitter")
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to Twitter")
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(save)];
+																				 action:@selector(save)] autorelease];
     }
     return self;
 }
@@ -69,7 +68,9 @@
 	
 	self.view.backgroundColor = [UIColor whiteColor];
 	
-	self.textView = [[UITextView alloc] initWithFrame:self.view.bounds];
+	UITextView *aTextView = [[UITextView alloc] initWithFrame:self.view.bounds];
+	self.textView = aTextView;
+    [aTextView release];
 	textView.delegate = self;
 	textView.font = [UIFont systemFontOfSize:15];
 	textView.contentInset = UIEdgeInsetsMake(5,5,0,0);
@@ -157,7 +158,9 @@
 {
 	if (counter == nil)
 	{
-		self.counter = [[UILabel alloc] initWithFrame:CGRectZero];
+		UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        self.counter = aLabel;
+        [aLabel release];
 		counter.backgroundColor = [UIColor clearColor];
 		counter.opaque = NO;
 		counter.font = [UIFont boldSystemFontOfSize:14];
@@ -168,8 +171,6 @@
 		
 		[self.view addSubview:counter];
 		[self layoutCounter];
-		
-		[counter release];
 	}
 	
 	int count = (hasAttachment?115:140) - textView.text.length;

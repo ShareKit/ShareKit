@@ -44,16 +44,16 @@
 @synthesize rootViewController, currentRootViewController;
 @synthesize offlineQueue;
 
-static SHK *currentHelper = nil;
+static SHK *_currentHelper = nil;
 BOOL SHKinit;
 
 
 + (SHK *)currentHelper
 {
-	if (currentHelper == nil)
-		currentHelper = [[SHK alloc] init];
+	if (_currentHelper == nil)
+		_currentHelper = [[super allocWithZone:NULL] init];
 	
-	return currentHelper;
+	return _currentHelper;
 }
 
 + (void)initialize
@@ -524,8 +524,11 @@ static NSDictionary *sharersDictionary = nil;
 	{
 		SHK *helper = [self currentHelper];
 		
-		if (helper.offlineQueue == nil)
-			helper.offlineQueue = [[NSOperationQueue alloc] init];		
+		if (helper.offlineQueue == nil) {
+            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;	
+            [aQueue release];
+        }
 	
 		SHKItem *item;
 		NSString *sharerId, *uid;
@@ -567,6 +570,39 @@ static NSDictionary *sharersDictionary = nil;
 	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);
+}
+
+#pragma mark -
+#pragma mark Singleton System Overrides
+
++ (id)allocWithZone:(NSZone *)zone
+{	
+    return [[self currentHelper] retain];	
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{	
+    return self;	
+}
+
+- (id)retain
+{	
+    return self;	
+}
+
+- (NSUInteger)retainCount
+{	
+    return NSUIntegerMax;  //denotes an object that cannot be released	
+}
+
+- (oneway void)release
+{	
+    //do nothing	
+}
+
+- (id)autorelease
+{	
+    return self;	
 }
 
 @end

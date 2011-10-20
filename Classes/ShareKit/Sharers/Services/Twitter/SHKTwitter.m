@@ -31,6 +31,14 @@
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 
+@interface SHKTwitter ()
+
+- (BOOL)prepareItem;
+- (BOOL)shortenURL;
+- (void)shortenURLFinished:(SHKRequest *)aRequest;
+
+@end
+
 @implementation SHKTwitter
 
 @synthesize xAuth;
@@ -93,6 +101,44 @@
 	return NO;
 }
 
+#pragma mark -
+#pragma mark Commit Share
+
+- (void)share {
+    
+    BOOL itemPrepared = [self prepareItem];
+    
+    //the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
+    if (itemPrepared) {
+        [super share];
+    }
+}
+
+#pragma mark -
+
+- (BOOL)prepareItem {
+    
+    BOOL result = YES;
+    
+    if (item.shareType == SHKShareTypeURL)
+	{
+		BOOL isURLAlreadyShortened = [self shortenURL];
+        result = isURLAlreadyShortened;
+        
+	}
+	
+	else if (item.shareType == SHKShareTypeImage)
+	{
+		[item setCustomValue:item.title forKey:@"status"];
+	}
+	
+	else if (item.shareType == SHKShareTypeText)
+	{
+		[item setCustomValue:item.text forKey:@"status"];
+	}
+    
+    return result;
+}
 
 #pragma mark -
 #pragma mark Authorization
@@ -188,18 +234,16 @@
 {
 	if (item.shareType == SHKShareTypeURL)
 	{
-		[self shortenURL];
+		[self showTwitterForm];
 	}
 	
 	else if (item.shareType == SHKShareTypeImage)
 	{
-		[item setCustomValue:item.title forKey:@"status"];
 		[self showTwitterForm];
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
 	{
-		[item setCustomValue:item.text forKey:@"status"];
 		[self showTwitterForm];
 	}
 }
@@ -216,6 +260,7 @@
 	rootView.hasAttachment = item.image != nil;
 	
 	[self pushViewController:rootView animated:NO];
+    [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
@@ -229,18 +274,19 @@
 
 #pragma mark -
 
-- (void)shortenURL
+- (BOOL)shortenURL
 {	
 	if (![SHK connected])
 	{
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
-		[self showTwitterForm];		
-		return;
+		return YES;
 	}
 	
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
-	
+    
+	[self retain];//must retain, because it is a delegate of shorten URL request
+    
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
 																		 SHKCONFIG(bitLyLogin),
 																		  SHKCONFIG(bitLyKey),																		  
@@ -251,6 +297,7 @@
 								 isFinishedSelector:@selector(shortenURLFinished:)
 											 method:@"GET"
 										  autostart:YES] autorelease];
+    return NO;
 }
 
 - (void)shortenURLFinished:(SHKRequest *)aRequest
@@ -280,7 +327,8 @@
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
 	}
 	
-	[self showTwitterForm];
+	[super share];
+    [self release];
 }
 
 
