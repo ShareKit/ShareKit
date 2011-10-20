@@ -190,6 +190,13 @@ BOOL SHKinit;
 			self.isDismissingView = YES;
 			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
 		}
+		// for iOS5
+		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
+		        [currentView presentingViewController])
+		{
+			self.isDismissingView = YES;
+			[[currentView presentingViewController] dismissModalViewControllerAnimated:animated];
+		}
 		
 		else
 			self.currentView = nil;
