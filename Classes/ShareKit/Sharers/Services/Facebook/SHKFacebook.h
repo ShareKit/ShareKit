@@ -28,7 +28,11 @@
 #import <Foundation/Foundation.h>
 #import "Facebook.h"
 #import "SHKSharer.h"
+#import "SHKFacebookForm.h"
 
 @interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>
+
 + (BOOL)handleOpenURL:(NSURL*)url;
+- (void)sendForm:(SHKFacebookForm *)form;
+
 @end
