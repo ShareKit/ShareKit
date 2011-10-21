@@ -24,13 +24,13 @@
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-              target:self
-              action:@selector(cancel)] autorelease];
+                                                                                               target:self
+                                                                                               action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to Facebook")
-              style:UIBarButtonItemStyleDone
-             target:self
-             action:@selector(save)] autorelease];
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [SHKFacebook sharerTitle]) 
+                                                                                   style:UIBarButtonItemStyleDone
+                                                                                  target:self
+                                                                                  action:@selector(save)] autorelease];
     }
     return self;
 }
