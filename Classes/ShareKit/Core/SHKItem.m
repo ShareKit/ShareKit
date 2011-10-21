@@ -209,7 +209,7 @@
 
 - (NSString *)description {
     
-    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nImage:%@\nTitle: %@\nText: %@\nTags:%@", [self shareTypeToString:self.shareType], [self.URL absoluteString], [self.image description], self.title, self.text, self.tags];
+    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nImage:%@\nTitle: %@\nText: %@\nTags:%@\nCustom fields:%@", [self shareTypeToString:self.shareType], [self.URL absoluteString], [self.image description], self.title, self.text, self.tags, [self.custom description]];
     
     return result;
 }
