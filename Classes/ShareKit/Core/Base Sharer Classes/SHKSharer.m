@@ -271,6 +271,9 @@
 
 - (void)share
 {
+    if (![self validateItem]) {
+        return; //otherwise self would stay retained forever. 
+    }
 	if (self.shareDelegate == self) {	// if no one has set the delegate away from us, we need to live till the end of sharing.
 		[self retain];
 	}
@@ -491,6 +494,7 @@
 		rootView.cancelSelector = @selector(shareFormCancel:);
 		
 		[self pushViewController:rootView animated:NO];
+        [rootView release];
 		
 		[[SHK currentHelper] showViewController:self];
 	}
