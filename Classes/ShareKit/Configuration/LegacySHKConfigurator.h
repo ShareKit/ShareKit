@@ -26,9 +26,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHKConfiguration.h"
+#import "DefaultSHKConfigurator.h"
 
-@interface LegacySHKConfigurator : NSObject <SHKConfigurationDelegate>  {
+@interface LegacySHKConfigurator : DefaultSHKConfigurator {
 	NSDictionary *configuration;
 }
 

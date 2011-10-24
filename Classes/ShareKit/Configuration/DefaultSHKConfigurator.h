@@ -26,9 +26,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHKConfiguration.h"
 
-@interface DefaultSHKConfigurator : NSObject <SHKConfigurationDelegate> {
+@interface DefaultSHKConfigurator : NSObject {
 
 }
 
@@ -48,6 +47,9 @@
 - (NSString*)evernoteNetStoreURLBase;
 - (NSString*)evernoteConsumerKey;
 - (NSString*)evernoteSecret;
+- (NSString*)flickrConsumerKey;
+- (NSString*)flickrSecretKey;
+- (NSString*)flickrCallbackUrl;
 - (NSString*)bitLyLogin;
 - (NSString*)bitLyKey;
 - (NSNumber*)shareMenuAlphabeticalOrder;
@@ -71,4 +73,5 @@
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
 - (NSNumber*)usePlaceholders;
+
 @end

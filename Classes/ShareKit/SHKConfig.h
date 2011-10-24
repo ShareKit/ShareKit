@@ -100,14 +100,6 @@
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
 
-
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-
-// Append 'Shared With 'Signature to Email (and related forms)
-#define SHKSharedWithSignature		0
-
-
 // Flickr - http://www.flickr.com/services/apps/create/
 /*
  1 - This requires the CFNetwork.framework 

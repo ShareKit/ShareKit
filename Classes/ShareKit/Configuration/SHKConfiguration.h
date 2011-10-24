@@ -26,66 +26,19 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@protocol SHKConfigurationDelegate <NSObject>
-
-@optional
-
-- (NSString*)appName;
-- (NSString*)appURL;
-- (NSString*)deliciousConsumerKey;
-- (NSString*)deliciousSecretKey;
-- (NSString*)facebookAppId;
-- (NSString*)readItLaterKey;
-- (NSString*)twitterConsumerKey;
-- (NSString*)twitterSecret;
-- (NSString*)twitterCallbackUrl;
-- (NSNumber*)twitterUseXAuth;
-- (NSString*)twitterUsername;
-- (NSString*)evernoteUserStoreURL;
-- (NSString*)evernoteNetStoreURLBase;
-- (NSString*)evernoteConsumerKey;
-- (NSString*)evernoteSecret;
-- (NSString*)bitLyLogin;
-- (NSString*)bitLyKey;
-- (NSNumber*)shareMenuAlphabeticalOrder;
-- (NSNumber*)sharedWithSignature;
-- (NSString*)barStyle;
-- (NSNumber*)barTintColorRed;
-- (NSNumber*)barTintColorGreen;
-- (NSNumber*)barTintColorBlue;
-- (NSNumber*)formFontColorRed;
-- (NSNumber*)formFontColorGreen;
-- (NSNumber*)formFontColorBlue;
-- (NSNumber*)formBgColorRed;
-- (NSNumber*)formBgColorGreen;
-- (NSNumber*)formBgColorBlue;
-- (NSString*)modalPresentationStyle;
-- (NSString*)modalTransitionStyle;
-- (NSString*)sharersPlistName;
-
-// Advanced Configuration
-- (NSNumber*)maxFavCount;
-- (NSString*)favsPrefixKey;
-- (NSString*)authPrefix;
-- (NSNumber*)allowOffline;
-- (NSNumber*)allowAutoShare;
-- (NSNumber*)usePlaceholders;
-
-
-@end
+#import "DefaultSHKConfigurator.h"
 
 @interface SHKConfiguration : NSObject {
-	id <SHKConfigurationDelegate> delegate;
+	DefaultSHKConfigurator *configurator;
 }
 
-@property (nonatomic,readonly) id <SHKConfigurationDelegate> delegate;
+@property (nonatomic, readonly, retain) DefaultSHKConfigurator *configurator;
 
 + (SHKConfiguration*)sharedInstance;
 
-+ (SHKConfiguration*)sharedInstanceWithDelegate:(id <SHKConfigurationDelegate>)delegate;
++ (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config;
 
-- (id)initWithDelegate:(id <SHKConfigurationDelegate>)delegate;
+- (id)initWithConfigurator:(DefaultSHKConfigurator*)config;
 
 - (id)configurationValue:(NSString*)selector;
 

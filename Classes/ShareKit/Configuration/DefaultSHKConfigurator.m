@@ -94,6 +94,18 @@
 	return @"";
 }
 
+- (NSString*)flickrConsumerKey {
+    return @"";
+}
+
+- (NSString*)flickrSecretKey {
+    return @"";
+}
+
+- (NSString*)flickrCallbackUrl{
+    return @"app://flickr";
+}
+
 - (NSString*)bitLyLogin {
 	return @"";
 }
