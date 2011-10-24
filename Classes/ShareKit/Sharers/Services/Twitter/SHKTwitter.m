@@ -371,7 +371,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 {	
 	if (ticket.didSucceed) {
         
-        NSError *error;
+        NSError *error = nil;
         NSMutableDictionary *userInfo;
         if ([NSJSONSerialization class]) {
             userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
