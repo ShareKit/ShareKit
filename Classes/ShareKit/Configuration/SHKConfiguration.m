@@ -26,7 +26,6 @@
 //
 
 #import "SHKConfiguration.h"
-#import "SHKConfig.h"
 #import "LegacySHKConfigurator.h"
 
 @interface SHKConfiguration ()
