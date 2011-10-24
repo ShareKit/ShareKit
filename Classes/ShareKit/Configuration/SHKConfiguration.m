@@ -27,7 +27,7 @@
 
 #import "SHKConfiguration.h"
 #import "SHKConfig.h"
-#import "LegacySHKConfigurationDelegate.h"
+#import "LegacySHKConfigurator.h"
 
 static SHKConfiguration *sharedInstance = nil;
 
