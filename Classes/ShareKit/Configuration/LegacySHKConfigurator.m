@@ -28,7 +28,20 @@
 #import "LegacySHKConfigurator.h"
 #import "SHKConfig.h"
 
+@interface LegacySHKConfigurator ()
+
+@property (readonly, retain) NSDictionary *configuration;
+
+@end
+
 @implementation LegacySHKConfigurator
+
+@synthesize configuration;
+
+- (void)dealloc 
+{
+    [configuration release];
+}
 
 - (id)init
 {
@@ -91,13 +104,13 @@
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
 	BOOL implementsSuper = [super respondsToSelector:aSelector];
-    BOOL implementedHere = ([configuration objectForKey:NSStringFromSelector(aSelector)] != nil);
+    BOOL implementedHere = ([self.configuration objectForKey:NSStringFromSelector(aSelector)] != nil);
 	return  implementsSuper|| implementedHere;
 }
 
 - (id) performSelector:(SEL)aSelector
 {
-	id configValue = [configuration objectForKey:NSStringFromSelector(aSelector)];
+	id configValue = [self.configuration objectForKey:NSStringFromSelector(aSelector)];
 	if(configValue == nil) {
 		return [super performSelector:aSelector];
 	} else {

@@ -29,6 +29,14 @@
 #import "SHKConfig.h"
 #import "LegacySHKConfigurator.h"
 
+@interface SHKConfiguration ()
+
+@property (readonly, retain) DefaultSHKConfigurator *configurator;
+
+- (id)initWithConfigurator:(DefaultSHKConfigurator*)config;
+
+@end
+
 static SHKConfiguration *sharedInstance = nil;
 
 @implementation SHKConfiguration

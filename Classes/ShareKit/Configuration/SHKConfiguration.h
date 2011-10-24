@@ -28,17 +28,10 @@
 #import <Foundation/Foundation.h>
 #import "DefaultSHKConfigurator.h"
 
-@interface SHKConfiguration : NSObject {
-	DefaultSHKConfigurator *configurator;
-}
-
-@property (nonatomic, readonly, retain) DefaultSHKConfigurator *configurator;
+@interface SHKConfiguration : NSObject 
 
 + (SHKConfiguration*)sharedInstance;
-
 + (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config;
-
-- (id)initWithConfigurator:(DefaultSHKConfigurator*)config;
 
 - (id)configurationValue:(NSString*)selector;
 

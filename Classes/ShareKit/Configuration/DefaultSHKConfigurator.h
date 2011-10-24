@@ -27,9 +27,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DefaultSHKConfigurator : NSObject {
-
-}
+@interface DefaultSHKConfigurator : NSObject 
 
 - (NSString*)appName;
 - (NSString*)appURL;
