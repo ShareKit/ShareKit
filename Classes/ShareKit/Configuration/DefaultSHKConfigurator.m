@@ -27,11 +27,13 @@
 
 #import "DefaultSHKConfigurator.h"
 
-
 @implementation DefaultSHKConfigurator
 
-// App Description
-// These values are used by any service that shows 'shared from XYZ'
+/* 
+ App Description 
+ ---------------
+ These values are used by any service that shows 'shared from XYZ'
+ */
 - (NSString*)appName {
 	return @"My App Name";
 }
@@ -39,6 +41,7 @@
 - (NSString*)appURL {
 	return @"http://example.com";
 }
+
 /*
  API Keys
  --------
@@ -56,7 +59,7 @@
  leaving that decision up to the user.
  */
 
-// Delicious - https://developer.apps.yahoo.com/projects
+// Delicious - https://developer.apps.yahoo.com/dashboard/createKey.html
 - (NSString*)deliciousConsumerKey {
 	return @"";
 }
@@ -64,7 +67,7 @@
 - (NSString*)deliciousSecretKey {
 	return @"";
 }
-// Facebook - https://developers.facebook.com/
+// Facebook - https://developers.facebook.com/apps
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
 // The CFBundleURLSchemes in your App-Info.plist should be "fb" + the concatenation of these two IDs.
@@ -80,7 +83,7 @@
 - (NSString*)facebookLocalAppId {
 	return @"";
 }
-// Read It Later - http://readitlaterlist.com/api/?shk
+// Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"";
 }
@@ -172,7 +175,7 @@
 }
 /*
  UI Configuration : Basic
- ------
+ ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
  */
 
@@ -239,7 +242,7 @@
 }
 /*
  UI Configuration : Advanced
- ------
+ ---------------------------
  If you'd like to do more advanced customization of the ShareKit UI, like background images and more,
  check out http://getsharekit.com/customize
  */
@@ -250,7 +253,7 @@
 }
 /*
  Advanced Configuration
- ------
+ ----------------------
  These settings can be left as is.  This only need to be changed for uber custom installs.
  */
 - (NSNumber*)maxFavCount {
@@ -272,5 +275,11 @@
 - (NSNumber*)allowAutoShare {
 	return [NSNumber numberWithBool:true];
 }
+
+/* 
+ Debugging settings
+ ------------------
+ see DefaultSHKConfigurator.h
+ */
 
 @end

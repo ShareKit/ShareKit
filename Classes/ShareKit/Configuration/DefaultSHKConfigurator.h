@@ -28,7 +28,7 @@
 /*
  Debugging
  ------
- To show debug output in the console, define _SHKDebugShowLogs somewhere.
+ To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
 //#define _SHKDebugShowLogs
 
