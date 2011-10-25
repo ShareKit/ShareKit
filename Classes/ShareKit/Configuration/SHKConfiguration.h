@@ -33,8 +33,9 @@
 + (SHKConfiguration*)sharedInstance;
 + (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config;
 
-- (id)configurationValue:(NSString*)selector;
+- (id)configurationValue:(NSString*)selector withObject:(id)object;
 
-#define SHKCONFIG(_CONFIG_KEY) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY]
+#define SHKCONFIG(_CONFIG_KEY) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY withObject:nil]
+#define SHKCONFIG_WITH_ARGUMENT(_CONFIG_KEY, _CONFIG_ARG) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY withObject:_CONFIG_ARG]
 
 @end

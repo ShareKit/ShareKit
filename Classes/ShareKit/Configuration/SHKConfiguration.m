@@ -45,13 +45,19 @@ static SHKConfiguration *sharedInstance = nil;
 #pragma mark -
 #pragma mark Instance methods
 
-- (id)configurationValue:(NSString*)selector
+- (id)configurationValue:(NSString*)selector withObject:(id)object
 {
 	SHKLog(@"Looking for a configuration value for %@.", selector);
 
 	SEL sel = NSSelectorFromString(selector);
 	if ([self.configurator respondsToSelector:sel]) {
-		id value = [self.configurator performSelector:sel];
+		id value;        
+        if (object) {
+            value = [self.configurator performSelector:sel withObject:object];
+        } else {
+            value = [self.configurator performSelector:sel];
+        }
+
 		if (value) {
 			SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
 			return value;

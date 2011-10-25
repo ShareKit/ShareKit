@@ -184,16 +184,8 @@
 	return @"UIBarStyleDefault";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIKitDataTypesReference/Reference/reference.html#//apple_ref/c/econst/UIBarStyleDefault
 }
 
-- (NSNumber*)barTintColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)barTintColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)barTintColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
+- (UIColor*)barTintForView:(UIViewController*)vc {
+    return nil;
 }
 // Forms
 - (NSNumber*)formFontColorRed {

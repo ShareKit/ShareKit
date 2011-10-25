@@ -149,6 +149,7 @@ BOOL SHKinit;
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
 		
 		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
+        nav.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		
 		[topViewController presentModalViewController:nav animated:YES];			
 		self.currentView = nav;

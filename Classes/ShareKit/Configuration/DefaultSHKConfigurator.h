@@ -68,9 +68,7 @@
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;
-- (NSNumber*)barTintColorRed;
-- (NSNumber*)barTintColorGreen;
-- (NSNumber*)barTintColorBlue;
+- (UIColor*)barTintForView:(UIViewController*)vc;
 - (NSNumber*)formFontColorRed;
 - (NSNumber*)formFontColorGreen;
 - (NSNumber*)formFontColorBlue;
