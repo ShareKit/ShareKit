@@ -31,6 +31,14 @@
 #import "SHKReadItLater.h"
 
 
+/**
+ Private helper methods
+ */
+@interface SHKReadItLater ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
+
 @implementation SHKReadItLater
 
 
