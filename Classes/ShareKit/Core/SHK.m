@@ -345,7 +345,7 @@ BOOL SHKinit;
 	[favs removeObject:className];
 	[favs insertObject:className atIndex:0];
 	
-	while (favs.count > [SHKCONFIG(maxFavCount) intValue])
+	while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
 		[favs removeLastObject];
 	
 	[self setFavorites:favs forType:type];

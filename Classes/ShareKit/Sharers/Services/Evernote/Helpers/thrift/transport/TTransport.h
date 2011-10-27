@@ -28,7 +28,7 @@
    * @return The number of bytes actually read, which must be equal to len
    * @throws TTransportException if there was an error reading data
    */
-- (int) readAll: (uint8_t *) buf offset: (int) off length: (int) len;
+- (int) readAll: (uint8_t *) buf offset: (NSUInteger) off length: (NSUInteger) len;
 
 - (void) write: (const uint8_t *) data offset: (unsigned int) offset length: (unsigned int) length;
 
