@@ -3037,6 +3037,17 @@ static int16_t EDAMEDAM_VERSION_MINOR = 16;
 
 @end
 
+/**
+ Private helper methods
+ */
+@interface EDAMUserStoreProcessor ()
+- (void) process_checkVersion_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_authenticate_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_refreshAuthentication_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getUser_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getPublicUserInfo_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+@end
+
 @implementation EDAMUserStoreProcessor
 
 - (id) initWithUserStore: (id <EDAMUserStore>) service
