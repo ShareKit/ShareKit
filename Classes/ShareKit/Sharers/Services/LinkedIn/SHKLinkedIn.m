@@ -46,12 +46,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 // What types of content can the action handle?
 
 // If the action can handle URLs, uncomment this section
-/*
- + (BOOL)canShareURL
- {
- return YES;
- }
- */
++ (BOOL)canShareURL
+{
+    return YES;
+}
 
 // If the action can handle images, uncomment this section
 /*
@@ -217,18 +215,18 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark Implementation
 
 // When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-/*
- - (BOOL)validateItem
- { 
- // The super class will verify that:
- // -if sharing a url	: item.url != nil
- // -if sharing an image : item.image != nil
- // -if sharing text		: item.text != nil
- // -if sharing a file	: item.data != nil
- 
- return [super validateItem];
- }
- */
+- (BOOL)validateItem
+{ 
+    if (![super validateItem]) {
+        return NO;
+    }
+    
+    if (item.shareType == SHKShareTypeURL && item.text == nil) {
+        return NO;
+    };
+    
+    return YES;
+}
 
 // Send the share item to the server
 - (BOOL)send
@@ -237,7 +235,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 		return NO;
 	
     // Determine which type of share to do
-    if (item.shareType == SHKShareTypeText) // sharing a Text
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL) // sharing a Text or URL
     {
         // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
         
@@ -258,14 +256,23 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         if (visibility == nil) {
             visibility = @"anyone";
         }
+        
+        NSString *submittedUrl;
+        if (item.shareType == SHKShareTypeURL) {
+            NSString *urlString = [[[[item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+            submittedUrl = [NSString stringWithFormat:@"<submitted-url>%@</submitted-url>", urlString];
+        } else {
+            submittedUrl = @"";
+        }
 
         NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
                           "<share>"
                             "<comment>%@</comment>"
+                            "%@"
                             "<visibility>"
                                 "<code>%@</code>"
                             "</visibility>"
-                          "</share>", comment, visibility];
+                          "</share>", comment, submittedUrl, visibility];
         
         [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
         
