@@ -273,7 +273,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         NSString *submittedUrl;
         if (item.shareType == SHKShareTypeURL) {
             NSString *urlString = [[[[item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-            submittedUrl = [NSString stringWithFormat:@"<submitted-url>%@</submitted-url>", urlString];
+            submittedUrl = [NSString stringWithFormat:@"<content><submitted-url>%@</submitted-url></content>", urlString];
         } else {
             submittedUrl = @"";
         }
