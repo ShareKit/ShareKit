@@ -198,7 +198,11 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)sendTextForm:(SHKLinkedInTextForm *)form
 {	
-	item.text = form.textView.text;
+    if (item.shareType == SHKShareTypeURL) {
+        item.title = form.textView.text;
+    } else {
+        item.text = form.textView.text;
+    }
 	[self tryToSend];
 }
 
@@ -221,7 +225,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         return NO;
     }
     
-    if (item.shareType == SHKShareTypeURL && item.text == nil) {
+    if (item.shareType == SHKShareTypeURL && item.title == nil) {
         return NO;
     };
     
@@ -250,7 +254,12 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
         
         // TODO use more robust method to escape         
-        NSString *comment = [[[[item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+        NSString *comment;
+        if (item.shareType == SHKShareTypeURL) {
+            comment =[[[[item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+        } else {
+            comment =[[[[item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+        }
         
         NSString *visibility = [item customValueForKey:SHKLinkedInVisibilityCodeKey];
         if (visibility == nil) {
