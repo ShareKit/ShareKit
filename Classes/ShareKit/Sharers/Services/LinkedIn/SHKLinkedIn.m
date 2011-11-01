@@ -181,7 +181,11 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	// force view to load so we can set textView text
 	[rootView view];
 	
-	rootView.textView.text = item.text;
+    if (item.shareType == SHKShareTypeURL) {
+        rootView.textView.text = item.title;
+    } else {
+        rootView.textView.text = item.text;
+    }
 	
 	[self pushViewController:rootView animated:NO];
 	
@@ -190,7 +194,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)show
 {
-    if (item.shareType == SHKShareTypeText)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL)
 	{
 		[self showLinkedInTextForm];
 	}
