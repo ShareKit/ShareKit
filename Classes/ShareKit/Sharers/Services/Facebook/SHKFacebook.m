@@ -113,7 +113,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 + (NSString *)sharerTitle
 {
-	return @"Facebook";
+    return SHKLocalizedString(@"Facebook");
 }
 
 + (BOOL)canShareURL

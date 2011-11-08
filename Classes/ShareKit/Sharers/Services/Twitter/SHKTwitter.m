@@ -73,7 +73,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Twitter";
+    return SHKLocalizedString(@"Twitter");
 }
 
 + (BOOL)canShareURL
