@@ -1,4 +1,5 @@
 "Email" = "电子邮件";
+"Email subject %@" = "%@";
 "Username" = "用户名";
 "Password" = "密码";
 "Follow %@" = "关注%@";
