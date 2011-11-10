@@ -179,7 +179,8 @@
 		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
 	}
 	
-	[mailController setSubject:item.title];
+    NSString *subject = SHKLocalizedString(@"Email subject %@", item.title);
+    [mailController setSubject:subject];
 	[mailController setMessageBody:body isHTML:YES];
 			
 	[[SHK currentHelper] showViewController:mailController];

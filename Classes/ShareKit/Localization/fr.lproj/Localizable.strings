@@ -1,4 +1,5 @@
 "Email" = "E-mail";
+"Email subject %@" = "%@";
 "Username" = "Nom d'utilisateur";
 "Password" = "Mot de passe";
 "Follow %@" = "S'abonner à %@";

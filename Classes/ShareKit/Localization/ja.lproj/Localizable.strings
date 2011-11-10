@@ -1,4 +1,5 @@
 "Email" = "メール";
+"Email subject %@" = "%@";
 "Username" = "ユーザー名";
 "Password" = "パスワード";
 "Follow %@" = "@%@をフォローする";
