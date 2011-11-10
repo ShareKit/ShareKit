@@ -1,4 +1,4 @@
-"Email" = "Email:";
+"Email" = "Email";
 "Username" = "Anv\U00e4ndarnamn:";
 "Password" = "L\U00f6senord:";
 "Follow %@" = "F\U00f6lj %@";
@@ -42,7 +42,6 @@
 "Send to Twitter" = "S\U00e4nd till Twitter";
 
 "Message is too long" = "Meddelandet \U00e4r f\U00f6r l\U00e5ngt";
-
 "Twitter posts can only be 140 characters in length." = "Meddelanden i Twitter posts kan vara max 140 tecken.";
 "Message is empty" = "Meddelandet \U00e4r tomt";
 "You must enter a message in order to post." = "Du m\U00e5ste skriva ett meddelande f\U00f6r att skicka.";
@@ -68,13 +67,13 @@
 
 "There was a problem saving to Delicious." = "Det gick inte att spara till Delicious.";
 
-"Open in Safari" = "\U00f6ppna i Safari";
+"Open in Safari" = "\U00d6ppna i Safari";
 "Attached: %@" = "Bifogat: %@";
 
 "You must be online to login to %@" = "Du m\U00e5ste vara online f\U00f6r att logga in till %@";
 
-"Auto Share" = "Auto dela";
-"Enable auto share to skip this step in the future." = "Aktivera auto dela f\U00f6r att skippa detta steg i forts\U00e4ttningen.";
+"Auto Share" = "Dela automatiskt";
+"Enable auto share to skip this step in the future." = "Aktivera automatisk delning f\U00f6r att skippa detta steg i forts\U00e4ttningen.";
 
 "You must be online in order to share with %@" = "Du m\U00e5ste vara online f\U00f6r att dela med %@";
 "There was an error while sharing" = "Ett fel uppstod";
