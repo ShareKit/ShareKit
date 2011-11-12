@@ -94,6 +94,11 @@
 	return NO;
 }
 
++ (BOOL)canGetUserInfo
+{
+    return NO;
+}
+
 + (BOOL)shareRequiresInternetConnection
 {
 	return YES;
@@ -115,22 +120,21 @@
 	{
 		case SHKShareTypeURL:
 			return [self canShareURL];
-			break;
 			
 		case SHKShareTypeImage:
 			return [self canShareImage];
-			break;
 			
 		case SHKShareTypeText:
 			return [self canShareText];
-			break;
 			
 		case SHKShareTypeFile:
 			return [self canShareFile];
-			break;
+            
+        case SHKShareTypeUserInfo:
+			return [self canGetUserInfo];
 			
 		default: 
-			return NO;
+			break;
 	}
 	return NO;
 }
@@ -265,6 +269,17 @@
 	return [controller autorelease];
 }
 
++ (id)getUserInfo
+{
+    // Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+	controller.item.shareType = SHKShareTypeUserInfo;
+    
+	// share and/or show UI
+	[controller share];
+    
+    return [controller autorelease];
+}
 
 #pragma mark -
 #pragma mark Commit Share
@@ -586,20 +601,21 @@
 	{
 		case SHKShareTypeURL:
 			return (item.URL != nil);
-			break;			
 			
 		case SHKShareTypeImage:
 			return (item.image != nil);
-			break;			
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
-			break;
 			
 		case SHKShareTypeFile:
 			return (item.data != nil);
-			break;
-
+            
+        case SHKShareTypeUserInfo:
+        {    
+            BOOL result = [[self class] canGetUserInfo];
+            return result; 
+        }   
 		default:
 			break;
 	}
@@ -688,7 +704,14 @@
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
 {
-	
+	if (success) {
+        //this saves info about user such as username for services, which do not store username in keychain e.g. facebook and twitter.
+        NSString *userInfoKeyForSharer = [NSString stringWithFormat:@"kSHK%@UserInfo", [sharer title]];
+        NSDictionary *savedUserInfo = [[NSUserDefaults standardUserDefaults] objectForKey:userInfoKeyForSharer];
+        if ([[sharer class] canGetUserInfo] && !savedUserInfo) {
+            [[sharer class] getUserInfo];
+        }
+    }
 }
 
 #pragma mark -

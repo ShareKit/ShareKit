@@ -1,0 +1,3 @@
+[submodule "JSONKit"]
+	path = Submodules/JSONKit
+	url = git://github.com/johnezang/JSONKit.git
