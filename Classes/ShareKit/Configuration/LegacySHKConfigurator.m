@@ -25,10 +25,23 @@
 //
 //
 
-#import "LegacySHKConfigurationDelegate.h"
+#import "LegacySHKConfigurator.h"
 #import "SHKConfig.h"
 
-@implementation LegacySHKConfigurationDelegate
+@interface LegacySHKConfigurator ()
+
+@property (readonly, retain) NSDictionary *configuration;
+
+@end
+
+@implementation LegacySHKConfigurator
+
+@synthesize configuration;
+
+- (void)dealloc 
+{
+    [configuration release];
+}
 
 - (id)init
 {
@@ -37,9 +50,11 @@
 						 SHKMyAppName, @"appName", 
 						 SHKMyAppURL, @"appURL", 
 						 SHKDeliciousConsumerKey, @"deliciousConsumerKey", 
-						 SHKDeliciousSecretKey, @"deliciousSecretKey", 
+						 SHKDeliciousSecretKey, @"deliciousSecretKey",
+                         [NSNumber numberWithBool:SHKFacebookUseSessionProxy], @"facebookUseSessionProxy",
 						 SHKFacebookAppID, @"facebookAppId",
 						 SHKFacebookLocalAppID, @"facebookLocalAppId",
+                         SHKFacebookSessionProxyURL, @"facebookSessionProxyURL",
 						 SHKReadItLaterKey, @"readItLaterKey", 
 						 SHKTwitterConsumerKey, @"twitterConsumerKey", 
 						 SHKTwitterSecret, @"twitterSecret", 
@@ -75,7 +90,7 @@
 						 SHKSSharersPlistName, @"sharersPlistName",
 						 [NSNumber numberWithInt:SHK_ALLOW_OFFLINE], @"allowOffline", 
 						 [NSNumber numberWithInt:SHK_ALLOW_AUTOSHARE], @"allowAutoShare", 
-						 [NSNumber numberWithInt:SHKUsePlaceholders], @"usePlaceholder", 
+						 [NSNumber numberWithInt:SHKUsePlaceholders], @"usePlaceholders", 
 						 nil];
 	}
 	
@@ -88,12 +103,14 @@
 
 - (BOOL)respondsToSelector:(SEL)aSelector
 {
-	return [super respondsToSelector:aSelector] || [configuration objectForKey:NSStringFromSelector(aSelector)] != nil;
+	BOOL implementsSuper = [super respondsToSelector:aSelector];
+    BOOL implementedHere = ([self.configuration objectForKey:NSStringFromSelector(aSelector)] != nil);
+	return  implementsSuper|| implementedHere;
 }
 
 - (id) performSelector:(SEL)aSelector
 {
-	id configValue = [configuration objectForKey:NSStringFromSelector(aSelector)];
+	id configValue = [self.configuration objectForKey:NSStringFromSelector(aSelector)];
 	if(configValue == nil) {
 		return [super performSelector:aSelector];
 	} else {
