@@ -12,6 +12,7 @@
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
+#import "ShareKitDemoConfigurator.h"
 
 @implementation ShareKitAppDelegate
 
@@ -25,6 +26,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     // Override point for customization after app launch    
 	
+    //Here you load ShareKit submodule with app specific configuration
+    DefaultSHKConfigurator *configurator = [[ShareKitDemoConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    [configurator release];
+    
 	[window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
 	

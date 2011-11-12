@@ -105,6 +105,7 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		7AA40554146F0EFF00685C81 /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
+		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
 		90E765A61418F2480026B656 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
 		AAACE01C13CCB1F500A2118F /* LegacySHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01813CCB1F500A2118F /* LegacySHKConfigurator.m */; };
@@ -313,6 +314,8 @@
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7AA40552146F0EFF00685C81 /* SHKCustomActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomActionSheet.h; sourceTree = "<group>"; };
 		7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomActionSheet.m; sourceTree = "<group>"; };
+		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
+		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		90E765A51418F2480026B656 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurator.h; sourceTree = "<group>"; };
@@ -494,6 +497,8 @@
 				43A5383311DBE493004A1712 /* RootViewController.m */,
 				43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */,
 				43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */,
+				7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */,
+				7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */,
 			);
 			name = "Example Project";
 			sourceTree = "<group>";
@@ -1143,6 +1148,7 @@
 				AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */,
 				E68738C01416795C00D8C3DD /* SHKLogout.m in Sources */,
 				7AA40554146F0EFF00685C81 /* SHKCustomActionSheet.m in Sources */,
+				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
