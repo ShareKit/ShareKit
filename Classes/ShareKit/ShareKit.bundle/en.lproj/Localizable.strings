@@ -15,7 +15,6 @@
 "Close" = "Close";
 "Notes" = "Notes";
 "Note" = "Note";
-"Share" = "Share";
 "Shared" = "Shared";
 "Edit" = "Edit";
 "Actions" = "Actions";
@@ -74,7 +73,6 @@
 "Enable auto share to skip this step in the future." = "Enable auto share to skip this step in the future.";
 
 "You must be online in order to share with %@" = "You must be online in order to share with %@";
-"There was an error while sharing" = "There was an error while sharing";
 
 "Could not authenticate you. Please relogin." = "Could not authenticate you. Please relogin.";
 "There was a problem requesting authorization from %@" = "There was a problem requesting authorization from %@";
@@ -88,4 +86,26 @@
 "There was a problem requesting access from %@" = "There was a problem requesting access from %@";
 
 "Access Error" = "Access Error";
-"There was an error while sharing" = "There was an error while sharing";
+
+"Logout" = "Logout";
+"Sharing a Link" = "Sharing a Link";
+"Sharing an Image" = "Sharing an Image";
+"Sharing Text" = "Sharing Text";
+"Sharing a File" = "Sharing a File";
+"Are you sure you want to logout of all share services?" = "Are you sure you want to logout of all share services?";
+"Examples" = "Examples";
+"EDMA Error" = "EDMA Error";
+"EDMA Version is too old." = "EDMA Version is too old.";
+"Your username and password did not match" = "Your username and password did not match";
+"Untitled" = "Untitled";
+"There was a problem sharing with Evernote" = "There was a problem sharing with Evernote";
+"Get" = "Get";
+"Description" = "Description";
+"Tag (space) Tag" = "Tag (space) Tag";
+"Is Public" = "Is Public";
+"Is Friend" = "Is Friend";
+"Is Family" = "Is Family";
+"Logged Out!" = "Logged Out!";
+"Sent from %@" = "Sent from %@";
+"Save to Photo Album" = "Save to Photo Album";
+"Tag,Tag" = "Tag,Tag";

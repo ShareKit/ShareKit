@@ -99,9 +99,7 @@
 
 - (BOOL)handleResponse:(SHKRequest *)aRequest
 {
-	NSString *response = [aRequest getResult];
-	
-	if ([response isEqualToString:@"401 Forbidden"])
+	if (aRequest.response.statusCode == 401)
 	{
 		[self sendDidFailShouldRelogin];		
 		return NO;		

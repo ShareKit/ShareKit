@@ -89,3 +89,25 @@
 
 "Access Error" = "Chyba přístupu";
 "There was an error while sharing" = "Během sdílení nastala chyba";
+"Logout" = "Odhlášení";
+"Sharing a Link" = "Sdílet link";
+"Sharing an Image" = "Sdílet obrázek";
+"Sharing Text" = "Sdílet text";
+"Sharing a File" = "Sdílet soubor";
+"Are you sure you want to logout of all share services?" = "Doopravdy si přejete odhlásit se ze všech služeb?";
+"Examples" = "Příklady";
+"EDMA Error" = "Chyba EDMA";
+"EDMA Version is too old." = "Verze EDMA je příliš stará.";
+"Your username and password did not match" = "Nesprávné jméno nebo heslo";
+"Untitled" = "Bez názvu";
+"There was a problem sharing with Evernote" = "Nastal problém během sdílení přes Evernote";
+"Get" = "";
+"Description" = "Popis";
+"Tag (space) Tag" = "Tag (mezera) Tag";
+"Is Public" = "Veřejné";
+"Is Friend" = "Pro přátele";
+"Is Family" = "Pro rodinu";
+"Logged Out!" = "Odhlášeno!";
+"Sent from %@" = "Odesláno z %@";
+"Save to Photo Album" = "Uložit do Photo Albumu";
+"Tag,Tag" = "Tag,Tag";
