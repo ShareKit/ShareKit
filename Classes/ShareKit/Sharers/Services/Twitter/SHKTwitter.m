@@ -36,6 +36,7 @@
 - (BOOL)prepareItem;
 - (BOOL)shortenURL;
 - (void)shortenURLFinished:(SHKRequest *)aRequest;
+- (BOOL)validateItemAfterUserEdit;
 
 @end
 
@@ -338,7 +339,21 @@
 - (BOOL)validateItem
 {
 	NSString *status = [item customValueForKey:@"status"];
-	return status != nil && status.length <= 140;
+	return status != nil;
+}
+
+- (BOOL)validateItemAfterUserEdit {
+    
+    BOOL result = NO;
+    
+    BOOL isValid = [self validateItem];    
+    NSString *status = [item customValueForKey:@"status"];
+    
+    if (isValid && status.length <= 140) {
+        result = YES;
+    }
+    
+    return result;
 }
 
 - (BOOL)send
@@ -347,7 +362,7 @@
 	if (xAuth && [item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
-	if (![self validateItem])
+	if (![self validateItemAfterUserEdit])
 		return NO;
 	
 	if (item.shareType == SHKShareTypeImage) {
