@@ -29,6 +29,7 @@
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKCustomShareMenu.h"
+#import "SHKCustomActionSheet.h"
 #import "SHKShareItemDelegate.h"
 
 #import <Foundation/NSObjCRuntime.h>
@@ -47,7 +48,7 @@
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
-	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
+	SHKCustomActionSheet *as = [[SHKCustomActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
 													  delegate:nil
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
