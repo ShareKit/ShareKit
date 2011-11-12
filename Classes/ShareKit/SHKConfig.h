@@ -42,7 +42,7 @@
 #define SHKDeliciousConsumerKey		@""
 #define SHKDeliciousSecretKey		@""
 
-// Facebook - http://www.facebook.com/developers
+// Facebook - https://developers.facebook.com/
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
 // The CFBundleURLSchemes in your App-Info.plist should be "fb" + the concatenation of these two IDs.
@@ -100,14 +100,6 @@
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
 
-
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-
-// Append 'Shared With 'Signature to Email (and related forms)
-#define SHKSharedWithSignature		0
-
-
 // Flickr - http://www.flickr.com/services/apps/create/
 /*
  1 - This requires the CFNetwork.framework 
@@ -163,21 +155,6 @@
 
 // turn on to use placeholders in edit fields instead of labels to the left for input fields.
 #define SHKUsePlaceholders 0
-
-/*
- Debugging
- ------
- To show debug output in the console, define _SHKDebugShowLogs somewhere.
- */
-
-#ifdef _SHKDebugShowLogs
-	#define SHKDebugShowLogs			1
-	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-	#define SHKDebugShowLogs			0
-	#define SHKLog( s, ... )
-#endif
-
 
 /*
  Advanced Configuration

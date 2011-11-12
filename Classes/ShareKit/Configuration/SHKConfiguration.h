@@ -26,69 +26,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DefaultSHKConfigurator.h"
 
-@protocol SHKConfigurationDelegate <NSObject>
-
-@optional
-
-- (NSString*)appName;
-- (NSString*)appURL;
-- (NSString*)deliciousConsumerKey;
-- (NSString*)deliciousSecretKey;
-- (NSString*)facebookAppId;
-- (NSString*)readItLaterKey;
-- (NSString*)twitterConsumerKey;
-- (NSString*)twitterSecret;
-- (NSString*)twitterCallbackUrl;
-- (NSNumber*)twitterUseXAuth;
-- (NSString*)twitterUsername;
-- (NSString*)evernoteUserStoreURL;
-- (NSString*)evernoteNetStoreURLBase;
-- (NSString*)evernoteConsumerKey;
-- (NSString*)evernoteSecret;
-- (NSString*)bitLyLogin;
-- (NSString*)bitLyKey;
-- (NSNumber*)shareMenuAlphabeticalOrder;
-- (NSNumber*)sharedWithSignature;
-- (NSString*)barStyle;
-- (NSNumber*)barTintColorRed;
-- (NSNumber*)barTintColorGreen;
-- (NSNumber*)barTintColorBlue;
-- (NSNumber*)formFontColorRed;
-- (NSNumber*)formFontColorGreen;
-- (NSNumber*)formFontColorBlue;
-- (NSNumber*)formBgColorRed;
-- (NSNumber*)formBgColorGreen;
-- (NSNumber*)formBgColorBlue;
-- (NSString*)modalPresentationStyle;
-- (NSString*)modalTransitionStyle;
-- (NSString*)sharersPlistName;
-
-// Advanced Configuration
-- (NSNumber*)maxFavCount;
-- (NSString*)favsPrefixKey;
-- (NSString*)authPrefix;
-- (NSNumber*)allowOffline;
-- (NSNumber*)allowAutoShare;
-- (NSNumber*)usePlaceholders;
-
-
-@end
-
-@interface SHKConfiguration : NSObject {
-	id <SHKConfigurationDelegate> delegate;
-}
-
-@property (nonatomic,readonly) id <SHKConfigurationDelegate> delegate;
+@interface SHKConfiguration : NSObject 
 
 + (SHKConfiguration*)sharedInstance;
++ (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config;
 
-+ (SHKConfiguration*)sharedInstanceWithDelegate:(id <SHKConfigurationDelegate>)delegate;
+- (id)configurationValue:(NSString*)selector withObject:(id)object;
 
-- (id)initWithDelegate:(id <SHKConfigurationDelegate>)delegate;
-
-- (id)configurationValue:(NSString*)selector;
-
-#define SHKCONFIG(_CONFIG_KEY) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY]
+#define SHKCONFIG(_CONFIG_KEY) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY withObject:nil]
+#define SHKCONFIG_WITH_ARGUMENT(_CONFIG_KEY, _CONFIG_ARG) [[SHKConfiguration sharedInstance] configurationValue:@#_CONFIG_KEY withObject:_CONFIG_ARG]
 
 @end
