@@ -558,7 +558,6 @@
 	// NSLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	if (ticket.didSucceed) {
-		[self sendDidFinish];
 		// Finished uploading Image, now need to posh the message and url in twitter
 		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
