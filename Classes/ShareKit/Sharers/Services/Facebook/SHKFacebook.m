@@ -33,10 +33,13 @@ static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 @interface SHKFacebook()
+
 + (Facebook*)facebook;
 + (void)flushAccessToken;
 + (NSString *)storedImagePath:(UIImage*)image;
 + (UIImage*)storedImage:(NSString*)imagePath;
+- (void)showFacebookForm;
+
 @end
 
 @implementation SHKFacebook
@@ -141,7 +144,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (BOOL)shouldAutoShare
 {
-	return YES;
+	return NO;
 }
 
 #pragma mark -
@@ -210,6 +213,11 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
 		[params setObject:item.text forKey:@"message"];
+        [[SHKFacebook facebook] requestWithGraphPath:@"me/feed"
+                                           andParams:params
+                                       andHttpMethod:@"POST"
+                                         andDelegate:self];
+        return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
@@ -317,5 +325,38 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 {
 	[self sendDidFailWithError:error];
 }
+
+#pragma mark -	
+#pragma mark UI Implementation
+
+- (void)show
+{
+    if (item.shareType == SHKShareTypeText)        
+    {
+        [self showFacebookForm];
+    }
+ 	else
+    {
+        [self tryToSend];
+    }
+}
+
+- (void)showFacebookForm
+{
+ 	SHKFacebookForm *rootView = [[SHKFacebookForm alloc] initWithNibName:nil bundle:nil];  
+ 	rootView.delegate = self;
+ 	// force view to load so we can set textView text
+ 	[rootView view];
+ 	rootView.textView.text = item.text;
+ 	[self pushViewController:rootView animated:NO];
+    [rootView release];
+    [[SHK currentHelper] showViewController:self];  
+}
+
+- (void)sendForm:(SHKFacebookForm *)form
+{  
+ 	self.item.text = form.textView.text;
+ 	[self tryToSend];
+}  
 
 @end
