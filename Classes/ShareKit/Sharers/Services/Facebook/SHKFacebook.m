@@ -31,6 +31,7 @@
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
+static NSString *const kFBCancelURL = @"fbconnect://success#_=_";
 
 @interface SHKFacebook()
 
@@ -193,6 +194,9 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 {			
  	if (![self validateItem])
 		return NO;
+    
+    _dialogWasCancelled = NO;
+    
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
 				SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
@@ -249,7 +253,12 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (void)dialogDidComplete:(FBDialog *)dialog
 {
-  [self sendDidFinish];  
+    if(_dialogWasCancelled) {
+        [self sendDidCancel];
+    }
+    else {
+        [self sendDidFinish];
+    }
 }
 
 - (void)dialogDidNotComplete:(FBDialog *)dialog
@@ -266,6 +275,9 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   {
     [SHKFacebook flushAccessToken];
     [self authorize];
+  }
+  if ([[url absoluteString] isEqualToString:kFBCancelURL]) {
+    _dialogWasCancelled = YES;      
   }
 }
 
