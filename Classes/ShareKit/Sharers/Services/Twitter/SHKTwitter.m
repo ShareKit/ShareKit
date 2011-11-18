@@ -30,6 +30,7 @@
 
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
+#import "SHKiOS5Twitter.h"
 
 @interface SHKTwitter ()
 
@@ -106,6 +107,12 @@
 #pragma mark Commit Share
 
 - (void)share {
+    
+    if (NSClassFromString(@"TWTweetComposeViewController")) {
+        
+        [SHKiOS5Twitter shareItem:self.item];
+        return;
+    }
     
     BOOL itemPrepared = [self prepareItem];
     
@@ -271,7 +278,6 @@
 	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
 }
-
 
 #pragma mark -
 
