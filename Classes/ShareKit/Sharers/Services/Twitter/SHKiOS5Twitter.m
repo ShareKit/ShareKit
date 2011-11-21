@@ -22,6 +22,12 @@
 
 @synthesize currentTopViewController;
 
+- (void)dealloc {
+    
+    [currentTopViewController release];
+    [super dealloc];
+}
+
 + (NSString *)sharerTitle
 {
 	return @"Twitter";
