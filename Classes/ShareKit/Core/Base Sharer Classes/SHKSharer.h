@@ -90,6 +90,7 @@ typedef enum
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
 + (BOOL)canShareFile;
++ (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
 + (BOOL)requiresAuthentication;
@@ -125,6 +126,8 @@ typedef enum
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
+//only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
++ (id)getUserInfo;
 
 #pragma mark -
 #pragma mark Commit Share

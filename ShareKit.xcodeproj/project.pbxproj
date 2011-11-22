@@ -111,6 +111,7 @@
 		7AC22D3C14580A2000126878 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2314580A2000126878 /* FBLoginDialog.m */; };
 		7AC22D3D14580A2000126878 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2514580A2000126878 /* FBDialog.m */; };
 		7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABFECF9145181D60012BA77 /* SHKFacebookForm.m */; };
+		7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8930FC1459697500A2EE10 /* JSONKit.m */; };
 		AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurationDelegate.m */; };
 		AAACE01C13CCB1F500A2118F /* LegacySHKConfigurationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01813CCB1F500A2118F /* LegacySHKConfigurationDelegate.m */; };
 		AAACE01D13CCB1F500A2118F /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */; };
@@ -324,6 +325,8 @@
 		7AC22D3214580A2000126878 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
 		7ABFECF8145181D60012BA77 /* SHKFacebookForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookForm.h; sourceTree = "<group>"; };
 		7ABFECF9145181D60012BA77 /* SHKFacebookForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookForm.m; sourceTree = "<group>"; };
+		7A8930FB1459697500A2EE10 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = Submodules/JSONKit/JSONKit.h; sourceTree = SOURCE_ROOT; };
+		7A8930FC1459697500A2EE10 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = Submodules/JSONKit/JSONKit.m; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		90E765A51418F2480026B656 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurator.h; sourceTree = "<group>"; };
@@ -568,6 +571,7 @@
 		43A5367111DBE3B9004A1712 /* ShareKit */ = {
 			isa = PBXGroup;
 			children = (
+				7A7CC8E6144D7046003E668D /* JSONKit */,
 				43A536EC11DBE3B9004A1712 /* SHKConfig.h */,
 				43A536AD11DBE3B9004A1712 /* Customize UI */,
 				43A5367211DBE3B9004A1712 /* Core */,
@@ -948,6 +952,15 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		7A7CC8E6144D7046003E668D /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				7A8930FB1459697500A2EE10 /* JSONKit.h */,
+				7A8930FC1459697500A2EE10 /* JSONKit.m */,
+			);
+			name = JSONKit;
+			sourceTree = "<group>";
+		};
 		AAACE01413CCB1F500A2118F /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -1170,6 +1183,7 @@
 				7AC22D3C14580A2000126878 /* FBLoginDialog.m in Sources */,
 				7AC22D3D14580A2000126878 /* FBDialog.m in Sources */,
 				7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */,
+				7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
