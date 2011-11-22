@@ -33,10 +33,13 @@ static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 @interface SHKFacebook()
+
 + (Facebook*)facebook;
 + (void)flushAccessToken;
 + (NSString *)storedImagePath:(UIImage*)image;
 + (UIImage*)storedImage:(NSString*)imagePath;
+- (void)showFacebookForm;
+
 @end
 
 @implementation SHKFacebook
@@ -51,7 +54,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
   static Facebook *facebook=nil;
   @synchronized([SHKFacebook class]) {
     if (! facebook)
-      facebook = [[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId)];
+      facebook = [[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId) urlSchemeSuffix:SHKCONFIG(facebookLocalAppId) andDelegate:nil];
   }
   return facebook;
 }
@@ -141,7 +144,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 
 - (BOOL)shouldAutoShare
 {
-	return YES;
+	return NO;
 }
 
 #pragma mark -
@@ -167,18 +170,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
 	
-	if (![SHKCONFIG(facebookLocalAppId) isEqualToString:@""]) {
-		[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-										   @"offline_access", nil]
-								 delegate:self
-							   localAppId:SHKCONFIG(facebookLocalAppId)];
-		
-	}else {
-		[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", 
-										   @"offline_access", nil]
-								 delegate:self];
-		
-	}
+	[[SHKFacebook facebook] setSessionDelegate:self];    
+	[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil]];		
 }
 
 - (void)authFinished:(SHKRequest *)req
@@ -201,8 +194,8 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
  	if (![self validateItem])
 		return NO;
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"Get %@\",\"link\":\"%@\"}",  
-						 SHKMyAppName, SHKMyAppURL];
+	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
+				SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
 	[params setObject:actions forKey:@"actions"];
 	
 	if (item.shareType == SHKShareTypeURL && item.URL)
@@ -220,6 +213,11 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
 		[params setObject:item.text forKey:@"message"];
+        [[SHKFacebook facebook] requestWithGraphPath:@"me/feed"
+                                           andParams:params
+                                       andHttpMethod:@"POST"
+                                         andDelegate:self];
+        return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
@@ -252,6 +250,11 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 - (void)dialogDidComplete:(FBDialog *)dialog
 {
   [self sendDidFinish];  
+}
+
+- (void)dialogDidNotComplete:(FBDialog *)dialog
+{
+  [self sendDidCancel];
 }
 
 - (void)dialogCompleteWithUrl:(NSURL *)url 
@@ -322,5 +325,38 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 {
 	[self sendDidFailWithError:error];
 }
+
+#pragma mark -	
+#pragma mark UI Implementation
+
+- (void)show
+{
+    if (item.shareType == SHKShareTypeText)        
+    {
+        [self showFacebookForm];
+    }
+ 	else
+    {
+        [self tryToSend];
+    }
+}
+
+- (void)showFacebookForm
+{
+ 	SHKFacebookForm *rootView = [[SHKFacebookForm alloc] initWithNibName:nil bundle:nil];  
+ 	rootView.delegate = self;
+ 	// force view to load so we can set textView text
+ 	[rootView view];
+ 	rootView.textView.text = item.text;
+ 	[self pushViewController:rootView animated:NO];
+    [rootView release];
+    [[SHK currentHelper] showViewController:self];  
+}
+
+- (void)sendForm:(SHKFacebookForm *)form
+{  
+ 	self.item.text = form.textView.text;
+ 	[self tryToSend];
+}  
 
 @end

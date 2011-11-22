@@ -925,7 +925,7 @@
       [outProtocol writeFieldBeginWithName: @"notes" type: TType_LIST fieldID: 4];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__notes count]];
-        int i28;
+        NSUInteger i28;
         for (i28 = 0; i28 < [__notes count]; i28++)
         {
           [[__notes objectAtIndex: i28] write: outProtocol];
@@ -940,7 +940,7 @@
       [outProtocol writeFieldBeginWithName: @"notebooks" type: TType_LIST fieldID: 5];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__notebooks count]];
-        int i30;
+        NSUInteger i30;
         for (i30 = 0; i30 < [__notebooks count]; i30++)
         {
           [[__notebooks objectAtIndex: i30] write: outProtocol];
@@ -955,7 +955,7 @@
       [outProtocol writeFieldBeginWithName: @"tags" type: TType_LIST fieldID: 6];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__tags count]];
-        int i32;
+        NSUInteger i32;
         for (i32 = 0; i32 < [__tags count]; i32++)
         {
           [[__tags objectAtIndex: i32] write: outProtocol];
@@ -970,7 +970,7 @@
       [outProtocol writeFieldBeginWithName: @"searches" type: TType_LIST fieldID: 7];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__searches count]];
-        int i34;
+        NSUInteger i34;
         for (i34 = 0; i34 < [__searches count]; i34++)
         {
           [[__searches objectAtIndex: i34] write: outProtocol];
@@ -985,7 +985,7 @@
       [outProtocol writeFieldBeginWithName: @"resources" type: TType_LIST fieldID: 8];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__resources count]];
-        int i36;
+        NSUInteger i36;
         for (i36 = 0; i36 < [__resources count]; i36++)
         {
           [[__resources objectAtIndex: i36] write: outProtocol];
@@ -1000,7 +1000,7 @@
       [outProtocol writeFieldBeginWithName: @"expungedNotes" type: TType_LIST fieldID: 9];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__expungedNotes count]];
-        int i38;
+        NSUInteger i38;
         for (i38 = 0; i38 < [__expungedNotes count]; i38++)
         {
           [outProtocol writeString: [__expungedNotes objectAtIndex: i38]];
@@ -1015,7 +1015,7 @@
       [outProtocol writeFieldBeginWithName: @"expungedNotebooks" type: TType_LIST fieldID: 10];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__expungedNotebooks count]];
-        int i40;
+        NSUInteger i40;
         for (i40 = 0; i40 < [__expungedNotebooks count]; i40++)
         {
           [outProtocol writeString: [__expungedNotebooks objectAtIndex: i40]];
@@ -1030,7 +1030,7 @@
       [outProtocol writeFieldBeginWithName: @"expungedTags" type: TType_LIST fieldID: 11];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__expungedTags count]];
-        int i42;
+        NSUInteger i42;
         for (i42 = 0; i42 < [__expungedTags count]; i42++)
         {
           [outProtocol writeString: [__expungedTags objectAtIndex: i42]];
@@ -1045,7 +1045,7 @@
       [outProtocol writeFieldBeginWithName: @"expungedSearches" type: TType_LIST fieldID: 12];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__expungedSearches count]];
-        int i44;
+        NSUInteger i44;
         for (i44 = 0; i44 < [__expungedSearches count]; i44++)
         {
           [outProtocol writeString: [__expungedSearches objectAtIndex: i44]];
@@ -1461,7 +1461,7 @@
       [outProtocol writeFieldBeginWithName: @"tagGuids" type: TType_LIST fieldID: 5];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__tagGuids count]];
-        int i49;
+        NSUInteger i49;
         for (i49 = 0; i49 < [__tagGuids count]; i49++)
         {
           [outProtocol writeString: [__tagGuids objectAtIndex: i49]];
@@ -1808,7 +1808,7 @@
       [outProtocol writeFieldBeginWithName: @"notes" type: TType_LIST fieldID: 3];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__notes count]];
-        int i60;
+        NSUInteger i60;
         for (i60 = 0; i60 < [__notes count]; i60++)
         {
           [[__notes objectAtIndex: i60] write: outProtocol];
@@ -1823,7 +1823,7 @@
       [outProtocol writeFieldBeginWithName: @"stoppedWords" type: TType_LIST fieldID: 4];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__stoppedWords count]];
-        int i62;
+        NSUInteger i62;
         for (i62 = 0; i62 < [__stoppedWords count]; i62++)
         {
           [outProtocol writeString: [__stoppedWords objectAtIndex: i62]];
@@ -1838,7 +1838,7 @@
       [outProtocol writeFieldBeginWithName: @"searchedWords" type: TType_LIST fieldID: 5];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__searchedWords count]];
-        int i64;
+        NSUInteger i64;
         for (i64 = 0; i64 < [__searchedWords count]; i64++)
         {
           [outProtocol writeString: [__searchedWords objectAtIndex: i64]];
@@ -2568,7 +2568,7 @@
       [outProtocol writeFieldBeginWithName: @"impressions" type: TType_LIST fieldID: 4];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__impressions count]];
-        int i85;
+        NSUInteger i85;
         for (i85 = 0; i85 < [__impressions count]; i85++)
         {
           [[__impressions objectAtIndex: i85] write: outProtocol];
@@ -2965,7 +2965,7 @@
       [outProtocol writeFieldBeginWithName: @"toAddresses" type: TType_LIST fieldID: 3];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__toAddresses count]];
-        int i95;
+        NSUInteger i95;
         for (i95 = 0; i95 < [__toAddresses count]; i95++)
         {
           [outProtocol writeString: [__toAddresses objectAtIndex: i95]];
@@ -2980,7 +2980,7 @@
       [outProtocol writeFieldBeginWithName: @"ccAddresses" type: TType_LIST fieldID: 4];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__ccAddresses count]];
-        int i97;
+        NSUInteger i97;
         for (i97 = 0; i97 < [__ccAddresses count]; i97++)
         {
           [outProtocol writeString: [__ccAddresses objectAtIndex: i97]];
@@ -4585,7 +4585,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i102;
+        NSUInteger i102;
         for (i102 = 0; i102 < [__success count]; i102++)
         {
           [[__success objectAtIndex: i102] write: outProtocol];
@@ -7356,7 +7356,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i107;
+        NSUInteger i107;
         for (i107 = 0; i107 < [__success count]; i107++)
         {
           [[__success objectAtIndex: i107] write: outProtocol];
@@ -7876,7 +7876,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i112;
+        NSUInteger i112;
         for (i112 = 0; i112 < [__success count]; i112++)
         {
           [[__success objectAtIndex: i112] write: outProtocol];
@@ -10772,7 +10772,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i117;
+        NSUInteger i117;
         for (i117 = 0; i117 < [__success count]; i117++)
         {
           [[__success objectAtIndex: i117] write: outProtocol];
@@ -16164,7 +16164,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__success count]];
-        int i122;
+        NSUInteger i122;
         for (i122 = 0; i122 < [__success count]; i122++)
         {
           [outProtocol writeString: [__success objectAtIndex: i122]];
@@ -18424,7 +18424,7 @@
       [outProtocol writeFieldBeginWithName: @"noteGuids" type: TType_LIST fieldID: 2];
       {
         [outProtocol writeListBeginWithElementType: TType_STRING size: [__noteGuids count]];
-        int i127;
+        NSUInteger i127;
         for (i127 = 0; i127 < [__noteGuids count]; i127++)
         {
           [outProtocol writeString: [__noteGuids objectAtIndex: i127]];
@@ -20189,7 +20189,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i132;
+        NSUInteger i132;
         for (i132 = 0; i132 < [__success count]; i132++)
         {
           [[__success objectAtIndex: i132] write: outProtocol];
@@ -25738,7 +25738,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i137;
+        NSUInteger i137;
         for (i137 = 0; i137 < [__success count]; i137++)
         {
           [[__success objectAtIndex: i137] write: outProtocol];
@@ -27609,7 +27609,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i142;
+        NSUInteger i142;
         for (i142 = 0; i142 < [__success count]; i142++)
         {
           [[__success objectAtIndex: i142] write: outProtocol];
@@ -27843,7 +27843,7 @@
       [outProtocol writeFieldBeginWithName: @"sharedNotebookIds" type: TType_LIST fieldID: 2];
       {
         [outProtocol writeListBeginWithElementType: TType_I64 size: [__sharedNotebookIds count]];
-        int i147;
+        NSUInteger i147;
         for (i147 = 0; i147 < [__sharedNotebookIds count]; i147++)
         {
           [outProtocol writeI64: [[__sharedNotebookIds objectAtIndex: i147] longLongValue]];
@@ -29622,7 +29622,7 @@
       [outProtocol writeFieldBeginWithName: @"success" type: TType_LIST fieldID: 0];
       {
         [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__success count]];
-        int i152;
+        NSUInteger i152;
         for (i152 = 0; i152 < [__success count]; i152++)
         {
           [[__success objectAtIndex: i152] write: outProtocol];
@@ -33205,7 +33205,7 @@
     [outProtocol writeFieldBeginWithName: @"noteGuids" type: TType_LIST fieldID: 2];
     {
       [outProtocol writeListBeginWithElementType: TType_STRING size: [noteGuids count]];
-      int i154;
+      NSUInteger i154;
       for (i154 = 0; i154 < [noteGuids count]; i154++)
       {
         [outProtocol writeString: [noteGuids objectAtIndex: i154]];
@@ -34196,7 +34196,7 @@
     [outProtocol writeFieldBeginWithName: @"sharedNotebookIds" type: TType_LIST fieldID: 2];
     {
       [outProtocol writeListBeginWithElementType: TType_I64 size: [sharedNotebookIds count]];
-      int i156;
+      NSUInteger i156;
       for (i156 = 0; i156 < [sharedNotebookIds count]; i156++)
       {
         [outProtocol writeI64: [[sharedNotebookIds objectAtIndex: i156] longLongValue]];
@@ -34607,6 +34607,68 @@
   [self recv_emailNote];
 }
 
+@end
+
+/**
+ Private helper methods
+ */
+@interface EDAMNoteStoreProcessor ()
+- (void) process_getSyncState_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getSyncChunk_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listNotebooks_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getDefaultNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listTags_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listTagsByNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getTag_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createTag_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateTag_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_untagAll_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeTag_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listSearches_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getSearch_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createSearch_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateSearch_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeSearch_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_findNotes_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_findNoteCounts_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNoteContent_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNoteSearchText_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNoteTagNames_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_deleteNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeNotes_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeInactiveNotes_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_copyNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listNoteVersions_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getNoteVersion_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResource_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateResource_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResourceData_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResourceByHash_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResourceRecognition_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResourceAlternateData_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getResourceAttributes_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getAccountSize_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getAds_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getRandomAd_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getPublicNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createSharedNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listSharedNotebooks_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeSharedNotebooks_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_createLinkedNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_updateLinkedNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_listLinkedNotebooks_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_expungeLinkedNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_authenticateToSharedNotebook_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getSharedNotebookByAuth_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_emailNote_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
 @end
 
 @implementation EDAMNoteStoreProcessor

@@ -38,6 +38,14 @@ Google Reader API is unoffical, this was hobbled together from:
 #import "SHKConfiguration.h"
 #import "SHKGoogleReader.h"
 
+/**
+ Private helper methods
+ */
+@interface SHKGoogleReader ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)tokenFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
 
 @implementation SHKGoogleReader
 

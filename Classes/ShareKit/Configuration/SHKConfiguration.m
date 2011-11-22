@@ -26,27 +26,40 @@
 //
 
 #import "SHKConfiguration.h"
-#import "SHKConfig.h"
-#import "LegacySHKConfigurationDelegate.h"
+#import "LegacySHKConfigurator.h"
+
+@interface SHKConfiguration ()
+
+@property (readonly, retain) DefaultSHKConfigurator *configurator;
+
+- (id)initWithConfigurator:(DefaultSHKConfigurator*)config;
+
+@end
 
 static SHKConfiguration *sharedInstance = nil;
 
 @implementation SHKConfiguration
 
-@synthesize delegate;
+@synthesize configurator;
 
 #pragma mark -
 #pragma mark Instance methods
 
-- (id)configurationValue:(NSString*)selector
+- (id)configurationValue:(NSString*)selector withObject:(id)object
 {
 	SHKLog(@"Looking for a configuration value for %@.", selector);
 
 	SEL sel = NSSelectorFromString(selector);
-	if ([delegate respondsToSelector:sel]) {
-		NSString *value = [delegate performSelector:sel];
+	if ([self.configurator respondsToSelector:sel]) {
+		id value;        
+        if (object) {
+            value = [self.configurator performSelector:sel withObject:object];
+        } else {
+            value = [self.configurator performSelector:sel];
+        }
+
 		if (value) {
-			SHKLog(@"Found configuration value for %@: %@", selector, value);
+			SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
 			return value;
 		}
 	}
@@ -64,20 +77,23 @@ static SHKConfiguration *sharedInstance = nil;
 {
     @synchronized(self)
     {
-        if (sharedInstance == nil)
-			sharedInstance = [[SHKConfiguration alloc] initWithDelegate:[[LegacySHKConfigurationDelegate alloc] init]];
+        if (sharedInstance == nil) {
+            DefaultSHKConfigurator *aConfigurator = [[LegacySHKConfigurator alloc] init];
+			sharedInstance = [[SHKConfiguration alloc] initWithConfigurator:aConfigurator];
+            [aConfigurator release];
+        }
     }
     return sharedInstance;
 }
 
-+ (SHKConfiguration*)sharedInstanceWithDelegate:(id <SHKConfigurationDelegate>)delegate
++ (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config
 {
     @synchronized(self)
     {
 		if (sharedInstance != nil) {
 			[NSException raise:@"IllegalStateException" format:@"SHKConfiguration has already been configured with a delegate."];
 		}
-		sharedInstance = [[SHKConfiguration alloc] initWithDelegate:delegate];
+		sharedInstance = [[SHKConfiguration alloc] initWithConfigurator:config];
     }
     return sharedInstance;
 }
@@ -93,10 +109,10 @@ static SHKConfiguration *sharedInstance = nil;
     return nil; // on subsequent allocation attempts return nil
 }
 
-- (id)initWithDelegate:(id <SHKConfigurationDelegate>)delegateIn
+- (id)initWithConfigurator:(DefaultSHKConfigurator*)config
 {
     if ((self = [super init])) {
-		delegate = delegateIn;
+		configurator = [config retain];
     }
     return self;
 }
@@ -114,7 +130,7 @@ static SHKConfiguration *sharedInstance = nil;
     return UINT_MAX;  // denotes an object that cannot be released
 }
 
-- (void)release {
+- (oneway void)release {
     //do nothing
 }
 
