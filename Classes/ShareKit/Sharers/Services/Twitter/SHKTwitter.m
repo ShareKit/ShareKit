@@ -36,17 +36,12 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 @interface SHKTwitter ()
 
-- (void)handleUnsuccessfulTicket:(NSData *)data;
-- (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict;
-
-@end
-
-@interface SHKTwitter ()
-
 - (BOOL)prepareItem;
 - (BOOL)shortenURL;
 - (void)shortenURLFinished:(SHKRequest *)aRequest;
 - (BOOL)validateItemAfterUserEdit;
+- (void)handleUnsuccessfulTicket:(NSData *)data;
+- (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict;
 
 @end
 
@@ -366,8 +361,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	if (self.item.shareType == SHKShareTypeUserInfo) {
         return YES;
     }
-    NSString *status = [item customValueForKey:@"status"];
-    return status != nil && status.length <= 140;
+    
 	NSString *status = [item customValueForKey:@"status"];
 	return status != nil;
 }
