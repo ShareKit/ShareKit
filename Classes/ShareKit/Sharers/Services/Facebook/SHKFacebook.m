@@ -348,6 +348,7 @@ static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
  	// force view to load so we can set textView text
  	[rootView view];
  	rootView.textView.text = item.text;
+    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,rootView);
  	[self pushViewController:rootView animated:NO];
     [rootView release];
     [[SHK currentHelper] showViewController:self];  
