@@ -173,6 +173,19 @@
 - (NSString*)bitLyKey {
 	return @"";
 }
+
+- (NSString*)linkedInConsumerKey {
+	return @"";
+}
+
+- (NSString*)linkedInSecret {
+	return @"";
+}
+
+- (NSString*)linkedInCallbackUrl {
+	return @"";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
