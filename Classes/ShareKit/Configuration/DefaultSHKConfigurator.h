@@ -65,6 +65,9 @@
 - (NSString*)flickrCallbackUrl;
 - (NSString*)bitLyLogin;
 - (NSString*)bitLyKey;
+- (NSString*)linkedInConsumerKey;
+- (NSString*)linkedInSecret;
+- (NSString*)linkedInCallbackUrl;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;
