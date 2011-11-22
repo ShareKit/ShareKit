@@ -408,14 +408,12 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				43C91D1B11EB963600F31FAE /* Resources-iPad */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				AAACE07413CCC10200A2118F /* CFNetwork.framework */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -444,6 +442,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAACE07413CCC10200A2118F /* CFNetwork.framework */,
+				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
