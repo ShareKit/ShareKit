@@ -27,6 +27,13 @@
 
 #import "SHKPinboard.h"
 
+/**
+ Private helper methods
+ */
+@interface SHKPinboard ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
 
 @implementation SHKPinboard
 
@@ -81,9 +88,7 @@
 
 - (BOOL)handleResponse:(SHKRequest *)aRequest
 {
-	NSString *response = [aRequest getResult];
-	
-	if ([response isEqualToString:SHKLocalizedString(@"401 Forbidden")])
+	if (aRequest.response.statusCode == 401)
 	{
 		[self sendDidFailShouldRelogin];		
 		return NO;		

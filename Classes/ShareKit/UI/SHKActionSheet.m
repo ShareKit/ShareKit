@@ -29,6 +29,7 @@
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKCustomShareMenu.h"
+#import "SHKCustomActionSheet.h"
 #import "SHKShareItemDelegate.h"
 
 #import <Foundation/NSObjCRuntime.h>
@@ -47,7 +48,7 @@
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
-	SHKActionSheet *as = [[SHKActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
+	SHKCustomActionSheet *as = [[SHKCustomActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
 													  delegate:nil
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
@@ -90,8 +91,10 @@
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
+    NSInteger numberOfSharers = (NSInteger) [sharers count];
+
 	// Sharers
-	if (buttonIndex >= 0 && buttonIndex < sharers.count)
+	if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
 	{
 		bool doShare = YES;
 		SHKSharer* sharer = [[[NSClassFromString([sharers objectAtIndex:buttonIndex]) alloc] init] autorelease];
@@ -105,7 +108,7 @@
 	}
 	
 	// More
-	else if (buttonIndex == sharers.count)
+	else if (buttonIndex == numberOfSharers)
 	{
 		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
 		shareMenu.shareDelegate = shareDelegate;

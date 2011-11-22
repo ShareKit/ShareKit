@@ -9,6 +9,7 @@
 		<string>SHKMail</string>
 		<string>SHKSafari</string>
 		<string>SHKTextMessage</string>
+		<string>SHKLogout</string>
 	</array>
 	<key>services</key>
 	<array>

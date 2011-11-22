@@ -39,7 +39,7 @@
 	return self;
 }
 
-- (int)readAll:(uint8_t *)buf offset:(int)off length:(int)len {
+- (int)readAll:(uint8_t *)buf offset:(NSUInteger)off length:(NSUInteger)len {
 	if ([mBuffer length] - mOffset < len) {
 		@throw [TTransportException exceptionWithReason:@"Not enough bytes remain in buffer"];
 	}
