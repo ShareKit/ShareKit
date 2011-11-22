@@ -31,6 +31,7 @@
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 #import "JSONKit.h"
+#import "SHKiOS5Twitter.h"
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
@@ -115,6 +116,12 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 #pragma mark Commit Share
 
 - (void)share {
+    
+    if (NSClassFromString(@"TWTweetComposeViewController")) {
+        
+        [SHKiOS5Twitter shareItem:self.item];
+        return;
+    }
     
     BOOL itemPrepared = [self prepareItem];
     
@@ -291,7 +298,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
 }
-
 
 #pragma mark -
 
