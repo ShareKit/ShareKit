@@ -30,7 +30,9 @@
 #import "SHKSharer.h"
 #import "SHKFacebookForm.h"
 
-@interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>
+@interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate> {
+    BOOL _dialogWasCancelled;
+}
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 - (void)sendForm:(SHKFacebookForm *)form;
