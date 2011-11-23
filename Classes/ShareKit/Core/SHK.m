@@ -39,6 +39,8 @@
 #import <MessageUI/MessageUI.h>
 
 
+NSString * SHKLocalizedStringFormat(NSString* key);
+
 @implementation SHK
 
 @synthesize currentView, pendingView, isDismissingView;
