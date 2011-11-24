@@ -122,9 +122,8 @@
 
 @end
 
-
 NSString * SHKStringOrBlank(NSString * value);
 NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
-NSString* SHKLocalizedString(NSString* key, ...);
+NSString * SHKLocalizedString(NSString* key, ...);
 void SHKSwizzle(Class c, SEL orig, SEL newClassName);
