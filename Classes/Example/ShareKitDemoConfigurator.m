@@ -167,8 +167,16 @@
 }
 
 - (UIColor*)barTintForView:(UIViewController*)vc {
+    
+    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitterForm"]) 
+        return [UIColor colorWithRed:0 green:151.0f/255 blue:222.0f/255 alpha:1];
+    
+    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKFacebookForm"]) 
+        return [UIColor colorWithRed:59.0f/255 green:89.0f/255 blue:152.0f/255 alpha:1];
+    
     return nil;
 }
+
 // Forms
 - (NSNumber*)formFontColorRed {
 	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
