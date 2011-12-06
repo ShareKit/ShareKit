@@ -57,6 +57,11 @@
 	return YES;
 }
 
++ (BOOL)canShareURL
+{
+	return YES;
+}
+
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -190,13 +195,11 @@
 //Private
 - (BOOL)sendImageAction 
 {
-	
 	UIImage *image = item.image;
 
 	NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.accessUserId, self.accessToken];
 	
 	NSDictionary *uploadServer = [self sendRequest:getWallUploadServer withCaptcha:NO];
-	
 	NSString *upload_url = [[uploadServer objectForKey:@"response"] objectForKey:@"upload_url"];
 	
 	NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
@@ -206,7 +209,7 @@
 	NSString *hash = [postDictionary objectForKey:@"hash"];
 	NSString *photo = [postDictionary objectForKey:@"photo"];
 	NSString *server = [postDictionary objectForKey:@"server"];
-	
+
 	NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, photo, hash];
 	
 	NSDictionary *saveWallPhotoDict = [self sendRequest:saveWallPhoto withCaptcha:NO];
@@ -218,6 +221,7 @@
 	
 	NSDictionary *postToWallDict = [self sendRequest:postToWallLink withCaptcha:NO];
 	NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
+
 	if(errorMsg) 
 	{
 		return NO;
@@ -284,7 +288,7 @@
 
 - (BOOL) sendTextAndLink 
 {	
-	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.text], [item.URL absoluteString]];
+	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.text]?[self URLEncodedString:item.text]:[item.URL absoluteString], [item.URL absoluteString]];
 	
 	NSDictionary *result = [self sendRequest:sendTextAndLinkMessage withCaptcha:NO];
 	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
