@@ -52,6 +52,7 @@
 						 SHKDeliciousConsumerKey, @"deliciousConsumerKey", 
 						 SHKDeliciousSecretKey, @"deliciousSecretKey",
                          [NSNumber numberWithBool:SHKFacebookUseSessionProxy], @"facebookUseSessionProxy",
+						 SHKVkontakteAppID, @"vkontakteAppId",				 
 						 SHKFacebookAppID, @"facebookAppId",
 						 SHKFacebookLocalAppID, @"facebookLocalAppId",
                          SHKFacebookSessionProxyURL, @"facebookSessionProxyURL",

@@ -42,6 +42,9 @@
 #define SHKDeliciousConsumerKey		@""
 #define SHKDeliciousSecretKey		@""
 
+//Vkontakte
+#define SHKVkontakteAppID				@""
+
 // Facebook - https://developers.facebook.com/
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
