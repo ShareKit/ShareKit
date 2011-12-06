@@ -7,14 +7,13 @@
 //
 
 #import "SHKiOS5Twitter.h"
+#import "SHK.h"
 #import <Twitter/Twitter.h>
 
 @interface SHKiOS5Twitter ()
 
 @property (retain) UIViewController *currentTopViewController;
 
-- (UIViewController *)getCurrentRootViewController;
-- (UIViewController *)getCurrentTopViewController;
 - (void)callUI:(NSNotification *)notif;
 - (void)presentUI;
 
@@ -47,7 +46,7 @@
                                                  selector:@selector(callUI:) 
                                                      name:SHKHideCurrentViewFinishedNotification                                       
                                                    object:nil];
-        [self retain];  //must retain, so that it is still around for SHKShareMenu hide callback
+        [self retain];  //must retain, so that it is still around for SHKShareMenu hide callback. Menu hides asynchronously when sharer is chosen.
         
     } else {  
     
@@ -95,42 +94,9 @@
         }
     };   
     
-    self.currentTopViewController = [self getCurrentTopViewController];    
+    self.currentTopViewController = [[SHK currentHelper] rootViewForCustomUIDisplay];
     [self.currentTopViewController presentViewController:iOS5twitter animated:YES completion:nil];
     [iOS5twitter release];
-}
-
-- (UIViewController *)getCurrentRootViewController {
-    
-    
-    
-    UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
-    if (topWindow.windowLevel != UIWindowLevelNormal)
-    {
-        NSArray *windows = [[UIApplication sharedApplication] windows];
-        for(topWindow in windows)
-        {
-            if (topWindow.windowLevel == UIWindowLevelNormal)
-                break;
-        }
-    }
-    
-    UIView *rootView = [[topWindow subviews] objectAtIndex:0];	
-    id nextResponder = [rootView nextResponder];
-    
-    UIViewController *result = nil;    
-    if ([nextResponder isKindOfClass:[UIViewController class]]) 
-        result = nextResponder;
-    
-    return result;
-}
-
-- (UIViewController *)getCurrentTopViewController {
-    
-    UIViewController *result = [self getCurrentRootViewController];
-    while (result.modalViewController != nil)
-		result = result.modalViewController;
-	return result;    
 }
 
 # pragma mark SHKSharerDelegate methods

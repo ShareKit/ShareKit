@@ -70,6 +70,9 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc;
+
+//returns current topViewController for classes, which do not use SHK to present their UI
+- (UIViewController *)rootViewForCustomUIDisplay;
 - (void)showViewController:(UIViewController *)vc;
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;

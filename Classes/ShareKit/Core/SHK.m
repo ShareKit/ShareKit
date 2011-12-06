@@ -102,6 +102,13 @@ BOOL SHKinit;
 	[helper setRootViewController:vc];	
 }
 
+- (UIViewController *)rootViewForCustomUIDisplay {
+    
+    UIViewController *result = [self getCurrentRootViewController];
+    result = [self getTopViewController:result];
+    return result;    
+}
+
 - (void)showViewController:(UIViewController *)vc
 {	
 	self.currentRootViewController = [self getCurrentRootViewController];
