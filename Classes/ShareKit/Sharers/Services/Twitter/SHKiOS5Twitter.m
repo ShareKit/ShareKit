@@ -15,6 +15,8 @@
 
 - (UIViewController *)getCurrentRootViewController;
 - (UIViewController *)getCurrentTopViewController;
+- (void)callUI:(NSNotification *)notif;
+- (void)presentUI;
 
 @end
 
@@ -39,6 +41,30 @@
 }
 
 - (void)share {
+           
+    if ([[SHK currentHelper] currentView]) { //user is sharing from SHKShareMenu    
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(callUI:) 
+                                                     name:SHKHideCurrentViewFinishedNotification                                       
+                                                   object:nil];
+        [self retain];  //must retain, so that it is still around for SHKShareMenu hide callback
+        
+    } else {  
+    
+        [self presentUI];   
+    }
+}
+
+#pragma mark -
+
+- (void)callUI:(NSNotification *)notif {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SHKHideCurrentViewFinishedNotification object:nil];
+    [self presentUI];
+    [self release]; //see share
+}
+
+- (void)presentUI {
     
     TWTweetComposeViewController *iOS5twitter = [[TWTweetComposeViewController alloc] init];
     
@@ -71,12 +97,12 @@
     
     self.currentTopViewController = [self getCurrentTopViewController];    
     [self.currentTopViewController presentViewController:iOS5twitter animated:YES completion:nil];
-    [iOS5twitter release];       
+    [iOS5twitter release];
 }
 
-#pragma mark -
-
 - (UIViewController *)getCurrentRootViewController {
+    
+    
     
     UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
     if (topWindow.windowLevel != UIWindowLevelNormal)

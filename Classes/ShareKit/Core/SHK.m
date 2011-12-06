@@ -38,8 +38,8 @@
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
 
-
 NSString * SHKLocalizedStringFormat(NSString* key);
+NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
 
 @implementation SHK
 
@@ -198,9 +198,13 @@ BOOL SHKinit;
 		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
 		        [currentView presentingViewController])
 		{
-			self.isDismissingView = YES;
-			[[currentView presentingViewController] dismissModalViewControllerAnimated:animated];
-		}
+			self.isDismissingView = YES;            
+            [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
+                }];
+            }];
+        }
 		
 		else
 			self.currentView = nil;
