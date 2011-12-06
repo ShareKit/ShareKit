@@ -44,7 +44,6 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @interface SHK : NSObject 
 {
-	UIViewController *rootViewController, *currentRootViewController;
 	UIViewController *currentView;
 	UIViewController *pendingView;
 	BOOL isDismissingView;
@@ -52,7 +51,6 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 	NSOperationQueue *offlineQueue;
 }
 
-@property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
 @property (nonatomic, retain) UIViewController *currentView;
 @property (nonatomic, retain) UIViewController *pendingView;
 @property BOOL isDismissingView;
@@ -75,7 +73,6 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 - (void)showViewController:(UIViewController *)vc;
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;
-- (UIViewController *)getTopViewController;
 
 + (UIBarStyle)barStyle;
 + (UIModalPresentationStyle)modalPresentationStyle;

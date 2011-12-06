@@ -41,6 +41,15 @@
 NSString * SHKLocalizedStringFormat(NSString* key);
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
 
+@interface SHK ()
+
+@property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
+
+- (UIViewController *)getCurrentRootViewController;
+- (UIViewController *)getTopViewController:(UIViewController *)rootViewController;
+
+@end
+
 @implementation SHK
 
 @synthesize currentView, pendingView, isDismissingView;
@@ -95,39 +104,10 @@ BOOL SHKinit;
 
 - (void)showViewController:(UIViewController *)vc
 {	
-	if (rootViewController)
-    {
-        // If developer provieded a root view controler, use it
-        self.currentRootViewController = rootViewController;
-    }
-    else
-	{
-		// Try to find the root view controller programmically
-		
-		// Find the top window (that is not an alert view or other window)
-		UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
-		if (topWindow.windowLevel != UIWindowLevelNormal)
-		{
-			NSArray *windows = [[UIApplication sharedApplication] windows];
-			for(topWindow in windows)
-			{
-				if (topWindow.windowLevel == UIWindowLevelNormal)
-					break;
-			}
-		}
-		
-		UIView *rootView = [[topWindow subviews] objectAtIndex:0];	
-		id nextResponder = [rootView nextResponder];
-		
-		if ([nextResponder isKindOfClass:[UIViewController class]])
-			self.currentRootViewController = nextResponder;
-		
-		else
-			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
-	}
+	self.currentRootViewController = [self getCurrentRootViewController];
 	
 	// Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	UIViewController *topViewController = [self getTopViewController];	
+	UIViewController *topViewController = [self getTopViewController:self.currentRootViewController];	
 	if (topViewController == nil)
 		NSAssert(NO, @"ShareKit: There is no view controller to display from");
 	
@@ -174,6 +154,43 @@ BOOL SHKinit;
 	}
 		
 	self.pendingView = nil;		
+}
+
+- (UIViewController *)getCurrentRootViewController {
+    
+    UIViewController *result;
+    
+    if (rootViewController)
+    {
+        // If developer provieded a root view controler, use it
+        result = rootViewController;
+    }
+    else
+	{
+		// Try to find the root view controller programmically
+		
+		// Find the top window (that is not an alert view or other window)
+		UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
+		if (topWindow.windowLevel != UIWindowLevelNormal)
+		{
+			NSArray *windows = [[UIApplication sharedApplication] windows];
+			for(topWindow in windows)
+			{
+				if (topWindow.windowLevel == UIWindowLevelNormal)
+					break;
+			}
+		}
+		
+		UIView *rootView = [[topWindow subviews] objectAtIndex:0];	
+		id nextResponder = [rootView nextResponder];
+		
+		if ([nextResponder isKindOfClass:[UIViewController class]])
+			result = nextResponder;
+		
+		else
+			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
+	}
+    return result;    
 }
 
 - (void)hideCurrentViewController
@@ -238,12 +255,12 @@ BOOL SHKinit;
 	}
 }
 										   
-- (UIViewController *)getTopViewController
+- (UIViewController *)getTopViewController:(UIViewController *)rootViewController
 {
-	UIViewController *topViewController = currentRootViewController;
-	while (topViewController.modalViewController != nil)
-		topViewController = topViewController.modalViewController;
-	return topViewController;
+	UIViewController *result = rootViewController;
+	while (result.modalViewController != nil)
+		result = result.modalViewController;
+	return result;
 }
 			
 + (UIBarStyle)barStyle
