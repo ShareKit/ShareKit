@@ -48,6 +48,7 @@
 - (NSString*)appURL;
 - (NSString*)deliciousConsumerKey;
 - (NSString*)deliciousSecretKey;
+- (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSString*)readItLaterKey;

@@ -122,6 +122,9 @@
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		AAACE07513CCC10200A2118F /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAACE07413CCC10200A2118F /* CFNetwork.framework */; };
 		E68738C01416795C00D8C3DD /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
+		FAF607DD148E41640024F19B /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF607D7148E41640024F19B /* SHKVkontakteOAuthView.m */; };
+		FAF607DE148E41640024F19B /* SHKVkontakteForm.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF607D9148E41640024F19B /* SHKVkontakteForm.m */; };
+		FAF607DF148E41640024F19B /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF607DB148E41640024F19B /* SHKVkontakte.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -352,6 +355,12 @@
 		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKLogout.h; path = "Logout of All Services/SHKLogout.h"; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKLogout.m; path = "Logout of All Services/SHKLogout.m"; sourceTree = "<group>"; };
+		FAF607D7148E41640024F19B /* SHKVkontakteOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteOAuthView.m; path = Vkontakte/SHKVkontakteOAuthView.m; sourceTree = "<group>"; };
+		FAF607D8148E41640024F19B /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteOAuthView.h; path = Vkontakte/SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
+		FAF607D9148E41640024F19B /* SHKVkontakteForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteForm.m; path = Vkontakte/SHKVkontakteForm.m; sourceTree = "<group>"; };
+		FAF607DA148E41640024F19B /* SHKVkontakteForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteForm.h; path = Vkontakte/SHKVkontakteForm.h; sourceTree = "<group>"; };
+		FAF607DB148E41640024F19B /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakte.m; path = Vkontakte/SHKVkontakte.m; sourceTree = "<group>"; };
+		FAF607DC148E41640024F19B /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakte.h; path = Vkontakte/SHKVkontakte.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -772,6 +781,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FAF607D4148E40FF0024F19B /* Vkontakte */,
 				43A536C111DBE3B9004A1712 /* Delicious */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1001,6 +1011,19 @@
 			name = Logout;
 			sourceTree = "<group>";
 		};
+		FAF607D4148E40FF0024F19B /* Vkontakte */ = {
+			isa = PBXGroup;
+			children = (
+				FAF607D7148E41640024F19B /* SHKVkontakteOAuthView.m */,
+				FAF607D8148E41640024F19B /* SHKVkontakteOAuthView.h */,
+				FAF607D9148E41640024F19B /* SHKVkontakteForm.m */,
+				FAF607DA148E41640024F19B /* SHKVkontakteForm.h */,
+				FAF607DB148E41640024F19B /* SHKVkontakte.m */,
+				FAF607DC148E41640024F19B /* SHKVkontakte.h */,
+			);
+			name = Vkontakte;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1180,6 +1203,9 @@
 				7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */,
 				7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */,
 				7A3C61EB14751DE500C47D14 /* SHKiOS5Twitter.m in Sources */,
+				FAF607DD148E41640024F19B /* SHKVkontakteOAuthView.m in Sources */,
+				FAF607DE148E41640024F19B /* SHKVkontakteForm.m in Sources */,
+				FAF607DF148E41640024F19B /* SHKVkontakte.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
