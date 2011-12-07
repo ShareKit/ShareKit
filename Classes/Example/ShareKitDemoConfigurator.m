@@ -163,6 +163,19 @@
 - (NSString*)bitLyKey {
 	return @"R_466f921d62a0789ac6262b7711be8454";
 }
+
+- (NSString*)linkedInConsumerKey {
+	return @"9f8m5vx0yhjf";
+}
+
+- (NSString*)linkedInSecret {
+	return @"UWGKcBWreMKhwzRG";
+}
+
+- (NSString*)linkedInCallbackUrl {
+	return @"http://yourdomain.com/callback";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
