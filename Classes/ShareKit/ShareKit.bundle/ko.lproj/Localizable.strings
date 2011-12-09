@@ -63,8 +63,6 @@
 "There was a problem authenticating your account." = "게정 인증에 실패했습니다.";
 "There was a problem saving your note." = "메모 저장에 실패했습니다.";
 
-"There was a problem saving to Delicious." = "Delicious로 저장 중에 문제가 발생했습니다.";
-
 "Open in Safari" = "Safari로 열기";
 "Attached: %@" = "첨부: %@";
 

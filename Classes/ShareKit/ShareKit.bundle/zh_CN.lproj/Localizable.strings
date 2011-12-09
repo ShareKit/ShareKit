@@ -64,8 +64,6 @@
 "There was a problem authenticating your account." = "验证您账户的过程中出错。";
 "There was a problem saving your note." = "保存您笔记的过程中出错。";
 
-"There was a problem saving to Delicious." = "保存到 Delicious 的过程中出错。";
-
 "Open in Safari" = "在 Safari 中打开";
 "Attached: %@" = "附件： %@";
 
