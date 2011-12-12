@@ -81,6 +81,16 @@
 	return YES;
 }
 
++ (BOOL)canShareOffline
+{
+	return NO; // TODO - would love to make this work
+}
+
++ (BOOL)canGetUserInfo
+{
+	return NO;
+}
+
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -153,15 +163,18 @@
 	
 	if (item.shareType == SHKShareTypeURL && item.URL)
 	{
-		return [self sendTextAndLink];
+		[self sendTextAndLink];
+		return YES;
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
-		return [self sendText];
+		[self sendText];
+		return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{	
-		return [self sendImageAction];
+		[self sendImageAction];
+		return YES;
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
 	{
