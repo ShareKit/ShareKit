@@ -161,6 +161,8 @@
  	if (![self validateItem])
 		return NO;
 	
+	[self setQuiet:NO];
+	
 	if (item.shareType == SHKShareTypeURL && item.URL)
 	{
 		[self sendTextAndLink];
@@ -256,10 +258,12 @@
 
 	if(errorMsg) 
 	{
+		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
 		return NO;
 	} 
 	else 
 	{
+		[self sendDidFinish];
 		return YES;
 	}	
 }
@@ -311,11 +315,14 @@
 	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
 	if(errorMsg) 
 	{
+		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
 		return NO;
-	} else 
+	} 
+	else 
 	{
+		[self sendDidFinish];
 		return YES;
-	}
+	}	
 }
 
 - (BOOL) sendTextAndLink 
@@ -326,12 +333,14 @@
 	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
 	if(errorMsg) 
 	{
+		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
 		return NO;
 	} 
 	else 
 	{
+		[self sendDidFinish];
 		return YES;
-	}
+	}	
 }
 
 - (NSDictionary *) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha 
