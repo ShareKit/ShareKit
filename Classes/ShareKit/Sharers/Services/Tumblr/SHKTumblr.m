@@ -12,6 +12,9 @@
 static NSString * const kTumblrAuthenticationURL = @"https://www.tumblr.com/api/authenticate";
 static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
+static NSString * const kStoredAuthEmailKeyName = @"email";
+static NSString * const kStoredAuthPasswordKeyName = @"password";
+
 @interface SHKTumblr()
 - (void)finish;
 - (void)authFinished:(SHKRequest *)aRequest;
@@ -75,8 +78,8 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	NSDictionary *formValues = [form formValues];
 	
 	NSString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@",
-                        SHKEncode([formValues objectForKey:@"email"]),
-                        SHKEncode([formValues objectForKey:@"password"])
+                        SHKEncode([formValues objectForKey:kStoredAuthEmailKeyName]),
+                        SHKEncode([formValues objectForKey:kStoredAuthPasswordKeyName])
                         ];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrAuthenticationURL]
@@ -112,14 +115,14 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 #pragma mark -
 #pragma mark Authorize form
-- (NSArray *)authorizationFormFields{
++ (NSArray *)authorizationFormFields{
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Email")
-                                    key:@"email"
+                                    key:kStoredAuthEmailKeyName
                                    type:SHKFormFieldTypeTextNoCorrect
                                   start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password")
-                                    key:@"password"
+                                    key:kStoredAuthPasswordKeyName
                                    type:SHKFormFieldTypePassword
                                   start:nil],			
 			nil];
@@ -171,8 +174,8 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	if ([self validateItem]) {
         if([item shareType] == SHKShareTypeText || [item shareType] == SHKShareTypeURL){
             NSMutableString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@", 
-                                       SHKEncode([self getAuthValueForKey:@"email"]),
-                                       SHKEncode([self getAuthValueForKey:@"password"])];
+                                       SHKEncode([self getAuthValueForKey:kStoredAuthEmailKeyName]),
+                                       SHKEncode([self getAuthValueForKey:kStoredAuthPasswordKeyName])];
             
             //set generator param
             NSString *generator = SHKCONFIG(appName);
@@ -245,12 +248,12 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"email\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:@"email"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[self getAuthValueForKey:kStoredAuthEmailKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
             
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"password\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:@"password"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[self getAuthValueForKey:kStoredAuthPasswordKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
             
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
