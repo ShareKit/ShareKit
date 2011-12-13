@@ -39,7 +39,7 @@
 }
 
 - (void)share {
-#ifndef _ARM_ARCH_6	    
+#ifdef _ARM_ARCH_7
     TWTweetComposeViewController *iOS5twitter = [[TWTweetComposeViewController alloc] init];
     
     [iOS5twitter addImage:self.item.image];    
