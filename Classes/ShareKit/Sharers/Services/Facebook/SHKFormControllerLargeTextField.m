@@ -3,12 +3,10 @@
 //  ShareKit
 //
 
-#import "SHKFacebookForm.h"
+#import "SHKFormControllerLargeTextField.h"
 #import "SHK.h"
-#import "SHKFacebook.h"
 
-
-@implementation SHKFacebookForm
+@implementation SHKFormControllerLargeTextField
 
 @synthesize delegate;
 @synthesize textView;
@@ -19,7 +17,7 @@
     [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
@@ -27,10 +25,11 @@
                                                                                                target:self
                                                                                                action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [SHKFacebook sharerTitle]) 
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[aDelegate class] sharerTitle]) 
                                                                                    style:UIBarButtonItemStyleDone
                                                                                   target:self
                                                                                   action:@selector(save)] autorelease];
+        delegate = aDelegate;
     }
     return self;
 }
@@ -127,7 +126,7 @@
 - (void)cancel
 {	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	[(SHKFacebook *)delegate sendDidCancel];
+	[self.delegate sendDidCancel];
 }
 
 - (void)save
@@ -142,7 +141,7 @@
 		return;
 	}
 	
-	[(SHKFacebook *)delegate sendForm:self];
+	[self.delegate sendForm:self];
 	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 }

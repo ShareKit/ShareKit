@@ -278,15 +278,14 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)showTwitterForm
 {
-	SHKTwitterForm *rootView = [[SHKTwitterForm alloc] initWithNibName:nil bundle:nil];	
-	rootView.delegate = self;
+	SHKTwitterForm *rootView = [[SHKTwitterForm alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
 	// force view to load so we can set textView text
 	[rootView view];
 	
 	rootView.textView.text = [item customValueForKey:@"status"];
 	rootView.hasAttachment = item.image != nil;
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,rootView);
+    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
     [rootView release];
