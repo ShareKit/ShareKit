@@ -39,7 +39,7 @@
 }
 
 - (void)share {
-    
+#ifdef _ARM_ARCH_7
     TWTweetComposeViewController *iOS5twitter = [[TWTweetComposeViewController alloc] init];
     
     [iOS5twitter addImage:self.item.image];    
@@ -71,7 +71,8 @@
     
     self.currentTopViewController = [self getCurrentTopViewController];    
     [self.currentTopViewController presentViewController:iOS5twitter animated:YES completion:nil];
-    [iOS5twitter release];       
+    [iOS5twitter release];    
+#endif
 }
 
 #pragma mark -
