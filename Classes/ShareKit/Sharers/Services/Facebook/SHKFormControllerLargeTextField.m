@@ -78,7 +78,7 @@
     return YES;
 }
 
-//#pragma GCC diagnostic push
+#pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (void)keyboardWillShow:(NSNotification *)notification
 {	
@@ -86,22 +86,21 @@
 	CGFloat keyboardHeight;
 	
 	// 3.2 and above
-	/*if (UIKeyboardFrameEndUserInfoKey)
-	 {		
-	 [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
-	 if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) 
-	 keyboardHeight = keyboardFrame.size.height;
-	 else
-	 keyboardHeight = keyboardFrame.size.width;
-	 }
-	 
-	 // < 3.2
-	 else 
-	 {*/
+	if (UIKeyboardFrameEndUserInfoKey)
+    {		
+        [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
+        if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) 
+        keyboardHeight = keyboardFrame.size.height;
+        else
+        keyboardHeight = keyboardFrame.size.width;
+    }
 
-	[[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
-	keyboardHeight = keyboardFrame.size.height;
-	//}
+    // < 3.2
+    else 
+    {
+        [[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
+        keyboardHeight = keyboardFrame.size.height;
+	}
 	
 	// Find the bottom of the screen (accounting for keyboard overlay)
 	// This is pretty much only for pagesheet's on the iPad
@@ -119,8 +118,7 @@
 	
 	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,maxViewHeight);
 }
-//#pragma GCC diagnostic pop  
-
+#pragma GCC diagnostic pop
 #pragma mark -
 
 - (void)cancel
