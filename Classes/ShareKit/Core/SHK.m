@@ -188,6 +188,8 @@ BOOL SHKinit;
     
     self.isDismissingView = YES;
     [currentView dismissModalViewControllerAnimated:YES];
+    
+    self.currentView=nil;
 }
 
 - (void)showPendingView
