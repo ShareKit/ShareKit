@@ -46,7 +46,7 @@ NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFi
 @property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
 
 - (UIViewController *)getCurrentRootViewController;
-- (UIViewController *)getTopViewController:(UIViewController *)rootViewController;
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController;
 
 @end
 
@@ -262,9 +262,9 @@ BOOL SHKinit;
 	}
 }
 										   
-- (UIViewController *)getTopViewController:(UIViewController *)rootViewController
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController
 {
-	UIViewController *result = rootViewController;
+	UIViewController *result = aRootViewController;
 	while (result.modalViewController != nil)
 		result = result.modalViewController;
 	return result;
