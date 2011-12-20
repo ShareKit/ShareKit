@@ -19,10 +19,12 @@
 		<string>SHKDelicious</string>
 		<string>SHKGoogleReader</string>
 		<string>SHKFacebook</string>
+		<string>SHKVkontakte</string>
 		<string>SHKReadItLater</string>
 		<string>SHKInstapaper</string>
 		<string>SHKTumblr</string>
 		<string>SHKFlickr</string>
+		<string>SHKLinkedIn</string>
 	</array>
 </dict>
 </plist>

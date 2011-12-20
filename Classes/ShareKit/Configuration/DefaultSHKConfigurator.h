@@ -48,6 +48,7 @@
 - (NSString*)appURL;
 - (NSString*)deliciousConsumerKey;
 - (NSString*)deliciousSecretKey;
+- (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSString*)readItLaterKey;
@@ -65,6 +66,9 @@
 - (NSString*)flickrCallbackUrl;
 - (NSString*)bitLyLogin;
 - (NSString*)bitLyKey;
+- (NSString*)linkedInConsumerKey;
+- (NSString*)linkedInSecret;
+- (NSString*)linkedInCallbackUrl;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;

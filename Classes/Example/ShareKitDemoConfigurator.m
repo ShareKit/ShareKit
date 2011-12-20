@@ -48,6 +48,14 @@
 - (NSString*)deliciousSecretKey {
 	return @"";
 }
+
+// Vkontakte
+// SHKVkontakteAppID is the Application ID provided by Vkontakte
+- (NSString*)vkontakteAppId {
+	return @"2706858";
+}
+
+
 // Facebook - https://developers.facebook.com/apps
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Useful, if you have full and lite versions of the same app,
@@ -155,6 +163,19 @@
 - (NSString*)bitLyKey {
 	return @"R_466f921d62a0789ac6262b7711be8454";
 }
+
+- (NSString*)linkedInConsumerKey {
+	return @"9f8m5vx0yhjf";
+}
+
+- (NSString*)linkedInSecret {
+	return @"UWGKcBWreMKhwzRG";
+}
+
+- (NSString*)linkedInCallbackUrl {
+	return @"http://yourdomain.com/callback";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
