@@ -65,6 +65,11 @@
 
 - (void)presentUI {
     
+    if ([self.item shareType] == SHKShareTypeUserInfo) {
+        SHKLog(@"User info not possible to download on iOS5+. You can get Twitter enabled user info from Accounts framework");
+        return;
+    }
+    
     TWTweetComposeViewController *iOS5twitter = [[TWTweetComposeViewController alloc] init];
     
     [iOS5twitter addImage:self.item.image];    
