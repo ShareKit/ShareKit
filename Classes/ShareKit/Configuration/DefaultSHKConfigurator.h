@@ -46,8 +46,6 @@
 
 - (NSString*)appName;
 - (NSString*)appURL;
-- (NSString*)deliciousConsumerKey;
-- (NSString*)deliciousSecretKey;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSString*)readItLaterKey;

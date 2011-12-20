@@ -64,8 +64,6 @@
 "There was a problem authenticating your account." = "Votre compte n'a pas pu être authentifié.";
 "There was a problem saving your note." = "Votre note n'a pas pu être sauvegardée.";
 
-"There was a problem saving to Delicious." = "Erreur d'envoi sur Delicious.";
-
 "Open in Safari" = "Ouvrir dans Safari";
 "Attached: %@" = "Pièce jointe: %@";
 
