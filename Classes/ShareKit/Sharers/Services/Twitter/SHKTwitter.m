@@ -67,9 +67,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		
 		
 		// You do not need to edit these, they are the same for everyone
-	    self.authorizeURL = [NSURL URLWithString:@"https://twitter.com/oauth/authorize"];
-	    self.requestURL = [NSURL URLWithString:@"https://twitter.com/oauth/request_token"];
-	    self.accessURL = [NSURL URLWithString:@"https://twitter.com/oauth/access_token"]; 
+	    self.authorizeURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"];
+	    self.requestURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
+	    self.accessURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]; 
 	}	
 	return self;
 }

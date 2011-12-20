@@ -116,7 +116,7 @@
 	[self stopSpinner];
 	
 	// Extra sanity check for Twitter OAuth users to make sure they are using BROWSER with a callback instead of pin based auth
-	if ([webView.request.URL.host isEqualToString:@"twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
+	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
 		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
 }
 
