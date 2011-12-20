@@ -129,11 +129,11 @@
  2 - One needs to setup the flickr app as a "web service" on the flickr authentication flow settings, and enter in your app's custom callback URL scheme. 
  3 - make sure you define and create the same URL scheme in your apps info.plist. It can be as simple as yourapp://flickr */
 - (NSString*)flickrConsumerKey {
-    return @"";
+    return @"72f05286417fae8da2d7e779f0eb1b2a";
 }
 
 - (NSString*)flickrSecretKey {
-    return @"";
+    return @"b5e731f395031782";
 }
 // The user defined callback url
 - (NSString*)flickrCallbackUrl{
