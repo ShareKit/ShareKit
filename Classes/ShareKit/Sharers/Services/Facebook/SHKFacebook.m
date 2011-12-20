@@ -333,9 +333,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 }
 
 - (void)request:(FBRequest *)request didLoad:(id)result
-{
-    NSLog(@"result: %@", [result description]);
-    
+{   
     if ([result objectForKey:@"username"]){        
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
     }     
