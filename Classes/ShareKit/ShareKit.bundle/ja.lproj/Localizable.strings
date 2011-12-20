@@ -63,8 +63,6 @@
 "There was a problem authenticating your account." = "ユーザー認証に問題が発生しました";
 "There was a problem saving your note." = "ノートを保存中に問題が発生しました";
 
-"There was a problem saving to Delicious." = "TDeliciousに保存中に問題が発生しました";
-
 "Open in Safari" = "Safariで開く";
 "Attached: %@" = "添付済: %@";
 

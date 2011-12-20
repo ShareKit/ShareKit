@@ -63,8 +63,6 @@
 "There was a problem authenticating your account." = "Během autorizace Vašeho konta nastal problém.";
 "There was a problem saving your note." = "Během ukládání Vašeho záznamu nastal problém.";
 
-"There was a problem saving to Delicious." = "Během odesílání na Delicious nastala chyba.";
-
 "Open in Safari" = "Otevřít v Safari";
 "Attached: %@" = "Připojeno: %@";
 

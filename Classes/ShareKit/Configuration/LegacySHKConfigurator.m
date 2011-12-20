@@ -49,8 +49,6 @@
 		configuration = [[NSDictionary alloc] initWithObjectsAndKeys:
 						 SHKMyAppName, @"appName", 
 						 SHKMyAppURL, @"appURL", 
-						 SHKDeliciousConsumerKey, @"deliciousConsumerKey", 
-						 SHKDeliciousSecretKey, @"deliciousSecretKey",
                          [NSNumber numberWithBool:SHKFacebookUseSessionProxy], @"facebookUseSessionProxy",
 						 SHKFacebookAppID, @"facebookAppId",
 						 SHKFacebookLocalAppID, @"facebookLocalAppId",
