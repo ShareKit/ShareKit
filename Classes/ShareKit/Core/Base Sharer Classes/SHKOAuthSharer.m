@@ -168,11 +168,13 @@
 		
 		[self tokenAccess];
 	}
+    [self authDidFinish:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
 {
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];	
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self authDidFinish:NO];
 }
 
 
