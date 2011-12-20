@@ -36,6 +36,7 @@
 #import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
+extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @class SHKActionSheet;
 @class SHKViewControllerWrapper;
@@ -43,7 +44,6 @@
 
 @interface SHK : NSObject 
 {
-	UIViewController *rootViewController, *currentRootViewController;
 	UIViewController *currentView;
 	UIViewController *pendingView;
 	BOOL isDismissingView;
@@ -51,7 +51,6 @@
 	NSOperationQueue *offlineQueue;
 }
 
-@property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
 @property (nonatomic, retain) UIViewController *currentView;
 @property (nonatomic, retain) UIViewController *pendingView;
 @property BOOL isDismissingView;
@@ -71,10 +70,12 @@
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc;
+
+//returns current topViewController for classes, which do not use SHK to present their UI
+- (UIViewController *)rootViewForCustomUIDisplay;
 - (void)showViewController:(UIViewController *)vc;
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;
-- (UIViewController *)getTopViewController;
 
 + (UIBarStyle)barStyle;
 + (UIModalPresentationStyle)modalPresentationStyle;
