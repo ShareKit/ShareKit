@@ -167,6 +167,7 @@
 	return @"";
 }
 
+// LinkedIn - https://developer.linkedin.com/documents/authentication
 - (NSString*)linkedInConsumerKey {
 	return @"";
 }
@@ -179,7 +180,7 @@
 	return @"";
 }
 
-
+// Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";
 }
