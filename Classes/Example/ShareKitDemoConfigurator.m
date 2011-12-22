@@ -178,12 +178,12 @@
 	return @"UIBarStyleDefault";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIKitDataTypesReference/Reference/reference.html#//apple_ref/c/econst/UIBarStyleDefault
 }
 
-- (UIColor*)barTintForView:(UIViewController*)vc {
-    
-    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitterForm"]) 
+- (UIColor*)barTintForView:(UIViewController*)vc {    
+       
+    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitter"]) 
         return [UIColor colorWithRed:0 green:151.0f/255 blue:222.0f/255 alpha:1];
     
-    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKFacebookForm"]) 
+    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKFacebook"]) 
         return [UIColor colorWithRed:59.0f/255 green:89.0f/255 blue:152.0f/255 alpha:1];
     
     return nil;
