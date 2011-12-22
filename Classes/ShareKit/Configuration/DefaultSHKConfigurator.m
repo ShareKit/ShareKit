@@ -179,6 +179,15 @@
 	return @"";
 }
 
+
+- (NSString*)foursquareV2ClientId {
+    return @"";
+}
+
+- (NSString*)foursquareV2RedirectURI {
+    return @"";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

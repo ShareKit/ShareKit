@@ -123,6 +123,14 @@
 		C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		C0AD00F9142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */; };
 		C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */; };
+		C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
+		C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
+		C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
+		C0276D7F14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */; };
+		C042A6211430AB7800DF9AF6 /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
+		C042A6241430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
+		C05E48091430D9BC008F2366 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
+		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 		E68738C01416795C00D8C3DD /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 /* End PBXBuildFile section */
 
@@ -356,6 +364,21 @@
 		C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedInOAMutableURLRequest.m; sourceTree = "<group>"; };
 		C0AD00F6142B7B6D000862D9 /* SHKLinkedInTextForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedInTextForm.h; sourceTree = "<group>"; };
 		C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedInTextForm.m; sourceTree = "<group>"; };
+		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
+		C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SHKFoursquareV2.m"; sourceTree = "<group>"; };
+		C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2CheckInForm.h; sourceTree = "<group>"; };
+		C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2CheckInForm.m; sourceTree = "<group>"; };
+		C0276D7814336ACD00C93FAA /* SHKFoursquareV2Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2Venue.h; sourceTree = "<group>"; };
+		C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2Venue.m; sourceTree = "<group>"; };
+		C0276D7A14336ACD00C93FAA /* SHKFoursquareV2VenuesForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2VenuesForm.h; sourceTree = "<group>"; };
+		C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2VenuesForm.m; sourceTree = "<group>"; };
+		C042A61F1430AB7800DF9AF6 /* SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2.h; sourceTree = "<group>"; };
+		C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2.m; sourceTree = "<group>"; };
+		C042A6221430B35300DF9AF6 /* SHKFoursquareV2OAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2OAuthView.h; sourceTree = "<group>"; };
+		C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2OAuthView.m; sourceTree = "<group>"; };
+		C05E48071430D9BC008F2366 /* SHKFoursquareV2Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2Request.h; sourceTree = "<group>"; };
+		C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2Request.m; sourceTree = "<group>"; };
+		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKLogout.h; path = "Logout of All Services/SHKLogout.h"; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKLogout.m; path = "Logout of All Services/SHKLogout.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -366,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A3C61EE147520B700C47D14 /* Twitter.framework in Frameworks */,
+				C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
@@ -435,6 +459,8 @@
 			children = (
 				AAACE07413CCC10200A2118F /* CFNetwork.framework */,
 				7A3C61ED147520B700C47D14 /* Twitter.framework */,
+				AAACE07413CCC10200A2118F /* CFNetwork.framework */,
+				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
@@ -780,6 +806,7 @@
 			children = (
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
+				C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */,
 				AAACE05313CCBED400A2118F /* Flickr */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
@@ -1002,6 +1029,27 @@
 			path = LinkedIn;
 			sourceTree = "<group>";
 		};
+		C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */ = {
+			isa = PBXGroup;
+			children = (
+				C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */,
+				C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */,
+				C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */,
+				C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */,
+				C0276D7814336ACD00C93FAA /* SHKFoursquareV2Venue.h */,
+				C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */,
+				C0276D7A14336ACD00C93FAA /* SHKFoursquareV2VenuesForm.h */,
+				C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */,
+				C042A61F1430AB7800DF9AF6 /* SHKFoursquareV2.h */,
+				C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */,
+				C042A6221430B35300DF9AF6 /* SHKFoursquareV2OAuthView.h */,
+				C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */,
+				C05E48071430D9BC008F2366 /* SHKFoursquareV2Request.h */,
+				C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */,
+			);
+			path = FoursquareV2;
+			sourceTree = "<group>";
+		};
 		E68738B6141677C000D8C3DD /* Logout */ = {
 			isa = PBXGroup;
 			children = (
@@ -1192,6 +1240,13 @@
 				C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */,
 				C0AD00F9142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m in Sources */,
 				C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */,
+				C042A6211430AB7800DF9AF6 /* SHKFoursquareV2.m in Sources */,
+				C042A6241430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m in Sources */,
+				C05E48091430D9BC008F2366 /* SHKFoursquareV2Request.m in Sources */,
+				C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */,
+				C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */,
+				C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */,
+				C0276D7F14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
