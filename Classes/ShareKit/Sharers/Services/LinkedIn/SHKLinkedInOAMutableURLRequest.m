@@ -26,6 +26,12 @@
 
 #import "SHKLinkedInOAMutableURLRequest.h"
 
+@interface SHKLinkedInOAMutableURLRequest ()
+
+- (NSString *)_signatureBaseString;
+
+@end
+
 @implementation SHKLinkedInOAMutableURLRequest
 
 - (id)initWithURL:(NSURL *)aUrl
