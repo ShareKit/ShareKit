@@ -50,6 +50,7 @@
 						 SHKMyAppName, @"appName", 
 						 SHKMyAppURL, @"appURL", 
                          [NSNumber numberWithBool:SHKFacebookUseSessionProxy], @"facebookUseSessionProxy",
+						 SHKVkontakteAppID, @"vkontakteAppId",				 
 						 SHKFacebookAppID, @"facebookAppId",
 						 SHKFacebookLocalAppID, @"facebookLocalAppId",
                          SHKFacebookSessionProxyURL, @"facebookSessionProxyURL",

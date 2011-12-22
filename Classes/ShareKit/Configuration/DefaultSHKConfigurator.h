@@ -46,6 +46,12 @@
 
 - (NSString*)appName;
 - (NSString*)appURL;
+<<<<<<< HEAD
+=======
+- (NSString*)deliciousConsumerKey;
+- (NSString*)deliciousSecretKey;
+- (NSString*)vkontakteAppId;
+>>>>>>> ab38a3be0bfd46c01a4b25f80ba40da9948c95da
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSString*)readItLaterKey;

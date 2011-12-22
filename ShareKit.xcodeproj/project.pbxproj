@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1913BF76138FF6A800AAD620 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
-		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
@@ -132,6 +132,12 @@
 		C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F7142B7B6D000862D9 /* SHKLinkedInTextForm.m */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 		E68738C01416795C00D8C3DD /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
+		F92EF47D148E8F1B0070F913 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF47A148E8F1B0070F913 /* JSONKit.m */; };
+		F92EF482148E90760070F913 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F92EF480148E8F430070F913 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
+		FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
+		FA5AA3BD149625460064DB24 /* SHKVkontakteForm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */; };
+		FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -381,6 +387,17 @@
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKLogout.h; path = "Logout of All Services/SHKLogout.h"; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKLogout.m; path = "Logout of All Services/SHKLogout.m"; sourceTree = "<group>"; };
+		F92EF479148E8F1B0070F913 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		F92EF47A148E8F1B0070F913 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		F92EF480148E8F430070F913 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
+		F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOS5Twitter.m; sourceTree = "<group>"; };
+		FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteOAuthView.m; path = Vkontakte/SHKVkontakteOAuthView.m; sourceTree = "<group>"; };
+		FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteOAuthView.h; path = Vkontakte/SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
+		FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteForm.m; path = Vkontakte/SHKVkontakteForm.m; sourceTree = "<group>"; };
+		FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteForm.h; path = Vkontakte/SHKVkontakteForm.h; sourceTree = "<group>"; };
+		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakte.m; path = Vkontakte/SHKVkontakte.m; sourceTree = "<group>"; };
+		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakte.h; path = Vkontakte/SHKVkontakte.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -604,13 +621,13 @@
 		43A5367111DBE3B9004A1712 /* ShareKit */ = {
 			isa = PBXGroup;
 			children = (
-				7A7CC8E6144D7046003E668D /* JSONKit */,
 				43A536EC11DBE3B9004A1712 /* SHKConfig.h */,
 				43A536AD11DBE3B9004A1712 /* Customize UI */,
 				43A5367211DBE3B9004A1712 /* Core */,
 				43A536B511DBE3B9004A1712 /* Sharers */,
 				43A536ED11DBE3B9004A1712 /* UI */,
 				43A536B211DBE3B9004A1712 /* Reachability */,
+				F92EF477148E8F1A0070F913 /* JSONKit */,
 				90E765A51418F2480026B656 /* ShareKit.bundle */,
 			);
 			path = ShareKit;
@@ -803,6 +820,8 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FA5AA3B4149625010064DB24 /* Vkontakte */,
+				43A536C111DBE3B9004A1712 /* Delicious */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
 				C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */,
@@ -860,12 +879,12 @@
 		43A536E711DBE3B9004A1712 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */,
+				F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */,
 				43A536E811DBE3B9004A1712 /* SHKTwitter.h */,
 				43A536E911DBE3B9004A1712 /* SHKTwitter.m */,
 				43A536EA11DBE3B9004A1712 /* SHKTwitterForm.h */,
 				43A536EB11DBE3B9004A1712 /* SHKTwitterForm.m */,
-				7A3C61E914751DE500C47D14 /* SHKiOS5Twitter.h */,
-				7A3C61EA14751DE500C47D14 /* SHKiOS5Twitter.m */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -930,15 +949,6 @@
 				43C91DF411EBAE4800F31FAE /* SHKTumblr.m */,
 			);
 			path = Tumblr;
-			sourceTree = "<group>";
-		};
-		7A7CC8E6144D7046003E668D /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				7A8930FB1459697500A2EE10 /* JSONKit.h */,
-				7A8930FC1459697500A2EE10 /* JSONKit.m */,
-			);
-			name = JSONKit;
 			sourceTree = "<group>";
 		};
 		7AC22D1A14580A2000126878 /* FBConnect */ = {
@@ -1056,6 +1066,29 @@
 				E68738BF1416795C00D8C3DD /* SHKLogout.m */,
 			);
 			name = Logout;
+			sourceTree = "<group>";
+		};
+		F92EF477148E8F1A0070F913 /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				F92EF479148E8F1B0070F913 /* JSONKit.h */,
+				F92EF47A148E8F1B0070F913 /* JSONKit.m */,
+			);
+			name = JSONKit;
+			path = Submodules/JSONKit;
+			sourceTree = SOURCE_ROOT;
+		};
+		FA5AA3B4149625010064DB24 /* Vkontakte */ = {
+			isa = PBXGroup;
+			children = (
+				FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */,
+				FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */,
+				FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */,
+				FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */,
+				FA5AA3BA149625460064DB24 /* SHKVkontakte.m */,
+				FA5AA3BB149625460064DB24 /* SHKVkontakte.h */,
+			);
+			name = Vkontakte;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1234,8 +1267,6 @@
 				7AC22D3C14580A2000126878 /* FBLoginDialog.m in Sources */,
 				7AC22D3D14580A2000126878 /* FBDialog.m in Sources */,
 				7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */,
-				7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */,
-				7A3C61EB14751DE500C47D14 /* SHKiOS5Twitter.m in Sources */,
 				C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */,
 				C0AD00F9142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m in Sources */,
 				C0AD00FA142B7B6D000862D9 /* SHKLinkedInTextForm.m in Sources */,
@@ -1246,6 +1277,11 @@
 				C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */,
 				C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */,
 				C0276D7F14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m in Sources */,
+				F92EF47D148E8F1B0070F913 /* JSONKit.m in Sources */,
+				F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */,
+				FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */,
+				FA5AA3BD149625460064DB24 /* SHKVkontakteForm.m in Sources */,
+				FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
