@@ -33,10 +33,22 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
+#import "SHKMail.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
 
+NSString * SHKLocalizedStringFormat(NSString* key);
+NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
+
+@interface SHK ()
+
+@property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
+
+- (UIViewController *)getCurrentRootViewController;
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController;
+
+@end
 
 @implementation SHK
 
@@ -44,16 +56,16 @@
 @synthesize rootViewController, currentRootViewController;
 @synthesize offlineQueue;
 
-static SHK *currentHelper = nil;
+static SHK *_currentHelper = nil;
 BOOL SHKinit;
 
 
 + (SHK *)currentHelper
 {
-	if (currentHelper == nil)
-		currentHelper = [[SHK alloc] init];
+	if (_currentHelper == nil)
+		_currentHelper = [[super allocWithZone:NULL] init];
 	
-	return currentHelper;
+	return _currentHelper;
 }
 
 + (void)initialize
@@ -90,41 +102,19 @@ BOOL SHKinit;
 	[helper setRootViewController:vc];	
 }
 
+- (UIViewController *)rootViewForCustomUIDisplay {
+    
+    UIViewController *result = [self getCurrentRootViewController];
+    result = [self getTopViewController:result];
+    return result;    
+}
+
 - (void)showViewController:(UIViewController *)vc
 {	
-	if (rootViewController)
-    {
-        // If developer provieded a root view controler, use it
-        self.currentRootViewController = rootViewController;
-    }
-    else
-	{
-		// Try to find the root view controller programmically
-		
-		// Find the top window (that is not an alert view or other window)
-		UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
-		if (topWindow.windowLevel != UIWindowLevelNormal)
-		{
-			NSArray *windows = [[UIApplication sharedApplication] windows];
-			for(topWindow in windows)
-			{
-				if (topWindow.windowLevel == UIWindowLevelNormal)
-					break;
-			}
-		}
-		
-		UIView *rootView = [[topWindow subviews] objectAtIndex:0];	
-		id nextResponder = [rootView nextResponder];
-		
-		if ([nextResponder isKindOfClass:[UIViewController class]])
-			self.currentRootViewController = nextResponder;
-		
-		else
-			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
-	}
+	self.currentRootViewController = [self getCurrentRootViewController];
 	
 	// Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	UIViewController *topViewController = [self getTopViewController];	
+	UIViewController *topViewController = [self getTopViewController:self.currentRootViewController];	
 	if (topViewController == nil)
 		NSAssert(NO, @"ShareKit: There is no view controller to display from");
 	
@@ -149,6 +139,7 @@ BOOL SHKinit;
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
 		
 		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
+        nav.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		
 		[topViewController presentModalViewController:nav animated:YES];			
 		self.currentView = nav;
@@ -172,6 +163,43 @@ BOOL SHKinit;
 	self.pendingView = nil;		
 }
 
+- (UIViewController *)getCurrentRootViewController {
+    
+    UIViewController *result;
+    
+    if (rootViewController)
+    {
+        // If developer provieded a root view controler, use it
+        result = rootViewController;
+    }
+    else
+	{
+		// Try to find the root view controller programmically
+		
+		// Find the top window (that is not an alert view or other window)
+		UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
+		if (topWindow.windowLevel != UIWindowLevelNormal)
+		{
+			NSArray *windows = [[UIApplication sharedApplication] windows];
+			for(topWindow in windows)
+			{
+				if (topWindow.windowLevel == UIWindowLevelNormal)
+					break;
+			}
+		}
+		
+		UIView *rootView = [[topWindow subviews] objectAtIndex:0];	
+		id nextResponder = [rootView nextResponder];
+		
+		if ([nextResponder isKindOfClass:[UIViewController class]])
+			result = nextResponder;
+		
+		else
+			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
+	}
+    return result;    
+}
+
 - (void)hideCurrentViewController
 {
 	[self hideCurrentViewControllerAnimated:YES];
@@ -190,6 +218,17 @@ BOOL SHKinit;
 			self.isDismissingView = YES;
 			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
 		}
+		// for iOS5
+		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
+		        [currentView presentingViewController])
+		{
+			self.isDismissingView = YES;            
+            [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
+                }];
+            }];
+        }
 		
 		else
 			self.currentView = nil;
@@ -223,12 +262,12 @@ BOOL SHKinit;
 	}
 }
 										   
-- (UIViewController *)getTopViewController
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController
 {
-	UIViewController *topViewController = currentRootViewController;
-	while (topViewController.modalViewController != nil)
-		topViewController = topViewController.modalViewController;
-	return topViewController;
+	UIViewController *result = aRootViewController;
+	while (result.modalViewController != nil)
+		result = result.modalViewController;
+	return result;
 }
 			
 + (UIBarStyle)barStyle
@@ -288,15 +327,15 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",@"SHKVkontakte", nil];
 				break;
 				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook",@"SHKCopy",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
 				break;
 				
 			case SHKShareTypeFile:
@@ -338,7 +377,7 @@ BOOL SHKinit;
 	[favs removeObject:className];
 	[favs insertObject:className atIndex:0];
 	
-	while (favs.count > [SHKCONFIG(maxFavCount) intValue])
+	while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
 		[favs removeLastObject];
 	
 	[self setFavorites:favs forType:type];
@@ -517,8 +556,11 @@ static NSDictionary *sharersDictionary = nil;
 	{
 		SHK *helper = [self currentHelper];
 		
-		if (helper.offlineQueue == nil)
-			helper.offlineQueue = [[NSOperationQueue alloc] init];		
+		if (helper.offlineQueue == nil) {
+            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;	
+            [aQueue release];
+        }
 	
 		SHKItem *item;
 		NSString *sharerId, *uid;
@@ -560,6 +602,39 @@ static NSDictionary *sharersDictionary = nil;
 	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);
+}
+
+#pragma mark -
+#pragma mark Singleton System Overrides
+
++ (id)allocWithZone:(NSZone *)zone
+{	
+    return [[self currentHelper] retain];	
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{	
+    return self;	
+}
+
+- (id)retain
+{	
+    return self;	
+}
+
+- (NSUInteger)retainCount
+{	
+    return NSUIntegerMax;  //denotes an object that cannot be released	
+}
+
+- (oneway void)release
+{	
+    //do nothing	
+}
+
+- (id)autorelease
+{	
+    return self;	
 }
 
 @end
@@ -608,10 +683,21 @@ void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 		method_exchangeImplementations(origMethod, newMethod);
 }
 
+NSString* SHKLocalizedStringFormat(NSString* key)
+{
+  static NSBundle* bundle = nil;
+  if (nil == bundle) {
+    NSString* path = [[[NSBundle mainBundle] resourcePath]
+                      stringByAppendingPathComponent:@"ShareKit.bundle"];
+    bundle = [[NSBundle bundleWithPath:path] retain];
+  }
+  return [bundle localizedStringForKey:key value:key table:nil];
+}
+
 NSString* SHKLocalizedString(NSString* key, ...) 
 {
 	// Localize the format
-	NSString *localizedStringFormat = NSLocalizedString(key, key);
+	NSString *localizedStringFormat = SHKLocalizedStringFormat(key);
 	
 	va_list args;
     va_start(args, key);

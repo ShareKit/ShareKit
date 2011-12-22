@@ -28,7 +28,10 @@
 #import <Foundation/Foundation.h>
 #import "Facebook.h"
 #import "SHKSharer.h"
+#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate>
+@interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, SHKFormControllerLargeTextFieldDelegate>
+
 + (BOOL)handleOpenURL:(NSURL*)url;
+
 @end

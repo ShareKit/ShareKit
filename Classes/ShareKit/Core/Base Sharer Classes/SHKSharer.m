@@ -29,9 +29,15 @@
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
 
+@interface SHKSharer () 
+
+@property (nonatomic) BOOL isRetainingSelf;
+
+@end
+
 @implementation SHKSharer
 
-@synthesize shareDelegate;
+@synthesize shareDelegate, isRetainingSelf;
 @synthesize item, pendingForm, request;
 @synthesize lastError;
 @synthesize quiet, pendingAction;
@@ -94,6 +100,11 @@
 	return NO;
 }
 
++ (BOOL)canGetUserInfo
+{
+    return NO;
+}
+
 + (BOOL)shareRequiresInternetConnection
 {
 	return YES;
@@ -115,22 +126,21 @@
 	{
 		case SHKShareTypeURL:
 			return [self canShareURL];
-			break;
 			
 		case SHKShareTypeImage:
 			return [self canShareImage];
-			break;
 			
 		case SHKShareTypeText:
 			return [self canShareText];
-			break;
 			
 		case SHKShareTypeFile:
 			return [self canShareFile];
-			break;
+            
+        case SHKShareTypeUserInfo:
+			return [self canGetUserInfo];
 			
 		default: 
-			return NO;
+			break;
 	}
 	return NO;
 }
@@ -166,6 +176,7 @@
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
 		self.shareDelegate = self;
+        isRetainingSelf = NO;
 		self.item = [[[SHKItem alloc] init] autorelease];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
@@ -265,14 +276,29 @@
 	return [controller autorelease];
 }
 
++ (id)getUserInfo
+{
+    // Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+	controller.item.shareType = SHKShareTypeUserInfo;
+    
+	// share and/or show UI
+	[controller share];
+    
+    return [controller autorelease];
+}
 
 #pragma mark -
 #pragma mark Commit Share
 
 - (void)share
 {
+    if (![self validateItem]) {
+        return; //otherwise self would stay retained forever. 
+    }
 	if (self.shareDelegate == self) {	// if no one has set the delegate away from us, we need to live till the end of sharing.
 		[self retain];
+        self.isRetainingSelf = YES;
 	}
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
 	if (![self authorize])
@@ -491,6 +517,7 @@
 		rootView.cancelSelector = @selector(shareFormCancel:);
 		
 		[self pushViewController:rootView animated:NO];
+        [rootView release];
 		
 		[[SHK currentHelper] showViewController:self];
 	}
@@ -582,18 +609,22 @@
 	{
 		case SHKShareTypeURL:
 			return (item.URL != nil);
-			break;			
 			
 		case SHKShareTypeImage:
 			return (item.image != nil);
-			break;			
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
-			break;
 			
 		case SHKShareTypeFile:
 			return (item.data != nil);
+            
+        case SHKShareTypeUserInfo:
+        {    
+            BOOL result = [[self class] canGetUserInfo];
+            return result; 
+        }   
+		default:
 			break;
 	}
 	
@@ -649,8 +680,8 @@
 {
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
-	if(self.shareDelegate == self)
-		[self autorelease];	// see share
+	if(self.isRetainingSelf)
+		[self release];	// see share
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
@@ -668,20 +699,35 @@
 		if (shouldRelogin)
 			[self promptAuthorization];
 	}
-	if (self.shareDelegate == self && !shouldRelogin) {
-		[self autorelease];	// see share
+	if (self.isRetainingSelf && !shouldRelogin) {
+		[self release];	// see share
 	}
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)sharer
 {
-	if(self.shareDelegate == self)
-		[self autorelease];	// see share
+	if(self.isRetainingSelf)
+		[self release];	// see share
 }
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
 {
-	
+	if (success) {
+        //this saves info about user such as username for services, which do not store username in keychain e.g. facebook and twitter.
+        NSString *userInfoKeyForSharer = [NSString stringWithFormat:@"kSHK%@UserInfo", [sharer title]];
+        NSDictionary *savedUserInfo = [[NSUserDefaults standardUserDefaults] objectForKey:userInfoKeyForSharer];
+        if ([[sharer class] canGetUserInfo] && !savedUserInfo) {
+            [[sharer class] getUserInfo];
+        }
+    }
+    
+    //if there is success we do not need to release, as we are going to share subsequently, and release after share is finished.
+    //if there is no success we need to release, as we do not continue sharing.
+    //if we authorize from outside of ShareKit we do not retain - so we do not need to release.
+    if (!success && self.isRetainingSelf) {
+        [self release]; //see share
+    }
+
 }
 
 #pragma mark -
@@ -723,19 +769,19 @@
 
 - (void)sendDidStart
 {		
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidStartNotification" object:self];
+    
 	if ([shareDelegate respondsToSelector:@selector(sharerStartedSending:)])
 		[shareDelegate performSelector:@selector(sharerStartedSending:) withObject:self];	
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidStartNotification" object:self];
 }
 
 - (void)sendDidFinish
 {	
-	if ([shareDelegate respondsToSelector:@selector(sharerFinishedSending:)])
-		[shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
-	
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFinish" object:self];
-}
+
+    if ([shareDelegate respondsToSelector:@selector(sharerFinishedSending:)])
+		[shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
+	}
 
 - (void)sendDidFailShouldRelogin
 {
@@ -750,27 +796,28 @@
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
 	self.lastError = error;
-		
-	if ([shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
-		[(SHKSharer *)shareDelegate sharer:self failedWithError:error shouldRelogin:shouldRelogin];
 	
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFailWithError" object:self];
+    
+	if ([shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
+		[(SHKSharer *)shareDelegate sharer:self failedWithError:error shouldRelogin:shouldRelogin];
 }
 
 - (void)sendDidCancel
 {
-	if ([shareDelegate respondsToSelector:@selector(sharerCancelledSending:)])
-		[shareDelegate performSelector:@selector(sharerCancelledSending:) withObject:self];	
-	
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidCancel" object:self];
+    
+    if ([shareDelegate respondsToSelector:@selector(sharerCancelledSending:)])
+		[shareDelegate performSelector:@selector(sharerCancelledSending:) withObject:self];	
 }
 
 - (void)authDidFinish:(BOOL)success	
 {
-	if ([shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)])
-		[shareDelegate performSelector:@selector(sharerAuthDidFinish:success:) withObject:self withObject:[NSNumber numberWithBool:success]];	
-	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];  
+    
+    if ([shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
+        [shareDelegate sharerAuthDidFinish:self success:success];
+    }
 }
 
 @end

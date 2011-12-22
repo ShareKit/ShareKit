@@ -204,6 +204,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {
 	
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+    [self authDidFinish:NO];
 }
 
 - (void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken

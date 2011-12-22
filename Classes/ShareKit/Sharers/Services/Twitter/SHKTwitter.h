@@ -29,7 +29,7 @@
 #import "SHKOAuthSharer.h"
 #import "SHKTwitterForm.h"
 
-@interface SHKTwitter : SHKOAuthSharer 
+@interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
 {	
 	BOOL xAuth;		
 }
@@ -45,9 +45,6 @@
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)shortenURL;
-- (void)shortenURLFinished:(SHKRequest *)aRequest;
-
 - (void)sendForm:(SHKTwitterForm *)form;
 
 - (void)sendStatus;
@@ -56,6 +53,9 @@
 - (void)sendImage;
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
+- (void)sendUserInfo;
+- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 - (void)followMe;
 
