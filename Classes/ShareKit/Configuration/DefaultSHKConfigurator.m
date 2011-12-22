@@ -59,24 +59,12 @@
  leaving that decision up to the user.
  */
 
-<<<<<<< HEAD
-=======
-// Delicious - https://developer.apps.yahoo.com/dashboard/createKey.html
-- (NSString*)deliciousConsumerKey {
-	return @"";
-}
-
-- (NSString*)deliciousSecretKey {
-	return @"";
-}
-
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {
 	return @"";
 }
 
->>>>>>> ab38a3be0bfd46c01a4b25f80ba40da9948c95da
 // Facebook - https://developers.facebook.com/apps
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Useful, if you have full and lite versions of the same app,

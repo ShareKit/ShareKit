@@ -36,18 +36,10 @@
  leaving that decision up to the user.
  */
 
-<<<<<<< HEAD
-=======
-
-
-// Delicious - https://developer.apps.yahoo.com/projects
-#define SHKDeliciousConsumerKey		@""
-#define SHKDeliciousSecretKey		@""
 
 //Vkontakte
 #define SHKVkontakteAppID				@""
 
->>>>>>> ab38a3be0bfd46c01a4b25f80ba40da9948c95da
 // Facebook - https://developers.facebook.com/
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Leave it blank unless you are sure of what you are doing. 
