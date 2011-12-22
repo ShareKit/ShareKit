@@ -98,7 +98,7 @@
 		7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A8930FC1459697500A2EE10 /* JSONKit.m */; };
 		7AA40554146F0EFF00685C81 /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
-		7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABFECF9145181D60012BA77 /* SHKFacebookForm.m */; };
+		7ABFECFA145181D60012BA77 /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABFECF9145181D60012BA77 /* SHKFormControllerLargeTextField.m */; };
 		7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AC22D1B14580A2000126878 /* FBDialog.bundle */; };
 		7AC22D3414580A2000126878 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
 		7AC22D3514580A2000126878 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
@@ -311,8 +311,8 @@
 		7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomActionSheet.m; sourceTree = "<group>"; };
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
-		7ABFECF8145181D60012BA77 /* SHKFacebookForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookForm.h; sourceTree = "<group>"; };
-		7ABFECF9145181D60012BA77 /* SHKFacebookForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookForm.m; sourceTree = "<group>"; };
+		7ABFECF8145181D60012BA77 /* SHKFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKFormControllerLargeTextField.h; path = ../Sharers/Services/Facebook/SHKFormControllerLargeTextField.h; sourceTree = "<group>"; };
+		7ABFECF9145181D60012BA77 /* SHKFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKFormControllerLargeTextField.m; path = ../Sharers/Services/Facebook/SHKFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		7AC22D1B14580A2000126878 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
 		7AC22D1D14580A2000126878 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		7AC22D1E14580A2000126878 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
@@ -824,8 +824,6 @@
 				7AC22D1A14580A2000126878 /* FBConnect */,
 				43A536DC11DBE3B9004A1712 /* SHKFacebook.h */,
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
-				7ABFECF8145181D60012BA77 /* SHKFacebookForm.h */,
-				7ABFECF9145181D60012BA77 /* SHKFacebookForm.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -879,6 +877,8 @@
 				43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */,
 				43A536F211DBE3B9004A1712 /* SHKFormController.h */,
 				43A536F311DBE3B9004A1712 /* SHKFormController.m */,
+				7ABFECF8145181D60012BA77 /* SHKFormControllerLargeTextField.h */,
+				7ABFECF9145181D60012BA77 /* SHKFormControllerLargeTextField.m */,
 				43A536F411DBE3B9004A1712 /* SHKFormFieldCell.h */,
 				43A536F511DBE3B9004A1712 /* SHKFormFieldCell.m */,
 				43A536F611DBE3B9004A1712 /* SHKFormFieldSettings.h */,
@@ -1233,7 +1233,7 @@
 				7AC22D3B14580A2000126878 /* Facebook.m in Sources */,
 				7AC22D3C14580A2000126878 /* FBLoginDialog.m in Sources */,
 				7AC22D3D14580A2000126878 /* FBDialog.m in Sources */,
-				7ABFECFA145181D60012BA77 /* SHKFacebookForm.m in Sources */,
+				7ABFECFA145181D60012BA77 /* SHKFormControllerLargeTextField.m in Sources */,
 				7A8930FD1459697500A2EE10 /* JSONKit.m in Sources */,
 				7A3C61EB14751DE500C47D14 /* SHKiOS5Twitter.m in Sources */,
 				C0AD00F8142B7B6D000862D9 /* SHKLinkedIn.m in Sources */,
