@@ -15,4 +15,6 @@ You can follow the initial planning at https://github.com/ideashower/ShareKit/is
 Documentation
 -------------
 
-The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki)
+The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki).
+
+Updated new service creation guidelines for contributors are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines)
