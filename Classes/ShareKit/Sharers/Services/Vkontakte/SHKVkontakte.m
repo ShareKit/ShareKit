@@ -420,7 +420,7 @@
 		
 		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
 		
-		NSLog(@"Server response: %@ \nError: %@", dict, errorMsg);
+		SHKLog(@"Server response: %@ \nError: %@", dict, errorMsg);
 		
 		return dict;
 	}
