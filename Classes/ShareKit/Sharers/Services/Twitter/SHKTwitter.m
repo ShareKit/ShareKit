@@ -460,8 +460,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
         
         NSError *error = nil;
         NSMutableDictionary *userInfo;
-        if (NSClassFromString(@"NSJSONSerialization")) {
-            userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        Class serializator = NSClassFromString(@"NSJSONSerialization");
+        if (serializator) {
+            userInfo = [serializator JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
         } else {
             userInfo = [[JSONDecoder decoder] mutableObjectWithData:data error:&error];
         }    
