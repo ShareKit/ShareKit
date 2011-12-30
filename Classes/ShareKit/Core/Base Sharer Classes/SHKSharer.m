@@ -372,7 +372,7 @@
 
 - (void)setShouldAutoShare:(BOOL)b
 {
-	return [[NSUserDefaults standardUserDefaults] setBool:b forKey:[NSString stringWithFormat:@"%@_shouldAutoShare", [self sharerId]]];
+	[[NSUserDefaults standardUserDefaults] setBool:b forKey:[NSString stringWithFormat:@"%@_shouldAutoShare", [self sharerId]]];
 }
 
 #pragma mark Authorization Form
