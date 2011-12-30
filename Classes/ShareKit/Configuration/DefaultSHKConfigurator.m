@@ -173,7 +173,7 @@
 	return @"";
 }
 
-// LinkedIn - https://developer.linkedin.com/documents/authentication
+// LinkedIn - https://www.linkedin.com/secure/developer
 - (NSString*)linkedInConsumerKey {
 	return @"";
 }

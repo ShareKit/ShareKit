@@ -155,6 +155,7 @@
 	return @"R_466f921d62a0789ac6262b7711be8454";
 }
 
+// LinkedIn - https://www.linkedin.com/secure/developer
 - (NSString*)linkedInConsumerKey {
 	return @"9f8m5vx0yhjf";
 }
