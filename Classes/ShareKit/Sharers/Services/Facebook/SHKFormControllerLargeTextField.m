@@ -89,7 +89,7 @@
 	if (UIKeyboardFrameEndUserInfoKey)
     {		
         [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
-        if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationPortrait || [[UIDevice currentDevice] orientation] == UIDeviceOrientationPortraitUpsideDown) 
+        if ([self interfaceOrientation] == UIDeviceOrientationPortrait || [self interfaceOrientation] == UIDeviceOrientationPortraitUpsideDown) 
         keyboardHeight = keyboardFrame.size.height;
         else
         keyboardHeight = keyboardFrame.size.width;
