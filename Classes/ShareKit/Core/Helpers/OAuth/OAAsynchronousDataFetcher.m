@@ -38,7 +38,7 @@
 	if (self = [super init])
 	{
 		request = [aRequest retain];
-		delegate = aDelegate;
+		delegate = [aDelegate retain];
 		didFinishSelector = finishSelector;
 		didFailSelector = failSelector;	
 	}
@@ -85,6 +85,7 @@
 - (void)dealloc
 {
 	if (request) [request release];
+    if (delegate) [delegate release];
 	if (connection) [connection release];
 	if (response) [response release];
 	if (responseData) [responseData release];

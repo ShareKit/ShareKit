@@ -265,7 +265,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 		[self setAndStoreFlickrAuthToken:nil];
 	}
 	
-	[self sharer: self failedWithError: inError shouldRelogin: NO];
+	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
 }
 
 - (void)dealloc
