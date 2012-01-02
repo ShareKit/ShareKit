@@ -97,7 +97,7 @@
 		[super dismissModalViewControllerAnimated:YES];
 		return NO;
 	}
-	NSLog(@"Request: %@", [URL absoluteString]); 
+	SHKLog(@"Request: %@", [URL absoluteString]); 
 	return YES;
 }
 
@@ -114,7 +114,7 @@
 		
 		NSArray *userAr = [[[[webView request] URL] absoluteString] componentsSeparatedByString:@"&user_id="];
 		NSString *user_id = [userAr lastObject];
-		NSLog(@"User id: %@", user_id);
+		SHKLog(@"User id: %@", user_id);
 		if(user_id){
 			[[NSUserDefaults standardUserDefaults] setObject:user_id forKey:kSHKVkonakteUserId];
 		}
@@ -126,11 +126,11 @@
 			[[NSUserDefaults standardUserDefaults] synchronize];
 		}
 		
-		NSLog(@"vkWebView response: %@",[[[webView request] URL] absoluteString]);
+		SHKLog(@"vkWebView response: %@",[[[webView request] URL] absoluteString]);
 		[(SHKVkontakte *)delegate authComplete];
 		[self dismissModalViewControllerAnimated:YES];
 	} else if ([vkWebView.request.URL.absoluteString rangeOfString:@"error"].location != NSNotFound) {
-		NSLog(@"Error: %@", vkWebView.request.URL.absoluteString);
+		SHKLog(@"Error: %@", vkWebView.request.URL.absoluteString);
 		[self dismissModalViewControllerAnimated:YES];
 	}
 	
@@ -138,7 +138,7 @@
 
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	
-	NSLog(@"vkWebView Error: %@", [error localizedDescription]);
+	SHKLog(@"vkWebView Error: %@", [error localizedDescription]);
 	[self dismissModalViewControllerAnimated:YES];
 }
 

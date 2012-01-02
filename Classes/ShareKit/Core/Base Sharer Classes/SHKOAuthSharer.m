@@ -162,6 +162,18 @@
 						   otherButtonTitles:nil] autorelease] show];
 	}	
 	
+	else if ([queryParams objectForKey:@"oauth_problem"])
+	{
+		SHKLog(@"oauth_problem reported: %@", [queryParams objectForKey:@"oauth_problem"]);
+
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+									 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
+						   otherButtonTitles:nil] autorelease] show];
+		success = NO;
+	}
+
 	else 
 	{
 		self.authorizeResponseQueryVars = queryParams;

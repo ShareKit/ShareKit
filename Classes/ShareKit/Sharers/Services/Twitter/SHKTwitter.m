@@ -577,7 +577,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	// to an appropriate size (max of img.ly) and then start trying to compress.
 	
 	while ([imageData length] > 700000 && compression > 0.1) {
-		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
+		// SHKLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
 		compression -= 0.1;
 		imageData = UIImageJPEGRepresentation([item image], compression);
 		
@@ -633,19 +633,19 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
 	// TODO better error handling here
-	// NSLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	// SHKLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	if (ticket.didSucceed) {
 		// Finished uploading Image, now need to posh the message and url in twitter
 		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
-		//NSLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
+		//SHKLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
 		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
-		//NSLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
+		//SHKLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
 		
 		if (startingRange.location != NSNotFound && endingRange.location != NSNotFound) {
 			NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
-			//NSLog(@"extracted string: %@",urlString);
+			//SHKLog(@"extracted string: %@",urlString);
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
 			[self sendStatus];
 		}
