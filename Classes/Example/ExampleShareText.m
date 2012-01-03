@@ -76,7 +76,7 @@
 	
 	SHKItem *item = [SHKItem text:text];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-	
+	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
