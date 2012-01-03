@@ -334,8 +334,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
     
-	[self retain];//must retain, because it is a delegate of shorten URL request
-    
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
 																		 SHKCONFIG(bitLyLogin),
 																		  SHKCONFIG(bitLyKey),																		  
@@ -377,7 +375,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 	
 	[super share];
-    [self release];
 }
 
 

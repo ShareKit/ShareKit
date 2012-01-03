@@ -78,6 +78,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	if (!flickrRequest) {
 		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
 		flickrRequest.delegate = self;	
+        [self retain]; //released in request delegate methods, OFFFlickrAPIRequest does not retain its delegate
 		flickrRequest.requestTimeoutInterval = 60.0;	
 	}
 	
@@ -238,6 +239,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	if (inRequest.sessionInfo == kUploadImageStep) {
 		// best I can tell we can set all the props during upload.
 		[self sendDidFinish];
+        [self release];// see [self flickrRequest];
 	}
 #endif
 	else {
@@ -266,6 +268,7 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	}
 	
 	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
+    [self release]; //see [self flickrRequest]
 }
 
 - (void)dealloc

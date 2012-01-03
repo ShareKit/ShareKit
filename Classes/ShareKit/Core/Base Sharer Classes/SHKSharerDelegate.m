@@ -18,7 +18,7 @@
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[self class] sharerTitle])];
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
 }
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer

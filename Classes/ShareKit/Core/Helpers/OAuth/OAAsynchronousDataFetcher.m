@@ -68,6 +68,8 @@
         [delegate performSelector:didFailSelector
                        withObject:ticket
                        withObject:nil];
+        [delegate release];
+        delegate = nil;
 		[ticket release];
 	}
 }
@@ -116,6 +118,8 @@
 	[delegate performSelector:didFailSelector
 				   withObject:ticket
 				   withObject:error];
+    [delegate release];
+    delegate = nil;
 	
 	[ticket release];
 }
@@ -128,6 +132,8 @@
 	[delegate performSelector:didFinishSelector
 				   withObject:ticket
 				   withObject:responseData];
+    [delegate release];
+    delegate = nil;
 	
 	[ticket release];
 }

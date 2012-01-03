@@ -379,8 +379,10 @@
 	form.cancelSelector = @selector(authorizationFormCancel:);
 	form.autoSelect = YES;
 	
-	[[SHK currentHelper] showViewController:form];
-	[form release];
+    [self pushViewController:form animated:NO];
+    [form release];
+    
+	[[SHK currentHelper] showViewController:self];
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
