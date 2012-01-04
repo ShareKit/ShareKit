@@ -139,12 +139,13 @@
 
 + (void)logout
 {
-	NSString *logout = @"http://api.vk.com/oauth/logout";
+	/*
+    NSString *logout = @"http://api.vk.com/oauth/logout";
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:logout] 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
 																										 timeoutInterval:60.0]; 
-	/*	NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+		NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
 	if(responseData)
 	{
 		NSDictionary *dict = [[JSONDecoder decoder] parseJSONData:responseData];

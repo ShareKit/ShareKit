@@ -98,7 +98,7 @@
 {
 	if (response)
 		[response release];
-	response = [aResponse retain];
+	response = (NSHTTPURLResponse *)[aResponse retain];
 	[responseData setLength:0];
 }
 

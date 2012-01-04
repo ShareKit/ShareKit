@@ -36,11 +36,14 @@
 }
 
 - (id)initWithRequest:(OAMutableURLRequest *)aRequest response:(NSHTTPURLResponse *)aResponse data:(NSData *)aData didSucceed:(BOOL)success {
-    [super init];
-    request = aRequest;
-    response = aResponse;
-	data = aData;
-    didSucceed = success;
+    
+    self = [super init];
+    if (self) {
+        request = aRequest;
+        response = aResponse;
+        data = aData;
+        didSucceed = success;
+    }
     return self;
 }
 

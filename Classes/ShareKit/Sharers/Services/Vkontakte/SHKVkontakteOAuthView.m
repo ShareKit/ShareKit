@@ -51,13 +51,14 @@
 	
 	if(!vkWebView)
 	{
-		self.vkWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+		UIWebView *aWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        self.vkWebView = aWebView;
+        [aWebView release];
 		vkWebView.delegate = self;
 		vkWebView.scalesPageToFit = YES;
 		self.vkWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.view addSubview:vkWebView];
 	}
-
 	
 	if(!appID) 
 	{
