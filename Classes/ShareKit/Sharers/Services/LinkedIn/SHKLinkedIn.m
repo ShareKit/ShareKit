@@ -151,19 +151,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 }
 
 
-// If you need to add additional headers or parameters to the request_token request, uncomment this section:
-/*
- - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
- {
- // Here is an example that adds the user's callback to the request headers
- [oRequest setOAuthParameterName:@"oauth_callback" withValue:authorizeCallbackURL.absoluteString];
- }
- */
-
-
 // If you need to add additional headers or parameters to the access_token request, uncomment this section:
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
+	SHKLog(@"req: %@", authorizeResponseQueryVars);
   // Here is an example that adds the oauth_verifier value received from the authorize call.
   // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
   [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
@@ -327,7 +318,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         // Otherwise, all other errors should end with:
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-        NSLog(@"%@", responseBody);
+        SHKLog(@"%@", responseBody);
         [self sendDidFailWithError:[SHK error:@"Why it failed"] shouldRelogin:NO];
     }
 }
