@@ -6,14 +6,28 @@
 #import "SHKFormControllerLargeTextField.h"
 #import "SHK.h"
 
+@interface SHKFormControllerLargeTextField ()
+
+@property (nonatomic, retain) UILabel *counter;
+
+- (void)layoutCounter;
+- (void)updateCounter;
+- (void)save;
+- (void)keyboardWillShow:(NSNotification *)notification;
+- (BOOL)shouldShowCounter;
+- (void)ifNoTextDisableSendButton;
+
+@end
+
 @implementation SHKFormControllerLargeTextField
 
-@synthesize delegate;
-@synthesize textView;
+@synthesize delegate, textView, maxTextLength;
+@synthesize counter, hasLink, hasImage, imageTextLength;
 
 - (void)dealloc 
 {
 	[textView release];
+    [counter release];
     [super dealloc];
 }
 
@@ -30,6 +44,10 @@
                                                                                   target:self
                                                                                   action:@selector(save)] autorelease];
         delegate = aDelegate;
+        hasImage = NO;
+        imageTextLength = 0;
+        hasLink = NO;
+        maxTextLength = 0;
     }
     return self;
 }
@@ -117,9 +135,94 @@
 	CGFloat maxViewHeight = self.view.bounds.size.height - keyboardHeight + distFromBottom;
 	
 	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,maxViewHeight);
+    
+    [self layoutCounter];
 }
 #pragma GCC diagnostic pop
-#pragma mark -
+
+#pragma mark counter updates
+
+- (void)updateCounter
+{
+	[self ifNoTextDisableSendButton];
+    
+    if (![self shouldShowCounter]) return;
+    
+    if (self.counter == nil)
+	{
+		UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        aLabel.backgroundColor = [UIColor clearColor];
+		aLabel.opaque = NO;
+		aLabel.font = [UIFont boldSystemFontOfSize:14];
+		aLabel.textAlignment = UITextAlignmentRight;		
+		aLabel.autoresizesSubviews = YES;
+		aLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        self.counter = aLabel;
+        [aLabel release];
+				
+		[self.view addSubview:counter];
+		[self layoutCounter];
+	}
+	
+	NSInteger count = (self.hasImage?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
+	counter.text = [NSString stringWithFormat:@"%@%i", self.hasImage ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
+    
+    if (count >= 0) {
+        
+        self.counter.textColor = [UIColor blackColor];        
+        if (self.textView.text.length) self.navigationItem.rightBarButtonItem.enabled = YES; 
+
+    } else {
+        
+        self.counter.textColor = [UIColor redColor];
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }  
+}
+
+- (void)ifNoTextDisableSendButton {
+    
+    if (self.textView.text.length) {
+        self.navigationItem.rightBarButtonItem.enabled = YES; 
+    } else {
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+    }
+}
+
+- (void)layoutCounter
+{
+	if (![self shouldShowCounter]) return;
+    
+    counter.frame = CGRectMake(self.textView.bounds.size.width-150-15,
+							   self.textView.bounds.size.height-15-9,
+							   150,
+							   15);
+}
+
+- (BOOL)shouldShowCounter {
+    
+    if (maxTextLength || hasImage || hasLink) return YES;
+    
+    return NO;
+}
+
+#pragma mark UITextView delegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+	[self updateCounter];
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+	[self updateCounter];	
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+	[self updateCounter];
+}
+
+#pragma mark delegate callbacks 
 
 - (void)cancel
 {	
@@ -128,20 +231,9 @@
 }
 
 - (void)save
-{	
-    if (textView.text.length == 0)
-	{
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Message is empty")
-									 message:SHKLocalizedString(@"You must enter a message in order to post.")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
-		return;
-	}
-	
-	[self.delegate sendForm:self];
-	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+{	    	
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
+    [self.delegate sendForm:self];
 }
 
 @end

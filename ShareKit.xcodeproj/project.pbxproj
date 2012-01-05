@@ -69,7 +69,6 @@
 		43A5372D11DBE3B9004A1712 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		43A5372E11DBE3B9004A1712 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		43A5372F11DBE3B9004A1712 /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
-		43A5373011DBE3B9004A1712 /* SHKTwitterForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EB11DBE3B9004A1712 /* SHKTwitterForm.m */; };
 		43A5373111DBE3B9004A1712 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
 		43A5373211DBE3B9004A1712 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
 		43A5373311DBE3B9004A1712 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
@@ -262,8 +261,6 @@
 		43A536E611DBE3B9004A1712 /* SHKReadItLater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadItLater.m; sourceTree = "<group>"; };
 		43A536E811DBE3B9004A1712 /* SHKTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitter.h; sourceTree = "<group>"; };
 		43A536E911DBE3B9004A1712 /* SHKTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitter.m; sourceTree = "<group>"; };
-		43A536EA11DBE3B9004A1712 /* SHKTwitterForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitterForm.h; sourceTree = "<group>"; };
-		43A536EB11DBE3B9004A1712 /* SHKTwitterForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitterForm.m; sourceTree = "<group>"; };
 		43A536EC11DBE3B9004A1712 /* SHKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfig.h; sourceTree = "<group>"; };
 		43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKActionSheet.h; sourceTree = "<group>"; };
 		43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKActionSheet.m; sourceTree = "<group>"; };
@@ -357,7 +354,6 @@
 		AAACE05F13CCBED400A2118F /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
-		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
 		C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SHKFoursquareV2.m"; sourceTree = "<group>"; };
 		C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2CheckInForm.h; sourceTree = "<group>"; };
@@ -391,7 +387,6 @@
 		FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteForm.h; path = Vkontakte/SHKVkontakteForm.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakte.m; path = Vkontakte/SHKVkontakte.m; sourceTree = "<group>"; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakte.h; path = Vkontakte/SHKVkontakte.h; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -874,8 +869,6 @@
 				F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */,
 				43A536E811DBE3B9004A1712 /* SHKTwitter.h */,
 				43A536E911DBE3B9004A1712 /* SHKTwitter.m */,
-				43A536EA11DBE3B9004A1712 /* SHKTwitterForm.h */,
-				43A536EB11DBE3B9004A1712 /* SHKTwitterForm.m */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -1199,7 +1192,6 @@
 				43A5372D11DBE3B9004A1712 /* SHKPinboard.m in Sources */,
 				43A5372E11DBE3B9004A1712 /* SHKReadItLater.m in Sources */,
 				43A5372F11DBE3B9004A1712 /* SHKTwitter.m in Sources */,
-				43A5373011DBE3B9004A1712 /* SHKTwitterForm.m in Sources */,
 				43A5373111DBE3B9004A1712 /* SHKActionSheet.m in Sources */,
 				43A5373211DBE3B9004A1712 /* SHKActivityIndicator.m in Sources */,
 				43A5373311DBE3B9004A1712 /* SHKFormController.m in Sources */,
@@ -1278,25 +1270,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		43FF9C7212270E9F00ADE53C /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				43FF9C7312270E9F00ADE53C /* en */,
-				43FF9C7512270EB900ADE53C /* de */,
-				4379F2D31291ACD800D2A41E /* ja */,
-				4379F2D41291ACE600D2A41E /* eu */,
-				4379F2D51291ACF700D2A41E /* nl */,
-				4379F2D61291AD0300D2A41E /* vi */,
-				4379F2D71291AD0F00D2A41E /* zh_CN */,
-				4379F3251291B86500D2A41E /* fr */,
-				4379F3EA1291CA1700D2A41E /* ko */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
