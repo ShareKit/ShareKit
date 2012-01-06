@@ -417,9 +417,9 @@
 	if(responseData)
 	{
 		dict = [[JSONDecoder decoder] parseJSONData:responseData];
-		
+#ifdef _SHKDebugShowLogs		
 		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
-		
+#endif		
 		SHKLog(@"Server response: %@ \nError: %@", dict, errorMsg);
 		
 		return dict;
