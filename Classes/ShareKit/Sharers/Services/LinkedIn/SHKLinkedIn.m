@@ -319,7 +319,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // [self sendDidFailShouldRelogin];
         
         // Otherwise, all other errors should end with:
+#ifdef _SHKDebugShowLogs
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+#endif
         SHKLog(@"%@", responseBody);
         [self sendDidFailWithError:[SHK error:@"Why it failed"] shouldRelogin:NO];
     }
