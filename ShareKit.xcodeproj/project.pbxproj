@@ -131,7 +131,6 @@
 		F92EF47D148E8F1B0070F913 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF47A148E8F1B0070F913 /* JSONKit.m */; };
 		F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
-		FA5AA3BD149625460064DB24 /* SHKVkontakteForm.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */; };
 		FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
 /* End PBXBuildFile section */
 
@@ -380,8 +379,6 @@
 		F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOS5Twitter.m; sourceTree = "<group>"; };
 		FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteOAuthView.m; path = Vkontakte/SHKVkontakteOAuthView.m; sourceTree = "<group>"; };
 		FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteOAuthView.h; path = Vkontakte/SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
-		FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakteForm.m; path = Vkontakte/SHKVkontakteForm.m; sourceTree = "<group>"; };
-		FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteForm.h; path = Vkontakte/SHKVkontakteForm.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakte.m; path = Vkontakte/SHKVkontakte.m; sourceTree = "<group>"; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakte.h; path = Vkontakte/SHKVkontakte.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1064,8 +1061,6 @@
 			children = (
 				FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */,
 				FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */,
-				FA5AA3B8149625460064DB24 /* SHKVkontakteForm.m */,
-				FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */,
 				FA5AA3BA149625460064DB24 /* SHKVkontakte.m */,
 				FA5AA3BB149625460064DB24 /* SHKVkontakte.h */,
 			);
@@ -1257,7 +1252,6 @@
 				F92EF47D148E8F1B0070F913 /* JSONKit.m in Sources */,
 				F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */,
 				FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */,
-				FA5AA3BD149625460064DB24 /* SHKVkontakteForm.m in Sources */,
 				FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */,
 				7AF78BB314B71FD8008ACA5D /* SHKFormControllerLargeTextField.m in Sources */,
 			);
