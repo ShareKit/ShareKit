@@ -7,3 +7,6 @@
 [submodule "Submodules/sskeychain"]
 	path = Submodules/sskeychain
 	url = git@github.com:samsoffes/sskeychain
+[submodule "Submodules/objectiveflickr"]
+	path = Submodules/objectiveflickr
+	url = git@github.com:lukhnos/objectiveflickr
