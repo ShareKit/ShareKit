@@ -585,7 +585,7 @@ void LFHRReadStreamClientCallBack(CFReadStreamRef stream, CFStreamEventType even
 		BOOL isReentrant = (_synchronousMessagePort != nil);
 		
 		if (!isReentrant) {
-			_synchronousMessagePort = [[NSPort port] retain];
+			_synchronousMessagePort = (NSMessagePort*)[[NSPort port] retain];
 			[currentRunLoop addPort:_synchronousMessagePort forMode:currentMode];
 		}
 		
