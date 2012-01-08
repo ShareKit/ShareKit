@@ -4,3 +4,6 @@
 [submodule "JSONKit"]
 	path = Submodules/JSONKit
 	url = git://github.com/johnezang/JSONKit.git
+[submodule "Submodules/sskeychain"]
+	path = Submodules/sskeychain
+	url = git@github.com:samsoffes/sskeychain
