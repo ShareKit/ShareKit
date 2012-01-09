@@ -307,7 +307,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	rootView.textView.text = [item customValueForKey:@"status"];
     rootView.maxTextLength = 140;
-	rootView.hasImage = item.image != nil;
+	rootView.image = item.image;
     rootView.imageTextLength = 25;
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);

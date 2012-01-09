@@ -16,13 +16,14 @@
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (BOOL)shouldShowCounter;
 - (void)ifNoTextDisableSendButton;
+- (void)setupBarButtonItems;
 
 @end
 
 @implementation SHKFormControllerLargeTextField
 
 @synthesize delegate, textView, maxTextLength;
-@synthesize counter, hasLink, hasImage, imageTextLength;
+@synthesize counter, hasLink, image, imageTextLength;
 
 - (void)dealloc 
 {
@@ -35,16 +36,7 @@
 {
     if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                               target:self
-                                                                                               action:@selector(cancel)] autorelease];
-		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[aDelegate class] sharerTitle]) 
-                                                                                   style:UIBarButtonItemStyleDone
-                                                                                  target:self
-                                                                                  action:@selector(save)] autorelease];
         delegate = aDelegate;
-        hasImage = NO;
         imageTextLength = 0;
         hasLink = NO;
         maxTextLength = 0;
@@ -89,6 +81,23 @@
 	
 	// Remove the SHK view wrapper from the window
 	[[SHK currentHelper] viewWasDismissed];
+}
+
+- (void)viewDidLoad {
+ 
+    [self setupBarButtonItems];
+}
+
+- (void)setupBarButtonItems {
+    
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                           target:self
+                                                                                           action:@selector(cancel)] autorelease];
+    
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[self.delegate class] sharerTitle]) 
+                                                                               style:UIBarButtonItemStyleDone
+                                                                              target:self
+                                                                              action:@selector(save)] autorelease];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
@@ -164,8 +173,8 @@
 		[self layoutCounter];
 	}
 	
-	NSInteger count = (self.hasImage?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
-	counter.text = [NSString stringWithFormat:@"%@%i", self.hasImage ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
+	NSInteger count = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
+	counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
     
     if (count >= 0) {
         
@@ -200,7 +209,7 @@
 
 - (BOOL)shouldShowCounter {
     
-    if (maxTextLength || hasImage || hasLink) return YES;
+    if (self.maxTextLength || self.image || self.hasLink) return YES;
     
     return NO;
 }

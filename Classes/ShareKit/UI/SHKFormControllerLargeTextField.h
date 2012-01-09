@@ -15,7 +15,7 @@
 // these properties are used for counter text display only. 
 // Counter shows, only if they are set by your sharer.
 @property NSUInteger maxTextLength;
-@property BOOL hasImage;
+@property (nonatomic, retain) UIImage *image;
 @property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
 @property BOOL hasLink; //only if the link is not part of the text in a text view
 
