@@ -53,7 +53,7 @@
 	self.textView = [[[UITextView alloc] initWithFrame:self.view.bounds] autorelease];
 	textView.delegate = self;
 	textView.font = [UIFont systemFontOfSize:15];
-	textView.contentInset = UIEdgeInsetsMake(5,5,0,0);
+	textView.contentInset = UIEdgeInsetsMake(5,5,5,0);
 	textView.backgroundColor = [UIColor whiteColor];	
 	textView.autoresizesSubviews = YES;
 	textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -205,6 +205,7 @@
 							   self.textView.bounds.size.height-15-9,
 							   150,
 							   15);
+    self.textView.contentInset = UIEdgeInsetsMake(5,5,32,0);
 }
 
 - (BOOL)shouldShowCounter {
