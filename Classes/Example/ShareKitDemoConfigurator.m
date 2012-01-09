@@ -168,6 +168,16 @@
 	return @"http://yourdomain.com/callback";
 }
 
+// Foursquare V2 - https://developer.foursquare.com
+- (NSString*)foursquareV2ClientId {
+    return @"NFJOGLJBI4C4RSZ3DQGR0W4ED5ZWAAE5QO3FW02Z3LLVZCT4";
+}
+
+- (NSString*)foursquareV2RedirectURI {
+    return @"app://foursquare";
+}
+
+
 /*
  UI Configuration : Basic
  ------------------------
