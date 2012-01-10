@@ -155,6 +155,7 @@
 	return @"R_466f921d62a0789ac6262b7711be8454";
 }
 
+// LinkedIn - https://www.linkedin.com/secure/developer
 - (NSString*)linkedInConsumerKey {
 	return @"9f8m5vx0yhjf";
 }
@@ -166,6 +167,16 @@
 - (NSString*)linkedInCallbackUrl {
 	return @"http://yourdomain.com/callback";
 }
+
+// Foursquare V2 - https://developer.foursquare.com
+- (NSString*)foursquareV2ClientId {
+    return @"NFJOGLJBI4C4RSZ3DQGR0W4ED5ZWAAE5QO3FW02Z3LLVZCT4";
+}
+
+- (NSString*)foursquareV2RedirectURI {
+    return @"app://foursquare";
+}
+
 
 /*
  UI Configuration : Basic
@@ -179,7 +190,7 @@
 }
 
 - (UIColor*)barTintForView:(UIViewController*)vc {    
-       
+	
     if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitter"]) 
         return [UIColor colorWithRed:0 green:151.0f/255 blue:222.0f/255 alpha:1];
     
