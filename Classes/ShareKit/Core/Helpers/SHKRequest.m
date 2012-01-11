@@ -39,7 +39,8 @@
 
 - (void)dealloc
 {
-	[url release];
+	[delegate release];
+    [url release];
 	[params release];
 	[method release];
 	[headerFields release];
@@ -138,8 +139,9 @@
 {
 	self.success = (response.statusCode == 200 || response.statusCode == 201);
 	
-	if ([delegate respondsToSelector:isFinishedSelector])
-		[delegate performSelector:isFinishedSelector withObject:self];
+	if ([self.delegate respondsToSelector:isFinishedSelector])
+		[self.delegate performSelector:isFinishedSelector withObject:self];
+    self.delegate = nil;
 }
 
 - (NSString *)getResult
