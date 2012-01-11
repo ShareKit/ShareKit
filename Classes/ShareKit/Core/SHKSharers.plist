@@ -14,6 +14,7 @@
 	<key>services</key>
 	<array>
 		<string>SHKEvernote</string>
+		<string>SHKDelicious</string>
 		<string>SHKTwitter</string>
 		<string>SHKPinboard</string>
 		<string>SHKGoogleReader</string>
