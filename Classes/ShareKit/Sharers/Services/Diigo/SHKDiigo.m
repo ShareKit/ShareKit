@@ -24,18 +24,18 @@
 //  THE SOFTWARE.
 //
 //
-
-#import "SHKDelicious.h"
+#import "SHKConfiguration.h"
+#import "SHKDiigo.h"
 
 /**
  Private helper methods
  */
-@interface SHKDelicious ()
+@interface SHKDiigo ()
 - (void)authFinished:(SHKRequest *)aRequest;
 - (void)sendFinished:(SHKRequest *)aRequest;
 @end
 
-@implementation SHKDelicious
+@implementation SHKDiigo
 
 
 
@@ -44,7 +44,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Delicious";
+	return @"Diigo";
 }
 
 + (BOOL)canShareURL
@@ -58,7 +58,7 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return SHKLocalizedString(@"Create an account at %@", @"http://delicious.com");
+	return SHKLocalizedString(@"Create an account at %@", @"http://www.diigo.com");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
@@ -73,9 +73,9 @@
 	
 	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get",
+													[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
 													 SHKEncode([formValues objectForKey:@"username"]),
-													 password
+													 password,SHKCONFIG(diigoKey),SHKEncode([formValues objectForKey:@"username"])
 													 ]]
 											params:nil
 										  delegate:self
@@ -98,9 +98,9 @@
   else {
     NSString *errorMessage = nil;
     if (aRequest.response.statusCode == 403)
-      errorMessage = SHKLocalizedString(@"Sorry, Delicious did not accept your credentials. Please try again.");
+      errorMessage = SHKLocalizedString(@"Sorry, Diigo did not accept your credentials. Please try again.");
     else
-      errorMessage = SHKLocalizedString(@"Sorry, Delicious encountered an error. Please try again.");
+      errorMessage = SHKLocalizedString(@"Sorry, Diigo encountered an error. Please try again.");
     
     [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
                                  message:errorMessage
@@ -137,23 +137,22 @@
 - (BOOL)send
 {	
 	if ([self validateItem])
-	{			
+	{	
+    
+    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode(item.tags),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+    
+    
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-    NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
+    
+    NSString* address =[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks",
                         SHKEncode([self getAuthValueForKey:@"username"]),
-                        password,
-                        SHKEncodeURL(item.URL),
-                        SHKEncode(item.title),
-                        SHKEncode(item.tags),
-                        SHKEncode(item.text),
-                        [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
-                        ];
-    NSLog(@"%@",address);
+                        password];
+    
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
-												params:nil
+												params:params
 											  delegate:self
 									isFinishedSelector:@selector(sendFinished:)
-												method:@"GET"
+												method:@"POST"
 											 autostart:YES] autorelease];
 		
 		
@@ -168,18 +167,17 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
+  //should use json kit for respond
 	if (aRequest.success)
 	{
-		// TODO parse <result code="MESSAGE" to get response from api for better error message
-		
-		if ([[aRequest getResult] rangeOfString:@"\"done\""].location != NSNotFound)
+		if ([[aRequest getResult] rangeOfString:@"bookmark"].location != NSNotFound)
 		{
 			[self sendDidFinish];
 			return;
 		}
 	}
 	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Delicious")]];		
+	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Diigo")]];		
 }
 
 @end
