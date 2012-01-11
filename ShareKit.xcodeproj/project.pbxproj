@@ -357,7 +357,6 @@
 		AAACE05F13CCBED400A2118F /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
-		AAACE07413CCC10200A2118F /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
 		C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SHKFoursquareV2.m"; sourceTree = "<group>"; };
 		C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2CheckInForm.h; sourceTree = "<group>"; };
@@ -391,7 +390,6 @@
 		FA5AA3B9149625460064DB24 /* SHKVkontakteForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakteForm.h; path = Vkontakte/SHKVkontakteForm.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKVkontakte.m; path = Vkontakte/SHKVkontakte.m; sourceTree = "<group>"; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKVkontakte.h; path = Vkontakte/SHKVkontakte.h; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -690,7 +688,7 @@
 			isa = PBXGroup;
 			children = (
 				43A5368011DBE3B9004A1712 /* Categories */,
-				43A5368711DBE3B9004A1712 /* Crytpo */,
+				43A5368711DBE3B9004A1712 /* Crypto */,
 				43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */,
 				43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */,
 				43A5369011DBE3B9004A1712 /* OAConsumer.h */,
@@ -728,7 +726,7 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		43A5368711DBE3B9004A1712 /* Crytpo */ = {
+		43A5368711DBE3B9004A1712 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
 				43A5368811DBE3B9004A1712 /* Base64Transcoder.c */,
@@ -738,7 +736,7 @@
 				43A5368C11DBE3B9004A1712 /* sha1.c */,
 				43A5368D11DBE3B9004A1712 /* sha1.h */,
 			);
-			path = Crytpo;
+			path = Crypto;
 			sourceTree = "<group>";
 		};
 		43A536AD11DBE3B9004A1712 /* Customize UI */ = {
@@ -1278,25 +1276,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		43FF9C7212270E9F00ADE53C /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				43FF9C7312270E9F00ADE53C /* en */,
-				43FF9C7512270EB900ADE53C /* de */,
-				4379F2D31291ACD800D2A41E /* ja */,
-				4379F2D41291ACE600D2A41E /* eu */,
-				4379F2D51291ACF700D2A41E /* nl */,
-				4379F2D61291AD0300D2A41E /* vi */,
-				4379F2D71291AD0F00D2A41E /* zh_CN */,
-				4379F3251291B86500D2A41E /* fr */,
-				4379F3EA1291CA1700D2A41E /* ko */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
