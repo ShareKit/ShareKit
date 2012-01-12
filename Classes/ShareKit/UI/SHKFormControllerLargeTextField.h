@@ -12,11 +12,14 @@
 @property (nonatomic, readonly, assign) id <SHKFormControllerLargeTextFieldDelegate> delegate;
 @property (nonatomic, retain) UITextView *textView;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate;
+// these properties are used for counter text display only. 
+// Counter shows, only if they are set by your sharer.
+@property NSUInteger maxTextLength;
+@property (nonatomic, retain) UIImage *image;
+@property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
+@property BOOL hasLink; //only if the link is not part of the text in a text view
 
-//internal methods, only here to silence compiler warning when overriden by subclass (SHKTwitterForm).
-- (void)save;
-- (void)keyboardWillShow:(NSNotification *)notification;
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate;
 
 @end
 
