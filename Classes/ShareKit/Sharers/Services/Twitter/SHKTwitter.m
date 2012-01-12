@@ -300,13 +300,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)showTwitterForm
 {
-	SHKTwitterForm *rootView = [[SHKTwitterForm alloc] initWithNibName:nil bundle:nil delegate:self];	
+	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
 	// force view to load so we can set textView text
 	[rootView view];
 	
 	rootView.textView.text = [item customValueForKey:@"status"];
-	rootView.hasAttachment = item.image != nil;
+    rootView.maxTextLength = 140;
+	rootView.image = item.image;
+    rootView.imageTextLength = 25;
+    
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
@@ -315,7 +318,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[[SHK currentHelper] showViewController:self];	
 }
 
-- (void)sendForm:(SHKTwitterForm *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {	
 	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];

@@ -25,21 +25,10 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+#import "SHKFormControllerLargeTextField.h"
 
-#import "SHKFoursquareV2.h"
-#import "SHKFoursquareV2Request.h"
-#import "SHKFoursquareV2Venue.h"
+@interface SHKFoursquareV2CheckInForm : SHKFormControllerLargeTextField {
 
-@interface SHKFoursquareV2CheckInForm : UIViewController<UITextViewDelegate> {
-    SHKFoursquareV2 *_delegate;
-    
-	UITextView *_textView;
-	UILabel *_counter;
 }
-
-@property (nonatomic, assign) SHKFoursquareV2 *delegate;
-
-- (id)initWithDelegate:(SHKFoursquareV2*)delegate;
 
 @end

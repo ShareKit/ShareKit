@@ -27,7 +27,6 @@
 #import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
 #import "SHKLinkedInOAMutableURLRequest.h"
-#import "SHKLinkedInTextForm.h"
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
@@ -164,22 +163,25 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark -
 #pragma mark Share Form
 
-- (void)showLinkedInTextForm
+- (void)showSHKTextForm
 {
-	SHKLinkedInTextForm *rootView = [[SHKLinkedInTextForm alloc] initWithNibName:nil bundle:nil];	
-	rootView.delegate = self;
+	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
 	// force view to load so we can set textView text
 	[rootView view];
 	
     if (item.shareType == SHKShareTypeURL) {
         rootView.textView.text = item.title;
+        rootView.hasLink = YES;
+        
     } else {
         rootView.textView.text = item.text;
     }
+    
+    rootView.maxTextLength = 700;  
+    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
-	[self pushViewController:rootView animated:NO];
-	
+	[self pushViewController:rootView animated:NO];	
 	[[SHK currentHelper] showViewController:self];	
 }
 
@@ -187,20 +189,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 {
     if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL)
 	{
-		[self showLinkedInTextForm];
+		[self showSHKTextForm];
 	}
 }
-
-- (void)sendTextForm:(SHKLinkedInTextForm *)form
-{	
-    if (item.shareType == SHKShareTypeURL) {
-        item.title = form.textView.text;
-    } else {
-        item.text = form.textView.text;
-    }
-	[self tryToSend];
-}
-
 
 // If you have a share form the user will have the option to skip it in the future.
 // If your form has required information and should never be skipped, uncomment this section.
@@ -209,6 +200,18 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     return NO;
 }
 
+#pragma mark -
+#pragma mark SHKFormControllerLargeTextField delegate
+
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
+{	
+    if (item.shareType == SHKShareTypeURL) {
+        item.title = form.textView.text;
+    } else {
+        item.text = form.textView.text;
+    }
+	[self tryToSend];
+}
 
 #pragma mark -
 #pragma mark Implementation
@@ -317,7 +320,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // [self sendDidFailShouldRelogin];
         
         // Otherwise, all other errors should end with:
+#ifdef _SHKDebugShowLogs
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+#endif
         SHKLog(@"%@", responseBody);
         [self sendDidFailWithError:[SHK error:@"Why it failed"] shouldRelogin:NO];
     }

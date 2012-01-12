@@ -27,13 +27,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import "SHKVkontakteForm.h"
+#import "SHKFormControllerLargeTextField.h"
 
 static NSString *const kSHKVkonakteUserId=@"kSHKVkontakteUserId";
 static NSString *const kSHKVkontakteAccessTokenKey=@"kSHKVkontakteAccessToken";
 static NSString *const kSHKVkontakteExpiryDateKey=@"kSHKVkontakteExpiryDate";
 
-@interface SHKVkontakte : SHKSharer
+@interface SHKVkontakte : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
 {
 	BOOL isCaptcha;
 }
@@ -42,7 +42,6 @@ static NSString *const kSHKVkontakteExpiryDateKey=@"kSHKVkontakteExpiryDate";
 @property (nonatomic, retain) NSString *accessToken;
 @property (nonatomic, retain) NSString *expirationDate;
 
-- (void)sendForm:(SHKVkontakteForm *)form;
 - (void)authComplete;
 
 @end
