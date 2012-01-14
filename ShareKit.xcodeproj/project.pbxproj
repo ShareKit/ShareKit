@@ -118,6 +118,8 @@
 		AAACE06513CCBED400A2118F /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05C13CCBED400A2118F /* ObjectiveFlickr.m */; };
 		AAACE06613CCBED400A2118F /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05F13CCBED400A2118F /* OFXMLMapper.m */; };
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
+		ADAA8E8F14C0FF65002E4A36 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAA8E8B14C0FF65002E4A36 /* SHKDelicious.m */; };
+		ADAA8E9014C0FF65002E4A36 /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAA8E8E14C0FF65002E4A36 /* SHKDiigo.m */; };
 		C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
 		C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
 		C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
@@ -355,6 +357,10 @@
 		AAACE05F13CCBED400A2118F /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
+		ADAA8E8A14C0FF65002E4A36 /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDelicious.h; sourceTree = "<group>"; };
+		ADAA8E8B14C0FF65002E4A36 /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDelicious.m; sourceTree = "<group>"; };
+		ADAA8E8D14C0FF65002E4A36 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
+		ADAA8E8E14C0FF65002E4A36 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDiigo.m; sourceTree = "<group>"; };
 		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
 		C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SHKFoursquareV2.m"; sourceTree = "<group>"; };
 		C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2CheckInForm.h; sourceTree = "<group>"; };
@@ -808,6 +814,8 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ADAA8E8914C0FF65002E4A36 /* Delicious */,
+				ADAA8E8C14C0FF65002E4A36 /* Diigo */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1008,6 +1016,24 @@
 				AAACE06113CCBED400A2118F /* SHKFlickr.m */,
 			);
 			path = Flickr;
+			sourceTree = "<group>";
+		};
+		ADAA8E8914C0FF65002E4A36 /* Delicious */ = {
+			isa = PBXGroup;
+			children = (
+				ADAA8E8A14C0FF65002E4A36 /* SHKDelicious.h */,
+				ADAA8E8B14C0FF65002E4A36 /* SHKDelicious.m */,
+			);
+			path = Delicious;
+			sourceTree = "<group>";
+		};
+		ADAA8E8C14C0FF65002E4A36 /* Diigo */ = {
+			isa = PBXGroup;
+			children = (
+				ADAA8E8D14C0FF65002E4A36 /* SHKDiigo.h */,
+				ADAA8E8E14C0FF65002E4A36 /* SHKDiigo.m */,
+			);
+			path = Diigo;
 			sourceTree = "<group>";
 		};
 		C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */ = {
@@ -1260,6 +1286,8 @@
 				FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */,
 				7A36F42714B2021100372747 /* SHKSharerDelegate.m in Sources */,
 				7A8FBBE814BF16C4003DF56A /* SHKFormControllerLargeTextField.m in Sources */,
+				ADAA8E8F14C0FF65002E4A36 /* SHKDelicious.m in Sources */,
+				ADAA8E9014C0FF65002E4A36 /* SHKDiigo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
