@@ -104,16 +104,4 @@
     [iOS5twitter release];
 }
 
-# pragma mark SHKSharerDelegate methods
-
-- (void)sharerFinishedSending:(SHKSharer *)sharer {
-    
-    if (!quiet) 
-        [[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
-}
-
-- (void)sharerCancelledSending:(SHKSharer *)sharer {
-    
-}
-
 @end

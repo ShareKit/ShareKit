@@ -209,18 +209,18 @@
 
 - (void)showVkontakteForm
 {
- 	SHKVkontakteForm *rootView = [[SHKVkontakteForm alloc] initWithNibName:nil bundle:nil];  
- 	rootView.delegate = self;
+ 	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+    
  	// force view to load so we can set textView text
  	[rootView view];
  	rootView.textView.text = item.text;
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,rootView);
+	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
 	[rootView release];
 	[[SHK currentHelper] showViewController:self];  
 }
 
-- (void)sendForm:(SHKVkontakteForm *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {  
  	self.item.text = form.textView.text;
  	[self tryToSend];
@@ -417,9 +417,9 @@
 	if(responseData)
 	{
 		dict = [[JSONDecoder decoder] parseJSONData:responseData];
-		
+#ifdef _SHKDebugShowLogs		
 		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
-		
+#endif		
 		SHKLog(@"Server response: %@ \nError: %@", dict, errorMsg);
 		
 		return dict;

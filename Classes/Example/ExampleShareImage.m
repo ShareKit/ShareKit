@@ -69,7 +69,7 @@
 {
 	SHKItem *item = [SHKItem image:imageView.image title:@"San Francisco"];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-	
+	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 

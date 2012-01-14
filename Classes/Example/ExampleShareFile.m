@@ -71,6 +71,7 @@
 	
 	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
