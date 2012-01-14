@@ -98,6 +98,9 @@
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
 
+//Diigo - http://www.diigo.com/api_dev
+#define SHKDiigoKey			@"e79abd4ffa32246f"
+
 // Flickr - http://www.flickr.com/services/apps/create/
 /*
  1 - This requires the CFNetwork.framework 

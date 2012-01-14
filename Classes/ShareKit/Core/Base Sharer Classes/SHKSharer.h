@@ -32,7 +32,7 @@
 
 @class SHKSharer;
 
-@protocol SHKSharerDelegate
+@protocol SHKSharerDelegate <NSObject>
 
 - (void)sharerStartedSending:(SHKSharer *)sharer;
 - (void)sharerFinishedSending:(SHKSharer *)sharer;
@@ -52,7 +52,7 @@ typedef enum
 } SHKSharerPendingAction;
 
 
-@interface SHKSharer : UINavigationController <SHKSharerDelegate>
+@interface SHKSharer : UINavigationController
 {	
 	id shareDelegate;
 	
@@ -66,7 +66,7 @@ typedef enum
 	SHKSharerPendingAction pendingAction;
 }
 
-@property (nonatomic, assign)	id<SHKSharerDelegate> shareDelegate;
+@property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
 
 @property (retain) SHKItem *item;
 @property (retain) SHKFormController *pendingForm;

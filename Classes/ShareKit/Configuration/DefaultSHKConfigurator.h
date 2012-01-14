@@ -50,6 +50,7 @@
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSString*)readItLaterKey;
+- (NSString*)diigoKey;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
 - (NSString*)twitterCallbackUrl;

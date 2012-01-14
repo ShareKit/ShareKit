@@ -68,6 +68,11 @@
 - (NSString*)readItLaterKey {
 	return @"";
 }
+
+// Diigo - http://diigo.com/api_dev
+-(NSString*)diigoKey {
+  return @"";
+}
 // Twitter - http://dev.twitter.com/apps/new
 /*
  Important Twitter settings to get right:

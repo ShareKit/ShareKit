@@ -1,9 +1,8 @@
 //
-//  SHKTwitterForm.h
+//  SHKDelicious.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/22/10.
-
+//  Created by saturngod on 11 Jan 2012
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,12 +24,12 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-#import "SHKFormControllerLargeTextField.h"
+#import <Foundation/Foundation.h>
+#import "SHKSharer.h"
 
+@interface SHKDelicious : SHKSharer 
+{
 
-@interface SHKTwitterForm : SHKFormControllerLargeTextField
-
-@property BOOL hasAttachment;
+}
 
 @end

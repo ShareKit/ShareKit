@@ -1,8 +1,8 @@
 //
-//  SHKLinkedInTextForm.h
+//  SHKDelicious.h
 //  ShareKit
 //
-//  Created by Robin Hos (Everdune) on 9/22/11.
+//  Created by saturngod on 11 Jan 2012
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,22 +24,12 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "SHKSharer.h"
 
-
-@interface SHKLinkedInTextForm : UIViewController <UITextViewDelegate>
+@interface SHKDiigo : SHKSharer 
 {
-	id delegate;
-	UITextView *textView;
-	UILabel *counter;
+
 }
-
-@property (nonatomic, retain) id delegate;
-@property (nonatomic, retain) UITextView *textView;
-@property (nonatomic, retain) UILabel *counter;
-
-- (void)layoutCounter;
-- (void)save;
-- (void)keyboardWillShow:(NSNotification *)notification;
 
 @end
