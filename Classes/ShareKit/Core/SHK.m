@@ -31,7 +31,7 @@
 #import "SHKViewControllerWrapper.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
-#import "SFHFKeychainUtils.h"
+#import "SSKeychain.h"
 #import "Reachability.h"
 #import "SHKMail.h"
 #import <objc/runtime.h>
@@ -417,7 +417,9 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] error:nil];
+	return [SSKeychain passwordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+								  account:key 
+									error:nil ];
 #endif
 }
 
@@ -429,7 +431,10 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] updateExisting:YES error:nil];
+	[SSKeychain setPassword:value 
+				 forService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+					account:key 
+					  error:nil];
 #endif
 }
 
@@ -441,7 +446,9 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils deleteItemForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] error:nil];
+	[SSKeychain deletePasswordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+								 account:key 
+								   error:nil];
 #endif
 }
 
