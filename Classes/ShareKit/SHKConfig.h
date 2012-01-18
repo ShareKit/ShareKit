@@ -57,6 +57,9 @@
 // Read It Later - http://readitlaterlist.com/api/?shk
 #define SHKReadItLaterKey			@""
 
+// Diigo - http://www.diigo.com/api_keys/new/
+#define SHKDiigoKey			@""
+
 // Twitter - http://dev.twitter.com/apps/new
 /*
  Important Twitter settings to get right:
