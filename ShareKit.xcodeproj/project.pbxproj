@@ -94,6 +94,7 @@
 		7A2B025614A342D800E68A4C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2B025514A342D800E68A4C /* CFNetwork.framework */; };
 		7A36F42714B2021100372747 /* SHKSharerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A36F42614B2021100372747 /* SHKSharerDelegate.m */; };
 		7A3C61EE147520B700C47D14 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3C61ED147520B700C47D14 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7A89681D14C80F9900DB07AF /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
 		7AA40554146F0EFF00685C81 /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
 		7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AC22D1B14580A2000126878 /* FBDialog.bundle */; };
@@ -107,7 +108,6 @@
 		7AC22D3B14580A2000126878 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2014580A2000126878 /* Facebook.m */; };
 		7AC22D3C14580A2000126878 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2314580A2000126878 /* FBLoginDialog.m */; };
 		7AC22D3D14580A2000126878 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2514580A2000126878 /* FBDialog.m */; };
-		7AF78BB314B71FD8008ACA5D /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
 		90E765A61418F2480026B656 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
 		AAACE01C13CCB1F500A2118F /* LegacySHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01813CCB1F500A2118F /* LegacySHKConfigurator.m */; };
@@ -1258,8 +1258,8 @@
 				F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */,
 				FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */,
 				FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */,
-				7A0861D914A36E5A00FF509F /* SHKFormControllerLargeTextField.m in Sources */,
 				7A36F42714B2021100372747 /* SHKSharerDelegate.m in Sources */,
+				7A89681D14C80F9900DB07AF /* SHKFormControllerLargeTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
