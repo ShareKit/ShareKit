@@ -27,7 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKTwitterForm.h"
+#import "SHKFormControllerLargeTextField.h"
 
 @interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
 {	
@@ -44,8 +44,6 @@
 
 #pragma mark -
 #pragma mark Share API Methods
-
-- (void)sendForm:(SHKTwitterForm *)form;
 
 - (void)sendStatus;
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;

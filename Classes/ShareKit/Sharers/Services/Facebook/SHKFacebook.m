@@ -108,10 +108,6 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (BOOL)handleOpenURL:(NSURL*)url 
 {
   Facebook *fb = [SHKFacebook facebook];
-  if (! fb.sessionDelegate) {
-    SHKFacebook *sharer = [[[SHKFacebook alloc] init] autorelease];
-    fb.sessionDelegate = sharer;
-  }
   return [fb handleOpenURL:url];
 }
 
@@ -179,20 +175,16 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
 	
-	[[SHKFacebook facebook] setSessionDelegate:self];    
+	[[SHKFacebook facebook] setSessionDelegate:self];
+    [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
 	[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil]];		
-}
-
-- (void)authFinished:(SHKRequest *)req
-{		
-	[self authDidFinish:req.success];
 }
 
 + (void)logout
 {
   [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKStoredItemKey];
   [self flushAccessToken];
-  [[self facebook] logout:nil];
+  [[self facebook] logout];
 }
 
 #pragma mark -
@@ -226,6 +218,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
                                            andParams:params
                                        andHttpMethod:@"POST"
                                          andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
         return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
@@ -241,12 +234,14 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 										   andParams:params
 									   andHttpMethod:@"POST"
 										 andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
 		return YES;
 	}
     else if (item.shareType == SHKShareTypeUserInfo)
     {
         [self setQuiet:YES];
         [[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
         return YES;
     } 
 	else 
@@ -256,6 +251,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	[[SHKFacebook facebook] dialog:@"feed"
 						 andParams:params 
 					   andDelegate:self];
+    [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+    
 	return YES;
 }
 
@@ -265,15 +262,21 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)dialogDidComplete:(FBDialog *)dialog
 {
   [self sendDidFinish];  
+    [self release]; //see [self send]
 }
 
 - (void)dialogDidNotComplete:(FBDialog *)dialog
 {
   [self sendDidCancel];
+    [self release]; //see [self send]
 }
 
 - (void)dialogCompleteWithUrl:(NSURL *)url 
 {
+  //if user presses cancel within webview FBDialogue, return string is without any other parameter, see issue #83. We should not show "Saved!".
+  if ([[url absoluteString] isEqualToString:@"fbconnect://success"]) { 
+      [self setQuiet:YES];
+  }
   // error_code=190: user changed password or revoked access to the application,
   // so spin the user back over to authentication :
   NSRange errorRange = [[url absoluteString] rangeOfString:@"error_code=190"];
@@ -287,17 +290,21 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)dialogDidCancel:(FBDialog*)dialog
 {
   [self sendDidCancel];
+    [self release]; //see [self send]
 }
 
 - (void)dialog:(FBDialog *)dialog didFailWithError:(NSError *)error 
 {
   if (error.code != NSURLErrorCancelled)
     [self sendDidFailWithError:error];
+    [self release]; //see [self send]
 }
 
 - (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
 {
+    [self release]; //see [self promptAuthorization]. If callback happens, self will retain again.
 	return YES;
+    
 }
 
 #pragma mark FBSessionDelegate methods
@@ -323,6 +330,21 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	if (self.item) 
 		[self share];
 	[self authDidFinish:true];
+    [self release]; //see [self promptAuthorization]
+}
+
+- (void)fbDidNotLogin:(BOOL)cancelled {
+    
+    if (!cancelled) {
+        [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+									 message:SHKLocalizedString(@"There was an error while authorizing")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
+						   otherButtonTitles:nil] autorelease] show];
+    }
+    
+    [self authDidFinish:NO]; 
+    [self release]; //see [self promptAuthorization]
 }
 
 #pragma mark FBRequestDelegate methods
@@ -339,11 +361,13 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     }     
 
     [self sendDidFinish];
+    [self release]; //see [self send]
 }
 
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
 	[self sendDidFailWithError:error];
+    [self release]; //see [self send]
 }
 
 #pragma mark -	

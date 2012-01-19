@@ -91,6 +91,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	if (!flickrRequest) {
 		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
 		flickrRequest.delegate = self;	
+        [self retain]; //released in request delegate methods, OFFFlickrAPIRequest does not retain its delegate
 		flickrRequest.requestTimeoutInterval = 60.0;	
 	}
 	
@@ -303,7 +304,8 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 		[self setAndStoreFlickrAuthToken:nil];
 	}
 	
-	[self sharer: self failedWithError: inError shouldRelogin: NO];
+	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
+    [self release]; //see [self flickrRequest]
 }
 
 -(void) postToNextGroup

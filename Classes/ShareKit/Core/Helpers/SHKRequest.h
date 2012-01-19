@@ -53,7 +53,7 @@
 @property (retain) NSString *method;
 @property (retain) NSDictionary *headerFields;
 
-@property (assign) id delegate;
+@property (retain) id delegate;
 @property (assign) SEL isFinishedSelector;
 
 @property (retain) NSURLConnection *connection;

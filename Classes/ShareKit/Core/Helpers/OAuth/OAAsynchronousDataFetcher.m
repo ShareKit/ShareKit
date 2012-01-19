@@ -38,7 +38,7 @@
 	if (self = [super init])
 	{
 		request = [aRequest retain];
-		delegate = aDelegate;
+		delegate = [aDelegate retain];
 		didFinishSelector = finishSelector;
 		didFailSelector = failSelector;	
 	}
@@ -68,6 +68,8 @@
         [delegate performSelector:didFailSelector
                        withObject:ticket
                        withObject:nil];
+        [delegate release];
+        delegate = nil;
 		[ticket release];
 	}
 }
@@ -85,6 +87,7 @@
 - (void)dealloc
 {
 	if (request) [request release];
+    if (delegate) [delegate release];
 	if (connection) [connection release];
 	if (response) [response release];
 	if (responseData) [responseData release];
@@ -98,7 +101,7 @@
 {
 	if (response)
 		[response release];
-	response = [aResponse retain];
+	response = (NSHTTPURLResponse *)[aResponse retain];
 	[responseData setLength:0];
 }
 
@@ -115,6 +118,8 @@
 	[delegate performSelector:didFailSelector
 				   withObject:ticket
 				   withObject:error];
+    [delegate release];
+    delegate = nil;
 	
 	[ticket release];
 }
@@ -127,6 +132,8 @@
 	[delegate performSelector:didFinishSelector
 				   withObject:ticket
 				   withObject:responseData];
+    [delegate release];
+    delegate = nil;
 	
 	[ticket release];
 }

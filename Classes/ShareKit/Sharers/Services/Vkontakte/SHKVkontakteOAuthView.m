@@ -57,7 +57,6 @@
 		self.vkWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[self.view addSubview:vkWebView];
 	}
-
 	
 	if(!appID) 
 	{
