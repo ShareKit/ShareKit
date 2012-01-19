@@ -15,7 +15,6 @@
 "Close" = "閉じる";
 "Notes" = "ノート";
 "Note" = "ノート";
-"Share" = "共有";
 "Shared" = "共有";
 "Edit" = "編集";
 "Actions" = "アクション";
@@ -86,4 +85,26 @@
 "There was a problem requesting access from %@" = "%@へのアクセスに問題が発生しました";
 
 "Access Error" = "アクセスエラー";
-"There was an error while sharing" = "共有にエラーが発生しました";
+
+"Logout" = "ログアウト";
+"Sharing a Link" = "リンクを共有する";
+"Sharing an Image" = "イメージを共有する";
+"Sharing Text" = "テキストを共有する";
+"Sharing a File" = "ファイルを共有する";
+"Are you sure you want to logout of all share services?" = "すべての共有サービスからログアウトしますか。";
+"Examples" = "例";
+"EDMA Error" = "EDMAエラー";
+"EDMA Version is too old." = "EDMAが旧バージョンです。";
+"Your username and password did not match" = "ユーザー名とパスワードが正しくありません。";
+"Untitled" = "件名なし";
+"There was a problem sharing with Evernote" = "Evernoteで共有中に問題が発生しました。";
+"Get" = "Get";
+"Description" = "解説";
+"Tag (space) Tag" = "タグ(スペース)タグ";
+"Is Public" = "すべて(公開)";
+"Is Friend" = "友達のみ";
+"Is Family" = "家族のみ";
+"Logged Out!" = "ログアウトしました!";
+"Sent from %@" = " %@から受信";
+"Save to Photo Album" = "アルバムに保存";
+"Tag,Tag" = "タグ,タグ";
