@@ -15,7 +15,6 @@
 "Close" = "닫기";
 "Notes" = "메모";
 "Note" = "메모";
-"Share" = "공유";
 "Shared" = "공유";
 "Edit" = "편집";
 "Actions" = "Actions";
@@ -72,7 +71,6 @@
 "Enable auto share to skip this step in the future." = "나중에 이 단계를 건너뛰려면 자동 공유를 활성화하세요.";
 
 "You must be online in order to share with %@" = "%@(으)로 공유하려면 온라인 상태여야 합니다";
-"There was an error while sharing" = "공유 중에 오류가 발생했습니다";
 
 "Could not authenticate you. Please relogin." = "인증할 수 없습니다. 다시 로그인 하세요.";
 "There was a problem requesting authorization from %@" = "%@ 인증 요청에 문제가 발생했습니다";
@@ -86,4 +84,26 @@
 "There was a problem requesting access from %@" = "%@ 접근 권한을 얻는데 실패했습니다";
 
 "Access Error" = "접근 오류";
-"There was an error while sharing" = "공유 중에 오류가 발생했습니다";
+
+"Logout" = "로그아웃";
+"Sharing a Link" = "링크 공유";
+"Sharing an Image" = "이미지 공유";
+"Sharing Text" = "텍스트 공유";
+"Sharing a File" = "파일 공유";
+"Are you sure you want to logout of all share services?" = "모든 공유 서비스를 로그아웃 하시겠습니까?";
+"Examples" = "예제";
+"EDMA Error" = "EDMA 오류";
+"EDMA Version is too old." = "EDMA가 구버전 입니다.";
+"Your username and password did not match" = "사용자명과 비밀번호가 일치하지 않습니다";
+"Untitled" = "무제";
+"There was a problem sharing with Evernote" = "Evernote로 공유 중에 문제가 발생했습니다";
+"Get" = "Get";
+"Description" = "설명";
+"Tag (space) Tag" = "태그 (공백) 태그";
+"Is Public" = "모두 (공개)";
+"Is Friend" = "내 친구";
+"Is Family" = "내 가족";
+"Logged Out!" = "로그아웃 됨!";
+"Sent from %@" = "%@에서 보냄";
+"Save to Photo Album" = "앨범에 저장";
+"Tag,Tag" = "태그,태그";
