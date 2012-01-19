@@ -60,9 +60,7 @@
 {
 	if (counter == nil)
 	{
-		UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        self.counter = aLabel;
-        [aLabel release];
+		self.counter = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
 		counter.backgroundColor = [UIColor clearColor];
 		counter.opaque = NO;
 		counter.font = [UIFont boldSystemFontOfSize:14];

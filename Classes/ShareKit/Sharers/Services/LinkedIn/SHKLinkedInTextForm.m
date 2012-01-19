@@ -154,7 +154,7 @@
 {
 	if (counter == nil)
 	{
-		self.counter = [[UILabel alloc] initWithFrame:CGRectZero];
+		self.counter = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
 		counter.backgroundColor = [UIColor clearColor];
 		counter.opaque = NO;
 		counter.font = [UIFont boldSystemFontOfSize:14];
@@ -165,8 +165,6 @@
 		
 		[self.view addSubview:counter];
 		[self layoutCounter];
-		
-		[counter release];
 	}
 	
 	int count = 700 - textView.text.length;
