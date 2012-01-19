@@ -29,17 +29,25 @@
 #import "SHKSharer.h"
 #import "SHKOAuthView.h"
 #import "ObjectiveFlickr.h"
+#import "SHKFormOptionController.h"
 
-@interface SHKFlickr : SHKSharer<OFFlickrAPIRequestDelegate,SHKOAuthViewDelegate> {
+@interface SHKFlickr : SHKSharer<	OFFlickrAPIRequestDelegate,
+									SHKOAuthViewDelegate,
+									SHKFormOptionControllerOptionProvider> {
 	
     OFFlickrAPIContext *flickrContext;
 	OFFlickrAPIRequest *flickrRequest;
 	NSString *flickrUserName;
+	SHKFormOptionController* curOptionController;
+	NSString* postedPhotoID;
+	NSArray* fullOptionsData;
+	int postGroupCurIndex;									
 }
 
 @property (nonatomic, readonly) OFFlickrAPIContext *flickrContext;
 @property (nonatomic, retain) NSString *flickrUserName;
 
 - (void)sendPhoto;
+- (NSData*) generateImageData;
 
 @end

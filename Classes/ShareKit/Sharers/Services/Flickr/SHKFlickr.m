@@ -34,10 +34,23 @@ NSString *kGetAuthTokenStep = @"kGetAuthTokenStep";
 NSString *kCheckTokenStep = @"kCheckTokenStep";
 NSString *kUploadImageStep = @"kUploadImageStep";
 NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
+NSString *kGetGroupsStep = @"kGetGroupsStep";
+NSString *kPutInGroupsStep = @"kPutInGroupsStep";
+
+
+@interface SHKFlickr();
+-(void) optionsEnumerated:(NSArray*)options;
+-(void) optionsEnumerationFailed:(NSError*)error;
+-(void) postToNextGroup;
+
+@property (nonatomic, retain) NSArray* fullOptionsData;
+@property (nonatomic, retain) NSString *postedPhotoID;
+@end
+
 
 @implementation SHKFlickr
 
-@synthesize flickrContext, flickrUserName;
+@synthesize flickrContext, flickrUserName, fullOptionsData, postedPhotoID;
 
 + (NSString *)sharerTitle
 {
@@ -124,6 +137,17 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 															 key:@"is_family"
 															type:SHKFormFieldTypeSwitch
 														   start:SHKFormFieldSwitchOn],
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
+															 key:@"postgroup"
+															type:SHKFormFieldTypeOptionPicker
+														   start:@"Select Group"
+												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Flickr Groups", @"title",
+																  @"-1", @"curIndexes",
+																  [NSArray array],@"itemsList",
+																  [NSNumber numberWithBool:NO], @"static",
+																  [NSNumber numberWithBool:YES], @"allowMultiple",
+																  self, @"SHKFormOptionControllerOptionProvider",
+																  nil]],
 									 nil
 									 ];
 		
@@ -153,16 +177,20 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	return YES;
 }
 
+- (NSData*) generateImageData
+{
+	return UIImageJPEGRepresentation(item.image, .9);
+}
+
 - (void)sendPhoto {
 	
 	[self sendDidStart];
-	
-	NSData *JPEGData = UIImageJPEGRepresentation(item.image, 1.0);
-	
+	NSData *JPEGData = [self generateImageData];
 	self.flickrRequest.sessionInfo = kUploadImageStep;
 	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
+	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
-						  item.title, @"title",
+						  titleVal, @"title",
 						  descript, @"description",
 						  item.tags, @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
@@ -222,25 +250,35 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
 {
-#if 0
+	if(inRequest.sessionInfo == kGetGroupsStep){
+		if ([inResponseDictionary objectForKey:@"groups"] != nil && 
+			[[inResponseDictionary objectForKey:@"groups"] isKindOfClass:[NSDictionary class]] &&
+			[[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"] != nil &&
+			[[[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"] isKindOfClass:[NSArray class]]
+			) 
+		{
+			self.fullOptionsData = [[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"];
+			NSMutableArray* options = [NSMutableArray array];
+			for (NSDictionary* option in self.fullOptionsData) {
+				[options addObject:[option objectForKey:@"name"]];
+			}
+			[self optionsEnumerated:options];
+		}else {
+			NSError* err = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestFaultyXMLResponseError userInfo:nil];
+			[self optionsEnumerationFailed:err];
+		}
+		return;
+	}
+	if(inRequest.sessionInfo == kPutInGroupsStep){
+		[self postToNextGroup];
+		return;
+	}
+	
 	if (inRequest.sessionInfo == kUploadImageStep) {
-		
-        NSString *photoID = [[inResponseDictionary valueForKeyPath:@"photoid"] textContent];
-		
-        flickrRequest.sessionInfo = kSetImagePropertiesStep;
-        [flickrRequest callAPIMethodWithPOST:@"flickr.photos.setMeta" arguments:[NSDictionary dictionaryWithObjectsAndKeys:photoID, @"photo_id", item.title, @"title", nil, @"description", nil]];        		        
-	}
-	else if (inRequest.sessionInfo == kSetImagePropertiesStep) {
-		
-		[self sendDidFinish];
-	}
-#else
-	if (inRequest.sessionInfo == kUploadImageStep) {
-		// best I can tell we can set all the props during upload.
-		[self sendDidFinish];
-	}
-#endif
-	else {
+		self.postedPhotoID = [[inResponseDictionary valueForKeyPath:@"photoid"] textContent];
+		[self postToNextGroup];
+		return;
+	}else {
 		[[SHKActivityIndicator currentIndicator] hide];
 		
 		if (inRequest.sessionInfo == kGetAuthTokenStep) {
@@ -268,12 +306,67 @@ NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
 	[self sharer: self failedWithError: inError shouldRelogin: NO];
 }
 
+-(void) postToNextGroup
+{
+	bool finished = true;
+	if(self.fullOptionsData != nil && [item customValueForKey:@"postgroup"] != nil){
+		NSString *postGroups = [item customValueForKey:@"postgroup"];
+		NSArray* indexes = [postGroups componentsSeparatedByString:@","];
+		if(postGroupCurIndex < [indexes count]){
+			NSString* postGroup = [indexes objectAtIndex:postGroupCurIndex++];
+			NSString *groupID = nil;
+			for (NSDictionary* group in self.fullOptionsData) {
+				if([[group objectForKey:@"name"] isEqualToString:postGroup]){
+					groupID = [group objectForKey:@"nsid"];
+					break;
+				}
+			}
+			if(groupID != nil){
+				finished = false;
+				flickrRequest.sessionInfo = kPutInGroupsStep;
+				[flickrRequest callAPIMethodWithPOST:@"flickr.groups.pools.add" arguments:[NSDictionary dictionaryWithObjectsAndKeys:self.postedPhotoID, @"photo_id", groupID, @"group_id", nil]];        		        
+			}
+		}
+	}
+	if (finished) {
+		[self sendDidFinish];
+	}
+}
+
 - (void)dealloc
 {
     [flickrContext release];
 	[flickrRequest release];
 	[flickrUserName release];
+	[fullOptionsData release];
+	[postedPhotoID release];
     [super dealloc];
+}
+
+-(void) optionsEnumerated:(NSArray*)options{
+	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[curOptionController optionsEnumerated:options];
+	curOptionController = nil;
+}
+-(void) optionsEnumerationFailed:(NSError*)error{
+	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[curOptionController optionsEnumerationFailedWithError:error];
+	curOptionController = nil;
+}
+
+-(void) SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController*) optionController
+{
+	NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
+	curOptionController = optionController;
+	self.flickrRequest.sessionInfo = kGetGroupsStep;
+	[flickrRequest callAPIMethodWithGET:@"flickr.groups.pools.getGroups" arguments:[NSDictionary dictionary]];        		        
+}
+-(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
+{
+	NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
+	curOptionController = nil;
+	NSAssert(self.flickrRequest.sessionInfo == kGetGroupsStep, @"The active request should be kGetGroupsStep");
+	[self.flickrRequest cancel];
 }
 
 @end
