@@ -193,7 +193,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  titleVal, @"title",
 						  descript, @"description",
-						  item.tags, @"tags",
+						  item.tags == nil ? @"" : item.tags, @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
 						  [item customValueForKey:@"is_friend"], @"is_friend",
 						  [item customValueForKey:@"is_family"], @"is_family",
