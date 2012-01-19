@@ -25,12 +25,10 @@
 //
 
 #import "SHKOAuthSharer.h"
-#import "SHKLinkedInTextForm.h"
+#import "SHKFormControllerLargeTextField.h"
 
 extern NSString *SHKLinkedInVisibilityCodeKey;
 
-@interface SHKLinkedIn : SHKOAuthSharer
-
-- (void)sendTextForm:(SHKLinkedInTextForm *)form;
+@interface SHKLinkedIn : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
 
 @end
