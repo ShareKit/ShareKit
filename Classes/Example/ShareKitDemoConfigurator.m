@@ -190,7 +190,7 @@
 }
 
 - (UIColor*)barTintForView:(UIViewController*)vc {    
-       
+	
     if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitter"]) 
         return [UIColor colorWithRed:0 green:151.0f/255 blue:222.0f/255 alpha:1];
     
