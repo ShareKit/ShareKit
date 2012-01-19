@@ -122,6 +122,7 @@
 		return YES;
 	}
 	
+    [self retain]; //must retain, because mailController does not retain its delegates. Released in callback.
 	mailController.mailComposeDelegate = self;
 	
 	NSString *body = [item customValueForKey:@"body"];
@@ -206,6 +207,7 @@
 			[self sendDidFailWithError:nil];
 			break;
 	}
+	[self autorelease];
 }
 
 
