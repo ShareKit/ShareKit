@@ -58,6 +58,10 @@
 	return NO;
 }
 
+- (void) placeImageOnPasteboard
+{
+	[[UIPasteboard generalPasteboard] setImage:item.image];
+}
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
@@ -75,9 +79,8 @@
 {	
 	if (item.shareType == SHKShareTypeURL)
 		[[UIPasteboard generalPasteboard] setString:item.URL.absoluteString];
-	
-	else
-		[[UIPasteboard generalPasteboard] setImage:item.image];
+	else if(item.shareType == SHKShareTypeImage)
+		[self placeImageOnPasteboard];
 	
 	// Notify user
 	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];

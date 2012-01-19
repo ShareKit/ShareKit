@@ -32,5 +32,5 @@
 {
 
 }
-
+- (void) writeImageToAlbum;
 @end

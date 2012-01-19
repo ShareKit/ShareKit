@@ -131,8 +131,10 @@
 {
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
+	// this happens when we have an options picker.
+	if (self.navigationController.topViewController == nil)
+		[[SHK currentHelper] viewWasDismissed];
 }
 
 - (void)viewDidLoad
@@ -143,6 +145,16 @@
 		self.tableView.backgroundColor = [UIColor colorWithRed:[SHKCONFIG(formBgColorRed) intValue]/255 green:[SHKCONFIG(formBgColorGreen) intValue]/255 blue:[SHKCONFIG(formBgColorBlue) intValue]/255 alpha:1];
 }
 
+
+#pragma mark -
+#pragma mark Table view
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];
+	if(settingsForCell.type == SHKFormFieldTypeOptionPicker){
+		SHKFormOptionController* optionsPicker = [[[SHKFormOptionController alloc] initWithOptionsInfo:settingsForCell client:self] autorelease];
+		[self.navigationController pushViewController:optionsPicker animated:YES];
+	}
+}
 
 #pragma mark -
 #pragma mark Table view data source
@@ -159,12 +171,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    SHKCustomFormFieldCell *cell = (SHKCustomFormFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];
+    NSString *CellIdentifier = settingsForCell.type == SHKFormFieldTypeOptionPicker ? @"OptionCell" : @"Cell";
+	
+    SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:(SHKFormFieldTypeOptionPicker ? UITableViewCellStyleValue1 : UITableViewCellStyleDefault) 
+											  reuseIdentifier:CellIdentifier] autorelease];
 		cell.form = self;
 		
 		if ([SHKCONFIG(formFontColorRed) intValue] != -1)
@@ -175,8 +189,8 @@
 	if (cell.settings.key != nil && [cell getValue])
 		[values setObject:[cell getValue] forKey:cell.settings.key];
     
-	cell.settings = [self rowSettingsForIndexPath:indexPath];
-	if(SHKCONFIG(usePlaceholders))
+	cell.settings = settingsForCell;
+	if(SHKCONFIG(usePlaceholders) && settingsForCell.type != SHKFormFieldTypeOptionPicker)
 	{
 		cell.textField.placeholder = cell.settings.label;
 		if(cell.settings.type != SHKFormFieldTypeText &&
@@ -191,9 +205,18 @@
 	}
 	
 	NSString *value = [values objectForKey:cell.settings.key];
-	if (value == nil && cell.settings.start != nil)
-		value = cell.settings.start;
-	
+	if (value == nil && cell.settings.start != nil){
+		if(settingsForCell.type == SHKFormFieldTypeOptionPicker){
+			NSString* curIndexes = [settingsForCell.optionPickerInfo objectForKey:@"curIndexes"];
+			if (![curIndexes isEqualToString:@"-1"]) {
+				value = [settingsForCell  optionPickerValueForIndexes:curIndexes];
+			}else{
+				value = cell.settings.start;
+			}
+		}else{
+			value = cell.settings.start;
+		}
+	}	
 	[cell setValue:value];
 	
     return cell;
@@ -239,6 +262,29 @@
 
 
 #pragma mark -
+#pragma mark OptionPicking
+-(void) SHKFormOptionController:(SHKFormOptionController*) optionController pickedOption:(NSString*)pickedOption
+{
+	if(pickedOption != nil){
+		BOOL pickedNone = [pickedOption isEqualToString:@"-1"];
+		if(pickedNone)
+			[values removeObjectForKey:optionController.settings.key];
+		else
+			[values setObject:pickedOption forKey:optionController.settings.key];
+		
+		NSArray *fields = [[sections objectAtIndex:0] objectForKey:@"rows"];
+		NSUInteger index = [fields indexOfObject:optionController.settings];
+		SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+		if (cell != nil) {
+			[cell setValue:pickedNone ? cell.settings.start : pickedOption];
+		}
+		[self.tableView reloadData];
+	}
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
 #pragma mark Completion
 
 - (void)close
@@ -268,7 +314,7 @@
 
 - (NSMutableDictionary *)formValues
 {
-	return [self formValuesForSection:0];
+	return [self formValuesForSection:0];	// if this supports more than one section, option picking would have to be fixed, see SHKFormOptionController:pickedOption
 }
 			
 - (NSMutableDictionary *)formValuesForSection:(int)section
@@ -285,8 +331,17 @@
 		cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
 		
 		// Use text field if visible first		
-		if ([cell.settings.key isEqualToString:field.key] && [cell getValue] != nil)
-			[formValues setObject:[cell getValue] forKey:field.key];
+		if ([cell.settings.key isEqualToString:field.key] && [cell getValue] != nil){
+			if (cell.settings.type == SHKFormFieldTypeOptionPicker) {	// for option pickers, the start val is likely a label that doesn't mean anything like, 'select album'
+				NSString* curVal = [cell getValue];
+				if (![curVal isEqualToString:cell.settings.start]) {
+					[formValues setObject:curVal forKey:field.key];
+				}
+			}else{
+				[formValues setObject:[cell getValue] forKey:field.key];
+			}
+			
+		}
 		
 		// If field is not visible, use cached value
 		else if ([values objectForKey:field.key] != nil)

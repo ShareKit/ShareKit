@@ -25,6 +25,7 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKFormFieldCell.h"
 #import "SHKCustomFormController.h"
 
@@ -52,9 +53,7 @@
 {
 	if (textField == nil)
 	{
-		UITextField *aTextField = [[UITextField alloc] initWithFrame:CGRectMake(0,0,0,25)];
-        textField = [aTextField retain];
-        [aTextField release];
+		self.textField = [[[UITextField alloc] initWithFrame:CGRectMake(0,0,0,25)]autorelease];
 		textField.clearsOnBeginEditing = NO;
 		textField.returnKeyType = UIReturnKeyDone;
 		textField.font = [UIFont systemFontOfSize:17];
@@ -71,6 +70,11 @@
 {
 	[super layoutSubviews];	
 	
+	bool removeTextField = true;
+	bool removeSwitch = true;
+	bool removeDetailLabel = true;
+	bool removeLabel = true;
+	
 	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypeTextNoCorrect || settings.type == SHKFormFieldTypePassword)
 	{
 		self.textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
@@ -84,18 +88,20 @@
 									 2 + round(self.contentView.bounds.size.height/2 - textField.bounds.size.height/2),
 									 self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT - SHK_FORM_CELL_PAD_LEFT - labelWidth,
 									 textField.bounds.size.height);
-		
-		if (toggle != nil)
-			[toggle removeFromSuperview];
+
+		[self.contentView addSubview:textField];
+		[self.contentView bringSubviewToFront:textField];
+
+		removeTextField = false;
+		removeLabel = SHKCONFIG(usePlaceholders);
+		if(!removeLabel)
+			[self.contentView addSubview:self.textLabel];
 	}
-	
 	else if (settings.type == SHKFormFieldTypeSwitch)
 	{
 		if (toggle == nil)
 		{
-			UISwitch *aSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            self.toggle = aSwitch;
-            [aSwitch release];
+			self.toggle = [[[UISwitch alloc] initWithFrame:CGRectZero] autorelease];	
 			[self.contentView addSubview:toggle];
 			[self setValue:tmpValue];
 		}
@@ -104,12 +110,37 @@
 								  round(self.contentView.bounds.size.height/2-toggle.bounds.size.height/2),
 								  toggle.bounds.size.width,
 								  toggle.bounds.size.height);
-		
-		if (textField != nil)
-			[textField removeFromSuperview];
+		removeLabel = false;
+		removeSwitch = false;
+
+		[self.contentView addSubview:toggle];
+		[self.contentView addSubview:self.textLabel];
+	}
+	else if (settings.type == SHKFormFieldTypeOptionPicker)
+	{
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		self.detailTextLabel.frame = CGRectMake(labelWidth + SHK_FORM_CELL_PAD_LEFT, 
+									 2 + round(self.contentView.bounds.size.height/2 - self.detailTextLabel.bounds.size.height/2),
+									 self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT - SHK_FORM_CELL_PAD_LEFT - labelWidth,
+									 self.detailTextLabel.bounds.size.height);
+		removeLabel = false;
+		removeDetailLabel = false;
+
+		[self.contentView addSubview:self.detailTextLabel];
+		[self.contentView addSubview:self.textLabel];
 	}
 	
-	[self.contentView bringSubviewToFront:textField];
+	if (removeTextField)
+		[textField removeFromSuperview];
+	
+	if (removeSwitch)
+		[toggle removeFromSuperview];
+
+	if(removeDetailLabel)
+		[self.detailTextLabel removeFromSuperview];
+
+	if(removeLabel)
+		[self.textLabel removeFromSuperview];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated 
@@ -149,6 +180,9 @@
 		case SHKFormFieldTypePassword:
 			textField.text = value;
 			break;
+		case SHKFormFieldTypeOptionPicker:
+			self.detailTextLabel.text = value;
+			break;
 	}
 }
 
@@ -158,8 +192,8 @@
 	{
 		case SHKFormFieldTypeSwitch:
 			return toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
-			break;
-
+		case SHKFormFieldTypeOptionPicker:
+			return self.detailTextLabel.text;
 		default:
 			break;
 	}
