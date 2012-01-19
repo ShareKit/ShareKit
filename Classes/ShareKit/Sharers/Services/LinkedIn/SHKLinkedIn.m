@@ -179,6 +179,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     }
 	
 	[self pushViewController:rootView animated:NO];
+    [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
