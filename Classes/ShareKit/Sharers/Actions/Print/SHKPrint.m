@@ -40,7 +40,11 @@
 
 + (BOOL)canShare
 {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 42000
+	return NO;
+#else
 	return [UIPrintInteractionController isPrintingAvailable];
+#endif
 }
 
 - (BOOL)shouldAutoShare
@@ -60,6 +64,9 @@
 
 - (BOOL)print
 {
+#if __IPHONE_OS_VERSION_MIN_REQUIRED < 42000
+	return NO;
+#else
 	UIPrintInteractionController *printer = [UIPrintInteractionController sharedPrintController];
 	UIPrintInfo *info = [UIPrintInfo printInfo];
 	info.outputType = UIPrintInfoOutputPhoto;
@@ -77,6 +84,7 @@
 		}
 	];
 	return YES;
+#endif
 }
 
 @end
