@@ -2774,9 +2774,11 @@ static int16_t EDAMEDAM_VERSION_MINOR = 16;
 
 - (id) initWithInProtocol: (id <TProtocol>) anInProtocol outProtocol: (id <TProtocol>) anOutProtocol
 {
-  [super init];
-  inProtocol = [anInProtocol retain];
-  outProtocol = [anOutProtocol retain];
+  self = [super init];
+  if (self) {
+      inProtocol = [anInProtocol retain];
+      outProtocol = [anOutProtocol retain];
+  }
   return self;
 }
 
