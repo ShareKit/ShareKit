@@ -167,7 +167,7 @@
 			break;
 	}
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    [self release]; //retained in [self sendText] method
+    [self autorelease]; //retained in [self sendText] method
 }
 
 
