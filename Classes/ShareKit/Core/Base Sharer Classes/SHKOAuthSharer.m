@@ -28,6 +28,7 @@
 #import "SHKOAuthSharer.h"
 #import "SHKOAuthView.h"
 #import "OAuthConsumer.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 
 @implementation SHKOAuthSharer
@@ -298,13 +299,8 @@
 	SHKOAuthSharer *sharer = [[self alloc] init];
 	if (sharer.authorizeURL)
 	{
-		NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-		NSArray *cookies = [storage cookiesForURL:sharer.authorizeURL];
-		for (NSHTTPCookie *each in cookies) 
-		{
-			[storage deleteCookie:each];
-		}
-	}
+		[NSHTTPCookieStorage deleteCookiesForURL:sharer.authorizeURL];
+    }
 	[sharer release];
 }
 
