@@ -72,16 +72,26 @@
 	printer.printInfo = info;
 	printer.showsPageRange = NO;
 	printer.printingItem = item.image;
-	[printer presentAnimated:YES completionHandler:^(UIPrintInteractionController *printer, BOOL completed, NSError *error) {
-			[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-			if (completed) {
-				[self sendDidFinish];
-			}
-			else {
-				[self sendDidFailWithError:error];
-			}
+	UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printer,
+															  BOOL completed, NSError *error) {
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+		if (completed) {
+			[self sendDidFinish];
 		}
-	];
+		else {
+			[self sendDidFailWithError:error];
+		}
+	};
+
+	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+		UIView *view = [SHK currentHelper].rootViewForCustomUIDisplay.view;
+		CGSize viewSize = view.bounds.size;
+		CGRect fromRect = CGRectMake(viewSize.width/2, viewSize.height/2,
+									 viewSize.width, viewSize.height);
+		[printer presentFromRect:fromRect inView:view animated:YES completionHandler:completionHandler];
+	} else {
+		[printer presentAnimated:YES completionHandler:completionHandler];
+	}
 	return YES;
 }
 
