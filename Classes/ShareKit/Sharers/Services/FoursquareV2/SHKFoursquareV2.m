@@ -32,6 +32,7 @@
 #import "SHKConfiguration.h"
 
 #import "NSString+URLEncoding.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 static NSString *authorizeURL = @"https://foursquare.com/oauth2/authenticate";
 static NSString *accessTokenKey = @"accessToken";
@@ -191,15 +192,8 @@ static NSString *accessTokenKey = @"accessToken";
 
 + (void)logout
 {
-	[self deleteStoredAccessToken];
-	
-	// Clear cookies 
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [storage cookiesForURL:[NSURL URLWithString:authorizeURL]];
-    for (NSHTTPCookie *each in cookies) 
-    {
-        [storage deleteCookie:each];
-    }
+	[self deleteStoredAccessToken];	
+    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:authorizeURL]];
 }
 
 #pragma mark -
