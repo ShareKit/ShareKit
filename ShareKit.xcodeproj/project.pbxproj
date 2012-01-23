@@ -689,7 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				43A5368011DBE3B9004A1712 /* Categories */,
-				43A5368711DBE3B9004A1712 /* Crytpo */,
+				43A5368711DBE3B9004A1712 /* Crypto */,
 				43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */,
 				43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */,
 				43A5369011DBE3B9004A1712 /* OAConsumer.h */,
@@ -727,7 +727,7 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		43A5368711DBE3B9004A1712 /* Crytpo */ = {
+		43A5368711DBE3B9004A1712 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
 				43A5368811DBE3B9004A1712 /* Base64Transcoder.c */,
@@ -737,7 +737,7 @@
 				43A5368C11DBE3B9004A1712 /* sha1.c */,
 				43A5368D11DBE3B9004A1712 /* sha1.h */,
 			);
-			path = Crytpo;
+			path = Crypto;
 			sourceTree = "<group>";
 		};
 		43A536AD11DBE3B9004A1712 /* Customize UI */ = {
