@@ -287,10 +287,6 @@
 
 - (void)share
 {
-    if (![self validateItem]) {
-        return; //otherwise self would stay retained forever. 
-    }
-
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
 	if (![self authorize])
 		self.pendingAction = SHKPendingShare;
