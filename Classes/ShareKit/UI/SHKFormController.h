@@ -28,8 +28,9 @@
 #import <UIKit/UIKit.h>
 #import "SHKFormFieldSettings.h"
 #import "SHKCustomFormFieldCell.h"
+#import "SHKFormOptionController.h"
 
-@interface SHKFormController : UITableViewController <UITextFieldDelegate>
+@interface SHKFormController : UITableViewController <UITextFieldDelegate, SHKFormOptionControllerClient>
 {
 	id delegate;
 	SEL validateSelector;
