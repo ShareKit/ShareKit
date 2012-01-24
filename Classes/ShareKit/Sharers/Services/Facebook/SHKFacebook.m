@@ -381,7 +381,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     }
  	else
     {
-        [self tryToSend];
+        [super show];
     }
 }
 
