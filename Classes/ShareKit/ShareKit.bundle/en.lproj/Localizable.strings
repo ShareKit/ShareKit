@@ -107,3 +107,6 @@
 "Sent from %@" = "Sent from %@";
 "Save to Photo Album" = "Save to Photo Album";
 "Tag,Tag" = "Tag,Tag";
+"Sorry, Diigo did not accept your credentials. Please try again." = "Sorry, Diigo did not accept your credentials. Please try again.";
+"Sorry, Diigo encountered an error. Please try again." = "Sorry, Diigo encountered an error. Please try again."
+"There was an error saving to Diigo" = "There was an error saving to Diigo"
