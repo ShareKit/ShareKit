@@ -1,5 +1,5 @@
 //
-//  SHKDelicious.m
+//  SHKDiigo.m
 //  ShareKit
 //
 //  Created by saturngod on 11 Jan 2012
