@@ -108,11 +108,6 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (BOOL)handleOpenURL:(NSURL*)url 
 {
   Facebook *fb = [SHKFacebook facebook];
-  if (! fb.sessionDelegate) {
-    SHKFacebook *sharer = [[[SHKFacebook alloc] init] autorelease];
-    fb.sessionDelegate = sharer;
-      [sharer retain];//FBConnect does not retain its delegates, we must do it. Released in callback.
-  }
   return [fb handleOpenURL:url];
 }
 

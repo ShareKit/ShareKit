@@ -14,5 +14,5 @@
     NSMutableData *data;
     NSHTTPURLResponse *response;
 }
-
+- (NSData*) generateImageData;
 @end

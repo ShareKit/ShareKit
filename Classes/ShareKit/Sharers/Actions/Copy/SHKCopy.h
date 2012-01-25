@@ -32,5 +32,5 @@
 {
 
 }
-
+- (void) placeImageOnPasteboard;
 @end
