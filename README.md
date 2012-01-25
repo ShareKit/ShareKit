@@ -12,6 +12,8 @@ Highlights:
 
 You can follow the initial planning at https://github.com/ideashower/ShareKit/issues/283.
 
+As ShareKit is now community driven, you are welcome to help, to judge new features, review pull requests etc.. There are many ways you can help, see [FAQ](https://github.com/ShareKit/ShareKit/wiki/FAQ)
+
 Documentation
 -------------
 
