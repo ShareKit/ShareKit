@@ -120,6 +120,7 @@
 		AAACE06313CCBED400A2118F /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05713CCBED400A2118F /* LFSiteReachability.m */; };
 		AAACE06413CCBED400A2118F /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
+		B77EBA7114CFC43600216BC5 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = B77EBA7014CFC43600216BC5 /* SHKDelicious.m */; };
 		BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
 		C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
@@ -361,6 +362,8 @@
 		AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSData_LFHTTPFormExtensions.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
+		B77EBA6F14CFC43600216BC5 /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDelicious.h; sourceTree = "<group>"; };
+		B77EBA7014CFC43600216BC5 /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDelicious.m; sourceTree = "<group>"; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKPrint.h; path = Print/SHKPrint.h; sourceTree = "<group>"; };
 		BA465F1E14CC3C5A00B52394 /* SHKPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKPrint.m; path = Print/SHKPrint.m; sourceTree = "<group>"; };
 		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
@@ -817,6 +820,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B77EBA6E14CFC43600216BC5 /* Delicious */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1029,6 +1033,15 @@
 				AAACE06113CCBED400A2118F /* SHKFlickr.m */,
 			);
 			path = Flickr;
+			sourceTree = "<group>";
+		};
+		B77EBA6E14CFC43600216BC5 /* Delicious */ = {
+			isa = PBXGroup;
+			children = (
+				B77EBA6F14CFC43600216BC5 /* SHKDelicious.h */,
+				B77EBA7014CFC43600216BC5 /* SHKDelicious.m */,
+			);
+			path = Delicious;
 			sourceTree = "<group>";
 		};
 		BA465F1C14CC3C5000B52394 /* Print */ = {
@@ -1292,8 +1305,8 @@
 				A57772BD14BA1900003FC744 /* OFUtilities.m in Sources */,
 				A57772BE14BA1900003FC744 /* OFXMLMapper.m in Sources */,
 				AA511B8014C893A10022332B /* SHKFormOptionController.m in Sources */,
-				7A0861D914A36E5A00FF509F /* SHKFormControllerLargeTextField.m in Sources */,
 				BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */,
+				B77EBA7114CFC43600216BC5 /* SHKDelicious.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
