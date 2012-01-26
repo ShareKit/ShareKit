@@ -6,7 +6,7 @@
 	url = git://github.com/johnezang/JSONKit.git
 [submodule "Submodules/sskeychain"]
 	path = Submodules/sskeychain
-	url = git@github.com:samsoffes/sskeychain
+	url = git://github.com/samsoffes/sskeychain.git
 [submodule "Submodules/objectiveflickr"]
 	path = Submodules/objectiveflickr
-	url = git@github.com:lukhnos/objectiveflickr
+	url = git://github.com/lukhnos/objectiveflickr.git
