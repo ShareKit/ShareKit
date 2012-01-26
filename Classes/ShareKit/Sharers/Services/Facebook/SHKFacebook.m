@@ -27,6 +27,7 @@
 
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
+#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
@@ -356,7 +357,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)request:(FBRequest *)request didLoad:(id)result
 {   
-    if ([result objectForKey:@"username"]){        
+    if ([result objectForKey:@"username"]){
+        
+        [result convertNSNullsToEmptyStrings];
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
     }     
 
