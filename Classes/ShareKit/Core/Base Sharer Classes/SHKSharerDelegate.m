@@ -29,7 +29,9 @@
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
-	if (!sharer.quiet)
+    
+    //if user sent the item already but needs to relogin we do need to alert
+    if (!sharer.quiet /*&& !sharer.item.isApprovedByUser*/ && sharer.pendingAction != SHKPendingRelogin)
 	{
 		[[SHKActivityIndicator currentIndicator] hide];
 		
@@ -38,9 +40,9 @@
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
-		
-		if (shouldRelogin)
-			[sharer promptAuthorization];
+    }		
+    if (shouldRelogin) {        
+        [sharer promptAuthorization];
 	}
 }
 

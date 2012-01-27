@@ -47,8 +47,9 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare,
-	SHKPendingRefreshToken
+	SHKPendingShare, //when there is no authentication at all. Set at the beginning of share process, flag while authenticating.
+	SHKPendingRefreshToken, //when OAuth token expires
+    SHKPendingRelogin //when user revokes app's access
 } SHKSharerPendingAction;
 
 

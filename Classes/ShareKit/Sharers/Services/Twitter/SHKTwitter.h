@@ -29,7 +29,7 @@
 #import "SHKOAuthSharer.h"
 #import "SHKFormControllerLargeTextField.h"
 
-@interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate, NSXMLParserDelegate>
 {	
 	BOOL xAuth;		
 }

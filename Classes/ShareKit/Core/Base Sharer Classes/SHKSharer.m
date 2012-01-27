@@ -706,6 +706,7 @@
 
 - (void)sendDidFailShouldRelogin
 {
+    self.pendingAction = SHKPendingRelogin;
 	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
 }
 

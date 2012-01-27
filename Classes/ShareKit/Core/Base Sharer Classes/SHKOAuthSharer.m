@@ -356,6 +356,7 @@
 	switch (pendingAction) 
 	{
 		case SHKPendingRefreshToken:
+        case SHKPendingRelogin:    
 			[self tryToSend]; // try to resend
 			break;
 			
