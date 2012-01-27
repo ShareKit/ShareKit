@@ -357,7 +357,12 @@
 	{
 		case SHKPendingRefreshToken:
         case SHKPendingRelogin:    
-			[self tryToSend]; // try to resend
+			
+            //resend without edit dialogue (user edited already)
+            [self tryToSend]; 
+            
+            //so that we see possible error alerts again, see SHKSharerDelegate
+            self.pendingAction = SHKPendingNone;
 			break;
 			
 		default:			

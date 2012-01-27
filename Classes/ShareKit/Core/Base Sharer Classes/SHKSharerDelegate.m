@@ -30,11 +30,11 @@
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
     
+    [[SHKActivityIndicator currentIndicator] hide];
+
     //if user sent the item already but needs to relogin we do need to alert
     if (!sharer.quiet /*&& !sharer.item.isApprovedByUser*/ && sharer.pendingAction != SHKPendingRelogin)
-	{
-		[[SHKActivityIndicator currentIndicator] hide];
-		
+	{				
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
 									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 									delegate:nil

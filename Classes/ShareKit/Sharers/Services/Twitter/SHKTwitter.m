@@ -31,14 +31,12 @@
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 #import "JSONKit.h"
+#import "SHKXMLResponseParser.h"
 #import "SHKiOS5Twitter.h"
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 @interface SHKTwitter ()
-
-@property (nonatomic, retain) NSMutableDictionary *sendImageXMLResponseError;
-@property (nonatomic, retain) NSMutableString *currentElementValue;
 
 - (BOOL)prepareItem;
 - (BOOL)shortenURL;
@@ -52,15 +50,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 @implementation SHKTwitter
 
-@synthesize xAuth, sendImageXMLResponseError, currentElementValue;
-
-- (void)dealloc {
-    
-    [sendImageXMLResponseError release];
-    [currentElementValue release];
-    
-    [super dealloc];
-}
+@synthesize xAuth;
 
 - (id)init
 {
@@ -730,24 +720,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
     } else {
         
-        //when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse
-        NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:data];
-        xmlParser.delegate = self;        
-        BOOL xmlParsedSuccessfully = [xmlParser parse];        
-
-        if(xmlParsedSuccessfully) {
-            
-            //401 is obsolete credentials, need to relogin
-            if ([[self.sendImageXMLResponseError objectForKey:@"code"] isEqualToString:@"401"]) {
+        //when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
+        if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
                 
                 [self sendDidFailShouldRelogin];
                 return;
             }
         }
-            
+    
         NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
         [self sendDidFailWithError:error];
-    }
 }
 
 - (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict
@@ -761,43 +743,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
         if ([object isKindOfClass:[NSDictionary class]]) {
             [self convertNSNullsToEmptyStrings:object];
         }
-    }
-}
-
-#pragma mark -
-#pragma mark NSXMLParserDelegate
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName
-    attributes:(NSDictionary *)attributeDict {
-    
-    self.currentElementValue = nil;
-    
-    if ([elementName isEqualToString:@"error"]) {        
-                
-        self.sendImageXMLResponseError = [NSMutableDictionary dictionaryWithCapacity:0];
-    }
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
-    
-    if (!self.currentElementValue) {
-        
-        self.currentElementValue = [NSMutableString stringWithString:string];
-        
-    } else {
-        
-        [self.currentElementValue appendString:string];
-    }    
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-  namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    
-    if(![elementName isEqualToString:@"errors"] && ![elementName isEqualToString:@"error"]) {
-        
-        NSString *trimmedElementValue = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
-        [self.sendImageXMLResponseError setValue:trimmedElementValue forKey:elementName];
     }
 }
 
