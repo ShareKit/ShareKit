@@ -74,7 +74,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (OFFlickrAPIContext *)flickrContext
 {
-    if (!flickrContext) {
+    if (!flickrContext || self.pendingAction == SHKPendingRelogin) {
         flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey: SHKCONFIG(flickrConsumerKey) sharedSecret: SHKCONFIG(flickrSecretKey)];
 		
         NSString *authToken = [SHK getAuthValueForKey: kStoredAuthTokenKeyName forSharer:[self sharerId]];
@@ -88,7 +88,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (OFFlickrAPIRequest *)flickrRequest
 {
-	if (!flickrRequest) {
+	if (!flickrRequest || self.pendingAction == SHKPendingRelogin ) {
 		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
 		flickrRequest.delegate = self;	
         [self retain]; //released in request delegate methods, OFFFlickrAPIRequest does not retain its delegate
@@ -286,7 +286,13 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 			[self setAndStoreFlickrAuthToken:[[inResponseDictionary valueForKeyPath:@"auth.token"] textContent]];
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
 			
-			[self share];
+			if (self.pendingAction == SHKPendingRelogin) {                
+                [self tryToSend];
+                self.pendingAction = SHKPendingNone;            
+            }
+            else {                
+                [self share];
+            }
 		}
 		else if (inRequest.sessionInfo == kCheckTokenStep) {
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
@@ -301,10 +307,20 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	if (inRequest.sessionInfo == kGetAuthTokenStep) {
 	}
 	else if (inRequest.sessionInfo == kCheckTokenStep) {
-		[self setAndStoreFlickrAuthToken:nil];
+        
+         [self setAndStoreFlickrAuthToken:nil]; //logout
+        
+        //if user revoked app permissions, we should relogin
+        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+            
+            self.pendingAction = SHKPendingRelogin;
+            [self sendDidFailShouldRelogin];
+            [self autorelease];
+            return;
+        }       
 	}
 	
-	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
+    [self sendDidFailWithError:inError shouldRelogin:NO];
     [self release]; //see [self flickrRequest]
 }
 
