@@ -363,7 +363,7 @@
 	{
 		if ([[args valueForKey:@"shouldRelogin"] isEqualToString:@"1"])
 		{
-			[self sendDidFailShouldRelogin];
+			[self shouldReloginWithPendingAction:SHKPendingNone];
 			return;
 		}
 		

@@ -330,8 +330,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         if ([errorCode isEqualToString:@"401"]) {
             
-            self.pendingAction = SHKPendingRelogin;
-            [self sendDidFailShouldRelogin];
+            [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
             
         } else {
             

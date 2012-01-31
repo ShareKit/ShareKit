@@ -32,8 +32,8 @@
     
     [[SHKActivityIndicator currentIndicator] hide];
 
-    //if user sent the item already but needs to relogin we do need to alert
-    if (!sharer.quiet /*&& !sharer.item.isApprovedByUser*/ && sharer.pendingAction != SHKPendingRelogin)
+    //if user sent the item already but needs to relogin we do not show alert
+    if (!sharer.quiet && sharer.pendingAction != SHKReloginBeforeUserFinishedEditing && sharer.pendingAction != SHKReloginAfterUserFinishedEditing)
 	{				
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
 									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")

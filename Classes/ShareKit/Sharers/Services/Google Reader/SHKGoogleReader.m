@@ -163,8 +163,16 @@ Google Reader API is unoffical, this was hobbled together from:
 		NSString *error = [session objectForKey:@"Error"];
 		NSString *message = nil;
 		
-		if (error != nil)
-			message = [error isEqualToString:@"BadAuthentication"] ? SHKLocalizedString(@"Incorrect username and password") : error;
+		if (error != nil) {
+            
+            if ([error isEqualToString:@"BadAuthentication"]) {
+                [SHKGoogleReader logout];
+                [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+                return;
+            } else {
+                message = error;
+            }
+        }
 		
 		if (message == nil) // TODO - Could use some clearer message here.
 			message = SHKLocalizedString(@"There was an error logging into Google Reader");			
@@ -268,11 +276,21 @@ Google Reader API is unoffical, this was hobbled together from:
 
 - (void)tokenFinished:(SHKRequest *)aRequest
 {	
-	if (aRequest.success)
+	if (aRequest.success) {
+        
 		[self sendWithToken:[request getResult]];
-	
-	else
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem authenticating your account.")]]; // TODO better error handling/message
+    
+    } else {
+  
+		if (aRequest.response.statusCode == 401)
+        {
+            [self shouldReloginWithPendingAction:SHKPendingNone];
+        } 
+        else
+        {
+            [self sendDidFailWithError:[SHK error:[request.headers objectForKey:@"X-Error"]]];
+        }
+    }    
 }
 
 - (void)sendWithToken:(NSString *)token
@@ -310,7 +328,16 @@ Google Reader API is unoffical, this was hobbled together from:
 		[self sendDidFinish];
 	
 	else
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving your note.")]]; // TODO better error handling/message	
+    {
+        if (aRequest.response.statusCode == 401)
+        {
+            [self shouldReloginWithPendingAction:SHKPendingNone];
+        } 
+        else
+        {
+            [self sendDidFailWithError:[SHK error:[request.headers objectForKey:@"X-Error"]]];
+        }
+    }
 }
 
 - (void)shareFormSave:(SHKFormController *)form

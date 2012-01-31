@@ -346,29 +346,4 @@
 	[self tokenAccess:YES];
 }
 
-#pragma mark -
-#pragma mark Pending Actions
-#pragma mark -
-#pragma mark Pending Actions
-
-- (void)tryPendingAction
-{
-	switch (pendingAction) 
-	{
-		case SHKPendingRefreshToken:
-        case SHKPendingRelogin:    
-			
-            //resend without edit dialogue (user edited already)
-            [self tryToSend]; 
-            
-            //so that we see possible error alerts again, see SHKSharerDelegate
-            self.pendingAction = SHKPendingNone;
-			break;
-			
-		default:			
-			[super tryPendingAction];			
-	}
-}
-
-
 @end

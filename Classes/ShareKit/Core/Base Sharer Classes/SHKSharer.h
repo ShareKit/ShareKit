@@ -47,9 +47,10 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare, //when there is no authentication at all. Set at the beginning of share process, flag while authenticating.
+	SHKPendingShare, //when there is no authentication at all (first run of the app or logout). After login share continues.
 	SHKPendingRefreshToken, //when OAuth token expires
-    SHKPendingRelogin //when user revokes app's access
+    SHKReloginAfterUserFinishedEditing, //user revokes app's access and we realize this after user commits the share. After relogin we share silently.    
+    SHKReloginBeforeUserFinishedEditing  //user revokes app's access and we realize this during SHKFormOption enumeration. After relogin user continues editing.
 } SHKSharerPendingAction;
 
 
@@ -59,6 +60,7 @@ typedef enum
 	
 	SHKItem *item;
 	SHKFormController *pendingForm;
+    SHKFormOptionController* curOptionController;
 	SHKRequest *request;
 		
 	NSError *lastError;
@@ -186,7 +188,7 @@ typedef enum
 
 - (void)sendDidStart;
 - (void)sendDidFinish;
-- (void)sendDidFailShouldRelogin;
+- (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action;
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;

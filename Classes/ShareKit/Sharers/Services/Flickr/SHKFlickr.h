@@ -38,7 +38,6 @@
     OFFlickrAPIContext *flickrContext;
 	OFFlickrAPIRequest *flickrRequest;
 	NSString *flickrUserName;
-	SHKFormOptionController* curOptionController;
 	NSString* postedPhotoID;
 	NSArray* fullOptionsData;
 	int postGroupCurIndex;									

@@ -90,7 +90,7 @@
 {
 	if (aRequest.response.statusCode == 401)
 	{
-		[self sendDidFailShouldRelogin];		
+		[self shouldReloginWithPendingAction:SHKPendingNone];		
 		return NO;		
 	} 
 	

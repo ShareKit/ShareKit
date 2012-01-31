@@ -327,15 +327,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[defaults removeObjectForKey:kSHKStoredItemKey];
 	}
 	[defaults synchronize];
-	if (self.item)
-        
-        //if user revoked app permissions, we reshare after login
-        if (self.pendingAction == SHKPendingRelogin) {
-            [self tryToSend];
-        } else {
-            [self share];
-        }
-	[self authDidFinish:true];
+    [self authDidFinish:true];
+	
+    if (self.item)        
+        [self tryPendingAction];
+	
     [self release]; //see [self promptAuthorization]
 }
 
@@ -372,10 +368,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
+    //if user revoked app permissions
     if (error.domain == @"facebookErrDomain" && error.code == 10000) {
-        //self.quiet = YES; //do not show the alert, as sharing will continue and it would mess with FB login windows (SSO or inline).
-        //if user removed app, should relogin
-        [self sendDidFailShouldRelogin];
+        [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
     } else {
         [self sendDidFailWithError:error];
     }
