@@ -27,6 +27,9 @@
 
 #import "SHKFlickr.h"
 #import "SHKConfiguration.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
+
+NSString *kFlickrAuthenticationURL = @"http://flickr.com/services/auth/";
 
 NSString *kStoredAuthTokenKeyName = @"FlickrAuthToken";
 
@@ -100,7 +103,8 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 + (void)logout
 {
-	[SHK removeAuthValueForKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
+    [SHK removeAuthValueForKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
+    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:kFlickrAuthenticationURL]];
 }
 
 - (void)authorizationFormShow 
