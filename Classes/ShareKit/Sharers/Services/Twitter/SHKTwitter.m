@@ -587,7 +587,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	NSURL *serviceURL = nil;
 	if([item customValueForKey:@"profile_update"]){
-		serviceURL = [NSURL URLWithString:@"http://api.twitter.com/1/account/update_profile_image.json"];
+		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/update_profile_image.json"];
 	} else {
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.xml"];
 	}
@@ -595,7 +595,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
 																	consumer:consumer
 																	   token:accessToken
-																	   realm:@"http://api.twitter.com/"
+																	   realm:@"https://api.twitter.com/"
 														   signatureProvider:signatureProvider];
 	[oRequest setHTTPMethod:@"GET"];
 	
@@ -610,11 +610,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		[oRequest release];
 		oRequest = nil;
 		
-		serviceURL = [NSURL URLWithString:@"http://yfrog.com/api/xauth_upload"];
+		serviceURL = [NSURL URLWithString:@"https://yfrog.com/api/xauth_upload"];
 		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
 												   consumer:consumer
 													  token:accessToken
-													  realm:@"http://api.twitter.com/"
+													  realm:@"https://api.twitter.com/"
 										  signatureProvider:signatureProvider];
 		[oRequest setHTTPMethod:@"POST"];
 		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.xml" forHTTPHeaderField:@"X-Auth-Service-Provider"];
@@ -683,7 +683,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		if (startingRange.location != NSNotFound && endingRange.location != NSNotFound) {
 			NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
 			//SHKLog(@"extracted string: %@",urlString);
-			NSLog(@"extracted string: %@",urlString);
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
 			[self sendStatus];
 		}
