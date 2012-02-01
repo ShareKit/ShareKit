@@ -123,7 +123,7 @@
 	return @"";
 }
 // Evernote - http://www.evernote.com/about/developer/api/
-/*	You need to set to sandbox until you get approved by evernote
+/*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
  // Sandbox
  #define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
  #define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
