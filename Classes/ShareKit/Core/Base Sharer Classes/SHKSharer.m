@@ -671,7 +671,7 @@
 	switch (pendingAction) 
 	{
 		case SHKPendingRefreshToken:
-        case SHKReloginAfterUserFinishedEditing:    
+        case SHKPendingSend:    
 			
             //resend silently
             [self tryToSend];
@@ -679,9 +679,8 @@
             //to show alert if reshare finishes with error (see SHKSharerDelegate)
             self.pendingAction = SHKPendingNone;            
             break;        
-        case SHKReloginBeforeUserFinishedEditing:
         case SHKPendingShare:
-            
+                    
             //show UI or autoshare
 			[self share];
             
@@ -731,7 +730,7 @@
 - (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action
 {
     
-    if (action == SHKReloginBeforeUserFinishedEditing) {
+    if (action == SHKPendingShare) {
         
         if (curOptionController) {
             [self popViewControllerAnimated:NO];//dismiss option controller

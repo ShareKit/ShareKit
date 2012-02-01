@@ -370,7 +370,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 {
     //if user revoked app permissions
     if (error.domain == @"facebookErrDomain" && error.code == 10000) {
-        [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+        [self shouldReloginWithPendingAction:SHKPendingSend];
     } else {
         [self sendDidFailWithError:error];
     }

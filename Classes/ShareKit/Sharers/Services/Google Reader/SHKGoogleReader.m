@@ -167,7 +167,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		if (error != nil) {
             
             if ([error isEqualToString:@"BadAuthentication"]) {
-                [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+                [self shouldReloginWithPendingAction:SHKPendingSend];
                 return;
             } else {
                 message = error;
@@ -239,7 +239,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		if (session == nil)
 		{
 			// Login first, then silently share ('normal' share, where credentials were already saved in keychain)
-			self.pendingAction = SHKReloginAfterUserFinishedEditing;            
+			self.pendingAction = SHKPendingSend;            
 			[self getSession:[self getAuthValueForKey:@"email"]
 					password:[self getAuthValueForKey:@"password"]];
 		}

@@ -182,7 +182,7 @@
 	{
 		if (aRequest.response.statusCode == 401)
 		{
-			[self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
 		

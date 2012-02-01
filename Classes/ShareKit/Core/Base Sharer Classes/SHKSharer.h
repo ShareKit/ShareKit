@@ -47,10 +47,9 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare, //when there is no authentication at all (first run of the app or logout). After login share continues.
+	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
 	SHKPendingRefreshToken, //when OAuth token expires
-    SHKReloginAfterUserFinishedEditing, //user revokes app's access and we realize this after user commits the share. After relogin we share silently.    
-    SHKReloginBeforeUserFinishedEditing  //user revokes app's access and we realize this during SHKFormOption enumeration. After relogin user continues editing.
+    SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
 
 

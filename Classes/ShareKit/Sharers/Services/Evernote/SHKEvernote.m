@@ -362,7 +362,7 @@
 	{
 		if ([[args valueForKey:@"shouldRelogin"] isEqualToString:@"1"])
 		{
-			[self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
 		

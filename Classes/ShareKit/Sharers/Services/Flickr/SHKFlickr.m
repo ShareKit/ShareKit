@@ -309,7 +309,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
             
             //after relogin silently share. User edited already.
             self.flickrContext.authToken = nil;
-            [self shouldReloginWithPendingAction:SHKReloginAfterUserFinishedEditing];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
         }
     }
     else if (inRequest.sessionInfo == kGetGroupsStep) {
@@ -319,7 +319,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
             
             //after relogin continue editing
             self.flickrContext.authToken = nil;
-            [self shouldReloginWithPendingAction:SHKReloginBeforeUserFinishedEditing];
+            [self shouldReloginWithPendingAction:SHKPendingShare];
         }    
     }
     else {
