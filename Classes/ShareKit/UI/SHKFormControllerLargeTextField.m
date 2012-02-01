@@ -23,12 +23,14 @@
 @implementation SHKFormControllerLargeTextField
 
 @synthesize delegate, textView, maxTextLength;
-@synthesize counter, hasLink, image, imageTextLength;
+@synthesize counter, hasLink, image, video, imageTextLength;
 
 - (void)dealloc 
 {
 	[textView release];
     [counter release];
+	[image release];
+	[video release];
     [super dealloc];
 }
 
@@ -173,8 +175,14 @@
 		[self layoutCounter];
 	}
 	
-	NSInteger count = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
-	counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
+	NSInteger count = (self.image||self.video?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
+	
+	if (self.image) {
+		counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
+	}
+	else if (self.video) {
+		counter.text = [NSString stringWithFormat:@"%@%i", self.video ? [NSString stringWithFormat:@"Video %@ ",count>0?@"+":@""]:@"", count];
+	}
     
     if (count >= 0) {
         

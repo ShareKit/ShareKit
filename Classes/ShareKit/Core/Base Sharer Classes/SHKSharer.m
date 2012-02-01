@@ -90,6 +90,11 @@
 	return NO;
 }
 
++ (BOOL)canShareVideo
+{
+	return NO;
+}
+
 + (BOOL)canShareFile
 {
 	return NO;
@@ -124,6 +129,9 @@
 			
 		case SHKShareTypeImage:
 			return [self canShareImage];
+		
+		case SHKShareTypeVideo:
+			return [self canShareVideo];
 			
 		case SHKShareTypeText:
 			return [self canShareText];
@@ -233,6 +241,21 @@
 	SHKSharer *controller = [[self alloc] init];
 	controller.item.shareType = SHKShareTypeImage;
 	controller.item.image = image;
+	controller.item.title = title;
+	
+	// share and/or show UI
+	[controller share];
+	
+	return [controller autorelease];
+}
+
++ (id)shareVideo:(NSData *)videoData filename:(NSString *)filename title:(NSString *)title
+{
+	// Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+	controller.item.shareType = SHKShareTypeVideo;
+	controller.item.data = videoData;
+	controller.item.filename = filename;
 	controller.item.title = title;
 	
 	// share and/or show UI
@@ -606,6 +629,9 @@
 			return (item.text != nil);
 			
 		case SHKShareTypeFile:
+			return (item.data != nil);
+			
+		case SHKShareTypeVideo:
 			return (item.data != nil);
             
         case SHKShareTypeUserInfo:

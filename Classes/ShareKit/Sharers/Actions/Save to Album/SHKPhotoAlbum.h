@@ -33,4 +33,5 @@
 
 }
 - (void) writeImageToAlbum;
+- (void) writeVideoToAlbum;
 @end

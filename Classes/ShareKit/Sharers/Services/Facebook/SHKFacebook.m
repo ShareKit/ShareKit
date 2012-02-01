@@ -134,6 +134,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+	return YES;
+}
+
 + (BOOL)canShareOffline
 {
 	return NO; // TODO - would love to make this work
@@ -231,6 +236,22 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		// There does not appear to be a way to add the photo 
 		// via the dialog option:
 		[[SHKFacebook facebook] requestWithGraphPath:@"me/photos"
+										   andParams:params
+									   andHttpMethod:@"POST"
+										 andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+		return YES;
+	}
+	else if (item.shareType == SHKShareTypeVideo)
+	{	
+		if (item.title) 
+			[params setObject:item.title forKey:@"caption"];
+		if (item.text) 
+			[params setObject:item.text forKey:@"message"];
+		[params setObject:item.data forKey:item.filename];
+		[params setObject:item.mimeType forKey:@"contentType"];
+		
+		[[SHKFacebook facebook] requestWithGraphPath:@"me/videos"
 										   andParams:params
 									   andHttpMethod:@"POST"
 										 andDelegate:self];

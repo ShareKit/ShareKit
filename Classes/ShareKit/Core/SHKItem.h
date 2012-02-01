@@ -33,6 +33,7 @@ typedef enum
 	SHKShareTypeURL,
 	SHKShareTypeText,
 	SHKShareTypeImage,
+	SHKShareTypeVideo,
 	SHKShareTypeFile,
     SHKShareTypeUserInfo
 } SHKShareType;
@@ -74,6 +75,7 @@ typedef enum
 
 + (id)URL:(NSURL *)url title:(NSString *)title;
 + (id)image:(UIImage *)image title:(NSString *)title;
++ (id)video:(NSData *)videoData filename:(NSString *)filename title:(NSString *)title;
 + (id)text:(NSString *)text;
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 

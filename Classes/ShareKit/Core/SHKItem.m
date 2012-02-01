@@ -94,6 +94,18 @@
 	return [item autorelease];
 }
 
++ (id)video:(NSData *)videoData filename:(NSString *)filename title:(NSString *)title
+{
+	SHKItem *item = [[self alloc] init];
+	item.shareType = SHKShareTypeVideo;
+	item.data = videoData;
+	item.filename = filename;
+	item.mimeType = @"video/quicktime";
+	item.title = title;
+	
+	return [item autorelease];
+}
+
 + (id)text:(NSString *)text
 {
 	SHKItem *item = [[self alloc] init];
@@ -232,6 +244,9 @@
         case SHKShareTypeImage:
             result = @"SHKShareTypeImage";
             break;
+		case SHKShareTypeVideo:
+            result = @"SHKShareTypeVideo";
+            break;	
         case SHKShareTypeFile:
             result = @"SHKShareTypeFile";
             break;

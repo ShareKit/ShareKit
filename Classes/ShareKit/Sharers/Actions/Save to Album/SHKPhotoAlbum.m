@@ -43,6 +43,11 @@
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+	return YES;
+}
+
 + (BOOL)shareRequiresInternetConnection
 {
 	return NO;
@@ -66,23 +71,57 @@
 #pragma mark -
 #pragma mark Share API Methods
 
+- (void)sendCompleted
+{
+	// Notify delegate, but quietly
+	self.quiet = YES;
+	[self sendDidFinish];
+}
+
 - (BOOL)send
 {	
 	if (item.shareType == SHKShareTypeImage)
 		[self writeImageToAlbum];
-	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
-	
-	// Notify delegate, but quietly
-	self.quiet = YES;
-	[self sendDidFinish];
+	else if (item.shareType == SHKShareTypeVideo) {
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving...")];
+		[self writeVideoToAlbum];
+	}
 	
 	return YES;
 }
 
 - (void) writeImageToAlbum
 {
-	UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
+	UIImageWriteToSavedPhotosAlbum(item.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void) writeVideoToAlbum
+{
+	NSString *tempPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"sharekit_temp_video.m4v"];
+	if ([item.data writeToFile:tempPath atomically:NO]) {
+		UISaveVideoAtPathToSavedPhotosAlbum (tempPath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+	}
+	else {
+		[self sendCompleted];
+	}
+}
+
+- (void)saveCompleteWithError:(NSError *)error
+{
+	if (!error) {
+		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+	}
+	[self sendCompleted];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+	[self saveCompleteWithError:error];
+}
+
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo 
+{
+	[self saveCompleteWithError:error];
 }
 
 

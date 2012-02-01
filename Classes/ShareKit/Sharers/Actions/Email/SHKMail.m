@@ -69,6 +69,11 @@
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+	return YES;
+}
+
 + (BOOL)canShareFile
 {
 	return YES;
