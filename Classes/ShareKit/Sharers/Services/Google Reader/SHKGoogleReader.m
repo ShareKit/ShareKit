@@ -167,8 +167,14 @@ Google Reader API is unoffical, this was hobbled together from:
 		if (error != nil) {
             
             if ([error isEqualToString:@"BadAuthentication"]) {
-                [self shouldReloginWithPendingAction:SHKPendingSend];
-                return;
+                
+                if (self.pendingAction == SHKPendingSend) {
+                    [self shouldReloginWithPendingAction:SHKPendingSend];
+                    return;
+                } else {
+                    message = SHKLocalizedString(@"Incorrect username and password");
+                }
+                
             } else {
                 message = error;
             }

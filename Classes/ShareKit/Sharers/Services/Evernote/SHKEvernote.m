@@ -366,7 +366,8 @@
 			return;
 		}
 		
-		[self sendDidFailWithError:[SHK error:[args valueForKey:@"errorMessage"]]];
+        SHKLog(@"%@",[args valueForKey:@"errorMessage"]);
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")]];
 		return;
 	}
 	
