@@ -423,7 +423,7 @@
 	}	
 		
 	// -- Try to share again
-	[self share];
+	[self tryPendingAction];
 }
 
 - (void)authorizationFormCancel:(SHKFormController *)form
