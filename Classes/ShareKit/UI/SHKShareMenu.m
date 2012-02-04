@@ -59,14 +59,12 @@
 		self.title = SHKLocalizedString(@"Share");
 		
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																							  target:self
-																							  action:@selector(cancel)] autorelease];
+                                                                                               target:self
+                                                                                               action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
-																				  style:UIBarButtonItemStyleBordered
-																				 target:self
-                                                                                  action:@selector(edit)] autorelease];
-		
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                                                target:self
+                                                                                                action:@selector(edit)] autorelease];
 	}
 	return self;
 }
@@ -330,11 +328,9 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
-																				 style:UIBarButtonItemStyleBordered
+	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
 																							  target:self
-																							  action:@selector(edit)] autorelease] animated:YES];
-	
+																							  action:@selector(edit)] autorelease] animated:YES];	
 }
 
 @end

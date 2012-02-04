@@ -17,7 +17,7 @@
 "Note" = "Notiz";
 "Share" = "Teilen";
 "Shared" = "Geteilt";
-"Edit" = "Editieren";
+"Edit" = "Bearbeiten";
 "Actions" = "Aktionen";
 "Services" = "Dienste";
 "Send to %@" = "Zu %@ senden";
@@ -75,12 +75,12 @@
 "There was an error while sharing" = "Beim Teilen trat ein Fehler auf.";
 
 "Could not authenticate you. Please relogin." = "Konnte Sie nicht authentifizieren. Bitte neu einloggen.";
-"There was a problem requesting authorization from %@" = "Beim Abfragen der Authorisation für %@ trat ein Fehler auf.";
+"There was a problem requesting authorization from %@" = "Beim Abfragen der Autorisierung für %@ trat ein Fehler auf.";
 "Request Error" = "Anfragefehler";
 "There was an error while sharing" = "Beim Teilen trat ein Fehler auf.";
 
-"Authorize Error" = "Authorisierungsfehler";
-"There was an error while authorizing" = "Beim Authorisieren trat ein Fehler auf.";
+"Authorize Error" = "Autorisierungsfehler";
+"There was an error while authorizing" = "Beim Autorisieren trat ein Fehler auf.";
 
 "Authenticating..." = "Authentifizieren...";
 "There was a problem requesting access from %@" = "Beim Nachfragen zum Zugang zu %@ trat ein Fehler auf.";
@@ -91,4 +91,6 @@
 "Sharing an Image" = "Teile Bild";
 "Sharing Text" = "Teile Text";
 "Sharing a File" = "Teile Datei";
-"Logout of All Services" = "Aus allen Services ausloggen";
+"Logout of All Services" = "Aus allen Diensten ausloggen";
+"Sent from %@" = "Gesendet von %@";
+"Save to Photo Album" = "In Fotoalbum speichern";
