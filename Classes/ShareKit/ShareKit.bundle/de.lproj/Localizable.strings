@@ -17,7 +17,7 @@
 "Note" = "Notiz";
 "Share" = "Teilen";
 "Shared" = "Geteilt";
-"Edit" = "Editieren";
+"Edit" = "Bearbeiten";
 "Actions" = "Aktionen";
 "Services" = "Dienste";
 "Send to %@" = "Zu %@ senden";
@@ -92,3 +92,5 @@
 "Sharing Text" = "Teile Text";
 "Sharing a File" = "Teile Datei";
 "Logout of All Services" = "Aus allen Services ausloggen";
+"Sent from %@" = "Gesendet von %@";
+"Save to Photo Album" = "In Fotoalbum speichern";
