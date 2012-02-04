@@ -1,12 +1,12 @@
 [submodule "Submodules/facebook-ios-sdk"]
 	path = Submodules/facebook-ios-sdk
-	url = git://github.com/ShareKit/facebook-ios-sdk.git
+	url = https://github.com/ShareKit/facebook-ios-sdk.git
 [submodule "JSONKit"]
 	path = Submodules/JSONKit
-	url = git://github.com/johnezang/JSONKit.git
+	url = https://github.com/johnezang/JSONKit.git
 [submodule "Submodules/sskeychain"]
 	path = Submodules/sskeychain
-	url = git://github.com/samsoffes/sskeychain.git
+	url = https://github.com/samsoffes/sskeychain.git
 [submodule "Submodules/objectiveflickr"]
 	path = Submodules/objectiveflickr
-	url = git://github.com/lukhnos/objectiveflickr.git
+	url = https://github.com/lukhnos/objectiveflickr.git
