@@ -372,17 +372,20 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
-	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
-	
-	[favs removeObject:className];
-	[favs insertObject:className atIndex:0];
-	
-	while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
-		[favs removeLastObject];
-	
-	[self setFavorites:favs forType:type];
-	
-	[favs release];
+    if([SHKCONFIG(reorderSharers) boolValue]) {
+        
+        NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
+        
+        [favs removeObject:className];
+        [favs insertObject:className atIndex:0];
+        
+        while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
+            [favs removeLastObject];
+        
+        [self setFavorites:favs forType:type];
+        
+        [favs release];
+    }
 }
 
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type

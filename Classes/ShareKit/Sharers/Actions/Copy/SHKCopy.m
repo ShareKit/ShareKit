@@ -38,6 +38,11 @@
 	return SHKLocalizedString(@"Copy");
 }
 
++ (BOOL)canShareText
+{
+	return YES;
+}
+
 + (BOOL)canShareURL
 {
 	return YES;
@@ -81,6 +86,8 @@
 		[[UIPasteboard generalPasteboard] setString:item.URL.absoluteString];
 	else if(item.shareType == SHKShareTypeImage)
 		[self placeImageOnPasteboard];
+    else if (item.shareType == SHKShareTypeText)
+        [[UIPasteboard generalPasteboard] setString:item.text];
 	
 	// Notify user
 	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
