@@ -64,6 +64,7 @@
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:self.data];
     xmlParser.delegate = self;        
     self.xmlParsedSuccessfully = [xmlParser parse];
+    [xmlParser release];
 }
 
 #pragma mark -
