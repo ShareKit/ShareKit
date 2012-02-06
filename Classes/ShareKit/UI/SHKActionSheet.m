@@ -90,9 +90,14 @@
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
-{
+{    
     NSInteger numberOfSharers = (NSInteger) [sharers count];
 
+    if (buttonIndex == self.cancelButtonIndex) {
+        [super dismissWithClickedButtonIndex:buttonIndex animated:animated];
+        return;
+    }
+    
 	// Sharers
 	if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
 	{
