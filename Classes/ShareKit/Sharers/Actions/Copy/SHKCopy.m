@@ -38,6 +38,11 @@
 	return SHKLocalizedString(@"Copy");
 }
 
++ (BOOL)canShareText
+{
+	return YES;
+}
+
 + (BOOL)canShareURL
 {
 	return YES;
