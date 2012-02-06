@@ -274,6 +274,10 @@
 	return [NSNumber numberWithInt:3];
 }
 
+- (NSNumber*)reorderSharers {
+    return [NSNumber numberWithBool:true];
+}
+
 - (NSString*)favsPrefixKey {
 	return @"SHK_FAVS_";
 }
