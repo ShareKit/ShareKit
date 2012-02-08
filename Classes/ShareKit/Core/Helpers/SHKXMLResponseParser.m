@@ -17,6 +17,7 @@
 
 - (id)initWithData:(NSData *)responseData;
 - (void)parse;
+- (NSString *)findRecursivelyValueForKey:(NSString *)searchedKey inDict:(NSDictionary *)dictionary;
 
 @end
 
@@ -50,13 +51,32 @@
     
     NSString *result;    
     if (shkParser.xmlParsedSuccessfully) {
-        result = [shkParser.parsedResponse objectForKey:element];
+        result = [shkParser findRecursivelyValueForKey:element inDict:shkParser.parsedResponse];
     } else {
         result = nil;
     }
     [shkParser release];
 
     return result;    
+}
+
+- (NSString *)findRecursivelyValueForKey:(NSString *)searchedKey inDict:(NSDictionary *)dictionary {
+    
+    __block NSString *result = nil;
+    
+    [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop){
+        
+        if ([key isEqualToString:searchedKey]) {
+            result = obj;
+            *stop = YES;
+            
+        } else if ([obj isKindOfClass:[NSDictionary class]]) {
+            result = [self findRecursivelyValueForKey:searchedKey inDict:obj];           
+            
+        }
+    }];
+    
+    return result;
 }
 
 - (void)parse {
@@ -76,9 +96,12 @@
     
     self.currentElementValue = nil;
     
-    if ([elementName isEqualToString:@"error"]) {        
-        
+    if (!self.parsedResponse) {
         self.parsedResponse = [NSMutableDictionary dictionaryWithCapacity:0];
+    } 
+    
+    if (attributeDict) {
+        [self.parsedResponse setObject:attributeDict forKey:elementName];
     }
 }
 
@@ -99,8 +122,10 @@
     
     if(![elementName isEqualToString:@"errors"] && ![elementName isEqualToString:@"error"]) {
         
-        NSString *trimmedElementValue = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
-        [self.parsedResponse setValue:trimmedElementValue forKey:elementName];
+        NSString *trimmedElementValue = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];        
+        if (trimmedElementValue) {
+            [self.parsedResponse setValue:trimmedElementValue forKey:elementName];
+        }        
     }
 }
 

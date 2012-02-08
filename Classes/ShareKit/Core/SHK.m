@@ -663,6 +663,7 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
     string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
 	
 	return string;	
 }
