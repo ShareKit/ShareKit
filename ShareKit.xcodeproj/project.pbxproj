@@ -113,6 +113,7 @@
 		A57772BC14BA1900003FC744 /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B714BA1900003FC744 /* ObjectiveFlickr.m */; };
 		A57772BD14BA1900003FC744 /* OFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B914BA1900003FC744 /* OFUtilities.m */; };
 		A57772BE14BA1900003FC744 /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
+		A7470F8A14E2BF2B0015477A /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382611DBE480004A1712 /* example.pdf */; };
 		AA511B8014C893A10022332B /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
 		AAACE01B13CCB1F500A2118F /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
 		AAACE01C13CCB1F500A2118F /* LegacySHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01813CCB1F500A2118F /* LegacySHKConfigurator.m */; };
@@ -347,6 +348,7 @@
 		A57772B914BA1900003FC744 /* OFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFUtilities.m; sourceTree = "<group>"; };
 		A57772BA14BA1900003FC744 /* OFXMLMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFXMLMapper.h; sourceTree = "<group>"; };
 		A57772BB14BA1900003FC744 /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
+		A7470F8914E2BF2B0015477A /* zh_TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_TW; path = ShareKit.bundle/zh_TW.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7FEAC0814E27F5000D481E9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = ShareKit.bundle/cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7FEAC0914E27F5000D481E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ShareKit.bundle/de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A7FEAC0A14E27F5000D481E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ShareKit.bundle/en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				ru,
 				sk,
 				sv,
+				zh_TW,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1203,6 +1206,7 @@
 				4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */,
 				90E765A61418F2480026B656 /* ShareKit.bundle in Resources */,
 				7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */,
+				A7470F8A14E2BF2B0015477A /* example.pdf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1350,6 +1354,7 @@
 				A7FEAC1514E27F5000D481E9 /* sv */,
 				A7FEAC1614E27F5000D481E9 /* vi */,
 				A7FEAC1714E27F5000D481E9 /* zh_CN */,
+				A7470F8914E2BF2B0015477A /* zh_TW */,
 			);
 			name = Localizable.strings;
 			path = Classes/ShareKit;
