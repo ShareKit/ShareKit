@@ -347,6 +347,22 @@
 		A57772B914BA1900003FC744 /* OFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFUtilities.m; sourceTree = "<group>"; };
 		A57772BA14BA1900003FC744 /* OFXMLMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFXMLMapper.h; sourceTree = "<group>"; };
 		A57772BB14BA1900003FC744 /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
+		A7FEAC0814E27F5000D481E9 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = ShareKit.bundle/cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0914E27F5000D481E9 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = ShareKit.bundle/de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0A14E27F5000D481E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ShareKit.bundle/en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0B14E27F5000D481E9 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = ShareKit.bundle/es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0C14E27F5000D481E9 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = ShareKit.bundle/eu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0D14E27F5000D481E9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = ShareKit.bundle/fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0E14E27F5000D481E9 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = ShareKit.bundle/it.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC0F14E27F5000D481E9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ShareKit.bundle/ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1014E27F5000D481E9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ShareKit.bundle/ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1114E27F5000D481E9 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = ShareKit.bundle/nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1214E27F5000D481E9 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = ShareKit.bundle/no.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1314E27F5000D481E9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ShareKit.bundle/ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1414E27F5000D481E9 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = ShareKit.bundle/sk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1514E27F5000D481E9 /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = ShareKit.bundle/sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1614E27F5000D481E9 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = ShareKit.bundle/vi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		A7FEAC1714E27F5000D481E9 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = ShareKit.bundle/zh_CN.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA511B7E14C893A10022332B /* SHKFormOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormOptionController.h; sourceTree = "<group>"; };
 		AA511B7F14C893A10022332B /* SHKFormOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormOptionController.m; sourceTree = "<group>"; };
 		AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurator.h; sourceTree = "<group>"; };
@@ -459,6 +475,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A7FEAC0714E27F5000D481E9 /* Localizable.strings */,
 				43A5382611DBE480004A1712 /* example.pdf */,
 				43A5382711DBE480004A1712 /* sanFran.jpg */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
@@ -1155,6 +1172,13 @@
 				eu,
 				fr,
 				ko,
+				cs,
+				es,
+				it,
+				no,
+				ru,
+				sk,
+				sv,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1305,6 +1329,33 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A7FEAC0714E27F5000D481E9 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7FEAC0814E27F5000D481E9 /* cs */,
+				A7FEAC0914E27F5000D481E9 /* de */,
+				A7FEAC0A14E27F5000D481E9 /* en */,
+				A7FEAC0B14E27F5000D481E9 /* es */,
+				A7FEAC0C14E27F5000D481E9 /* eu */,
+				A7FEAC0D14E27F5000D481E9 /* fr */,
+				A7FEAC0E14E27F5000D481E9 /* it */,
+				A7FEAC0F14E27F5000D481E9 /* ja */,
+				A7FEAC1014E27F5000D481E9 /* ko */,
+				A7FEAC1114E27F5000D481E9 /* nl */,
+				A7FEAC1214E27F5000D481E9 /* no */,
+				A7FEAC1314E27F5000D481E9 /* ru */,
+				A7FEAC1414E27F5000D481E9 /* sk */,
+				A7FEAC1514E27F5000D481E9 /* sv */,
+				A7FEAC1614E27F5000D481E9 /* vi */,
+				A7FEAC1714E27F5000D481E9 /* zh_CN */,
+			);
+			name = Localizable.strings;
+			path = Classes/ShareKit;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
