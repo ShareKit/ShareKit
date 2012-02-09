@@ -61,14 +61,14 @@
 	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
 	webView.delegate = self;
 	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"sample_iPod.m4v"]]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"IMG_0458.m4v"]]]];
 	
 	self.view = webView;
 }
 
 - (void)share
 {
-	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"sample_iPod.m4v"];
+	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"IMG_0458.m4v"];
 	NSData *videoFile = [NSData dataWithContentsOfFile:filePath];
 	
 	SHKItem *item = [SHKItem video:videoFile filename:@"cool_video.m4v" title:@"Cool video"];

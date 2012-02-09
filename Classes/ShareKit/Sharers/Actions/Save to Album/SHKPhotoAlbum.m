@@ -45,7 +45,12 @@
 
 + (BOOL)canShareVideo
 {
-	return YES;
+	NSString *tempPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"sharekit_temp_video.m4v"];
+	if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(tempPath)) {
+		return YES;
+	}
+
+	return NO;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -98,7 +103,7 @@
 - (void) writeVideoToAlbum
 {
 	NSString *tempPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"sharekit_temp_video.m4v"];
-	if ([item.data writeToFile:tempPath atomically:NO]) {
+	if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(tempPath)) {
 		UISaveVideoAtPathToSavedPhotosAlbum (tempPath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
 	}
 	else {
@@ -110,6 +115,9 @@
 {
 	if (!error) {
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+	}
+	else {
+		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Error")];
 	}
 	[self sendCompleted];
 }

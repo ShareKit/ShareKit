@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011C7F1514E3F001008B304B /* IMG_0458.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 011C7F1414E3F001008B304B /* IMG_0458.m4v */; };
 		015F155514D87F39005BF730 /* ExampleShareVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 015F155414D87F39005BF730 /* ExampleShareVideo.m */; };
-		015F155D14D89272005BF730 /* sample_iPod.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 015F155C14D89272005BF730 /* sample_iPod.m4v */; };
 		1913BF76138FF6A800AAD620 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -142,9 +142,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		011C7F1414E3F001008B304B /* IMG_0458.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0458.m4v; sourceTree = "<group>"; };
 		015F155314D87F39005BF730 /* ExampleShareVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleShareVideo.h; path = Example/ExampleShareVideo.h; sourceTree = "<group>"; };
 		015F155414D87F39005BF730 /* ExampleShareVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleShareVideo.m; path = Example/ExampleShareVideo.m; sourceTree = "<group>"; };
-		015F155C14D89272005BF730 /* sample_iPod.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = sample_iPod.m4v; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* ShareKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -464,7 +464,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				015F155C14D89272005BF730 /* sample_iPod.m4v */,
+				011C7F1414E3F001008B304B /* IMG_0458.m4v */,
 				43A5382611DBE480004A1712 /* example.pdf */,
 				43A5382711DBE480004A1712 /* sanFran.jpg */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
@@ -1185,7 +1185,7 @@
 				4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */,
 				90E765A61418F2480026B656 /* ShareKit.bundle in Resources */,
 				7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */,
-				015F155D14D89272005BF730 /* sample_iPod.m4v in Resources */,
+				011C7F1514E3F001008B304B /* IMG_0458.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
