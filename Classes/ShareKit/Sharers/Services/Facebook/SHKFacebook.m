@@ -153,6 +153,26 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 }
 
 #pragma mark -
+#pragma mark Share Form
+
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type{	
+    if([self.item shareType] == SHKShareTypeImage &&	// this retains no UI for those that know the
+	   item.text == nil &&	 item.title == nil)			// caption on the way in.
+	  
+	{
+		return [NSMutableArray arrayWithObjects:
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
+										key:@"user_caption"
+									   type:SHKFormFieldTypeText
+									  start:nil],
+				nil
+				];		
+	}else {
+		return [super shareFormFieldsForType:type];
+	}
+	
+}
+#pragma mark -
 #pragma mark Authentication
 
 - (BOOL)isAuthorized
@@ -177,7 +197,20 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	
 	[[SHKFacebook facebook] setSessionDelegate:self];
     [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-	[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil]];		
+
+	/*	if you want to set custom permissions, add a string object for the custom key
+		auth_permissions like this...
+
+		[item setCustomValue:@"publish_stream,offline_access" forKey:@"auth_permissions"];
+	 */
+
+	if ([item customValueForKey:@"auth_permissions"]) {
+		NSString* customPermissionsStr = [item customValueForKey:@"auth_permissions"];
+		NSArray* customPermissions = [customPermissionsStr componentsSeparatedByString:@","];
+		[[SHKFacebook facebook] authorize:customPermissions];		
+	}else{
+		[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil]];		
+	}
 }
 
 + (void)logout
@@ -189,6 +222,19 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 #pragma mark -
 #pragma mark Share API Methods
+// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
+- (BOOL)validateItem
+{ 
+	// no specified caption for image supress this with @"" for a val
+    if (item.shareType == SHKShareTypeImage && 
+		item.text == nil && 
+		item.title == nil && 
+		[item customValueForKey:@"user_caption"] == nil) {
+        return NO;
+    };
+    
+    return [super validateItem];
+}
 
 - (BOOL)send
 {			
@@ -222,7 +268,18 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
         return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
-	{	
+	{
+		/*	troppoli 2/10/2012 - Facebook is a moving target at best...
+			it would seem that the message param is the dominant param
+			for setting a caption. If you set both, you'll only see message.
+		 
+			None of the action link stuff is displayed.
+		 */
+		
+		// no specified caption supress this with @"" for a val
+		if (item.text == nil  && item.title == nil) {
+			item.text = [item customValueForKey:@"user_caption"];
+		}
 		if (item.title) 
 			[params setObject:item.title forKey:@"caption"];
 		if (item.text) 
