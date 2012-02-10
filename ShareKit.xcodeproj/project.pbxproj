@@ -97,6 +97,7 @@
 		7A89681D14C80F9900DB07AF /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
 		7AA40554146F0EFF00685C81 /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
+		7AB5FAB514D30AC700795BA9 /* SHKXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */; };
 		7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AC22D1B14580A2000126878 /* FBDialog.bundle */; };
 		7AC22D3414580A2000126878 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
 		7AC22D3514580A2000126878 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
@@ -312,6 +313,8 @@
 		7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomActionSheet.m; sourceTree = "<group>"; };
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
+		7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKXMLResponseParser.h; sourceTree = "<group>"; };
+		7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKXMLResponseParser.m; sourceTree = "<group>"; };
 		7AC22D1B14580A2000126878 /* FBDialog.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FBDialog.bundle; sourceTree = "<group>"; };
 		7AC22D1D14580A2000126878 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		7AC22D1E14580A2000126878 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
@@ -624,7 +627,6 @@
 				43A536B511DBE3B9004A1712 /* Sharers */,
 				43A536ED11DBE3B9004A1712 /* UI */,
 				43A536B211DBE3B9004A1712 /* Reachability */,
-				F92EF477148E8F1A0070F913 /* JSONKit */,
 				90E765A51418F2480026B656 /* ShareKit.bundle */,
 			);
 			path = ShareKit;
@@ -676,10 +678,13 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				F92EF477148E8F1A0070F913 /* JSONKit */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
 				43A536A411DBE3B9004A1712 /* SHKRequest.h */,
 				43A536A511DBE3B9004A1712 /* SHKRequest.m */,
+				7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */,
+				7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -1300,6 +1305,7 @@
 				A57772BE14BA1900003FC744 /* OFXMLMapper.m in Sources */,
 				AA511B8014C893A10022332B /* SHKFormOptionController.m in Sources */,
 				BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */,
+				7AB5FAB514D30AC700795BA9 /* SHKXMLResponseParser.m in Sources */,
 				7A333EE514CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
