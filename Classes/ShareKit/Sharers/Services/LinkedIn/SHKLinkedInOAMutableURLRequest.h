@@ -28,6 +28,7 @@
 
 @interface SHKLinkedInOAMutableURLRequest : OAMutableURLRequest {
     NSString *callback;
+    NSMutableDictionary *extraOAuthParameters;
 }
 
 - (id)initWithURL:(NSURL *)aUrl
@@ -45,5 +46,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
             nonce:(NSString *)aNonce
         timestamp:(NSString *)aTimestamp
          callback:(NSString*)aCallback;
+
+- (void)setOAuthParameterName:(NSString*)parameterName withValue:(NSString*)parameterValue;
 
 @end

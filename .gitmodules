@@ -10,3 +10,6 @@
 [submodule "Submodules/objectiveflickr"]
 	path = Submodules/objectiveflickr
 	url = https://github.com/lukhnos/objectiveflickr.git
+[submodule "Submodules/oauthconsumer"]
+	path = Submodules/oauthconsumer
+	url = git@github.com:tomquist/oauthconsumer.git
