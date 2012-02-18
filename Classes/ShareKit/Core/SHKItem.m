@@ -94,6 +94,22 @@
 	return [item autorelease];
 }
 
++ (id)video:(NSData *)videoData filename:(NSString *)filename title:(NSString *)title
+{
+	SHKItem *item = [[self alloc] init];
+	item.shareType = SHKShareTypeVideo;
+	item.data = videoData;
+	item.filename = filename;
+	item.mimeType = @"video/quicktime";
+	item.title = title;
+	
+	// Saving to disk is only needed for sharing to camera roll so the video can be checked before we attempt to blindly save.
+	NSString *tempPath = [NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), @"sharekit_temp_video.m4v"];
+	[item.data writeToFile:tempPath atomically:NO];
+	
+	return [item autorelease];
+}
+
 + (id)text:(NSString *)text
 {
 	SHKItem *item = [[self alloc] init];
@@ -232,6 +248,9 @@
         case SHKShareTypeImage:
             result = @"SHKShareTypeImage";
             break;
+		case SHKShareTypeVideo:
+            result = @"SHKShareTypeVideo";
+            break;	
         case SHKShareTypeFile:
             result = @"SHKShareTypeFile";
             break;

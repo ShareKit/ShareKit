@@ -101,6 +101,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+	return [SHKCONFIG(twitterSupportVideo) boolValue];
+}
+
 + (BOOL)canGetUserInfo
 {
     return YES;
@@ -139,11 +144,15 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (BOOL)twitterFrameworkAvailable {
     
     BOOL result = NO;
-    
+	
     if (NSClassFromString(@"TWTweetComposeViewController")) {
         result = YES;
     }
     
+	if ([SHKCONFIG(twitterSupportVideo) boolValue] == TRUE) {
+		result = NO;
+	}
+	
     return result;
 }
 
@@ -159,6 +168,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 	
 	else if (item.shareType == SHKShareTypeImage)
+	{
+		[item setCustomValue:item.title forKey:@"status"];
+	}
+	
+	else if (item.shareType == SHKShareTypeVideo)
 	{
 		[item setCustomValue:item.title forKey:@"status"];
 	}
@@ -287,6 +301,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		[self showTwitterForm];
 	}
 	
+	else if (item.shareType == SHKShareTypeVideo)
+	{
+		[self showTwitterForm];
+	}
+	
 	else if (item.shareType == SHKShareTypeText)
 	{
 		[self showTwitterForm];
@@ -308,7 +327,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	rootView.textView.text = [item customValueForKey:@"status"];
     rootView.maxTextLength = 140;
-	rootView.image = item.image;
+	if (item.image != nil) 
+        rootView.image = item.image;
+	else if (item.data != nil)
+        rootView.video = item.data;
+    
     rootView.imageTextLength = 25;
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
@@ -423,6 +446,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
         case SHKShareTypeImage:            
             [self sendImage];
             break;
+			
+		case SHKShareTypeVideo:            
+            [self sendVideo];
+            break;
             
         case SHKShareTypeUserInfo:            
             [self sendUserInfo];
@@ -531,13 +558,39 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[self sendDidFailWithError:error];
 }
 
-- (void)sendImage {
+- (void)sendImage 
+{
+    CGFloat compression = 0.9f;
+	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
+	
+	// TODO
+	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
+	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
+	// to an appropriate size (max of img.ly) and then start trying to compress.
+    // If anyone can actually tell me the max size of an imahe in yFrog I'm happy to do this. @whalec
+	
+	while ([imageData length] > 700000 && compression > 0.1) {
+		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
+		compression -= 0.1;
+		imageData = UIImageJPEGRepresentation([item image], compression);
+	}
+    
+    [self sendData:imageData withFilename:@"upload.jpg" withMimeType:@"image/jpeg"];
+}
+
+- (void)sendVideo 
+{
+    [self sendData:item.data withFilename:item.filename withMimeType:item.mimeType];
+}
+
+- (void)sendData:(NSData *)data withFilename:(NSString *)filename withMimeType:(NSString *)mimeType 
+{
 	
 	NSURL *serviceURL = nil;
 	if([item customValueForKey:@"profile_update"]){
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/update_profile_image.json"];
 	} else {
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
+		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.xml"];
 	}
 	
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
@@ -558,31 +611,17 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		[oRequest release];
 		oRequest = nil;
 		
-		serviceURL = [NSURL URLWithString:@"http://img.ly/api/2/upload.xml"];
+		serviceURL = [NSURL URLWithString:@"https://yfrog.com/api/xauth_upload"];
 		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
 												   consumer:consumer
 													  token:accessToken
 													  realm:@"https://api.twitter.com/"
 										  signatureProvider:signatureProvider];
 		[oRequest setHTTPMethod:@"POST"];
-		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
+		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.xml" forHTTPHeaderField:@"X-Auth-Service-Provider"];
 		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
 	}
 	
-	CGFloat compression = 0.9f;
-	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
-	
-	// TODO
-	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
-	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
-	// to an appropriate size (max of img.ly) and then start trying to compress.
-	
-	while ([imageData length] > 700000 && compression > 0.1) {
-		// SHKLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
-		compression -= 0.1;
-		imageData = UIImageJPEGRepresentation([item image], compression);
-		
-	}
 	
 	NSString *boundary = @"0xKhTmLbOuNdArY";
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
@@ -591,16 +630,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	NSMutableData *body = [NSMutableData data];
 	NSString *dispKey = @"";
 	if([item customValueForKey:@"profile_update"]){
-		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
+		dispKey = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"image\"; filename=\"%@\"\r\n", filename];
 	} else {
-		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
+		dispKey = [NSString stringWithFormat:@"Content-Disposition: form-data; name=\"media\"; filename=\"%@\"\r\n", filename];
 	}
 	
-	
+	NSString *mimeT = [NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mimeType];
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:imageData];
+	[body appendData:[mimeT dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:data];
 	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	
 	if([item customValueForKey:@"profile_update"]){
@@ -623,25 +662,23 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																						  delegate:self
-																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
-	
+																				 didFinishSelector:@selector(sendDataTicket:didFinishWithData:)
+																				   didFailSelector:@selector(sendDataTicket:didFailWithError:)];	
 	[fetcher start];
 	
 	
 	[oRequest release];
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+- (void)sendDataTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
 	// TODO better error handling here
 	// SHKLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-	
 	if (ticket.didSucceed) {
 		// Finished uploading Image, now need to posh the message and url in twitter
 		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
+		NSRange startingRange = [dataString rangeOfString:@"<mediaurl>" options:NSCaseInsensitiveSearch];
 		//SHKLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
-		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
+		NSRange endingRange = [dataString rangeOfString:@"</mediaurl>" options:NSCaseInsensitiveSearch];
 		//SHKLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
 		
 		if (startingRange.location != NSNotFound && endingRange.location != NSNotFound) {
@@ -659,7 +696,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
+- (void)sendDataTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
 	[self sendDidFailWithError:error];
 }
 

@@ -43,6 +43,7 @@
 + (NSString *)sharerTitle { return @"Evernote"; }
 + (BOOL)canShareURL   { return YES; }
 + (BOOL)canShareImage { return YES; }
++ (BOOL)canShareVideo { return YES; }
 + (BOOL)canShareText  { return YES; }
 + (BOOL)canShareFile  { return YES; }
 + (BOOL)requiresAuthentication { return YES; }

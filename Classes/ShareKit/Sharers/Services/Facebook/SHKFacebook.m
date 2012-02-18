@@ -38,7 +38,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (Facebook*)facebook;
 + (void)flushAccessToken;
 + (NSString *)storedImagePath:(UIImage*)image;
++ (NSString *)storedVideoPath:(NSData*)video;
 + (UIImage*)storedImage:(NSString*)imagePath;
++ (NSData*)storedVideo:(NSString*)videoPath;
 - (void)showFacebookForm;
 
 @end
@@ -94,6 +96,26 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	return imagePath;
 }
 
++ (NSString *)storedVideoPath:(NSData*)video
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *cache = [paths objectAtIndex:0];
+	NSString *videoPath = [cache stringByAppendingPathComponent:@"SHKVideo"];
+	
+	// Check if the path exists, otherwise create it
+	if (![fileManager fileExistsAtPath:videoPath]) 
+		[fileManager createDirectoryAtPath:videoPath withIntermediateDirectories:YES attributes:nil error:nil];
+	
+	NSString *uid = [NSString stringWithFormat:@"video-%i-%i", [[NSDate date] timeIntervalSince1970], arc4random()];    
+	// store image in cache
+
+	videoPath = [videoPath stringByAppendingPathComponent:uid];
+	[video writeToFile:videoPath atomically:YES];
+	
+	return videoPath;
+}
+
 + (UIImage*)storedImage:(NSString*)imagePath {
   NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
   UIImage *image = nil;
@@ -103,6 +125,14 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
   // Unlink the stored file:
   [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
   return image;
+}
+
++ (NSData*)storedVideo:(NSString*)videoPath {
+	NSData *videoData = [NSData dataWithContentsOfFile:videoPath];
+
+	// Unlink the stored file:
+	[[NSFileManager defaultManager] removeItemAtPath:videoPath error:nil];
+	return videoData;
 }
 
 + (BOOL)handleOpenURL:(NSURL*)url 
@@ -130,6 +160,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 }
 
 + (BOOL)canShareImage
+{
+	return YES;
+}
+
++ (BOOL)canShareVideo
 {
 	return YES;
 }
@@ -172,6 +207,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	if (item.image)
 	{
 		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+	}
+	else if (item.shareType == SHKShareTypeVideo && item.data) {
+		[itemRep setObject:[SHKFacebook storedVideoPath:item.data] forKey:@"videoPath"];
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
 	
@@ -231,6 +269,22 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		// There does not appear to be a way to add the photo 
 		// via the dialog option:
 		[[SHKFacebook facebook] requestWithGraphPath:@"me/photos"
+										   andParams:params
+									   andHttpMethod:@"POST"
+										 andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+		return YES;
+	}
+	else if (item.shareType == SHKShareTypeVideo)
+	{	
+		if (item.title) 
+			[params setObject:item.title forKey:@"caption"];
+		if (item.text) 
+			[params setObject:item.text forKey:@"message"];
+		[params setObject:item.data forKey:item.filename];
+		[params setObject:item.mimeType forKey:@"contentType"];
+		
+		[[SHKFacebook facebook] requestWithGraphPath:@"me/videos"
 										   andParams:params
 									   andHttpMethod:@"POST"
 										 andDelegate:self];
@@ -321,8 +375,12 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	{
 		self.item = [SHKItem itemFromDictionary:storedItem];
 		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+		NSString *videoPath = [storedItem objectForKey:@"videoPath"];
 		if (imagePath) {
 			self.item.image = [SHKFacebook storedImage:imagePath];
+		}
+		else if (videoPath) {
+			self.item.data = [SHKFacebook storedVideo:videoPath];
 		}
 		[defaults removeObjectForKey:kSHKStoredItemKey];
 	}

@@ -91,6 +91,7 @@ typedef enum
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
++ (BOOL)canShareVideo;
 + (BOOL)canShareFile;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
@@ -123,6 +124,7 @@ typedef enum
 + (id)shareURL:(NSURL *)url title:(NSString *)title;
 
 + (id)shareImage:(UIImage *)image title:(NSString *)title;
++ (id)shareVideo:(NSData *)videoData filename:(NSString *)filename title:(NSString *)title;
 
 + (id)shareText:(NSString *)text;
 

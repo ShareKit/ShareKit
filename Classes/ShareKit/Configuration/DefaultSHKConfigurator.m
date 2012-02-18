@@ -122,6 +122,10 @@
 - (NSString*)twitterUsername {
 	return @"";
 }
+// Use old-style SHKTwitter for iOS5 in order to support video uploads
+- (NSNumber*)twitterSupportVideo {
+	return [NSNumber numberWithBool:TRUE];
+}
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
  // Sandbox
