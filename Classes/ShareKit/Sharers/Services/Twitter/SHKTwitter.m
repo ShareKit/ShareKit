@@ -31,6 +31,7 @@
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 #import "JSONKit.h"
+#import "SHKXMLResponseParser.h"
 #import "SHKiOS5Twitter.h"
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
@@ -648,7 +649,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 			//SHKLog(@"extracted string: %@",urlString);
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
 			[self sendStatus];
-		}
+		} else {
+            [self handleUnsuccessfulTicket:data];
+        }
 		
 		
 	} else {
@@ -710,16 +713,23 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
     }
     
     
-    // this is the error message for revoked access
-    if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."])
-    {
-        [self sendDidFailShouldRelogin];
-    }
-    else 
-    {
+    // this is the error message for revoked access ...?... || removed app from Twitter
+    if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."]) {
+        
+        [self shouldReloginWithPendingAction:SHKPendingSend];
+
+    } else {
+        
+        //when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
+        if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
+                
+                [self shouldReloginWithPendingAction:SHKPendingSend];
+                return;
+            }
+        }
+    
         NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
         [self sendDidFailWithError:error];
-    }
 }
 
 - (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict

@@ -26,7 +26,6 @@
 @interface SHKEvernote(private)
 
 - (void)authFinished:(BOOL)success;
-- (void)sendFinished:(BOOL)success;
 - (void)_authFinished:(NSDictionary *)args;
 - (void)_sendFinished:(NSDictionary *)args;
 - (void)_authorizationFormValidate:(NSDictionary *)args;
@@ -363,24 +362,16 @@
 	{
 		if ([[args valueForKey:@"shouldRelogin"] isEqualToString:@"1"])
 		{
-			[self sendDidFailShouldRelogin];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
 		
-		[self sendDidFailWithError:[SHK error:[args valueForKey:@"errorMessage"]]];
+        SHKLog(@"%@",[args valueForKey:@"errorMessage"]);
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")]];
 		return;
 	}
 	
 	[self sendDidFinish];
-}
-
-
-- (void)sendFinished:(BOOL)success {	
-	if (success) {
-		[self sendDidFinish];
-	} else {
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")] shouldRelogin:NO];
-	}
 }
 
 @end

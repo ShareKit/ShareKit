@@ -290,7 +290,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 			[self setAndStoreFlickrAuthToken:[[inResponseDictionary valueForKeyPath:@"auth.token"] textContent]];
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
 			
-			[self share];
+			[self tryPendingAction];
 		}
 		else if (inRequest.sessionInfo == kCheckTokenStep) {
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
@@ -302,14 +302,31 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-	if (inRequest.sessionInfo == kGetAuthTokenStep) {
-	}
-	else if (inRequest.sessionInfo == kCheckTokenStep) {
-		[self setAndStoreFlickrAuthToken:nil];
-	}
-	
-	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
-    [self release]; //see [self flickrRequest]
+	if (inRequest.sessionInfo == kCheckTokenStep) {
+        
+        //if user revoked app permissions, we should relogin
+        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+            
+            //after relogin silently share. User edited already.
+            self.flickrContext.authToken = nil;
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+        }
+    }
+    else if (inRequest.sessionInfo == kGetGroupsStep) {
+        
+        //if user revoked app permissions, we should relogin
+        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+            
+            //after relogin continue editing
+            self.flickrContext.authToken = nil;
+            [self shouldReloginWithPendingAction:SHKPendingShare];
+        }    
+    }
+    else {
+        
+        [self sendDidFailWithError:inError shouldRelogin:NO];
+    }
+    [self autorelease]; //see [self flickrRequest]
 }
 
 -(void) postToNextGroup

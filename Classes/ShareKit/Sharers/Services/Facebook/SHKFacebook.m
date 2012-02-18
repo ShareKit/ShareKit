@@ -327,9 +327,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[defaults removeObjectForKey:kSHKStoredItemKey];
 	}
 	[defaults synchronize];
-	if (self.item) 
-		[self share];
-	[self authDidFinish:true];
+    [self authDidFinish:true];
+	
+    if (self.item)        
+        [self tryPendingAction];
+	
     [self release]; //see [self promptAuthorization]
 }
 
@@ -366,7 +368,13 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
-	[self sendDidFailWithError:error];
+    //if user revoked app permissions
+    if (error.domain == @"facebookErrDomain" && error.code == 10000) {
+        [self shouldReloginWithPendingAction:SHKPendingSend];
+    } else {
+        [self sendDidFailWithError:error];
+    }
+    
     [self release]; //see [self send]
 }
 
