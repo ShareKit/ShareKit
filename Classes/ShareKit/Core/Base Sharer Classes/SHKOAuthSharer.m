@@ -342,23 +342,4 @@
 	[self tokenAccess:YES];
 }
 
-#pragma mark -
-#pragma mark Pending Actions
-#pragma mark -
-#pragma mark Pending Actions
-
-- (void)tryPendingAction
-{
-	switch (pendingAction) 
-	{
-		case SHKPendingRefreshToken:
-			[self tryToSend]; // try to resend
-			break;
-			
-		default:			
-			[super tryPendingAction];			
-	}
-}
-
-
 @end

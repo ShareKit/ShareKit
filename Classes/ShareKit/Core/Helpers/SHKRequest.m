@@ -70,7 +70,6 @@
 	return self;
 }
 
-
 #pragma mark -
 
 - (void)start
@@ -151,5 +150,13 @@
 	return result;
 }
 
+#pragma mark -
+
+- (NSString *)description {
+    
+    NSString *functionResult = [NSString stringWithFormat:@"method: %@\nurl: %@\nparams: %@\nresponse: %i (%@)\ndata: %@", self.method, [self.url absoluteString], self.params, [self.response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[self.response statusCode]], [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]];
+    
+    return functionResult;    
+}
 
 @end

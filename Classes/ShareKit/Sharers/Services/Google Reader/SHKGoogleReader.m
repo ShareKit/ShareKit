@@ -50,7 +50,6 @@ Google Reader API is unoffical, this was hobbled together from:
 @implementation SHKGoogleReader
 
 @synthesize session;
-@synthesize sendAfterLogin;
 
 
 - (void)dealloc
@@ -122,6 +121,8 @@ Google Reader API is unoffical, this was hobbled together from:
 								isFinishedSelector:@selector(authFinished:)
 											method:@"POST"
 										 autostart:YES] autorelease];
+    if (!quiet)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -130,8 +131,7 @@ Google Reader API is unoffical, this was hobbled together from:
 	// TODO - capatcha support
 	
 	// Hide the activity indicator
-	if (!sendAfterLogin)
-		[[SHKActivityIndicator currentIndicator] hide];
+    [[SHKActivityIndicator currentIndicator] hide];
 	
 	// Parse Result
 	self.session = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -151,20 +151,34 @@ Google Reader API is unoffical, this was hobbled together from:
 	
 	if (session != nil && [session objectForKey:@"Auth"])
 	{
-		if (sendAfterLogin)
-			[self tryToSend];
-		
-		else
-			[pendingForm saveForm];
-	}
+        //if we have new credentials to store (1st run, relogin)
+        if (pendingForm) {
+            [pendingForm saveForm];//will call [self tryPendingAction] after save
+        } else {
+            [self tryPendingAction];
+        }
+    }
 	
 	else
 	{		
 		NSString *error = [session objectForKey:@"Error"];
 		NSString *message = nil;
 		
-		if (error != nil)
-			message = [error isEqualToString:@"BadAuthentication"] ? SHKLocalizedString(@"Incorrect username and password") : error;
+		if (error != nil) {
+            
+            if ([error isEqualToString:@"BadAuthentication"]) {
+                
+                if (self.pendingAction == SHKPendingSend) {
+                    [self shouldReloginWithPendingAction:SHKPendingSend];
+                    return;
+                } else {
+                    message = SHKLocalizedString(@"Incorrect username and password");
+                }
+                
+            } else {
+                message = error;
+            }
+        }
 		
 		if (message == nil) // TODO - Could use some clearer message here.
 			message = SHKLocalizedString(@"There was an error logging into Google Reader");			
@@ -227,21 +241,17 @@ Google Reader API is unoffical, this was hobbled together from:
 {	
 	if ([self validateItem])
 	{	
-		BOOL sentAfterLogin = sendAfterLogin;
-		
+	
 		if (session == nil)
 		{
-			// Login first
-			self.sendAfterLogin = YES;
+			// Login first, then silently share ('normal' share, where credentials were already saved in keychain)
+			self.pendingAction = SHKPendingSend;            
 			[self getSession:[self getAuthValueForKey:@"email"]
 					password:[self getAuthValueForKey:@"password"]];
 		}
 		
 		else 
 		{		
-			
-			self.sendAfterLogin = NO;
-			
 			self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 															 [NSString stringWithFormat:
 															  @"http://www.google.com/reader/api/0/token?ck=%i",
@@ -254,12 +264,9 @@ Google Reader API is unoffical, this was hobbled together from:
 																autostart:NO] autorelease];
 			[self signRequest:request];
 			[request start];	
+            [self sendDidStart];
 		}			
-			
-		// Notify delegate
-		if (!sentAfterLogin)
-			[self sendDidStart];
-		
+					
 		return YES;
 	}
 	
@@ -268,11 +275,22 @@ Google Reader API is unoffical, this was hobbled together from:
 
 - (void)tokenFinished:(SHKRequest *)aRequest
 {	
-	if (aRequest.success)
+	if (aRequest.success) {
+        
 		[self sendWithToken:[request getResult]];
-	
-	else
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem authenticating your account.")]]; // TODO better error handling/message
+    
+    } else {
+  
+		if (aRequest.response.statusCode == 401)
+        {
+            [self shouldReloginWithPendingAction:SHKPendingNone];
+        } 
+        else
+        {
+            NSString *errorMessage = [request.headers objectForKey:@"X-Error"];
+            [self sendDidFailWithError:[SHK error:errorMessage?errorMessage:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
+        }
+    }    
 }
 
 - (void)sendWithToken:(NSString *)token
@@ -310,7 +328,16 @@ Google Reader API is unoffical, this was hobbled together from:
 		[self sendDidFinish];
 	
 	else
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving your note.")]]; // TODO better error handling/message	
+    {
+        if (aRequest.response.statusCode == 401)
+        {
+            [self shouldReloginWithPendingAction:SHKPendingNone];
+        } 
+        else
+        {
+            [self sendDidFailWithError:[SHK error:[request.headers objectForKey:@"X-Error"]]];
+        }
+    }
 }
 
 - (void)shareFormSave:(SHKFormController *)form
