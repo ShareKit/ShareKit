@@ -160,6 +160,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	   item.text == nil &&	 item.title == nil)			// caption on the way in.
 	  
 	{
+		[self.item setCustomValue:@"" forKey:@"user_caption"];	// setting this here makes sure we show the sheet, but don't
+																// require the caption see validate item.
 		return [NSMutableArray arrayWithObjects:
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
 										key:@"user_caption"
