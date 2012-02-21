@@ -195,6 +195,19 @@
     return @"";
 }
 
+// Plurk - http://www.plurk.com/API
+- (NSString *)plurkAppKey {
+  return @"";
+}
+
+- (NSString *)plurkAppSecret {
+  return @"";
+}
+
+- (NSString *)plurkCallbackURL {
+  return @"";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
