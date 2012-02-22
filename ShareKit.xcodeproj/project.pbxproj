@@ -979,7 +979,7 @@
 				7AC22D2514580A2000126878 /* FBDialog.m */,
 			);
 			name = FBConnect;
-			path = "../../../../../submodules/facebook-ios-sdk/src";
+			path = "../../../../../Submodules/facebook-ios-sdk/src";
 			sourceTree = "<group>";
 		};
 		7AC22D1C14580A2000126878 /* JSON */ = {
