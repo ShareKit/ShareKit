@@ -50,6 +50,10 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
     return YES;
 }
 
++ (BOOL)canShareYouTubeVideo{
+    return YES;
+}
+
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -172,7 +176,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 
 - (BOOL)send{		
 	if ([self validateItem]) {
-        if([item shareType] == SHKShareTypeText || [item shareType] == SHKShareTypeURL){
+        if([item shareType] == SHKShareTypeText || [item shareType] == SHKShareTypeURL || [item shareType] == SHKShareTypeYouTubeVideo){
             NSMutableString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@", 
                                        SHKEncode([self getAuthValueForKey:kStoredAuthEmailKeyName]),
                                        SHKEncode([self getAuthValueForKey:kStoredAuthPasswordKeyName])];
@@ -215,6 +219,12 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
                 [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
                 if([item title]){
                     [params appendFormat:@"&name=%@", SHKEncode([item title])];   
+                }
+            } else if ([item shareType] == SHKShareTypeYouTubeVideo){
+                [params appendString:@"&type=video"];
+                [params appendFormat:@"&embed=%@", SHKEncodeURL([item URL])];
+                if([item title]){
+                    [params appendFormat:@"&title=%@", SHKEncode([item title])];
                 }
             }else{
                 [params appendString:@"&type=regular"];
