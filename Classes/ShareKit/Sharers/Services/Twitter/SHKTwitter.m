@@ -160,6 +160,13 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	else if (item.shareType == SHKShareTypeImage)
 	{
 		[item setCustomValue:item.title forKey:@"status"];
+		
+		// if an URL is set we want to append this to the title
+		if (item.URL)
+		{
+			BOOL isURLAlreadyShortened = [self shortenURL];
+			result = isURLAlreadyShortened;
+		}
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
