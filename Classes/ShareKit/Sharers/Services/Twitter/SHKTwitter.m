@@ -336,7 +336,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	if (bitLyConfigured == NO || ![SHK connected])
 	{
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
-		return bitLyConfigured;
+		return YES;
 	}
 	
 	if (!quiet)
