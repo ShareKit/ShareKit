@@ -94,12 +94,6 @@
 		2BC7661014F65DEA00437B76 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 		2BC7661114F65DEA00437B76 /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
 		2BC7661214F65DEA00437B76 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
-		2BC7661314F65DEA00437B76 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
-		2BC7661414F65DEA00437B76 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
-		2BC7661514F65DEA00437B76 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2C14580A2000126878 /* SBJSON.m */; };
-		2BC7661614F65DEA00437B76 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2E14580A2000126878 /* SBJsonBase.m */; };
-		2BC7661714F65DEA00437B76 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3014580A2000126878 /* SBJsonParser.m */; };
-		2BC7661814F65DEA00437B76 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3214580A2000126878 /* SBJsonWriter.m */; };
 		2BC7661914F65DEA00437B76 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D1F14580A2000126878 /* FBRequest.m */; };
 		2BC7661A14F65DEA00437B76 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2014580A2000126878 /* Facebook.m */; };
 		2BC7661B14F65DEA00437B76 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2314580A2000126878 /* FBLoginDialog.m */; };
@@ -1593,12 +1587,6 @@
 				2BC7661014F65DEA00437B76 /* SHKLogout.m in Sources */,
 				2BC7661114F65DEA00437B76 /* SHKCustomActionSheet.m in Sources */,
 				2BC7661214F65DEA00437B76 /* ShareKitDemoConfigurator.m in Sources */,
-				2BC7661314F65DEA00437B76 /* NSObject+SBJSON.m in Sources */,
-				2BC7661414F65DEA00437B76 /* NSString+SBJSON.m in Sources */,
-				2BC7661514F65DEA00437B76 /* SBJSON.m in Sources */,
-				2BC7661614F65DEA00437B76 /* SBJsonBase.m in Sources */,
-				2BC7661714F65DEA00437B76 /* SBJsonParser.m in Sources */,
-				2BC7661814F65DEA00437B76 /* SBJsonWriter.m in Sources */,
 				2BC7661914F65DEA00437B76 /* FBRequest.m in Sources */,
 				2BC7661A14F65DEA00437B76 /* Facebook.m in Sources */,
 				2BC7661B14F65DEA00437B76 /* FBLoginDialog.m in Sources */,
