@@ -21,6 +21,9 @@
 @end
 
 @implementation SHKFormControllerLargeTextField
+{
+	SHKItem *_item;
+}
 
 @synthesize delegate, textView, maxTextLength;
 @synthesize counter, hasLink, image, imageTextLength;
@@ -29,17 +32,20 @@
 {
 	[textView release];
     [counter release];
+	[_item release];
     [super dealloc];
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
+- (id)initWithItem:(SHKItem *)item delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
 {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
+    if ((self = [super initWithNibName:nil bundle:nil])) 
 	{		
         delegate = aDelegate;
         imageTextLength = 0;
         hasLink = NO;
         maxTextLength = 0;
+		
+		_item = [item retain];
     }
     return self;
 }
@@ -59,6 +65,14 @@
 	textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	[self.view addSubview:textView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	// can set text now, otherwise text is invisble on iOS 4
+	self.textView.text = [_item customValueForKey:@"status"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,8 +97,8 @@
 	[[SHK currentHelper] viewWasDismissed];
 }
 
-- (void)viewDidLoad {
- 
+- (void)viewDidLoad 
+{
     [self setupBarButtonItems];
 }
 

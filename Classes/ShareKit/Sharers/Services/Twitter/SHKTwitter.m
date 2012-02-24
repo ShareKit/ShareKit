@@ -148,6 +148,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 - (BOOL)prepareItem {
+	// if there is an attached image then we change the image type so that it gets sent
+	if (item.image)
+	{
+		item.shareType = SHKShareTypeImage;
+	}
     
     BOOL result = YES;
     
@@ -155,12 +160,17 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		BOOL isURLAlreadyShortened = [self shortenURL];
         result = isURLAlreadyShortened;
-        
 	}
-	
 	else if (item.shareType == SHKShareTypeImage)
 	{
 		[item setCustomValue:item.title forKey:@"status"];
+		
+		// if an URL is set we want to append this to the title
+		if (item.URL)
+		{
+			BOOL isURLAlreadyShortened = [self shortenURL];
+			result = isURLAlreadyShortened;
+		}
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
@@ -301,12 +311,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)showTwitterForm
 {
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithItem:item delegate:self];	
 	
-	// force view to load so we can set textView text
-	[rootView view];
-	
-	rootView.textView.text = [item customValueForKey:@"status"];
     rootView.maxTextLength = 140;
 	rootView.image = item.image;
     rootView.imageTextLength = 25;

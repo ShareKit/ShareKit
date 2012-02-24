@@ -5,6 +5,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class SHKItem;
+
 @protocol SHKFormControllerLargeTextFieldDelegate;
 
 @interface SHKFormControllerLargeTextField : UIViewController <UITextViewDelegate>
@@ -19,7 +21,7 @@
 @property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
 @property BOOL hasLink; //only if the link is not part of the text in a text view
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate;
+- (id)initWithItem:(SHKItem *)item delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate;
 
 @end
 
