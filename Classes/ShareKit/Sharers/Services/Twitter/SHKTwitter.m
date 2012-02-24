@@ -148,6 +148,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 - (BOOL)prepareItem {
+	// if there is an attached image then we change the image type so that it gets sent
+	if (item.image)
+	{
+		item.shareType = SHKShareTypeImage;
+	}
     
     BOOL result = YES;
     
@@ -156,7 +161,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		BOOL isURLAlreadyShortened = [self shortenURL];
         result = isURLAlreadyShortened;
 	}
-	
 	else if (item.shareType == SHKShareTypeImage)
 	{
 		[item setCustomValue:item.title forKey:@"status"];
