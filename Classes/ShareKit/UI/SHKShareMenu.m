@@ -97,7 +97,11 @@
 	// If in editing mode, show them
 	// If not editing, hide them
 	
-    [self setExclusions:[NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] != nil){
+        [self setExclusions:[NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
+    }else{
+        [self setExclusions:[NSMutableArray arrayWithCapacity:0]];
+    }
     
 	NSMutableArray *excluded = [NSMutableArray arrayWithCapacity:0];
     
