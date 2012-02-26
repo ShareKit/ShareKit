@@ -69,7 +69,10 @@
 {
 	[super viewWillAppear:animated];
 	
+	// save to set the text now
 	textView.text = text;
+	
+	[self setupBarButtonItems];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -92,11 +95,6 @@
 	
 	// Remove the SHK view wrapper from the window
 	[[SHK currentHelper] viewWasDismissed];
-}
-
-- (void)viewDidLoad {
-	
-	[self setupBarButtonItems];
 }
 
 - (void)setupBarButtonItems {
