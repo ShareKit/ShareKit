@@ -168,15 +168,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 {
 	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
-	// force view to load so we can set textView text
-	[rootView view];
+	rootView.text = item.title;
 	
     if (item.shareType == SHKShareTypeURL) {
-        rootView.textView.text = item.title;
         rootView.hasLink = YES;
-        
-    } else {
-        rootView.textView.text = item.text;
     }
     
     rootView.maxTextLength = 700;  
