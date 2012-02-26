@@ -95,13 +95,9 @@
     
 	// Handling Excluded items
 	// If in editing mode, show them
-	// If not editing, hide them	
-	self.exclusions = [NSMutableDictionary dictionaryWithCapacity:0];
+	// If not editing, hide them
 	
-    NSArray *excludedArray = [NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]];
-    for (NSString *exclude in excludedArray) {
-        [self.exclusions setObject:@"1" forKey:exclude];
-    }  
+    [self setExclusions:[NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
     
 	NSMutableArray *excluded = [NSMutableArray arrayWithCapacity:0];
     
@@ -124,7 +120,7 @@
 			
 			for (NSMutableDictionary *row in section)
 			{
-				if ([exclusions objectForKey:[row objectForKey:@"className"]])
+				if ([exclusions containsObject:[row objectForKey:@"className"]])
 				{
 					[excluded addObject:[NSIndexPath indexPathForRow:r inSection:s]];
 					
@@ -226,7 +222,7 @@
 		[toggle release];
 	}
 	
-	[(UISwitch *)cell.editingAccessoryView setOn:[exclusions objectForKey:[rowData objectForKey:@"className"]] == nil];
+	[(UISwitch *)cell.editingAccessoryView setOn:![exclusions containsObject:[rowData objectForKey:@"className"]]];
 	
     return cell;
 }
@@ -258,11 +254,11 @@
 		[toggle setOn:newOn animated:YES];
 		
 		if (newOn) {
-			[exclusions removeObjectForKey:[rowData objectForKey:@"className"]];
+			[exclusions removeObjectIdenticalTo:[rowData objectForKey:@"className"]];
             
 		} else {
 			NSString *sharerId = [rowData objectForKey:@"className"];
-			[exclusions setObject:@"1" forKey:sharerId];
+			[exclusions addObject:sharerId];
 			[SHK logoutOfService:sharerId];
 		}
         
@@ -325,7 +321,7 @@
 
 - (void)save
 {
-	[[NSUserDefaults standardUserDefaults] setObject:[exclusions allKeys] forKey:@"SHKExcluded"];	
+	[[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:@"SHKExcluded"];	
 	
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
