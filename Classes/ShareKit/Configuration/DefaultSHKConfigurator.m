@@ -254,6 +254,10 @@
 - (NSString*)sharersPlistName {
 	return @"SHKSharers.plist";
 }
+// SHKActionSheet settings
+- (NSNumber*)showActionSheetMoreButton {
+	return [NSNumber numberWithBool:true];// Setting this to true will show More... button in SHKActionSheet, setting to false will leave the button out.
+}
 /*
  UI Configuration : Advanced
  ---------------------------

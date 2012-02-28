@@ -27,6 +27,7 @@
 
 #import "SHKActionSheet.h"
 #import "SHK.h"
+#import "SHKConfiguration.h"
 #import "SHKSharer.h"
 #import "SHKCustomShareMenu.h"
 #import "SHKCustomActionSheet.h"
@@ -72,8 +73,11 @@
 		}
 	}
 	
-	// Add More button
-	[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+	if([SHKCONFIG(showActionSheetMoreButton) boolValue])
+	{
+		// Add More button
+		[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+	}
 	
 	// Add Cancel button
 	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
@@ -108,7 +112,7 @@
 	}
 	
 	// More
-	else if (buttonIndex == numberOfSharers)
+	else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
 	{
 		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
 		shareMenu.shareDelegate = shareDelegate;
