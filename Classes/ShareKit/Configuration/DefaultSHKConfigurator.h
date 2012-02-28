@@ -46,6 +46,10 @@
 
 - (NSString*)appName;
 - (NSString*)appURL;
+- (NSArray*)defaultFavoriteURLSharers;
+- (NSArray*)defaultFavoriteImageSharers;
+- (NSArray*)defaultFavoriteTextSharers;
+- (NSArray*)defaultFavoriteFileSharers;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
