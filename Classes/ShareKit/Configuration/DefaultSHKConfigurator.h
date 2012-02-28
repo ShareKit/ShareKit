@@ -41,7 +41,6 @@
 #endif
 
 #import <Foundation/Foundation.h>
-#import "SHKItem.h"
 
 @interface DefaultSHKConfigurator : NSObject 
 
