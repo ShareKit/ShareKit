@@ -18,6 +18,7 @@
 @property (nonatomic, retain) UIImage *image;
 @property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
 @property BOOL hasLink; //only if the link is not part of the text in a text view
+@property (nonatomic, retain) NSString *text;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate;
 

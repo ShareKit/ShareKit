@@ -24,24 +24,28 @@
 
 @synthesize delegate, textView, maxTextLength;
 @synthesize counter, hasLink, image, imageTextLength;
+@synthesize text;
 
 - (void)dealloc 
 {
 	[textView release];
-    [counter release];
-    [super dealloc];
+	[counter release];
+	[text release];
+	[image release];
+	
+	[super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
 {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
 	{		
-        delegate = aDelegate;
-        imageTextLength = 0;
-        hasLink = NO;
-        maxTextLength = 0;
-    }
-    return self;
+		delegate = aDelegate;
+		imageTextLength = 0;
+		hasLink = NO;
+		maxTextLength = 0;
+	}
+	return self;
 }
 
 - (void)loadView 
@@ -59,6 +63,16 @@
 	textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
 	[self.view addSubview:textView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	// save to set the text now
+	textView.text = text;
+	
+	[self setupBarButtonItems];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -83,26 +97,21 @@
 	[[SHK currentHelper] viewWasDismissed];
 }
 
-- (void)viewDidLoad {
- 
-    [self setupBarButtonItems];
-}
-
 - (void)setupBarButtonItems {
-    
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                                                                                           target:self
-                                                                                           action:@selector(cancel)] autorelease];
-    
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[self.delegate class] sharerTitle]) 
-                                                                               style:UIBarButtonItemStyleDone
-                                                                              target:self
-                                                                              action:@selector(save)] autorelease];
+	
+	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+																														target:self
+																														action:@selector(cancel)] autorelease];
+	
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[self.delegate class] sharerTitle]) 
+																										style:UIBarButtonItemStyleDone
+																									  target:self
+																									  action:@selector(save)] autorelease];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
-    return YES;
+	return YES;
 }
 
 #pragma GCC diagnostic push
@@ -114,19 +123,19 @@
 	
 	// 3.2 and above
 	if (&UIKeyboardFrameEndUserInfoKey)
-    {		
-        [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
-        if ([self interfaceOrientation] == UIDeviceOrientationPortrait || [self interfaceOrientation] == UIDeviceOrientationPortraitUpsideDown) 
-        keyboardHeight = keyboardFrame.size.height;
-        else
-        keyboardHeight = keyboardFrame.size.width;
-    }
-
-    // < 3.2
-    else 
-    {
-        [[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
-        keyboardHeight = keyboardFrame.size.height;
+	{		
+		[[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardFrame];		
+		if ([self interfaceOrientation] == UIDeviceOrientationPortrait || [self interfaceOrientation] == UIDeviceOrientationPortraitUpsideDown) 
+			keyboardHeight = keyboardFrame.size.height;
+		else
+			keyboardHeight = keyboardFrame.size.width;
+	}
+	
+	// < 3.2
+	else 
+	{
+		[[notification.userInfo valueForKey:UIKeyboardBoundsUserInfoKey] getValue:&keyboardFrame];
+		keyboardHeight = keyboardFrame.size.height;
 	}
 	
 	// Find the bottom of the screen (accounting for keyboard overlay)
@@ -144,8 +153,8 @@
 	CGFloat maxViewHeight = self.view.bounds.size.height - keyboardHeight + distFromBottom;
 	
 	textView.frame = CGRectMake(0,0,self.view.bounds.size.width,maxViewHeight);
-    
-    [self layoutCounter];
+	
+	[self layoutCounter];
 }
 #pragma GCC diagnostic pop
 
@@ -154,65 +163,65 @@
 - (void)updateCounter
 {
 	[self ifNoTextDisableSendButton];
-    
-    if (![self shouldShowCounter]) return;
-    
-    if (self.counter == nil)
+	
+	if (![self shouldShowCounter]) return;
+	
+	if (self.counter == nil)
 	{
 		UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        aLabel.backgroundColor = [UIColor clearColor];
+		aLabel.backgroundColor = [UIColor clearColor];
 		aLabel.opaque = NO;
 		aLabel.font = [UIFont boldSystemFontOfSize:14];
 		aLabel.textAlignment = UITextAlignmentRight;		
 		aLabel.autoresizesSubviews = YES;
 		aLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-        self.counter = aLabel;
-        [aLabel release];
-				
+		self.counter = aLabel;
+		[aLabel release];
+		
 		[self.view addSubview:counter];
 		[self layoutCounter];
 	}
 	
 	NSInteger count = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
 	counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
-    
-    if (count >= 0) {
-        
-        self.counter.textColor = [UIColor blackColor];        
-        if (self.textView.text.length) self.navigationItem.rightBarButtonItem.enabled = YES; 
-
-    } else {
-        
-        self.counter.textColor = [UIColor redColor];
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }  
+	
+	if (count >= 0) {
+		
+		self.counter.textColor = [UIColor blackColor];        
+		if (self.textView.text.length) self.navigationItem.rightBarButtonItem.enabled = YES; 
+		
+	} else {
+		
+		self.counter.textColor = [UIColor redColor];
+		self.navigationItem.rightBarButtonItem.enabled = NO;
+	}  
 }
 
 - (void)ifNoTextDisableSendButton {
-    
-    if (self.textView.text.length) {
-        self.navigationItem.rightBarButtonItem.enabled = YES; 
-    } else {
-        self.navigationItem.rightBarButtonItem.enabled = NO;
-    }
+	
+	if (self.textView.text.length) {
+		self.navigationItem.rightBarButtonItem.enabled = YES; 
+	} else {
+		self.navigationItem.rightBarButtonItem.enabled = NO;
+	}
 }
 
 - (void)layoutCounter
 {
 	if (![self shouldShowCounter]) return;
-    
-    counter.frame = CGRectMake(self.textView.bounds.size.width-150-15,
-							   self.textView.bounds.size.height-15-9,
-							   150,
-							   15);
-    self.textView.contentInset = UIEdgeInsetsMake(5,5,32,0);
+	
+	counter.frame = CGRectMake(self.textView.bounds.size.width-150-15,
+										self.textView.bounds.size.height-15-9,
+										150,
+										15);
+	self.textView.contentInset = UIEdgeInsetsMake(5,5,32,0);
 }
 
 - (BOOL)shouldShowCounter {
-    
-    if (self.maxTextLength || self.image || self.hasLink) return YES;
-    
-    return NO;
+	
+	if (self.maxTextLength || self.image || self.hasLink) return YES;
+	
+	return NO;
 }
 
 #pragma mark UITextView delegate
@@ -242,8 +251,8 @@
 
 - (void)save
 {	    	
-    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
-    [self.delegate sendForm:self];
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
+	[self.delegate sendForm:self];
 }
 
 @end
