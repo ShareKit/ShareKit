@@ -399,12 +399,12 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)showFacebookForm
 {
  	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
- 	// force view to load so we can set textView text
- 	[rootView view];
- 	rootView.textView.text = item.text;
+ 	rootView.text = item.text;
+    
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
     [rootView release];
+    
     [[SHK currentHelper] showViewController:self];  
 }
 
