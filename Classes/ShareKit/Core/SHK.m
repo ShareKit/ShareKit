@@ -372,6 +372,15 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+    if (exclusions != nil)
+	{
+		for(NSString *sharerId in exclusions)
+		{
+			if([className isEqualToString:sharerId]) return;
+		}
+	}
+    
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];

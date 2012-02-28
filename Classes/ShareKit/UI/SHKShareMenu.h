@@ -34,13 +34,13 @@
 {
 	SHKItem *item;
 	NSMutableArray *tableData;
-	NSMutableDictionary *exclusions;
+	NSMutableArray *exclusions;
 	id<SHKShareItemDelegate> shareDelegate;
 }
 
 @property (nonatomic, retain) SHKItem *item;
 @property (retain) NSMutableArray *tableData;
-@property (retain) NSMutableDictionary *exclusions;
+@property (retain) NSMutableArray *exclusions;
 @property (retain) id<SHKShareItemDelegate> shareDelegate;
 
 
