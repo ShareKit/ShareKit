@@ -14,7 +14,7 @@
 #import "UserStore.h"
 #import "Types.h"
 #import "Errors.h"
-#import "Limits.h"
+#import <limits.h>
 
 @interface EDAMSyncState : NSObject <NSCoding> {
   EDAMTimestamp __currentTime;
