@@ -98,7 +98,7 @@
 	// If not editing, hide them
 	
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] != nil){
-        [self setExclusions:[NSArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
+        [self setExclusions:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
     }else{
         [self setExclusions:[NSMutableArray arrayWithCapacity:0]];
     }
@@ -258,7 +258,7 @@
 		[toggle setOn:newOn animated:YES];
 		
 		if (newOn) {
-			[exclusions removeObjectIdenticalTo:[rowData objectForKey:@"className"]];
+			[exclusions removeObject:[rowData objectForKey:@"className"]];
             
 		} else {
 			NSString *sharerId = [rowData objectForKey:@"className"];
