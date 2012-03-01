@@ -70,6 +70,8 @@
 																				 action:@selector(validateForm)] autorelease];
 		
 		self.values = [NSMutableDictionary dictionaryWithCapacity:0];
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
 	return self;
 }
@@ -142,7 +144,7 @@
 	[super viewDidLoad];
 	
 	if ([SHKCONFIG(formBgColorRed) intValue] != -1)
-		self.tableView.backgroundColor = [UIColor colorWithRed:[SHKCONFIG(formBgColorRed) intValue]/255 green:[SHKCONFIG(formBgColorGreen) intValue]/255 blue:[SHKCONFIG(formBgColorBlue) intValue]/255 alpha:1];
+		self.tableView.backgroundColor = [UIColor colorWithRed:[SHKCONFIG(formBgColorRed) intValue]/255.0f green:[SHKCONFIG(formBgColorGreen) intValue]/255.0f blue:[SHKCONFIG(formBgColorBlue) intValue]/255.0f alpha:1.0f];
 }
 
 
