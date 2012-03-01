@@ -70,6 +70,8 @@
 																				 action:@selector(validateForm)] autorelease];
 		
 		self.values = [NSMutableDictionary dictionaryWithCapacity:0];
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
 	return self;
 }
@@ -141,8 +143,8 @@
 {
 	[super viewDidLoad];
 	
-	if ([SHKCONFIG(formBgColorRed) intValue] != -1)
-		self.tableView.backgroundColor = [UIColor colorWithRed:[SHKCONFIG(formBgColorRed) intValue]/255 green:[SHKCONFIG(formBgColorGreen) intValue]/255 blue:[SHKCONFIG(formBgColorBlue) intValue]/255 alpha:1];
+	if (SHKCONFIG(formBackgroundColor) != nil)
+         self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
 }
 
 
@@ -181,8 +183,8 @@
 											  reuseIdentifier:CellIdentifier] autorelease];
 		cell.form = self;
 		
-		if ([SHKCONFIG(formFontColorRed) intValue] != -1)
-			cell.textLabel.textColor = [UIColor colorWithRed:[SHKCONFIG(formFontColorRed) intValue]/255 green:[SHKCONFIG(formFontColorGreen) intValue]/255 blue:[SHKCONFIG(formFontColorBlue) intValue]/255 alpha:1];
+		if (SHKCONFIG(formFontColor) != nil)
+			cell.textLabel.textColor = SHKCONFIG(formFontColor);
 	}
 	
 	// Since we are reusing table cells, make sure to save any existing values before overwriting
