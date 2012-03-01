@@ -77,12 +77,8 @@
 - (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
-- (NSNumber*)formFontColorRed;
-- (NSNumber*)formFontColorGreen;
-- (NSNumber*)formFontColorBlue;
-- (NSNumber*)formBgColorRed;
-- (NSNumber*)formBgColorGreen;
-- (NSNumber*)formBgColorBlue;
+- (UIColor*)formFontColor;
+- (UIColor*)formBackgroundColor;
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
