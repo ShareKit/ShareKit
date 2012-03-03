@@ -157,6 +157,7 @@ BOOL SHKinit;
 		[topViewController presentModalViewController:vc animated:YES];
 		[(UINavigationController *)vc navigationBar].barStyle = 
 		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+		[(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		self.currentView = vc;
 	}
 		

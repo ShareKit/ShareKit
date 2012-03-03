@@ -209,30 +209,16 @@
 - (UIColor*)barTintForView:(UIViewController*)vc {
     return nil;
 }
+
 // Forms
-- (NSNumber*)formFontColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
+- (UIColor *)formFontColor {
+    return nil;
 }
 
-- (NSNumber*)formFontColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
+- (UIColor*)formBackgroundColor {
+    return nil;
 }
 
-- (NSNumber*)formFontColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
 // iPad views
 - (NSString*)modalPresentationStyle {
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
