@@ -254,6 +254,29 @@
 - (NSString*)sharersPlistName {
 	return @"SHKSharers.plist";
 }
+// SHKActionSheet settings
+- (NSNumber*)showActionSheetMoreButton {
+	return [NSNumber numberWithBool:true];// Setting this to true will show More... button in SHKActionSheet, setting to false will leave the button out.
+}
+
+/*
+ Favorite Sharers
+ ----------------
+ These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
+ */
+- (NSArray*)defaultFavoriteURLSharers {
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",@"SHKVkontakte", nil];
+}
+- (NSArray*)defaultFavoriteImageSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+}
+- (NSArray*)defaultFavoriteTextSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+}
+- (NSArray*)defaultFavoriteFileSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+}
+
 /*
  UI Configuration : Advanced
  ---------------------------

@@ -154,7 +154,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 {
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Sorry, Instapaper did not accept your credentials. Please try again.")] shouldRelogin:YES];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
     else if (aRequest.response.statusCode == 500) {		

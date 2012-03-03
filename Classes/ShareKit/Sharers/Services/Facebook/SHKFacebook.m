@@ -27,6 +27,7 @@
 
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
+#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
@@ -327,9 +328,11 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[defaults removeObjectForKey:kSHKStoredItemKey];
 	}
 	[defaults synchronize];
-	if (self.item) 
-		[self share];
-	[self authDidFinish:true];
+    [self authDidFinish:true];
+	
+    if (self.item)        
+        [self tryPendingAction];
+	
     [self release]; //see [self promptAuthorization]
 }
 
@@ -356,7 +359,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)request:(FBRequest *)request didLoad:(id)result
 {   
-    if ([result objectForKey:@"username"]){        
+    if ([result objectForKey:@"username"]){
+        
+        [result convertNSNullsToEmptyStrings];
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
     }     
 
@@ -366,7 +371,13 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
-	[self sendDidFailWithError:error];
+    //if user revoked app permissions
+    if (error.domain == @"facebookErrDomain" && error.code == 10000) {
+        [self shouldReloginWithPendingAction:SHKPendingSend];
+    } else {
+        [self sendDidFailWithError:error];
+    }
+    
     [self release]; //see [self send]
 }
 
@@ -388,12 +399,12 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)showFacebookForm
 {
  	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
- 	// force view to load so we can set textView text
- 	[rootView view];
- 	rootView.textView.text = item.text;
+ 	rootView.text = item.text;
+    
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
     [rootView release];
+    
     [[SHK currentHelper] showViewController:self];  
 }
 

@@ -327,19 +327,19 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
 				break;
 				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
 				break;
 			
 			default:
@@ -372,6 +372,15 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+    if (exclusions != nil)
+	{
+		for(NSString *sharerId in exclusions)
+		{
+			if([className isEqualToString:sharerId]) return;
+		}
+	}
+    
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];
@@ -662,6 +671,10 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
+    string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
 	
 	return string;	
 }

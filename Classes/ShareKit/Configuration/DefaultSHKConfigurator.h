@@ -46,6 +46,10 @@
 
 - (NSString*)appName;
 - (NSString*)appURL;
+- (NSArray*)defaultFavoriteURLSharers;
+- (NSArray*)defaultFavoriteImageSharers;
+- (NSArray*)defaultFavoriteTextSharers;
+- (NSArray*)defaultFavoriteFileSharers;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
@@ -85,6 +89,7 @@
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;
+- (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
 - (NSNumber*)usePlaceholders;

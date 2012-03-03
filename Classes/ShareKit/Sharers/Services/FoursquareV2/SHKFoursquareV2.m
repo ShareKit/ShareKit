@@ -220,11 +220,7 @@ static NSString *accessTokenKey = @"accessToken";
 - (void)showFoursquareV2CheckInForm;
 {
     SHKFoursquareV2CheckInForm *checkInForm = [[SHKFoursquareV2CheckInForm alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-	// force view to load so we can set textView text
-	[checkInForm view];
-	
-    checkInForm.textView.text = item.text;       
+    checkInForm.text = item.text;       
     checkInForm.maxTextLength = 140;  
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
