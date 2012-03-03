@@ -182,6 +182,7 @@
 	
 	[mailController setSubject:item.title];
 	[mailController setMessageBody:body isHTML:YES];
+    mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 			
 	[[SHK currentHelper] showViewController:mailController];
 	
