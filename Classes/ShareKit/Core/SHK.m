@@ -194,7 +194,8 @@ BOOL SHKinit;
 		
 		if ([nextResponder isKindOfClass:[UIViewController class]])
 			result = nextResponder;
-		
+		else if ([topWindow respondsToSelector:@selector(rootViewController)] && topWindow.rootViewController != nil)
+            result = topWindow.rootViewController;
 		else
 			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
 	}
