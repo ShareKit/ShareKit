@@ -66,7 +66,16 @@
                                                                                                 target:self
                                                                                                 action:@selector(edit)] autorelease];
 	}
+    
 	return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (SHKCONFIG(formBackgroundColor) != nil)
+        self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -76,7 +85,6 @@
 	// Remove the SHK view wrapper from the window
 	[[SHK currentHelper] viewWasDismissed];
 }
-
 
 - (void)setItem:(SHKItem *)i
 {
