@@ -346,7 +346,8 @@
 		// If field is not visible, use cached value
 		else if ([values objectForKey:field.key] != nil)
 			[formValues setObject:[values objectForKey:field.key] forKey:field.key];
-			
+		else if (field.start != nil)// use start value from the setting item
+			[formValues setObject:field.start forKey:field.key];
 		row++;
 	}
 	

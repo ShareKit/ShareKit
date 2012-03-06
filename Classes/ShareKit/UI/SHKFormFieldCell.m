@@ -59,6 +59,7 @@
 		textField.font = [UIFont systemFontOfSize:17];
 		textField.textColor = [UIColor darkGrayColor];
 		textField.delegate = form;
+		[textField addTarget:self action:@selector(updateFormValue) forControlEvents:UIControlEventEditingDidEnd | UIControlEventEditingDidEndOnExit];
 		[self.contentView addSubview:textField];
 				
 		[self setValue:tmpValue];
@@ -104,6 +105,7 @@
 			self.toggle = [[[UISwitch alloc] initWithFrame:CGRectZero] autorelease];	
 			[self.contentView addSubview:toggle];
 			[self setValue:tmpValue];
+			[toggle addTarget:self action:@selector(updateFormValue) forControlEvents:UIControlEventValueChanged];
 		}
 		
 		toggle.frame = CGRectMake(self.contentView.bounds.size.width-toggle.bounds.size.width-SHK_FORM_CELL_PAD_RIGHT,
@@ -155,7 +157,11 @@
 		[textField resignFirstResponder];
 }
 
-
+- (void)updateFormValue 
+{
+	// whenever the user changes the value update it since at any time a cell could be scrolled off and no longer be accessable.
+	[form.values setObject:[self getValue] forKey:self.settings.key];
+}
 #pragma mark -
 
 - (void)setSettings:(SHKFormFieldSettings *)s
