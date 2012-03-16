@@ -121,15 +121,15 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
 															 key:@"title"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.title],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
 															 key:@"description"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.text],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
 															 key:@"tags"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.tags],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
 															 key:@"is_public"
 															type:SHKFormFieldTypeSwitch
