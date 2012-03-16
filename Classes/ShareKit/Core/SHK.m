@@ -694,6 +694,31 @@ NSString * SHKEncodeURL(NSURL * value)
 	return result;
 }
 
+NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
+{
+    // Modified from http://rudis.net/content/2009/01/21/flatten-html-content-ie-strip-tags-cocoaobjective-c
+    NSScanner *scanner;
+    NSString *text = nil;
+    
+    scanner = [NSScanner scannerWithString:value];
+    
+    while ([scanner isAtEnd] == NO) 
+    {
+        [scanner scanUpToString:@"<" intoString:NULL]; 
+        [scanner scanUpToString:@">" intoString:&text];
+        
+        value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@" "];
+        
+    }
+    
+    if (preserveLineBreaks == NO)
+    {
+        value = [value stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    }
+    
+    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
+}
+
 void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 {
     Method origMethod = class_getInstanceMethod(c, orig);
