@@ -201,6 +201,18 @@
 - (NSString*)linkedInCallbackUrl {
 	return @"";
 }
+- (NSString*)weiboAppKey {
+    return @"";
+}
+- (NSString*)weiboAppSecret {
+    return @"";
+}
+- (NSString*)weiboId {
+    return @"";
+}
+- (NSNumber*)weiboUseXAuth {
+	return [NSNumber numberWithInt:0];
+}
 
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {

@@ -73,6 +73,10 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
+- (NSString*)weiboAppKey;
+- (NSString*)weiboAppSecret;
+- (NSString*)weiboId;
+- (NSNumber*)weiboUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
