@@ -128,6 +128,7 @@
 	
 	NSString *body = [item customValueForKey:@"body"];
 	BOOL isHTML = (![[[item customValueForKey:@"isHTML"] lowercaseString] isEqualToString:@"no"]);
+	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
 
 	NSArray *toRecipients = [[item customValueForKey:@"toRecipients"] componentsSeparatedByString:@","];
     
@@ -141,7 +142,7 @@
 			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
 			
 			else
 				body = urlStr;
@@ -152,7 +153,7 @@
 			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", attachedStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
 			
 			else
 				body = attachedStr;
@@ -165,7 +166,7 @@
 		// sig
 		if ([SHKCONFIG(sharedWithSignature) boolValue])
 		{
-			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:separator];
 			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
 		
