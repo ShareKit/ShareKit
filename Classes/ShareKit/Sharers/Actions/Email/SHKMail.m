@@ -127,7 +127,10 @@
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
 	NSString *body = [item customValueForKey:@"body"];
-	
+	BOOL isHTML = (![[[item customValueForKey:@"isHTML"] lowercaseString] isEqualToString:@"no"]);
+
+	NSArray *toRecipients = [[item customValueForKey:@"toRecipients"] componentsSeparatedByString:@","];
+    
 	if (body == nil)
 	{
 		if (item.text != nil)
@@ -173,6 +176,9 @@
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
+	if (toRecipients)
+		[mailController setToRecipients:toRecipients];
+    
 	if (item.image){
 		float jpgQuality = 1;
 		if ([item customValueForKey:@"jpgQuality"] != nil) {
@@ -182,7 +188,7 @@
 	}
 	
 	[mailController setSubject:item.title];
-	[mailController setMessageBody:body isHTML:YES];
+	[mailController setMessageBody:body isHTML:isHTML];
 			
 	[[SHK currentHelper] showViewController:mailController];
 	
