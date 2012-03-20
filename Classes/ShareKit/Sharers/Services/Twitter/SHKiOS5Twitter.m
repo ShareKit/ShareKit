@@ -77,18 +77,18 @@
     
     if (self.item.shareType == SHKShareTypeText) 
     {
-        NSUInteger textLength = 140;
+        NSUInteger textLength = [item.text length] > 140 ? 140 : [item.text length];
         
-        while ([iOS5twitter setInitialText:[item.text length] > textLength ? [item.text substringToIndex:textLength] : item.text] == NO && textLength > 0)
+        while ([iOS5twitter setInitialText:[item.text substringToIndex:textLength]] == NO && textLength > 0)
         {
             textLength--;
         }
     } 
     else 
     {
-        NSUInteger titleLength = 140;       
+        NSUInteger titleLength = [item.title length] > 140 ? 140 : [item.title length];      
         
-        while ([iOS5twitter setInitialText:[item.title length] > titleLength ? [item.title substringToIndex:titleLength] : item.title] == NO && titleLength > 0)
+        while ([iOS5twitter setInitialText:[item.title substringToIndex:titleLength]] == NO && titleLength > 0)
         {
             titleLength--;
         }
