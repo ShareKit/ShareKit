@@ -386,7 +386,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)show
 {
-    if (item.shareType == SHKShareTypeText)        
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage)        
     {
         [self showFacebookForm];
     }
@@ -399,7 +399,17 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)showFacebookForm
 {
  	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
- 	rootView.text = item.text;
+ 	
+    switch (self.item.shareType) {
+        case SHKShareTypeText:
+            rootView.text = item.text;
+            break;
+        case SHKShareTypeImage:
+            rootView.image = item.image;
+            rootView.text = item.title;            
+        default:
+            break;
+    }    
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
@@ -410,7 +420,16 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)sendForm:(SHKFormControllerLargeTextField *)form
 {  
- 	self.item.text = form.textView.text;
+ 	switch (self.item.shareType) {
+        case SHKShareTypeText:
+            self.item.text = form.textView.text;
+            break;
+        case SHKShareTypeImage:
+            self.item.title = form.textView.text;
+        default:
+            break;
+    }    
+    
  	[self tryToSend];
 }  
 
