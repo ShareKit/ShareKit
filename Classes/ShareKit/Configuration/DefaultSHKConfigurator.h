@@ -82,6 +82,7 @@
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
+- (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;
