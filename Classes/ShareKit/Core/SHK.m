@@ -373,6 +373,8 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
+    
     NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
     if (exclusions != nil)
 	{
