@@ -168,6 +168,14 @@
 	return @"http://yourdomain.com/callback";
 }
 
+- (NSString*)readabilityConsumerKey {
+	return @"ctruman";
+}
+
+- (NSString*)readabilitySecret {
+	return @"RGXDE6wTygKtkwDBHpnjCAyvz2dtrhLD";
+}
+
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"NFJOGLJBI4C4RSZ3DQGR0W4ED5ZWAAE5QO3FW02Z3LLVZCT4";

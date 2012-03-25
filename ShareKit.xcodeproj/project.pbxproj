@@ -139,6 +139,8 @@
 		F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
+		FD410DB51518D5AA00204A49 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FD410DB21518D5AA00204A49 /* SHKReadability.m */; };
+		FD410DB61518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FD410DB41518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -401,6 +403,10 @@
 		FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVkontakte.m; sourceTree = "<group>"; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakte.h; sourceTree = "<group>"; };
+		FD410DB11518D5AA00204A49 /* SHKReadability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadability.h; sourceTree = "<group>"; };
+		FD410DB21518D5AA00204A49 /* SHKReadability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadability.m; sourceTree = "<group>"; };
+		FD410DB31518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadabilityOAMutableURLRequest.h; sourceTree = "<group>"; };
+		FD410DB41518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadabilityOAMutableURLRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -833,6 +839,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FD410DB01518D5AA00204A49 /* Readability */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1119,6 +1126,17 @@
 			path = Vkontakte;
 			sourceTree = "<group>";
 		};
+		FD410DB01518D5AA00204A49 /* Readability */ = {
+			isa = PBXGroup;
+			children = (
+				FD410DB11518D5AA00204A49 /* SHKReadability.h */,
+				FD410DB21518D5AA00204A49 /* SHKReadability.m */,
+				FD410DB31518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.h */,
+				FD410DB41518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.m */,
+			);
+			path = Readability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1313,6 +1331,8 @@
 				7A333EE514CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
 				7A25903714CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
 				7AF2523814F0499E00CE8709 /* JSONKit.m in Sources */,
+				FD410DB51518D5AA00204A49 /* SHKReadability.m in Sources */,
+				FD410DB61518D5AA00204A49 /* SHKReadabilityOAMutableURLRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

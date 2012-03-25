@@ -186,6 +186,15 @@
 	return @"";
 }
 
+// Readability - http://www.readability.com/publishers/api/
+- (NSString*)readabilityConsumerKey {
+	return @"";
+}
+
+- (NSString*)readabilitySecret {
+	return @"";
+}
+
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";
@@ -257,7 +266,7 @@
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
 }
 - (NSArray*)defaultFavoriteTextSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", @"SHKReadability", nil];
 }
 - (NSArray*)defaultFavoriteFileSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];

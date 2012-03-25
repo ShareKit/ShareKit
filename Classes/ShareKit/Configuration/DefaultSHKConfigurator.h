@@ -30,13 +30,13 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-//#define _SHKDebugShowLogs
+#define _SHKDebugShowLogs
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
 #define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 #else
-#define SHKDebugShowLogs			0
+#define SHKDebugShowLogs			1
 #define SHKLog( s, ... )
 #endif
 
@@ -71,6 +71,8 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
+- (NSString*)readabilityConsumerKey;
+- (NSString*)readabilitySecret;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
