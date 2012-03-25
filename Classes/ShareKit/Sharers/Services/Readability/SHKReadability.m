@@ -114,8 +114,8 @@
 		
 		
 		// Edit these to provide the correct urls for each oauth step
-	    self.requestURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/authorize/"];
-	    self.authorizeURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/request_token/"];
+	    self.requestURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/request_token/"];
+	    self.authorizeURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/authorize/"];
 	    self.accessURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/access_token/"];
 		
 		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
