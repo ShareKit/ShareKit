@@ -194,9 +194,9 @@
 - (NSString*)readabilitySecret {
 	return @"";
 }
-// To use xAuth, set to 1
+// To use xAuth, set to 1, Currently ONLY supports XAuth
 - (NSNumber*)readabilityUseXAuth {
-	return [NSNumber numberWithInt:0];
+	return [NSNumber numberWithInt:1];
 }
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {

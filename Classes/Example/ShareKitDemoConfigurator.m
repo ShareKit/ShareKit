@@ -175,8 +175,10 @@
 - (NSString*)readabilitySecret {
 	return @"RGXDE6wTygKtkwDBHpnjCAyvz2dtrhLD";
 }
+
+//Only supports XAuth currently
 - (NSNumber*)readabilityUseXAuth {
-  return [NSNumber numberWithBool:YES];
+  return [NSNumber numberWithInt:1];;
 }
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
