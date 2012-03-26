@@ -25,20 +25,14 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKFormOptionController.h"
 
-@interface SHKReadability : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKReadability : SHKOAuthSharer
 {	
 	BOOL xAuth;		
 }
 
 @property BOOL xAuth;
-
-
-#pragma mark -
-#pragma mark UI Implementation
-
-- (void)showReadabilityForm;
 
 #pragma mark -
 #pragma mark Share API Methods

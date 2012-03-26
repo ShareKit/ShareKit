@@ -81,29 +81,6 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	return YES;
 }
 
-+ (BOOL)canShareText
-{
-	return NO;
-}
-
-+ (BOOL)canShareImage
-{
-	return NO;
-}
-
-+ (BOOL)canGetUserInfo
-{
-	return NO;
-}
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare
-{
-	return NO;
-}
-
 #pragma mark -
 #pragma mark Commit Share
 
@@ -112,9 +89,12 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	BOOL itemPrepared = [self prepareItem];
 	
 	//the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
-	if (itemPrepared) {
-		[super share];
+	if (itemPrepared && [self isAuthorized]) {
+		[self show];
 	}
+  else{
+    [self authorize];
+  }
 }
 
 - (BOOL)prepareItem {
@@ -220,33 +200,15 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 #pragma mark -
 #pragma mark UI Implementation
 
-- (void)show
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	if (item.shareType == SHKShareTypeURL)
-	{
-		[self showReadabilityForm];
-	}
-}
-
-- (void)showReadabilityForm
-{
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+	if (type == SHKShareTypeURL)
+		return [NSArray arrayWithObjects:
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Favorite") key:@"favorite" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Archive") key:@"archive" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
+            nil];
 	
-	rootView.text = [item customValueForKey:@"url"];
-	rootView.maxTextLength = 1000;
-	
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:rootView animated:NO];
-	[rootView release];
-	
-	[[SHK currentHelper] showViewController:self];	
-}
-
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"url"];
-	[self tryToSend];
+	return nil;
 }
 
 #pragma mark -
@@ -308,11 +270,20 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
+  BOOL isFavorite = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
+  BOOL shouldArchive = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
+  
 	OARequestParameter *bookmarkParam = [[OARequestParameter alloc] initWithName:@"url"
 																								value:[item customValueForKey:@"url"]];
-	NSArray *params = [NSArray arrayWithObjects:bookmarkParam, nil];
+  OARequestParameter *favoriteParam = [[OARequestParameter alloc] initWithName:@"favorite"
+                                                                         value:isFavorite?@"1":@"0"];
+  OARequestParameter *archiveParam = [[OARequestParameter alloc] initWithName:@"archive"
+                                                                         value:shouldArchive?@"1":@"0"];
+	NSArray *params = [NSArray arrayWithObjects:bookmarkParam, favoriteParam, archiveParam, nil];
 	[oRequest setParameters:params];
 	[bookmarkParam release];
+  [favoriteParam release];
+  [archiveParam release];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
@@ -353,30 +324,40 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
 	
 	// in case our makeshift parsing does not yield an error message
-	NSString *errorMessage = @"Unknown Error";		
+	NSString *errorMessage = string;		
 	
-	NSScanner *scanner = [NSScanner scannerWithString:string];
+	NSDictionary *errorDict = [string objectFromJSONString];
 	
-	// skip until error message
-	[scanner scanUpToString:@"\"error\":\"" intoString:nil];
-	
-	
-	if ([scanner scanString:@"\"error\":\"" intoString:nil])
+	if ([errorDict objectForKey:@"meta"])
 	{
-		// get the message until the closing double quotes
-		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
+    NSError *error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[errorDict objectForKey:@"messages"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+    [self sendDidFailWithError:error];
 	}
 	
-	
-	// this is the error message for revoked access ...?... || removed app from Twitter
-	if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."]) {
-		
+	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
+	if ([errorMessage rangeOfString:@"unauthenticated"].location != NSNotFound) {
 		[self shouldReloginWithPendingAction:SHKPendingSend];
-		
 	}
-	
-	NSError *error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
-	[self sendDidFailWithError:error];
+
+}
+
+- (void)shareFormSave:(SHKFormController *)form
+{
+	[super shareFormSave:form];
+  
+	// If the user turned autoshare on, record whether they want the links public or not when they're shared.
+	NSDictionary *formValues = [form formValues];
+	for(NSString *key in formValues)
+	{
+		if ([key isEqualToString:@"favorite"])
+		{
+			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
+		}
+    if ([key isEqualToString:@"archive"])
+		{
+			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
+		}
+	}
 }
 
 @end

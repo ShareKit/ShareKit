@@ -288,7 +288,7 @@
 }
 
 - (NSNumber*)allowAutoShare {
-	return [NSNumber numberWithBool:true];
+	return [NSNumber numberWithBool:false];
 }
 
 /* 
