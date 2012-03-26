@@ -282,7 +282,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
       error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[[errorDict objectForKey:@"messages"] objectForKey:@"url"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
     }
     [self sendDidFailWithError:error];
-
+    return;
 	}
 	
 	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
