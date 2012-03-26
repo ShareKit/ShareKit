@@ -194,7 +194,10 @@
 - (NSString*)readabilitySecret {
 	return @"";
 }
-
+// To use xAuth, set to 1
+- (NSNumber*)readabilityUseXAuth {
+	return [NSNumber numberWithInt:0];
+}
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";

@@ -2,7 +2,6 @@
 //  SHKReadability.h
 //  ShareKit
 //
-//  
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +23,28 @@
 //
 //
 
+#import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
 #import "SHKFormControllerLargeTextField.h"
 
-@interface SHKReadability : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate, SHKOAuthViewDelegate>
+@interface SHKReadability : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+{	
+	BOOL xAuth;		
+}
+
+@property BOOL xAuth;
+
+
+#pragma mark -
+#pragma mark UI Implementation
+
+- (void)showReadabilityForm;
+
+#pragma mark -
+#pragma mark Share API Methods
+
+- (void)sendBookmark;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 @end

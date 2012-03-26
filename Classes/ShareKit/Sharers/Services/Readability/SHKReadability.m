@@ -23,336 +23,360 @@
 //
 //
 
+
 #import "SHKConfiguration.h"
 #import "SHKReadability.h"
-#import "SHKReadabilityOAMutableURLRequest.h"
-#import "SHKXMLResponseParser.h"
+#import "JSONKit.h"
+#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+
+static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
+
+@interface SHKReadability ()
+
+- (BOOL)prepareItem;
+- (BOOL)validateItemAfterUserEdit;
+- (void)handleUnsuccessfulTicket:(NSData *)data;
+
+@end
 
 @implementation SHKReadability
+
+@synthesize xAuth;
+
+- (id)init
+{
+	if (self = [super init])
+	{	
+		// OAUTH		
+		self.consumerKey = SHKCONFIG(readabilityConsumerKey);		
+		self.secretKey = SHKCONFIG(readabilitySecret);
+ 		self.authorizeCallbackURL = [NSURL URLWithString:@""];
+		
+		// XAUTH
+		self.xAuth = [SHKCONFIG(readabilityUseXAuth) boolValue]?YES:NO;
+		
+		
+		// -- //
+		
+		
+		// You do not need to edit these, they are the same for everyone
+		self.authorizeURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/authorize/"];
+		self.requestURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/request_token/"];
+		self.accessURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/access_token/"]; 
+	}	
+	return self;
+}
+
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-// Enter the name of the service
 + (NSString *)sharerTitle
 {
 	return @"Readability";
 }
 
-
-// What types of content can the action handle?
-
-// If the action can handle URLs, uncomment this section
 + (BOOL)canShareURL
-{
-    return YES;
-}
-
-// If the action can handle images, uncomment this section
-/*
- + (BOOL)canShareImage
- {
- return YES;
- }
- */
-
-// If the action can handle text, uncomment this section
-+ (BOOL)canShareText
-{
-    return YES;
-}
-
-
-// If the action can handle files, uncomment this section
-/*
- + (BOOL)canShareFile
- {
- return YES;
- }
- */
-
-
-// Does the service require a login?  If for some reason it does NOT, uncomment this section:
-/*
- + (BOOL)requiresAuthentication
- {
- return NO;
- }
- */ 
-
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-// Subclass if you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)
-+ (BOOL)canShare
 {
 	return YES;
 }
 
++ (BOOL)canShareText
+{
+	return NO;
+}
 
++ (BOOL)canShareImage
+{
+	return NO;
+}
+
++ (BOOL)canGetUserInfo
+{
+	return NO;
+}
 
 #pragma mark -
-#pragma mark Authentication
+#pragma mark Configuration : Dynamic Enable
 
-// These defines should be renamed (to match your service name).
-// They will eventually be moved to SHKConfig so the user can modify them.
-
-#define SHKYourServiceNameConsumerKey @""	// The consumer key
-#define SHKYourServiceNameSecretKey @""		// The secret key
-#define SHKYourServiceNameCallbackUrl @""	// The user defined callback url
-
-- (id)init
+- (BOOL)shouldAutoShare
 {
-	if (self = [super init])
-	{		
-		self.consumerKey = SHKCONFIG(readabilityConsumerKey);		
-		self.secretKey = SHKCONFIG(readabilitySecret);
- 		self.authorizeCallbackURL = [NSURL URLWithString:@""];
-		
-		// -- //
-		
-		
-		// Edit these to provide the correct urls for each oauth step
-	    self.requestURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/request_token/"];
-	    self.authorizeURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/authorize/"];
-	    self.accessURL = [NSURL URLWithString:@"https://www.readability.com/api/rest/v1/oauth/access_token/"];
-		
-		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
-	}	
-	return self;
+	return NO;
 }
 
-- (void)tokenAccess:(BOOL)refresh
-{
-	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+#pragma mark -
+#pragma mark Commit Share
+
+- (void)share {
 	
-    SHKReadabilityOAMutableURLRequest *oRequest = [[SHKReadabilityOAMutableURLRequest alloc] initWithURL:accessURL
-                                                                                          consumer:consumer
-                                                                                             token:(refresh ? accessToken : requestToken)
-                                                                                             realm:nil   // our service provider doesn't specify a realm
-                                                                                 signatureProvider:signatureProvider // use the default method, HMAC-SHA1
-                                                                                          callback:@""];
+	BOOL itemPrepared = [self prepareItem];
 	
-    [oRequest setHTTPMethod:@"POST"];
-	
-	[self tokenAccessModifyRequest:oRequest];
-	
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(tokenAccessTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(tokenAccessTicket:didFailWithError:)];
-	[fetcher start];
-	[oRequest release];
+	//the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
+	if (itemPrepared) {
+		[super share];
+	}
 }
 
+- (BOOL)prepareItem {
+	
+	BOOL result = YES;
+	
+	if (item.shareType == SHKShareTypeURL)
+	{
+    [item setCustomValue:[item.URL absoluteString] forKey:@"url"];		
+	}
+	return result;
+}
 
-// If you need to add additional headers or parameters to the access_token request, uncomment this section:
+#pragma mark -
+#pragma mark Authorization
+
+- (BOOL)isAuthorized
+{		
+	return [self restoreAccessToken];
+}
+
+- (void)promptAuthorization
+{	
+	
+	if (xAuth)
+		[super authorizationFormShow]; // xAuth process
+	
+	else
+		[super promptAuthorization]; // OAuth process		
+}
+
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKReadabilityUserInfo];
+	[super logout];    
+}
+
+#pragma mark xAuth
+
++ (NSString *)authorizationFormCaption
+{
+	return SHKLocalizedString(@"Create a free account at %@", @"Readability.com");
+}
+
++ (NSArray *)authorizationFormFields
+{
+	
+	return [NSArray arrayWithObjects:
+			  [SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
+			  [SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
+			  nil];
+}
+
+- (void)authorizationFormValidate:(SHKFormController *)form
+{
+	self.pendingForm = form;
+	[self tokenAccess];
+}
+
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
+{	
+	if (xAuth)
+	{
+		NSDictionary *formValues = [pendingForm formValues];
+		
+		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
+																								 value:[formValues objectForKey:@"username"]] autorelease];
+		
+		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
+																								 value:[formValues objectForKey:@"password"]] autorelease];
+		
+		OARequestParameter *mode = [[[OARequestParameter alloc] initWithName:@"x_auth_mode"
+																							value:@"client_auth"] autorelease];
+		
+		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
+	}
+}
+
+- (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	SHKLog(@"req: %@", authorizeResponseQueryVars);
-  // Here is an example that adds the oauth_verifier value received from the authorize call.
-  // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
-  [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+	if (xAuth) 
+	{
+		if (ticket.didSucceed)
+		{
+			[pendingForm close];
+		}
+		
+		else
+		{
+			NSString *response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+			
+			SHKLog(@"tokenAccessTicket Response Body: %@", response);
+			
+			[self tokenAccessTicket:ticket didFailWithError:[SHK error:response]];
+			return;
+		}
+	}
+	
+	[super tokenAccessTicket:ticket didFinishWithData:data];		
 }
 
 
 #pragma mark -
-#pragma mark Share Form
+#pragma mark UI Implementation
 
-- (void)showSHKTextForm
+- (void)show
+{
+	if (item.shareType == SHKShareTypeURL)
+	{
+		[self showReadabilityForm];
+	}
+}
+
+- (void)showReadabilityForm
 {
 	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
-    if (item.shareType == SHKShareTypeURL) {
-        rootView.text = item.title;
-        rootView.hasLink = YES;
-        
-    } else {
-        rootView.text = item.text;
-    }
-    
-    rootView.maxTextLength = 700;  
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
+	rootView.text = [item customValueForKey:@"url"];
+	rootView.maxTextLength = 1000;
+	
+	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-    [rootView release];
+	[rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
 
-- (void)show
-{
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL)
-	{
-		[self showSHKTextForm];
-	}
-}
-
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
-+ (BOOL)canAutoShare
-{
-    return NO;
-}
-
-#pragma mark -
-#pragma mark SHKFormControllerLargeTextField delegate
-
 - (void)sendForm:(SHKFormControllerLargeTextField *)form
 {	
-    if (item.shareType == SHKShareTypeURL) {
-        item.title = form.textView.text;
-    } else {
-        item.text = form.textView.text;
-    }
+	[item setCustomValue:form.textView.text forKey:@"url"];
 	[self tryToSend];
 }
 
 #pragma mark -
-#pragma mark Implementation
+#pragma mark Share API Methods
 
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
 - (BOOL)validateItem
-{ 
-    if (![super validateItem]) {
-        return NO;
-    }
-    
-    if (item.shareType == SHKShareTypeURL && item.title == nil) {
-        return NO;
-    };
-    
-    return YES;
+{
+	if (self.item.shareType == SHKShareTypeURL) {
+		return YES;
+	}
+	
+	NSString *url = [item customValueForKey:@"url"];
+	return url != nil;
 }
 
-// Send the share item to the server
+- (BOOL)validateItemAfterUserEdit {
+	
+	BOOL result = NO;
+	
+	BOOL isValid = [self validateItem];    
+	
+	if (isValid) {
+		result = YES;
+	}
+	
+	return result;
+}
+
 - (BOOL)send
 {	
-	if (![self validateItem])
+	
+	if (![self validateItemAfterUserEdit])
 		return NO;
 	
-    // Determine which type of share to do
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL) // sharing a Text or URL
-    {
-        // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
-        
-      OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.readability.com/api/rest/v1/bookmarks"]
-                                                                        consumer:consumer // this is a consumer object already made available to us
-                                                                           token:accessToken // this is our accessToken already made available to us
-                                                                           realm:nil
-                                                               signatureProvider:signatureProvider];
-        
-        [oRequest setHTTPMethod:@"POST"];
-        
-        [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
-        
-        // TODO use more robust method to escape         
-        NSString *comment;
-        if (item.shareType == SHKShareTypeURL) {
-            comment =[[[[item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        } else {
-            comment =[[[[item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        }
-        
-        
-        NSString *submittedUrl;
-        if (item.shareType == SHKShareTypeURL) {
-            NSString *urlString = [[[[item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-            submittedUrl = [NSString stringWithFormat:@"<content><submitted-url>%@</submitted-url></content>", urlString];
-        } else {
-            submittedUrl = @"";
-        }
-
-        NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                          "<share>"
-                            "<comment>%@</comment>"
-                            "%@"
-
-                          "</share>", comment, submittedUrl];
-        
-        [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];         
-        
-        // Start the request
-        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                              delegate:self
-                                                                                     didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];	
-        
-        [fetcher start];
-        [oRequest release];
-        
-        // Notify delegate
-        [self sendDidStart];
-        
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
-{	
-    if (ticket.didSucceed)
-    {
-        // The send was successful
-        [self sendDidFinish];
-    }
-    
-    else 
-    {
-        
-#ifdef _SHKDebugShowLogs
-        NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-#endif
-        SHKLog(@"%@", responseBody);
-        
-        // Handle the error
-        
-        // If the error was the result of the user no longer being authenticated, you can reprompt
-        // for the login information with:
-        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
-        
-        if ([errorCode isEqualToString:@"401"]) {
-            
-            [self shouldReloginWithPendingAction:SHKPendingSend];
-            
-        } else {
-            
-            // Otherwise, all other errors should end with:            
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")] shouldRelogin:NO]; 
-        }
-    }
-}
-
-- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
-	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	
-	if (!success)
-	{
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
-                                 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
+	switch (item.shareType) {
+			
+		case SHKShareTypeURL:            
+			[self sendBookmark];
+			break;
+			
+		default:
+			[self sendBookmark];
+			break;
 	}
-	else 
-	{
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-    [self send];
-	}
-	[self authDidFinish:success];
+	
+	// Notify delegate
+	[self sendDidStart];	
+	
+	return YES;
 }
 
-
-- (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+- (void)sendBookmark
 {
-    [self sendDidFailWithError:error shouldRelogin:NO];
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.readability.com/api/rest/v1/bookmarks/"]
+                                                                  consumer:consumer // this is a consumer object already made available to us
+                                                                     token:accessToken // this is our accessToken already made available to us
+                                                                     realm:nil
+                                                         signatureProvider:signatureProvider];
+	
+	[oRequest setHTTPMethod:@"POST"];
+	
+	OARequestParameter *bookmarkParam = [[OARequestParameter alloc] initWithName:@"url"
+																								value:[item customValueForKey:@"url"]];
+	NSArray *params = [NSArray arrayWithObjects:bookmarkParam, nil];
+	[oRequest setParameters:params];
+	[bookmarkParam release];
+	
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																													  delegate:self
+																										  didFinishSelector:@selector(sendBookmarkTicket:didFinishWithData:)
+																											 didFailSelector:@selector(sendBookmarkTicket:didFailWithError:)];	
+	
+	[fetcher start];
+	[oRequest release];
 }
 
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+{	
+	// TODO better error handling here
+	
+	if (ticket.didSucceed) 
+		[self sendDidFinish];
+	
+	else
+	{		
+		[self handleUnsuccessfulTicket:data];
+	}
+}
+
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	[self sendDidFailWithError:error];
+}
+
+#pragma mark -
+
+- (void)handleUnsuccessfulTicket:(NSData *)data
+{
+	if (SHKDebugShowLogs)
+		SHKLog(@"Readability Send Bookmark Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	// CREDIT: Oliver Drobnik
+	
+	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
+	
+	// in case our makeshift parsing does not yield an error message
+	NSString *errorMessage = @"Unknown Error";		
+	
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	
+	// skip until error message
+	[scanner scanUpToString:@"\"error\":\"" intoString:nil];
+	
+	
+	if ([scanner scanString:@"\"error\":\"" intoString:nil])
+	{
+		// get the message until the closing double quotes
+		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
+	}
+	
+	
+	// this is the error message for revoked access ...?... || removed app from Twitter
+	if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."]) {
+		
+		[self shouldReloginWithPendingAction:SHKPendingSend];
+		
+	}
+	
+	NSError *error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+	[self sendDidFailWithError:error];
+}
 
 @end
