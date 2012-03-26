@@ -262,16 +262,16 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 {
 	if (SHKDebugShowLogs)
 		SHKLog(@"Readability Send Bookmark Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-	
-	// CREDIT: Oliver Drobnik
-	
-	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
-	
-	// in case our makeshift parsing does not yield an error message
-	NSString *errorMessage = string;		
-	
-	NSDictionary *errorDict = [string objectFromJSONString];
-	
+		
+	NSString *errorMessage = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];			
+  
+	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
+	if ([errorMessage rangeOfString:@"unauthenticated"].location != NSNotFound) {
+		[self shouldReloginWithPendingAction:SHKPendingSend];
+    return;
+	}
+	NSDictionary *errorDict = [errorMessage objectFromJSONString];
+
 	if ([[errorDict objectForKey:@"success"] intValue] == 0)
 	{
     NSError * error = nil;
@@ -282,14 +282,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
       error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[[errorDict objectForKey:@"messages"] objectForKey:@"url"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
     }
     [self sendDidFailWithError:error];
-    return;
 	}
-	
-	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
-	if ([errorMessage rangeOfString:@"unauthenticated"].location != NSNotFound) {
-		[self shouldReloginWithPendingAction:SHKPendingSend];
-	}
-
 }
 
 - (void)shareFormSave:(SHKFormController *)form
