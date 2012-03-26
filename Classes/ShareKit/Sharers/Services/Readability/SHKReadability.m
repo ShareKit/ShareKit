@@ -33,8 +33,6 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
 @interface SHKReadability ()
 
-- (BOOL)prepareItem;
-- (BOOL)validateItemAfterUserEdit;
 - (void)handleUnsuccessfulTicket:(NSData *)data;
 
 @end
@@ -79,33 +77,6 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 + (BOOL)canShareURL
 {
 	return YES;
-}
-
-#pragma mark -
-#pragma mark Commit Share
-
-- (void)share {
-	
-	BOOL itemPrepared = [self prepareItem];
-	
-	//the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
-	if (itemPrepared && [self isAuthorized]) {
-		[self show];
-	}
-  else{
-    [self authorize];
-  }
-}
-
-- (BOOL)prepareItem {
-	
-	BOOL result = YES;
-	
-	if (item.shareType == SHKShareTypeURL)
-	{
-    [item setCustomValue:[item.URL absoluteString] forKey:@"url"];		
-	}
-	return result;
 }
 
 #pragma mark -
@@ -214,35 +185,8 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem
-{
-	if (self.item.shareType == SHKShareTypeURL) {
-		return YES;
-	}
-	
-	NSString *url = [item customValueForKey:@"url"];
-	return url != nil;
-}
-
-- (BOOL)validateItemAfterUserEdit {
-	
-	BOOL result = NO;
-	
-	BOOL isValid = [self validateItem];    
-	
-	if (isValid) {
-		result = YES;
-	}
-	
-	return result;
-}
-
 - (BOOL)send
 {	
-	
-	if (![self validateItemAfterUserEdit])
-		return NO;
-	
 	switch (item.shareType) {
 			
 		case SHKShareTypeURL:            
@@ -274,7 +218,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
   BOOL shouldArchive = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
   
 	OARequestParameter *bookmarkParam = [[OARequestParameter alloc] initWithName:@"url"
-																								value:[item customValueForKey:@"url"]];
+																								value:[item.URL absoluteString]];
   OARequestParameter *favoriteParam = [[OARequestParameter alloc] initWithName:@"favorite"
                                                                          value:isFavorite?@"1":@"0"];
   OARequestParameter *archiveParam = [[OARequestParameter alloc] initWithName:@"archive"
@@ -328,10 +272,17 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	
 	NSDictionary *errorDict = [string objectFromJSONString];
 	
-	if ([errorDict objectForKey:@"meta"])
+	if ([[errorDict objectForKey:@"success"] intValue] == 0)
 	{
-    NSError *error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[errorDict objectForKey:@"messages"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+    NSError * error = nil;
+    if ([[errorDict objectForKey:@"messages"] isKindOfClass:[NSArray class]]) {
+      error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[errorDict objectForKey:@"messages"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+    }
+    if ([[errorDict objectForKey:@"messages"] objectForKey:@"url"]) {
+      error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[[errorDict objectForKey:@"messages"] objectForKey:@"url"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+    }
     [self sendDidFailWithError:error];
+
 	}
 	
 	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
