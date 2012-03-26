@@ -46,7 +46,5 @@
 - (void)sendBookmark;
 - (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 - (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-=======
->>>>>>> .merge_file_GBzYRo
 
 @end
