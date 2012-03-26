@@ -108,7 +108,7 @@
 	{		
 		self.consumerKey = SHKCONFIG(readabilityConsumerKey);		
 		self.secretKey = SHKCONFIG(readabilitySecret);
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(linkedInCallbackUrl)];
+ 		self.authorizeCallbackURL = [NSURL URLWithString:@""];
 		
 		// -- //
 		
@@ -133,7 +133,7 @@
                                                                                              token:(refresh ? accessToken : requestToken)
                                                                                              realm:nil   // our service provider doesn't specify a realm
                                                                                  signatureProvider:signatureProvider // use the default method, HMAC-SHA1
-                                                                                          callback:self.authorizeCallbackURL.absoluteString];
+                                                                                          callback:@""];
 	
     [oRequest setHTTPMethod:@"POST"];
 	
@@ -327,6 +327,27 @@
         }
     }
 }
+
+- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
+	
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	
+	if (!success)
+	{
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+                                 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
+                                delegate:nil
+                       cancelButtonTitle:SHKLocalizedString(@"Close")
+                       otherButtonTitles:nil] autorelease] show];
+	}
+	else 
+	{
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+    [self send];
+	}
+	[self authDidFinish:success];
+}
+
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {

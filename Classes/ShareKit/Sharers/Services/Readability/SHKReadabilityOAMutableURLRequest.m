@@ -112,7 +112,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		 [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]];
 	}
     
-    NSString *oauthHeader = [NSString stringWithFormat:@"OAuth realm=\"%@\", %@oauth_consumer_key=\"%@\", %@oauth_signature_method=\"%@\", oauth_signature=\"%@\", oauth_timestamp=\"%@\", oauth_nonce=\"%@\", oauth_version=\"2.0\"%@",
+    NSString *oauthHeader = [NSString stringWithFormat:@"OAuth realm=\"%@\", %@oauth_consumer_key=\"%@\", %@oauth_signature_method=\"%@\", oauth_signature=\"%@\", oauth_timestamp=\"%@\", oauth_nonce=\"%@\", oauth_version=\"1.0\"%@",
                              [realm URLEncodedString],
                              oauthCallback,
                              [consumer.key URLEncodedString],

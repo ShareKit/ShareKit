@@ -116,8 +116,11 @@
 	[self stopSpinner];
 	
 	// Extra sanity check for Twitter OAuth users to make sure they are using BROWSER with a callback instead of pin based auth
+  NSLog(@"Web View %@, %@", webView.request.URL.host, [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('mark').item(0).innerHTML"]);
 	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
 		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
+  if ([webView.request.URL.host isEqualToString:@"www.readability.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('mark').item(0).innerHTML"].length)
+    [delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:[NSDictionary dictionaryWithObjectsAndKeys:[webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('mark').item(0).innerHTML"],@"verifier_key", nil] error:nil];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

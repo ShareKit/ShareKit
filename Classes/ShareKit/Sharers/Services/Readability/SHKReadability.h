@@ -27,6 +27,6 @@
 #import "SHKOAuthSharer.h"
 #import "SHKFormControllerLargeTextField.h"
 
-@interface SHKReadability : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKReadability : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate, SHKOAuthViewDelegate>
 
 @end
