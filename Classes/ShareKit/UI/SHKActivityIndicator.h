@@ -47,6 +47,7 @@
 - (void)show;
 - (void)hideAfterDelay;
 - (void)hide;
+- (void)persist;
 - (void)hidden;
 - (void)displayActivity:(NSString *)m;
 - (void)displayCompleted:(NSString *)m;
