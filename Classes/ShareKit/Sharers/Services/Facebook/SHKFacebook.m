@@ -178,7 +178,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	
 	[[SHKFacebook facebook] setSessionDelegate:self];
     [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-	[[SHKFacebook facebook] authorize:[NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil]];		
+	[[SHKFacebook facebook] authorize:SHKCONFIG(facebookListOfPermissions)];		
 }
 
 + (void)logout
