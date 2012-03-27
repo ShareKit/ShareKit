@@ -182,10 +182,18 @@
 		[self layoutCounter];
 	}
 	
-	NSInteger count = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
-	counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
-	
-	if (count >= 0) {
+	NSString *count;
+    NSInteger countNumber = 0;
+    
+    if (self.maxTextLength) {
+        countNumber = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
+        count = [NSString stringWithFormat:@"%i", countNumber];
+    } else {
+        count = @"";
+    }
+    counter.text = [NSString stringWithFormat:@"%@%@", self.image ? [NSString stringWithFormat:@"Image %@ ",countNumber>0?@"+":@""]:@"", count];
+ 	
+	if (countNumber >= 0) {
 		
 		self.counter.textColor = [UIColor blackColor];        
 		if (self.textView.text.length) self.navigationItem.rightBarButtonItem.enabled = YES; 
