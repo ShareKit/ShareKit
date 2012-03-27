@@ -184,11 +184,6 @@
  These provide controls for basic UI settings.  For more advanced configuration see below.
  */
 
-// Toolbars
-- (NSString*)barStyle {
-	return @"UIBarStyleDefault";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIKitDataTypesReference/Reference/reference.html#//apple_ref/c/econst/UIBarStyleDefault
-}
-
 - (UIColor*)barTintForView:(UIViewController*)vc {    
 	
     if ([NSStringFromClass([vc class]) isEqualToString:@"SHKTwitter"]) 
@@ -199,93 +194,5 @@
     
     return nil;
 }
-
-// Forms
-- (NSNumber*)formFontColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formFontColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formFontColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-// iPad views
-- (NSString*)modalPresentationStyle {
-	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
-}
-
-- (NSString*)modalTransitionStyle {
-	return @"UIModalTransitionStyleCoverVertical";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
-}
-// ShareMenu Ordering
-- (NSNumber*)shareMenuAlphabeticalOrder {
-	return [NSNumber numberWithInt:0];// Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-}
-// Append 'Shared With 'Signature to Email (and related forms)
-- (NSNumber*)sharedWithSignature {
-	return [NSNumber numberWithInt:0];
-}
-// Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but 
-// this allows you to subclass a sharer and have the subclass be used.
-- (NSString*)sharersPlistName {
-	return @"SHKSharers.plist";
-}
-/*
- UI Configuration : Advanced
- ---------------------------
- If you'd like to do more advanced customization of the ShareKit UI, like background images and more,
- check out http://getsharekit.com/customize
- */
-
-// turn on to use placeholders in edit fields instead of labels to the left for input fields.
-- (NSNumber*)usePlaceholders {
-	return [NSNumber numberWithBool:false];
-}
-/*
- Advanced Configuration
- ----------------------
- These settings can be left as is.  This only need to be changed for uber custom installs.
- */
-- (NSNumber*)maxFavCount {
-	return [NSNumber numberWithInt:3];
-}
-
-- (NSString*)favsPrefixKey {
-	return @"SHK_FAVS_";
-}
-
-- (NSString*)authPrefix {
-	return @"SHK_AUTH_";
-}
-
-- (NSNumber*)allowOffline {
-	return [NSNumber numberWithBool:true];
-}
-
-- (NSNumber*)allowAutoShare {
-	return [NSNumber numberWithBool:true];
-}
-
-/* 
- Debugging settings
- ------------------
- see DefaultSHKConfigurator.h
- */
-
 
 @end
