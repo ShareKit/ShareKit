@@ -240,7 +240,7 @@
         [contentStr appendFormat:@"<h1>%@</h1>",item.title];
 
 			if(item.text.length>0 )
-      	[contentStr appendFormat:@"<p>%@</p>",item.text];
+      	[contentStr appendFormat:@"<p>%@</p>", SHKFlattenHTML(item.text, YES)];
 
 			if(item.image) {
 				EDAMResource *img = [[[EDAMResource alloc] init] autorelease];

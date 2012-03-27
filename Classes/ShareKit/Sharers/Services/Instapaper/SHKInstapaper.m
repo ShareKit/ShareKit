@@ -129,10 +129,13 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 - (BOOL)send
 {		
 	if ([self validateItem]) {	
-		NSString *params = [NSMutableString stringWithFormat:@"url=%@&username=%@&password=%@",
-                         SHKEncodeURL(self.item.URL),
-                         SHKEncode([self getAuthValueForKey:@"username"]),
-                         SHKEncode([self getAuthValueForKey:@"password"])];
+
+        NSString *params = [NSMutableString stringWithFormat:@"url=%@&title=%@&selection=%@&username=%@&password=%@",
+                            SHKEncodeURL(self.item.URL),
+                            SHKEncode(self.item.title),
+                            SHKEncode(SHKFlattenHTML(self.item.text, YES)),
+                            SHKEncode([self getAuthValueForKey:@"username"]),
+                            SHKEncode([self getAuthValueForKey:@"password"])];
 		
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
                                              params:params
