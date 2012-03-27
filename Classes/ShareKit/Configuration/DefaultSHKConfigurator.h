@@ -53,6 +53,7 @@
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
+- (NSArray*)facebookListOfPermissions;
 - (NSString*)readItLaterKey;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
