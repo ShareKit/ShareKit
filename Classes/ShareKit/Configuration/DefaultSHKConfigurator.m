@@ -263,6 +263,11 @@
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
 }
 
+//by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
+- (NSNumber*)autoOrderFavoriteSharers {
+    return [NSNumber numberWithBool:true];
+}
+
 /*
  UI Configuration : Advanced
  ---------------------------
