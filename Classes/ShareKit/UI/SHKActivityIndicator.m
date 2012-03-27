@@ -191,6 +191,7 @@ static SHKActivityIndicator *_currentIndicator = nil;
 		}
 		
 		centerMessageLabel.text = message;
+		[spinner removeFromSuperview];
 	}
 }
 
