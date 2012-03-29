@@ -191,7 +191,7 @@ static SHKActivityIndicator *_currentIndicator = nil;
 		}
 		
 		centerMessageLabel.text = message;
-		[spinner removeFromSuperview];
+		[self hideSpinner];
 	}
 }
 
@@ -238,6 +238,11 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	
 	[self addSubview:spinner];
 	[spinner startAnimating];
+}
+
+- (void)hideSpinner
+{
+	[spinner removeFromSuperview]
 }
 
 #pragma mark -
