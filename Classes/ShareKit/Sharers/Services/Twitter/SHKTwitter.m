@@ -326,7 +326,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)shortenURL
 {	
-	if (![SHK connected])
+	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
+	NSString *bitLyKey = SHKCONFIG(bitLyKey);
+	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
+	
+	if (bitLyConfigured == NO || ![SHK connected])
 	{
 		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 		return YES;
@@ -336,16 +340,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-																								 SHKCONFIG(bitLyLogin),
-																								 SHKCONFIG(bitLyKey),																		  
-																								 SHKEncodeURL(item.URL)
-																								 ]]
-														  params:nil
-														delegate:self
-										  isFinishedSelector:@selector(shortenURLFinished:)
-														  method:@"GET"
-													  autostart:YES] autorelease];
-	return NO;
+																		  bitLyLogin,
+																		  bitLyKey,																		  
+																		  SHKEncodeURL(item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+    return NO;
 }
 
 - (void)shortenURLFinished:(SHKRequest *)aRequest
