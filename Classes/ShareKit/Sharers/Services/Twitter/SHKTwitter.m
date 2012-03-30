@@ -138,13 +138,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)twitterFrameworkAvailable {
 	
-	BOOL result = NO;
-	
+    if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
+    {
+        return NO;
+    }
+    
 	if (NSClassFromString(@"TWTweetComposeViewController")) {
-		result = YES;
+		return YES;
 	}
 	
-	return result;
+	return NO;
 }
 
 - (BOOL)prepareItem {
