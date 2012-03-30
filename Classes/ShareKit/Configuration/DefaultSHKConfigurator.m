@@ -115,7 +115,7 @@
  twitter accounts don't end up in the devices account store, set this to true.
  */
 - (NSNumber*)forcePreIOS5TwitterAccess {
-	return [NSNumber numberWithBool:true];
+	return [NSNumber numberWithBool:false];
 }
 
 - (NSString*)twitterConsumerKey {
