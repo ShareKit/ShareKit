@@ -10,3 +10,10 @@ build
 .DS_Store
 Classes/ShareKit/SHKConfig.h
 DerivedData
+
+
+# kit stuff
+Kits
+dist
+src
+resources

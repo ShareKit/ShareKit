@@ -1,0 +1,7 @@
+--- 
+name: sharekit
+version: 2.0
+resources-directory: src/resources
+dependencies: 
+- reachability: 2.3
+- SBJSON: 0.2
