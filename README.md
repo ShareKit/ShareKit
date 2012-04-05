@@ -20,3 +20,8 @@ Documentation
 The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki).
 
 !!! Updated new service creation guidelines for contributors are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
+
+KitSpec
+-------
+
+Run `$ rake kit` to build the content in the src folder. 
