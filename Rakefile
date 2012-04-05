@@ -132,4 +132,11 @@ task :kit => [:create_folders, :find_dups] do
     FileUtils.cp_r resource, RES_FOLDER + "/"
   end
   puts "Copied #{SOURCE_FILES.size} files"
+  
+  files_to_overwrite = FileList["overwrite/*"];
+  files_to_overwrite.each do |file|
+    FileUtils.cp file, "#{SRC_FOLDER}/#{File.basename(file)}"
+    puts "Overwriting #{File.basename(file)} in src/"
+  end
+  
 end
