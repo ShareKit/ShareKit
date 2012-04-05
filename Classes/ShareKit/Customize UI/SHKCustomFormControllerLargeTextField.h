@@ -1,8 +1,8 @@
 //
-//  SHKTwitter.h
+//  SHKCustomFormControllerLargeTextField.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/21/10.
+//  Created by Nathan Weiner on 6/28/10.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,35 +26,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHKOAuthSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
-{	
-	BOOL xAuth;		
+@interface SHKCustomFormControllerLargeTextField : SHKFormControllerLargeTextField {
+
 }
-
-@property BOOL xAuth;
-
-
-#pragma mark -
-#pragma mark UI Implementation
-
-- (void)showTwitterForm;
-
-#pragma mark -
-#pragma mark Share API Methods
-
-- (void)sendStatus;
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-- (void)sendImage;
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-- (void)sendUserInfo;
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-
-- (void)followMe;
 
 @end

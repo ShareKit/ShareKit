@@ -210,7 +210,7 @@
 
 - (void)showVkontakteForm
 {
- 	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+ 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
     
  	rootView.text = item.text;
 	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
@@ -219,7 +219,7 @@
 	[[SHK currentHelper] showViewController:self];  
 }
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {  
  	self.item.text = form.textView.text;
  	[self tryToSend];
