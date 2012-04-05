@@ -24,12 +24,23 @@ SRC_FOLDER = "src"
 RES_FOLDER =  "#{SRC_FOLDER}/resources"
 
 # Exclude any paths that we don't need
-EXCLUDE_PATTERNS = /(Reachability\.[hm]|Evernote|Pinboard|Tumblr|Instapaper|Delicious|Google Reader|SBJSON|Vkontakte|LinkedIn|FoursquareV2|Flickr|Read It Later|SHKMail|SHKCopy|SHKPrint|SHKTextMessage|SHKPhotoAlbum|SHKSafari)/i
+# EXCLUDE_PATTERNS = /(Reachability\.[hm]|Evernote|Pinboard|Tumblr|Instapaper|Delicious|Google Reader|SBJSON|Vkontakte|LinkedIn|FoursquareV2|Flickr|Read It Later|SHKMail|SHKCopy|SHKPrint|SHKTextMessage|SHKPhotoAlbum|SHKSafari)/i
+EXCLUDE_PATTERNS = /(SBJSON)/i
 
+ALL_PATTERN = '**/*.[hmc]'
 # Get list of all source files we need 
-BASE_SOURCE_DIRS = ['Submodules/facebook-ios-sdk/src', 'Classes/ShareKit', 'Submodules/JSONKit', 'Submodules/sskeychain']
-combined_sources = BASE_SOURCE_DIRS.map {|d| FileList[d + '/**/*.[hmc]'] }.flatten
+base_source_dirs = [  "Classes/ShareKit/UI/"                + ALL_PATTERN,
+                      "Classes/ShareKit/Configuration/"     + ALL_PATTERN,
+                      "Classes/ShareKit/Customize UI/"      + ALL_PATTERN,
+                      "Classes/ShareKit/Core/"              + ALL_PATTERN,
+                      "Classes/ShareKit/Sharers/Actions/"   + ALL_PATTERN,
+                      "Classes/ShareKit/Sharers/Services/Twitter/"   + ALL_PATTERN,
+                      "Classes/ShareKit/Sharers/Services/Facebook/"  + ALL_PATTERN,
+                      "Submodules/facebook-ios-sdk/src/"    + ALL_PATTERN,
+                      "Submodules/JSONKit/"                 + ALL_PATTERN,
+                      "Submodules/sskeychain/"              + 'SSKeychain.[hm]']
 
+combined_sources = base_source_dirs.map {|d| FileList[d] }.flatten
 SOURCE_FILES = combined_sources.select do |f| 
   puts " EXCLUDING #{f}" if f =~ EXCLUDE_PATTERNS
   !(f =~ EXCLUDE_PATTERNS) 
