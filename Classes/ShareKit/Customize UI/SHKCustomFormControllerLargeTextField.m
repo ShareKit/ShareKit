@@ -26,10 +26,82 @@
 //
 
 #import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKItem.h"
 
+// stop warning on keyboardWillShow
+@interface SHKFormControllerLargeTextField ()
+- (void)keyboardWillShow:(NSNotification *)notification;
+@end
+
+@interface SHKCustomFormControllerLargeTextField ()
+@property (nonatomic, retain) UIImageView *itemImageView;
+- (void)layoutImageView;
+@end
 
 @implementation SHKCustomFormControllerLargeTextField
+@synthesize itemImageView = _itemImageView;
 
 // See http://getsharekit.com/customize/ for additional information on customizing
+
+#define ImageIndent 20.0f
+#define ImageMaxHeight 140.0f
+
+- (void)dealloc
+{
+    self.itemImageView = nil;
+    [super dealloc];
+}
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    if ([super respondsToSelector:@selector(keyboardWillShow:)]) {
+        [super keyboardWillShow:notification];
+    }
+    [self layoutImageView];
+}
+
+
+- (void)layoutImageView
+{
+    if (!self.image) 
+        return;
+    CGRect rect;
+    // calculate a size for the image to display in with same aspect ratio, (due to contentMode not being a bitmask :(  )
+    CGFloat scale = ImageMaxHeight/self.image.size.height;
+    rect.origin = CGPointMake(ImageIndent, CGRectGetMaxY(self.textView.bounds) - ImageMaxHeight - (ImageIndent - 10)); // -10 because our image has a drop shadow
+    rect.size = CGSizeApplyAffineTransform(self.image.size, CGAffineTransformMakeScale(scale, scale));
+    
+    self.itemImageView.frame = CGRectIntegral(rect);
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [UIView animateWithDuration:0.9f animations:^{
+        self.itemImageView.alpha = 1.0;
+    }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.itemImageView = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if (self.image)
+    {
+        [self.itemImageView removeFromSuperview];
+        self.itemImageView  = [[[UIImageView alloc] initWithImage:self.image] autorelease];     
+        self.itemImageView.frame = CGRectZero;
+        self.itemImageView.alpha = 0.0;
+        self.itemImageView.contentMode = UIViewContentModeScaleAspectFit;
+        self.itemImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        [self.view addSubview:self.itemImageView];
+    }
+    
+}
 
 @end
