@@ -398,7 +398,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)showFacebookForm
 {
- 	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+ 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
  	
     switch (self.item.shareType) {
         case SHKShareTypeText:
@@ -418,7 +418,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     [[SHK currentHelper] showViewController:self];  
 }
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {  
  	switch (self.item.shareType) {
         case SHKShareTypeText:
