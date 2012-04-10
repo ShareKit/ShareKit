@@ -115,8 +115,12 @@
                                                                style:UIBarButtonItemStylePlain 
                                                               target:self
                                                               action:@selector(logoutPressed:)];
+
+    // use the leftbarButton item that was just set up in super
     self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:self.navigationItem.leftBarButtonItem, logout, nil];
+    self.navigationItem.leftBarButtonItem = nil;
     [logout release];
+
 }
 
 @end
