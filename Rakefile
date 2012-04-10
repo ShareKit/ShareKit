@@ -112,8 +112,12 @@ task :mods do
   SOURCE_FILES.each do |orig_file|
       maybe_dirty_file = "#{SRC_FOLDER}/#{File.basename(orig_file)}"
       if Digest::MD5.file(maybe_dirty_file) != Digest::MD5.file(orig_file)
-        FileUtils.cp maybe_dirty_file, orig_file
-        puts "found changes in #{maybe_dirty_file}"
+        if orig_file =~ /Submodules/
+          puts "changed, but not copying changes into submodule for #{maybe_dirty_file}"
+        else
+          FileUtils.cp maybe_dirty_file, orig_file
+          puts "found changes in #{maybe_dirty_file}"
+        end
       end
   end
 end
