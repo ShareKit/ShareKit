@@ -33,6 +33,7 @@
 - (void)keyboardWillShow:(NSNotification *)notification;
 @end
 
+
 @interface SHKCustomFormControllerLargeTextField ()
 @property (nonatomic, retain) UIImageView *itemImageView;
 - (void)layoutImageView;
@@ -40,8 +41,6 @@
 
 @implementation SHKCustomFormControllerLargeTextField
 @synthesize itemImageView = _itemImageView;
-
-// See http://getsharekit.com/customize/ for additional information on customizing
 
 #define ImageIndent 20.0f
 #define ImageMaxHeight 140.0f
@@ -76,24 +75,16 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [UIView animateWithDuration:0.9f animations:^{
+    [UIView animateWithDuration:0.8f animations:^{
         self.itemImageView.alpha = 1.0;
     }];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
+- (void)loadView
 {
-    [super viewDidDisappear:animated];
-    self.itemImageView = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
+    [super loadView];
     if (self.image)
     {
-        [self.itemImageView removeFromSuperview];
         self.itemImageView  = [[[UIImageView alloc] initWithImage:self.image] autorelease];     
         self.itemImageView.frame = CGRectZero;
         self.itemImageView.alpha = 0.0;
@@ -101,7 +92,13 @@
         self.itemImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
         [self.view addSubview:self.itemImageView];
     }
-    
 }
+
+- (void)viewDidUnload
+{
+    self.itemImageView = nil;
+    [super viewDidUnload];
+}
+
 
 @end
