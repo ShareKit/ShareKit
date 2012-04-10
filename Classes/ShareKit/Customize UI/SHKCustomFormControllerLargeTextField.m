@@ -100,5 +100,23 @@
     [super viewDidUnload];
 }
 
+- (void)logoutPressed:(id)sender
+{
+    [[self.delegate class] performSelector:@selector(logout)];
+    [self performSelector:@selector(cancel)];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UIBarButtonItem *logout = [[UIBarButtonItem alloc] initWithTitle:@"Logout" 
+                                                               style:UIBarButtonItemStylePlain 
+                                                              target:self
+                                                              action:@selector(logoutPressed:)];
+    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:self.navigationItem.leftBarButtonItem, logout, nil];
+    [logout release];
+}
 
 @end
