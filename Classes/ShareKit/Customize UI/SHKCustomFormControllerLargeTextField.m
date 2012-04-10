@@ -61,7 +61,7 @@
 
 - (void)layoutImageView
 {
-    if (!self.image) 
+    if (!self.itemImageView) 
         return;
     CGRect rect;
     // calculate a size for the image to display in with same aspect ratio, (due to contentMode not being a bitmask :(  )
