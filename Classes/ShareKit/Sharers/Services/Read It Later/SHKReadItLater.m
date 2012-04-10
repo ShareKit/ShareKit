@@ -144,9 +144,10 @@
 {		
 	if ([self validateItem])
 	{	
+		// SHKEncode() does not encode quotes but Read It Later requires it, so we do it here.
 		NSString *new = [NSString stringWithFormat:@"&new={\"0\":{\"url\":\"%@\",\"title\":\"%@\"}}",
 						 SHKEncodeURL(item.URL),
-						 SHKEncode(item.title)];
+						 SHKEncode([item.title stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"])];
 		
 		NSString *tags = item.tags == nil || !item.tags.length ? @"" :
 		[NSString stringWithFormat:@"&update_tags={\"0\":{\"url\":\"%@\",\"tags\":\"%@\"}}",
