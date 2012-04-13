@@ -1,0 +1,16 @@
+***************
+*** 23,29 ****
+      NSMutableDictionary* loadRequests;
+      NSMutableDictionary* imageLoadRequests;
+      NSMutableDictionary* uploadRequests;
+-     NSMutableDictionary* cameraUploadRequests;
+      id<DBRestClientDelegate> delegate;
+  }
+  
+--- 23,28 ----
+      NSMutableDictionary* loadRequests;
+      NSMutableDictionary* imageLoadRequests;
+      NSMutableDictionary* uploadRequests;
+      id<DBRestClientDelegate> delegate;
+  }
+  

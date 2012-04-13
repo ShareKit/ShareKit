@@ -29,7 +29,7 @@
 
 #import "NSString+URLEncoding.h"
 
-#import "JSON.h"
+#import "SBJSON.h"
 
 
 static NSString *apiURL = @"https://api.foursquare.com/v2";
