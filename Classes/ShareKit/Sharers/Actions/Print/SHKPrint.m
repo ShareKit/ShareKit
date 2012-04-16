@@ -68,8 +68,8 @@
 
 	UIPrintInteractionController *printer = [UIPrintInteractionController sharedPrintController];
 	UIPrintInfo *info = [UIPrintInfo printInfo];
-	info.outputType = UIPrintInfoOutputPhoto;
-	printer.printInfo = info;
+	info.outputType = [[self.item customValueForKey:PRINT_INFO_OUTPUT_TYPE_KEY] isEqualToString:PRINT_INFO_OUTPUT_TYPE_VALUE_PHOTO] ? UIPrintInfoOutputPhoto: UIPrintInfoOutputGeneral;
+    printer.printInfo = info;
 	printer.showsPageRange = NO;
 	printer.printingItem = item.image;
 	UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printer,
@@ -88,7 +88,7 @@
 		CGSize viewSize = view.bounds.size;
 		CGRect fromRect = CGRectMake(viewSize.width/2, viewSize.height/2,
 									 viewSize.width, viewSize.height);
-		[printer presentFromRect:fromRect inView:view animated:YES completionHandler:completionHandler];
+        [printer presentFromRect:fromRect inView:view animated:YES completionHandler:completionHandler];
 	} else {
 		[printer presentAnimated:YES completionHandler:completionHandler];
 	}
