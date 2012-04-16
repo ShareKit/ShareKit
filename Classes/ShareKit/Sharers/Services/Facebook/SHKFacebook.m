@@ -357,10 +357,9 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
   [self sendDidStart];
 }
 
-- (void)request:(FBRequest *)request didLoad:(id)result
+- (void)request:(FBRequest *)fbRequest didLoad:(id)result
 {   
-    if ([result objectForKey:@"username"]){
-        
+    if ([fbRequest.url hasSuffix:@"/me"] && [result objectForKey:@"id"]) {
         [result convertNSNullsToEmptyStrings];
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
     }     
