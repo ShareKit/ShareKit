@@ -110,16 +110,30 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    UIBarButtonItem *logout = [[UIBarButtonItem alloc] initWithTitle:@"Logout" 
-                                                               style:UIBarButtonItemStylePlain 
+    UIBarButtonItem *logout = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                               style:UIBarButtonItemStyleBordered 
                                                               target:self
                                                               action:@selector(logoutPressed:)];
 
-    // use the leftbarButton item that was just set up in super
-    self.navigationItem.leftBarButtonItems = [NSArray arrayWithObjects:self.navigationItem.leftBarButtonItem, logout, nil];
-    self.navigationItem.leftBarButtonItem = nil;
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    NSArray *items = [NSArray arrayWithObjects:cancel, logout, nil];
+    // use the leftbarButton item that was just set up in super (ios5)
+    if ([self.navigationItem respondsToSelector:@selector(leftBarButtonItems)]) {
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItems = items;
+        logout.tintColor = [UIColor colorWithRed:0.9f green:0.1f blue:0.1f alpha:1.0f]; //off red colour
+    } else {
+        UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0.0, 0.0, 200.0, self.navigationController.navigationBar.bounds.size.height)];
+        toolbar.items = items;
+        UIBarButtonItem *toolbarButton = [[UIBarButtonItem alloc] initWithCustomView:toolbar];
+        toolbarButton.style = UIBarButtonItemStyleBordered;
+        self.navigationItem.leftBarButtonItem = toolbarButton;
+        [toolbar release];
+        [toolbarButton release];
+    }
     [logout release];
+    [cancel release];
+    
 
 }
 
