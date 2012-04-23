@@ -335,7 +335,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	if (bitLyConfigured == NO || ![SHK connected])
 	{
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 		return YES;
 	}
 	
@@ -370,7 +370,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 								 cancelButtonTitle:SHKLocalizedString(@"Continue")
 								 otherButtonTitles:nil] autorelease] show];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 	}
 	
 	else
@@ -379,7 +379,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
 			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, result] forKey:@"status"];
 	}
 	
 	[super share];
