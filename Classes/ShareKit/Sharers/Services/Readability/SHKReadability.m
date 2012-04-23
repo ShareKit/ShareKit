@@ -268,21 +268,23 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
 	if ([errorMessage rangeOfString:@"unauthenticated"].location != NSNotFound) {
 		[self shouldReloginWithPendingAction:SHKPendingSend];
-    return;
+        return;
 	}
 	NSDictionary *errorDict = [errorMessage objectFromJSONString];
 
 	if ([[errorDict objectForKey:@"success"] intValue] == 0)
 	{
-    NSError * error = nil;
-    if ([[errorDict objectForKey:@"messages"] isKindOfClass:[NSArray class]]) {
-      error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[errorDict objectForKey:@"messages"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+        NSError * error = nil;
+        if ([[errorDict objectForKey:@"messages"] isKindOfClass:[NSArray class]]) {
+            error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[errorDict objectForKey:@"messages"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+        }
+        if ([[errorDict objectForKey:@"messages"] objectForKey:@"url"]) {
+            error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[[errorDict objectForKey:@"messages"] objectForKey:@"url"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
+        }
+        [self sendDidFailWithError:error];
+	} else {
+        [self sendDidFinish]; //otherways HUD might spin forever if success is 1
     }
-    if ([[errorDict objectForKey:@"messages"] objectForKey:@"url"]) {
-      error = [NSError errorWithDomain:@"Readability" code:2 userInfo:[NSDictionary dictionaryWithObject:[[[errorDict objectForKey:@"messages"] objectForKey:@"url"] objectAtIndex:0] forKey:NSLocalizedDescriptionKey]];
-    }
-    [self sendDidFailWithError:error];
-	}
 }
 
 - (void)shareFormSave:(SHKFormController *)form
