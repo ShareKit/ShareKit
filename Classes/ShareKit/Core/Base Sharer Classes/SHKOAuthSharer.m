@@ -161,6 +161,7 @@
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
+		[self authDidFinish:success];
 	}	
 	
 	else if ([queryParams objectForKey:@"oauth_problem"])
@@ -173,6 +174,7 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		success = NO;
+		[self authDidFinish:success];
 	}
 
 	else 
@@ -181,7 +183,6 @@
 		
 		[self tokenAccess];
 	}
-    [self authDidFinish:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
