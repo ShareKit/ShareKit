@@ -242,7 +242,7 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (void)hideSpinner
 {
-	[spinner removeFromSuperview]
+	[spinner removeFromSuperview];
 }
 
 #pragma mark -
