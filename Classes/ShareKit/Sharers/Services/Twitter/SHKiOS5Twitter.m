@@ -96,7 +96,11 @@
     
     iOS5twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
     {
-        [self.currentTopViewController dismissViewControllerAnimated:YES completion:nil];
+         [self.currentTopViewController dismissViewControllerAnimated:YES completion:^{                                                                           
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
+            }];
+        }];
         
         switch (result) {
                 
