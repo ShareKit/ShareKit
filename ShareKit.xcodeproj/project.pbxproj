@@ -139,6 +139,7 @@
 		F92EF489148E915F0070F913 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		FA5AA3BC149625460064DB24 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		FA5AA3BE149625460064DB24 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
+		FDB495A41520349A00505A99 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -400,6 +401,8 @@
 		FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVkontakte.m; sourceTree = "<group>"; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakte.h; sourceTree = "<group>"; };
+		FDB495A21520349A00505A99 /* SHKReadability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadability.h; sourceTree = "<group>"; };
+		FDB495A31520349A00505A99 /* SHKReadability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -831,6 +834,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FDB495A11520349A00505A99 /* Readability */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1117,6 +1121,15 @@
 			path = Vkontakte;
 			sourceTree = "<group>";
 		};
+		FDB495A11520349A00505A99 /* Readability */ = {
+			isa = PBXGroup;
+			children = (
+				FDB495A21520349A00505A99 /* SHKReadability.h */,
+				FDB495A31520349A00505A99 /* SHKReadability.m */,
+			);
+			path = Readability;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1310,7 +1323,7 @@
 				7A333EE514CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
 				7A25903714CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
 				7AF2523814F0499E00CE8709 /* JSONKit.m in Sources */,
-				3BD2BD54153431390042EB86 /* SHKCustomFormControllerLargeTextField.m in Sources */,
+				FDB495A41520349A00505A99 /* SHKReadability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
