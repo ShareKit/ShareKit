@@ -73,8 +73,9 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
-- (NSString*)weiboAppKey;
-- (NSString*)weiboAppSecret;
+- (NSString*)sinaWeiboConsumerKey;
+- (NSString*)sinaWeiboConsumerSecret;
+- (NSString*)sinaWeiboCallbackUrl;
 - (NSString*)weiboId;
 - (NSNumber*)weiboUseXAuth;
 - (NSString*)foursquareV2ClientId;
