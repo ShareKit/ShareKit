@@ -463,7 +463,9 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 	
 	else	
 	{		
-		[self handleUnsuccessfulTicket:data];
+        NSString *dstr = [NSString stringWithData:data];
+        //[self handleUnsuccessfulTicket:data];
+        NSLog(@"fail weibo: %@", dstr);
 	}
 }
 
