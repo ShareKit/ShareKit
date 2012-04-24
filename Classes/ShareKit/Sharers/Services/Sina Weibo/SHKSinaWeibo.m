@@ -249,6 +249,23 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 	[super tokenAccessTicket:ticket didFinishWithData:data];		
 }
 
+//icyleaf on github put this into the parent class since this is a subclass i'm putting it here
+- (void)tokenAuthorize
+{
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", authorizeURL.absoluteString, requestToken.key]];
+    if ( ! [[authorizeCallbackURL absoluteString] isEqualToString:@""]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&oauth_callback=%@", 
+                                    authorizeURL.absoluteString, 
+                                    requestToken.key, 
+                                    [authorizeCallbackURL absoluteString]]];
+    }
+
+    SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
+    [[SHK currentHelper] showViewController:auth];	
+    [auth release];
+}
+
+
 
 #pragma mark -
 #pragma mark UI Implementation
