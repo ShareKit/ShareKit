@@ -80,7 +80,23 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
-	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
+
+    BOOL containsCallbackUrl = [request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound;
+    BOOL extraCondition = YES; //default to yes as we want only containsCallbackUrl to be evaluated 
+    
+    
+    /// Hacks for SinaWeibo sharer
+    // simplified for sinaweibo only code from icyleaf
+    BOOL isSinaWeibo = ([request.URL.host rangeOfString:@"sina.com.cn"].location != NSNotFound);
+    if (isSinaWeibo)
+    {
+        // true if it doesn't contain "authorize" and "authenticate"
+        extraCondition = [request.URL.absoluteString rangeOfString:@"authorize"].location == NSNotFound && [request.URL.absoluteString rangeOfString:@"authenticate"].location == NSNotFound;
+    }
+    //End hack for sinaweibo sharer
+    
+        
+	if (containsCallbackUrl && extraCondition)
 	{
 		// Get query
 		NSMutableDictionary *queryParams = nil;
