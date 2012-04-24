@@ -30,7 +30,7 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-//#define _SHKDebugShowLogs
+#define _SHKDebugShowLogs
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
@@ -50,6 +50,12 @@
 - (NSArray*)defaultFavoriteImageSharers;
 - (NSArray*)defaultFavoriteTextSharers;
 - (NSArray*)defaultFavoriteFileSharers;
+- (NSString*)sinaWeiboConsumerKey;
+- (NSString*)sinaWeiboConsumerSecret;
+- (NSString*)sinaWeiboCallbackUrl;
+- (NSNumber*)sinaWeiboUseXAuth;
+- (NSString*)sinaWeiboScreenname;
+- (NSString*)sinaWeiboUserID;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
@@ -73,11 +79,6 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
-- (NSString*)sinaWeiboConsumerKey;
-- (NSString*)sinaWeiboConsumerSecret;
-- (NSString*)sinaWeiboCallbackUrl;
-- (NSString*)weiboId;
-- (NSNumber*)weiboUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
 - (NSNumber*)shareMenuAlphabeticalOrder;

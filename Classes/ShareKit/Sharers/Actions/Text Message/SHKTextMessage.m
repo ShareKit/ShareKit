@@ -50,7 +50,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"SMS";
+	return SHKLocalizedString(@"SMS");
 }
 
 + (BOOL)canShareText
