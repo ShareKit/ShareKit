@@ -414,9 +414,9 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 			[self sendImage];
 			break;
 			
-		case SHKShareTypeUserInfo:            
-			[self sendUserInfo];
-			break;
+//		case SHKShareTypeUserInfo:            
+//			[self sendUserInfo];
+//			break;
 			
 		default:
 			[self sendStatus];
@@ -453,20 +453,44 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 	[fetcher start];
 	[oRequest release];
 }
+- (void)handleUnsuccessfulTicket:(NSData *)data
+{
+    // Response comes back looking like this
+    //    {"request":"/statuses/update.json","error_code":"400","error":"40025:Error: repeated weibo text!"}
+
+    NSString *errorJsonStr = [NSString stringWithData:data];
+    id json = [errorJsonStr objectFromJSONString];
+    NSLog(@"Weibo Error occured: %@", errorJsonStr); 
+    
+    if ([json respondsToSelector:@selector(objectForKey:)]) {
+        NSString *errStr = [json objectForKey:@"error"];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:(errStr ?: @"unknown error")
+															 forKey:NSLocalizedDescriptionKey];
+        NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain
+														 code:[[json objectForKey:@"error_code"] intValue]
+													 userInfo:userInfo];
+        self.lastError = error;
+        [self.shareDelegate sharer:self failedWithError:error shouldRelogin:NO];
+    } 
+    else if ([[SHKActivityIndicator currentIndicator] isHidden] == NO) 
+    {
+        [[SHKActivityIndicator currentIndicator] hide];
+    }
+}
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {	
 	// TODO better error handling here
     
 	if (ticket.didSucceed) 
-		[self sendDidFinish];
-	
+    {
+        [self sendDidFinish];        
+    }
 	else	
 	{		
-        NSString *dstr = [NSString stringWithData:data];
-        //[self handleUnsuccessfulTicket:data];
-        NSLog(@"fail weibo: %@", dstr);
+        [self handleUnsuccessfulTicket:data];
 	}
+
 }
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error

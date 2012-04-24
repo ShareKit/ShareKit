@@ -55,9 +55,9 @@
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 // TODO: Finish it below
-- (void)sendUserInfo;
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
+//- (void)sendUserInfo;
+//- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+//- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 - (void)followMe;
 
