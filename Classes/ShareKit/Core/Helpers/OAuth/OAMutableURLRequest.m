@@ -227,7 +227,8 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 		[parameterPairs addObject:[[OARequestParameter requestParameterWithName:[parameterName URLEncodedString] value: [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]] URLEncodedNameValuePair]];
 	}
 	
-	if (![[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"multipart/form-data"]) {
+	if ( ! [[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"multipart/form-data"]
+        && ! [[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"application/atom+xml"]) {
 		for (OARequestParameter *param in [self parameters]) {
 			[parameterPairs addObject:[param URLEncodedNameValuePair]];
 		}
