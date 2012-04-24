@@ -93,6 +93,10 @@
 	return @"";
 }
 
+// Diigo - http://www.diigo.com/api_keys/new/
+- (NSString*)diigoKey {
+  return @"";
+}
 // Twitter - http://dev.twitter.com/apps/new
 /*
  Important Twitter settings to get right:

@@ -55,6 +55,7 @@
 - (NSString*)facebookLocalAppId;
 - (NSArray*)facebookListOfPermissions;
 - (NSString*)readItLaterKey;
+- (NSString*)diigoKey;
 - (NSNumber*)forcePreIOS5TwitterAccess;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
