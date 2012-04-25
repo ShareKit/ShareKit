@@ -776,4 +776,18 @@
     }
 }
 
+- (void)authShowBadCredentialsAlert {
+    
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowBadCredentialsAlert:)]) {		
+        [self.shareDelegate sharerShowBadCredentialsAlert:self];
+    }
+}
+
+- (void)authShowOtherAuthorizationErrorAlert {
+    
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowOtherAuthorizationErrorAlert:)]) {
+        [self.shareDelegate sharerShowOtherAuthorizationErrorAlert:self];
+    }
+}
+
 @end
