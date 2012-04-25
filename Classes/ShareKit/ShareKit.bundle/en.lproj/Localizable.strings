@@ -209,6 +209,6 @@
 /* No comment provided by engineer. */
 "Searching places..." = "Searching places...";
 
-"Sorry, Diigo did not accept your credentials. Please try again." = "Sorry, Diigo did not accept your credentials. Please try again.";
-"Sorry, Diigo encountered an error. Please try again." = "Sorry, Diigo encountered an error. Please try again.";
-"There was an error saving to Diigo" = "There was an error saving to Diigo";
+"Sorry, %@ did not accept your credentials. Please try again." = "Sorry, %@ did not accept your credentials. Please try again.";
+"Sorry, %@ encountered an error. Please try again." = "Sorry, %@ encountered an error. Please try again.";
+"There was an error saving to %@" = "There was an error saving to %@";
