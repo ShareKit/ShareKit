@@ -72,16 +72,36 @@ typedef enum
 @property (nonatomic, retain)	NSString *mimeType;
 @property (nonatomic, retain)	NSString *filename;
 
+/*** creation methods ***/
+
+/* always use these for SHKItem object creation, as they implicitly set appropriate SHKShareType. Items without SHKShareType will not be shared! */
+
 + (id)URL:(NSURL *)url title:(NSString *)title;
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
+/*** custom value methods ***/
+
+/* these are for custom properties injection. Use them only if you are adding some custom functionality to your sharer subclass. */
+
 - (void)setCustomValue:(NSString *)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
 - (BOOL)customBoolForSwitchKey:(NSString *)key;
 
+/*** archive methods ***/
+
+/* used when ShareKit needs to save SHKItem to persistent storage. (e.g. offline queue or during facebook's SSO trip to different app  */
+
 - (NSDictionary *)dictionaryRepresentation;
 + (id)itemFromDictionary:(NSDictionary *)dictionary;
+
+/*** sharer specific extension properties ***/
+
+/* some sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Generally, YOU DO NOT NEED TO SET THESE, as sharers perfectly work with default values. Can be considered as SHKItem sharer-specific instruction set, or configuration */
+
+/* SHKPrint */
+@property(nonatomic) UIPrintInfoOutputType SHKPrintOutputType;
+
 
 @end

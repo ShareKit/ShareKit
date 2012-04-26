@@ -68,7 +68,13 @@
 
 	UIPrintInteractionController *printer = [UIPrintInteractionController sharedPrintController];
 	UIPrintInfo *info = [UIPrintInfo printInfo];
-	info.outputType = UIPrintInfoOutputPhoto;
+    
+    if (self.item.SHKPrintOutputType) {
+        info.outputType = self.item.SHKPrintOutputType;
+    } else {
+        info.outputType = UIPrintInfoOutputPhoto;
+    }
+
 	printer.printInfo = info;
 	printer.showsPageRange = NO;
 	printer.printingItem = item.image;

@@ -43,6 +43,7 @@
 @synthesize shareType;
 @synthesize URL, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
+@synthesize SHKPrintOutputType;
 
 - (void)dealloc
 {
