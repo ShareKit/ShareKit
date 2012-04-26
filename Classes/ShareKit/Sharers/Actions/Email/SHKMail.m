@@ -127,7 +127,11 @@
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
 	NSString *body = [item customValueForKey:@"body"];
-	
+	BOOL isHTML = (![[[item customValueForKey:@"isHTML"] lowercaseString] isEqualToString:@"no"]);
+	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
+
+	NSArray *toRecipients = [[item customValueForKey:@"toRecipients"] componentsSeparatedByString:@","];
+    
 	if (body == nil)
 	{
 		if (item.text != nil)
@@ -138,7 +142,7 @@
 			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
 			
 			else
 				body = urlStr;
@@ -149,7 +153,7 @@
 			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", attachedStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
 			
 			else
 				body = attachedStr;
@@ -162,7 +166,7 @@
 		// sig
 		if ([SHKCONFIG(sharedWithSignature) boolValue])
 		{
-			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:separator];
 			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
 		
@@ -173,6 +177,9 @@
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
+	if (toRecipients)
+		[mailController setToRecipients:toRecipients];
+    
 	if (item.image){
 		float jpgQuality = 1;
 		if ([item customValueForKey:@"jpgQuality"] != nil) {
@@ -182,7 +189,7 @@
 	}
 	
 	[mailController setSubject:item.title];
-	[mailController setMessageBody:body isHTML:YES];
+	[mailController setMessageBody:body isHTML:isHTML];
 			
 	[[SHK currentHelper] showViewController:mailController];
 	
