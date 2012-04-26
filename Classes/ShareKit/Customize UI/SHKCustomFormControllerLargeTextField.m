@@ -27,6 +27,7 @@
 
 #import "SHKCustomFormControllerLargeTextField.h"
 #import "SHKItem.h"
+#import "SHK.h"
 
 // stop warning on keyboardWillShow
 @interface SHKFormControllerLargeTextField ()
@@ -110,7 +111,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    UIBarButtonItem *logout = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+    UIBarButtonItem *logout = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout")
                                                                style:UIBarButtonItemStyleBordered 
                                                               target:self
                                                               action:@selector(logoutPressed:)];
