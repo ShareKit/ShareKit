@@ -98,10 +98,17 @@ typedef enum
 
 /*** sharer specific extension properties ***/
 
-/* some sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Generally, YOU DO NOT NEED TO SET THESE, as sharers perfectly work with default values. Can be considered as SHKItem sharer-specific instruction set, or configuration */
+/* sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Generally, YOU DO NOT NEED TO SET THESE, as sharers perfectly work with automatic default values. These settings can be considered as SHKItem sharer-specific instruction set. You can change default values in your app's configurator, or individually per share during SHKItem creation. More info is in DefaultSHKConfigurator.m
+ */
 
 /* SHKPrint */
-@property(nonatomic) UIPrintInfoOutputType SHKPrintOutputType;
+@property (nonatomic) UIPrintInfoOutputType printOutputType;
 
+/* SHKMail */
+@property (nonatomic, retain) NSString *mailBody;
+@property BOOL isMailHTML;
+@property (nonatomic, retain) NSArray *mailToRecipients; 
+@property CGFloat mailJPGQuality; 
+@property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 
 @end

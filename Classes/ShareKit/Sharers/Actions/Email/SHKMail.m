@@ -126,11 +126,9 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = [item customValueForKey:@"body"];
-	BOOL isHTML = (![[[item customValueForKey:@"isHTML"] lowercaseString] isEqualToString:@"no"]);
+	NSString *body = self.item.mailBody;
+	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
-
-	NSArray *toRecipients = [[item customValueForKey:@"toRecipients"] componentsSeparatedByString:@","];
     
 	if (body == nil)
 	{
@@ -164,28 +162,24 @@
 			body = @"";
 		
 		// sig
-		if ([SHKCONFIG(sharedWithSignature) boolValue])
+		if (self.item.mailShareWithAppSignature)
 		{
 			body = [body stringByAppendingString:separator];
 			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
-		
-		// save changes to body
-		[item setCustomValue:body forKey:@"body"];
 	}
 	
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
-	if (toRecipients)
+	NSArray *toRecipients = self.item.mailToRecipients;
+    if (toRecipients)
 		[mailController setToRecipients:toRecipients];
     
 	if (item.image){
-		float jpgQuality = 1;
-		if ([item customValueForKey:@"jpgQuality"] != nil) {
-			jpgQuality = [[item customValueForKey:@"jpgQuality"] floatValue];
-		}
-		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+        
+        CGFloat jpgQuality = self.item.mailJPGQuality;
+        [mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
 	}
 	
 	[mailController setSubject:item.title];
