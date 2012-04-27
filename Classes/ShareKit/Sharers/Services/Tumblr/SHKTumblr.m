@@ -155,7 +155,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
                                                         key:@"caption"
                                                        type:SHKFormFieldTypeText
-                                                      start:nil] 
+                                                      start:item.title] 
                         atIndex:0];
     }else{
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title")
