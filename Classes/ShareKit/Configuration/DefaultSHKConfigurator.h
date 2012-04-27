@@ -104,5 +104,8 @@
 - (NSArray*)mailToRecipients;
 - (NSNumber*)mailJPGQuality;
 - (NSNumber*)sharedWithSignature;
+//SHKFacebook
+- (NSString *)facebookURLSharePictureURI;
+- (NSString *)facebookURLShareDescription;
 
 @end

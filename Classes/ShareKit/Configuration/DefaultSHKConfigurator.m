@@ -342,15 +342,16 @@
 /*
  SHKItem sharer specific values defaults
  -------------------------------------
- These settings can be left as is. SHKItem is what you put your data in and inject to ShareKit to actually share. Some sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Sometimes you need to change the default behaviour - you can do it here globally, or per share during share composing.
- */
+ These settings can be left as is. SHKItem is what you put your data in and inject to ShareKit to actually share. Some sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Sometimes you need to change the default behaviour - you can do it here globally, or per share during share item (SHKItem) composing. Example is in the demo app - ExampleShareLink.m - share method */
 
 /* SHKPrint */
+
 - (NSNumber*)printOutputType {    
     return [NSNumber numberWithInt:UIPrintInfoOutputPhoto];
 }
 
 /* SHKMail */
+
 //constructed during runtime from user input in shareForm by default
 - (NSString*)mailBody {
     return nil;
@@ -374,6 +375,19 @@
 - (NSNumber*)sharedWithSignature {
 	return [NSNumber numberWithInt:0];
 }
+
+/* SHKFacebook */
+
+//when you share URL on Facebook, FBDialog scans the page and fills picture and description automagically by default. Use these item properties to set your own.
+- (NSString *)facebookURLSharePictureURI {
+    return nil;
+}
+
+- (NSString *)facebookURLShareDescription {
+    return nil;
+}
+
+
 
 
 @end

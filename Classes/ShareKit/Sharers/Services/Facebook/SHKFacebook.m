@@ -206,12 +206,16 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[params setObject:url forKey:@"link"];
 		[params setObject:item.title == nil ? url : item.title
 				   forKey:@"name"];    
-		if (item.text)
+		
+        //message parameter is invalid since 2011. Next two lines are useless.
+        if (item.text)
 			[params setObject:item.text forKey:@"message"];
-		NSString *pictureURI = [item customValueForKey:@"picture"];
+        
+		NSString *pictureURI = self.item.facebookURLSharePictureURI;
 		if (pictureURI)
 			[params setObject:pictureURI forKey:@"picture"];
-		NSString *description = [item customValueForKey:@"description"];
+        
+		NSString *description = self.item.facebookURLShareDescription;
 		if (description)
 			[params setObject:description forKey:@"description"];
 	}

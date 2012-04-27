@@ -46,6 +46,7 @@
 @synthesize custom;
 @synthesize printOutputType;
 @synthesize mailBody, mailJPGQuality, mailToRecipients, isMailHTML, mailShareWithAppSignature;
+@synthesize facebookURLSharePictureURI, facebookURLShareDescription;
 
 - (void)dealloc
 {
@@ -65,6 +66,8 @@
     
     [mailBody release];
     [mailToRecipients release];
+    [facebookURLSharePictureURI release];
+    [facebookURLShareDescription release];
 	
 	[super dealloc];
 }
@@ -89,6 +92,9 @@
     mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
     isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
     mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
+    
+    facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
+    facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
 }
 
 + (id)URL:(NSURL *)url
