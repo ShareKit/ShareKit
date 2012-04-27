@@ -109,6 +109,20 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (BOOL)handleOpenURL:(NSURL*)url 
 {
   Facebook *fb = [SHKFacebook facebook];
+  
+  //if app has "Application does not run in background" = YES, or was killed before it could return from Facebook SSO callback (from Safari or Facebook app)
+  if (!fb.sessionDelegate)
+  {      
+    SHKFacebook *facebookSharer = [[SHKFacebook alloc] init]; //released in fbDidLogin
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
+    {
+        facebookSharer.pendingAction = SHKPendingShare;
+    } 
+      
+    [fb setSessionDelegate:facebookSharer];      
+  }    
+    
   return [fb handleOpenURL:url];
 }
 
