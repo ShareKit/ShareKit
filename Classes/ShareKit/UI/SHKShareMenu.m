@@ -108,7 +108,12 @@
 	// If not editing, hide them
 	
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] != nil){
-        [self setExclusions:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
+        NSObject *excluded = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+        if ([excluded isKindOfClass:[NSDictionary class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:[(NSDictionary*)excluded allKeys]]];
+        } else if ([excluded isKindOfClass:[NSArray class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:(NSArray*)excluded]];
+        }
     }else{
         [self setExclusions:[NSMutableArray arrayWithCapacity:0]];
     }
