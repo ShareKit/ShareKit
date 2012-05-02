@@ -68,8 +68,8 @@
 
 	UIPrintInteractionController *printer = [UIPrintInteractionController sharedPrintController];
 	UIPrintInfo *info = [UIPrintInfo printInfo];
-	info.outputType = UIPrintInfoOutputPhoto;
-	printer.printInfo = info;
+	info.outputType = [[self.item customValueForKey:PRINT_INFO_OUTPUT_TYPE_KEY] isEqualToString:PRINT_INFO_OUTPUT_TYPE_VALUE_GRAYSCALE] ? UIPrintInfoOutputGrayscale : [[self.item customValueForKey:PRINT_INFO_OUTPUT_TYPE_KEY] isEqualToString:PRINT_INFO_OUTPUT_TYPE_VALUE_GENERAL] ? UIPrintInfoOutputGeneral : UIPrintInfoOutputPhoto;
+    printer.printInfo = info;
 	printer.showsPageRange = NO;
 	printer.printingItem = item.image;
 	UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printer,
