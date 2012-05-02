@@ -232,7 +232,7 @@
       NSString * strURL = [item.URL absoluteString];
 
       // Evernote doesn't accept unenencoded ampersands
-      strURL = [strURL stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"];
+	  strURL = SHKEncode(strURL);
             
       if(strURL.length>0) {
         if(item.title.length>0)
