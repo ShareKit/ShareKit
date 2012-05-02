@@ -429,20 +429,6 @@ BOOL SHKinit;
 }
 
 #pragma mark -
-
-+ (NSDictionary *)getUserExclusions
-{
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-+ (void)setUserExclusions:(NSDictionary *)exclusions
-{
-	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-
-
-#pragma mark -
 #pragma mark Credentials
 
 // TODO someone with more keychain experience may want to clean this up.  The use of SFHFKeychainUtils may be unnecessary?

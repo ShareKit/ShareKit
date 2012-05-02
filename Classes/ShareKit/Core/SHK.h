@@ -88,10 +88,6 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;
 
-+ (NSDictionary *)getUserExclusions;
-+ (void)setUserExclusions:(NSDictionary *)exclusions;
-
-
 #pragma mark -
 #pragma mark Credentials
 
