@@ -47,7 +47,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Read It Later";
+	return @"Pocket";
 }
 
 + (BOOL)canShareURL
