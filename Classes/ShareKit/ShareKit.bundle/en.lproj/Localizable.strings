@@ -94,7 +94,7 @@
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Sorry, %@ did not accept your credentials. Please try again.";
 "Sorry, %@ encountered an error. Please try again." = "Sorry, %@ encountered an error. Please try again.";
-"There was an error saving to %@" = "There was an error saving to %@";
+"There was a problem saving to %@." = "There was a problem saving to %@.";
 
 "Incorrect username and password" = "Incorrect username and password";
 

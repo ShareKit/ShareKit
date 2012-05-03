@@ -107,8 +107,9 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
+        SHKLog(@"%@", [aRequest description]);
     }
-        [self authDidFinish:aRequest.success];
+    [self authDidFinish:aRequest.success];
 }
 
 #pragma mark -
@@ -154,19 +155,22 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 - (void)sendFinished:(SHKRequest *)aRequest
 {
 	if (!aRequest.success) {
-		if (aRequest.response.statusCode == 403) {
+		
+        SHKLog(@"%@", [aRequest description]);
+        
+        if (aRequest.response.statusCode == 403) {
             [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
-    else if (aRequest.response.statusCode == 500) {		
-      [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
-      return;
-    }
-    
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to Instapaper.")]];
+        else if (aRequest.response.statusCode == 500) {		
+            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
+            return;
+        }
+        
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@.", [[self class] sharerTitle])]];
 		return;
 	}
-  
+    
 	[self sendDidFinish];
 }
 

@@ -105,6 +105,8 @@
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
+        
+        SHKLog(@"%@", [aRequest description]);
     }
   
 	[self authDidFinish:aRequest.success];
@@ -175,11 +177,13 @@
 		}
 	} else if (aRequest.response.statusCode == 401) {
         
-        [self shouldReloginWithPendingAction:SHKPendingSend]; 
+        SHKLog(@"%@", [aRequest description]);
+        [self shouldReloginWithPendingAction:SHKPendingSend];        
         return;
     }
 	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to @%", [[self class] sharerTitle])]];		
+	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
+    SHKLog(@"%@", [aRequest description]);
 }
 
 @end
