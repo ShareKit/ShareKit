@@ -26,6 +26,7 @@
 //
 
 #import "UIWebView+SHK.h"
+#import <UIKit/UIKit.h>
 
 @implementation UIWebView (SHK)
 
