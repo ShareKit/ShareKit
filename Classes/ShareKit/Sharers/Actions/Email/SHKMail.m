@@ -163,7 +163,7 @@
 		if ([SHKCONFIG(sharedWithSignature) boolValue])
 		{
 			body = [body stringByAppendingString:@"<br/><br/>"];
-			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
+			body = [body stringByAppendingString:SHKLocalizedString(@"Via %@", SHKCONFIG(appName))];
 		}
 		
 		// save changes to body
