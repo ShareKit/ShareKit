@@ -54,9 +54,9 @@
 
 "There was an error saving to Pinboard" = "Si è verificato un errore durante il salvataggio su Pinboard";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Siamo spiacenti ma Instapaper non ha accettato le tue credenziali. Si prega di provare di nuovo.";
-"Sorry, Instapaper encountered an error. Please try again." = "Siamo spiacenti ma si è verificato un errore con Instapaper. Si prega di provare di nuovo.";
-"There was a problem saving to Instapaper." = "Si è verificato un problema durante il salvataggio su Instapaper.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Siamo spiacenti ma %@ non ha accettato le tue credenziali. Si prega di provare di nuovo.";
+"Sorry, %@ encountered an error. Please try again." = "Siamo spiacenti ma si è verificato un errore con %@. Si prega di provare di nuovo.";
+"There was a problem saving to %@." = "Si è verificato un problema durante il salvataggio su %@.";
 
 "Incorrect username and password" = "Username e password errati";
 "There was an error logging into Google Reader" = "Si è verificato un problema durante la connessione a Google Reader";

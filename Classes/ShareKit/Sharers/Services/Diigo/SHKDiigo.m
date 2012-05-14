@@ -94,20 +94,20 @@
 	if (aRequest.success)
 	{
 		[pendingForm saveForm];
-	}
-  else {
-    NSString *errorMessage = nil;
-    if (aRequest.response.statusCode == 401)
-      errorMessage = SHKLocalizedString(@"Sorry, %@ did not accept your credentials. Please try again.", [[self class] sharerTitle]);
+	} 
     else
-      errorMessage = SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [[self class] sharerTitle]);
-    
-    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                 message:errorMessage
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
-  }
+    {        
+        if (aRequest.response.statusCode == 401) 
+        {
+            [self authShowBadCredentialsAlert];
+        }
+        else
+        {
+            [self authShowOtherAuthorizationErrorAlert];
+        }
+        
+        SHKLog(@"%@", [aRequest description]);
+    }
   
 	[self authDidFinish:aRequest.success];
 }
@@ -177,11 +177,13 @@
 		}
 	} else if (aRequest.response.statusCode == 401) {
         
-        [self shouldReloginWithPendingAction:SHKPendingSend]; 
+        SHKLog(@"%@", [aRequest description]);
+        [self shouldReloginWithPendingAction:SHKPendingSend];        
         return;
     }
 	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to @%", [[self class] sharerTitle])]];		
+	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
+    SHKLog(@"%@", [aRequest description]);
 }
 
 @end

@@ -54,9 +54,9 @@
 
 "There was an error saving to Pinboard" = "Pinboard gaf een fout bij het bewaren.";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Instapaper accepteert de login gegevens niet. Probeer het nogmaals.";
-"Sorry, Instapaper encountered an error. Please try again." = "Instapaper gaf een fout. Probeer het nogmaals.";
-"There was a problem saving to Instapaper." = "Er was een probleem bij het bewaren naar Instapaper.";
+"Sorry, %@ did not accept your credentials. Please try again." = "%@ accepteert de login gegevens niet. Probeer het nogmaals.";
+"Sorry, %@ encountered an error. Please try again." = "%@ gaf een fout. Probeer het nogmaals.";
+"There was a problem saving to %@." = "Er was een probleem bij het bewaren naar %@.";
 
 "Incorrect username and password" = "Gebruikersnaam en wachtwoord niet goed";
 "There was an error logging into Google Reader" = "Er trad een fout op bij het inloggen bij Google Reader";

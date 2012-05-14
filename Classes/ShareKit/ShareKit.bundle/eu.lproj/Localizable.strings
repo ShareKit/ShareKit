@@ -54,9 +54,9 @@
 
 "There was an error saving to Pinboard" = "Errore bat egon da Pinboarden gordetzean";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Barkatu, Instapaperrek ez ditu zure agiriak onartu. Mesedez, saia zaitez berriro.";
-"Sorry, Instapaper encountered an error. Please try again." = "Barkatu, Instapaperrek errore bat eman du. Mesedez, saia zaitez berriro.";
-"There was a problem saving to Instapaper." = "Arazo bat egon da Instapaperren gordetzean.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Barkatu, %@ ez ditu zure agiriak onartu. Mesedez, saia zaitez berriro.";
+"Sorry, %@ encountered an error. Please try again." = "Barkatu, %@ errore bat eman du. Mesedez, saia zaitez berriro.";
+"There was a problem saving to %@." = "Arazo bat egon da %@ gordetzean.";
 
 "Incorrect username and password" = "Erabiltzaile eta pasahitz okerrak";
 "There was an error logging into Google Reader" = "Errore bat egon da Google Readerren sartzean";

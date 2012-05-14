@@ -53,9 +53,9 @@
 
 "There was an error saving to Pinboard" = "Pinboard로 저장 중에 오류가 발생했습니다";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Instapaper 인증에 실패했습니다. 다시 시도해 주세요.";
-"Sorry, Instapaper encountered an error. Please try again." = "Instapaper 오류가 발생했습니다. 다시 시도해 주세요.";
-"There was a problem saving to Instapaper." = "Instapaper로 저장 중에 문제가 발생했습니다.";
+"Sorry, %@ did not accept your credentials. Please try again." = "%@ 인증에 실패했습니다. 다시 시도해 주세요.";
+"Sorry, %@ encountered an error. Please try again." = "%@ 오류가 발생했습니다. 다시 시도해 주세요.";
+"There was a problem saving to %@." = "%@로 저장 중에 문제가 발생했습니다.";
 
 "Incorrect username and password" = "잘못된 아이디나 비밀번호";
 "There was an error logging into Google Reader" = "Google Reader 로그인 중 오류가 발생했습니다";
