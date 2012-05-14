@@ -54,9 +54,9 @@
 
 "There was an error saving to Pinboard" = "Det oppstod en feil ved lagring til Pinboard.";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Beklager, Instapaper aksepterte ikke innlogginsdetaljene dine.";
-"Sorry, Instapaper encountered an error. Please try again." = "Beklager, det oppstod en feil med Instapaper. Vennligst prøv igjen.";
-"There was a problem saving to Instapaper." = "Det oppstod et problem med lagring til Instapaper.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Beklager, %@ aksepterte ikke innlogginsdetaljene dine.";
+"Sorry, %@ encountered an error. Please try again." = "Beklager, det oppstod en feil med %@. Vennligst prøv igjen.";
+"There was a problem saving to %@." = "Det oppstod et problem med lagring til %@.";
 
 "Incorrect username and password" = "Feil brukernavn og passord";
 "There was an error logging into Google Reader" = "Det oppstod en feil under innlogging til Google Reader";
