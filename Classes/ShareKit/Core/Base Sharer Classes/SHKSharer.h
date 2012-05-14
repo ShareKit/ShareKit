@@ -47,8 +47,9 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare,
-	SHKPendingRefreshToken
+	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
+	SHKPendingRefreshToken, //when OAuth token expires
+    SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
 
 
@@ -58,6 +59,7 @@ typedef enum
 	
 	SHKItem *item;
 	SHKFormController *pendingForm;
+    SHKFormOptionController* curOptionController;
 	SHKRequest *request;
 		
 	NSError *lastError;
@@ -185,7 +187,7 @@ typedef enum
 
 - (void)sendDidStart;
 - (void)sendDidFinish;
-- (void)sendDidFailShouldRelogin;
+- (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action;
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;

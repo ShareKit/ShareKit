@@ -82,13 +82,19 @@
 - (NSString*)facebookLocalAppId {
 	return @"";
 }
+
+//Change if your app needs some special Facebook permissions only. In most cases you can leave it as it is.
+- (NSArray*)facebookListOfPermissions {    
+    return [NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil];
+}
+
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"";
 }
 
-//Diigo - http://www.diigo.com/api_dev
--(NSString*)diigoKey {
+// Diigo - http://www.diigo.com/api_keys/new/
+- (NSString*)diigoKey {
   return @"";
 }
 // Twitter - http://dev.twitter.com/apps/new
@@ -107,6 +113,14 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
+
+/*
+ If you want to force use of old-style, pre-IOS5 twitter framework, for example to ensure
+ twitter accounts don't end up in the devices account store, set this to true.
+ */
+- (NSNumber*)forcePreIOS5TwitterAccess {
+	return [NSNumber numberWithBool:false];
+}
 
 - (NSString*)twitterConsumerKey {
 	return @"";
@@ -128,7 +142,7 @@
 	return @"";
 }
 // Evernote - http://www.evernote.com/about/developer/api/
-/*	You need to set to sandbox until you get approved by evernote
+/*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
  // Sandbox
  #define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
  #define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
@@ -169,7 +183,8 @@
 - (NSString*)flickrCallbackUrl{
     return @"app://flickr";
 }
-// Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
+
+// Bit.ly for shortening URLs in case you use original SHKTwitter sharer (pre iOS5). If you use iOS 5 builtin framework, the URL will be shortened anyway, these settings are not used in this case. http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key If you do not enter bit.ly credentials, URL will be shared unshortened.
 - (NSString*)bitLyLogin {
 	return @"";
 }
@@ -191,6 +206,18 @@
 	return @"";
 }
 
+// Readability - http://www.readability.com/publishers/api/
+- (NSString*)readabilityConsumerKey {
+	return @"";
+}
+
+- (NSString*)readabilitySecret {
+	return @"";
+}
+// To use xAuth, set to 1, Currently ONLY supports XAuth
+- (NSNumber*)readabilityUseXAuth {
+	return [NSNumber numberWithInt:1];
+}
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";
@@ -214,30 +241,16 @@
 - (UIColor*)barTintForView:(UIViewController*)vc {
     return nil;
 }
+
 // Forms
-- (NSNumber*)formFontColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
+- (UIColor *)formFontColor {
+    return nil;
 }
 
-- (NSNumber*)formFontColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
+- (UIColor*)formBackgroundColor {
+    return nil;
 }
 
-- (NSNumber*)formFontColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorRed {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorGreen {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
-
-- (NSNumber*)formBgColorBlue {
-	return [NSNumber numberWithInt:-1];// Value between 0-255, set all to -1 for default
-}
 // iPad views
 - (NSString*)modalPresentationStyle {
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
@@ -259,6 +272,34 @@
 - (NSString*)sharersPlistName {
 	return @"SHKSharers.plist";
 }
+// SHKActionSheet settings
+- (NSNumber*)showActionSheetMoreButton {
+	return [NSNumber numberWithBool:true];// Setting this to true will show More... button in SHKActionSheet, setting to false will leave the button out.
+}
+
+/*
+ Favorite Sharers
+ ----------------
+ These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
+ */
+- (NSArray*)defaultFavoriteURLSharers {
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadability", @"SHKReadItLater",@"SHKVkontakte", nil];
+}
+- (NSArray*)defaultFavoriteImageSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+}
+- (NSArray*)defaultFavoriteTextSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+}
+- (NSArray*)defaultFavoriteFileSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+}
+
+//by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
+- (NSNumber*)autoOrderFavoriteSharers {
+    return [NSNumber numberWithBool:true];
+}
+
 /*
  UI Configuration : Advanced
  ---------------------------

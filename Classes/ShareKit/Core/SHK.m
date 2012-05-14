@@ -157,6 +157,7 @@ BOOL SHKinit;
 		[topViewController presentModalViewController:vc animated:YES];
 		[(UINavigationController *)vc navigationBar].barStyle = 
 		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+		[(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		self.currentView = vc;
 	}
 		
@@ -193,7 +194,8 @@ BOOL SHKinit;
 		
 		if ([nextResponder isKindOfClass:[UIViewController class]])
 			result = nextResponder;
-		
+		else if ([topWindow respondsToSelector:@selector(rootViewController)] && topWindow.rootViewController != nil)
+            result = topWindow.rootViewController;
 		else
 			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
 	}
@@ -327,19 +329,19 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
 				break;
 				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
 				break;
 			
 			default:
@@ -349,6 +351,31 @@ BOOL SHKinit;
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
 	}
+    
+    // Remove all sharers which are not part of the SHKSharers.plist
+    NSDictionary *sharersDict = [self sharersDictionary];
+    NSArray *keys = [sharersDict allKeys];
+    NSMutableSet *allAvailableSharers = [NSMutableSet set];
+    for (NSString *key in keys) {
+        NSArray *sharers = [sharersDict objectForKey:key];
+        [allAvailableSharers addObjectsFromArray:sharers];
+    }
+    NSMutableSet *favoriteSharersSet = [NSMutableSet setWithArray:favoriteSharers];
+    [favoriteSharersSet minusSet:allAvailableSharers];
+    if ([favoriteSharersSet count] > 0)
+    {
+        NSMutableArray *newFavs = [favoriteSharers mutableCopy];
+		for(NSString *sharerId in favoriteSharersSet)
+		{
+			[newFavs removeObject:sharerId];
+		}
+        
+        // Update
+		favoriteSharers = [NSArray arrayWithArray:newFavs];
+		[self setFavorites:favoriteSharers forType:type];
+		
+		[newFavs release];
+    }
 	
 	// Make sure the favorites are not using any exclusions, remove them if they are.
 	NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
@@ -372,6 +399,17 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
+    
+    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+    if (exclusions != nil)
+	{
+		for(NSString *sharerId in exclusions)
+		{
+			if([className isEqualToString:sharerId]) return;
+		}
+	}
+    
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];
@@ -389,20 +427,6 @@ BOOL SHKinit;
 {
 	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 }
-
-#pragma mark -
-
-+ (NSDictionary *)getUserExclusions
-{
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-+ (void)setUserExclusions:(NSDictionary *)exclusions
-{
-	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-
 
 #pragma mark -
 #pragma mark Credentials
@@ -662,6 +686,10 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
+    string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
 	
 	return string;	
 }
@@ -678,6 +706,31 @@ NSString * SHKEncodeURL(NSURL * value)
                                                                            kCFStringEncodingUTF8);
     [result autorelease];
 	return result;
+}
+
+NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
+{
+    // Modified from http://rudis.net/content/2009/01/21/flatten-html-content-ie-strip-tags-cocoaobjective-c
+    NSScanner *scanner;
+    NSString *text = nil;
+    
+    scanner = [NSScanner scannerWithString:value];
+    
+    while ([scanner isAtEnd] == NO) 
+    {
+        [scanner scanUpToString:@"<" intoString:NULL]; 
+        [scanner scanUpToString:@">" intoString:&text];
+        
+        value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@" "];
+        
+    }
+    
+    if (preserveLineBreaks == NO)
+    {
+        value = [value stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    }
+    
+    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
 }
 
 void SHKSwizzle(Class c, SEL orig, SEL newClassName)

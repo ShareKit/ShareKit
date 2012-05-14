@@ -155,7 +155,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
                                                         key:@"caption"
                                                        type:SHKFormFieldTypeText
-                                                      start:nil] 
+                                                      start:item.title] 
                         atIndex:0];
     }else{
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title")
@@ -332,7 +332,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 - (void)sendFinished:(SHKRequest *)aRequest{
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
         else if (aRequest.response.statusCode == 500) {

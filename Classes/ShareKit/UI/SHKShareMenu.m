@@ -59,16 +59,25 @@
 		self.title = SHKLocalizedString(@"Share");
 		
 		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																							  target:self
-																							  action:@selector(cancel)] autorelease];
+                                                                                               target:self
+                                                                                               action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
-																				  style:UIBarButtonItemStyleBordered
-																				 target:self
-                                                                                  action:@selector(edit)] autorelease];
-		
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                                                target:self
+                                                                                                action:@selector(edit)] autorelease];
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
+    
 	return self;
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    if (SHKCONFIG(formBackgroundColor) != nil)
+        self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -78,7 +87,6 @@
 	// Remove the SHK view wrapper from the window
 	[[SHK currentHelper] viewWasDismissed];
 }
-
 
 - (void)setItem:(SHKItem *)i
 {
@@ -94,17 +102,27 @@
 	self.tableData = [NSMutableArray arrayWithCapacity:0];
 	[tableData addObject:[self section:@"actions"]];
 	[tableData addObject:[self section:@"services"]];
-		
+    
 	// Handling Excluded items
 	// If in editing mode, show them
 	// If not editing, hide them
-	self.exclusions = [[[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] mutableCopy] autorelease];
 	
-	if (exclusions == nil)
-		self.exclusions = [NSMutableDictionary dictionaryWithCapacity:0];
-	
+    if([[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] != nil){
+    
+        NSObject *excluded = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+        
+        //due to backwards compatibility - SHKExcluded used to be saved as NSDictionary. It is better as NSArray, as favourites are NSArray too.
+        if ([excluded isKindOfClass:[NSDictionary class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:[(NSDictionary*)excluded allKeys]]];
+        } else if ([excluded isKindOfClass:[NSArray class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:(NSArray*)excluded]];
+        }
+    }else{
+        [self setExclusions:[NSMutableArray arrayWithCapacity:0]];
+    }
+    
 	NSMutableArray *excluded = [NSMutableArray arrayWithCapacity:0];
-		
+    
 	if (!self.tableView.editing || animated)
 	{
 		int s = 0;
@@ -114,7 +132,7 @@
 		NSMutableArray *sectionCopy;
 		NSMutableDictionary *tableDataCopy = [[tableData mutableCopy] autorelease];
 		NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
-				
+        
 		for(NSMutableArray *section in tableDataCopy)
 		{
 			r = 0;
@@ -124,7 +142,7 @@
 			
 			for (NSMutableDictionary *row in section)
 			{
-				if ([exclusions objectForKey:[row objectForKey:@"className"]])
+				if ([exclusions containsObject:[row objectForKey:@"className"]])
 				{
 					[excluded addObject:[NSIndexPath indexPathForRow:r inSection:s]];
 					
@@ -134,7 +152,7 @@
 				
 				r++;
 			}
-				
+            
 			if (!self.tableView.editing)
 			{
 				[sectionCopy removeObjectsAtIndexes:indexes];
@@ -173,7 +191,7 @@
 		if ( [class canShare] && [class canShareType:item.shareType] )
 			[sectionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:sharerClassName,@"className",[class sharerTitle],@"name",nil]];
 	}
-
+    
 	if (sectionData.count && [SHKCONFIG(shareMenuAlphabeticalOrder) boolValue])
 		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
 	
@@ -226,7 +244,7 @@
 		[toggle release];
 	}
 	
-	[(UISwitch *)cell.editingAccessoryView setOn:[exclusions objectForKey:[rowData objectForKey:@"className"]] == nil];
+	[(UISwitch *)cell.editingAccessoryView setOn:![exclusions containsObject:[rowData objectForKey:@"className"]]];
 	
     return cell;
 }
@@ -258,14 +276,14 @@
 		[toggle setOn:newOn animated:YES];
 		
 		if (newOn) {
-			[exclusions removeObjectForKey:[rowData objectForKey:@"className"]];
-		
+			[exclusions removeObject:[rowData objectForKey:@"className"]];
+            
 		} else {
 			NSString *sharerId = [rowData objectForKey:@"className"];
-			[exclusions setObject:@"1" forKey:sharerId];
+			[exclusions addObject:sharerId];
 			[SHK logoutOfService:sharerId];
 		}
-
+        
 		[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
 	
@@ -319,7 +337,7 @@
 	[self rebuildTableDataAnimated:YES];
 	
 	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-																			 target:self
+                                                                                              target:self
 																							  action:@selector(save)] autorelease] animated:YES];
 }
 
@@ -330,11 +348,9 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Edit")
-																				 style:UIBarButtonItemStyleBordered
+	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
 																							  target:self
-																							  action:@selector(edit)] autorelease] animated:YES];
-	
+																							  action:@selector(edit)] autorelease] animated:YES];	
 }
 
 @end

@@ -27,7 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKCustomFormControllerLargeTextField.h"
 
 @interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
 {	

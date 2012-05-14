@@ -26,7 +26,6 @@
 @interface SHKEvernote(private)
 
 - (void)authFinished:(BOOL)success;
-- (void)sendFinished:(BOOL)success;
 - (void)_authFinished:(NSDictionary *)args;
 - (void)_sendFinished:(NSDictionary *)args;
 - (void)_authorizationFormValidate:(NSDictionary *)args;
@@ -232,6 +231,9 @@
 			NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
       NSString * strURL = [item.URL absoluteString];
 
+      // Evernote doesn't accept unenencoded ampersands
+	  strURL = SHKEncode(strURL);
+            
       if(strURL.length>0) {
         if(item.title.length>0)
         	[contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];
@@ -241,7 +243,7 @@
         [contentStr appendFormat:@"<h1>%@</h1>",item.title];
 
 			if(item.text.length>0 )
-      	[contentStr appendFormat:@"<p>%@</p>",item.text];
+      	[contentStr appendFormat:@"<p>%@</p>", SHKFlattenHTML(item.text, YES)];
 
 			if(item.image) {
 				EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
@@ -363,24 +365,16 @@
 	{
 		if ([[args valueForKey:@"shouldRelogin"] isEqualToString:@"1"])
 		{
-			[self sendDidFailShouldRelogin];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
 		
-		[self sendDidFailWithError:[SHK error:[args valueForKey:@"errorMessage"]]];
+        SHKLog(@"%@",[args valueForKey:@"errorMessage"]);
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")]];
 		return;
 	}
 	
 	[self sendDidFinish];
-}
-
-
-- (void)sendFinished:(BOOL)success {	
-	if (success) {
-		[self sendDidFinish];
-	} else {
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")] shouldRelogin:NO];
-	}
 }
 
 @end

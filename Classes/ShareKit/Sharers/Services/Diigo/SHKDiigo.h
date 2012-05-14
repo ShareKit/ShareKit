@@ -1,9 +1,8 @@
 //
-//  LegacySHKConfigurationDelegate.h
+//  SHKDiigo.h
 //  ShareKit
 //
-//  Created by Edward Dale on 10/16/10.
-
+//  Created by saturngod on 11 Jan 2012
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +25,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DefaultSHKConfigurator.h"
+#import "SHKSharer.h"
 
-@interface LegacySHKConfigurator : DefaultSHKConfigurator
+@interface SHKDiigo : SHKSharer 
+{
+
+}
 
 @end
