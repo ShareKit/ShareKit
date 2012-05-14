@@ -106,6 +106,11 @@
     return NO;
 }
 
++ (BOOL)canShareYouTubeVideo
+{
+    return NO;
+}
+
 + (BOOL)shareRequiresInternetConnection
 {
 	return YES;
@@ -139,6 +144,9 @@
             
         case SHKShareTypeUserInfo:
 			return [self canGetUserInfo];
+        
+        case SHKShareTypeYouTubeVideo:
+            return [self canShareYouTubeVideo];
 			
 		default: 
 			break;
@@ -617,6 +625,9 @@
 			
 		case SHKShareTypeFile:
 			return (item.data != nil);
+            
+        case SHKShareTypeYouTubeVideo:
+            return (item.URL != nil || item.data != nil);
             
         case SHKShareTypeUserInfo:
         {    

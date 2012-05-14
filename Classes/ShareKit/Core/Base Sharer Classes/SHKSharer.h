@@ -94,6 +94,7 @@ typedef enum
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
 + (BOOL)canShareFile;
++ (BOOL)canShareYouTubeVideo;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;

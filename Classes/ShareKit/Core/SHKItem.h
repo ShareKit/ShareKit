@@ -34,7 +34,8 @@ typedef enum
 	SHKShareTypeText,
 	SHKShareTypeImage,
 	SHKShareTypeFile,
-    SHKShareTypeUserInfo
+    SHKShareTypeUserInfo,
+    SHKShareTypeYouTubeVideo
 } SHKShareType;
 
 
