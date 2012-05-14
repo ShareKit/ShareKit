@@ -538,7 +538,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (void)sendImage {
 	
 	NSURL *serviceURL = nil;
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/update_profile_image.json"];
 	} else {
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
@@ -551,7 +551,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 																			 signatureProvider:signatureProvider];
 	[oRequest setHTTPMethod:@"GET"];
 	
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		[oRequest prepare];
 	} else {
 		[oRequest prepare];
@@ -594,7 +594,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	NSMutableData *body = [NSMutableData data];
 	NSString *dispKey = @"";
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
 	} else {
 		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
@@ -607,7 +607,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[body appendData:imageData];
 	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		// no ops
 	} else {
 		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
