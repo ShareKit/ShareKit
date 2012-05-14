@@ -37,6 +37,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
+#include <sys/xattr.h>
 
 NSString * SHKLocalizedStringFormat(NSString* key);
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
@@ -513,15 +514,19 @@ static NSDictionary *sharersDictionary = nil;
 	NSString *SHKPath = [cache stringByAppendingPathComponent:@"SHK"];
 	
 	// Check if the path exists, otherwise create it
-	if (![fileManager fileExistsAtPath:SHKPath]) 
+	if (![fileManager fileExistsAtPath:SHKPath]) {
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
+                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:SHKPath]];
+    }
 	
 	return SHKPath;
 }
 
 + (NSString *)offlineQueueListPath
 {
-	return [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
+	NSString *offlinePathString = [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
+        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:offlinePathString]];
+        return offlinePathString;
 }
 
 + (NSMutableArray *)getOfflineQueueList
@@ -766,3 +771,22 @@ NSString* SHKLocalizedString(NSString* key, ...)
 	
 	return string;
 }
+
+@implementation NSFileManager (DoNotBackup)
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    if (&NSURLIsExcludedFromBackupKey == nil) { // iOS <= 5.0.1
+        const char* filePath = [[URL path] fileSystemRepresentation];
+        
+        const char* attrName = "com.apple.MobileBackup";
+        u_int8_t attrValue = 1;
+        
+        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        return result == 0;
+    } else { // iOS >= 5.1
+        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+    }
+}
+
+@end
