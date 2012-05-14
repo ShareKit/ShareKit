@@ -68,12 +68,6 @@
 - (NSString*)readItLaterKey {
 	return @"45aT6Vfvg66eWNebybd680gu13pdba3d";
 }
-
-// Diigo - http://www.diigo.com/api_keys/new/
--(NSString *)diigoKey {
-  return @"f401ddc3546cdf3c";
-}
-
 // Diigo - http://diigo.com/api_dev
 -(NSString*)diigoKey {
   return @"";
