@@ -27,6 +27,7 @@
 
 #import "SHKItem.h"
 #import "SHK.h"
+#import "SHKConfiguration.h"
 
 
 @interface SHKItem()
@@ -43,6 +44,9 @@
 @synthesize shareType;
 @synthesize URL, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
+@synthesize printOutputType;
+@synthesize mailBody, mailJPGQuality, mailToRecipients, isMailHTML, mailShareWithAppSignature;
+@synthesize facebookURLSharePictureURI, facebookURLShareDescription;
 
 - (void)dealloc
 {
@@ -59,10 +63,39 @@
 	[filename release];
 	
 	[custom release];
+    
+    [mailBody release];
+    [mailToRecipients release];
+    [facebookURLSharePictureURI release];
+    [facebookURLShareDescription release];
 	
 	[super dealloc];
 }
 
+- (id)init {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        [self setExtensionPropertiesDefaultValues];
+    }
+    return self;
+}
+
+- (void)setExtensionPropertiesDefaultValues {
+    
+    printOutputType = [SHKCONFIG(printOutputType) intValue];
+    
+    mailBody = [SHKCONFIG(mailBody) retain];
+    mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
+    mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
+    isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
+    mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
+    
+    facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
+    facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
+}
 
 + (id)URL:(NSURL *)url
 {

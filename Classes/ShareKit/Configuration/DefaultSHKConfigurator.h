@@ -80,7 +80,6 @@
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
-- (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
 - (UIColor*)formFontColor;
@@ -96,5 +95,17 @@
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
 - (NSNumber*)usePlaceholders;
+
+//SHKPrint
+- (NSNumber*)printOutputType;
+//SHKMail
+- (NSString*)mailBody;
+- (NSNumber*)isMailHTML;
+- (NSArray*)mailToRecipients;
+- (NSNumber*)mailJPGQuality;
+- (NSNumber*)sharedWithSignature;
+//SHKFacebook
+- (NSString *)facebookURLSharePictureURI;
+- (NSString *)facebookURLShareDescription;
 
 @end
