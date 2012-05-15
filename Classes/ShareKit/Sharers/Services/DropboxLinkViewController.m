@@ -59,11 +59,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] 
-            initWithTitle:@"Photos" style:UIBarButtonItemStylePlain 
-            target:self action:@selector(didPressPhotos)] autorelease];
     self.title = @"Link Account";
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dropbox background"]];
+    self.navigationController.navigationBarHidden = YES;
     
     if ([[DBSession sharedSession] isLinked]) {
         
