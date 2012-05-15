@@ -37,6 +37,14 @@ typedef enum
     SHKShareTypeUserInfo
 } SHKShareType;
 
+typedef enum 
+{
+    SHKURLContentTypeUndefined,
+    SHKURLContentTypeWebpage,
+    SHKURLContentTypeAudio,
+    SHKURLContentTypeVideo,
+} SHKURLContentType;
+
 
 @interface SHKItem : NSObject
 {	
@@ -61,6 +69,7 @@ typedef enum
 @property (nonatomic)			SHKShareType shareType;
 
 @property (nonatomic, retain)	NSURL *URL;
+@property (nonatomic) SHKURLContentType URLContentType;
 
 @property (nonatomic, retain)	UIImage *image;
 
@@ -76,7 +85,11 @@ typedef enum
 
 /* always use these for SHKItem object creation, as they implicitly set appropriate SHKShareType. Items without SHKShareType will not be shared! */
 
-+ (id)URL:(NSURL *)url title:(NSString *)title;
++ (id)URL:(NSURL *)url title:(NSString *)title __attribute__((deprecated));//use the method with content type instead
+
+//Some sharers might present audio and video urls in enhanced way - e.g with media player (see Tumblr sharer). Other sharers share same way they used to, regardless of what type is specified.
++ (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type;
+
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
