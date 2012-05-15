@@ -10,13 +10,15 @@
 @class DBRestClient;
 
 
-@interface RootViewController : UIViewController {
+@interface DropboxLinkViewController : UIViewController {
     UIButton* linkButton;
     UIViewController* photoViewController;
 	DBRestClient* restClient;
 }
 
 - (IBAction)didPressLink;
+
+@property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @property (nonatomic, retain) IBOutlet UIButton* linkButton;
 @property (nonatomic, retain) UIViewController* photoViewController;

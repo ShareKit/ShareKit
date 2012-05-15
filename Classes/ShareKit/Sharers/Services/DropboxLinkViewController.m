@@ -6,18 +6,19 @@
 //  Copyright Dropbox, Inc. 2010. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "DropboxLinkViewController.h"
 #import <DropboxSDK/DropboxSDK.h>
+#import "UploadViewController.h"
 
-
-@interface RootViewController ()
+@interface DropboxLinkViewController ()
 
 - (void)updateButtons;
 
 @end
 
 
-@implementation RootViewController
+@implementation DropboxLinkViewController
+@synthesize descriptionLabel;
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
@@ -26,9 +27,16 @@
     return self;
 }
 
+
 - (void)didPressLink {
     if (![[DBSession sharedSession] isLinked]) {
 		[[DBSession sharedSession] link];
+        
+        UploadViewController *uploadV = [[UploadViewController alloc]initWithNibName:@"UploadViewController" bundle:nil];
+        [self.navigationController pushViewController:uploadV animated:NO];
+        self.navigationController.navigationBarHidden = YES;
+        [uploadV release];
+        
     } else {
         [[DBSession sharedSession] unlinkAll];
         [[[[UIAlertView alloc] 
@@ -55,9 +63,20 @@
             initWithTitle:@"Photos" style:UIBarButtonItemStylePlain 
             target:self action:@selector(didPressPhotos)] autorelease];
     self.title = @"Link Account";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Dropbox background"]];
+    
+    if ([[DBSession sharedSession] isLinked]) {
+        
+        UploadViewController *uploadV = [[UploadViewController alloc]initWithNibName:@"UploadViewController" bundle:nil];
+        [self.navigationController pushViewController:uploadV animated:NO];
+        self.navigationController.navigationBarHidden = YES;
+        [uploadV release];
+        
+    }
 }
 
 - (void)viewDidUnload {
+    [self setDescriptionLabel:nil];
     [linkButton release];
     linkButton = nil;
 }
@@ -65,6 +84,7 @@
 - (void)dealloc {
     [linkButton release];
     [photoViewController release];
+    [descriptionLabel release];
     [super dealloc];
 }
 
@@ -78,14 +98,13 @@
 
 
 #pragma mark private methods
-
 @synthesize linkButton;
 @synthesize photoViewController;
 
 - (void)updateButtons {
     NSString* title = [[DBSession sharedSession] isLinked] ? @"Unlink Dropbox" : @"Link Dropbox";
     [linkButton setTitle:title forState:UIControlStateNormal];
-    
+    [self.descriptionLabel setText:[[DBSession sharedSession] isLinked] ? @"Press \"Unink Dropbox\" to unlink Dropbox from this application" : @"Press \"Link Dropbox\" and login to your account to Upload content"];
     self.navigationItem.rightBarButtonItem.enabled = [[DBSession sharedSession] isLinked];
 }
 

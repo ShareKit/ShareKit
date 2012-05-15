@@ -67,6 +67,25 @@
 
 - (void)share
 {
+    //save file locally to use when uploading to Dropbox
+    
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@", 
+                          documentsDirectory,@"San Francisco.png"];
+    
+    //save content to the documents directory
+    NSData* data = UIImagePNGRepresentation(imageView.image);
+    [data writeToFile:fileName atomically:YES];
+    
+    [[NSUserDefaults standardUserDefaults]setValue:fileName forKey:@"DBfilePath"];
+    [[NSUserDefaults standardUserDefaults]setValue:@"San Francisco.png" forKey:@"DBfileName"];
+
+    
 	SHKItem *item = [SHKItem image:imageView.image title:@"San Francisco"];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];

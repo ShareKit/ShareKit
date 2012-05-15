@@ -238,7 +238,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		NSDictionary *formValues = [pendingForm formValues];
 		
 		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
-																								 value:[formValues objectForKey:@"username"]] autorelease];
+                                                                                                value:[formValues objectForKey:@"username"]] autorelease];
 		
 		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
 																								 value:[formValues objectForKey:@"password"]] autorelease];

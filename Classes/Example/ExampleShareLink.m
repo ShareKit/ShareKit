@@ -55,7 +55,8 @@
 
 - (void)share
 {
-	SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle]];
+    	
+    SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle]];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar]; 

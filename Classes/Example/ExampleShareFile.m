@@ -69,6 +69,24 @@
 	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
 	NSData *file = [NSData dataWithContentsOfFile:filePath];
 	
+    //save file locally to use when uploading to Dropbox
+   
+    //get the documents directory:
+    NSArray *paths = NSSearchPathForDirectoriesInDomains
+    (NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    //make a file name to write the data to using the documents directory:
+    NSString *fileName = [NSString stringWithFormat:@"%@/%@", 
+                          documentsDirectory,@"example.pdf"];
+
+    //save content to the documents directory
+    [file writeToFile:fileName atomically:YES];
+
+    [[NSUserDefaults standardUserDefaults]setValue:fileName forKey:@"DBfilePath"];
+    [[NSUserDefaults standardUserDefaults]setValue:@"example.pdf" forKey:@"DBfileName"];
+    
+    
 	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];

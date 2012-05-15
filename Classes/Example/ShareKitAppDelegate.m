@@ -14,6 +14,10 @@
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
+#import <DropboxSDK/DropboxSDK.h>
+#import "DropboxLinkViewController.h"
+#import "UploadViewController.h"
+
 @implementation ShareKitAppDelegate
 
 @synthesize window;
@@ -52,12 +56,25 @@
 	// Save data if appropriate
 }
 
+
 - (BOOL)handleOpenURL:(NSURL*)url
 {
+    
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+		if ([[DBSession sharedSession] isLinked]) {
+            
+            [[NSUserDefaults standardUserDefaults]setValue:@"YES" forKey:@"Dropbox-Linked"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
+		return YES;
+	}
+    
 	NSString* scheme = [url scheme];
-  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-    return [SHKFacebook handleOpenURL:url];
-  return YES;
+ 
+    if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
+        return [SHKFacebook handleOpenURL:url];
+    
+    return NO;
 }
 
 - (BOOL)application:(UIApplication *)application 
@@ -68,8 +85,7 @@
   return [self handleOpenURL:url];
 }
 
-- (BOOL)application:(UIApplication *)application 
-      handleOpenURL:(NSURL *)url 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
   return [self handleOpenURL:url];  
 }
