@@ -16,28 +16,28 @@ ShareKit 2.0 Быстрый Старт
 3. Ключи для социальный сетей и различную информацию(название приложения, его сайт) необходимо прописать в SHKConfig.h. 
 4. Если необходимо использовать Facebook, добавляем в App Delegate приложения следующий код:
 ```objective-c
-&#35;pragma mark - Facebook sharing
-&#8211; (BOOL)handleOpenURL:(NSURL*)url
-{
-	NSString* scheme = [url scheme];
-    if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-        return [SHKFacebook handleOpenURL:url];
-    return YES;
-}
+	&#35;pragma mark - Facebook sharing
+	&#8211; (BOOL)handleOpenURL:(NSURL*)url
+	{
+		NSString* scheme = [url scheme];
+    	if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
+       		return [SHKFacebook handleOpenURL:url];
+    	return YES;
+	}
 
-&#8211; (BOOL)application:(UIApplication *)application 
-            openURL:(NSURL *)url 
-  sourceApplication:(NSString *)sourceApplication 
-         annotation:(id)annotation 
-{
-    return [self handleOpenURL:url];
-}
+	&#8211; (BOOL)application:(UIApplication *)application 
+	            openURL:(NSURL *)url 
+	  sourceApplication:(NSString *)sourceApplication 
+	         annotation:(id)annotation 
+	{
+	    return [self handleOpenURL:url];
+	}
 
-&#8211; (BOOL)application:(UIApplication *)application 
-      handleOpenURL:(NSURL *)url 
-{
-    return [self handleOpenURL:url];  
-}
+	&#8211; (BOOL)application:(UIApplication *)application 
+	      handleOpenURL:(NSURL *)url 
+	{
+	    return [self handleOpenURL:url];  
+	}
 ```
 Добавляем в plist приложения такую ветку:
 
