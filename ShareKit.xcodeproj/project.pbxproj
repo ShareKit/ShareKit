@@ -40,6 +40,7 @@
 		4204CC1215663C8800B3958E /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC0215663C8800B3958E /* TSocketClient.m */; };
 		4204CC1315663C8800B3958E /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC0515663C8800B3958E /* TTransportException.m */; };
 		4204CC1415663C8800B3958E /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC0715663C8800B3958E /* TSharedProcessorFactory.m */; };
+		4204CC41156688B400B3958E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC40156688B400B3958E /* GTMNSString+HTML.m */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43150A8D11E78697008C6B68 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		432B147C11FF4B0700291B37 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
@@ -225,6 +226,8 @@
 		4204CC0515663C8800B3958E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
 		4204CC0615663C8800B3958E /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
 		4204CC0715663C8800B3958E /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
+		4204CC3F156688AC00B3958E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		4204CC40156688B400B3958E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		4312CF7B11CB33E200E61D7A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43150A8B11E78697008C6B68 /* SHKInstapaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKInstapaper.h; sourceTree = "<group>"; };
 		43150A8C11E78697008C6B68 /* SHKInstapaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKInstapaper.m; sourceTree = "<group>"; };
@@ -775,6 +778,8 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				4204CC3F156688AC00B3958E /* GTMNSString+HTML.h */,
+				4204CC40156688B400B3958E /* GTMNSString+HTML.m */,
 				F92EF477148E8F1A0070F913 /* JSONKit */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
@@ -1439,6 +1444,7 @@
 				4204CC1215663C8800B3958E /* TSocketClient.m in Sources */,
 				4204CC1315663C8800B3958E /* TTransportException.m in Sources */,
 				4204CC1415663C8800B3958E /* TSharedProcessorFactory.m in Sources */,
+				4204CC41156688B400B3958E /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

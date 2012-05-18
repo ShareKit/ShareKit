@@ -10,6 +10,7 @@
 #import "NSData+md5.h"
 #import "SHKConfiguration.h"
 #import "EvernoteSDK.h"
+#import "GTMNSString+HTML.h"
 
 @implementation SHKEvernoteItem
 @synthesize note;
@@ -153,14 +154,14 @@
         
         if(strURL.length>0) {
             if(item.title.length>0)
-                [contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];
-            [contentStr appendFormat:@"<p><a href=\"%@\">%@</a></p>",strURL,strURL];
+                [contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,[item.title gtm_stringByEscapingForHTML]];
+            [contentStr appendFormat:@"<p><a href=\"%@\">%@</a></p>",strURL,strURL ];
             atr.sourceURL = strURL;
         } else if(item.title.length>0)
-            [contentStr appendFormat:@"<h1>%@</h1>",item.title];
+            [contentStr appendFormat:@"<h1>%@</h1>",[item.title gtm_stringByEscapingForHTML]];
         
         if(item.text.length>0 )
-            [contentStr appendFormat:@"<p>%@</p>", SHKFlattenHTML(item.text, YES)];
+            [contentStr appendFormat:@"<p>%@</p>", [SHKFlattenHTML(item.text, YES) gtm_stringByEscapingForHTML]];
         
         if(item.image) {
             EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
