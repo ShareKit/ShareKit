@@ -143,20 +143,17 @@
 }
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
+    If you already have a consumer-key and secret which have been created with the old username/password authentication system
+    (created before May 2012) you have to get a new consumer-key and secret, as the old one is not accepted by the new authentication
+    system.
  // Sandbox
- #define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
- #define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
+ #define SHKEvernoteHost    @"sandbox.evernote.com"
  
  // Or production
- #define SHKEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
- #define SHKEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
+ #define SHKEvernoteHost    @"www.evernote.com"
  */
 
-- (NSString*)evernoteUserStoreURL {
-	return @"";
-}
-
-- (NSString*)evernoteNetStoreURLBase {
+- (NSString*)evernoteHost {
 	return @"";
 }
 

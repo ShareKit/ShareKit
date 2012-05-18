@@ -59,29 +59,31 @@ typedef int64_t EDAMTimestamp;
   BOOL __body_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=bodyHash, setter=setBodyHash:) NSData * bodyHash;
-@property (nonatomic, getter=size, setter=setSize:) int32_t size;
-@property (nonatomic, retain, getter=body, setter=setBody:) NSData * body;
-#endif
-
 - (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=bodyHash, setter=setBodyHash:) NSData * bodyHash;
+@property (nonatomic, getter=size, setter=setSize:) int32_t size;
+@property (nonatomic, retain, getter=body, setter=setBody:) NSData * body;
+#else
+
 - (NSData *) bodyHash;
 - (void) setBodyHash: (NSData *) bodyHash;
-- (BOOL) bodyHashIsSet;
 
 - (int32_t) size;
 - (void) setSize: (int32_t) size;
-- (BOOL) sizeIsSet;
 
 - (NSData *) body;
 - (void) setBody: (NSData *) body;
-- (BOOL) bodyIsSet;
 
+#endif
+
+- (BOOL) bodyHashIsSet;
+- (BOOL) sizeIsSet;
+- (BOOL) bodyIsSet;
 @end
 
 @interface EDAMUserAttributes : NSObject <NSCoding> {
@@ -111,6 +113,9 @@ typedef int64_t EDAMTimestamp;
   NSString * __recognitionLanguage;
   int64_t __customerProfileId;
   NSString * __referralProof;
+  BOOL __educationalDiscount;
+  NSString * __businessAddress;
+  BOOL __hideSponsorBilling;
 
   BOOL __defaultLocationName_isset;
   BOOL __defaultLatitude_isset;
@@ -138,7 +143,15 @@ typedef int64_t EDAMTimestamp;
   BOOL __recognitionLanguage_isset;
   BOOL __customerProfileId_isset;
   BOOL __referralProof_isset;
+  BOOL __educationalDiscount_isset;
+  BOOL __businessAddress_isset;
+  BOOL __hideSponsorBilling_isset;
 }
+
+- (id) initWithDefaultLocationName: (NSString *) defaultLocationName defaultLatitude: (double) defaultLatitude defaultLongitude: (double) defaultLongitude preactivation: (BOOL) preactivation viewedPromotions: (NSArray *) viewedPromotions incomingEmailAddress: (NSString *) incomingEmailAddress recentMailedAddresses: (NSArray *) recentMailedAddresses comments: (NSString *) comments dateAgreedToTermsOfService: (EDAMTimestamp) dateAgreedToTermsOfService maxReferrals: (int32_t) maxReferrals referralCount: (int32_t) referralCount refererCode: (NSString *) refererCode sentEmailDate: (EDAMTimestamp) sentEmailDate sentEmailCount: (int32_t) sentEmailCount dailyEmailLimit: (int32_t) dailyEmailLimit emailOptOutDate: (EDAMTimestamp) emailOptOutDate partnerEmailOptInDate: (EDAMTimestamp) partnerEmailOptInDate preferredLanguage: (NSString *) preferredLanguage preferredCountry: (NSString *) preferredCountry clipFullPage: (BOOL) clipFullPage twitterUserName: (NSString *) twitterUserName twitterId: (NSString *) twitterId groupName: (NSString *) groupName recognitionLanguage: (NSString *) recognitionLanguage customerProfileId: (int64_t) customerProfileId referralProof: (NSString *) referralProof educationalDiscount: (BOOL) educationalDiscount businessAddress: (NSString *) businessAddress hideSponsorBilling: (BOOL) hideSponsorBilling;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=defaultLocationName, setter=setDefaultLocationName:) NSString * defaultLocationName;
@@ -167,117 +180,129 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=recognitionLanguage, setter=setRecognitionLanguage:) NSString * recognitionLanguage;
 @property (nonatomic, getter=customerProfileId, setter=setCustomerProfileId:) int64_t customerProfileId;
 @property (nonatomic, retain, getter=referralProof, setter=setReferralProof:) NSString * referralProof;
-#endif
-
-- (id) initWithDefaultLocationName: (NSString *) defaultLocationName defaultLatitude: (double) defaultLatitude defaultLongitude: (double) defaultLongitude preactivation: (BOOL) preactivation viewedPromotions: (NSArray *) viewedPromotions incomingEmailAddress: (NSString *) incomingEmailAddress recentMailedAddresses: (NSArray *) recentMailedAddresses comments: (NSString *) comments dateAgreedToTermsOfService: (EDAMTimestamp) dateAgreedToTermsOfService maxReferrals: (int32_t) maxReferrals referralCount: (int32_t) referralCount refererCode: (NSString *) refererCode sentEmailDate: (EDAMTimestamp) sentEmailDate sentEmailCount: (int32_t) sentEmailCount dailyEmailLimit: (int32_t) dailyEmailLimit emailOptOutDate: (EDAMTimestamp) emailOptOutDate partnerEmailOptInDate: (EDAMTimestamp) partnerEmailOptInDate preferredLanguage: (NSString *) preferredLanguage preferredCountry: (NSString *) preferredCountry clipFullPage: (BOOL) clipFullPage twitterUserName: (NSString *) twitterUserName twitterId: (NSString *) twitterId groupName: (NSString *) groupName recognitionLanguage: (NSString *) recognitionLanguage customerProfileId: (int64_t) customerProfileId referralProof: (NSString *) referralProof;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+@property (nonatomic, getter=educationalDiscount, setter=setEducationalDiscount:) BOOL educationalDiscount;
+@property (nonatomic, retain, getter=businessAddress, setter=setBusinessAddress:) NSString * businessAddress;
+@property (nonatomic, getter=hideSponsorBilling, setter=setHideSponsorBilling:) BOOL hideSponsorBilling;
+#else
 
 - (NSString *) defaultLocationName;
 - (void) setDefaultLocationName: (NSString *) defaultLocationName;
-- (BOOL) defaultLocationNameIsSet;
 
 - (double) defaultLatitude;
 - (void) setDefaultLatitude: (double) defaultLatitude;
-- (BOOL) defaultLatitudeIsSet;
 
 - (double) defaultLongitude;
 - (void) setDefaultLongitude: (double) defaultLongitude;
-- (BOOL) defaultLongitudeIsSet;
 
 - (BOOL) preactivation;
 - (void) setPreactivation: (BOOL) preactivation;
-- (BOOL) preactivationIsSet;
 
 - (NSArray *) viewedPromotions;
 - (void) setViewedPromotions: (NSArray *) viewedPromotions;
-- (BOOL) viewedPromotionsIsSet;
 
 - (NSString *) incomingEmailAddress;
 - (void) setIncomingEmailAddress: (NSString *) incomingEmailAddress;
-- (BOOL) incomingEmailAddressIsSet;
 
 - (NSArray *) recentMailedAddresses;
 - (void) setRecentMailedAddresses: (NSArray *) recentMailedAddresses;
-- (BOOL) recentMailedAddressesIsSet;
 
 - (NSString *) comments;
 - (void) setComments: (NSString *) comments;
-- (BOOL) commentsIsSet;
 
 - (EDAMTimestamp) dateAgreedToTermsOfService;
 - (void) setDateAgreedToTermsOfService: (EDAMTimestamp) dateAgreedToTermsOfService;
-- (BOOL) dateAgreedToTermsOfServiceIsSet;
 
 - (int32_t) maxReferrals;
 - (void) setMaxReferrals: (int32_t) maxReferrals;
-- (BOOL) maxReferralsIsSet;
 
 - (int32_t) referralCount;
 - (void) setReferralCount: (int32_t) referralCount;
-- (BOOL) referralCountIsSet;
 
 - (NSString *) refererCode;
 - (void) setRefererCode: (NSString *) refererCode;
-- (BOOL) refererCodeIsSet;
 
 - (EDAMTimestamp) sentEmailDate;
 - (void) setSentEmailDate: (EDAMTimestamp) sentEmailDate;
-- (BOOL) sentEmailDateIsSet;
 
 - (int32_t) sentEmailCount;
 - (void) setSentEmailCount: (int32_t) sentEmailCount;
-- (BOOL) sentEmailCountIsSet;
 
 - (int32_t) dailyEmailLimit;
 - (void) setDailyEmailLimit: (int32_t) dailyEmailLimit;
-- (BOOL) dailyEmailLimitIsSet;
 
 - (EDAMTimestamp) emailOptOutDate;
 - (void) setEmailOptOutDate: (EDAMTimestamp) emailOptOutDate;
-- (BOOL) emailOptOutDateIsSet;
 
 - (EDAMTimestamp) partnerEmailOptInDate;
 - (void) setPartnerEmailOptInDate: (EDAMTimestamp) partnerEmailOptInDate;
-- (BOOL) partnerEmailOptInDateIsSet;
 
 - (NSString *) preferredLanguage;
 - (void) setPreferredLanguage: (NSString *) preferredLanguage;
-- (BOOL) preferredLanguageIsSet;
 
 - (NSString *) preferredCountry;
 - (void) setPreferredCountry: (NSString *) preferredCountry;
-- (BOOL) preferredCountryIsSet;
 
 - (BOOL) clipFullPage;
 - (void) setClipFullPage: (BOOL) clipFullPage;
-- (BOOL) clipFullPageIsSet;
 
 - (NSString *) twitterUserName;
 - (void) setTwitterUserName: (NSString *) twitterUserName;
-- (BOOL) twitterUserNameIsSet;
 
 - (NSString *) twitterId;
 - (void) setTwitterId: (NSString *) twitterId;
-- (BOOL) twitterIdIsSet;
 
 - (NSString *) groupName;
 - (void) setGroupName: (NSString *) groupName;
-- (BOOL) groupNameIsSet;
 
 - (NSString *) recognitionLanguage;
 - (void) setRecognitionLanguage: (NSString *) recognitionLanguage;
-- (BOOL) recognitionLanguageIsSet;
 
 - (int64_t) customerProfileId;
 - (void) setCustomerProfileId: (int64_t) customerProfileId;
-- (BOOL) customerProfileIdIsSet;
 
 - (NSString *) referralProof;
 - (void) setReferralProof: (NSString *) referralProof;
-- (BOOL) referralProofIsSet;
 
+- (BOOL) educationalDiscount;
+- (void) setEducationalDiscount: (BOOL) educationalDiscount;
+
+- (NSString *) businessAddress;
+- (void) setBusinessAddress: (NSString *) businessAddress;
+
+- (BOOL) hideSponsorBilling;
+- (void) setHideSponsorBilling: (BOOL) hideSponsorBilling;
+
+#endif
+
+- (BOOL) defaultLocationNameIsSet;
+- (BOOL) defaultLatitudeIsSet;
+- (BOOL) defaultLongitudeIsSet;
+- (BOOL) preactivationIsSet;
+- (BOOL) viewedPromotionsIsSet;
+- (BOOL) incomingEmailAddressIsSet;
+- (BOOL) recentMailedAddressesIsSet;
+- (BOOL) commentsIsSet;
+- (BOOL) dateAgreedToTermsOfServiceIsSet;
+- (BOOL) maxReferralsIsSet;
+- (BOOL) referralCountIsSet;
+- (BOOL) refererCodeIsSet;
+- (BOOL) sentEmailDateIsSet;
+- (BOOL) sentEmailCountIsSet;
+- (BOOL) dailyEmailLimitIsSet;
+- (BOOL) emailOptOutDateIsSet;
+- (BOOL) partnerEmailOptInDateIsSet;
+- (BOOL) preferredLanguageIsSet;
+- (BOOL) preferredCountryIsSet;
+- (BOOL) clipFullPageIsSet;
+- (BOOL) twitterUserNameIsSet;
+- (BOOL) twitterIdIsSet;
+- (BOOL) groupNameIsSet;
+- (BOOL) recognitionLanguageIsSet;
+- (BOOL) customerProfileIdIsSet;
+- (BOOL) referralProofIsSet;
+- (BOOL) educationalDiscountIsSet;
+- (BOOL) businessAddressIsSet;
+- (BOOL) hideSponsorBillingIsSet;
 @end
 
 @interface EDAMAccounting : NSObject <NSCoding> {
@@ -297,6 +322,8 @@ typedef int64_t EDAMTimestamp;
   EDAMTimestamp __updated;
   NSString * __premiumSubscriptionNumber;
   EDAMTimestamp __lastRequestedCharge;
+  NSString * __currency;
+  int32_t __unitPrice;
 
   BOOL __uploadLimit_isset;
   BOOL __uploadLimitEnd_isset;
@@ -314,7 +341,14 @@ typedef int64_t EDAMTimestamp;
   BOOL __updated_isset;
   BOOL __premiumSubscriptionNumber_isset;
   BOOL __lastRequestedCharge_isset;
+  BOOL __currency_isset;
+  BOOL __unitPrice_isset;
 }
+
+- (id) initWithUploadLimit: (int64_t) uploadLimit uploadLimitEnd: (EDAMTimestamp) uploadLimitEnd uploadLimitNextMonth: (int64_t) uploadLimitNextMonth premiumServiceStatus: (int) premiumServiceStatus premiumOrderNumber: (NSString *) premiumOrderNumber premiumCommerceService: (NSString *) premiumCommerceService premiumServiceStart: (EDAMTimestamp) premiumServiceStart premiumServiceSKU: (NSString *) premiumServiceSKU lastSuccessfulCharge: (EDAMTimestamp) lastSuccessfulCharge lastFailedCharge: (EDAMTimestamp) lastFailedCharge lastFailedChargeReason: (NSString *) lastFailedChargeReason nextPaymentDue: (EDAMTimestamp) nextPaymentDue premiumLockUntil: (EDAMTimestamp) premiumLockUntil updated: (EDAMTimestamp) updated premiumSubscriptionNumber: (NSString *) premiumSubscriptionNumber lastRequestedCharge: (EDAMTimestamp) lastRequestedCharge currency: (NSString *) currency unitPrice: (int32_t) unitPrice;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=uploadLimit, setter=setUploadLimit:) int64_t uploadLimit;
@@ -333,77 +367,84 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, getter=updated, setter=setUpdated:) EDAMTimestamp updated;
 @property (nonatomic, retain, getter=premiumSubscriptionNumber, setter=setPremiumSubscriptionNumber:) NSString * premiumSubscriptionNumber;
 @property (nonatomic, getter=lastRequestedCharge, setter=setLastRequestedCharge:) EDAMTimestamp lastRequestedCharge;
-#endif
-
-- (id) initWithUploadLimit: (int64_t) uploadLimit uploadLimitEnd: (EDAMTimestamp) uploadLimitEnd uploadLimitNextMonth: (int64_t) uploadLimitNextMonth premiumServiceStatus: (int) premiumServiceStatus premiumOrderNumber: (NSString *) premiumOrderNumber premiumCommerceService: (NSString *) premiumCommerceService premiumServiceStart: (EDAMTimestamp) premiumServiceStart premiumServiceSKU: (NSString *) premiumServiceSKU lastSuccessfulCharge: (EDAMTimestamp) lastSuccessfulCharge lastFailedCharge: (EDAMTimestamp) lastFailedCharge lastFailedChargeReason: (NSString *) lastFailedChargeReason nextPaymentDue: (EDAMTimestamp) nextPaymentDue premiumLockUntil: (EDAMTimestamp) premiumLockUntil updated: (EDAMTimestamp) updated premiumSubscriptionNumber: (NSString *) premiumSubscriptionNumber lastRequestedCharge: (EDAMTimestamp) lastRequestedCharge;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+@property (nonatomic, retain, getter=currency, setter=setCurrency:) NSString * currency;
+@property (nonatomic, getter=unitPrice, setter=setUnitPrice:) int32_t unitPrice;
+#else
 
 - (int64_t) uploadLimit;
 - (void) setUploadLimit: (int64_t) uploadLimit;
-- (BOOL) uploadLimitIsSet;
 
 - (EDAMTimestamp) uploadLimitEnd;
 - (void) setUploadLimitEnd: (EDAMTimestamp) uploadLimitEnd;
-- (BOOL) uploadLimitEndIsSet;
 
 - (int64_t) uploadLimitNextMonth;
 - (void) setUploadLimitNextMonth: (int64_t) uploadLimitNextMonth;
-- (BOOL) uploadLimitNextMonthIsSet;
 
 - (int) premiumServiceStatus;
 - (void) setPremiumServiceStatus: (int) premiumServiceStatus;
-- (BOOL) premiumServiceStatusIsSet;
 
 - (NSString *) premiumOrderNumber;
 - (void) setPremiumOrderNumber: (NSString *) premiumOrderNumber;
-- (BOOL) premiumOrderNumberIsSet;
 
 - (NSString *) premiumCommerceService;
 - (void) setPremiumCommerceService: (NSString *) premiumCommerceService;
-- (BOOL) premiumCommerceServiceIsSet;
 
 - (EDAMTimestamp) premiumServiceStart;
 - (void) setPremiumServiceStart: (EDAMTimestamp) premiumServiceStart;
-- (BOOL) premiumServiceStartIsSet;
 
 - (NSString *) premiumServiceSKU;
 - (void) setPremiumServiceSKU: (NSString *) premiumServiceSKU;
-- (BOOL) premiumServiceSKUIsSet;
 
 - (EDAMTimestamp) lastSuccessfulCharge;
 - (void) setLastSuccessfulCharge: (EDAMTimestamp) lastSuccessfulCharge;
-- (BOOL) lastSuccessfulChargeIsSet;
 
 - (EDAMTimestamp) lastFailedCharge;
 - (void) setLastFailedCharge: (EDAMTimestamp) lastFailedCharge;
-- (BOOL) lastFailedChargeIsSet;
 
 - (NSString *) lastFailedChargeReason;
 - (void) setLastFailedChargeReason: (NSString *) lastFailedChargeReason;
-- (BOOL) lastFailedChargeReasonIsSet;
 
 - (EDAMTimestamp) nextPaymentDue;
 - (void) setNextPaymentDue: (EDAMTimestamp) nextPaymentDue;
-- (BOOL) nextPaymentDueIsSet;
 
 - (EDAMTimestamp) premiumLockUntil;
 - (void) setPremiumLockUntil: (EDAMTimestamp) premiumLockUntil;
-- (BOOL) premiumLockUntilIsSet;
 
 - (EDAMTimestamp) updated;
 - (void) setUpdated: (EDAMTimestamp) updated;
-- (BOOL) updatedIsSet;
 
 - (NSString *) premiumSubscriptionNumber;
 - (void) setPremiumSubscriptionNumber: (NSString *) premiumSubscriptionNumber;
-- (BOOL) premiumSubscriptionNumberIsSet;
 
 - (EDAMTimestamp) lastRequestedCharge;
 - (void) setLastRequestedCharge: (EDAMTimestamp) lastRequestedCharge;
-- (BOOL) lastRequestedChargeIsSet;
 
+- (NSString *) currency;
+- (void) setCurrency: (NSString *) currency;
+
+- (int32_t) unitPrice;
+- (void) setUnitPrice: (int32_t) unitPrice;
+
+#endif
+
+- (BOOL) uploadLimitIsSet;
+- (BOOL) uploadLimitEndIsSet;
+- (BOOL) uploadLimitNextMonthIsSet;
+- (BOOL) premiumServiceStatusIsSet;
+- (BOOL) premiumOrderNumberIsSet;
+- (BOOL) premiumCommerceServiceIsSet;
+- (BOOL) premiumServiceStartIsSet;
+- (BOOL) premiumServiceSKUIsSet;
+- (BOOL) lastSuccessfulChargeIsSet;
+- (BOOL) lastFailedChargeIsSet;
+- (BOOL) lastFailedChargeReasonIsSet;
+- (BOOL) nextPaymentDueIsSet;
+- (BOOL) premiumLockUntilIsSet;
+- (BOOL) updatedIsSet;
+- (BOOL) premiumSubscriptionNumberIsSet;
+- (BOOL) lastRequestedChargeIsSet;
+- (BOOL) currencyIsSet;
+- (BOOL) unitPriceIsSet;
 @end
 
 @interface EDAMUser : NSObject <NSCoding> {
@@ -436,6 +477,11 @@ typedef int64_t EDAMTimestamp;
   BOOL __accounting_isset;
 }
 
+- (id) initWithId: (EDAMUserID) id username: (NSString *) username email: (NSString *) email name: (NSString *) name timezone: (NSString *) timezone privilege: (int) privilege created: (EDAMTimestamp) created updated: (EDAMTimestamp) updated deleted: (EDAMTimestamp) deleted active: (BOOL) active shardId: (NSString *) shardId attributes: (EDAMUserAttributes *) attributes accounting: (EDAMAccounting *) accounting;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=id, setter=setId:) EDAMUserID id;
 @property (nonatomic, retain, getter=username, setter=setUsername:) NSString * username;
@@ -450,65 +496,62 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=shardId, setter=setShardId:) NSString * shardId;
 @property (nonatomic, retain, getter=attributes, setter=setAttributes:) EDAMUserAttributes * attributes;
 @property (nonatomic, retain, getter=accounting, setter=setAccounting:) EDAMAccounting * accounting;
-#endif
-
-- (id) initWithId: (EDAMUserID) id username: (NSString *) username email: (NSString *) email name: (NSString *) name timezone: (NSString *) timezone privilege: (int) privilege created: (EDAMTimestamp) created updated: (EDAMTimestamp) updated deleted: (EDAMTimestamp) deleted active: (BOOL) active shardId: (NSString *) shardId attributes: (EDAMUserAttributes *) attributes accounting: (EDAMAccounting *) accounting;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+#else
 
 - (EDAMUserID) id;
 - (void) setId: (EDAMUserID) id;
-- (BOOL) idIsSet;
 
 - (NSString *) username;
 - (void) setUsername: (NSString *) username;
-- (BOOL) usernameIsSet;
 
 - (NSString *) email;
 - (void) setEmail: (NSString *) email;
-- (BOOL) emailIsSet;
 
 - (NSString *) name;
 - (void) setName: (NSString *) name;
-- (BOOL) nameIsSet;
 
 - (NSString *) timezone;
 - (void) setTimezone: (NSString *) timezone;
-- (BOOL) timezoneIsSet;
 
 - (int) privilege;
 - (void) setPrivilege: (int) privilege;
-- (BOOL) privilegeIsSet;
 
 - (EDAMTimestamp) created;
 - (void) setCreated: (EDAMTimestamp) created;
-- (BOOL) createdIsSet;
 
 - (EDAMTimestamp) updated;
 - (void) setUpdated: (EDAMTimestamp) updated;
-- (BOOL) updatedIsSet;
 
 - (EDAMTimestamp) deleted;
 - (void) setDeleted: (EDAMTimestamp) deleted;
-- (BOOL) deletedIsSet;
 
 - (BOOL) active;
 - (void) setActive: (BOOL) active;
-- (BOOL) activeIsSet;
 
 - (NSString *) shardId;
 - (void) setShardId: (NSString *) shardId;
-- (BOOL) shardIdIsSet;
 
 - (EDAMUserAttributes *) attributes;
 - (void) setAttributes: (EDAMUserAttributes *) attributes;
-- (BOOL) attributesIsSet;
 
 - (EDAMAccounting *) accounting;
 - (void) setAccounting: (EDAMAccounting *) accounting;
-- (BOOL) accountingIsSet;
 
+#endif
+
+- (BOOL) idIsSet;
+- (BOOL) usernameIsSet;
+- (BOOL) emailIsSet;
+- (BOOL) nameIsSet;
+- (BOOL) timezoneIsSet;
+- (BOOL) privilegeIsSet;
+- (BOOL) createdIsSet;
+- (BOOL) updatedIsSet;
+- (BOOL) deletedIsSet;
+- (BOOL) activeIsSet;
+- (BOOL) shardIdIsSet;
+- (BOOL) attributesIsSet;
+- (BOOL) accountingIsSet;
 @end
 
 @interface EDAMTag : NSObject <NSCoding> {
@@ -523,34 +566,66 @@ typedef int64_t EDAMTimestamp;
   BOOL __updateSequenceNum_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
-@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
-@property (nonatomic, retain, getter=parentGuid, setter=setParentGuid:) EDAMGuid parentGuid;
-@property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
-#endif
-
 - (id) initWithGuid: (EDAMGuid) guid name: (NSString *) name parentGuid: (EDAMGuid) parentGuid updateSequenceNum: (int32_t) updateSequenceNum;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
+@property (nonatomic, retain, getter=parentGuid, setter=setParentGuid:) EDAMGuid parentGuid;
+@property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
+#else
+
 - (EDAMGuid) guid;
 - (void) setGuid: (EDAMGuid) guid;
-- (BOOL) guidIsSet;
 
 - (NSString *) name;
 - (void) setName: (NSString *) name;
-- (BOOL) nameIsSet;
 
 - (EDAMGuid) parentGuid;
 - (void) setParentGuid: (EDAMGuid) parentGuid;
-- (BOOL) parentGuidIsSet;
 
 - (int32_t) updateSequenceNum;
 - (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
-- (BOOL) updateSequenceNumIsSet;
 
+#endif
+
+- (BOOL) guidIsSet;
+- (BOOL) nameIsSet;
+- (BOOL) parentGuidIsSet;
+- (BOOL) updateSequenceNumIsSet;
+@end
+
+@interface EDAMLazyMap : NSObject <NSCoding> {
+  NSSet * __keysOnly;
+  NSDictionary * __fullMap;
+
+  BOOL __keysOnly_isset;
+  BOOL __fullMap_isset;
+}
+
+- (id) initWithKeysOnly: (NSSet *) keysOnly fullMap: (NSDictionary *) fullMap;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=keysOnly, setter=setKeysOnly:) NSSet * keysOnly;
+@property (nonatomic, retain, getter=fullMap, setter=setFullMap:) NSDictionary * fullMap;
+#else
+
+- (NSSet *) keysOnly;
+- (void) setKeysOnly: (NSSet *) keysOnly;
+
+- (NSDictionary *) fullMap;
+- (void) setFullMap: (NSDictionary *) fullMap;
+
+#endif
+
+- (BOOL) keysOnlyIsSet;
+- (BOOL) fullMapIsSet;
 @end
 
 @interface EDAMResourceAttributes : NSObject <NSCoding> {
@@ -565,6 +640,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __recoType;
   NSString * __fileName;
   BOOL __attachment;
+  EDAMLazyMap * __applicationData;
 
   BOOL __sourceURL_isset;
   BOOL __timestamp_isset;
@@ -577,7 +653,13 @@ typedef int64_t EDAMTimestamp;
   BOOL __recoType_isset;
   BOOL __fileName_isset;
   BOOL __attachment_isset;
+  BOOL __applicationData_isset;
 }
+
+- (id) initWithSourceURL: (NSString *) sourceURL timestamp: (EDAMTimestamp) timestamp latitude: (double) latitude longitude: (double) longitude altitude: (double) altitude cameraMake: (NSString *) cameraMake cameraModel: (NSString *) cameraModel clientWillIndex: (BOOL) clientWillIndex recoType: (NSString *) recoType fileName: (NSString *) fileName attachment: (BOOL) attachment applicationData: (EDAMLazyMap *) applicationData;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=sourceURL, setter=setSourceURL:) NSString * sourceURL;
@@ -591,57 +673,59 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=recoType, setter=setRecoType:) NSString * recoType;
 @property (nonatomic, retain, getter=fileName, setter=setFileName:) NSString * fileName;
 @property (nonatomic, getter=attachment, setter=setAttachment:) BOOL attachment;
-#endif
-
-- (id) initWithSourceURL: (NSString *) sourceURL timestamp: (EDAMTimestamp) timestamp latitude: (double) latitude longitude: (double) longitude altitude: (double) altitude cameraMake: (NSString *) cameraMake cameraModel: (NSString *) cameraModel clientWillIndex: (BOOL) clientWillIndex recoType: (NSString *) recoType fileName: (NSString *) fileName attachment: (BOOL) attachment;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+@property (nonatomic, retain, getter=applicationData, setter=setApplicationData:) EDAMLazyMap * applicationData;
+#else
 
 - (NSString *) sourceURL;
 - (void) setSourceURL: (NSString *) sourceURL;
-- (BOOL) sourceURLIsSet;
 
 - (EDAMTimestamp) timestamp;
 - (void) setTimestamp: (EDAMTimestamp) timestamp;
-- (BOOL) timestampIsSet;
 
 - (double) latitude;
 - (void) setLatitude: (double) latitude;
-- (BOOL) latitudeIsSet;
 
 - (double) longitude;
 - (void) setLongitude: (double) longitude;
-- (BOOL) longitudeIsSet;
 
 - (double) altitude;
 - (void) setAltitude: (double) altitude;
-- (BOOL) altitudeIsSet;
 
 - (NSString *) cameraMake;
 - (void) setCameraMake: (NSString *) cameraMake;
-- (BOOL) cameraMakeIsSet;
 
 - (NSString *) cameraModel;
 - (void) setCameraModel: (NSString *) cameraModel;
-- (BOOL) cameraModelIsSet;
 
 - (BOOL) clientWillIndex;
 - (void) setClientWillIndex: (BOOL) clientWillIndex;
-- (BOOL) clientWillIndexIsSet;
 
 - (NSString *) recoType;
 - (void) setRecoType: (NSString *) recoType;
-- (BOOL) recoTypeIsSet;
 
 - (NSString *) fileName;
 - (void) setFileName: (NSString *) fileName;
-- (BOOL) fileNameIsSet;
 
 - (BOOL) attachment;
 - (void) setAttachment: (BOOL) attachment;
-- (BOOL) attachmentIsSet;
 
+- (EDAMLazyMap *) applicationData;
+- (void) setApplicationData: (EDAMLazyMap *) applicationData;
+
+#endif
+
+- (BOOL) sourceURLIsSet;
+- (BOOL) timestampIsSet;
+- (BOOL) latitudeIsSet;
+- (BOOL) longitudeIsSet;
+- (BOOL) altitudeIsSet;
+- (BOOL) cameraMakeIsSet;
+- (BOOL) cameraModelIsSet;
+- (BOOL) clientWillIndexIsSet;
+- (BOOL) recoTypeIsSet;
+- (BOOL) fileNameIsSet;
+- (BOOL) attachmentIsSet;
+- (BOOL) applicationDataIsSet;
 @end
 
 @interface EDAMResource : NSObject <NSCoding> {
@@ -672,6 +756,11 @@ typedef int64_t EDAMTimestamp;
   BOOL __alternateData_isset;
 }
 
+- (id) initWithGuid: (EDAMGuid) guid noteGuid: (EDAMGuid) noteGuid data: (EDAMData *) data mime: (NSString *) mime width: (int16_t) width height: (int16_t) height duration: (int16_t) duration active: (BOOL) active recognition: (EDAMData *) recognition attributes: (EDAMResourceAttributes *) attributes updateSequenceNum: (int32_t) updateSequenceNum alternateData: (EDAMData *) alternateData;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
 @property (nonatomic, retain, getter=noteGuid, setter=setNoteGuid:) EDAMGuid noteGuid;
@@ -685,61 +774,58 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=attributes, setter=setAttributes:) EDAMResourceAttributes * attributes;
 @property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
 @property (nonatomic, retain, getter=alternateData, setter=setAlternateData:) EDAMData * alternateData;
-#endif
-
-- (id) initWithGuid: (EDAMGuid) guid noteGuid: (EDAMGuid) noteGuid data: (EDAMData *) data mime: (NSString *) mime width: (int16_t) width height: (int16_t) height duration: (int16_t) duration active: (BOOL) active recognition: (EDAMData *) recognition attributes: (EDAMResourceAttributes *) attributes updateSequenceNum: (int32_t) updateSequenceNum alternateData: (EDAMData *) alternateData;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+#else
 
 - (EDAMGuid) guid;
 - (void) setGuid: (EDAMGuid) guid;
-- (BOOL) guidIsSet;
 
 - (EDAMGuid) noteGuid;
 - (void) setNoteGuid: (EDAMGuid) noteGuid;
-- (BOOL) noteGuidIsSet;
 
 - (EDAMData *) data;
 - (void) setData: (EDAMData *) data;
-- (BOOL) dataIsSet;
 
 - (NSString *) mime;
 - (void) setMime: (NSString *) mime;
-- (BOOL) mimeIsSet;
 
 - (int16_t) width;
 - (void) setWidth: (int16_t) width;
-- (BOOL) widthIsSet;
 
 - (int16_t) height;
 - (void) setHeight: (int16_t) height;
-- (BOOL) heightIsSet;
 
 - (int16_t) duration;
 - (void) setDuration: (int16_t) duration;
-- (BOOL) durationIsSet;
 
 - (BOOL) active;
 - (void) setActive: (BOOL) active;
-- (BOOL) activeIsSet;
 
 - (EDAMData *) recognition;
 - (void) setRecognition: (EDAMData *) recognition;
-- (BOOL) recognitionIsSet;
 
 - (EDAMResourceAttributes *) attributes;
 - (void) setAttributes: (EDAMResourceAttributes *) attributes;
-- (BOOL) attributesIsSet;
 
 - (int32_t) updateSequenceNum;
 - (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
-- (BOOL) updateSequenceNumIsSet;
 
 - (EDAMData *) alternateData;
 - (void) setAlternateData: (EDAMData *) alternateData;
-- (BOOL) alternateDataIsSet;
 
+#endif
+
+- (BOOL) guidIsSet;
+- (BOOL) noteGuidIsSet;
+- (BOOL) dataIsSet;
+- (BOOL) mimeIsSet;
+- (BOOL) widthIsSet;
+- (BOOL) heightIsSet;
+- (BOOL) durationIsSet;
+- (BOOL) activeIsSet;
+- (BOOL) recognitionIsSet;
+- (BOOL) attributesIsSet;
+- (BOOL) updateSequenceNumIsSet;
+- (BOOL) alternateDataIsSet;
 @end
 
 @interface EDAMNoteAttributes : NSObject <NSCoding> {
@@ -751,6 +837,11 @@ typedef int64_t EDAMTimestamp;
   NSString * __source;
   NSString * __sourceURL;
   NSString * __sourceApplication;
+  EDAMTimestamp __shareDate;
+  NSString * __placeName;
+  NSString * __contentClass;
+  EDAMLazyMap * __applicationData;
+  NSString * __lastEditedBy;
 
   BOOL __subjectDate_isset;
   BOOL __latitude_isset;
@@ -760,7 +851,17 @@ typedef int64_t EDAMTimestamp;
   BOOL __source_isset;
   BOOL __sourceURL_isset;
   BOOL __sourceApplication_isset;
+  BOOL __shareDate_isset;
+  BOOL __placeName_isset;
+  BOOL __contentClass_isset;
+  BOOL __applicationData_isset;
+  BOOL __lastEditedBy_isset;
 }
+
+- (id) initWithSubjectDate: (EDAMTimestamp) subjectDate latitude: (double) latitude longitude: (double) longitude altitude: (double) altitude author: (NSString *) author source: (NSString *) source sourceURL: (NSString *) sourceURL sourceApplication: (NSString *) sourceApplication shareDate: (EDAMTimestamp) shareDate placeName: (NSString *) placeName contentClass: (NSString *) contentClass applicationData: (EDAMLazyMap *) applicationData lastEditedBy: (NSString *) lastEditedBy;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=subjectDate, setter=setSubjectDate:) EDAMTimestamp subjectDate;
@@ -771,45 +872,67 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=source, setter=setSource:) NSString * source;
 @property (nonatomic, retain, getter=sourceURL, setter=setSourceURL:) NSString * sourceURL;
 @property (nonatomic, retain, getter=sourceApplication, setter=setSourceApplication:) NSString * sourceApplication;
-#endif
-
-- (id) initWithSubjectDate: (EDAMTimestamp) subjectDate latitude: (double) latitude longitude: (double) longitude altitude: (double) altitude author: (NSString *) author source: (NSString *) source sourceURL: (NSString *) sourceURL sourceApplication: (NSString *) sourceApplication;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+@property (nonatomic, getter=shareDate, setter=setShareDate:) EDAMTimestamp shareDate;
+@property (nonatomic, retain, getter=placeName, setter=setPlaceName:) NSString * placeName;
+@property (nonatomic, retain, getter=contentClass, setter=setContentClass:) NSString * contentClass;
+@property (nonatomic, retain, getter=applicationData, setter=setApplicationData:) EDAMLazyMap * applicationData;
+@property (nonatomic, retain, getter=lastEditedBy, setter=setLastEditedBy:) NSString * lastEditedBy;
+#else
 
 - (EDAMTimestamp) subjectDate;
 - (void) setSubjectDate: (EDAMTimestamp) subjectDate;
-- (BOOL) subjectDateIsSet;
 
 - (double) latitude;
 - (void) setLatitude: (double) latitude;
-- (BOOL) latitudeIsSet;
 
 - (double) longitude;
 - (void) setLongitude: (double) longitude;
-- (BOOL) longitudeIsSet;
 
 - (double) altitude;
 - (void) setAltitude: (double) altitude;
-- (BOOL) altitudeIsSet;
 
 - (NSString *) author;
 - (void) setAuthor: (NSString *) author;
-- (BOOL) authorIsSet;
 
 - (NSString *) source;
 - (void) setSource: (NSString *) source;
-- (BOOL) sourceIsSet;
 
 - (NSString *) sourceURL;
 - (void) setSourceURL: (NSString *) sourceURL;
-- (BOOL) sourceURLIsSet;
 
 - (NSString *) sourceApplication;
 - (void) setSourceApplication: (NSString *) sourceApplication;
-- (BOOL) sourceApplicationIsSet;
 
+- (EDAMTimestamp) shareDate;
+- (void) setShareDate: (EDAMTimestamp) shareDate;
+
+- (NSString *) placeName;
+- (void) setPlaceName: (NSString *) placeName;
+
+- (NSString *) contentClass;
+- (void) setContentClass: (NSString *) contentClass;
+
+- (EDAMLazyMap *) applicationData;
+- (void) setApplicationData: (EDAMLazyMap *) applicationData;
+
+- (NSString *) lastEditedBy;
+- (void) setLastEditedBy: (NSString *) lastEditedBy;
+
+#endif
+
+- (BOOL) subjectDateIsSet;
+- (BOOL) latitudeIsSet;
+- (BOOL) longitudeIsSet;
+- (BOOL) altitudeIsSet;
+- (BOOL) authorIsSet;
+- (BOOL) sourceIsSet;
+- (BOOL) sourceURLIsSet;
+- (BOOL) sourceApplicationIsSet;
+- (BOOL) shareDateIsSet;
+- (BOOL) placeNameIsSet;
+- (BOOL) contentClassIsSet;
+- (BOOL) applicationDataIsSet;
+- (BOOL) lastEditedByIsSet;
 @end
 
 @interface EDAMNote : NSObject <NSCoding> {
@@ -846,6 +969,11 @@ typedef int64_t EDAMTimestamp;
   BOOL __tagNames_isset;
 }
 
+- (id) initWithGuid: (EDAMGuid) guid title: (NSString *) title content: (NSString *) content contentHash: (NSData *) contentHash contentLength: (int32_t) contentLength created: (EDAMTimestamp) created updated: (EDAMTimestamp) updated deleted: (EDAMTimestamp) deleted active: (BOOL) active updateSequenceNum: (int32_t) updateSequenceNum notebookGuid: (NSString *) notebookGuid tagGuids: (NSArray *) tagGuids resources: (NSArray *) resources attributes: (EDAMNoteAttributes *) attributes tagNames: (NSArray *) tagNames;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
 @property (nonatomic, retain, getter=title, setter=setTitle:) NSString * title;
@@ -862,73 +990,70 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=resources, setter=setResources:) NSArray * resources;
 @property (nonatomic, retain, getter=attributes, setter=setAttributes:) EDAMNoteAttributes * attributes;
 @property (nonatomic, retain, getter=tagNames, setter=setTagNames:) NSArray * tagNames;
-#endif
-
-- (id) initWithGuid: (EDAMGuid) guid title: (NSString *) title content: (NSString *) content contentHash: (NSData *) contentHash contentLength: (int32_t) contentLength created: (EDAMTimestamp) created updated: (EDAMTimestamp) updated deleted: (EDAMTimestamp) deleted active: (BOOL) active updateSequenceNum: (int32_t) updateSequenceNum notebookGuid: (NSString *) notebookGuid tagGuids: (NSArray *) tagGuids resources: (NSArray *) resources attributes: (EDAMNoteAttributes *) attributes tagNames: (NSArray *) tagNames;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+#else
 
 - (EDAMGuid) guid;
 - (void) setGuid: (EDAMGuid) guid;
-- (BOOL) guidIsSet;
 
 - (NSString *) title;
 - (void) setTitle: (NSString *) title;
-- (BOOL) titleIsSet;
 
 - (NSString *) content;
 - (void) setContent: (NSString *) content;
-- (BOOL) contentIsSet;
 
 - (NSData *) contentHash;
 - (void) setContentHash: (NSData *) contentHash;
-- (BOOL) contentHashIsSet;
 
 - (int32_t) contentLength;
 - (void) setContentLength: (int32_t) contentLength;
-- (BOOL) contentLengthIsSet;
 
 - (EDAMTimestamp) created;
 - (void) setCreated: (EDAMTimestamp) created;
-- (BOOL) createdIsSet;
 
 - (EDAMTimestamp) updated;
 - (void) setUpdated: (EDAMTimestamp) updated;
-- (BOOL) updatedIsSet;
 
 - (EDAMTimestamp) deleted;
 - (void) setDeleted: (EDAMTimestamp) deleted;
-- (BOOL) deletedIsSet;
 
 - (BOOL) active;
 - (void) setActive: (BOOL) active;
-- (BOOL) activeIsSet;
 
 - (int32_t) updateSequenceNum;
 - (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
-- (BOOL) updateSequenceNumIsSet;
 
 - (NSString *) notebookGuid;
 - (void) setNotebookGuid: (NSString *) notebookGuid;
-- (BOOL) notebookGuidIsSet;
 
 - (NSArray *) tagGuids;
 - (void) setTagGuids: (NSArray *) tagGuids;
-- (BOOL) tagGuidsIsSet;
 
 - (NSArray *) resources;
 - (void) setResources: (NSArray *) resources;
-- (BOOL) resourcesIsSet;
 
 - (EDAMNoteAttributes *) attributes;
 - (void) setAttributes: (EDAMNoteAttributes *) attributes;
-- (BOOL) attributesIsSet;
 
 - (NSArray *) tagNames;
 - (void) setTagNames: (NSArray *) tagNames;
-- (BOOL) tagNamesIsSet;
 
+#endif
+
+- (BOOL) guidIsSet;
+- (BOOL) titleIsSet;
+- (BOOL) contentIsSet;
+- (BOOL) contentHashIsSet;
+- (BOOL) contentLengthIsSet;
+- (BOOL) createdIsSet;
+- (BOOL) updatedIsSet;
+- (BOOL) deletedIsSet;
+- (BOOL) activeIsSet;
+- (BOOL) updateSequenceNumIsSet;
+- (BOOL) notebookGuidIsSet;
+- (BOOL) tagGuidsIsSet;
+- (BOOL) resourcesIsSet;
+- (BOOL) attributesIsSet;
+- (BOOL) tagNamesIsSet;
 @end
 
 @interface EDAMPublishing : NSObject <NSCoding> {
@@ -943,111 +1068,36 @@ typedef int64_t EDAMTimestamp;
   BOOL __publicDescription_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=uri, setter=setUri:) NSString * uri;
-@property (nonatomic, getter=order, setter=setOrder:) int order;
-@property (nonatomic, getter=ascending, setter=setAscending:) BOOL ascending;
-@property (nonatomic, retain, getter=publicDescription, setter=setPublicDescription:) NSString * publicDescription;
-#endif
-
 - (id) initWithUri: (NSString *) uri order: (int) order ascending: (BOOL) ascending publicDescription: (NSString *) publicDescription;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=uri, setter=setUri:) NSString * uri;
+@property (nonatomic, getter=order, setter=setOrder:) int order;
+@property (nonatomic, getter=ascending, setter=setAscending:) BOOL ascending;
+@property (nonatomic, retain, getter=publicDescription, setter=setPublicDescription:) NSString * publicDescription;
+#else
+
 - (NSString *) uri;
 - (void) setUri: (NSString *) uri;
-- (BOOL) uriIsSet;
 
 - (int) order;
 - (void) setOrder: (int) order;
-- (BOOL) orderIsSet;
 
 - (BOOL) ascending;
 - (void) setAscending: (BOOL) ascending;
-- (BOOL) ascendingIsSet;
 
 - (NSString *) publicDescription;
 - (void) setPublicDescription: (NSString *) publicDescription;
-- (BOOL) publicDescriptionIsSet;
 
-@end
-
-@interface EDAMNotebook : NSObject <NSCoding> {
-  EDAMGuid __guid;
-  NSString * __name;
-  int32_t __updateSequenceNum;
-  BOOL __defaultNotebook;
-  EDAMTimestamp __serviceCreated;
-  EDAMTimestamp __serviceUpdated;
-  EDAMPublishing * __publishing;
-  BOOL __published;
-  NSString * __stack;
-
-  BOOL __guid_isset;
-  BOOL __name_isset;
-  BOOL __updateSequenceNum_isset;
-  BOOL __defaultNotebook_isset;
-  BOOL __serviceCreated_isset;
-  BOOL __serviceUpdated_isset;
-  BOOL __publishing_isset;
-  BOOL __published_isset;
-  BOOL __stack_isset;
-}
-
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
-@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
-@property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
-@property (nonatomic, getter=defaultNotebook, setter=setDefaultNotebook:) BOOL defaultNotebook;
-@property (nonatomic, getter=serviceCreated, setter=setServiceCreated:) EDAMTimestamp serviceCreated;
-@property (nonatomic, getter=serviceUpdated, setter=setServiceUpdated:) EDAMTimestamp serviceUpdated;
-@property (nonatomic, retain, getter=publishing, setter=setPublishing:) EDAMPublishing * publishing;
-@property (nonatomic, getter=published, setter=setPublished:) BOOL published;
-@property (nonatomic, retain, getter=stack, setter=setStack:) NSString * stack;
 #endif
 
-- (id) initWithGuid: (EDAMGuid) guid name: (NSString *) name updateSequenceNum: (int32_t) updateSequenceNum defaultNotebook: (BOOL) defaultNotebook serviceCreated: (EDAMTimestamp) serviceCreated serviceUpdated: (EDAMTimestamp) serviceUpdated publishing: (EDAMPublishing *) publishing published: (BOOL) published stack: (NSString *) stack;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (EDAMGuid) guid;
-- (void) setGuid: (EDAMGuid) guid;
-- (BOOL) guidIsSet;
-
-- (NSString *) name;
-- (void) setName: (NSString *) name;
-- (BOOL) nameIsSet;
-
-- (int32_t) updateSequenceNum;
-- (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
-- (BOOL) updateSequenceNumIsSet;
-
-- (BOOL) defaultNotebook;
-- (void) setDefaultNotebook: (BOOL) defaultNotebook;
-- (BOOL) defaultNotebookIsSet;
-
-- (EDAMTimestamp) serviceCreated;
-- (void) setServiceCreated: (EDAMTimestamp) serviceCreated;
-- (BOOL) serviceCreatedIsSet;
-
-- (EDAMTimestamp) serviceUpdated;
-- (void) setServiceUpdated: (EDAMTimestamp) serviceUpdated;
-- (BOOL) serviceUpdatedIsSet;
-
-- (EDAMPublishing *) publishing;
-- (void) setPublishing: (EDAMPublishing *) publishing;
-- (BOOL) publishingIsSet;
-
-- (BOOL) published;
-- (void) setPublished: (BOOL) published;
-- (BOOL) publishedIsSet;
-
-- (NSString *) stack;
-- (void) setStack: (NSString *) stack;
-- (BOOL) stackIsSet;
-
+- (BOOL) uriIsSet;
+- (BOOL) orderIsSet;
+- (BOOL) ascendingIsSet;
+- (BOOL) publicDescriptionIsSet;
 @end
 
 @interface EDAMSavedSearch : NSObject <NSCoding> {
@@ -1064,39 +1114,41 @@ typedef int64_t EDAMTimestamp;
   BOOL __updateSequenceNum_isset;
 }
 
+- (id) initWithGuid: (EDAMGuid) guid name: (NSString *) name query: (NSString *) query format: (int) format updateSequenceNum: (int32_t) updateSequenceNum;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
 @property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
 @property (nonatomic, retain, getter=query, setter=setQuery:) NSString * query;
 @property (nonatomic, getter=format, setter=setFormat:) int format;
 @property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
-#endif
-
-- (id) initWithGuid: (EDAMGuid) guid name: (NSString *) name query: (NSString *) query format: (int) format updateSequenceNum: (int32_t) updateSequenceNum;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+#else
 
 - (EDAMGuid) guid;
 - (void) setGuid: (EDAMGuid) guid;
-- (BOOL) guidIsSet;
 
 - (NSString *) name;
 - (void) setName: (NSString *) name;
-- (BOOL) nameIsSet;
 
 - (NSString *) query;
 - (void) setQuery: (NSString *) query;
-- (BOOL) queryIsSet;
 
 - (int) format;
 - (void) setFormat: (int) format;
-- (BOOL) formatIsSet;
 
 - (int32_t) updateSequenceNum;
 - (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
-- (BOOL) updateSequenceNumIsSet;
 
+#endif
+
+- (BOOL) guidIsSet;
+- (BOOL) nameIsSet;
+- (BOOL) queryIsSet;
+- (BOOL) formatIsSet;
+- (BOOL) updateSequenceNumIsSet;
 @end
 
 @interface EDAMAd : NSObject <NSCoding> {
@@ -1112,6 +1164,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __imageMime;
   NSString * __html;
   double __displayFrequency;
+  BOOL __openInTrunk;
 
   BOOL __id_isset;
   BOOL __width_isset;
@@ -1125,7 +1178,13 @@ typedef int64_t EDAMTimestamp;
   BOOL __imageMime_isset;
   BOOL __html_isset;
   BOOL __displayFrequency_isset;
+  BOOL __openInTrunk_isset;
 }
+
+- (id) initWithId: (int32_t) id width: (int16_t) width height: (int16_t) height advertiserName: (NSString *) advertiserName imageUrl: (NSString *) imageUrl destinationUrl: (NSString *) destinationUrl displaySeconds: (int16_t) displaySeconds score: (double) score image: (NSData *) image imageMime: (NSString *) imageMime html: (NSString *) html displayFrequency: (double) displayFrequency openInTrunk: (BOOL) openInTrunk;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=id, setter=setId:) int32_t id;
@@ -1140,61 +1199,63 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, retain, getter=imageMime, setter=setImageMime:) NSString * imageMime;
 @property (nonatomic, retain, getter=html, setter=setHtml:) NSString * html;
 @property (nonatomic, getter=displayFrequency, setter=setDisplayFrequency:) double displayFrequency;
-#endif
-
-- (id) initWithId: (int32_t) id width: (int16_t) width height: (int16_t) height advertiserName: (NSString *) advertiserName imageUrl: (NSString *) imageUrl destinationUrl: (NSString *) destinationUrl displaySeconds: (int16_t) displaySeconds score: (double) score image: (NSData *) image imageMime: (NSString *) imageMime html: (NSString *) html displayFrequency: (double) displayFrequency;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
+@property (nonatomic, getter=openInTrunk, setter=setOpenInTrunk:) BOOL openInTrunk;
+#else
 
 - (int32_t) id;
 - (void) setId: (int32_t) id;
-- (BOOL) idIsSet;
 
 - (int16_t) width;
 - (void) setWidth: (int16_t) width;
-- (BOOL) widthIsSet;
 
 - (int16_t) height;
 - (void) setHeight: (int16_t) height;
-- (BOOL) heightIsSet;
 
 - (NSString *) advertiserName;
 - (void) setAdvertiserName: (NSString *) advertiserName;
-- (BOOL) advertiserNameIsSet;
 
 - (NSString *) imageUrl;
 - (void) setImageUrl: (NSString *) imageUrl;
-- (BOOL) imageUrlIsSet;
 
 - (NSString *) destinationUrl;
 - (void) setDestinationUrl: (NSString *) destinationUrl;
-- (BOOL) destinationUrlIsSet;
 
 - (int16_t) displaySeconds;
 - (void) setDisplaySeconds: (int16_t) displaySeconds;
-- (BOOL) displaySecondsIsSet;
 
 - (double) score;
 - (void) setScore: (double) score;
-- (BOOL) scoreIsSet;
 
 - (NSData *) image;
 - (void) setImage: (NSData *) image;
-- (BOOL) imageIsSet;
 
 - (NSString *) imageMime;
 - (void) setImageMime: (NSString *) imageMime;
-- (BOOL) imageMimeIsSet;
 
 - (NSString *) html;
 - (void) setHtml: (NSString *) html;
-- (BOOL) htmlIsSet;
 
 - (double) displayFrequency;
 - (void) setDisplayFrequency: (double) displayFrequency;
-- (BOOL) displayFrequencyIsSet;
 
+- (BOOL) openInTrunk;
+- (void) setOpenInTrunk: (BOOL) openInTrunk;
+
+#endif
+
+- (BOOL) idIsSet;
+- (BOOL) widthIsSet;
+- (BOOL) heightIsSet;
+- (BOOL) advertiserNameIsSet;
+- (BOOL) imageUrlIsSet;
+- (BOOL) destinationUrlIsSet;
+- (BOOL) displaySecondsIsSet;
+- (BOOL) scoreIsSet;
+- (BOOL) imageIsSet;
+- (BOOL) imageMimeIsSet;
+- (BOOL) htmlIsSet;
+- (BOOL) displayFrequencyIsSet;
+- (BOOL) openInTrunkIsSet;
 @end
 
 @interface EDAMSharedNotebook : NSObject <NSCoding> {
@@ -1205,6 +1266,7 @@ typedef int64_t EDAMTimestamp;
   BOOL __notebookModifiable;
   BOOL __requireLogin;
   EDAMTimestamp __serviceCreated;
+  EDAMTimestamp __serviceUpdated;
   NSString * __shareKey;
   NSString * __username;
 
@@ -1215,9 +1277,15 @@ typedef int64_t EDAMTimestamp;
   BOOL __notebookModifiable_isset;
   BOOL __requireLogin_isset;
   BOOL __serviceCreated_isset;
+  BOOL __serviceUpdated_isset;
   BOOL __shareKey_isset;
   BOOL __username_isset;
 }
+
+- (id) initWithId: (int64_t) id userId: (int32_t) userId notebookGuid: (NSString *) notebookGuid email: (NSString *) email notebookModifiable: (BOOL) notebookModifiable requireLogin: (BOOL) requireLogin serviceCreated: (EDAMTimestamp) serviceCreated serviceUpdated: (EDAMTimestamp) serviceUpdated shareKey: (NSString *) shareKey username: (NSString *) username;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=id, setter=setId:) int64_t id;
@@ -1227,107 +1295,225 @@ typedef int64_t EDAMTimestamp;
 @property (nonatomic, getter=notebookModifiable, setter=setNotebookModifiable:) BOOL notebookModifiable;
 @property (nonatomic, getter=requireLogin, setter=setRequireLogin:) BOOL requireLogin;
 @property (nonatomic, getter=serviceCreated, setter=setServiceCreated:) EDAMTimestamp serviceCreated;
+@property (nonatomic, getter=serviceUpdated, setter=setServiceUpdated:) EDAMTimestamp serviceUpdated;
 @property (nonatomic, retain, getter=shareKey, setter=setShareKey:) NSString * shareKey;
 @property (nonatomic, retain, getter=username, setter=setUsername:) NSString * username;
+#else
+
+- (int64_t) id;
+- (void) setId: (int64_t) id;
+
+- (int32_t) userId;
+- (void) setUserId: (int32_t) userId;
+
+- (NSString *) notebookGuid;
+- (void) setNotebookGuid: (NSString *) notebookGuid;
+
+- (NSString *) email;
+- (void) setEmail: (NSString *) email;
+
+- (BOOL) notebookModifiable;
+- (void) setNotebookModifiable: (BOOL) notebookModifiable;
+
+- (BOOL) requireLogin;
+- (void) setRequireLogin: (BOOL) requireLogin;
+
+- (EDAMTimestamp) serviceCreated;
+- (void) setServiceCreated: (EDAMTimestamp) serviceCreated;
+
+- (EDAMTimestamp) serviceUpdated;
+- (void) setServiceUpdated: (EDAMTimestamp) serviceUpdated;
+
+- (NSString *) shareKey;
+- (void) setShareKey: (NSString *) shareKey;
+
+- (NSString *) username;
+- (void) setUsername: (NSString *) username;
+
 #endif
 
-- (id) initWithId: (int64_t) id userId: (int32_t) userId notebookGuid: (NSString *) notebookGuid email: (NSString *) email notebookModifiable: (BOOL) notebookModifiable requireLogin: (BOOL) requireLogin serviceCreated: (EDAMTimestamp) serviceCreated shareKey: (NSString *) shareKey username: (NSString *) username;
+- (BOOL) idIsSet;
+- (BOOL) userIdIsSet;
+- (BOOL) notebookGuidIsSet;
+- (BOOL) emailIsSet;
+- (BOOL) notebookModifiableIsSet;
+- (BOOL) requireLoginIsSet;
+- (BOOL) serviceCreatedIsSet;
+- (BOOL) serviceUpdatedIsSet;
+- (BOOL) shareKeyIsSet;
+- (BOOL) usernameIsSet;
+@end
+
+@interface EDAMNotebook : NSObject <NSCoding> {
+  EDAMGuid __guid;
+  NSString * __name;
+  int32_t __updateSequenceNum;
+  BOOL __defaultNotebook;
+  EDAMTimestamp __serviceCreated;
+  EDAMTimestamp __serviceUpdated;
+  EDAMPublishing * __publishing;
+  BOOL __published;
+  NSString * __stack;
+  NSArray * __sharedNotebookIds;
+  NSArray * __sharedNotebooks;
+
+  BOOL __guid_isset;
+  BOOL __name_isset;
+  BOOL __updateSequenceNum_isset;
+  BOOL __defaultNotebook_isset;
+  BOOL __serviceCreated_isset;
+  BOOL __serviceUpdated_isset;
+  BOOL __publishing_isset;
+  BOOL __published_isset;
+  BOOL __stack_isset;
+  BOOL __sharedNotebookIds_isset;
+  BOOL __sharedNotebooks_isset;
+}
+
+- (id) initWithGuid: (EDAMGuid) guid name: (NSString *) name updateSequenceNum: (int32_t) updateSequenceNum defaultNotebook: (BOOL) defaultNotebook serviceCreated: (EDAMTimestamp) serviceCreated serviceUpdated: (EDAMTimestamp) serviceUpdated publishing: (EDAMPublishing *) publishing published: (BOOL) published stack: (NSString *) stack sharedNotebookIds: (NSArray *) sharedNotebookIds sharedNotebooks: (NSArray *) sharedNotebooks;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
-- (int64_t) id;
-- (void) setId: (int64_t) id;
-- (BOOL) idIsSet;
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
+@property (nonatomic, retain, getter=name, setter=setName:) NSString * name;
+@property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
+@property (nonatomic, getter=defaultNotebook, setter=setDefaultNotebook:) BOOL defaultNotebook;
+@property (nonatomic, getter=serviceCreated, setter=setServiceCreated:) EDAMTimestamp serviceCreated;
+@property (nonatomic, getter=serviceUpdated, setter=setServiceUpdated:) EDAMTimestamp serviceUpdated;
+@property (nonatomic, retain, getter=publishing, setter=setPublishing:) EDAMPublishing * publishing;
+@property (nonatomic, getter=published, setter=setPublished:) BOOL published;
+@property (nonatomic, retain, getter=stack, setter=setStack:) NSString * stack;
+@property (nonatomic, retain, getter=sharedNotebookIds, setter=setSharedNotebookIds:) NSArray * sharedNotebookIds;
+@property (nonatomic, retain, getter=sharedNotebooks, setter=setSharedNotebooks:) NSArray * sharedNotebooks;
+#else
 
-- (int32_t) userId;
-- (void) setUserId: (int32_t) userId;
-- (BOOL) userIdIsSet;
+- (EDAMGuid) guid;
+- (void) setGuid: (EDAMGuid) guid;
 
-- (NSString *) notebookGuid;
-- (void) setNotebookGuid: (NSString *) notebookGuid;
-- (BOOL) notebookGuidIsSet;
+- (NSString *) name;
+- (void) setName: (NSString *) name;
 
-- (NSString *) email;
-- (void) setEmail: (NSString *) email;
-- (BOOL) emailIsSet;
+- (int32_t) updateSequenceNum;
+- (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
 
-- (BOOL) notebookModifiable;
-- (void) setNotebookModifiable: (BOOL) notebookModifiable;
-- (BOOL) notebookModifiableIsSet;
-
-- (BOOL) requireLogin;
-- (void) setRequireLogin: (BOOL) requireLogin;
-- (BOOL) requireLoginIsSet;
+- (BOOL) defaultNotebook;
+- (void) setDefaultNotebook: (BOOL) defaultNotebook;
 
 - (EDAMTimestamp) serviceCreated;
 - (void) setServiceCreated: (EDAMTimestamp) serviceCreated;
+
+- (EDAMTimestamp) serviceUpdated;
+- (void) setServiceUpdated: (EDAMTimestamp) serviceUpdated;
+
+- (EDAMPublishing *) publishing;
+- (void) setPublishing: (EDAMPublishing *) publishing;
+
+- (BOOL) published;
+- (void) setPublished: (BOOL) published;
+
+- (NSString *) stack;
+- (void) setStack: (NSString *) stack;
+
+- (NSArray *) sharedNotebookIds;
+- (void) setSharedNotebookIds: (NSArray *) sharedNotebookIds;
+
+- (NSArray *) sharedNotebooks;
+- (void) setSharedNotebooks: (NSArray *) sharedNotebooks;
+
+#endif
+
+- (BOOL) guidIsSet;
+- (BOOL) nameIsSet;
+- (BOOL) updateSequenceNumIsSet;
+- (BOOL) defaultNotebookIsSet;
 - (BOOL) serviceCreatedIsSet;
-
-- (NSString *) shareKey;
-- (void) setShareKey: (NSString *) shareKey;
-- (BOOL) shareKeyIsSet;
-
-- (NSString *) username;
-- (void) setUsername: (NSString *) username;
-- (BOOL) usernameIsSet;
-
+- (BOOL) serviceUpdatedIsSet;
+- (BOOL) publishingIsSet;
+- (BOOL) publishedIsSet;
+- (BOOL) stackIsSet;
+- (BOOL) sharedNotebookIdsIsSet;
+- (BOOL) sharedNotebooksIsSet;
 @end
 
 @interface EDAMLinkedNotebook : NSObject <NSCoding> {
-  int64_t __id;
   NSString * __shareName;
   NSString * __username;
   NSString * __shardId;
   NSString * __shareKey;
   NSString * __uri;
+  EDAMGuid __guid;
+  int32_t __updateSequenceNum;
+  NSString * __noteStoreUrl;
+  NSString * __webApiUrlPrefix;
 
-  BOOL __id_isset;
   BOOL __shareName_isset;
   BOOL __username_isset;
   BOOL __shardId_isset;
   BOOL __shareKey_isset;
   BOOL __uri_isset;
+  BOOL __guid_isset;
+  BOOL __updateSequenceNum_isset;
+  BOOL __noteStoreUrl_isset;
+  BOOL __webApiUrlPrefix_isset;
 }
 
+- (id) initWithShareName: (NSString *) shareName username: (NSString *) username shardId: (NSString *) shardId shareKey: (NSString *) shareKey uri: (NSString *) uri guid: (EDAMGuid) guid updateSequenceNum: (int32_t) updateSequenceNum noteStoreUrl: (NSString *) noteStoreUrl webApiUrlPrefix: (NSString *) webApiUrlPrefix;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=id, setter=setId:) int64_t id;
 @property (nonatomic, retain, getter=shareName, setter=setShareName:) NSString * shareName;
 @property (nonatomic, retain, getter=username, setter=setUsername:) NSString * username;
 @property (nonatomic, retain, getter=shardId, setter=setShardId:) NSString * shardId;
 @property (nonatomic, retain, getter=shareKey, setter=setShareKey:) NSString * shareKey;
 @property (nonatomic, retain, getter=uri, setter=setUri:) NSString * uri;
-#endif
-
-- (id) initWithId: (int64_t) id shareName: (NSString *) shareName username: (NSString *) username shardId: (NSString *) shardId shareKey: (NSString *) shareKey uri: (NSString *) uri;
-
-- (void) read: (id <TProtocol>) inProtocol;
-- (void) write: (id <TProtocol>) outProtocol;
-
-- (int64_t) id;
-- (void) setId: (int64_t) id;
-- (BOOL) idIsSet;
+@property (nonatomic, retain, getter=guid, setter=setGuid:) EDAMGuid guid;
+@property (nonatomic, getter=updateSequenceNum, setter=setUpdateSequenceNum:) int32_t updateSequenceNum;
+@property (nonatomic, retain, getter=noteStoreUrl, setter=setNoteStoreUrl:) NSString * noteStoreUrl;
+@property (nonatomic, retain, getter=webApiUrlPrefix, setter=setWebApiUrlPrefix:) NSString * webApiUrlPrefix;
+#else
 
 - (NSString *) shareName;
 - (void) setShareName: (NSString *) shareName;
-- (BOOL) shareNameIsSet;
 
 - (NSString *) username;
 - (void) setUsername: (NSString *) username;
-- (BOOL) usernameIsSet;
 
 - (NSString *) shardId;
 - (void) setShardId: (NSString *) shardId;
-- (BOOL) shardIdIsSet;
 
 - (NSString *) shareKey;
 - (void) setShareKey: (NSString *) shareKey;
-- (BOOL) shareKeyIsSet;
 
 - (NSString *) uri;
 - (void) setUri: (NSString *) uri;
-- (BOOL) uriIsSet;
 
+- (EDAMGuid) guid;
+- (void) setGuid: (EDAMGuid) guid;
+
+- (int32_t) updateSequenceNum;
+- (void) setUpdateSequenceNum: (int32_t) updateSequenceNum;
+
+- (NSString *) noteStoreUrl;
+- (void) setNoteStoreUrl: (NSString *) noteStoreUrl;
+
+- (NSString *) webApiUrlPrefix;
+- (void) setWebApiUrlPrefix: (NSString *) webApiUrlPrefix;
+
+#endif
+
+- (BOOL) shareNameIsSet;
+- (BOOL) usernameIsSet;
+- (BOOL) shardIdIsSet;
+- (BOOL) shareKeyIsSet;
+- (BOOL) uriIsSet;
+- (BOOL) guidIsSet;
+- (BOOL) updateSequenceNumIsSet;
+- (BOOL) noteStoreUrlIsSet;
+- (BOOL) webApiUrlPrefixIsSet;
 @end
 
 @interface EDAMTypesConstants : NSObject {
