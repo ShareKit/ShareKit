@@ -11,6 +11,7 @@
 #import "SHKConfiguration.h"
 #import "EvernoteSDK.h"
 #import "GTMNSString+HTML.h"
+#import "SHKActivityIndicator.h"
 
 @implementation SHKEvernoteItem
 @synthesize note;
@@ -65,7 +66,11 @@
 
 - (void)promptAuthorization {
     EvernoteSession *session = [EvernoteSession sharedSession];
+    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil]; // In case authentication in external browser is necessary, hide activity indicator when the app becomes active again
     [session authenticateWithCompletionHandler:^(NSError *error) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self];
+        [[SHKActivityIndicator currentIndicator] hide];
         BOOL success = (error == nil) && session.isAuthenticated;
         [self authDidFinish:success];
         if (error) {
@@ -81,7 +86,13 @@
     }];
 }
 
+- (void)applicationDidBecomeActive {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[SHKActivityIndicator currentIndicator] hide];
+}
+
 + (BOOL)handleOpenURL:(NSURL*)url {
+    [[SHKActivityIndicator currentIndicator] hide];
     EvernoteSession *session = [EvernoteSession sharedSession];
     return [session handleOpenURL:url];
 }
