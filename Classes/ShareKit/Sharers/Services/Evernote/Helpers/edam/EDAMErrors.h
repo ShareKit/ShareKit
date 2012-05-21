@@ -24,7 +24,12 @@ enum EDAMErrorCode {
   EDAMErrorCode_AUTH_EXPIRED = 9,
   EDAMErrorCode_DATA_CONFLICT = 10,
   EDAMErrorCode_ENML_VALIDATION = 11,
-  EDAMErrorCode_SHARD_UNAVAILABLE = 12
+  EDAMErrorCode_SHARD_UNAVAILABLE = 12,
+  EDAMErrorCode_LEN_TOO_SHORT = 13,
+  EDAMErrorCode_LEN_TOO_LONG = 14,
+  EDAMErrorCode_TOO_FEW = 15,
+  EDAMErrorCode_TOO_MANY = 16,
+  EDAMErrorCode_UNSUPPORTED_OPERATION = 17
 };
 
 @interface EDAMUserException : NSException <NSCoding> {
@@ -35,24 +40,26 @@ enum EDAMErrorCode {
   BOOL __parameter_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
-@property (nonatomic, retain, getter=parameter, setter=setParameter:) NSString * parameter;
-#endif
-
 - (id) initWithErrorCode: (int) errorCode parameter: (NSString *) parameter;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
+@property (nonatomic, retain, getter=parameter, setter=setParameter:) NSString * parameter;
+#else
+
 - (int) errorCode;
 - (void) setErrorCode: (int) errorCode;
-- (BOOL) errorCodeIsSet;
 
 - (NSString *) parameter;
 - (void) setParameter: (NSString *) parameter;
-- (BOOL) parameterIsSet;
 
+#endif
+
+- (BOOL) errorCodeIsSet;
+- (BOOL) parameterIsSet;
 @end
 
 @interface EDAMSystemException : NSException <NSCoding> {
@@ -63,24 +70,26 @@ enum EDAMErrorCode {
   BOOL __message_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
-@property (nonatomic, retain, getter=message, setter=setMessage:) NSString * message;
-#endif
-
 - (id) initWithErrorCode: (int) errorCode message: (NSString *) message;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=errorCode, setter=setErrorCode:) int errorCode;
+@property (nonatomic, retain, getter=message, setter=setMessage:) NSString * message;
+#else
+
 - (int) errorCode;
 - (void) setErrorCode: (int) errorCode;
-- (BOOL) errorCodeIsSet;
 
 - (NSString *) message;
 - (void) setMessage: (NSString *) message;
-- (BOOL) messageIsSet;
 
+#endif
+
+- (BOOL) errorCodeIsSet;
+- (BOOL) messageIsSet;
 @end
 
 @interface EDAMNotFoundException : NSException <NSCoding> {
@@ -91,24 +100,26 @@ enum EDAMErrorCode {
   BOOL __key_isset;
 }
 
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=identifier, setter=setIdentifier:) NSString * identifier;
-@property (nonatomic, retain, getter=key, setter=setKey:) NSString * key;
-#endif
-
 - (id) initWithIdentifier: (NSString *) identifier key: (NSString *) key;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
 
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=identifier, setter=setIdentifier:) NSString * identifier;
+@property (nonatomic, retain, getter=key, setter=setKey:) NSString * key;
+#else
+
 - (NSString *) identifier;
 - (void) setIdentifier: (NSString *) identifier;
-- (BOOL) identifierIsSet;
 
 - (NSString *) key;
 - (void) setKey: (NSString *) key;
-- (BOOL) keyIsSet;
 
+#endif
+
+- (BOOL) identifierIsSet;
+- (BOOL) keyIsSet;
 @end
 
 @interface ErrorsConstants : NSObject {

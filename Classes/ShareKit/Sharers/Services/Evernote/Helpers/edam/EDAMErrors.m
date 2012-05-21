@@ -12,7 +12,7 @@
 #import "TProcessor.h"
 
 
-#import "Errors.h"
+#import "EDAMErrors.h"
 
 
 @implementation ErrorsConstants
@@ -26,11 +26,6 @@
 {
   return [super initWithName: @"EDAMUserException" reason: @"unknown" userInfo: nil];
 }
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@dynamic errorCode;
-@dynamic parameter;
-#endif
-
 - (id) initWithErrorCode: (int) errorCode parameter: (NSString *) parameter
 {
   self = [self init];
@@ -190,11 +185,6 @@
 {
   return [super initWithName: @"EDAMSystemException" reason: @"unknown" userInfo: nil];
 }
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@dynamic errorCode;
-@dynamic message;
-#endif
-
 - (id) initWithErrorCode: (int) errorCode message: (NSString *) message
 {
   self = [self init];
@@ -354,11 +344,6 @@
 {
   return [super initWithName: @"EDAMNotFoundException" reason: @"unknown" userInfo: nil];
 }
-#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@dynamic identifier;
-@dynamic key;
-#endif
-
 - (id) initWithIdentifier: (NSString *) identifier key: (NSString *) key
 {
   self = [self init];

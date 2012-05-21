@@ -11,6 +11,7 @@
 
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
+#import "SHKEvernote.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
@@ -57,6 +58,8 @@
 	NSString* scheme = [url scheme];
   if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
     return [SHKFacebook handleOpenURL:url];
+    if ([scheme hasPrefix:[NSString stringWithFormat:@"en-%@", SHKCONFIG(evernoteConsumerKey)]])
+        return [SHKEvernote handleOpenURL:url];
   return YES;
 }
 
