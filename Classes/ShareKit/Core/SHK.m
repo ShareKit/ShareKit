@@ -491,12 +491,24 @@ BOOL SHKinit;
 
 #pragma mark -
 
+static NSString *shareKitLibraryBundlePath = nil;
+
++ (NSString *)shareKitLibraryBundlePath
+{
+    if (shareKitLibraryBundlePath == nil) {
+        
+        shareKitLibraryBundlePath = [[[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
+    }
+    return shareKitLibraryBundlePath;
+}
+
 static NSDictionary *sharersDictionary = nil;
 
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+        
+		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
 	
 	return sharersDictionary;
 }
@@ -747,8 +759,7 @@ NSString* SHKLocalizedStringFormat(NSString* key)
 {
   static NSBundle* bundle = nil;
   if (nil == bundle) {
-    NSString* path = [[[NSBundle mainBundle] resourcePath]
-                      stringByAppendingPathComponent:@"ShareKit.bundle"];
+    NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
     bundle = [[NSBundle bundleWithPath:path] retain];
   }
   return [bundle localizedStringForKey:key value:key table:nil];
