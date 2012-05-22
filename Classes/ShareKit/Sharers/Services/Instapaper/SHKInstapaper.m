@@ -107,7 +107,6 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
-        SHKLog(@"%@", [aRequest description]);
     }
     [self authDidFinish:aRequest.success];
 }
@@ -155,10 +154,8 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 - (void)sendFinished:(SHKRequest *)aRequest
 {
 	if (!aRequest.success) {
-		
-        SHKLog(@"%@", [aRequest description]);
-        
-        if (aRequest.response.statusCode == 403) {
+		       
+        if (aRequest.response.statusCode == 403) {//user changed password
             [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
@@ -167,7 +164,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
             return;
         }
         
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@.", [[self class] sharerTitle])]];
+		[self sendShowSimpleErrorAlert];
 		return;
 	}
     

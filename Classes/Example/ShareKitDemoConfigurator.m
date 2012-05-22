@@ -70,7 +70,7 @@
 }
 // Diigo - http://diigo.com/api_dev
 -(NSString*)diigoKey {
-  return @"";
+  return @"f401ddc3546cdf3c";
 }
 // Twitter - http://dev.twitter.com/apps/new
 /*

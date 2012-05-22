@@ -193,9 +193,10 @@ typedef enum
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;
-/*  centralized authentication error reporting */
+/*  centralized error reporting */
 - (void)authShowBadCredentialsAlert;
 - (void)authShowOtherAuthorizationErrorAlert;
+- (void)sendShowSimpleErrorAlert;
 /*	called when an auth request returns. This is helpful if you need to use a service somewhere else in your
 	application other than sharing. It lets you use the same stored auth creds and login screens.
  */

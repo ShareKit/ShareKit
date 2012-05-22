@@ -26,6 +26,7 @@
 //
 
 #import "SHKDelicious.h"
+#import "SHKXMLResponseParser.h"
 
 /**
  Private helper methods
@@ -95,20 +96,17 @@
 	{
 		[pendingForm saveForm];
 	}
-  else {
-    NSString *errorMessage = nil;
-    if (aRequest.response.statusCode == 403)
-      errorMessage = SHKLocalizedString(@"Sorry, Delicious did not accept your credentials. Please try again.");
     else
-      errorMessage = SHKLocalizedString(@"Sorry, Delicious encountered an error. Please try again.");
-    
-    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                 message:errorMessage
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
-  }
-  
+    {    
+        if (aRequest.response.statusCode == 401)
+        {
+            [self authShowBadCredentialsAlert];
+        }
+        else
+        {
+            [self authShowOtherAuthorizationErrorAlert];
+        }   
+    }
 	[self authDidFinish:aRequest.success];
 }
 
@@ -139,7 +137,7 @@
 	if ([self validateItem])
 	{			
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-    NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
+        NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password,
                         SHKEncodeURL(item.URL),
@@ -148,7 +146,7 @@
                         SHKEncode(item.text),
                         [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];
-    NSLog(@"%@",address);
+    
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
 												params:nil
 											  delegate:self
@@ -168,18 +166,23 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
-	if (aRequest.success)
-	{
-		// TODO parse <result code="MESSAGE" to get response from api for better error message
-		
-		if ([[aRequest getResult] rangeOfString:@"\"done\""].location != NSNotFound)
-		{
-			[self sendDidFinish];
-			return;
-		}
-	}
-	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Delicious")]];		
+	NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromResponse:aRequest.data];
+        
+    if ([responseResultCode isEqualToString:@"done"]) {
+        
+        [self sendDidFinish];
+
+    } else {
+        
+        if (aRequest.response.statusCode == 401){ //user changed password
+        
+            [self shouldReloginWithPendingAction:SHKPendingSend];        
+        
+        } else {
+            
+            [self sendShowSimpleErrorAlert];
+        }
+    }
 }
 
 @end

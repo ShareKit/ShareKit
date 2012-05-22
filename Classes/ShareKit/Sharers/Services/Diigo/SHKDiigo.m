@@ -105,8 +105,6 @@
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
-        
-        SHKLog(@"%@", [aRequest description]);
     }
   
 	[self authDidFinish:aRequest.success];
@@ -167,23 +165,21 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
-  //should use json kit for respond
 	if (aRequest.success)
 	{
-		if ([[aRequest getResult] rangeOfString:@"bookmark"].location != NSNotFound)
-		{
-			[self sendDidFinish];
-			return;
-		}
-	} else if (aRequest.response.statusCode == 401) {
-        
-        SHKLog(@"%@", [aRequest description]);
-        [self shouldReloginWithPendingAction:SHKPendingSend];        
-        return;
+		[self sendDidFinish];
+	}
+    else
+    {   
+        if (aRequest.response.statusCode == 401)
+        {        
+        [self shouldReloginWithPendingAction:SHKPendingSend];       
+        }
+        else
+        {        
+        [self sendShowSimpleErrorAlert];
+        }
     }
-	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
-    SHKLog(@"%@", [aRequest description]);
 }
 
 @end
