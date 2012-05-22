@@ -263,10 +263,7 @@
 - (NSNumber*)shareMenuAlphabeticalOrder {
 	return [NSNumber numberWithInt:0];// Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
 }
-// Append 'Shared With 'Signature to Email (and related forms)
-- (NSNumber*)sharedWithSignature {
-	return [NSNumber numberWithInt:0];
-}
+
 // Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but 
 // this allows you to subclass a sharer and have the subclass be used.
 - (NSString*)sharersPlistName {
@@ -283,13 +280,13 @@
  These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
  */
 - (NSArray*)defaultFavoriteURLSharers {
-    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadability", @"SHKReadItLater",@"SHKVkontakte", nil];
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKReadItLater", nil];
 }
 - (NSArray*)defaultFavoriteImageSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy", nil];
 }
 - (NSArray*)defaultFavoriteTextSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 }
 - (NSArray*)defaultFavoriteFileSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
@@ -341,5 +338,56 @@
  ------------------
  see DefaultSHKConfigurator.h
  */
+
+/*
+ SHKItem sharer specific values defaults
+ -------------------------------------
+ These settings can be left as is. SHKItem is what you put your data in and inject to ShareKit to actually share. Some sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Sometimes you need to change the default behaviour - you can do it here globally, or per share during share item (SHKItem) composing. Example is in the demo app - ExampleShareLink.m - share method */
+
+/* SHKPrint */
+
+- (NSNumber*)printOutputType {    
+    return [NSNumber numberWithInt:UIPrintInfoOutputPhoto];
+}
+
+/* SHKMail */
+
+//constructed during runtime from user input in shareForm by default
+- (NSString*)mailBody {
+    return nil;
+}
+
+- (NSNumber*)isMailHTML {
+    return [NSNumber numberWithInt:1];
+}
+
+//user enters them in MFMailComposeViewController by default. Should be array of NSStrings.
+- (NSArray*)mailToRecipients {
+    return nil;
+}
+
+//used only if you share image. Values from 1.0 to 0.0 (maximum compression).
+- (NSNumber*)mailJPGQuality {
+    return [NSNumber numberWithFloat:1];
+}
+
+// append 'Sent from <appName>' signature to Email
+- (NSNumber*)sharedWithSignature {
+	return [NSNumber numberWithInt:0];
+}
+
+/* SHKFacebook */
+
+//when you share URL on Facebook, FBDialog scans the page and fills picture and description automagically by default. Use these item properties to set your own.
+- (NSString *)facebookURLSharePictureURI {
+    return nil;
+}
+
+- (NSString *)facebookURLShareDescription {
+    return nil;
+}
+
+
+
 
 @end

@@ -53,9 +53,9 @@
 
 "There was an error saving to Pinboard" = "儲存到 Pinboard 時發生錯誤";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "抱歉，你的 Instapaper 帳號密碼錯誤，請再試一次。";
-"Sorry, Instapaper encountered an error. Please try again." = "抱歉，Instapaper 發生錯誤，請稍候再試。";
-"There was a problem saving to Instapaper." = "儲存到 Instapaper 時發生錯誤。";
+"Sorry, %@ did not accept your credentials. Please try again." = "抱歉，你的 %@ 帳號密碼錯誤，請再試一次。";
+"Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 發生錯誤，請稍候再試。";
+"There was a problem saving to %@." = "儲存到 %@ 時發生錯誤。";
 
 "Incorrect username and password" = "帳號和密碼錯誤";
 "There was an error logging into Google Reader" = "登入 Google Reader 時發生錯誤";

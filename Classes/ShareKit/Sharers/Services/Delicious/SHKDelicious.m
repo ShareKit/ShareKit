@@ -1,5 +1,5 @@
 //
-//  SHKDiigo.m
+//  SHKDelicious.m
 //  ShareKit
 //
 //  Created by saturngod on 11 Jan 2012
@@ -24,18 +24,19 @@
 //  THE SOFTWARE.
 //
 //
-#import "SHKConfiguration.h"
-#import "SHKDiigo.h"
+
+#import "SHKDelicious.h"
+#import "SHKXMLResponseParser.h"
 
 /**
  Private helper methods
  */
-@interface SHKDiigo ()
+@interface SHKDelicious ()
 - (void)authFinished:(SHKRequest *)aRequest;
 - (void)sendFinished:(SHKRequest *)aRequest;
 @end
 
-@implementation SHKDiigo
+@implementation SHKDelicious
 
 
 
@@ -44,7 +45,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Diigo";
+	return @"Delicious";
 }
 
 + (BOOL)canShareURL
@@ -58,7 +59,7 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return SHKLocalizedString(@"Create an account at %@", @"http://www.diigo.com");
+	return SHKLocalizedString(@"Create an account at %@", @"http://delicious.com");
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
@@ -73,9 +74,9 @@
 	
 	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
+													[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get",
 													 SHKEncode([formValues objectForKey:@"username"]),
-													 password,SHKCONFIG(diigoKey),SHKEncode([formValues objectForKey:@"username"])
+													 password
 													 ]]
 											params:nil
 										  delegate:self
@@ -94,19 +95,18 @@
 	if (aRequest.success)
 	{
 		[pendingForm saveForm];
-	} 
+	}
     else
-    {        
-        if (aRequest.response.statusCode == 401) 
+    {    
+        if (aRequest.response.statusCode == 401)
         {
             [self authShowBadCredentialsAlert];
         }
         else
         {
             [self authShowOtherAuthorizationErrorAlert];
-        }
+        }   
     }
-  
 	[self authDidFinish:aRequest.success];
 }
 
@@ -135,22 +135,23 @@
 - (BOOL)send
 {	
 	if ([self validateItem])
-	{	
-    
-    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode(item.tags),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
-    
-    
+	{			
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-    
-    NSString* address =[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks",
+        NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
                         SHKEncode([self getAuthValueForKey:@"username"]),
-                        password];
+                        password,
+                        SHKEncodeURL(item.URL),
+                        SHKEncode(item.title),
+                        SHKEncode(item.tags),
+                        SHKEncode(item.text),
+                        [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
+                        ];
     
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
-												params:params
+												params:nil
 											  delegate:self
 									isFinishedSelector:@selector(sendFinished:)
-												method:@"POST"
+												method:@"GET"
 											 autostart:YES] autorelease];
 		
 		
@@ -165,19 +166,21 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
-	if (aRequest.success)
-	{
-		[self sendDidFinish];
-	}
-    else
-    {   
-        if (aRequest.response.statusCode == 401)
-        {        
-        [self shouldReloginWithPendingAction:SHKPendingSend];       
-        }
-        else
-        {        
-        [self sendShowSimpleErrorAlert];
+	NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromResponse:aRequest.data];
+        
+    if ([responseResultCode isEqualToString:@"done"]) {
+        
+        [self sendDidFinish];
+
+    } else {
+        
+        if (aRequest.response.statusCode == 401){ //user changed password
+        
+            [self shouldReloginWithPendingAction:SHKPendingSend];        
+        
+        } else {
+            
+            [self sendShowSimpleErrorAlert];
         }
     }
 }

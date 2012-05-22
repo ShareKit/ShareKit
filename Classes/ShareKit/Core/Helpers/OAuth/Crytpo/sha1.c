@@ -14,7 +14,7 @@ A million repetitions of "a"
 
 /* #define LITTLE_ENDIAN * This should be #define'd if true. */
 #if __LITTLE_ENDIAN__
-#define LITTLE_ENDIAN
+#define SHK_LITTLE_ENDIAN
 #endif 
 /* #define SHA1HANDSOFF * Copies data before messing with it. */
 
@@ -29,7 +29,7 @@ void SHA1Transform(unsigned long state[5], unsigned char buffer[64]);
 
 /* blk0() and blk() perform the initial expand. */
 /* I got the idea of expanding during the round function from SSLeay */
-#ifdef LITTLE_ENDIAN
+#ifdef SHK_LITTLE_ENDIAN
 #define blk0(i) (block->l[i] = (rol(block->l[i],24)&0xFF00FF00) \
     |(rol(block->l[i],8)&0x00FF00FF))
 #else

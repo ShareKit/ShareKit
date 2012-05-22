@@ -231,6 +231,9 @@
 			NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
       NSString * strURL = [item.URL absoluteString];
 
+      // Evernote doesn't accept unenencoded ampersands
+	  strURL = SHKEncode(strURL);
+            
       if(strURL.length>0) {
         if(item.title.length>0)
         	[contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];

@@ -68,8 +68,8 @@
 
 	UIPrintInteractionController *printer = [UIPrintInteractionController sharedPrintController];
 	UIPrintInfo *info = [UIPrintInfo printInfo];
-	info.outputType = UIPrintInfoOutputPhoto;
-	printer.printInfo = info;
+    info.outputType = self.item.printOutputType;
+    printer.printInfo = info;
 	printer.showsPageRange = NO;
 	printer.printingItem = item.image;
 	UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printer,
