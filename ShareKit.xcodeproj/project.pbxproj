@@ -95,9 +95,6 @@
 		7A0F9221156BA2A0009CB40A /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
 		7A0F9222156BA2A0009CB40A /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
 		7A0F9223156BA2A0009CB40A /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
-		7A0F9227156BA2A0009CB40A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05513CCBED400A2118F /* LFHTTPRequest.m */; };
-		7A0F9228156BA2A0009CB40A /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05713CCBED400A2118F /* LFSiteReachability.m */; };
-		7A0F9229156BA2A0009CB40A /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
 		7A0F922A156BA2A0009CB40A /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		7A0F922B156BA2A0009CB40A /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		7A0F922C156BA2A0009CB40A /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
@@ -120,6 +117,13 @@
 		7A0F923D156BA2A0009CB40A /* SHKViewControllerWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FF11DBE3B9004A1712 /* SHKViewControllerWrapper.m */; };
 		7A0F923E156BA2A0009CB40A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
 		7A0F923F156BA2A0009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
+		7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */; };
+		7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
+		7A0F9253156BA5F3009CB40A /* LFSiteReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */; };
+		7A0F9254156BA5F3009CB40A /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
+		7A0F9255156BA5F3009CB40A /* LFWebAPIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */; };
+		7A0F9256156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */; };
+		7A0F9257156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
 		7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		7A28824A1553CC6F007DC379 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AC22D1B14580A2000126878 /* FBDialog.bundle */; };
 		7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A536AC11DBE3B9004A1712 /* SHKSharers.plist */; };
@@ -213,9 +217,6 @@
 		7AB5355A1552BE7D00171BCE /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B714BA1900003FC744 /* ObjectiveFlickr.m */; };
 		7AB5355C1552BE7D00171BCE /* OFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B914BA1900003FC744 /* OFUtilities.m */; };
 		7AB5355E1552BE7D00171BCE /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
-		7AB535601552BE7D00171BCE /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05513CCBED400A2118F /* LFHTTPRequest.m */; };
-		7AB535621552BE7D00171BCE /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05713CCBED400A2118F /* LFSiteReachability.m */; };
-		7AB535651552BE7D00171BCE /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
 		7AB535671552BE7D00171BCE /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
@@ -431,6 +432,13 @@
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
 		7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKDelicious.m; path = Delicious/SHKDelicious.m; sourceTree = "<group>"; };
 		7A0F9246156BA2A0009CB40A /* libShareKitNoSubmodules.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKitNoSubmodules.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
+		7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = Submodules/objectiveflickr/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
+		7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSiteReachability.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFSiteReachability.h; sourceTree = SOURCE_ROOT; };
+		7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSiteReachability.m; path = Submodules/objectiveflickr/LFWebAPIKit/LFSiteReachability.m; sourceTree = SOURCE_ROOT; };
+		7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFWebAPIKit.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFWebAPIKit.h; sourceTree = SOURCE_ROOT; };
+		7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+LFHTTPFormExtensions.h"; path = "Submodules/objectiveflickr/LFWebAPIKit/NSData+LFHTTPFormExtensions.h"; sourceTree = SOURCE_ROOT; };
+		7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "Submodules/objectiveflickr/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+NSNullsToEmptyStrings.h"; sourceTree = "<group>"; };
 		7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+NSNullsToEmptyStrings.m"; sourceTree = "<group>"; };
 		7A288262155409CB007DC379 /* ShareKitLibrary-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ShareKitLibrary-Prefix.pch"; path = "ShareKitLibrary/ShareKitLibrary-Prefix.pch"; sourceTree = "<group>"; };
@@ -493,13 +501,6 @@
 		AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSHKConfigurator.m; sourceTree = "<group>"; };
 		AAACE01913CCB1F500A2118F /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
 		AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
-		AAACE05413CCBED400A2118F /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFHTTPRequest.h; sourceTree = "<group>"; };
-		AAACE05513CCBED400A2118F /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHTTPRequest.m; sourceTree = "<group>"; };
-		AAACE05613CCBED400A2118F /* LFSiteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFSiteReachability.h; sourceTree = "<group>"; };
-		AAACE05713CCBED400A2118F /* LFSiteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFSiteReachability.m; sourceTree = "<group>"; };
-		AAACE05813CCBED400A2118F /* LFWebAPIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFWebAPIKit.h; sourceTree = "<group>"; };
-		AAACE05913CCBED400A2118F /* NSData_LFHTTPFormExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSData_LFHTTPFormExtensions.h; sourceTree = "<group>"; };
-		AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSData_LFHTTPFormExtensions.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
@@ -1138,6 +1139,20 @@
 			name = Delicious;
 			sourceTree = "<group>";
 		};
+		7A0F9249156BA5A7009CB40A /* LFWebAPIKit */ = {
+			isa = PBXGroup;
+			children = (
+				7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */,
+				7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */,
+				7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */,
+				7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */,
+				7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */,
+				7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */,
+				7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */,
+			);
+			name = LFWebAPIKit;
+			sourceTree = "<group>";
+		};
 		7A288261155409BC007DC379 /* ShareKitLibrary */ = {
 			isa = PBXGroup;
 			children = (
@@ -1197,6 +1212,7 @@
 		A57772B514BA1900003FC744 /* ObjectiveFlickr */ = {
 			isa = PBXGroup;
 			children = (
+				7A0F9249156BA5A7009CB40A /* LFWebAPIKit */,
 				A57772B614BA1900003FC744 /* ObjectiveFlickr.h */,
 				A57772B714BA1900003FC744 /* ObjectiveFlickr.m */,
 				A57772B814BA1900003FC744 /* OFUtilities.h */,
@@ -1224,13 +1240,6 @@
 			isa = PBXGroup;
 			children = (
 				A57772B514BA1900003FC744 /* ObjectiveFlickr */,
-				AAACE05413CCBED400A2118F /* LFHTTPRequest.h */,
-				AAACE05513CCBED400A2118F /* LFHTTPRequest.m */,
-				AAACE05613CCBED400A2118F /* LFSiteReachability.h */,
-				AAACE05713CCBED400A2118F /* LFSiteReachability.m */,
-				AAACE05813CCBED400A2118F /* LFWebAPIKit.h */,
-				AAACE05913CCBED400A2118F /* NSData_LFHTTPFormExtensions.h */,
-				AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */,
 				AAACE06013CCBED400A2118F /* SHKFlickr.h */,
 				AAACE06113CCBED400A2118F /* SHKFlickr.m */,
 			);
@@ -1341,6 +1350,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */,
+				7A0F9253156BA5F3009CB40A /* LFSiteReachability.h in Headers */,
+				7A0F9255156BA5F3009CB40A /* LFWebAPIKit.h in Headers */,
+				7A0F9256156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1573,9 +1586,6 @@
 				7A0F9221156BA2A0009CB40A /* SHKFoursquareV2.m in Sources */,
 				7A0F9222156BA2A0009CB40A /* SHKFoursquareV2OAuthView.m in Sources */,
 				7A0F9223156BA2A0009CB40A /* SHKFoursquareV2Request.m in Sources */,
-				7A0F9227156BA2A0009CB40A /* LFHTTPRequest.m in Sources */,
-				7A0F9228156BA2A0009CB40A /* LFSiteReachability.m in Sources */,
-				7A0F9229156BA2A0009CB40A /* NSData_LFHTTPFormExtensions.m in Sources */,
 				7A0F922A156BA2A0009CB40A /* SHKFlickr.m in Sources */,
 				7A0F922B156BA2A0009CB40A /* SHKGoogleReader.m in Sources */,
 				7A0F922C156BA2A0009CB40A /* SHKInstapaper.m in Sources */,
@@ -1689,9 +1699,6 @@
 				7AB5355A1552BE7D00171BCE /* ObjectiveFlickr.m in Sources */,
 				7AB5355C1552BE7D00171BCE /* OFUtilities.m in Sources */,
 				7AB5355E1552BE7D00171BCE /* OFXMLMapper.m in Sources */,
-				7AB535601552BE7D00171BCE /* LFHTTPRequest.m in Sources */,
-				7AB535621552BE7D00171BCE /* LFSiteReachability.m in Sources */,
-				7AB535651552BE7D00171BCE /* NSData_LFHTTPFormExtensions.m in Sources */,
 				7AB535671552BE7D00171BCE /* SHKFlickr.m in Sources */,
 				7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */,
 				7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */,
@@ -1714,6 +1721,9 @@
 				7AB5358D1552BE7D00171BCE /* SHKViewControllerWrapper.m in Sources */,
 				7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */,
 				7A0F91D0156B9FF2009CB40A /* SHKDelicious.m in Sources */,
+				7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */,
+				7A0F9254156BA5F3009CB40A /* LFSiteReachability.m in Sources */,
+				7A0F9257156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
