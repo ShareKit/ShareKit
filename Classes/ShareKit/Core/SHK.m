@@ -28,7 +28,6 @@
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
-#import "SHKViewControllerWrapper.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"

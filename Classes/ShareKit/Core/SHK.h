@@ -39,8 +39,6 @@
 extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @class SHKActionSheet;
-@class SHKViewControllerWrapper;
-
 
 @interface SHK : NSObject 
 {
