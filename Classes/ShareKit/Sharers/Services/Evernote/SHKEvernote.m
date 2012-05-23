@@ -229,7 +229,7 @@
     [note setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
     
     
-    void (^successBlock)(NSString *) = ^(NSString *note) {        
+    void (^successBlock)(EDAMNote *note) = ^(EDAMNote *note) {        
         [self sendDidFinish];
     };
     void (^failureBlock)(NSError *error) = ^(NSError *error) {
