@@ -121,7 +121,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	if ([self twitterFrameworkAvailable]) {
 		
-		[SHKiOS5Twitter shareItem:self.item];
+		SHKSharer *sharer =[SHKiOS5Twitter shareItem:self.item];
+        sharer.quiet = self.quiet;
+        sharer.shareDelegate = self.shareDelegate;
 		[SHKTwitter logout];//to clean credentials - we will not need them anymore
 		return;
 	}
