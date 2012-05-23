@@ -509,6 +509,11 @@ static NSDictionary *sharersDictionary = nil;
 	if (sharersDictionary == nil)
         
 		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    
+    //for backward compatibility, if user does not use xcode subproject, but drags files the old way
+    if (sharersDictionary == nil)
+		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+
 	
 	return sharersDictionary;
 }
@@ -757,12 +762,18 @@ void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 
 NSString* SHKLocalizedStringFormat(NSString* key)
 {
-  static NSBundle* bundle = nil;
-  if (nil == bundle) {
-    NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
-    bundle = [[NSBundle bundleWithPath:path] retain];
-  }
-  return [bundle localizedStringForKey:key value:key table:nil];
+    static NSBundle* bundle = nil;
+    if (nil == bundle) {
+        NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
+        bundle = [[NSBundle bundleWithPath:path] retain];
+        
+        //for backward compatibility, if user does not use ShareKit.bundle target/xcode subproject - only drags files the old way
+        if (bundle == nil) { 
+            bundle = [[NSBundle bundleWithPath:[SHK shareKitLibraryBundlePath]] retain];
+        }
+        
+    }
+    return [bundle localizedStringForKey:key value:key table:nil];
 }
 
 NSString* SHKLocalizedString(NSString* key, ...) 
