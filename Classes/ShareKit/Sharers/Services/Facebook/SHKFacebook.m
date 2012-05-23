@@ -41,6 +41,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (NSString *)storedImagePath:(UIImage*)image;
 + (UIImage*)storedImage:(NSString*)imagePath;
 - (void)showFacebookForm;
+- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate;
 
 @end
 
@@ -329,15 +330,16 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     
 }
 
-#pragma mark FBSessionDelegate methods
+#pragma mark - FBSessionDelegate methods
 
 - (void)fbDidLogin 
 {
 	NSString *accessToken = [[SHKFacebook facebook] accessToken];
 	NSDate *expiryDate = [[SHKFacebook facebook] expirationDate];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
-	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
+    [self saveFBAccessToken:accessToken expiring:expiryDate];
+	
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
 	if (storedItem)
 	{
@@ -371,7 +373,33 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     [self release]; //see [self promptAuthorization]
 }
 
-#pragma mark FBRequestDelegate methods
+- (void)fbDidExtendToken:(NSString*)accessToken
+               expiresAt:(NSDate*)expiresAt {
+    
+    [self saveFBAccessToken:accessToken expiring:expiresAt];
+    
+}
+
+- (void)fbDidLogout {
+ 
+    //we do nothing now, as we called [self flushAccessToken] during + (void)logout
+}
+
+- (void)fbSessionInvalidated {
+    
+}
+
+#pragma mark -
+
+- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
+	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
+    [defaults synchronize];
+}
+
+#pragma mark - FBRequestDelegate methods
 
 - (void)requestLoading:(FBRequest *)request
 {
@@ -402,8 +430,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     [self release]; //see [self send]
 }
 
-#pragma mark -	
-#pragma mark UI Implementation
+
+#pragma mark - UI Implementation
 
 - (void)show
 {
