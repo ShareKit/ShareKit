@@ -511,7 +511,8 @@ static NSDictionary *sharersDictionary = nil;
     }
     
     //if user sets his own sharers plist
-    if (sharersDictionary == nil) {§
+    if (sharersDictionary == nil) 
+    {
         sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
     }
     
