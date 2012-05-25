@@ -506,8 +506,17 @@ static NSDictionary *sharersDictionary = nil;
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-        
+    {        
 		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    }
+    
+    //if user sets his own sharers plist
+    if (sharersDictionary == nil) {§
+        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    }
+    
+    NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
+    
 	
 	return sharersDictionary;
 }
