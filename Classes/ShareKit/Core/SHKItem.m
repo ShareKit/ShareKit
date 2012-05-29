@@ -42,7 +42,7 @@
 @implementation SHKItem
 
 @synthesize shareType;
-@synthesize URL, image, title, text, tags, data, mimeType, filename;
+@synthesize URL, URLContentType, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
 @synthesize printOutputType;
 @synthesize mailBody, mailJPGQuality, mailToRecipients, isMailHTML, mailShareWithAppSignature;
@@ -99,17 +99,24 @@
 
 + (id)URL:(NSURL *)url
 {
-	return [self URL:url title:nil];
+	return [self URL:url title:nil contentType:SHKURLContentTypeWebpage];
 }
 
 + (id)URL:(NSURL *)url title:(NSString *)title
 {
-	SHKItem *item = [[self alloc] init];
+	return [self URL:url title:title contentType:SHKURLContentTypeWebpage];
+}
+
++ (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type {
+    
+    SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeURL;
 	item.URL = url;
 	item.title = title;
+    item.URLContentType = type;
 	
 	return [item autorelease];
+    
 }
 
 + (id)image:(UIImage *)image
