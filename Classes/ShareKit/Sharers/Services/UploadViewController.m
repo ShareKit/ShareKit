@@ -115,7 +115,7 @@
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     
-    [self.statusLabel setText:@"Upload Failed.Make sure you are logged in!"];
+    [self.statusLabel setText:@"Upload Failed.Make sure you are connected to the Internet!"];
 }
 
 @end

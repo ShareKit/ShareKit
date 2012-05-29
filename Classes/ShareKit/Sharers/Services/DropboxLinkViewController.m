@@ -48,6 +48,10 @@
     }
 }
 
+- (IBAction)back:(id)sender {
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+}
+
 - (IBAction)didPressPhotos {
     [self.navigationController pushViewController:photoViewController animated:YES];
 }

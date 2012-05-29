@@ -17,6 +17,7 @@
 }
 
 - (IBAction)didPressLink;
+- (IBAction)back:(id)sender;
 
 @property (retain, nonatomic) IBOutlet UILabel *descriptionLabel;
 
