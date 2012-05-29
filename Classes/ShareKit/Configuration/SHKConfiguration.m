@@ -63,7 +63,7 @@ static SHKConfiguration *sharedInstance = nil;
 		}
 	}
 
-	SHKLog(@"Didn't find a configuration value for %@.", selector);
+	//SHKLog(@"Configuration value is nil or not found for %@.", selector);
 	return nil;
 }
 
