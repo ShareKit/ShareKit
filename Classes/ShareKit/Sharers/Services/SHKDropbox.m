@@ -104,8 +104,8 @@
 - (void)promptAuthorization{
    
     // Set these variables before launching the app
-    NSString* appKey = @"bhgs8evn5in1sq6";
-	NSString* appSecret = @"43cxmbux3xea3ba";
+    NSString* appKey = @"YOYR APP KEY";
+	NSString* appSecret = @"YOUR APP SECRET";
 	NSString *root = kDBRootAppFolder; // Should be set to either kDBRootAppFolder or kDBRootDropbox
 	// You can determine if you have App folder access or Full Dropbox along with your consumer key/secret
 	// from https://dropbox.com/developers/apps 
