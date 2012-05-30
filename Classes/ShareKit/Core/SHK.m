@@ -812,7 +812,7 @@ NSString* SHKLocalizedString(NSString* key, ...)
         int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
         return result == 0;
     } else { // iOS >= 5.1
-        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:@"NSURLIsExcludedFromBackupKey" error:nil];
     }
 }
 
