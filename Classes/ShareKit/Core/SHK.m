@@ -38,11 +38,6 @@
 #import <MessageUI/MessageUI.h>
 #include <sys/xattr.h>
 
-// +++ Working around <rdar://problem/11017158>> by forcing the symbol to be weak import
-// and prevent "dyld: Symbol not found: _NSURLIsExcludedFromBackupKey" when running
-// in iOS ver < 5.1
-extern NSString * const NSURLIsExcludedFromBackupKey __attribute__((weak_import));
-
 NSString * SHKLocalizedStringFormat(NSString* key);
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
 
