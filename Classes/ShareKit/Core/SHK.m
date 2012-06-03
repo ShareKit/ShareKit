@@ -508,7 +508,7 @@ static NSDictionary *sharersDictionary = nil;
 {
 	if (sharersDictionary == nil)
     {        
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistPath)] retain];
+		sharersDictionary = [[NSDictionary alloc] initWithContentsOfFile:SHKCONFIG(sharersPlistPath)];
     }
     
     NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
