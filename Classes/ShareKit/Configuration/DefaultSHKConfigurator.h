@@ -90,8 +90,7 @@
 - (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
-- (NSString*)sharersPlistName;
-- (NSBundle *)sharersPlistBundle;
+- (NSString*)sharersPlistPath;
 - (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
