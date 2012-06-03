@@ -61,6 +61,7 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 + (SHK *)currentHelper;
 
++ (NSString *)shareKitLibraryBundlePath;
 + (NSDictionary *)sharersDictionary;
 
 
