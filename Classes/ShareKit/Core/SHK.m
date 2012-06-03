@@ -514,7 +514,7 @@ static NSDictionary *sharersDictionary = nil;
     //if user sets his own sharers plist
     if (sharersDictionary == nil) 
     {
-        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHKCONFIG(sharersPlistBundle) resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
     }
     
     NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");

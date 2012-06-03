@@ -269,6 +269,13 @@
 	return @"SHKSharers.plist";
 }
 
+/* Bundle where sharersPlistName is located. It is useful when you need to move 
+ your custom Sharers.plist from main bundle.
+ */
+- (NSBundle *)sharersPlistBundle {
+    return [NSBundle mainBundle];
+}
+
 // SHKActionSheet settings
 - (NSNumber*)showActionSheetMoreButton {
 	return [NSNumber numberWithBool:true];// Setting this to true will show More... button in SHKActionSheet, setting to false will leave the button out.

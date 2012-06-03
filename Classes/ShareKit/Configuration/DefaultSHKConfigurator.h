@@ -91,6 +91,7 @@
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;
+- (NSBundle *)sharersPlistBundle;
 - (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
