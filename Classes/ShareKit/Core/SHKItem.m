@@ -186,6 +186,8 @@
 {
 	SHKItem *item = [[self alloc] init];
 	item.shareType = [[dictionary objectForKey:@"shareType"] intValue];	
+
+	item.URLContentType = [[dictionary objectForKey:@"URLContentType"] intValue];
 	
 	if ([dictionary objectForKey:@"URL"] != nil)
 		item.URL = [NSURL URLWithString:[dictionary objectForKey:@"URL"]];
@@ -205,6 +207,15 @@
 
 	if ([dictionary objectForKey:@"image"] != nil)
 		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
+    
+    item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
+    item.mailBody = [dictionary objectForKey:@"mailBody"];
+    item.isMailHTML = [[dictionary objectForKey:@"isMailHTML"] boolValue];
+    item.mailToRecipients = [dictionary objectForKey:@"mailToRecipients"];
+    item.mailJPGQuality = [[dictionary objectForKey:@"mailJPGQuality"] floatValue];
+    item.mailShareWithAppSignature = [[dictionary objectForKey:@"mailShareWithAppSignature"] boolValue];
+    item.facebookURLShareDescription = [dictionary objectForKey:@"facebookURLShareDescription"];
+    item.facebookURLSharePictureURI = [dictionary objectForKey:@"facebookURLSharePictureURI"];
 
 	return [item autorelease];
 }
@@ -214,6 +225,7 @@
 	NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:0];
 		
 	[dictionary setObject:[NSNumber numberWithInt:shareType] forKey:@"shareType"];
+    [dictionary setObject:[NSNumber numberWithInt:URLContentType] forKey:@"URLContentType"];
 	
 	if (custom != nil)
 		[dictionary setObject:custom forKey:@"custom"];
@@ -241,6 +253,30 @@
 	
 	if (image != nil)
 		[dictionary setObject:UIImagePNGRepresentation(image) forKey:@"image"];
+    
+    [dictionary setObject:[NSNumber numberWithInt:printOutputType] forKey:@"printOutputType"];
+    
+    if (mailBody) {
+        [dictionary setObject:mailBody forKey:@"mailBody"];
+    }
+    
+    [dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"isMailHTML"];
+    
+    if (mailToRecipients) {
+        [dictionary setObject:mailToRecipients forKey:@"mailToRecipients"];
+    }
+    
+    [dictionary setObject:[NSNumber numberWithFloat:mailJPGQuality] forKey:@"mailJPGQuality"];
+    
+    [dictionary setObject:[NSNumber numberWithBool:mailShareWithAppSignature] forKey:@"mailShareWithAppSignature"];
+    
+    if (facebookURLSharePictureURI) {
+        [dictionary setObject:facebookURLSharePictureURI forKey:@"facebookURLSharePictureURI"];
+    }
+    
+    if (facebookURLShareDescription) {
+        [dictionary setObject:facebookURLShareDescription forKey:@"facebookURLShareDescription"];
+    }    
 	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
@@ -249,7 +285,22 @@
 
 - (NSString *)description {
     
-    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nImage:%@\nTitle: %@\nText: %@\nTags:%@\nCustom fields:%@", [self shareTypeToString:self.shareType], [self.URL absoluteString], [self.image description], self.title, self.text, self.tags, [self.custom description]];
+    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nURLContentType: %i\nImage:%@\nTitle: %@\nText: %@\nTags:%@\nCustom fields:%@\n\nSharer specific\n\nPrint output type: %i\nmailBody: %@\nisMailHTML: %i\nmailToRecipients: %@\nmailJPGQuality: %f\nmailShareWithAppSignature: %i\nfacebookURLSharePictureURI: %@\nfacebookURLShareDescription: %@", 
+                        [self shareTypeToString:self.shareType],
+                        [self.URL absoluteString],
+                        self.URLContentType,
+                        [self.image description], 
+                        self.title, self.text, 
+                        self.tags, 
+                        [self.custom description],
+                        self.printOutputType,
+                        self.mailBody,
+                        self.isMailHTML,
+                        [self.mailToRecipients description],
+                        self.mailJPGQuality,
+                        self.mailShareWithAppSignature,
+                        self.facebookURLSharePictureURI,
+                        self.facebookURLShareDescription];
     
     return result;
 }

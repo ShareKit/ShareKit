@@ -128,4 +128,6 @@ typedef enum
 @property (nonatomic, retain) NSString *facebookURLSharePictureURI;
 @property (nonatomic, retain) NSString *facebookURLShareDescription;
 
+/* if you add new sharer specific properties, make sure to add them also to dictionaryRepresentation, itemWithDictionary and description methods in SHKItem.m */
+
 @end
