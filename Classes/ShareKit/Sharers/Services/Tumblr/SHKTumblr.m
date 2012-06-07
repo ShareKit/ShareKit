@@ -57,7 +57,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 	return YES;
 }
 
-- (BOOL)shouldAutoShare{
++ (BOOL)canAutoShare{
 	return NO;
 }
 
