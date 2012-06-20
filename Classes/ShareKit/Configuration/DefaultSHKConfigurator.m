@@ -26,6 +26,7 @@
 //
 
 #import "DefaultSHKConfigurator.h"
+#import "SHK.h"
 
 @implementation DefaultSHKConfigurator
 
@@ -264,9 +265,9 @@
 	return [NSNumber numberWithInt:0];// Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
 }
 
-/* Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but this allows you to subclass a sharer and have the subclass be used. Also helps, if you want to exclude some sharers - you can create your own plist, and add it to your project. This way you do not need to change original SHKSharers.plist, which is a part of subproject - this allows you upgrade easily as you did not change ShareKit itself */
-- (NSString*)sharersPlistName {
-	return @"SHKSharers.plist";
+/* Path of the plist file that defines the class names of the sharers to use. Usually should not be changed, but this allows you to subclass a sharer and have the subclass be used. Also helps, if you want to exclude some sharers - you can create your own plist, and add it to your project. This way you do not need to change original SHKSharers.plist, which is a part of subproject - this allows you upgrade easily as you did not change ShareKit itself */
+- (NSString*)sharersPlistPath {
+    return [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"SHKSharers.plist"];
 }
 
 // SHKActionSheet settings
