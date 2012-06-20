@@ -35,7 +35,7 @@
 
 @required
 // called when an item is taped or cancel is clicked, cancel passes nil pickedOption.
--(void) SHKFormOptionController:(SHKFormOptionController*) optionController pickedOption:(NSString*)pickedOption;
+- (void)SHKFormOptionControllerDidFinish:(SHKFormOptionController *)optionController;
 @end	
 
 
