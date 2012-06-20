@@ -304,10 +304,6 @@
  check out http://getsharekit.com/customize
  */
 
-// turn on to use placeholders in edit fields instead of labels to the left for input fields.
-- (NSNumber*)usePlaceholders {
-	return [NSNumber numberWithBool:false];
-}
 /*
  Advanced Configuration
  ----------------------
