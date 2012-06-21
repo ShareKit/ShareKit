@@ -11,7 +11,6 @@
 
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
-#import "SHKEvernote.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
