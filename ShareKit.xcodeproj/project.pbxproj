@@ -15,6 +15,7 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
 		4204CC41156688B400B3958E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC40156688B400B3958E /* GTMNSString+HTML.m */; };
+		427FBAB31592F7C90024F825 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
 		42EDC7AB156CFBF400E3303E /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
 		42EDC7AD156CFBF400E3303E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
 		42EDC7B3156CFBF400E3303E /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
@@ -169,6 +170,8 @@
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		4204CC3F156688AC00B3958E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		4204CC40156688B400B3958E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
+		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
 		42EDC75D156CFBF400E3303E /* GCOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCOAuth.h; sourceTree = "<group>"; };
 		42EDC75E156CFBF400E3303E /* GCOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCOAuth.m; sourceTree = "<group>"; };
 		42EDC760156CFBF400E3303E /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -657,6 +660,8 @@
 				42EDC7A8156CFBF400E3303E /* ENCredentials.m */,
 				42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */,
 				42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */,
+				427FBAB11592F7C90024F825 /* ENOAuthViewController.h */,
+				427FBAB21592F7C90024F825 /* ENOAuthViewController.m */,
 			);
 			path = internal;
 			sourceTree = "<group>";
@@ -1448,6 +1453,7 @@
 				42EDC7C9156CFBF400E3303E /* ENAPI.m in Sources */,
 				42EDC7CA156CFBF400E3303E /* ENCredentials.m in Sources */,
 				42EDC7CB156CFBF400E3303E /* ENCredentialStore.m in Sources */,
+				427FBAB31592F7C90024F825 /* ENOAuthViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

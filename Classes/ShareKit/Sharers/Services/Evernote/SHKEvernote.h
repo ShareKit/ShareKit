@@ -23,7 +23,6 @@
 @interface SHKEvernote : SHKSharer {}
 
 - (NSString *)enMediaTagWithResource:(EDAMResource *)src width:(CGFloat)width height:(CGFloat)height;
-+ (BOOL)handleOpenURL:(NSURL*)url;
 
 @end
 
