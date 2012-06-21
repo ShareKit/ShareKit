@@ -14,8 +14,8 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
-		4204CC41156688B400B3958E /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 4204CC40156688B400B3958E /* GTMNSString+HTML.m */; };
 		427FBAB31592F7C90024F825 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
+		427FBAEF15934A0D0024F825 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
 		42EDC7AB156CFBF400E3303E /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
 		42EDC7AD156CFBF400E3303E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
 		42EDC7B3156CFBF400E3303E /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
@@ -168,10 +168,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
-		4204CC3F156688AC00B3958E /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		4204CC40156688B400B3958E /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
 		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
+		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		42EDC75D156CFBF400E3303E /* GCOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCOAuth.h; sourceTree = "<group>"; };
 		42EDC75E156CFBF400E3303E /* GCOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCOAuth.m; sourceTree = "<group>"; };
 		42EDC760156CFBF400E3303E /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
@@ -771,14 +771,16 @@
 		43A5367811DBE3B9004A1712 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */,
+				427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */,
 				4379F2E81291AE5700D2A41E /* NSData+md5.h */,
 				4379F2E91291AE5700D2A41E /* NSData+md5.m */,
-				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
-				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
-				7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */,
-				7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */,
 				7A333EE314CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.h */,
 				7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */,
+				7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */,
+				7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */,
+				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
+				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -786,8 +788,6 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				4204CC3F156688AC00B3958E /* GTMNSString+HTML.h */,
-				4204CC40156688B400B3958E /* GTMNSString+HTML.m */,
 				F92EF477148E8F1A0070F913 /* JSONKit */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
@@ -1426,7 +1426,6 @@
 				FDB495A41520349A00505A99 /* SHKReadability.m in Sources */,
 				7A5474E315455617000226FF /* SHKCustomFormControllerLargeTextField.m in Sources */,
 				B7EFCD8C14C6B966004910F1 /* SHKDiigo.m in Sources */,
-				4204CC41156688B400B3958E /* GTMNSString+HTML.m in Sources */,
 				42EDC7AB156CFBF400E3303E /* GCOAuth.m in Sources */,
 				42EDC7AD156CFBF400E3303E /* NSData+Base64.m in Sources */,
 				42EDC7B3156CFBF400E3303E /* TBinaryProtocol.m in Sources */,
@@ -1454,6 +1453,7 @@
 				42EDC7CA156CFBF400E3303E /* ENCredentials.m in Sources */,
 				42EDC7CB156CFBF400E3303E /* ENCredentialStore.m in Sources */,
 				427FBAB31592F7C90024F825 /* ENOAuthViewController.m in Sources */,
+				427FBAEF15934A0D0024F825 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
