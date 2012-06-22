@@ -28,24 +28,34 @@
 #import <UIKit/UIKit.h>
 #import "SHK.h"
 
-
-#define SHK_FORM_CELL_PAD_LEFT 10
-#define SHK_FORM_CELL_PAD_RIGHT 10
-
 @class SHKFormController;
 
-@protocol SHKFormFieldCellDelegate <NSObject>
-
-- (void)setActiveTextField:(UITextField *)activeTextField;
-
-@end
-
 @interface SHKFormFieldCell : UITableViewCell 
+{
+	SHKFormFieldSettings *settings;
+	
+	CGFloat labelWidth;
+	
+	UITextField *textField;
+	UISwitch *toggle;
+	
+	NSString *tmpValue;
+	
+	SHKFormController *form;
+}
 
-@property (assign) id <SHKFormFieldCellDelegate> delegate;
+@property (nonatomic, retain) SHKFormFieldSettings *settings;
 
-- (void)setupLayout;
-- (void)setupWithSettings:(SHKFormFieldSettings *)_settings;
-- (void)userSetValue:(NSString *)newValue;
+@property (nonatomic) CGFloat labelWidth;
+
+@property (nonatomic, retain, getter=getTextField) UITextField *textField;
+@property (nonatomic, retain) UISwitch *toggle;
+
+@property (nonatomic, retain) NSString *tmpValue;
+
+@property (nonatomic, assign) SHKFormController *form;
+
+- (void)setValue:(NSString *)value;
+- (NSString *)getValue;
 
 @end

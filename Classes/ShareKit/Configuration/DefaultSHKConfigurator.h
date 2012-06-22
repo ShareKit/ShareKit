@@ -94,6 +94,7 @@
 - (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
+- (NSNumber*)usePlaceholders;
 
 //SHKPrint
 - (NSNumber*)printOutputType;

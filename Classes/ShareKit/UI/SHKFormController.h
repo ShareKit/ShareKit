@@ -30,7 +30,22 @@
 #import "SHKCustomFormFieldCell.h"
 #import "SHKFormOptionController.h"
 
-@interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient>
+@interface SHKFormController : UITableViewController <UITextFieldDelegate, SHKFormOptionControllerClient>
+{
+	id delegate;
+	SEL validateSelector;
+	SEL saveSelector;	
+	SEL cancelSelector;	
+	
+	NSMutableArray *sections;
+	NSMutableDictionary *values;
+	
+	CGFloat labelWidth;
+	
+	UITextField *activeField;
+	
+	BOOL autoSelect;
+}
 
 @property (assign) id delegate;
 @property SEL validateSelector;
@@ -38,8 +53,14 @@
 @property SEL cancelSelector;
 
 @property (retain) NSMutableArray *sections;
+@property (retain) NSMutableDictionary *values;
+
+@property CGFloat labelWidth;
+
+@property (nonatomic, retain) UITextField *activeField;
 
 @property BOOL autoSelect;
+
 
 - (id)initWithStyle:(UITableViewStyle)style title:(NSString *)barTitle rightButtonTitle:(NSString *)rightButtonTitle;
 - (void)addSection:(NSArray *)fields header:(NSString *)header footer:(NSString *)footer;
