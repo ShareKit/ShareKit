@@ -70,11 +70,6 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	return YES;
 }
 
-+ (BOOL)canAutoShare
-{
-	return NO;
-}
-
 - (BOOL)isAuthorized 
 {
 	return [self.flickrContext.authToken length];
@@ -150,15 +145,14 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
 															 key:@"postgroup"
 															type:SHKFormFieldTypeOptionPicker
-														   start:nil
-												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Flickr Groups"), @"title",
+														   start:@"Select Group"
+												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Flickr Groups", @"title",
 																  @"-1", @"curIndexes",
 																  [NSArray array],@"itemsList",
 																  [NSNumber numberWithBool:NO], @"static",
 																  [NSNumber numberWithBool:YES], @"allowMultiple",
 																  self, @"SHKFormOptionControllerOptionProvider",
-																  nil]
-                                        optionDetailLabelDefault:SHKLocalizedString(@"Select Group")],
+																  nil]],
 									 nil
 									 ];
 		

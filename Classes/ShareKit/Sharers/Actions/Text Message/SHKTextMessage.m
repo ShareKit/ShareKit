@@ -142,6 +142,14 @@
 		[item setCustomValue:body forKey:@"body"];
 	}
 	
+  NSString * _recipients = [item customValueForKey:@"recipients"];
+  NSArray * recipients = nil;
+  
+  if (_recipients) {
+    recipients = [_recipients componentsSeparatedByCharactersInSet:[[NSCharacterSet characterSetWithCharactersInString:@"0123456789-+()"] invertedSet]];
+    [composeView setRecipients:recipients];
+  }
+  
 	[composeView setBody:body];
 	[[SHK currentHelper] showViewController:composeView];
     [self retain]; //release is in callback, MFMessageComposeViewController does not retain its delegate

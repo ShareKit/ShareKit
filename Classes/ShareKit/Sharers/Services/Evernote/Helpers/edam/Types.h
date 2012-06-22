@@ -53,7 +53,7 @@ typedef int64_t EDAMTimestamp;
   NSData * __bodyHash;
   int32_t __size;
   NSData * __body;
-
+  
   BOOL __bodyHash_isset;
   BOOL __size_isset;
   BOOL __body_isset;
@@ -111,7 +111,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __recognitionLanguage;
   int64_t __customerProfileId;
   NSString * __referralProof;
-
+  
   BOOL __defaultLocationName_isset;
   BOOL __defaultLatitude_isset;
   BOOL __defaultLongitude_isset;
@@ -297,7 +297,7 @@ typedef int64_t EDAMTimestamp;
   EDAMTimestamp __updated;
   NSString * __premiumSubscriptionNumber;
   EDAMTimestamp __lastRequestedCharge;
-
+  
   BOOL __uploadLimit_isset;
   BOOL __uploadLimitEnd_isset;
   BOOL __uploadLimitNextMonth_isset;
@@ -420,7 +420,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __shardId;
   EDAMUserAttributes * __attributes;
   EDAMAccounting * __accounting;
-
+  
   BOOL __id_isset;
   BOOL __username_isset;
   BOOL __email_isset;
@@ -516,7 +516,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __name;
   EDAMGuid __parentGuid;
   int32_t __updateSequenceNum;
-
+  
   BOOL __guid_isset;
   BOOL __name_isset;
   BOOL __parentGuid_isset;
@@ -565,7 +565,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __recoType;
   NSString * __fileName;
   BOOL __attachment;
-
+  
   BOOL __sourceURL_isset;
   BOOL __timestamp_isset;
   BOOL __latitude_isset;
@@ -657,7 +657,7 @@ typedef int64_t EDAMTimestamp;
   EDAMResourceAttributes * __attributes;
   int32_t __updateSequenceNum;
   EDAMData * __alternateData;
-
+  
   BOOL __guid_isset;
   BOOL __noteGuid_isset;
   BOOL __data_isset;
@@ -751,7 +751,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __source;
   NSString * __sourceURL;
   NSString * __sourceApplication;
-
+  
   BOOL __subjectDate_isset;
   BOOL __latitude_isset;
   BOOL __longitude_isset;
@@ -828,7 +828,7 @@ typedef int64_t EDAMTimestamp;
   NSArray * __resources;
   EDAMNoteAttributes * __attributes;
   NSArray * __tagNames;
-
+  
   BOOL __guid_isset;
   BOOL __title_isset;
   BOOL __content_isset;
@@ -936,7 +936,7 @@ typedef int64_t EDAMTimestamp;
   int __order;
   BOOL __ascending;
   NSString * __publicDescription;
-
+  
   BOOL __uri_isset;
   BOOL __order_isset;
   BOOL __ascending_isset;
@@ -983,7 +983,7 @@ typedef int64_t EDAMTimestamp;
   EDAMPublishing * __publishing;
   BOOL __published;
   NSString * __stack;
-
+  
   BOOL __guid_isset;
   BOOL __name_isset;
   BOOL __updateSequenceNum_isset;
@@ -1056,7 +1056,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __query;
   int __format;
   int32_t __updateSequenceNum;
-
+  
   BOOL __guid_isset;
   BOOL __name_isset;
   BOOL __query_isset;
@@ -1112,7 +1112,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __imageMime;
   NSString * __html;
   double __displayFrequency;
-
+  
   BOOL __id_isset;
   BOOL __width_isset;
   BOOL __height_isset;
@@ -1207,7 +1207,7 @@ typedef int64_t EDAMTimestamp;
   EDAMTimestamp __serviceCreated;
   NSString * __shareKey;
   NSString * __username;
-
+  
   BOOL __id_isset;
   BOOL __userId_isset;
   BOOL __notebookGuid_isset;
@@ -1281,7 +1281,7 @@ typedef int64_t EDAMTimestamp;
   NSString * __shardId;
   NSString * __shareKey;
   NSString * __uri;
-
+  
   BOOL __id_isset;
   BOOL __shareName_isset;
   BOOL __username_isset;

@@ -17,7 +17,7 @@
 
 - (void)dealloc {
 	[note release];
-	[super dealloc];	
+	[super dealloc];
 }
 
 
@@ -57,20 +57,20 @@
 #pragma mark Authentication
 
 // Return the form fields required to authenticate the user with the service
-+ (NSArray *)authorizationFormFields 
++ (NSArray *)authorizationFormFields
 {
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
-			[SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],			
-			nil];
+          [SHKFormFieldSettings label:@"Username" key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
+          [SHKFormFieldSettings label:@"Password" key:@"password" type:SHKFormFieldTypePassword start:nil],
+          nil];
 }
 
-+ (NSString *)authorizationFormCaption 
++ (NSString *)authorizationFormCaption
 {
 	return SHKLocalizedString(@"Create a free account at %@", @"Evernote.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form 
+- (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
 	if (!quiet)
@@ -81,7 +81,7 @@
 	[NSThread detachNewThreadSelector:@selector(_authorizationFormValidate:) toTarget:self withObject:[form formValues]];
 }
 
-- (void)_authorizationFormValidate:(NSDictionary *)args 
+- (void)_authorizationFormValidate:(NSDictionary *)args
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	BOOL success = NO;
@@ -91,36 +91,36 @@
 	}
 	@catch (NSException * e) {
 		SHKLog(@"Caught %@: %@ %@", [e name], [e reason],e);
-	}	
+	}
 	[self performSelectorOnMainThread:@selector(_authFinished:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:success?@"1":@"0",@"success",nil] waitUntilDone:YES];
-    [pool release];
+  [pool release];
 }
 
-- (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password 
+- (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password
 {
 	THTTPClient *userStoreHTTPClient = [[[THTTPClient alloc] initWithURL:[NSURL URLWithString:SHKCONFIG(evernoteUserStoreURL)]] autorelease];
 	TBinaryProtocol *userStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:userStoreHTTPClient] autorelease];
 	EDAMUserStoreClient *userStore = [[[EDAMUserStoreClient alloc] initWithProtocol:userStoreProtocol] autorelease];
-
+  
 	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDMA" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
-	if(!versionOK) 
+	if(!versionOK)
 	{
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"EDMA Error")
-									 message:SHKLocalizedString(@"EDMA Version is too old.")
-									delegate:nil 
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
+                                 message:SHKLocalizedString(@"EDMA Version is too old.")
+                                delegate:nil
+                       cancelButtonTitle:SHKLocalizedString(@"Close")
+                       otherButtonTitles:nil] autorelease] show];
 		return nil;
 	}
 	return [userStore authenticate:username :password :SHKCONFIG(evernoteConsumerKey) :SHKCONFIG(evernoteSecret)];
 }
 
-- (void)_authFinished:(NSDictionary *)args 
+- (void)_authFinished:(NSDictionary *)args
 {
 	[self authFinished:[[args valueForKey:@"success"] isEqualToString:@"1"]];
 }
 
-- (void)authFinished:(BOOL)success 
+- (void)authFinished:(BOOL)success
 {
 	[[SHKActivityIndicator currentIndicator] hide];
 	if(!success)
@@ -136,17 +136,17 @@
 #pragma mark -
 #pragma mark Share Form
 
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type 
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
 	return [NSArray arrayWithObjects:
-	 [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-	 //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:item.text],
-	 [SHKFormFieldSettings label:SHKLocalizedString(@"Tags")  key:@"tags" type:SHKFormFieldTypeText start:item.tags],
-	 nil];
+          [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+          //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:item.text],
+          [SHKFormFieldSettings label:SHKLocalizedString(@"Tags")  key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+          nil];
 }
 
-- (void)shareFormValidate:(SHKCustomFormController *)form 
-{	
+- (void)shareFormValidate:(SHKCustomFormController *)form
+{
 	[form saveForm];
 }
 
@@ -185,14 +185,14 @@
     EDAMUser *user = [authResult user];
     authToken    = [authResult authenticationToken];
     noteStoreURL = [NSURL URLWithString:[SHKCONFIG(evernoteNetStoreURLBase) stringByAppendingString:[user shardId]]];
-
+    
   	////////////////////////////////////////////////
     // Make clients
   	////////////////////////////////////////////////
     THTTPClient *noteStoreHTTPClient = [[[THTTPClient alloc] initWithURL:noteStoreURL] autorelease];
     TBinaryProtocol *noteStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:noteStoreHTTPClient] autorelease];
     EDAMNoteStoreClient *noteStore = [[[EDAMNoteStoreClient alloc] initWithProtocol:noteStoreProtocol] autorelease];
-
+    
   	////////////////////////////////////////////////
     // Make EDAMNote contents
   	////////////////////////////////////////////////
@@ -204,36 +204,36 @@
 			note = enItem.note;
 			resources = [note.resources mutableCopy];
 		}
-
+    
 		if(!resources)
     	resources = [[NSMutableArray alloc] init];
 		if(!note)
     	note = [[[EDAMNote alloc] init] autorelease];
-
+    
 		
 		EDAMNoteAttributes *atr = [note attributesIsSet] ? [note.attributes retain] : [[EDAMNoteAttributes alloc] init];
-
+    
 		if(![atr sourceURLIsSet]&&enItem.URL)
     	[atr setSourceURL:[enItem.URL absoluteString]];
 		if(![note notebookGuidIsSet])
     	[note setNotebookGuid:[[self defaultNoteBookFromNoteStore:noteStore authToken:authToken] guid]];
-
+    
 		note.title = item.title.length > 0 ?
-    	item.title :
-      ( [note titleIsSet] ?
-            note.title :
-            SHKLocalizedString(@"Untitled") );
-
+    item.title :
+    ( [note titleIsSet] ?
+     note.title :
+     SHKLocalizedString(@"Untitled") );
+    
 		if(![note tagNamesIsSet]&&item.tags)
     	[note setTagNames:[item.tags componentsSeparatedByString:@" "]];
-
+    
 		if(![note contentIsSet]) {
 			NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
       NSString * strURL = [item.URL absoluteString];
-
+      
       // Evernote doesn't accept unenencoded ampersands
-	  strURL = SHKEncode(strURL);
-            
+      strURL = SHKEncode(strURL);
+      
       if(strURL.length>0) {
         if(item.title.length>0)
         	[contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];
@@ -241,10 +241,10 @@
         atr.sourceURL = strURL;
       } else if(item.title.length>0)
         [contentStr appendFormat:@"<h1>%@</h1>",item.title];
-
+      
 			if(item.text.length>0 )
       	[contentStr appendFormat:@"<p>%@</p>", SHKFlattenHTML(item.text, YES)];
-
+      
 			if(item.image) {
 				EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
 				NSData *rawimg = UIImageJPEGRepresentation(item.image, 0.6);
@@ -255,9 +255,9 @@
 				[resources addObject:img];
 				[contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:item.image.size.width height:item.image.size.height]]];
 			}
-
+      
 			if(item.data) {
-				EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
+				EDAMResource *file = [[[EDAMResource alloc] init] autorelease];
 				EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.data size:[item.data length] body:item.data] autorelease];
 				[file setData:filed];
 				[file setRecognition:filed];
@@ -274,7 +274,7 @@
   	////////////////////////////////////////////////
     // Replace <img> HTML elements with en-media elements
   	////////////////////////////////////////////////
-
+    
 		for(EDAMResource *res in resources) {
 			if(![res dataIsSet]&&[res attributesIsSet]&&res.attributes.sourceURL.length>0&&[res.mime isEqualToString:@"image/jpeg"]) {
 				@try {
@@ -285,8 +285,8 @@
 						[res setData:imgd];
 						[res setRecognition:imgd];
 						[note setContent:
-						 	[note.content stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"<img src=\"%@\" />",res.attributes.sourceURL]
-																											withString:[self enMediaTagWithResource:res width:img.size.width height:img.size.height]]];
+             [note.content stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"<img src=\"%@\" />",res.attributes.sourceURL]
+                                                     withString:[self enMediaTagWithResource:res width:img.size.width height:img.size.height]]];
 					}
 				}
 				@catch (NSException * e) {
@@ -305,12 +305,12 @@
 			success = YES;
     }
   }
-  @catch (EDAMUserException * e) 
+  @catch (EDAMUserException * e)
 	{
 		SHKLog(@"%@",e);
 		
-		NSString *errorName;		
-		switch (e.errorCode) 
+		NSString *errorName;
+		switch (e.errorCode)
 		{
 			case EDAMErrorCode_BAD_DATA_FORMAT:
 				errorName = @"Invalid format";
@@ -346,11 +346,11 @@
 		errorMessage = [NSString stringWithFormat:@"Evernote Error on %@: %@", e.parameter, errorName];
 	}
 	[self performSelectorOnMainThread:@selector(_sendFinished:)
-						   withObject:[NSDictionary dictionaryWithObjectsAndKeys:
-									   success?@"1":@"0",@"success",
-									   errorMessage==nil?@"":errorMessage,@"errorMessage",
-									   shouldRelogin?@"1":@"0",@"shouldRelogin",
-									   nil] waitUntilDone:YES];
+                         withObject:[NSDictionary dictionaryWithObjectsAndKeys:
+                                     success?@"1":@"0",@"success",
+                                     errorMessage==nil?@"":errorMessage,@"errorMessage",
+                                     shouldRelogin?@"1":@"0",@"shouldRelogin",
+                                     nil] waitUntilDone:YES];
 	[pool release];
 }
 
@@ -359,7 +359,7 @@
 	return [NSString stringWithFormat:@"<en-media type=\"%@\" %@hash=\"%@\"/>",src.mime,sizeAtr,[src.data.body md5]];
 }
 
-- (void)_sendFinished:(NSDictionary *)args 
+- (void)_sendFinished:(NSDictionary *)args
 {
 	if (![[args valueForKey:@"success"] isEqualToString:@"1"])
 	{
@@ -369,7 +369,7 @@
 			return;
 		}
 		
-        SHKLog(@"%@",[args valueForKey:@"errorMessage"]);
+    SHKLog(@"%@",[args valueForKey:@"errorMessage"]);
 		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with Evernote")]];
 		return;
 	}
