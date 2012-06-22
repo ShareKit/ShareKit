@@ -106,5 +106,8 @@
 //SHKFacebook
 - (NSString *)facebookURLSharePictureURI;
 - (NSString *)facebookURLShareDescription;
+//SHKTextMessage
+- (NSString *)textMessageBody;
+- (NSArray *)textMessageToRecipients;
 
 @end

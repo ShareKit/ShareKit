@@ -47,6 +47,7 @@
 @synthesize printOutputType;
 @synthesize mailBody, mailJPGQuality, mailToRecipients, isMailHTML, mailShareWithAppSignature;
 @synthesize facebookURLSharePictureURI, facebookURLShareDescription;
+@synthesize textMessageBody, textMessageToRecipients;
 
 - (void)dealloc
 {
@@ -63,38 +64,44 @@
 	[filename release];
 	
 	[custom release];
-    
-    [mailBody release];
-    [mailToRecipients release];
-    [facebookURLSharePictureURI release];
-    [facebookURLShareDescription release];
-	
+
+  [mailBody release];
+  [mailToRecipients release];
+  [facebookURLSharePictureURI release];
+  [facebookURLShareDescription release];
+  
+  if (textMessageBody) [textMessageBody release], textMessageBody = nil;
+	if (textMessageToRecipients) [textMessageToRecipients release], textMessageToRecipients = nil;
+  
 	[super dealloc];
 }
 
 - (id)init {
     
-    self = [super init];
-    
-    if (self) {
-        
-        [self setExtensionPropertiesDefaultValues];
-    }
-    return self;
+  self = [super init];
+
+  if (self) {
+      
+      [self setExtensionPropertiesDefaultValues];
+  }
+  return self;
 }
 
 - (void)setExtensionPropertiesDefaultValues {
     
-    printOutputType = [SHKCONFIG(printOutputType) intValue];
-    
-    mailBody = [SHKCONFIG(mailBody) retain];
-    mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
-    mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
-    isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
-    mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
-    
-    facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
-    facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
+  printOutputType = [SHKCONFIG(printOutputType) intValue];
+
+  mailBody = [SHKCONFIG(mailBody) retain];
+  mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
+  mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
+  isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
+  mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
+
+  facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
+  facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
+  
+  textMessageBody = [SHKCONFIG(textMessageBody) retain];
+  textMessageToRecipients = [SHKCONFIG(textMessageToRecipients) retain];
 }
 
 + (id)URL:(NSURL *)url
@@ -109,11 +116,11 @@
 
 + (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type {
     
-    SHKItem *item = [[self alloc] init];
+  SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeURL;
 	item.URL = url;
 	item.title = title;
-    item.URLContentType = type;
+  item.URLContentType = type;
 	
 	return [item autorelease];
     
@@ -207,15 +214,36 @@
 
 	if ([dictionary objectForKey:@"image"] != nil)
 		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
-    
-    item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
-    item.mailBody = [dictionary objectForKey:@"mailBody"];
-    item.isMailHTML = [[dictionary objectForKey:@"isMailHTML"] boolValue];
-    item.mailToRecipients = [dictionary objectForKey:@"mailToRecipients"];
-    item.mailJPGQuality = [[dictionary objectForKey:@"mailJPGQuality"] floatValue];
-    item.mailShareWithAppSignature = [[dictionary objectForKey:@"mailShareWithAppSignature"] boolValue];
-    item.facebookURLShareDescription = [dictionary objectForKey:@"facebookURLShareDescription"];
-    item.facebookURLSharePictureURI = [dictionary objectForKey:@"facebookURLSharePictureURI"];
+  
+  if ([dictionary objectForKey:@"printOutputType"] != nil)
+		item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
+  
+  if ([dictionary objectForKey:@"mailBody"] != nil)
+		item.mailBody = [dictionary objectForKey:@"mailBody"];
+  
+  if ([dictionary objectForKey:@"isMailHTML"] != nil)
+		item.isMailHTML = [[dictionary objectForKey:@"isMailHTML"] boolValue];
+  
+  if ([dictionary objectForKey:@"mailToRecipients"] != nil)
+		item.mailToRecipients = [dictionary objectForKey:@"mailToRecipients"];
+  
+  if ([dictionary objectForKey:@"mailJPGQuality"] != nil)
+		item.mailJPGQuality = [[dictionary objectForKey:@"mailJPGQuality"] floatValue];
+  
+  if ([dictionary objectForKey:@"mailShareWithAppSignature"] != nil)
+		item.mailShareWithAppSignature = [[dictionary objectForKey:@"mailShareWithAppSignature"] boolValue];
+  
+  if ([dictionary objectForKey:@"facebookURLShareDescription"] != nil)
+		item.facebookURLShareDescription = [dictionary objectForKey:@"facebookURLShareDescription"];
+  
+  if ([dictionary objectForKey:@"facebookURLSharePictureURI"] != nil)
+		item.facebookURLSharePictureURI = [dictionary objectForKey:@"facebookURLSharePictureURI"];
+  
+  if ([dictionary objectForKey:@"textMessageBody"] != nil)
+		item.textMessageBody = [dictionary objectForKey:@"textMessageBody"];
+  
+  if ([dictionary objectForKey:@"textMessageToRecipients"] != nil)
+		item.textMessageToRecipients = [dictionary objectForKey:@"textMessageToRecipients"];
 
 	return [item autorelease];
 }
@@ -256,27 +284,35 @@
     
     [dictionary setObject:[NSNumber numberWithInt:printOutputType] forKey:@"printOutputType"];
     
-    if (mailBody) {
-        [dictionary setObject:mailBody forKey:@"mailBody"];
-    }
-    
-    [dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"isMailHTML"];
-    
-    if (mailToRecipients) {
-        [dictionary setObject:mailToRecipients forKey:@"mailToRecipients"];
-    }
-    
-    [dictionary setObject:[NSNumber numberWithFloat:mailJPGQuality] forKey:@"mailJPGQuality"];
-    
-    [dictionary setObject:[NSNumber numberWithBool:mailShareWithAppSignature] forKey:@"mailShareWithAppSignature"];
-    
-    if (facebookURLSharePictureURI) {
-        [dictionary setObject:facebookURLSharePictureURI forKey:@"facebookURLSharePictureURI"];
-    }
-    
-    if (facebookURLShareDescription) {
-        [dictionary setObject:facebookURLShareDescription forKey:@"facebookURLShareDescription"];
-    }    
+  if (mailBody) {
+    [dictionary setObject:mailBody forKey:@"mailBody"];
+  }
+  
+  [dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"isMailHTML"];
+  
+  if (mailToRecipients) {
+    [dictionary setObject:mailToRecipients forKey:@"mailToRecipients"];
+  }
+  
+  [dictionary setObject:[NSNumber numberWithFloat:mailJPGQuality] forKey:@"mailJPGQuality"];
+  
+  [dictionary setObject:[NSNumber numberWithBool:mailShareWithAppSignature] forKey:@"mailShareWithAppSignature"];
+  
+  if (facebookURLSharePictureURI) {
+    [dictionary setObject:facebookURLSharePictureURI forKey:@"facebookURLSharePictureURI"];
+  }
+  
+  if (facebookURLShareDescription) {
+    [dictionary setObject:facebookURLShareDescription forKey:@"facebookURLShareDescription"];
+  }
+  
+  if (textMessageBody) {
+    [dictionary setObject:textMessageBody forKey:@"textMessageBody"];
+  }
+  
+  if (textMessageToRecipients) {
+    [dictionary setObject:textMessageToRecipients forKey:@"textMessageToRecipients"];
+  }
 	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
@@ -285,22 +321,42 @@
 
 - (NSString *)description {
     
-    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nURLContentType: %i\nImage:%@\nTitle: %@\nText: %@\nTags:%@\nCustom fields:%@\n\nSharer specific\n\nPrint output type: %i\nmailBody: %@\nisMailHTML: %i\nmailToRecipients: %@\nmailJPGQuality: %f\nmailShareWithAppSignature: %i\nfacebookURLSharePictureURI: %@\nfacebookURLShareDescription: %@", 
-                        [self shareTypeToString:self.shareType],
-                        [self.URL absoluteString],
-                        self.URLContentType,
-                        [self.image description], 
-                        self.title, self.text, 
-                        self.tags, 
-                        [self.custom description],
-                        self.printOutputType,
-                        self.mailBody,
-                        self.isMailHTML,
-                        [self.mailToRecipients description],
-                        self.mailJPGQuality,
-                        self.mailShareWithAppSignature,
-                        self.facebookURLSharePictureURI,
-                        self.facebookURLShareDescription];
+    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\n\
+                                                    URLContentType: %i\n\
+                                                    Image:%@\n\
+                                                    Title: %@\n\
+                                                    Text: %@\n\
+                                                    Tags:%@\n\
+                                                    Custom fields:%@\n\n\
+                                                    Sharer specific\n\n\
+                                                    Print output type: %i\n\
+                                                    mailBody: %@\n\
+                                                    isMailHTML: %i\n\
+                                                    mailToRecipients: %@\n\
+                                                    mailJPGQuality: %f\n\
+                                                    mailShareWithAppSignature: %i\n\
+                                                    facebookURLSharePictureURI: %@\n\
+                                                    facebookURLShareDescription: %@\n\
+                                                    textMessageBody: %@\n\
+                                                    textMessageToRecipients: %@",
+                        
+                                                    [self shareTypeToString:self.shareType],
+                                                    [self.URL absoluteString],
+                                                    self.URLContentType,
+                                                    [self.image description], 
+                                                    self.title, self.text, 
+                                                    self.tags, 
+                                                    [self.custom description],
+                                                    self.printOutputType,
+                                                    self.mailBody,
+                                                    self.isMailHTML,
+                                                    [self.mailToRecipients description],
+                                                    self.mailJPGQuality,
+                                                    self.mailShareWithAppSignature,
+                                                    self.facebookURLSharePictureURI,
+                                                    self.facebookURLShareDescription,
+                                                    self.textMessageBody,
+                                                    self.textMessageToRecipients];
     
     return result;
 }

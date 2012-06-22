@@ -61,7 +61,19 @@ typedef enum
 	NSData *data;
 	NSString *mimeType;
 	NSString *filename;
+  
+  NSString *mailBody;
+  BOOL isMailHTML;
+  NSArray *mailToRecipients;
+  CGFloat mailJPGQuality;
+  BOOL mailShareWithAppSignature;
+  
+  NSString *facebookURLSharePictureURI;
+  NSString *facebookURLShareDescription;
 	
+  NSString *textMessageBody;
+  NSArray *textMessageToRecipients;
+  
 	@private
 		NSMutableDictionary *custom;
 }
@@ -128,6 +140,9 @@ typedef enum
 @property (nonatomic, retain) NSString *facebookURLSharePictureURI;
 @property (nonatomic, retain) NSString *facebookURLShareDescription;
 
+/* SHKTextMessage */
+@property (nonatomic, retain) NSString *textMessageBody;
+@property (nonatomic, retain) NSArray *textMessageToRecipients;
 /* if you add new sharer specific properties, make sure to add them also to dictionaryRepresentation, itemWithDictionary and description methods in SHKItem.m */
 
 @end
