@@ -39,10 +39,9 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
 @dynamic bodyHash;
 @dynamic size;
 @dynamic body;
-@dynamic recipients;
 #endif
 
-- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body recipients: (NSData *) recipients
+- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body
 {
   self = [super init];
   __bodyHash = [bodyHash retain];
@@ -51,16 +50,6 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   __size_isset = YES;
   __body = [body retain];
   __body_isset = YES;
-  if (recipients) {
-    __recipients = [recipients retain];
-    __recipients_isset = YES;
-  }
-  else
-  {
-    __recipients = nil;
-    __recipients_isset = NO;
-  }
-  
   return self;
 }
 
@@ -82,11 +71,6 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
     __body = [[decoder decodeObjectForKey: @"body"] retain];
     __body_isset = YES;
   }
-  if ([decoder containsValueForKey: @"recipients"])
-  {
-    __recipients = [[decoder decodeObjectForKey: @"recipients"] retain];
-    __recipients_isset = YES;
-  }
   return self;
 }
 
@@ -104,17 +88,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   {
     [encoder encodeObject: __body forKey: @"body"];
   }
-  if (__body_isset)
-  {
-    [encoder encodeObject: __recipients forKey: @"recipients"];
-  }
 }
 
 - (void) dealloc
 {
   [__bodyHash release];
   [__body release];
-  [__recipients release];
   [super dealloc];
 }
 
@@ -177,38 +156,17 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   __body_isset = NO;
 }
 
-- (NSData *) recipients {
-	return [[__recipients retain] autorelease];
-}
-
-- (void) setRecipients: (NSData *) recipients {
-	[recipients retain];
-	[__recipients release];
-	__recipients = recipients;
-	__recipients_isset = YES;
-}
-
-- (BOOL) recipientsIsSet {
-	return __recipients_isset;
-}
-
-- (void) unsetRecipients {
-	[__recipients release];
-	__recipients = nil;
-	__recipients_isset = NO;
-}
-
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -217,7 +175,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSData * fieldValue = [inProtocol readBinary];
           [self setBodyHash: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -225,7 +183,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setSize: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -233,14 +191,6 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSData * fieldValue = [inProtocol readBinary];
           [self setBody: fieldValue];
-        } else { 
-          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
-        }
-        break;
-      case 4:
-        if (fieldType == TType_STRING) {
-          NSData * fieldValue = [inProtocol readBinary];
-          [self setRecipients: fieldValue];
         } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
@@ -275,13 +225,6 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldEnd];
     }
   }
-  if (__recipients_isset) {
-    if (__recipients != nil) {
-      [outProtocol writeFieldBeginWithName: @"recipients" type: TType_STRING fieldID: 3];
-      [outProtocol writeBinary: __recipients];
-      [outProtocol writeFieldEnd];
-    }
-  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -294,9 +237,6 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   [ms appendFormat: @"%i", __size];
   [ms appendString: @",body:"];
   [ms appendFormat: @"\"%@\"", __body];
-  [ms appendString: @")"];
-  [ms appendString: @",recipients:"];
-  [ms appendFormat: @"\"%@\"", __recipients];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -1153,12 +1093,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -1167,7 +1107,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setDefaultLocationName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1175,7 +1115,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setDefaultLatitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1183,7 +1123,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setDefaultLongitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1191,7 +1131,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setPreactivation: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1209,7 +1149,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [inProtocol readListEnd];
           [self setViewedPromotions: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1217,7 +1157,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setIncomingEmailAddress: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1235,7 +1175,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [inProtocol readListEnd];
           [self setRecentMailedAddresses: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1243,7 +1183,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setComments: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1251,7 +1191,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setDateAgreedToTermsOfService: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1259,7 +1199,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setMaxReferrals: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1267,7 +1207,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setReferralCount: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1275,7 +1215,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setRefererCode: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1283,7 +1223,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setSentEmailDate: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1291,7 +1231,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setSentEmailCount: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1299,7 +1239,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setDailyEmailLimit: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1307,7 +1247,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setEmailOptOutDate: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1315,7 +1255,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setPartnerEmailOptInDate: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1323,7 +1263,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPreferredLanguage: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1331,7 +1271,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPreferredCountry: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1339,7 +1279,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setClipFullPage: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1347,7 +1287,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setTwitterUserName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1355,7 +1295,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setTwitterId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1363,7 +1303,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGroupName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1371,7 +1311,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setRecognitionLanguage: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1379,7 +1319,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCustomerProfileId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -1387,7 +1327,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setReferralProof: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2158,12 +2098,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -2172,7 +2112,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUploadLimit: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2180,7 +2120,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUploadLimitEnd: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2188,7 +2128,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUploadLimitNextMonth: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2196,7 +2136,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
           [self setPremiumServiceStatus: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2204,7 +2144,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPremiumOrderNumber: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2212,7 +2152,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPremiumCommerceService: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2220,7 +2160,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setPremiumServiceStart: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2228,7 +2168,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPremiumServiceSKU: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2236,7 +2176,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setLastSuccessfulCharge: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2244,7 +2184,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setLastFailedCharge: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2252,7 +2192,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setLastFailedChargeReason: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2260,7 +2200,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setNextPaymentDue: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2268,7 +2208,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setPremiumLockUntil: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2276,7 +2216,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2284,7 +2224,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPremiumSubscriptionNumber: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2292,7 +2232,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setLastRequestedCharge: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2884,12 +2824,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -2898,7 +2838,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2906,7 +2846,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setUsername: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2914,7 +2854,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setEmail: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2922,7 +2862,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2930,7 +2870,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setTimezone: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2938,7 +2878,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
           [self setPrivilege: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2946,7 +2886,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2954,7 +2894,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2962,7 +2902,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setDeleted: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2970,7 +2910,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setActive: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2978,7 +2918,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setShardId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2988,7 +2928,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setAttributes: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -2998,7 +2938,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setAccounting: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3292,12 +3232,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -3306,7 +3246,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3314,7 +3254,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3322,7 +3262,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setParentGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3330,7 +3270,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUpdateSequenceNum: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3766,12 +3706,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -3780,7 +3720,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setSourceURL: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3788,7 +3728,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setTimestamp: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3796,7 +3736,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setLatitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3804,7 +3744,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setLongitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3812,7 +3752,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setAltitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3820,7 +3760,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setCameraMake: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3828,7 +3768,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setCameraModel: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3836,7 +3776,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setClientWillIndex: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3844,7 +3784,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setRecoType: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3852,7 +3792,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setFileName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -3860,7 +3800,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setAttachment: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4388,12 +4328,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -4402,7 +4342,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4410,7 +4350,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setNoteGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4420,7 +4360,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setData: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4428,7 +4368,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setMime: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4436,7 +4376,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setWidth: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4444,7 +4384,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setHeight: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4452,7 +4392,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setDuration: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4460,7 +4400,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setActive: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4470,7 +4410,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setRecognition: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4480,7 +4420,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setAttributes: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4488,7 +4428,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUpdateSequenceNum: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4498,7 +4438,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setAlternateData: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4906,12 +4846,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -4920,7 +4860,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setSubjectDate: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4928,7 +4868,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setLatitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4936,7 +4876,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setLongitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4944,7 +4884,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setAltitude: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4952,7 +4892,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setAuthor: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4960,7 +4900,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setSource: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4968,7 +4908,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setSourceURL: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -4976,7 +4916,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setSourceApplication: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5578,12 +5518,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -5592,7 +5532,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5600,7 +5540,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setTitle: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5608,7 +5548,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setContent: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5616,7 +5556,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSData * fieldValue = [inProtocol readBinary];
           [self setContentHash: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5624,7 +5564,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setContentLength: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5632,7 +5572,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setCreated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5640,7 +5580,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setUpdated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5648,7 +5588,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setDeleted: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5656,7 +5596,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setActive: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5664,7 +5604,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUpdateSequenceNum: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5672,7 +5612,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setNotebookGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5690,7 +5630,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [inProtocol readListEnd];
           [self setTagGuids: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5710,7 +5650,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [inProtocol readListEnd];
           [self setResources: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5720,7 +5660,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setAttributes: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -5738,7 +5678,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [inProtocol readListEnd];
           [self setTagNames: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6069,12 +6009,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -6083,7 +6023,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setUri: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6091,7 +6031,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
           [self setOrder: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6099,7 +6039,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setAscending: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6107,7 +6047,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setPublicDescription: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6478,12 +6418,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -6492,7 +6432,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6500,7 +6440,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6508,7 +6448,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUpdateSequenceNum: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6516,7 +6456,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setDefaultNotebook: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6524,7 +6464,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setServiceCreated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6532,7 +6472,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setServiceUpdated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6542,7 +6482,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [fieldValue read: inProtocol];
           [self setPublishing: fieldValue];
           [fieldValue release];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6550,7 +6490,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setPublished: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6558,7 +6498,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setStack: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6847,12 +6787,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -6861,7 +6801,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6869,7 +6809,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6877,7 +6817,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setQuery: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6885,7 +6825,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int fieldValue = [inProtocol readI32];
           [self setFormat: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -6893,7 +6833,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUpdateSequenceNum: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7370,12 +7310,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -7384,7 +7324,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7392,7 +7332,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setWidth: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7400,7 +7340,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setHeight: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7408,7 +7348,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setAdvertiserName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7416,7 +7356,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setImageUrl: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7424,7 +7364,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setDestinationUrl: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7432,7 +7372,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I16) {
           int16_t fieldValue = [inProtocol readI16];
           [self setDisplaySeconds: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7440,7 +7380,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setScore: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7448,7 +7388,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSData * fieldValue = [inProtocol readBinary];
           [self setImage: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7456,7 +7396,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setImageMime: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7464,7 +7404,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setHtml: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7472,7 +7412,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_DOUBLE) {
           double fieldValue = [inProtocol readDouble];
           [self setDisplayFrequency: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7907,12 +7847,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -7921,7 +7861,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7929,7 +7869,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I32) {
           int32_t fieldValue = [inProtocol readI32];
           [self setUserId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7937,7 +7877,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setNotebookGuid: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7945,7 +7885,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setEmail: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7953,7 +7893,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setNotebookModifiable: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7961,7 +7901,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_BOOL) {
           BOOL fieldValue = [inProtocol readBool];
           [self setRequireLogin: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7969,7 +7909,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setServiceCreated: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7977,7 +7917,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setShareKey: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -7985,7 +7925,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setUsername: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8313,12 +8253,12 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   NSString * fieldName;
   int fieldType;
   int fieldID;
-
+  
   [inProtocol readStructBeginReturningName: NULL];
   while (true)
   {
     [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
-    if (fieldType == TType_STOP) { 
+    if (fieldType == TType_STOP) {
       break;
     }
     switch (fieldID)
@@ -8327,7 +8267,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_I64) {
           int64_t fieldValue = [inProtocol readI64];
           [self setId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8335,7 +8275,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setShareName: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8343,7 +8283,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setUsername: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8351,7 +8291,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setShardId: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8359,7 +8299,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setShareKey: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8367,7 +8307,7 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
         if (fieldType == TType_STRING) {
           NSString * fieldValue = [inProtocol readString];
           [self setUri: fieldValue];
-        } else { 
+        } else {
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
@@ -8445,4 +8385,3 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
 }
 
 @end
-
