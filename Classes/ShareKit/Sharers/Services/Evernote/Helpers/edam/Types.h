@@ -53,19 +53,22 @@ typedef int64_t EDAMTimestamp;
   NSData * __bodyHash;
   int32_t __size;
   NSData * __body;
+  NSData * __recipients;
 
   BOOL __bodyHash_isset;
   BOOL __size_isset;
   BOOL __body_isset;
+  BOOL __recipients_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, retain, getter=bodyHash, setter=setBodyHash:) NSData * bodyHash;
 @property (nonatomic, getter=size, setter=setSize:) int32_t size;
 @property (nonatomic, retain, getter=body, setter=setBody:) NSData * body;
+@property (nonatomic, retain, getter=recipients, setter=setRecipients:) NSData * recipients;
 #endif
 
-- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body;
+- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body recipients: (NSData *) recipients;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -81,6 +84,10 @@ typedef int64_t EDAMTimestamp;
 - (NSData *) body;
 - (void) setBody: (NSData *) body;
 - (BOOL) bodyIsSet;
+
+- (NSData *) recipients;
+- (void) setRecipients: (NSData *) recipients;
+- (BOOL) recipientsIsSet;
 
 @end
 

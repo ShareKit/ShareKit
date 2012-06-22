@@ -39,9 +39,10 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
 @dynamic bodyHash;
 @dynamic size;
 @dynamic body;
+@dynamic recipients;
 #endif
 
-- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body
+- (id) initWithBodyHash: (NSData *) bodyHash size: (int32_t) size body: (NSData *) body recipients: (NSData *) recipients
 {
   self = [super init];
   __bodyHash = [bodyHash retain];
@@ -50,6 +51,16 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   __size_isset = YES;
   __body = [body retain];
   __body_isset = YES;
+  if (recipients) {
+    __recipients = [recipients retain];
+    __recipients_isset = YES;
+  }
+  else
+  {
+    __recipients = nil;
+    __recipients_isset = NO;
+  }
+  
   return self;
 }
 
@@ -71,6 +82,11 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
     __body = [[decoder decodeObjectForKey: @"body"] retain];
     __body_isset = YES;
   }
+  if ([decoder containsValueForKey: @"recipients"])
+  {
+    __recipients = [[decoder decodeObjectForKey: @"recipients"] retain];
+    __recipients_isset = YES;
+  }
   return self;
 }
 
@@ -88,12 +104,17 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   {
     [encoder encodeObject: __body forKey: @"body"];
   }
+  if (__body_isset)
+  {
+    [encoder encodeObject: __recipients forKey: @"recipients"];
+  }
 }
 
 - (void) dealloc
 {
   [__bodyHash release];
   [__body release];
+  [__recipients release];
   [super dealloc];
 }
 
@@ -156,6 +177,27 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   __body_isset = NO;
 }
 
+- (NSData *) recipients {
+	return [[__recipients retain] autorelease];
+}
+
+- (void) setRecipients: (NSData *) recipients {
+	[recipients retain];
+	[__recipients release];
+	__recipients = recipients;
+	__recipients_isset = YES;
+}
+
+- (BOOL) recipientsIsSet {
+	return __recipients_isset;
+}
+
+- (void) unsetRecipients {
+	[__recipients release];
+	__recipients = nil;
+	__recipients_isset = NO;
+}
+
 - (void) read: (id <TProtocol>) inProtocol
 {
   NSString * fieldName;
@@ -195,6 +237,14 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         }
         break;
+      case 4:
+        if (fieldType == TType_STRING) {
+          NSData * fieldValue = [inProtocol readBinary];
+          [self setRecipients: fieldValue];
+        } else {
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
       default:
         [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
         break;
@@ -225,6 +275,13 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
       [outProtocol writeFieldEnd];
     }
   }
+  if (__recipients_isset) {
+    if (__recipients != nil) {
+      [outProtocol writeFieldBeginWithName: @"recipients" type: TType_STRING fieldID: 3];
+      [outProtocol writeBinary: __recipients];
+      [outProtocol writeFieldEnd];
+    }
+  }
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -237,6 +294,9 @@ static NSString * EDAMEDAM_NOTE_SOURCE_MAIL_SMTP_GATEWAY = @"mail.smtp";
   [ms appendFormat: @"%i", __size];
   [ms appendString: @",body:"];
   [ms appendFormat: @"\"%@\"", __body];
+  [ms appendString: @")"];
+  [ms appendString: @",recipients:"];
+  [ms appendFormat: @"\"%@\"", __recipients];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
