@@ -348,18 +348,8 @@
 
 /* SHKMail */
 
-//constructed during runtime from user input in shareForm by default
-- (NSString*)mailBody {
-    return nil;
-}
-
 - (NSNumber*)isMailHTML {
     return [NSNumber numberWithInt:1];
-}
-
-//user enters them in MFMailComposeViewController by default. Should be array of NSStrings.
-- (NSArray*)mailToRecipients {
-    return nil;
 }
 
 //used only if you share image. Values from 1.0 to 0.0 (maximum compression).
@@ -384,11 +374,6 @@
 }
 
 /* SHKTextMessage */
-
-//constructed during runtime from user input in shareForm by default
-- (NSString *)textMessageBody {
-  return nil;
-}
 
 //user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
 - (NSArray *)textMessageToRecipients {

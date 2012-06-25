@@ -196,14 +196,9 @@
 
 /* SHKTextMessage */
 
-//constructed during runtime from user input in shareForm by default
-- (NSString *)textMessageBody {
-  return nil;
-}
-
 //user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
 - (NSArray *)textMessageToRecipients {
-  return [NSArray arrayWithObjects:@"1111111111111", @"2222222222222", nil];
+	return nil;
 }
 
 /*

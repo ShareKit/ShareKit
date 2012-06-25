@@ -117,11 +117,9 @@
 	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
 	composeView.messageComposeDelegate = self;
   
-	NSString *body = self.item.textMessageBody;
+	NSString *body = item.text;
 	
 	if (!body) {
-		if (item.text != nil)
-			body = item.text;
 		
 		if (item.URL != nil)
 		{	

@@ -98,16 +98,13 @@
 //SHKPrint
 - (NSNumber*)printOutputType;
 //SHKMail
-- (NSString*)mailBody;
 - (NSNumber*)isMailHTML;
-- (NSArray*)mailToRecipients;
 - (NSNumber*)mailJPGQuality;
 - (NSNumber*)sharedWithSignature;
 //SHKFacebook
 - (NSString *)facebookURLSharePictureURI;
 - (NSString *)facebookURLShareDescription;
 //SHKTextMessage
-- (NSString *)textMessageBody;
 - (NSArray *)textMessageToRecipients;
 
 @end

@@ -75,6 +75,8 @@
 
 	
 	SHKItem *item = [SHKItem text:text];
+	item.textMessageToRecipients = [NSArray arrayWithObjects:@"1111111111111", @"2222222222222", nil];
+	
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
