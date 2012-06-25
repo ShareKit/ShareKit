@@ -198,7 +198,7 @@
 
 //user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
 - (NSArray *)textMessageToRecipients {
-	return nil;
+	return [NSArray arrayWithObjects:@"one@mail.com", @"two@mail.com", @"581347615", @"581344543", nil];;
 }
 
 /*

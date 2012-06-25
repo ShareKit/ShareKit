@@ -56,10 +56,6 @@
 - (void)share
 {
 	SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle] contentType:(SHKURLContentTypeWebpage)];
-    //SHKItem *item = [SHKItem URL:[NSURL URLWithString:@"http://www.youtube.com/watch?v=3t8MeE8Ik4Y"] title:@"Big bang" contentType:SHKURLContentTypeVideo];
-    //item.facebookURLSharePictureURI = @"http://www.state.gov/cms_images/india_tajmahal_2003_06_252.jpg";
-    //item.facebookURLShareDescription = @"description text";
-    item.textMessageToRecipients = [NSArray arrayWithObjects:@"frodo@middle-earth.me", @"gandalf@middle-earth.me", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar]; 
