@@ -126,22 +126,20 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = self.item.mailBody;
+	NSString *body = item.text;
 	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
     
 	if (body == nil)
 	{
-		if (item.text != nil)
-			body = item.text;
+		body = @"";
 		
 		if (item.URL != nil)
-		{	
+		{
 			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
-			if (body != nil)
+			if (isHTML)
 				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
-			
 			else
 				body = urlStr;
 		}
@@ -150,9 +148,8 @@
 		{
 			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
 			
-			if (body != nil)
+			if (isHTML)
 				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
-			
 			else
 				body = attachedStr;
 		}

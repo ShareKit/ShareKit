@@ -61,9 +61,19 @@ typedef enum
 	NSData *data;
 	NSString *mimeType;
 	NSString *filename;
-	
-	@private
-		NSMutableDictionary *custom;
+  
+  NSArray *mailToRecipients;
+  BOOL isMailHTML;
+  CGFloat mailJPGQuality;
+  BOOL mailShareWithAppSignature;
+  
+  NSString *facebookURLSharePictureURI;
+  NSString *facebookURLShareDescription;
+
+  NSArray *textMessageToRecipients;
+  
+@private
+	NSMutableDictionary *custom;
 }
 
 @property (nonatomic)			SHKShareType shareType;
@@ -118,9 +128,8 @@ typedef enum
 @property (nonatomic) UIPrintInfoOutputType printOutputType;
 
 /* SHKMail */
-@property (nonatomic, retain) NSString *mailBody;
+@property (nonatomic, retain) NSArray *mailToRecipients;
 @property BOOL isMailHTML;
-@property (nonatomic, retain) NSArray *mailToRecipients; 
 @property CGFloat mailJPGQuality; 
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 
@@ -128,6 +137,8 @@ typedef enum
 @property (nonatomic, retain) NSString *facebookURLSharePictureURI;
 @property (nonatomic, retain) NSString *facebookURLShareDescription;
 
+/* SHKTextMessage */
+@property (nonatomic, retain) NSArray *textMessageToRecipients;
 /* if you add new sharer specific properties, make sure to add them also to dictionaryRepresentation, itemWithDictionary and description methods in SHKItem.m */
 
 @end
