@@ -62,6 +62,7 @@ typedef enum
 	NSString *mimeType;
 	NSString *filename;
   
+  NSArray *mailToRecipients;
   BOOL isMailHTML;
   CGFloat mailJPGQuality;
   BOOL mailShareWithAppSignature;
@@ -71,8 +72,8 @@ typedef enum
 
   NSArray *textMessageToRecipients;
   
-	@private
-		NSMutableDictionary *custom;
+@private
+	NSMutableDictionary *custom;
 }
 
 @property (nonatomic)			SHKShareType shareType;
@@ -127,6 +128,7 @@ typedef enum
 @property (nonatomic) UIPrintInfoOutputType printOutputType;
 
 /* SHKMail */
+@property (nonatomic, retain) NSArray *mailToRecipients;
 @property BOOL isMailHTML;
 @property CGFloat mailJPGQuality; 
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"

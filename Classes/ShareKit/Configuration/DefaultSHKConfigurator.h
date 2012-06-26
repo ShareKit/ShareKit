@@ -98,6 +98,7 @@
 //SHKPrint
 - (NSNumber*)printOutputType;
 //SHKMail
+- (NSArray *)mailToRecipients;
 - (NSNumber*)isMailHTML;
 - (NSNumber*)mailJPGQuality;
 - (NSNumber*)sharedWithSignature;

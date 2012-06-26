@@ -169,7 +169,7 @@
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
-	NSArray *toRecipients = self.item.textMessageToRecipients;
+	NSArray *toRecipients = self.item.mailToRecipients;
     if (toRecipients)
 		[mailController setToRecipients:toRecipients];
     

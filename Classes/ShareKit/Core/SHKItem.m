@@ -45,7 +45,7 @@
 @synthesize URL, URLContentType, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
 @synthesize printOutputType;
-@synthesize mailJPGQuality, isMailHTML, mailShareWithAppSignature;
+@synthesize mailToRecipients, mailJPGQuality, isMailHTML, mailShareWithAppSignature;
 @synthesize facebookURLSharePictureURI, facebookURLShareDescription;
 @synthesize textMessageToRecipients;
 
@@ -65,10 +65,11 @@
 	
 	[custom release];
 
-  [facebookURLSharePictureURI release];
-  [facebookURLShareDescription release];
+	[mailToRecipients release];
+	[facebookURLSharePictureURI release];
+	[facebookURLShareDescription release];
   
-	if (textMessageToRecipients) [textMessageToRecipients release], textMessageToRecipients = nil;
+	[textMessageToRecipients release];
   
 	[super dealloc];
 }
@@ -88,6 +89,7 @@
     
   printOutputType = [SHKCONFIG(printOutputType) intValue];
 
+  mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
   mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
   isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
   mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
@@ -212,6 +214,9 @@
   if ([dictionary objectForKey:@"printOutputType"] != nil)
 		item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
   
+	if ([dictionary objectForKey:@"mailToRecipients"] != nil)
+		item.mailToRecipients = [dictionary objectForKey:@"mailToRecipients"];
+	
   if ([dictionary objectForKey:@"isMailHTML"] != nil)
 		item.isMailHTML = [[dictionary objectForKey:@"isMailHTML"] boolValue];
   
@@ -269,23 +274,25 @@
     
     [dictionary setObject:[NSNumber numberWithInt:printOutputType] forKey:@"printOutputType"];
   
-  [dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"isMailHTML"];
+	[dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"mailToRecipients"];
+	
+	[dictionary setObject:[NSNumber numberWithBool:isMailHTML] forKey:@"isMailHTML"];
   
-  [dictionary setObject:[NSNumber numberWithFloat:mailJPGQuality] forKey:@"mailJPGQuality"];
+	[dictionary setObject:[NSNumber numberWithFloat:mailJPGQuality] forKey:@"mailJPGQuality"];
   
-  [dictionary setObject:[NSNumber numberWithBool:mailShareWithAppSignature] forKey:@"mailShareWithAppSignature"];
+	[dictionary setObject:[NSNumber numberWithBool:mailShareWithAppSignature] forKey:@"mailShareWithAppSignature"];
   
-  if (facebookURLSharePictureURI) {
-    [dictionary setObject:facebookURLSharePictureURI forKey:@"facebookURLSharePictureURI"];
-  }
-  
-  if (facebookURLShareDescription) {
-    [dictionary setObject:facebookURLShareDescription forKey:@"facebookURLShareDescription"];
-  }
-  
-  if (textMessageToRecipients) {
-    [dictionary setObject:textMessageToRecipients forKey:@"textMessageToRecipients"];
-  }
+	if (facebookURLSharePictureURI) {
+		[dictionary setObject:facebookURLSharePictureURI forKey:@"facebookURLSharePictureURI"];
+	}
+
+	if (facebookURLShareDescription) {
+		[dictionary setObject:facebookURLShareDescription forKey:@"facebookURLShareDescription"];
+	}
+
+	if (textMessageToRecipients) {
+		[dictionary setObject:textMessageToRecipients forKey:@"textMessageToRecipients"];
+	}
 	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
@@ -303,6 +310,7 @@
                                                     Custom fields:%@\n\n\
                                                     Sharer specific\n\n\
                                                     Print output type: %i\n\
+													mailToRecipients: %@\n\
                                                     isMailHTML: %i\n\
                                                     mailJPGQuality: %f\n\
                                                     mailShareWithAppSignature: %i\n\
@@ -318,6 +326,7 @@
                                                     self.tags, 
                                                     [self.custom description],
                                                     self.printOutputType,
+													self.mailToRecipients,
                                                     self.isMailHTML,
                                                     self.mailJPGQuality,
                                                     self.mailShareWithAppSignature,

@@ -373,6 +373,13 @@
     return nil;
 }
 
+/* SHKMail */
+
+//user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
+- (NSArray *)mailToRecipients {
+	return nil;
+}
+
 /* SHKTextMessage */
 
 //user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
