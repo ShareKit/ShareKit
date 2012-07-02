@@ -752,7 +752,8 @@
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
 	self.lastError = error;
-	
+	SHKLog(@"%@", [self.request description]);
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFailWithError" object:self];
     
 	if ([self.shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
@@ -774,6 +775,27 @@
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];
     }
+}
+
+- (void)authShowBadCredentialsAlert {
+    
+    SHKLog(@"%@", [self.request description]);
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowBadCredentialsAlert:)]) {		
+        [self.shareDelegate sharerShowBadCredentialsAlert:self];
+    }
+}
+
+- (void)authShowOtherAuthorizationErrorAlert {
+    
+    SHKLog(@"%@", [self.request description]);
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowOtherAuthorizationErrorAlert:)]) {
+        [self.shareDelegate sharerShowOtherAuthorizationErrorAlert:self];
+    }
+}
+
+- (void)sendShowSimpleErrorAlert {
+    
+    [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
 }
 
 @end

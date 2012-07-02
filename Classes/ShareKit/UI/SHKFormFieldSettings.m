@@ -30,30 +30,35 @@
 
 @implementation SHKFormFieldSettings
 
-@synthesize label, key, type, start, optionPickerInfo;
+@synthesize label, key, type, start, value, optionPickerInfo, optionDetailLabelDefault;
 
 - (void)dealloc
 {
 	[label release];
 	[key release];
 	[start release];
+    [value release];
+    [optionPickerInfo release];
+    [optionDetailLabelDefault release];
 	
 	[super dealloc];
 }
 
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s
 {
-	return [SHKFormFieldSettings label:l key:k type:t start:s optionPickerInfo:nil];
+	return [SHKFormFieldSettings label:l key:k type:t start:s optionPickerInfo:nil optionDetailLabelDefault:nil];
 }
 
-+ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s optionPickerInfo:(NSMutableDictionary*) oi;
++ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s optionPickerInfo:(NSMutableDictionary*) oi optionDetailLabelDefault:(NSString *)od
 {
 	SHKFormFieldSettings *settings = [[SHKFormFieldSettings alloc] init];
 	settings.label = l;
 	settings.key = k;
 	settings.type = t;	
 	settings.start = s;
+    settings.value = s;
 	settings.optionPickerInfo = oi;
+    settings.optionDetailLabelDefault = od;
 	return [settings autorelease];
 }
 

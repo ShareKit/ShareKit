@@ -68,6 +68,10 @@
 - (NSString*)readItLaterKey {
 	return @"45aT6Vfvg66eWNebybd680gu13pdba3d";
 }
+// Diigo - http://diigo.com/api_dev
+-(NSString*)diigoKey {
+  return @"f401ddc3546cdf3c";
+}
 // Twitter - http://dev.twitter.com/apps/new
 /*
  Important Twitter settings to get right:
@@ -169,6 +173,18 @@
 	return @"http://yourdomain.com/callback";
 }
 
+- (NSString*)readabilityConsumerKey {
+	return @"ctruman";
+}
+
+- (NSString*)readabilitySecret {
+	return @"RGXDE6wTygKtkwDBHpnjCAyvz2dtrhLD";
+}
+
+//Only supports XAuth currently
+- (NSNumber*)readabilityUseXAuth {
+  return [NSNumber numberWithInt:1];;
+}
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"NFJOGLJBI4C4RSZ3DQGR0W4ED5ZWAAE5QO3FW02Z3LLVZCT4";

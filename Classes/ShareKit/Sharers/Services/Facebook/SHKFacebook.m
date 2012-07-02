@@ -41,6 +41,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (NSString *)storedImagePath:(UIImage*)image;
 + (UIImage*)storedImage:(NSString*)imagePath;
 - (void)showFacebookForm;
+- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate;
 
 @end
 
@@ -109,6 +110,20 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 + (BOOL)handleOpenURL:(NSURL*)url 
 {
   Facebook *fb = [SHKFacebook facebook];
+  
+  //if app has "Application does not run in background" = YES, or was killed before it could return from Facebook SSO callback (from Safari or Facebook app)
+  if (!fb.sessionDelegate)
+  {      
+    SHKFacebook *facebookSharer = [[SHKFacebook alloc] init]; //released in fbDidLogin
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
+    {
+        facebookSharer.pendingAction = SHKPendingShare;
+    } 
+      
+    [fb setSessionDelegate:facebookSharer];      
+  }    
+    
   return [fb handleOpenURL:url];
 }
 
@@ -206,11 +221,18 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[params setObject:url forKey:@"link"];
 		[params setObject:item.title == nil ? url : item.title
 				   forKey:@"name"];    
-		if (item.text)
+		
+        //message parameter is invalid since 2011. Next two lines are useless.
+        if (item.text)
 			[params setObject:item.text forKey:@"message"];
-		NSString *pictureURI = [item customValueForKey:@"picture"];
+        
+		NSString *pictureURI = self.item.facebookURLSharePictureURI;
 		if (pictureURI)
 			[params setObject:pictureURI forKey:@"picture"];
+        
+		NSString *description = self.item.facebookURLShareDescription;
+		if (description)
+			[params setObject:description forKey:@"description"];
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
@@ -308,15 +330,16 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     
 }
 
-#pragma mark FBSessionDelegate methods
+#pragma mark - FBSessionDelegate methods
 
 - (void)fbDidLogin 
 {
 	NSString *accessToken = [[SHKFacebook facebook] accessToken];
 	NSDate *expiryDate = [[SHKFacebook facebook] expirationDate];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
-	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
+    [self saveFBAccessToken:accessToken expiring:expiryDate];
+	
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
 	if (storedItem)
 	{
@@ -350,17 +373,42 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     [self release]; //see [self promptAuthorization]
 }
 
-#pragma mark FBRequestDelegate methods
+- (void)fbDidExtendToken:(NSString*)accessToken
+               expiresAt:(NSDate*)expiresAt {
+    
+    [self saveFBAccessToken:accessToken expiring:expiresAt];
+    
+}
+
+- (void)fbDidLogout {
+ 
+    //we do nothing now, as we called [self flushAccessToken] during + (void)logout
+}
+
+- (void)fbSessionInvalidated {
+    
+}
+
+#pragma mark -
+
+- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
+	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
+    [defaults synchronize];
+}
+
+#pragma mark - FBRequestDelegate methods
 
 - (void)requestLoading:(FBRequest *)request
 {
   [self sendDidStart];
 }
 
-- (void)request:(FBRequest *)request didLoad:(id)result
+- (void)request:(FBRequest *)fbRequest didLoad:(id)result
 {   
-    if ([result objectForKey:@"username"]){
-        
+    if ([fbRequest.url hasSuffix:@"/me"] && [result objectForKey:@"id"]) {
         [result convertNSNullsToEmptyStrings];
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
     }     
@@ -372,7 +420,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 - (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
 {
     //if user revoked app permissions
-    if (error.domain == @"facebookErrDomain" && error.code == 10000) {
+    NSNumber *fbErrorCode = [[error.userInfo valueForKey:@"error"] valueForKey:@"code"];
+    if (error.domain == @"facebookErrDomain" && [fbErrorCode intValue] == 190) {
         [self shouldReloginWithPendingAction:SHKPendingSend];
     } else {
         [self sendDidFailWithError:error];
@@ -381,8 +430,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     [self release]; //see [self send]
 }
 
-#pragma mark -	
-#pragma mark UI Implementation
+
+#pragma mark - UI Implementation
 
 - (void)show
 {

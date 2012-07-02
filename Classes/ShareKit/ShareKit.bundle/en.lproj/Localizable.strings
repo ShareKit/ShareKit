@@ -92,11 +92,9 @@
 
 "There was an error saving to Pinboard" = "There was an error saving to Pinboard";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Sorry, Instapaper did not accept your credentials. Please try again.";
-
-"Sorry, Instapaper encountered an error. Please try again." = "Sorry, Instapaper encountered an error. Please try again.";
-
-"There was a problem saving to Instapaper." = "There was a problem saving to Instapaper.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Sorry, %@ did not accept your credentials. Please try again.";
+"Sorry, %@ encountered an error. Please try again." = "Sorry, %@ encountered an error. Please try again.";
+"There was a problem saving to %@." = "There was a problem saving to %@.";
 
 "Incorrect username and password" = "Incorrect username and password";
 
@@ -209,3 +207,5 @@
 /* No comment provided by engineer. */
 "Searching places..." = "Searching places...";
 
+"Select Group" = "Select Group";
+"Flickr Groups" = "Flickr Groups";

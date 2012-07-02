@@ -126,8 +126,10 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = [item customValueForKey:@"body"];
-	
+	NSString *body = self.item.mailBody;
+	BOOL isHTML = self.item.isMailHTML;
+	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
+    
 	if (body == nil)
 	{
 		if (item.text != nil)
@@ -138,7 +140,7 @@
 			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
 			
 			else
 				body = urlStr;
@@ -149,7 +151,7 @@
 			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
 			
 			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", attachedStr];
+				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
 			
 			else
 				body = attachedStr;
@@ -160,29 +162,28 @@
 			body = @"";
 		
 		// sig
-		if ([SHKCONFIG(sharedWithSignature) boolValue])
+		if (self.item.mailShareWithAppSignature)
 		{
-			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:separator];
 			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
-		
-		// save changes to body
-		[item setCustomValue:body forKey:@"body"];
 	}
 	
 	if (item.data)		
 		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 	
+	NSArray *toRecipients = self.item.mailToRecipients;
+    if (toRecipients)
+		[mailController setToRecipients:toRecipients];
+    
 	if (item.image){
-		float jpgQuality = 1;
-		if ([item customValueForKey:@"jpgQuality"] != nil) {
-			jpgQuality = [[item customValueForKey:@"jpgQuality"] floatValue];
-		}
-		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+        
+        CGFloat jpgQuality = self.item.mailJPGQuality;
+        [mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
 	}
 	
 	[mailController setSubject:item.title];
-	[mailController setMessageBody:body isHTML:YES];
+	[mailController setMessageBody:body isHTML:isHTML];
 			
 	[[SHK currentHelper] showViewController:mailController];
 	

@@ -100,11 +100,20 @@
 	if (provider != nil) {
 		[provider SHKFormOptionControllerCancelEnumerateOptions:self];
 	}
-	[client SHKFormOptionController:self pickedOption:nil];
+	[client SHKFormOptionControllerDidFinish:self];
 }
 
 - (IBAction)done:(id)sender {
-	[client SHKFormOptionController:self pickedOption:[settings optionPickerValueForIndexes:[settings.optionPickerInfo objectForKey:@"curIndexes"]]];
+	
+    NSString *pickedValues = [settings optionPickerValueForIndexes:[settings.optionPickerInfo objectForKey:@"curIndexes"]];
+    
+    BOOL pickedNone = [pickedValues isEqualToString:@"-1"];    
+    if(pickedNone) {        
+        pickedValues = nil;        
+    }
+    
+    self.settings.value = pickedValues;
+    [client SHKFormOptionControllerDidFinish:self];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
@@ -198,7 +207,7 @@
 		[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}else{
 		[settings.optionPickerInfo setValue:[[NSNumber numberWithInt:indexPath.row]stringValue] forKey:@"curIndexes"];
-		[client SHKFormOptionController:self pickedOption:[[settings.optionPickerInfo objectForKey:@"itemsList"] objectAtIndex:indexPath.row]];
+		[self done:nil];
 	}
 }
 

@@ -98,19 +98,17 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 		[pendingForm saveForm];
 	
 	else {
-    NSString *errorMessage = nil;
-    if (aRequest.response.statusCode == 403)
-      errorMessage = SHKLocalizedString(@"Sorry, Instapaper did not accept your credentials. Please try again.");
-    else
-      errorMessage = SHKLocalizedString(@"Sorry, Instapaper encountered an error. Please try again.");
-      
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                 message:errorMessage
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
-	}
-	[self authDidFinish:aRequest.success];
+        
+        if (aRequest.response.statusCode == 403)
+        {
+            [self authShowBadCredentialsAlert];
+        }
+        else
+        {
+            [self authShowOtherAuthorizationErrorAlert];
+        }
+    }
+    [self authDidFinish:aRequest.success];
 }
 
 #pragma mark -
@@ -156,19 +154,20 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 - (void)sendFinished:(SHKRequest *)aRequest
 {
 	if (!aRequest.success) {
-		if (aRequest.response.statusCode == 403) {
+		       
+        if (aRequest.response.statusCode == 403) {//user changed password
             [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
-    else if (aRequest.response.statusCode == 500) {		
-      [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
-      return;
-    }
-    
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to Instapaper.")]];
+        else if (aRequest.response.statusCode == 500) {		
+            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
+            return;
+        }
+        
+		[self sendShowSimpleErrorAlert];
 		return;
 	}
-  
+    
 	[self sendDidFinish];
 }
 

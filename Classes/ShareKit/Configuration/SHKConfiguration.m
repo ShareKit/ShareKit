@@ -46,7 +46,7 @@ static SHKConfiguration *sharedInstance = nil;
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object
 {
-	SHKLog(@"Looking for a configuration value for %@.", selector);
+	//SHKLog(@"Looking for a configuration value for %@.", selector);
 
 	SEL sel = NSSelectorFromString(selector);
 	if ([self.configurator respondsToSelector:sel]) {
@@ -58,12 +58,12 @@ static SHKConfiguration *sharedInstance = nil;
         }
 
 		if (value) {
-			SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
+			//SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
 			return value;
 		}
 	}
 
-	SHKLog(@"Didn't find a configuration value for %@.", selector);
+	//SHKLog(@"Configuration value is nil or not found for %@.", selector);
 	return nil;
 }
 

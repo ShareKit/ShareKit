@@ -1,9 +1,8 @@
-    //
-//  SHKViewControllerWrapper.m
+//
+//  SHKDiigo.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/28/10.
-
+//  Created by saturngod on 11 Jan 2012
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,14 +24,12 @@
 //
 //
 
-#import "SHKViewControllerWrapper.h"
+#import <Foundation/Foundation.h>
+#import "SHKSharer.h"
 
-
-@implementation SHKViewControllerWrapper
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+@interface SHKDiigo : SHKSharer 
 {
-    return YES;
+
 }
 
 @end

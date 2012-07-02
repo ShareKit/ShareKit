@@ -92,11 +92,11 @@
 
 "There was an error saving to Pinboard" = "Počas odosielania na Pinboard sa vyskytla chyba";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "Prepáčte, Instapaper neakceptoval Vaše prihlasovacie údaje. Skúste znova, prosím.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Prepáčte, %@ neakceptoval Vaše prihlasovacie údaje. Skúste znova, prosím.";
 
-"Sorry, Instapaper encountered an error. Please try again." = "Prepáčte, na službe Instapaper sa vyskytla chyba. Skúste znova, prosím.";
+"Sorry, %@ encountered an error. Please try again." = "Prepáčte, na službe %@ sa vyskytla chyba. Skúste znova, prosím.";
 
-"There was a problem saving to Instapaper." = "Počas odosielania na Instapaper sa vyskytla chyba.";
+"There was a problem saving to %@." = "Počas odosielania na %@ sa vyskytla chyba.";
 
 "Incorrect username and password" = "Nesprávne meno a heslo";
 
@@ -211,4 +211,7 @@
 
 /* No comment provided by engineer. */
 "Searching places..." = "Hľadám miesta...";
+
+"Select Group" = "Vybrať skupinu";
+"Flickr Groups" = "Flickr skupiny";
 

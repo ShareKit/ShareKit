@@ -1,9 +1,7 @@
 //
-//  SHKViewControllerWrapper.h
+//  SHKReadability.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/28/10.
-
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +23,22 @@
 //
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "SHKOAuthSharer.h"
+#import "SHKFormOptionController.h"
 
-
-@interface SHKViewControllerWrapper : UIViewController {
-
+@interface SHKReadability : SHKOAuthSharer
+{	
+	BOOL xAuth;		
 }
+
+@property BOOL xAuth;
+
+#pragma mark -
+#pragma mark Share API Methods
+
+- (void)sendBookmark;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 @end
