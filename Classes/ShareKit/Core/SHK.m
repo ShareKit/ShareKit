@@ -517,7 +517,7 @@ static NSDictionary *sharersDictionary = nil;
         sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
     }
     
-    NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
+    //NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
     
 	
 	return sharersDictionary;
@@ -779,7 +779,7 @@ NSString* SHKLocalizedStringFormat(NSString* key)
 	 }
     bundle = [[NSBundle bundleWithPath:path] retain];
     
-    NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
+//    NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
 }
