@@ -98,6 +98,16 @@
 	return YES;
 }
 
+- (BOOL)validateItem
+{
+	BOOL isValid = [super validateItem];
+	
+	//we can send as long as there is something in one of these fields
+	if(isValid == NO && (item.URL || item.title || item.text || item.filename || item.image || item.mailBody))
+		isValid = YES;
+
+	return isValid;
+}
 
 
 #pragma mark -
