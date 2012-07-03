@@ -44,6 +44,7 @@
  
 */
 #define SBJSON MGSBJSON
+#define SBJsonParser MGSBJsonParser
 #import "MGSBJSON.h"
 #import "NSObject+MGSBJSON.h"
 #import "NSString+MGSBJSON.h"
