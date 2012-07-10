@@ -13,34 +13,6 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
-		427FBAB31592F7C90024F825 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
-		427FBAEF15934A0D0024F825 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
-		42EDC7AB156CFBF400E3303E /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
-		42EDC7AD156CFBF400E3303E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
-		42EDC7B3156CFBF400E3303E /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
-		42EDC7B4156CFBF400E3303E /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
-		42EDC7B5156CFBF400E3303E /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
-		42EDC7B7156CFBF400E3303E /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
-		42EDC7B8156CFBF400E3303E /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
-		42EDC7B9156CFBF400E3303E /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
-		42EDC7BA156CFBF400E3303E /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
-		42EDC7BB156CFBF400E3303E /* TNSFileHandleTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC785156CFBF400E3303E /* TNSFileHandleTransport.m */; };
-		42EDC7BC156CFBF400E3303E /* TNSStreamTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC787156CFBF400E3303E /* TNSStreamTransport.m */; };
-		42EDC7BD156CFBF400E3303E /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC789156CFBF400E3303E /* TSocketClient.m */; };
-		42EDC7BE156CFBF400E3303E /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		42EDC7BF156CFBF400E3303E /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
-		42EDC7C0156CFBF400E3303E /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
-		42EDC7C1156CFBF400E3303E /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
-		42EDC7C2156CFBF400E3303E /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
-		42EDC7C3156CFBF400E3303E /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
-		42EDC7C4156CFBF400E3303E /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
-		42EDC7C5156CFBF400E3303E /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
-		42EDC7C6156CFBF400E3303E /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
-		42EDC7C7156CFBF400E3303E /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
-		42EDC7C8156CFBF400E3303E /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
-		42EDC7C9156CFBF400E3303E /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
-		42EDC7CA156CFBF400E3303E /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
-		42EDC7CB156CFBF400E3303E /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43A5382811DBE480004A1712 /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382611DBE480004A1712 /* example.pdf */; };
 		43A5382911DBE480004A1712 /* sanFran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382711DBE480004A1712 /* sanFran.jpg */; };
@@ -97,20 +69,20 @@
 		7A0F9200156BA2A0009CB40A /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
 		7A0F9201156BA2A0009CB40A /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		7A0F9202156BA2A0009CB40A /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7A0F9203156BA2A0009CB40A /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28D1291AC9700D2A41E /* EDAMLimits.m */; };
-		7A0F9204156BA2A0009CB40A /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28F1291AC9700D2A41E /* Errors.m */; };
-		7A0F9205156BA2A0009CB40A /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2911291AC9700D2A41E /* NoteStore.m */; };
-		7A0F9206156BA2A0009CB40A /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2931291AC9700D2A41E /* Types.m */; };
-		7A0F9207156BA2A0009CB40A /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2951291AC9700D2A41E /* UserStore.m */; };
-		7A0F9208156BA2A0009CB40A /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2991291AC9700D2A41E /* TBinaryProtocol.m */; };
-		7A0F9209156BA2A0009CB40A /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29C1291AC9700D2A41E /* TProtocolException.m */; };
-		7A0F920A156BA2A0009CB40A /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29F1291AC9700D2A41E /* TProtocolUtil.m */; };
-		7A0F920B156BA2A0009CB40A /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A11291AC9700D2A41E /* TApplicationException.m */; };
-		7A0F920C156BA2A0009CB40A /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A31291AC9700D2A41E /* TException.m */; };
-		7A0F920D156BA2A0009CB40A /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A81291AC9700D2A41E /* THTTPClient.m */; };
-		7A0F920E156BA2A0009CB40A /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */; };
-		7A0F920F156BA2A0009CB40A /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AD1291AC9700D2A41E /* TTransportException.m */; };
-		7A0F9210156BA2A0009CB40A /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */; };
+		7A0F9203156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9204156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9205156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9206156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9207156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9208156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9209156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920A156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920B156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920C156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920D156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920E156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920F156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9210156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7A0F9211156BA2A0009CB40A /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7A0F921D156BA2A0009CB40A /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
@@ -139,7 +111,6 @@
 		7A0F923A156BA2A0009CB40A /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
 		7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7A0F923C156BA2A0009CB40A /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
-		7A0F923E156BA2A0009CB40A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
 		7A0F923F156BA2A0009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
 		7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */; };
 		7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
@@ -220,20 +191,20 @@
 		7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
 		7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7AB535101552BE7D00171BCE /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28D1291AC9700D2A41E /* EDAMLimits.m */; };
-		7AB535121552BE7D00171BCE /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28F1291AC9700D2A41E /* Errors.m */; };
-		7AB535141552BE7D00171BCE /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2911291AC9700D2A41E /* NoteStore.m */; };
-		7AB535161552BE7D00171BCE /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2931291AC9700D2A41E /* Types.m */; };
-		7AB535181552BE7D00171BCE /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2951291AC9700D2A41E /* UserStore.m */; };
-		7AB5351A1552BE7D00171BCE /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2991291AC9700D2A41E /* TBinaryProtocol.m */; };
-		7AB5351D1552BE7D00171BCE /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29C1291AC9700D2A41E /* TProtocolException.m */; };
-		7AB535201552BE7D00171BCE /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29F1291AC9700D2A41E /* TProtocolUtil.m */; };
-		7AB535221552BE7D00171BCE /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A11291AC9700D2A41E /* TApplicationException.m */; };
-		7AB535241552BE7D00171BCE /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A31291AC9700D2A41E /* TException.m */; };
-		7AB535281552BE7D00171BCE /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A81291AC9700D2A41E /* THTTPClient.m */; };
-		7AB5352A1552BE7D00171BCE /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */; };
-		7AB5352D1552BE7D00171BCE /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AD1291AC9700D2A41E /* TTransportException.m */; };
-		7AB5352F1552BE7D00171BCE /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */; };
+		7AB535101552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535121552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535141552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535161552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535181552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5351A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5351D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535201552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535221552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535241552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535281552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352F1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
 		7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
@@ -276,6 +247,35 @@
 		7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7AB5358B1552BE7D00171BCE /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
 		7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
+		7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
+		7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
+		7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
+		7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
+		7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
+		7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
+		7AB804FB15AC7A21004FB430 /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
+		7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
+		7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
+		7AB804FE15AC7A21004FB430 /* TNSFileHandleTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC785156CFBF400E3303E /* TNSFileHandleTransport.m */; };
+		7AB804FF15AC7A58004FB430 /* TNSStreamTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC787156CFBF400E3303E /* TNSStreamTransport.m */; };
+		7AB8050015AC7A5B004FB430 /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC789156CFBF400E3303E /* TSocketClient.m */; };
+		7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
+		7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
+		7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
+		7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
+		7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
+		7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
+		7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
+		7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
+		7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
+		7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
+		7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
+		7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
+		7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
+		7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
+		7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
+		7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
+		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
 		7ABCDBA91577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
 		7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
 		7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
@@ -1716,20 +1716,20 @@
 				7A0F9200156BA2A0009CB40A /* SHKDiigo.m in Sources */,
 				7A0F9201156BA2A0009CB40A /* SHKVkontakteOAuthView.m in Sources */,
 				7A0F9202156BA2A0009CB40A /* SHKVkontakte.m in Sources */,
-				7A0F9203156BA2A0009CB40A /* EDAMLimits.m in Sources */,
-				7A0F9204156BA2A0009CB40A /* Errors.m in Sources */,
-				7A0F9205156BA2A0009CB40A /* NoteStore.m in Sources */,
-				7A0F9206156BA2A0009CB40A /* Types.m in Sources */,
-				7A0F9207156BA2A0009CB40A /* UserStore.m in Sources */,
-				7A0F9208156BA2A0009CB40A /* TBinaryProtocol.m in Sources */,
-				7A0F9209156BA2A0009CB40A /* TProtocolException.m in Sources */,
-				7A0F920A156BA2A0009CB40A /* TProtocolUtil.m in Sources */,
-				7A0F920B156BA2A0009CB40A /* TApplicationException.m in Sources */,
-				7A0F920C156BA2A0009CB40A /* TException.m in Sources */,
-				7A0F920D156BA2A0009CB40A /* THTTPClient.m in Sources */,
-				7A0F920E156BA2A0009CB40A /* TMemoryBuffer.m in Sources */,
-				7A0F920F156BA2A0009CB40A /* TTransportException.m in Sources */,
-				7A0F9210156BA2A0009CB40A /* TSharedProcessorFactory.m in Sources */,
+				7A0F9203156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9204156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9205156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9206156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9207156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9208156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9209156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920A156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920B156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920C156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920D156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920E156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920F156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9210156BA2A0009CB40A /* (null) in Sources */,
 				7A0F9211156BA2A0009CB40A /* SHKEvernote.m in Sources */,
 				7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */,
 				7A0F921D156BA2A0009CB40A /* NSError+SHKFoursquareV2.m in Sources */,
@@ -1765,7 +1765,7 @@
 				7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
 				7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
-				7A3864B4157E33EA009E427E /* Reachability.m in Sources */,
+				7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1818,20 +1818,20 @@
 				7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */,
 				7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */,
 				7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */,
-				7AB535101552BE7D00171BCE /* EDAMLimits.m in Sources */,
-				7AB535121552BE7D00171BCE /* Errors.m in Sources */,
-				7AB535141552BE7D00171BCE /* NoteStore.m in Sources */,
-				7AB535161552BE7D00171BCE /* Types.m in Sources */,
-				7AB535181552BE7D00171BCE /* UserStore.m in Sources */,
-				7AB5351A1552BE7D00171BCE /* TBinaryProtocol.m in Sources */,
-				7AB5351D1552BE7D00171BCE /* TProtocolException.m in Sources */,
-				7AB535201552BE7D00171BCE /* TProtocolUtil.m in Sources */,
-				7AB535221552BE7D00171BCE /* TApplicationException.m in Sources */,
-				7AB535241552BE7D00171BCE /* TException.m in Sources */,
-				7AB535281552BE7D00171BCE /* THTTPClient.m in Sources */,
-				7AB5352A1552BE7D00171BCE /* TMemoryBuffer.m in Sources */,
-				7AB5352D1552BE7D00171BCE /* TTransportException.m in Sources */,
-				7AB5352F1552BE7D00171BCE /* TSharedProcessorFactory.m in Sources */,
+				7AB535101552BE7D00171BCE /* (null) in Sources */,
+				7AB535121552BE7D00171BCE /* (null) in Sources */,
+				7AB535141552BE7D00171BCE /* (null) in Sources */,
+				7AB535161552BE7D00171BCE /* (null) in Sources */,
+				7AB535181552BE7D00171BCE /* (null) in Sources */,
+				7AB5351A1552BE7D00171BCE /* (null) in Sources */,
+				7AB5351D1552BE7D00171BCE /* (null) in Sources */,
+				7AB535201552BE7D00171BCE /* (null) in Sources */,
+				7AB535221552BE7D00171BCE /* (null) in Sources */,
+				7AB535241552BE7D00171BCE /* (null) in Sources */,
+				7AB535281552BE7D00171BCE /* (null) in Sources */,
+				7AB5352A1552BE7D00171BCE /* (null) in Sources */,
+				7AB5352D1552BE7D00171BCE /* (null) in Sources */,
+				7AB5352F1552BE7D00171BCE /* (null) in Sources */,
 				7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */,
 				7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */,
 				7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */,
@@ -1885,6 +1885,34 @@
 				7A164DC4157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
 				7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB2157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
+				7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */,
+				7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */,
+				7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */,
+				7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */,
+				7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */,
+				7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */,
+				7AB804FB15AC7A21004FB430 /* TException.m in Sources */,
+				7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */,
+				7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */,
+				7AB804FE15AC7A21004FB430 /* TNSFileHandleTransport.m in Sources */,
+				7AB804FF15AC7A58004FB430 /* TNSStreamTransport.m in Sources */,
+				7AB8050015AC7A5B004FB430 /* TSocketClient.m in Sources */,
+				7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */,
+				7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */,
+				7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */,
+				7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */,
+				7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */,
+				7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */,
+				7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */,
+				7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */,
+				7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */,
+				7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */,
+				7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */,
+				7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */,
+				7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */,
+				7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */,
+				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
+				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
