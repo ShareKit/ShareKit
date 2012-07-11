@@ -21,7 +21,6 @@
 	[super dealloc];	
 }
 
-
 @end
 
 @implementation SHKEvernote
@@ -30,14 +29,19 @@
 {
     self = [super init];
     if (self) {
-        NSString *evernoteHost = SHKCONFIG(evernoteHost);
-        NSString *consumerKey = SHKCONFIG(evernoteConsumerKey);
-        NSString *consumerSecret = SHKCONFIG(evernoteSecret);
-        [EvernoteSession setSharedSessionHost:evernoteHost
-                                   consumerKey:consumerKey 
-                                consumerSecret:consumerSecret];
+        [[self class] fillEvernoteSessionWithAppConfig];
     }
     return self;
+}
+
++ (void)fillEvernoteSessionWithAppConfig
+{
+    NSString *evernoteHost = SHKCONFIG(evernoteHost);
+    NSString *consumerKey = SHKCONFIG(evernoteConsumerKey);
+    NSString *consumerSecret = SHKCONFIG(evernoteSecret);
+    [EvernoteSession setSharedSessionHost:evernoteHost
+                              consumerKey:consumerKey 
+                           consumerSecret:consumerSecret];
 }
 
 #pragma mark -
@@ -83,6 +87,8 @@
 }
 
 + (void)logout {
+    
+    [self fillEvernoteSessionWithAppConfig];
     EvernoteSession *session = [EvernoteSession sharedSession];
     [session logout];
 }
