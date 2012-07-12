@@ -373,7 +373,7 @@
 - (void)authorizationFormShow
 {	
 	// Create the form
-	SHKCustomFormController *form = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
+	SHKFormController *form = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
 	[form addSection:[self authorizationFormFields] header:nil footer:[self authorizationFormCaption]];
 	form.delegate = self;
 	form.validateSelector = @selector(authorizationFormValidate:);
@@ -490,7 +490,7 @@
 	
 	else 
 	{	
-		SHKCustomFormController *rootView = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped 
+		SHKFormController *rootView = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped 
 																		 title:nil
 															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
@@ -531,7 +531,7 @@
 	return nil;
 }
 
-- (void)shareFormValidate:(SHKCustomFormController *)form
+- (void)shareFormValidate:(SHKFormController *)form
 {	
 	/*
 	 
@@ -735,7 +735,7 @@
         if (curOptionController) {
             [self popViewControllerAnimated:NO];//dismiss option controller
             curOptionController = nil;
-            NSAssert([[self topViewController] class] == [SHKCustomFormController class], @"topViewController must be SHKCustomFormController now!");
+            NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
             [self updateItemWithForm:(SHKFormController *)self.topViewController];
         }        
     }

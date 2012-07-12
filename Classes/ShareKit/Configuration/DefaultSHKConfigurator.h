@@ -96,6 +96,7 @@
 - (Class)SHKActionSheetSubclass;
 - (Class)SHKShareMenuSubclass;
 - (Class)SHKShareMenuCellSubclass;
+- (Class)SHKFormControllerSubclass;
 
 //SHKPrint
 - (NSNumber*)printOutputType;

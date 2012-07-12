@@ -313,6 +313,10 @@
     return NSClassFromString(@"UITableViewCell");
 }
 
+- (Class)SHKFormControllerSubclass {
+    return NSClassFromString(@"SHKFormController");
+}
+
 /*
  Advanced Configuration
  ----------------------

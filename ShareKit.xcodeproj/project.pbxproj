@@ -26,7 +26,6 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		7A0F91D0156B9FF2009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
-		7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -143,7 +142,6 @@
 		7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
-		7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7AB534BA1552BE7D00171BCE /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -419,8 +417,6 @@
 		43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOfflineSharer.h; sourceTree = "<group>"; };
 		43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOfflineSharer.m; sourceTree = "<group>"; };
 		43A536AC11DBE3B9004A1712 /* SHKSharers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SHKSharers.plist; sourceTree = "<group>"; };
-		43A536AE11DBE3B9004A1712 /* SHKCustomFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormController.h; sourceTree = "<group>"; };
-		43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormController.m; sourceTree = "<group>"; };
 		43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormFieldCell.h; sourceTree = "<group>"; };
 		43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormFieldCell.m; sourceTree = "<group>"; };
 		43A536B311DBE3B9004A1712 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -1189,8 +1185,6 @@
 		43A53C0B11DC0835004A1712 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				43A536AE11DBE3B9004A1712 /* SHKCustomFormController.h */,
-				43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */,
 				43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */,
 				43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */,
 				3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */,
@@ -1632,7 +1626,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */,
 				7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */,
 				7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
@@ -1729,7 +1722,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */,
 				7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */,
 				7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */,
 				7AB534BA1552BE7D00171BCE /* SHK.m in Sources */,

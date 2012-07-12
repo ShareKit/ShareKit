@@ -27,7 +27,7 @@
 
 #import "SHK.h"
 #import "SHKConfiguration.h"
-#import "SHKCustomFormController.h"
+#import "SHKFormController.h"
 #import "SHKCustomFormFieldCell.h"
 #import "SHKFormFieldCellText.h"
 #import "SHKFormFieldCellSwitch.h"

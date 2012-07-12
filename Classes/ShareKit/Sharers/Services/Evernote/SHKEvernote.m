@@ -106,7 +106,7 @@
 	 nil];
 }
 
-- (void)shareFormValidate:(SHKCustomFormController *)form 
+- (void)shareFormValidate:(SHKFormController *)form 
 {	
 	[form saveForm];
 }
