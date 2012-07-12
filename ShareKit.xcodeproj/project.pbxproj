@@ -256,9 +256,6 @@
 		7AB804FB15AC7A21004FB430 /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
 		7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
 		7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
-		7AB804FE15AC7A21004FB430 /* TNSFileHandleTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC785156CFBF400E3303E /* TNSFileHandleTransport.m */; };
-		7AB804FF15AC7A58004FB430 /* TNSStreamTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC787156CFBF400E3303E /* TNSStreamTransport.m */; };
-		7AB8050015AC7A5B004FB430 /* TSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC789156CFBF400E3303E /* TSocketClient.m */; };
 		7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
 		7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
@@ -344,12 +341,6 @@
 		42EDC781156CFBF400E3303E /* THTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THTTPClient.m; sourceTree = "<group>"; };
 		42EDC782156CFBF400E3303E /* TMemoryBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMemoryBuffer.h; sourceTree = "<group>"; };
 		42EDC783156CFBF400E3303E /* TMemoryBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMemoryBuffer.m; sourceTree = "<group>"; };
-		42EDC784156CFBF400E3303E /* TNSFileHandleTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNSFileHandleTransport.h; sourceTree = "<group>"; };
-		42EDC785156CFBF400E3303E /* TNSFileHandleTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNSFileHandleTransport.m; sourceTree = "<group>"; };
-		42EDC786156CFBF400E3303E /* TNSStreamTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNSStreamTransport.h; sourceTree = "<group>"; };
-		42EDC787156CFBF400E3303E /* TNSStreamTransport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TNSStreamTransport.m; sourceTree = "<group>"; };
-		42EDC788156CFBF400E3303E /* TSocketClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSocketClient.h; sourceTree = "<group>"; };
-		42EDC789156CFBF400E3303E /* TSocketClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSocketClient.m; sourceTree = "<group>"; };
 		42EDC78A156CFBF400E3303E /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
 		42EDC78B156CFBF400E3303E /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
 		42EDC78C156CFBF400E3303E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
@@ -812,12 +803,6 @@
 				42EDC781156CFBF400E3303E /* THTTPClient.m */,
 				42EDC782156CFBF400E3303E /* TMemoryBuffer.h */,
 				42EDC783156CFBF400E3303E /* TMemoryBuffer.m */,
-				42EDC784156CFBF400E3303E /* TNSFileHandleTransport.h */,
-				42EDC785156CFBF400E3303E /* TNSFileHandleTransport.m */,
-				42EDC786156CFBF400E3303E /* TNSStreamTransport.h */,
-				42EDC787156CFBF400E3303E /* TNSStreamTransport.m */,
-				42EDC788156CFBF400E3303E /* TSocketClient.h */,
-				42EDC789156CFBF400E3303E /* TSocketClient.m */,
 				42EDC78A156CFBF400E3303E /* TTransport.h */,
 				42EDC78B156CFBF400E3303E /* TTransportException.h */,
 				42EDC78C156CFBF400E3303E /* TTransportException.m */,
@@ -1894,9 +1879,6 @@
 				7AB804FB15AC7A21004FB430 /* TException.m in Sources */,
 				7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */,
 				7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */,
-				7AB804FE15AC7A21004FB430 /* TNSFileHandleTransport.m in Sources */,
-				7AB804FF15AC7A58004FB430 /* TNSStreamTransport.m in Sources */,
-				7AB8050015AC7A5B004FB430 /* TSocketClient.m in Sources */,
 				7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */,
 				7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */,
 				7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */,
