@@ -309,6 +309,10 @@
     return NSClassFromString(@"SHKShareMenu");
 }
 
+- (Class)SHKShareMenuCellSubclass {
+    return NSClassFromString(@"UITableViewCell");
+}
+
 /*
  Advanced Configuration
  ----------------------

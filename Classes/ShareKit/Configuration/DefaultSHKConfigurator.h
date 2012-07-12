@@ -95,6 +95,7 @@
 - (NSNumber*)allowAutoShare;
 - (Class)SHKActionSheetSubclass;
 - (Class)SHKShareMenuSubclass;
+- (Class)SHKShareMenuCellSubclass;
 
 //SHKPrint
 - (NSNumber*)printOutputType;

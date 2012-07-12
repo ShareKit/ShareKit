@@ -29,7 +29,6 @@
 		7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
-		7A0F91D8156BA2A0009CB40A /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
 		7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
 		7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
@@ -147,7 +146,6 @@
 		7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
-		7AB534B71552BE7D00171BCE /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */; };
 		7AB534BA1552BE7D00171BCE /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
 		7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
 		7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
@@ -471,8 +469,6 @@
 		43A5383311DBE493004A1712 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Example/RootViewController.m; sourceTree = "<group>"; };
 		43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitAppDelegate.h; path = Example/ShareKitAppDelegate.h; sourceTree = "<group>"; };
 		43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitAppDelegate.m; path = Example/ShareKitAppDelegate.m; sourceTree = "<group>"; };
-		43A53C0711DC07A9004A1712 /* SHKCustomShareMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomShareMenuCell.h; sourceTree = "<group>"; };
-		43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomShareMenuCell.m; sourceTree = "<group>"; };
 		43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		43C91DF311EBAE4800F31FAE /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
 		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
@@ -1024,7 +1020,6 @@
 			isa = PBXGroup;
 			children = (
 				43A53C0B11DC0835004A1712 /* Form */,
-				43A53C0A11DC080C004A1712 /* Share Menu */,
 			);
 			path = "Customize UI";
 			sourceTree = "<group>";
@@ -1189,15 +1184,6 @@
 				43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		43A53C0A11DC080C004A1712 /* Share Menu */ = {
-			isa = PBXGroup;
-			children = (
-				43A53C0711DC07A9004A1712 /* SHKCustomShareMenuCell.h */,
-				43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */,
-			);
-			name = "Share Menu";
 			sourceTree = "<group>";
 		};
 		43A53C0B11DC0835004A1712 /* Form */ = {
@@ -1649,7 +1635,6 @@
 				7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */,
 				7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */,
 				7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7A0F91D8156BA2A0009CB40A /* SHKCustomShareMenuCell.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,
@@ -1747,7 +1732,6 @@
 				7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */,
 				7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */,
 				7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7AB534B71552BE7D00171BCE /* SHKCustomShareMenuCell.m in Sources */,
 				7AB534BA1552BE7D00171BCE /* SHK.m in Sources */,
 				7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */,
 				7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */,
