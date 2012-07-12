@@ -305,6 +305,10 @@
     return NSClassFromString(@"SHKActionSheet");
 }
 
+- (Class)SHKShareMenuSubclass {    
+    return NSClassFromString(@"SHKShareMenu");
+}
+
 /*
  Advanced Configuration
  ----------------------

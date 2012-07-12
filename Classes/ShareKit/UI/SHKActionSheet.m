@@ -26,10 +26,10 @@
 //
 
 #import "SHKActionSheet.h"
+#import "SHKShareMenu.h"
 #import "SHK.h"
 #import "SHKConfiguration.h"
 #import "SHKSharer.h"
-#import "SHKCustomShareMenu.h"
 #import "SHKShareItemDelegate.h"
 
 #import <Foundation/NSObjCRuntime.h>
@@ -113,7 +113,7 @@
 	// More
 	else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
 	{
-		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
+		SHKShareMenu *shareMenu = [[SHKCONFIG(SHKShareMenuSubclass) alloc] initWithStyle:UITableViewStyleGrouped];
 		shareMenu.shareDelegate = shareDelegate;
 		shareMenu.item = item;
 		[[SHK currentHelper] showViewController:shareMenu];
