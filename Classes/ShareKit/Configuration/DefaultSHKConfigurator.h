@@ -93,6 +93,7 @@
 - (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
+- (Class)SHKActionSheetSubclass;
 
 //SHKPrint
 - (NSNumber*)printOutputType;
