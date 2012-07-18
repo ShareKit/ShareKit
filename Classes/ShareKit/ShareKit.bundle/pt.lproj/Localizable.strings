@@ -1,0 +1,211 @@
+"Email" = "Email";
+
+"Username" = "Usuário";
+
+"Password" = "Senha";
+
+"Follow %@" = "Siga %@";
+
+"Continue" = "Continue";
+
+"Share" = "Compartilhar";
+
+"More..." = "Mais...";
+
+"Cancel" = "Cancelar";
+
+"Slug" = "Slug";
+
+"Private" = "Privado";
+
+"Public" = "Publico";
+
+"Caption" = "Legenda";
+
+"Title" = "Título";
+
+"Tags" = "Tags";
+
+"Close" = "Fechar";
+
+"Notes" = "Notas";
+
+"Note" = "Nota";
+
+"Shared" = "Compartilhado";
+
+"Edit" = "Editar";
+
+"Actions" = "Ações";
+
+"Services" = "Serviços";
+
+"Send to %@" = "Enviar para %@";
+
+"Copy" = "Copiar";
+
+"Copied!" = "Copiado!";
+
+"Saving to %@" = "Salvando para o %@";
+
+"Saved!" = "Salvo!";
+
+"Offline" = "Offline";
+
+"Error" = "Erro";
+
+"Login" = "Login";
+
+"Logging In..." = "Efetuando Login...";
+
+"Login Error" = "Erro no Login";
+
+"Connecting..." = "Conectando...";
+
+"Shortening URL..." = "Encurtando URL...";
+
+"Shorten URL Error" = "Erro ao encurtar a URL";
+
+"We could not shorten the URL." = "Não foi possível encurtar a URL.";
+
+"Create a free account at %@" = "Crie uma conta gratuitamente em %@";
+
+"Create an account at %@" = "Cria uma conta em %@";
+
+"Send to Twitter" = "Enviar ao Twitter";
+
+"Message is too long" = "A mensagem está muito longa";
+
+"Twitter posts can only be 140 characters in length." = "Posts do twitter só podem ter até 140 caracteres";
+
+"Message is empty" = "A mensagem está vazia";
+
+"You must enter a message in order to post." = "Você tem que digitar uma mensagem para poder postar.";
+
+"Enter your message:" = "Digite sua mensagem:";
+
+"Invalid email or password." = "Email ou senha inválidos.";
+
+"The service encountered an error. Please try again later." = "Houve um erro ao usar o serviço. Tente novamente mais tarde.";
+
+"There was an error sending your post to Tumblr." = "Houve um erro ao enviar o seu post para o Tumblr.";
+
+"There was an error saving to Pinboard" = "Houve um erro ao salvar no Pinboard";
+
+"Sorry, %@ did not accept your credentials. Please try again." = "Desculpe-me, %@ não aceitou as suas credenciais. Por favor, tente novamente.";
+"Sorry, %@ encountered an error. Please try again." = "Desculpe-me, %@ encontrou um erro. Please try again.";
+"There was a problem saving to %@." = "Houve um problema ao salvar no %@.";
+
+"Incorrect username and password" = "Usuário e senha incorretos";
+
+"There was an error logging into Google Reader" = "Houve um erro ao efetuar o login no Google Reader";
+"There was a problem saving your note." = "Houve um problema ao salvar sua nota.";
+
+"Open in Safari" = "Abrir no Safari";
+
+"Attached: %@" = "Anexado: %@";
+
+"You must be online to login to %@" = "Você deve estar conectado para efetuar o login no %@";
+
+"Auto Share" = "Auto Compartilhar";
+
+"Enable auto share to skip this step in the future." = "Habilite o auto compartilhar para pular essa etapa no futuro.";
+
+"You must be online in order to share with %@" = "Você deve estar onlide para compartilhar com o %@";
+
+"Could not authenticate you. Please relogin." = "Não foi possível efetuar a autenticação. Por favor, efetue o login novamente.";
+
+"There was a problem requesting authorization from %@" = "Houve um problema ao requisitar a autorização do %@";
+
+"Request Error" = "Erro na requisição";
+
+"There was an error while sharing" = "Houve um erro ao compartilhar";
+
+"Authorize Error" = "Erro de autorização";
+
+"There was an error while authorizing" = "Houve um erro na autorização";
+
+"Authenticating..." = "Autenticando...";
+
+"There was a problem requesting access from %@" = "Houve um problema ao requisitar o acesso ao %@";
+
+"Access Error" = "Erro de acesso";
+
+"Logout" = "Logout";
+
+"Sharing a Link" = "Compartilhando um Link";
+
+"Sharing an Image" = "Compartilhando uma Imagem";
+
+"Sharing Text" = "Compartilhando um Texto";
+
+"Sharing a File" = "Compartilhando um Arquivo";
+
+"Are you sure you want to logout of all share services?" = "Você tem certeza que deseja deslogar de todos os serviços?";
+
+"Examples" = "Examplos";
+
+"EDMA Error" = "Erro no EDMA";
+
+"EDMA Version is too old." = "A versão do EDMA é muito antiga.";
+
+"Your username and password did not match" = "Seu usuário e senha não combinam";
+
+"Untitled" = "Sem título";
+
+"There was a problem sharing with Evernote" = "Houve um problema ao compartilhar com o Evernote";
+
+"Get" = "Obter";
+
+"Description" = "Descrição";
+
+"Tag (space) Tag" = "Tag (espaço) Tag";
+
+"Is Public" = "É Público";
+
+"Is Friend" = "É Amigo";
+
+"Is Family" = "É da Família";
+
+"Logged Out!" = "Deslogado!";
+
+"Sent from %@" = "Enviado do %@";
+
+"Save to Photo Album" = "Salvar foto no Álbum";
+
+"Tag,Tag" = "Tag,Tag";
+
+"Logout of All Services" = "Deslogar de todos os serviços";
+
+/* No comment provided by engineer. */
+"Check In" = "Check In";
+
+/* No comment provided by engineer. */
+"Could not find any" = "Não foi possível encontrar nenhum";
+
+/* No comment provided by engineer. */
+"Determine your location..." = "Determinar sua localização...";
+
+/* No comment provided by engineer. */
+"Loading..." = "Carregando...";
+
+/* No comment provided by engineer. */
+"Nearby Places" = "Lugares Próximos";
+
+/* No comment provided by engineer. */
+"No Options" = "Sem Opções";
+
+/* No comment provided by engineer. */
+"Post To Groups" = "Postar para os Grupos";
+
+/* No comment provided by engineer. */
+"Print" = "Imprimir";
+
+/* No comment provided by engineer. */
+"Search places" = "Buscar locais";
+
+/* No comment provided by engineer. */
+"Searching places..." = "Buscando locais...";
+
+"Select Group" = "Selecione um Grupo";
+"Flickr Groups" = "Grupos do Flickr";
