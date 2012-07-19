@@ -159,7 +159,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
     
     // set OAuth headers
     NSString *oauthToken;
-    if ([token.key isEqualToString:@""])
+    if (token.key.length == 0)
         oauthToken = @""; // not used on Request Token transactions
     else
         oauthToken = [NSString stringWithFormat:@"oauth_token=\"%@\", ", [token.key URLEncodedString]];
@@ -218,7 +218,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_nonce" value:nonce] URLEncodedNameValuePair]];
 	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_version" value:@"1.0"] URLEncodedNameValuePair]];
     
-    if (![token.key isEqualToString:@""]) {
+    if (token.key.length > 0) {
         [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_token" value:token.key] URLEncodedNameValuePair]];
     }
     
