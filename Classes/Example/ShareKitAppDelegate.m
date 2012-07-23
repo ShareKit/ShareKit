@@ -13,6 +13,7 @@
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
+#import <DropboxSDK/DropboxSDK.h>
 
 @implementation ShareKitAppDelegate
 
@@ -55,8 +56,17 @@
 - (BOOL)handleOpenURL:(NSURL*)url
 {
 	NSString* scheme = [url scheme];
-  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-    return [SHKFacebook handleOpenURL:url];
+    if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
+        return [SHKFacebook handleOpenURL:url];
+    
+    if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
+    }    
+
   return YES;
 }
 
