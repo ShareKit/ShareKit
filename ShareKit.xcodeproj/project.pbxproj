@@ -119,10 +119,6 @@
 		7A164DC3157662ED00D55DB4 /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
 		7A164DC4157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
 		7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
-		7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
-		7A26E5BA156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
-		7A26E5BB156CD8A70011E15F /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A26E5BC156CD8A70011E15F /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
 		7A26E5BD156CD8A70011E15F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
 		7A26E5BE156CD8A70011E15F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
 		7A26E5BF156CD8A70011E15F /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
@@ -486,8 +482,6 @@
 		7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellText.m; sourceTree = "<group>"; };
 		7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+NSNullsToEmptyStrings.h"; sourceTree = "<group>"; };
 		7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+NSNullsToEmptyStrings.m"; sourceTree = "<group>"; };
-		7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
-		7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
 		7A26E5B5156CD8A70011E15F /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
 		7A26E5B6156CD8A70011E15F /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
 		7A26E5B7156CD8A70011E15F /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
@@ -1244,8 +1238,6 @@
 		7A26E5B2156CD8A70011E15F /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */,
-				7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */,
 				7A26E5B5156CD8A70011E15F /* hmac.c */,
 				7A26E5B6156CD8A70011E15F /* hmac.h */,
 				7A26E5B7156CD8A70011E15F /* sha1.c */,
@@ -1446,7 +1438,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A26E5BC156CD8A70011E15F /* Base64Transcoder.h in Headers */,
 				7A26E5C0156CD8A70011E15F /* hmac.h in Headers */,
 				7A26E5C4156CD8A70011E15F /* sha1.h in Headers */,
 				7A164DC3157662ED00D55DB4 /* SHKFormFieldCellText.h in Headers */,
@@ -1464,7 +1455,6 @@
 				7A0F9253156BA5F3009CB40A /* LFSiteReachability.h in Headers */,
 				7A0F9255156BA5F3009CB40A /* LFWebAPIKit.h in Headers */,
 				7A0F9256156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h in Headers */,
-				7A26E5BB156CD8A70011E15F /* Base64Transcoder.h in Headers */,
 				7A26E5BF156CD8A70011E15F /* hmac.h in Headers */,
 				7A26E5C3156CD8A70011E15F /* sha1.h in Headers */,
 				7ACA93FD156D192100E7006E /* FBFrictionlessRequestSettings.h in Headers */,
@@ -1716,7 +1706,6 @@
 				7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */,
 				7A0F923C156BA2A0009CB40A /* SHKShareMenu.m in Sources */,
 				7A0F923F156BA2A0009CB40A /* SHKDelicious.m in Sources */,
-				7A26E5BA156CD8A70011E15F /* Base64Transcoder.c in Sources */,
 				7A26E5BE156CD8A70011E15F /* hmac.c in Sources */,
 				7A26E5C2156CD8A70011E15F /* sha1.c in Sources */,
 				7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
@@ -1831,7 +1820,6 @@
 				7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */,
 				7A0F9254156BA5F3009CB40A /* LFSiteReachability.m in Sources */,
 				7A0F9257156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m in Sources */,
-				7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */,
 				7A26E5BD156CD8A70011E15F /* hmac.c in Sources */,
 				7A26E5C1156CD8A70011E15F /* sha1.c in Sources */,
 				7ACA93FE156D192100E7006E /* FBFrictionlessRequestSettings.m in Sources */,
