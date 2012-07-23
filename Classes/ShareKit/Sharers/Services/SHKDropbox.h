@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 SSD. All rights reserved.
 //
 
-#import "SHKOAuthSharer.h"
+#import "SHKSharer.h"
 #import "SHK.h"
 #import <DropboxSDK/DropboxSDK.h>
 
@@ -15,6 +15,6 @@ static NSString *const kSHKDropboxAccessTokenKey=@"kSHKDropboxAccessToken";
 static NSString *const kSHKDropboxExpiryDateKey=@"kSHKDropboxExpiryDate";
 
 
-@interface SHKDropbox : SHKOAuthSharer <DBSessionDelegate>
+@interface SHKDropbox : SHKSharer <DBSessionDelegate>
 
 @end

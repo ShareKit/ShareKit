@@ -17,15 +17,6 @@
 @implementation SHKDropbox
 @synthesize restClient;
 
-+ (void)flushAccessToken 
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults removeObjectForKey:kSHKDropboxUserId];
-    [defaults removeObjectForKey:kSHKDropboxAccessTokenKey];
-    [defaults removeObjectForKey:kSHKDropboxExpiryDateKey];
-    [defaults synchronize];
-}
-
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -35,39 +26,16 @@
 	return @"Dropbox";
 }
 
-
-// What types of content can the action handle?
-
-// If the action can handle URLs, uncomment this section
-/*
- + (BOOL)canShareURL
- {
- return YES;
- }
- */
-
-// If the action can handle images, uncomment this section
 + (BOOL)canShareImage
 {
     return YES;
 }
 
-// If the action can handle text, uncomment this section
-/*
- + (BOOL)canShareText
- {
- return YES;
- }
- */
-
-// If the action can handle files, uncomment this section
 + (BOOL)canShareFile
 {
     return YES;
 }
 
-
-// Does the service require a login?  If for some reason it does NOT, uncomment this section:
 + (BOOL)requiresAuthentication
 {
     return YES;
@@ -77,7 +45,6 @@
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-// Subclass if you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)
 + (BOOL)canShare
 {
 	return YES;
@@ -87,33 +54,6 @@
 
 #pragma mark -
 #pragma mark Authentication
-
-
-#define SHKYourServiceNameCallbackUrl @""	// The user defined callback url
-
-- (id)init
-{
-	if (self = [super init])
-	{		
-		self.consumerKey = SHKCONFIG(dropboxConsumerKey);		
-		self.secretKey = SHKCONFIG(dropboxSecretKey);
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKYourServiceNameCallbackUrl];
-		
-		
-		// -- //
-		
-		
-		// Edit these to provide the correct urls for each oauth step
-	    self.requestURL = [NSURL URLWithString:@"https://api.dropbox.com/1/oauth/request_token"];
-	    self.authorizeURL = [NSURL URLWithString:@"https://www.dropbox.com/1/oauth/authorize"];
-	    self.accessURL = [NSURL URLWithString:@"https://api.dropbox.com/1/oauth/access_token"];
-		
-		// Allows you to set a default signature type, uncomment only one
-		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
-		//self.signatureProvider = [[[OAPlaintextSignatureProvider alloc] init] autorelease];
-	}	
-	return self;
-}
 
 - (BOOL)isAuthorized
 {	
@@ -130,18 +70,19 @@
     // You can determine if you have App folder access or Full Dropbox along with your consumer key/secret
     // from https://dropbox.com/developers/apps 
     
-    
+    NSString *consumerKey = SHKCONFIG(dropboxConsumerKey);
+    NSString *secretKey = SHKCONFIG(dropboxSecretKey);
     NSString* errorMsg = nil;
-    if ([self.consumerKey rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
+    if ([consumerKey rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
         errorMsg = @"Make sure you set the app key correctly";
-    } else if ([self.secretKey rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
+    } else if ([secretKey rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
         errorMsg = @"Make sure you set the app secret correctly";
     } else if ([root length] == 0) {
         errorMsg = @"Set your root to use either App Folder of full Dropbox";
     } 
     
     DBSession* session = 
-    [[DBSession alloc] initWithAppKey:self.consumerKey appSecret:self.secretKey root:root];
+    [[DBSession alloc] initWithAppKey:consumerKey appSecret:secretKey root:root];
     session.delegate = self; // DBSessionDelegate methods allow you to handle re-authenticating
     [DBSession setSharedSession:session];
     [session release];
