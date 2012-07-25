@@ -66,7 +66,7 @@
 
 - (void)promptAuthorization{
     
-    NSString *root = kDBRootDropbox; // Should be set to either kDBRootAppFolder or kDBRootDropbox
+    NSString *root = SHKCONFIG(dropboxRoot)?kDBRootDropbox:kDBRootAppFolder; // Should be set to either kDBRootAppFolder or kDBRootDropbox
     // You can determine if you have App folder access or Full Dropbox along with your consumer key/secret
     // from https://dropbox.com/developers/apps 
     
@@ -108,7 +108,7 @@
 
 + (void)logout
 {
-    [self flushAccessToken];
+    [[DBSession sharedSession] unlinkAll];
 }
 
 // If you need to add additional headers or parameters to the request_token request, uncomment this section:
@@ -282,6 +282,7 @@
  */
 
 #pragma mark - RestClient
+
 
 - (DBRestClient*)restClient {
     if (restClient == nil) {
