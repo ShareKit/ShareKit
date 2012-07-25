@@ -97,7 +97,6 @@
     if (![[DBSession sharedSession] isLinked]) {
         [[DBSession sharedSession] linkFromController:self];
     }
-    [self retain];
 }
 
 - (void) authComplete 
@@ -208,31 +207,14 @@
 #pragma mark -
 #pragma mark Implementation
 
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-/*
- - (BOOL)validateItem
- { 
- // The super class will verify that:
- // -if sharing a url	: item.url != nil
- // -if sharing an image : item.image != nil
- // -if sharing text		: item.text != nil
- // -if sharing a file	: item.data != nil
- 
- return [super validateItem];
- }
- */
-
 - (void)show
 {
     [self tryToSend];
 }
 
-
 // Send the share item to the server
 - (BOOL)send
 {	
-    //	if (![self validateItem])
-    //		return NO;
 	NSString *serverPath = @"/";
     if (item.shareType == SHKShareTypeImage) {
         NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/preview.jpg"];
@@ -240,15 +222,11 @@
         [item setCustomValue:jpgPath forKey:@"localPath"];
         serverPath = @"/Photos";
     }
-    //[item.title stringByAppendingPathExtension:@"jpg"] 
-    NSLog(@"Sending to Dropbox");
-    // TODO: load filename from item info
     [self.restClient uploadFile:[item.title stringByAppendingPathExtension:@"jpg"]
                          toPath:serverPath
                   withParentRev:nil 
                        fromPath:[item customValueForKey:@"localPath"] ];
     [self sendDidStart];
-    [self retain];
     return YES;
 }
 
@@ -297,14 +275,10 @@
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
               from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
     [self sendDidFinish];
-    [self release];
-    NSLog(@"File uploaded successfully to path: %@", metadata.path);
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     [self sendDidFailWithError:error];
-    [self release];
-    NSLog(@"File upload failed with error - %@", error);
 }
 
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession *)session userId:(NSString *)userId
