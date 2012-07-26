@@ -207,57 +207,31 @@
 #pragma mark -
 #pragma mark Implementation
 
-- (void)show
-{
-    [self tryToSend];
-}
-
 // Send the share item to the server
 - (BOOL)send
 {	
+    [self sendDidStart];
 	NSString *serverPath = @"/";
     if (item.shareType == SHKShareTypeImage) {
+        if (!item.filename) {
+            item.filename = [item.title stringByAppendingPathExtension:@"jpg"];
+        }
         NSString  *jpgPath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp/preview.jpg"];
         [UIImageJPEGRepresentation(item.image, 1.0) writeToFile:jpgPath atomically:YES];
         [item setCustomValue:jpgPath forKey:@"localPath"];
         serverPath = @"/Photos";
+    } else if (item.data) {
+        NSString *tmpPath = [NSHomeDirectory() stringByAppendingPathComponent:@"tmp"];
+        tmpPath = [tmpPath stringByAppendingPathComponent:[item.filename lastPathComponent]];
+        [item.data writeToFile:tmpPath atomically:YES];
+        [item setCustomValue:tmpPath forKey:@"localPath"];
     }
-    [self.restClient uploadFile:[item.title stringByAppendingPathExtension:@"jpg"]
+    [self.restClient uploadFile:item.filename
                          toPath:serverPath
                   withParentRev:nil 
                        fromPath:[item customValueForKey:@"localPath"] ];
-    [self sendDidStart];
     return YES;
 }
-
-// This is a continuation of the example provided in 'send' above.  It handles the OAAsynchronousDataFetcher response
-// This is not a required method and is only provided as an example
-/*
- - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
- {	
- if (ticket.didSucceed)
- {
- // The send was successful
- [self sendDidFinish];
- }
- 
- else 
- {
- // Handle the error
- 
- // If the error was the result of the user no longer being authenticated, you can reprompt
- // for the login information with:
- // [self sendDidFailShouldRelogin];
- 
- // Otherwise, all other errors should end with:
- [self sendDidFailWithError:[SHK error:@"Why it failed"] shouldRelogin:NO];
- }
- }
- - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
- {
- [self sendDidFailWithError:error shouldRelogin:NO];
- }
- */
 
 #pragma mark - RestClient
 

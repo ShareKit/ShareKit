@@ -191,6 +191,30 @@
 }
 
 
+/* SHKDropbox */
+
+- (NSString *)dropboxConsumerKey
+{
+    return @"b7pnxnfl7nvtbf0";
+}
+
+- (NSString *)dropboxSecretKey
+{
+    return @"vnh0qp1ldkka29d";
+}
+
+// Return YES if your Application has root priviliges.
+- (BOOL)dropboxRoot
+{
+    return NO;
+}
+
+
+
+
+
+
+
 /*
  UI Configuration : Basic
  ------------------------
