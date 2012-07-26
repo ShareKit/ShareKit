@@ -572,7 +572,7 @@ static NSDictionary *sharersDictionary = nil;
 	}
 	
 	// Generate a unique id for the share to use when saving associated files
-	NSString *uid = [NSString stringWithFormat:@"%@-%i-%i-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
+	NSString *uid = [NSString stringWithFormat:@"%@-%i-%f-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
 	
 	
 	// store image in cache
