@@ -58,7 +58,7 @@
 - (BOOL)isAuthorized
 {	
     if (![DBSession sharedSession]) {
-        [self promptAuthorization];
+        return NO; //[self promptAuthorization];
     }
 	return [[DBSession sharedSession] isLinked];
 }
@@ -95,14 +95,16 @@
          show];
     }
     if (![[DBSession sharedSession] isLinked]) {
-        [[DBSession sharedSession] linkFromController:self];
+        [[DBSession sharedSession] linkFromController:[[SHK currentHelper] rootViewForCustomUIDisplay]];
     }
+    [self retain];
 }
 
 - (void) authComplete 
 {
 	if (self.item) 
 		[self share];
+    [self release];
 }
 
 + (void)logout
@@ -207,6 +209,11 @@
 #pragma mark -
 #pragma mark Implementation
 
+- (void)show
+{
+    [self tryToSend];
+}
+
 // Send the share item to the server
 - (BOOL)send
 {	
@@ -230,6 +237,7 @@
                          toPath:serverPath
                   withParentRev:nil 
                        fromPath:[item customValueForKey:@"localPath"] ];
+    [self retain];
     return YES;
 }
 
@@ -249,10 +257,12 @@
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath
               from:(NSString*)srcPath metadata:(DBMetadata*)metadata {
     [self sendDidFinish];
+    [self release];
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     [self sendDidFailWithError:error];
+    [self release];
 }
 
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession *)session userId:(NSString *)userId
