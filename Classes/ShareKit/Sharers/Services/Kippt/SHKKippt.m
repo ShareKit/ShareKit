@@ -31,7 +31,7 @@
 // -- Constants --
 
 NSString *kAccountURL = @"https://kippt.com/api/account/";
-NSString *kListsURL = @"https://kippt.com/api/lists/";
+NSString *kListsURL = @"https://kippt.com/api/lists/?limit=0";
 NSString *kNewClipURL = @"https://kippt.com/api/clips/";
 
 // -- For HTTP Basic Auth --
