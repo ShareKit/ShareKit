@@ -133,6 +133,8 @@
 
 - (void) authComplete 
 {
+    [self authDidFinish: YES];
+    
 	if (self.item) 
 		[self share];
 }
