@@ -387,15 +387,14 @@
 			[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
 		}
     
-    
+		NSError *error = [NSError errorWithDomain:@"Plurk" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
 		// this is the error message for revoked access
 		if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."])
 		{
-			[self sendDidFailShouldRelogin];
+			[self sendDidFailWithError:error shouldRelogin:YES];
 		}
 		else
 		{
-			NSError *error = [NSError errorWithDomain:@"Plurk" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
 			[self sendDidFailWithError:error];
 		}
 	}
