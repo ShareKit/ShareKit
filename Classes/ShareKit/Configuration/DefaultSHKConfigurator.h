@@ -91,6 +91,7 @@
 - (UIColor*)formFontColor;
 - (UIColor*)formBackgroundColor;
 - (NSString*)modalPresentationStyle;
+- (NSString*)modalPresentationStyleForController:(id)controller;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
 - (NSNumber*)autoOrderFavoriteSharers;
