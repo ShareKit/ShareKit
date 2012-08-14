@@ -82,7 +82,7 @@ end
 
 desc "Publish"
 task :publish => [:kitspec, :kit] do
-  `kit publish-local`
+  puts `kit publish-local`
 end
 
 desc "Bump Version"
