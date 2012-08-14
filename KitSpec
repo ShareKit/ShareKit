@@ -1,6 +1,6 @@
 --- 
 name: sharekit
-version: 2.0.7
+version: 2.0.8
 resources-directory: src/resources
 dependencies: 
 - reachability: 2.3
