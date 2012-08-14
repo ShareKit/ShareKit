@@ -189,7 +189,15 @@
 	if (item.image){
         
         CGFloat jpgQuality = self.item.mailJPGQuality;
-        [mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+        if ((int)jpgQuality  > 1)
+        {
+            // if rounded jpgQuality is set 2 or higher then we will use PNG for our attachment type.
+            [mailController addAttachmentData:UIImagePNGRepresentation(item.image) mimeType:@"image/png" fileName:@"Image.png"];
+        }
+        else
+        {
+            [mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+        }
 	}
 	
 	[mailController setSubject:item.title];
