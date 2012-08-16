@@ -40,7 +40,7 @@
 
 "Services" = "Serviços";
 
-"Send to %@" = "Enviar para %@";
+"Send to %@" = "Enviar ao %@";
 
 "Copy" = "Copiar";
 
@@ -196,7 +196,7 @@
 "No Options" = "Sem Opções";
 
 /* No comment provided by engineer. */
-"Post To Groups" = "Publicar para os Grupos";
+"Post To Groups" = "Publicar aos Grupos";
 
 /* No comment provided by engineer. */
 "Print" = "Imprimir";
