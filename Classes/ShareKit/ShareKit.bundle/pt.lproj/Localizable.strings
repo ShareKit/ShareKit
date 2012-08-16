@@ -4,9 +4,9 @@
 
 "Password" = "Senha";
 
-"Follow %@" = "Siga %@";
+"Follow %@" = "Seguir %@";
 
-"Continue" = "Continue";
+"Continue" = "Continuar";
 
 "Share" = "Compartilhar";
 
@@ -14,17 +14,17 @@
 
 "Cancel" = "Cancelar";
 
-"Slug" = "Slug";
+"Slug" = "Descrição";
 
 "Private" = "Privado";
 
-"Public" = "Publico";
+"Public" = "Público";
 
 "Caption" = "Legenda";
 
 "Title" = "Título";
 
-"Tags" = "Tags";
+"Tags" = "Marcações";
 
 "Close" = "Fechar";
 
@@ -40,151 +40,151 @@
 
 "Services" = "Serviços";
 
-"Send to %@" = "Enviar para %@";
+"Send to %@" = "Enviar ao %@";
 
 "Copy" = "Copiar";
 
 "Copied!" = "Copiado!";
 
-"Saving to %@" = "Salvando para o %@";
+"Saving to %@" = "Enviando ao %@";
 
-"Saved!" = "Salvo!";
+"Saved!" = "Enviado!";
 
-"Offline" = "Offline";
+"Offline" = "Desconectado";
 
 "Error" = "Erro";
 
-"Login" = "Login";
+"Login" = "Entrar";
 
-"Logging In..." = "Efetuando Login...";
+"Logging In..." = "Entrando...";
 
-"Login Error" = "Erro no Login";
+"Login Error" = "Erro ao Entrar";
 
 "Connecting..." = "Conectando...";
 
-"Shortening URL..." = "Encurtando URL...";
+"Shortening URL..." = "Encurtando a URL...";
 
 "Shorten URL Error" = "Erro ao encurtar a URL";
 
 "We could not shorten the URL." = "Não foi possível encurtar a URL.";
 
-"Create a free account at %@" = "Crie uma conta gratuitamente em %@";
+"Create a free account at %@" = "Crie uma conta grátis em %@";
 
-"Create an account at %@" = "Cria uma conta em %@";
+"Create an account at %@" = "Crie uma conta em %@";
 
 "Send to Twitter" = "Enviar ao Twitter";
 
-"Message is too long" = "A mensagem está muito longa";
+"Message is too long" = "A mensagem é muito longa";
 
-"Twitter posts can only be 140 characters in length." = "Posts do twitter só podem ter até 140 caracteres";
+"Twitter posts can only be 140 characters in length." = "Mensagens no Twitter são limitadas a 140 caracteres.";
 
 "Message is empty" = "A mensagem está vazia";
 
-"You must enter a message in order to post." = "Você tem que digitar uma mensagem para poder postar.";
+"You must enter a message in order to post." = "Você deve escrever uma mensagem para publicar.";
 
-"Enter your message:" = "Digite sua mensagem:";
+"Enter your message:" = "Escreva sua mensagem:";
 
-"Invalid email or password." = "Email ou senha inválidos.";
+"Invalid email or password." = "Email ou senha inválida.";
 
-"The service encountered an error. Please try again later." = "Houve um erro ao usar o serviço. Tente novamente mais tarde.";
+"The service encountered an error. Please try again later." = "Ocorreu um erro no serviço. Por favor tente novamente mais tarde.";
 
-"There was an error sending your post to Tumblr." = "Houve um erro ao enviar o seu post para o Tumblr.";
+"There was an error sending your post to Tumblr." = "Ocorreu um erro ao publicar ao Tumblr.";
 
-"There was an error saving to Pinboard" = "Houve um erro ao salvar no Pinboard";
+"There was an error saving to Pinboard" = "Ocorreu um erro ao salvar no Pinboard";
 
-"Sorry, %@ did not accept your credentials. Please try again." = "Desculpe-me, %@ não aceitou as suas credenciais. Por favor, tente novamente.";
-"Sorry, %@ encountered an error. Please try again." = "Desculpe-me, %@ encontrou um erro. Please try again.";
-"There was a problem saving to %@." = "Houve um problema ao salvar no %@.";
+"Sorry, %@ did not accept your credentials. Please try again." = "Desculpe, %@ não aceitou suas credenciais. Por favor tente novamente.";
+"Sorry, %@ encountered an error. Please try again." = "Desculpe, %@ encontrou um erro. Por favor tente novamente.";
+"There was a problem saving to %@." = "Houve um problema salvando ao %@.";
 
-"Incorrect username and password" = "Usuário e senha incorretos";
+"Incorrect username and password" = "Usuário e senha inválidos";
 
-"There was an error logging into Google Reader" = "Houve um erro ao efetuar o login no Google Reader";
-"There was a problem saving your note." = "Houve um problema ao salvar sua nota.";
+"There was an error logging into Google Reader" = "Ocorreu um erro ao entrar no Google Reader";
+"There was a problem saving your note." = "Ocorreu um erro salvando sua nota.";
 
 "Open in Safari" = "Abrir no Safari";
 
 "Attached: %@" = "Anexado: %@";
 
-"You must be online to login to %@" = "Você deve estar conectado para efetuar o login no %@";
+"You must be online to login to %@" = "Você deve estar conectado para logar ao %@";
 
-"Auto Share" = "Auto Compartilhar";
+"Auto Share" = "Compartilhar Automaticamente";
 
-"Enable auto share to skip this step in the future." = "Habilite o auto compartilhar para pular essa etapa no futuro.";
+"Enable auto share to skip this step in the future." = "Ative o compartilhamento automático para pular essa etapa no futuro.";
 
-"You must be online in order to share with %@" = "Você deve estar onlide para compartilhar com o %@";
+"You must be online in order to share with %@" = "Você deve estar conectado para compartilhar ao %@";
 
-"Could not authenticate you. Please relogin." = "Não foi possível efetuar a autenticação. Por favor, efetue o login novamente.";
+"Could not authenticate you. Please relogin." = "Não foi possível lhe autentificar. Por favor entre novamente.";
 
-"There was a problem requesting authorization from %@" = "Houve um problema ao requisitar a autorização do %@";
+"There was a problem requesting authorization from %@" = "Hove um problema ao requisitar autorização ao %@";
 
-"Request Error" = "Erro na requisição";
+"Request Error" = "Erro de requisição";
 
-"There was an error while sharing" = "Houve um erro ao compartilhar";
+"There was an error while sharing" = "Ocorreu um erro ao compartilhar";
 
-"Authorize Error" = "Erro de autorização";
+"Authorize Error" = "Erro de Autorização";
 
-"There was an error while authorizing" = "Houve um erro na autorização";
+"There was an error while authorizing" = "Ocorreu um erro ao autorizar";
 
-"Authenticating..." = "Autenticando...";
+"Authenticating..." = "Autentificando...";
 
-"There was a problem requesting access from %@" = "Houve um problema ao requisitar o acesso ao %@";
+"There was a problem requesting access from %@" = "Houve um problema requisitando acesso ao %@";
 
-"Access Error" = "Erro de acesso";
+"Access Error" = "Erro de Acesso";
 
-"Logout" = "Logout";
+"Logout" = "Sair";
 
 "Sharing a Link" = "Compartilhando um Link";
 
 "Sharing an Image" = "Compartilhando uma Imagem";
 
-"Sharing Text" = "Compartilhando um Texto";
+"Sharing Text" = "Compartilhando Texto";
 
 "Sharing a File" = "Compartilhando um Arquivo";
 
-"Are you sure you want to logout of all share services?" = "Você tem certeza que deseja deslogar de todos os serviços?";
+"Are you sure you want to logout of all share services?" = "Você tem certeza que deseja sair de todos os serviços de compartilhamento?";
 
-"Examples" = "Examplos";
+"Examples" = "Exemplos";
 
-"EDMA Error" = "Erro no EDMA";
+"EDMA Error" = "Erro EDMA";
 
-"EDMA Version is too old." = "A versão do EDMA é muito antiga.";
+"EDMA Version is too old." = "Versão EDMA é muito antiga.";
 
-"Your username and password did not match" = "Seu usuário e senha não combinam";
+"Your username and password did not match" = "Usuário e senha não correspondem";
 
 "Untitled" = "Sem título";
 
-"There was a problem sharing with Evernote" = "Houve um problema ao compartilhar com o Evernote";
+"There was a problem sharing with Evernote" = "Houve um problema compartilhando com o Evernote";
 
 "Get" = "Obter";
 
 "Description" = "Descrição";
 
-"Tag (space) Tag" = "Tag (espaço) Tag";
+"Tag (space) Tag" = "Marcação (espaço) Marcação";
 
 "Is Public" = "É Público";
 
 "Is Friend" = "É Amigo";
 
-"Is Family" = "É da Família";
+"Is Family" = "É Família";
 
-"Logged Out!" = "Deslogado!";
+"Logged Out!" = "Saiu!";
 
-"Sent from %@" = "Enviado do %@";
+"Sent from %@" = "Enviado de %@";
 
-"Save to Photo Album" = "Salvar foto no Álbum";
+"Save to Photo Album" = "Salvar no Álbum de Fotos";
 
-"Tag,Tag" = "Tag,Tag";
+"Tag,Tag" = "Marcação,Marcação";
 
-"Logout of All Services" = "Deslogar de todos os serviços";
-
-/* No comment provided by engineer. */
-"Check In" = "Check In";
+"Logout of All Services" = "Sair de todos serviços";
 
 /* No comment provided by engineer. */
-"Could not find any" = "Não foi possível encontrar nenhum";
+"Check In" = "Check-in";
 
 /* No comment provided by engineer. */
-"Determine your location..." = "Determinar sua localização...";
+"Could not find any" = "Nenhum encontrado";
+
+/* No comment provided by engineer. */
+"Determine your location..." = "Informe sua localização...";
 
 /* No comment provided by engineer. */
 "Loading..." = "Carregando...";
@@ -196,7 +196,7 @@
 "No Options" = "Sem Opções";
 
 /* No comment provided by engineer. */
-"Post To Groups" = "Postar para os Grupos";
+"Post To Groups" = "Publicar aos Grupos";
 
 /* No comment provided by engineer. */
 "Print" = "Imprimir";
