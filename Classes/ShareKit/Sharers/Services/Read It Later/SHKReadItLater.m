@@ -130,7 +130,7 @@
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
 				nil];
 	
 	return nil;
@@ -149,9 +149,9 @@
 						 SHKEncodeURL(item.URL),
 						 SHKEncode([item.title stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"])];
 		
-		NSString *tags = item.tags == nil || !item.tags.length ? @"" :
+		NSString *tags = item.tags == nil || !item.tags.count ? @"" :
 		[NSString stringWithFormat:@"&update_tags={\"0\":{\"url\":\"%@\",\"tags\":\"%@\"}}",
-						  SHKEncodeURL(item.URL), SHKEncode(item.tags)];
+						  SHKEncodeURL(item.URL), SHKEncode([item.tags componentsJoinedByString:@","])];
 		
 		NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@%@%@",
 									SHKCONFIG(readItLaterKey),

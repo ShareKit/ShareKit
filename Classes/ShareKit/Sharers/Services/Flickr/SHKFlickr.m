@@ -134,7 +134,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
 															 key:@"tags"
 															type:SHKFormFieldTypeText
-														   start:self.item.tags],
+														   start:[self.item.tags componentsJoinedByString:@", "]],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
 															 key:@"is_public"
 															type:SHKFormFieldTypeSwitch
@@ -203,7 +203,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  titleVal, @"title",
 						  descript, @"description",
-						  item.tags == nil ? @"" : item.tags, @"tags",
+						  item.tags == nil ? @"" : [item.tags componentsJoinedByString:@" "], @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
 						  [item customValueForKey:@"is_friend"], @"is_friend",
 						  [item customValueForKey:@"is_family"], @"is_family",

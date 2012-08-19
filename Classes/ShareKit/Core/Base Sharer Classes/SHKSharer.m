@@ -591,8 +591,15 @@
 		else if ([key isEqualToString:@"text"])
 			item.text = [formValues objectForKey:key];
 		
-		else if ([key isEqualToString:@"tags"])
-			item.tags = [formValues objectForKey:key];
+		else if ([key isEqualToString:@"tags"]) {
+            NSString *unparsedTags = [formValues objectForKey:key];
+            NSArray *tmpValues = [unparsedTags componentsSeparatedByString:@","];
+            NSMutableArray *values = [NSMutableArray arrayWithCapacity:[tmpValues count]];
+            for (NSString *a_tag in tmpValues) {
+                [values addObject:[a_tag stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            }
+			item.tags = values;
+        }
 		
 		else
 			[item setCustomValue:[formValues objectForKey:key] forKey:key];

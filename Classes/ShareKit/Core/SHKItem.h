@@ -56,7 +56,7 @@ typedef enum
 	
 	NSString *title;
 	NSString *text;
-	NSString *tags;
+	NSArray *tags;
 	
 	NSData *data;
 	NSString *mimeType;
@@ -75,7 +75,7 @@ typedef enum
 
 @property (nonatomic, retain)	NSString *title;
 @property (nonatomic, retain)	NSString *text;
-@property (nonatomic, retain)	NSString *tags;
+@property (nonatomic, retain)	NSArray *tags;
 
 @property (nonatomic, retain)	NSData *data;
 @property (nonatomic, retain)	NSString *mimeType;

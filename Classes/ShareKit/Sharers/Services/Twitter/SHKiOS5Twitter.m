@@ -75,8 +75,11 @@
     [iOS5twitter addImage:self.item.image];    
     [iOS5twitter addURL:self.item.URL];
     
+    NSString *tagString = [@" #" stringByAppendingString:[self.item.tags componentsJoinedByString:@" #"]];
+    
     if (self.item.shareType == SHKShareTypeText) 
     {
+        item.text = [item.text stringByAppendingString:tagString];
         NSUInteger textLength = [item.text length] > 140 ? 140 : [item.text length];
         
         while ([iOS5twitter setInitialText:[item.text substringToIndex:textLength]] == NO && textLength > 0)
@@ -86,6 +89,7 @@
     } 
     else 
     {
+        item.title = [item.title stringByAppendingString:tagString];
         NSUInteger titleLength = [item.title length] > 140 ? 140 : [item.title length];      
         
         while ([iOS5twitter setInitialText:[item.title substringToIndex:titleLength]] == NO && titleLength > 0)
