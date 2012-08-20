@@ -401,6 +401,24 @@
 }
 
 
+/* SHKDropbox */
+
+- (NSString *)dropboxConsumerKey
+{
+    return nil;
+}
+
+- (NSString *)dropboxSecretKey
+{
+    return nil;
+}
+
+// Return YES if your Application has root priviliges.
+- (BOOL)dropboxRoot
+{
+    return NO;
+}
+
 
 
 @end

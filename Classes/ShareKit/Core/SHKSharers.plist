@@ -14,6 +14,7 @@
 	</array>
 	<key>services</key>
 	<array>
+		<string>SHKDropbox</string>
 		<string>SHKReadability</string>
 		<string>SHKEvernote</string>
 		<string>SHKDelicious</string>

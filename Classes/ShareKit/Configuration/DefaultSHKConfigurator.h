@@ -110,4 +110,11 @@
 - (NSString *)facebookURLSharePictureURI;
 - (NSString *)facebookURLShareDescription;
 
+//SHKDropbox
+- (NSString *)dropboxConsumerKey;
+- (NSString *)dropboxSecretKey;
+- (BOOL)dropboxRoot;
+
+
+
 @end
