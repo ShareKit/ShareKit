@@ -10,3 +10,6 @@
 [submodule "Submodules/objectiveflickr"]
 	path = Submodules/objectiveflickr
 	url = https://github.com/lukhnos/objectiveflickr.git
+[submodule "Submodules/evernote-ios-sdk"]
+	path = Submodules/evernote-ios-sdk
+	url = https://github.com/evernote/evernote-sdk-ios.git

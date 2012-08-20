@@ -172,20 +172,17 @@
 }
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
+    If you already have a consumer-key and secret which have been created with the old username/password authentication system
+    (created before May 2012) you have to get a new consumer-key and secret, as the old one is not accepted by the new authentication
+    system.
  // Sandbox
- #define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
- #define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
+ #define SHKEvernoteHost    @"sandbox.evernote.com"
  
  // Or production
- #define SHKEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
- #define SHKEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
+ #define SHKEvernoteHost    @"www.evernote.com"
  */
 
-- (NSString*)evernoteUserStoreURL {
-	return @"";
-}
-
-- (NSString*)evernoteNetStoreURLBase {
+- (NSString*)evernoteHost {
 	return @"";
 }
 
@@ -299,7 +296,11 @@
 	return [NSNumber numberWithInt:0];// Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
 }
 
-/* Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but this allows you to subclass a sharer and have the subclass be used. Also helps, if you want to exclude some sharers - you can create your own plist, and add it to your project. This way you do not need to change original SHKSharers.plist, which is a part of subproject - this allows you upgrade easily as you did not change ShareKit itself */
+/* Name of the plist file that defines the class names of the sharers to use. Usually should not be changed, but this allows you to subclass a sharer and have the subclass be used. Also helps, if you want to exclude some sharers - you can create your own plist, and add it to your project. This way you do not need to change original SHKSharers.plist, which is a part of subproject - this allows you upgrade easily as you did not change ShareKit itself 
+ 
+    You can specify also your own bundle here, if needed. For example:
+ return [[[NSBundle mainBundle] pathForResource:@"Vito" ofType:@"bundle"] stringByAppendingPathComponent:@"VKRSTestSharers.plist"]
+ */
 - (NSString*)sharersPlistName {
 	return @"SHKSharers.plist";
 }
@@ -336,8 +337,24 @@
  UI Configuration : Advanced
  ---------------------------
  If you'd like to do more advanced customization of the ShareKit UI, like background images and more,
- check out http://getsharekit.com/customize
+ check out http://getsharekit.com/customize. To use a subclass, you can create your own, and let ShareKit know about it in your configurator, overriding one (or more) of these methods.
  */
+
+- (Class)SHKActionSheetSubclass {    
+    return NSClassFromString(@"SHKActionSheet");
+}
+
+- (Class)SHKShareMenuSubclass {    
+    return NSClassFromString(@"SHKShareMenu");
+}
+
+- (Class)SHKShareMenuCellSubclass {
+    return NSClassFromString(@"UITableViewCell");
+}
+
+- (Class)SHKFormControllerSubclass {
+    return NSClassFromString(@"SHKFormController");
+}
 
 /*
  Advanced Configuration

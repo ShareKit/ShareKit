@@ -27,8 +27,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SHK.h"
-#import "SHKCustomFormController.h"
-
+#import "SHKFormController.h"
 
 @class SHKSharer;
 

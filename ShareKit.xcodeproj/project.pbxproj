@@ -26,12 +26,8 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		7A0F91D0156B9FF2009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
-		7A0F91D3156BA2A0009CB40A /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
-		7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
-		7A0F91D7156BA2A0009CB40A /* SHKCustomShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */; };
-		7A0F91D8156BA2A0009CB40A /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
 		7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
 		7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
@@ -69,20 +65,20 @@
 		7A0F9200156BA2A0009CB40A /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
 		7A0F9201156BA2A0009CB40A /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		7A0F9202156BA2A0009CB40A /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7A0F9203156BA2A0009CB40A /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28D1291AC9700D2A41E /* EDAMLimits.m */; };
-		7A0F9204156BA2A0009CB40A /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28F1291AC9700D2A41E /* Errors.m */; };
-		7A0F9205156BA2A0009CB40A /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2911291AC9700D2A41E /* NoteStore.m */; };
-		7A0F9206156BA2A0009CB40A /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2931291AC9700D2A41E /* Types.m */; };
-		7A0F9207156BA2A0009CB40A /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2951291AC9700D2A41E /* UserStore.m */; };
-		7A0F9208156BA2A0009CB40A /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2991291AC9700D2A41E /* TBinaryProtocol.m */; };
-		7A0F9209156BA2A0009CB40A /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29C1291AC9700D2A41E /* TProtocolException.m */; };
-		7A0F920A156BA2A0009CB40A /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29F1291AC9700D2A41E /* TProtocolUtil.m */; };
-		7A0F920B156BA2A0009CB40A /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A11291AC9700D2A41E /* TApplicationException.m */; };
-		7A0F920C156BA2A0009CB40A /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A31291AC9700D2A41E /* TException.m */; };
-		7A0F920D156BA2A0009CB40A /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A81291AC9700D2A41E /* THTTPClient.m */; };
-		7A0F920E156BA2A0009CB40A /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */; };
-		7A0F920F156BA2A0009CB40A /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AD1291AC9700D2A41E /* TTransportException.m */; };
-		7A0F9210156BA2A0009CB40A /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */; };
+		7A0F9203156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9204156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9205156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9206156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9207156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9208156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9209156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920A156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920B156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920C156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920D156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920E156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F920F156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7A0F9210156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7A0F9211156BA2A0009CB40A /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7A0F921D156BA2A0009CB40A /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
@@ -111,7 +107,6 @@
 		7A0F923A156BA2A0009CB40A /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
 		7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7A0F923C156BA2A0009CB40A /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
-		7A0F923E156BA2A0009CB40A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
 		7A0F923F156BA2A0009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
 		7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */; };
 		7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
@@ -147,12 +142,8 @@
 		7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
-		7AB534AD1552BE7D00171BCE /* SHKCustomActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */; };
-		7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */; };
 		7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
-		7AB534B51552BE7D00171BCE /* SHKCustomShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */; };
-		7AB534B71552BE7D00171BCE /* SHKCustomShareMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */; };
 		7AB534BA1552BE7D00171BCE /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
 		7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
 		7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
@@ -192,20 +183,20 @@
 		7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
 		7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7AB535101552BE7D00171BCE /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28D1291AC9700D2A41E /* EDAMLimits.m */; };
-		7AB535121552BE7D00171BCE /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F28F1291AC9700D2A41E /* Errors.m */; };
-		7AB535141552BE7D00171BCE /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2911291AC9700D2A41E /* NoteStore.m */; };
-		7AB535161552BE7D00171BCE /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2931291AC9700D2A41E /* Types.m */; };
-		7AB535181552BE7D00171BCE /* UserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2951291AC9700D2A41E /* UserStore.m */; };
-		7AB5351A1552BE7D00171BCE /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2991291AC9700D2A41E /* TBinaryProtocol.m */; };
-		7AB5351D1552BE7D00171BCE /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29C1291AC9700D2A41E /* TProtocolException.m */; };
-		7AB535201552BE7D00171BCE /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F29F1291AC9700D2A41E /* TProtocolUtil.m */; };
-		7AB535221552BE7D00171BCE /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A11291AC9700D2A41E /* TApplicationException.m */; };
-		7AB535241552BE7D00171BCE /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A31291AC9700D2A41E /* TException.m */; };
-		7AB535281552BE7D00171BCE /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2A81291AC9700D2A41E /* THTTPClient.m */; };
-		7AB5352A1552BE7D00171BCE /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */; };
-		7AB5352D1552BE7D00171BCE /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AD1291AC9700D2A41E /* TTransportException.m */; };
-		7AB5352F1552BE7D00171BCE /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */; };
+		7AB535101552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535121552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535141552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535161552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535181552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5351A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5351D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535201552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535221552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535241552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB535281552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		7AB5352F1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
 		7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
@@ -248,6 +239,32 @@
 		7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7AB5358B1552BE7D00171BCE /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
 		7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
+		7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
+		7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
+		7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
+		7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
+		7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
+		7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
+		7AB804FB15AC7A21004FB430 /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
+		7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
+		7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
+		7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
+		7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
+		7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
+		7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
+		7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
+		7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
+		7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
+		7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
+		7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
+		7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
+		7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
+		7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
+		7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
+		7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
+		7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
+		7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
+		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
 		7ABCDBA91577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
 		7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
 		7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
@@ -289,44 +306,69 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
+		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
+		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
+		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		42EDC75D156CFBF400E3303E /* GCOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCOAuth.h; sourceTree = "<group>"; };
+		42EDC75E156CFBF400E3303E /* GCOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCOAuth.m; sourceTree = "<group>"; };
+		42EDC760156CFBF400E3303E /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		42EDC761156CFBF400E3303E /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		42EDC76D156CFBF400E3303E /* TBinaryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBinaryProtocol.h; sourceTree = "<group>"; };
+		42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBinaryProtocol.m; sourceTree = "<group>"; };
+		42EDC76F156CFBF400E3303E /* TProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocol.h; sourceTree = "<group>"; };
+		42EDC770156CFBF400E3303E /* TProtocolException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolException.h; sourceTree = "<group>"; };
+		42EDC771156CFBF400E3303E /* TProtocolException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolException.m; sourceTree = "<group>"; };
+		42EDC772156CFBF400E3303E /* TProtocolFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolFactory.h; sourceTree = "<group>"; };
+		42EDC773156CFBF400E3303E /* TProtocolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolUtil.h; sourceTree = "<group>"; };
+		42EDC774156CFBF400E3303E /* TProtocolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolUtil.m; sourceTree = "<group>"; };
+		42EDC778156CFBF400E3303E /* TApplicationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TApplicationException.h; sourceTree = "<group>"; };
+		42EDC779156CFBF400E3303E /* TApplicationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TApplicationException.m; sourceTree = "<group>"; };
+		42EDC77A156CFBF400E3303E /* TException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TException.h; sourceTree = "<group>"; };
+		42EDC77B156CFBF400E3303E /* TException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TException.m; sourceTree = "<group>"; };
+		42EDC77C156CFBF400E3303E /* Thrift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thrift.h; sourceTree = "<group>"; };
+		42EDC77D156CFBF400E3303E /* TProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessor.h; sourceTree = "<group>"; };
+		42EDC77E156CFBF400E3303E /* TProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessorFactory.h; sourceTree = "<group>"; };
+		42EDC780156CFBF400E3303E /* THTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THTTPClient.h; sourceTree = "<group>"; };
+		42EDC781156CFBF400E3303E /* THTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THTTPClient.m; sourceTree = "<group>"; };
+		42EDC782156CFBF400E3303E /* TMemoryBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMemoryBuffer.h; sourceTree = "<group>"; };
+		42EDC783156CFBF400E3303E /* TMemoryBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMemoryBuffer.m; sourceTree = "<group>"; };
+		42EDC78A156CFBF400E3303E /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
+		42EDC78B156CFBF400E3303E /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
+		42EDC78C156CFBF400E3303E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
+		42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
+		42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
+		42EDC790156CFBF400E3303E /* EDAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAM.h; sourceTree = "<group>"; };
+		42EDC791156CFBF400E3303E /* EDAMErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMErrors.h; sourceTree = "<group>"; };
+		42EDC792156CFBF400E3303E /* EDAMErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMErrors.m; sourceTree = "<group>"; };
+		42EDC793156CFBF400E3303E /* EDAMLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMLimits.h; sourceTree = "<group>"; };
+		42EDC794156CFBF400E3303E /* EDAMLimits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMLimits.m; sourceTree = "<group>"; };
+		42EDC795156CFBF400E3303E /* EDAMNoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMNoteStore.h; sourceTree = "<group>"; };
+		42EDC796156CFBF400E3303E /* EDAMNoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMNoteStore.m; sourceTree = "<group>"; };
+		42EDC797156CFBF400E3303E /* EDAMTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMTypes.h; sourceTree = "<group>"; };
+		42EDC798156CFBF400E3303E /* EDAMTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMTypes.m; sourceTree = "<group>"; };
+		42EDC799156CFBF400E3303E /* EDAMUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMUserStore.h; sourceTree = "<group>"; };
+		42EDC79A156CFBF400E3303E /* EDAMUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMUserStore.m; sourceTree = "<group>"; };
+		42EDC79B156CFBF400E3303E /* evernote-sdk-ios-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "evernote-sdk-ios-Prefix.pch"; sourceTree = "<group>"; };
+		42EDC79C156CFBF400E3303E /* EvernoteNoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteNoteStore.h; sourceTree = "<group>"; };
+		42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteNoteStore.m; sourceTree = "<group>"; };
+		42EDC79E156CFBF400E3303E /* EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteSDK.h; sourceTree = "<group>"; };
+		42EDC79F156CFBF400E3303E /* EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteSDK.m; sourceTree = "<group>"; };
+		42EDC7A0156CFBF400E3303E /* EvernoteSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteSession.h; sourceTree = "<group>"; };
+		42EDC7A1156CFBF400E3303E /* EvernoteSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteSession.m; sourceTree = "<group>"; };
+		42EDC7A2156CFBF400E3303E /* EvernoteUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteUserStore.h; sourceTree = "<group>"; };
+		42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteUserStore.m; sourceTree = "<group>"; };
+		42EDC7A5156CFBF400E3303E /* ENAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAPI.h; sourceTree = "<group>"; };
+		42EDC7A6156CFBF400E3303E /* ENAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENAPI.m; sourceTree = "<group>"; };
+		42EDC7A7156CFBF400E3303E /* ENCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCredentials.h; sourceTree = "<group>"; };
+		42EDC7A8156CFBF400E3303E /* ENCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCredentials.m; sourceTree = "<group>"; };
+		42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCredentialStore.h; sourceTree = "<group>"; };
+		42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCredentialStore.m; sourceTree = "<group>"; };
 		4312CF7B11CB33E200E61D7A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43150A8B11E78697008C6B68 /* SHKInstapaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKInstapaper.h; sourceTree = "<group>"; };
 		43150A8C11E78697008C6B68 /* SHKInstapaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKInstapaper.m; sourceTree = "<group>"; };
 		432B147A11FF4B0700291B37 /* SHKPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPhotoAlbum.h; sourceTree = "<group>"; };
 		432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPhotoAlbum.m; sourceTree = "<group>"; };
-		4379F28C1291AC9700D2A41E /* EDAMLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMLimits.h; sourceTree = "<group>"; };
-		4379F28D1291AC9700D2A41E /* EDAMLimits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMLimits.m; sourceTree = "<group>"; };
-		4379F28E1291AC9700D2A41E /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
-		4379F28F1291AC9700D2A41E /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
-		4379F2901291AC9700D2A41E /* NoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteStore.h; sourceTree = "<group>"; };
-		4379F2911291AC9700D2A41E /* NoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteStore.m; sourceTree = "<group>"; };
-		4379F2921291AC9700D2A41E /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
-		4379F2931291AC9700D2A41E /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
-		4379F2941291AC9700D2A41E /* UserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserStore.h; sourceTree = "<group>"; };
-		4379F2951291AC9700D2A41E /* UserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserStore.m; sourceTree = "<group>"; };
-		4379F2981291AC9700D2A41E /* TBinaryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBinaryProtocol.h; sourceTree = "<group>"; };
-		4379F2991291AC9700D2A41E /* TBinaryProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBinaryProtocol.m; sourceTree = "<group>"; };
-		4379F29A1291AC9700D2A41E /* TProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocol.h; sourceTree = "<group>"; };
-		4379F29B1291AC9700D2A41E /* TProtocolException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolException.h; sourceTree = "<group>"; };
-		4379F29C1291AC9700D2A41E /* TProtocolException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolException.m; sourceTree = "<group>"; };
-		4379F29D1291AC9700D2A41E /* TProtocolFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolFactory.h; sourceTree = "<group>"; };
-		4379F29E1291AC9700D2A41E /* TProtocolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolUtil.h; sourceTree = "<group>"; };
-		4379F29F1291AC9700D2A41E /* TProtocolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolUtil.m; sourceTree = "<group>"; };
-		4379F2A01291AC9700D2A41E /* TApplicationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TApplicationException.h; sourceTree = "<group>"; };
-		4379F2A11291AC9700D2A41E /* TApplicationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TApplicationException.m; sourceTree = "<group>"; };
-		4379F2A21291AC9700D2A41E /* TException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TException.h; sourceTree = "<group>"; };
-		4379F2A31291AC9700D2A41E /* TException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TException.m; sourceTree = "<group>"; };
-		4379F2A41291AC9700D2A41E /* TProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessor.h; sourceTree = "<group>"; };
-		4379F2A51291AC9700D2A41E /* TProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessorFactory.h; sourceTree = "<group>"; };
-		4379F2A71291AC9700D2A41E /* THTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THTTPClient.h; sourceTree = "<group>"; };
-		4379F2A81291AC9700D2A41E /* THTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THTTPClient.m; sourceTree = "<group>"; };
-		4379F2A91291AC9700D2A41E /* TMemoryBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMemoryBuffer.h; sourceTree = "<group>"; };
-		4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMemoryBuffer.m; sourceTree = "<group>"; };
-		4379F2AB1291AC9700D2A41E /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
-		4379F2AC1291AC9700D2A41E /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
-		4379F2AD1291AC9700D2A41E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
-		4379F2AE1291AC9700D2A41E /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
-		4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
 		4379F2B01291AC9700D2A41E /* SHKEvernote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKEvernote.h; sourceTree = "<group>"; };
 		4379F2B11291AC9700D2A41E /* SHKEvernote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKEvernote.m; sourceTree = "<group>"; };
 		4379F2B21291AC9700D2A41E /* SHKEvernote.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SHKEvernote.md; sourceTree = "<group>"; };
@@ -375,8 +417,6 @@
 		43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOfflineSharer.h; sourceTree = "<group>"; };
 		43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOfflineSharer.m; sourceTree = "<group>"; };
 		43A536AC11DBE3B9004A1712 /* SHKSharers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SHKSharers.plist; sourceTree = "<group>"; };
-		43A536AE11DBE3B9004A1712 /* SHKCustomFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormController.h; sourceTree = "<group>"; };
-		43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormController.m; sourceTree = "<group>"; };
 		43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormFieldCell.h; sourceTree = "<group>"; };
 		43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormFieldCell.m; sourceTree = "<group>"; };
 		43A536B311DBE3B9004A1712 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -425,10 +465,6 @@
 		43A5383311DBE493004A1712 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Example/RootViewController.m; sourceTree = "<group>"; };
 		43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitAppDelegate.h; path = Example/ShareKitAppDelegate.h; sourceTree = "<group>"; };
 		43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitAppDelegate.m; path = Example/ShareKitAppDelegate.m; sourceTree = "<group>"; };
-		43A53C0711DC07A9004A1712 /* SHKCustomShareMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomShareMenuCell.h; sourceTree = "<group>"; };
-		43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomShareMenuCell.m; sourceTree = "<group>"; };
-		43A53C1011DC08B1004A1712 /* SHKCustomShareMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomShareMenu.h; sourceTree = "<group>"; };
-		43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomShareMenu.m; sourceTree = "<group>"; };
 		43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		43C91DF311EBAE4800F31FAE /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
 		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
@@ -462,8 +498,6 @@
 		7A36F42614B2021100372747 /* SHKSharerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSharerDelegate.m; sourceTree = "<group>"; };
 		7A3C61ED147520B700C47D14 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
-		7AA40552146F0EFF00685C81 /* SHKCustomActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomActionSheet.h; sourceTree = "<group>"; };
-		7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomActionSheet.m; sourceTree = "<group>"; };
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
 		7AB5342E1552AADD00171BCE /* libShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -673,6 +707,126 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		42EDC75A156CFBF400E3303E /* Evernote-SDK */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC75B156CFBF400E3303E /* 3rdParty */,
+				42EDC78F156CFBF400E3303E /* EDAM */,
+				42EDC79B156CFBF400E3303E /* evernote-sdk-ios-Prefix.pch */,
+				42EDC79C156CFBF400E3303E /* EvernoteNoteStore.h */,
+				42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */,
+				42EDC79E156CFBF400E3303E /* EvernoteSDK.h */,
+				42EDC79F156CFBF400E3303E /* EvernoteSDK.m */,
+				42EDC7A0156CFBF400E3303E /* EvernoteSession.h */,
+				42EDC7A1156CFBF400E3303E /* EvernoteSession.m */,
+				42EDC7A2156CFBF400E3303E /* EvernoteUserStore.h */,
+				42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */,
+				42EDC7A4156CFBF400E3303E /* internal */,
+			);
+			name = "Evernote-SDK";
+			path = "Submodules/evernote-ios-sdk/evernote-sdk-ios";
+			sourceTree = SOURCE_ROOT;
+		};
+		42EDC75B156CFBF400E3303E /* 3rdParty */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC75C156CFBF400E3303E /* cocoa-oauth */,
+				42EDC76A156CFBF400E3303E /* Thrift */,
+			);
+			path = 3rdParty;
+			sourceTree = "<group>";
+		};
+		42EDC75C156CFBF400E3303E /* cocoa-oauth */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC75D156CFBF400E3303E /* GCOAuth.h */,
+				42EDC75E156CFBF400E3303E /* GCOAuth.m */,
+				42EDC760156CFBF400E3303E /* NSData+Base64.h */,
+				42EDC761156CFBF400E3303E /* NSData+Base64.m */,
+			);
+			path = "cocoa-oauth";
+			sourceTree = "<group>";
+		};
+		42EDC76A156CFBF400E3303E /* Thrift */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC76C156CFBF400E3303E /* protocol */,
+				42EDC778156CFBF400E3303E /* TApplicationException.h */,
+				42EDC779156CFBF400E3303E /* TApplicationException.m */,
+				42EDC77A156CFBF400E3303E /* TException.h */,
+				42EDC77B156CFBF400E3303E /* TException.m */,
+				42EDC77C156CFBF400E3303E /* Thrift.h */,
+				42EDC77D156CFBF400E3303E /* TProcessor.h */,
+				42EDC77E156CFBF400E3303E /* TProcessorFactory.h */,
+				42EDC77F156CFBF400E3303E /* transport */,
+				42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */,
+				42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */,
+			);
+			path = Thrift;
+			sourceTree = "<group>";
+		};
+		42EDC76C156CFBF400E3303E /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC76D156CFBF400E3303E /* TBinaryProtocol.h */,
+				42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */,
+				42EDC76F156CFBF400E3303E /* TProtocol.h */,
+				42EDC770156CFBF400E3303E /* TProtocolException.h */,
+				42EDC771156CFBF400E3303E /* TProtocolException.m */,
+				42EDC772156CFBF400E3303E /* TProtocolFactory.h */,
+				42EDC773156CFBF400E3303E /* TProtocolUtil.h */,
+				42EDC774156CFBF400E3303E /* TProtocolUtil.m */,
+			);
+			path = protocol;
+			sourceTree = "<group>";
+		};
+		42EDC77F156CFBF400E3303E /* transport */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC780156CFBF400E3303E /* THTTPClient.h */,
+				42EDC781156CFBF400E3303E /* THTTPClient.m */,
+				42EDC782156CFBF400E3303E /* TMemoryBuffer.h */,
+				42EDC783156CFBF400E3303E /* TMemoryBuffer.m */,
+				42EDC78A156CFBF400E3303E /* TTransport.h */,
+				42EDC78B156CFBF400E3303E /* TTransportException.h */,
+				42EDC78C156CFBF400E3303E /* TTransportException.m */,
+			);
+			path = transport;
+			sourceTree = "<group>";
+		};
+		42EDC78F156CFBF400E3303E /* EDAM */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC790156CFBF400E3303E /* EDAM.h */,
+				42EDC791156CFBF400E3303E /* EDAMErrors.h */,
+				42EDC792156CFBF400E3303E /* EDAMErrors.m */,
+				42EDC793156CFBF400E3303E /* EDAMLimits.h */,
+				42EDC794156CFBF400E3303E /* EDAMLimits.m */,
+				42EDC795156CFBF400E3303E /* EDAMNoteStore.h */,
+				42EDC796156CFBF400E3303E /* EDAMNoteStore.m */,
+				42EDC797156CFBF400E3303E /* EDAMTypes.h */,
+				42EDC798156CFBF400E3303E /* EDAMTypes.m */,
+				42EDC799156CFBF400E3303E /* EDAMUserStore.h */,
+				42EDC79A156CFBF400E3303E /* EDAMUserStore.m */,
+			);
+			path = EDAM;
+			sourceTree = "<group>";
+		};
+		42EDC7A4156CFBF400E3303E /* internal */ = {
+			isa = PBXGroup;
+			children = (
+				42EDC7A5156CFBF400E3303E /* ENAPI.h */,
+				42EDC7A6156CFBF400E3303E /* ENAPI.m */,
+				42EDC7A7156CFBF400E3303E /* ENCredentials.h */,
+				42EDC7A8156CFBF400E3303E /* ENCredentials.m */,
+				42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */,
+				42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */,
+				427FBAB11592F7C90024F825 /* ENOAuthViewController.h */,
+				427FBAB21592F7C90024F825 /* ENOAuthViewController.m */,
+			);
+			path = internal;
+			sourceTree = "<group>";
+		};
 		43150A8A11E78697008C6B68 /* Instapaper */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,84 +869,12 @@
 		4379F2891291AC9700D2A41E /* Evernote */ = {
 			isa = PBXGroup;
 			children = (
-				4379F28A1291AC9700D2A41E /* Helpers */,
+				42EDC75A156CFBF400E3303E /* Evernote-SDK */,
 				4379F2B01291AC9700D2A41E /* SHKEvernote.h */,
 				4379F2B11291AC9700D2A41E /* SHKEvernote.m */,
 				4379F2B21291AC9700D2A41E /* SHKEvernote.md */,
 			);
 			path = Evernote;
-			sourceTree = "<group>";
-		};
-		4379F28A1291AC9700D2A41E /* Helpers */ = {
-			isa = PBXGroup;
-			children = (
-				4379F28B1291AC9700D2A41E /* edam */,
-				4379F2961291AC9700D2A41E /* thrift */,
-			);
-			path = Helpers;
-			sourceTree = "<group>";
-		};
-		4379F28B1291AC9700D2A41E /* edam */ = {
-			isa = PBXGroup;
-			children = (
-				4379F28C1291AC9700D2A41E /* EDAMLimits.h */,
-				4379F28D1291AC9700D2A41E /* EDAMLimits.m */,
-				4379F28E1291AC9700D2A41E /* Errors.h */,
-				4379F28F1291AC9700D2A41E /* Errors.m */,
-				4379F2901291AC9700D2A41E /* NoteStore.h */,
-				4379F2911291AC9700D2A41E /* NoteStore.m */,
-				4379F2921291AC9700D2A41E /* Types.h */,
-				4379F2931291AC9700D2A41E /* Types.m */,
-				4379F2941291AC9700D2A41E /* UserStore.h */,
-				4379F2951291AC9700D2A41E /* UserStore.m */,
-			);
-			path = edam;
-			sourceTree = "<group>";
-		};
-		4379F2961291AC9700D2A41E /* thrift */ = {
-			isa = PBXGroup;
-			children = (
-				4379F2971291AC9700D2A41E /* protocol */,
-				4379F2A01291AC9700D2A41E /* TApplicationException.h */,
-				4379F2A11291AC9700D2A41E /* TApplicationException.m */,
-				4379F2A21291AC9700D2A41E /* TException.h */,
-				4379F2A31291AC9700D2A41E /* TException.m */,
-				4379F2A41291AC9700D2A41E /* TProcessor.h */,
-				4379F2A51291AC9700D2A41E /* TProcessorFactory.h */,
-				4379F2A61291AC9700D2A41E /* transport */,
-				4379F2AE1291AC9700D2A41E /* TSharedProcessorFactory.h */,
-				4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */,
-			);
-			path = thrift;
-			sourceTree = "<group>";
-		};
-		4379F2971291AC9700D2A41E /* protocol */ = {
-			isa = PBXGroup;
-			children = (
-				4379F2981291AC9700D2A41E /* TBinaryProtocol.h */,
-				4379F2991291AC9700D2A41E /* TBinaryProtocol.m */,
-				4379F29A1291AC9700D2A41E /* TProtocol.h */,
-				4379F29B1291AC9700D2A41E /* TProtocolException.h */,
-				4379F29C1291AC9700D2A41E /* TProtocolException.m */,
-				4379F29D1291AC9700D2A41E /* TProtocolFactory.h */,
-				4379F29E1291AC9700D2A41E /* TProtocolUtil.h */,
-				4379F29F1291AC9700D2A41E /* TProtocolUtil.m */,
-			);
-			path = protocol;
-			sourceTree = "<group>";
-		};
-		4379F2A61291AC9700D2A41E /* transport */ = {
-			isa = PBXGroup;
-			children = (
-				4379F2A71291AC9700D2A41E /* THTTPClient.h */,
-				4379F2A81291AC9700D2A41E /* THTTPClient.m */,
-				4379F2A91291AC9700D2A41E /* TMemoryBuffer.h */,
-				4379F2AA1291AC9700D2A41E /* TMemoryBuffer.m */,
-				4379F2AB1291AC9700D2A41E /* TTransport.h */,
-				4379F2AC1291AC9700D2A41E /* TTransportException.h */,
-				4379F2AD1291AC9700D2A41E /* TTransportException.m */,
-			);
-			path = transport;
 			sourceTree = "<group>";
 		};
 		4379F3AF1291C45700D2A41E /* Text Message */ = {
@@ -850,14 +932,16 @@
 		43A5367811DBE3B9004A1712 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */,
+				427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */,
 				4379F2E81291AE5700D2A41E /* NSData+md5.h */,
 				4379F2E91291AE5700D2A41E /* NSData+md5.m */,
-				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
-				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
-				7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */,
-				7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */,
 				7A333EE314CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.h */,
 				7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */,
+				7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */,
+				7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */,
+				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
+				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -931,10 +1015,7 @@
 		43A536AD11DBE3B9004A1712 /* Customize UI */ = {
 			isa = PBXGroup;
 			children = (
-				7AA40552146F0EFF00685C81 /* SHKCustomActionSheet.h */,
-				7AA40553146F0EFF00685C81 /* SHKCustomActionSheet.m */,
 				43A53C0B11DC0835004A1712 /* Form */,
-				43A53C0A11DC080C004A1712 /* Share Menu */,
 			);
 			path = "Customize UI";
 			sourceTree = "<group>";
@@ -1101,22 +1182,9 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		43A53C0A11DC080C004A1712 /* Share Menu */ = {
-			isa = PBXGroup;
-			children = (
-				43A53C1011DC08B1004A1712 /* SHKCustomShareMenu.h */,
-				43A53C1111DC08B1004A1712 /* SHKCustomShareMenu.m */,
-				43A53C0711DC07A9004A1712 /* SHKCustomShareMenuCell.h */,
-				43A53C0811DC07A9004A1712 /* SHKCustomShareMenuCell.m */,
-			);
-			name = "Share Menu";
-			sourceTree = "<group>";
-		};
 		43A53C0B11DC0835004A1712 /* Form */ = {
 			isa = PBXGroup;
 			children = (
-				43A536AE11DBE3B9004A1712 /* SHKCustomFormController.h */,
-				43A536AF11DBE3B9004A1712 /* SHKCustomFormController.m */,
 				43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */,
 				43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */,
 				3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */,
@@ -1558,12 +1626,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A0F91D3156BA2A0009CB40A /* SHKCustomActionSheet.m in Sources */,
-				7A0F91D4156BA2A0009CB40A /* SHKCustomFormController.m in Sources */,
 				7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */,
 				7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7A0F91D7156BA2A0009CB40A /* SHKCustomShareMenu.m in Sources */,
-				7A0F91D8156BA2A0009CB40A /* SHKCustomShareMenuCell.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,
@@ -1601,20 +1665,20 @@
 				7A0F9200156BA2A0009CB40A /* SHKDiigo.m in Sources */,
 				7A0F9201156BA2A0009CB40A /* SHKVkontakteOAuthView.m in Sources */,
 				7A0F9202156BA2A0009CB40A /* SHKVkontakte.m in Sources */,
-				7A0F9203156BA2A0009CB40A /* EDAMLimits.m in Sources */,
-				7A0F9204156BA2A0009CB40A /* Errors.m in Sources */,
-				7A0F9205156BA2A0009CB40A /* NoteStore.m in Sources */,
-				7A0F9206156BA2A0009CB40A /* Types.m in Sources */,
-				7A0F9207156BA2A0009CB40A /* UserStore.m in Sources */,
-				7A0F9208156BA2A0009CB40A /* TBinaryProtocol.m in Sources */,
-				7A0F9209156BA2A0009CB40A /* TProtocolException.m in Sources */,
-				7A0F920A156BA2A0009CB40A /* TProtocolUtil.m in Sources */,
-				7A0F920B156BA2A0009CB40A /* TApplicationException.m in Sources */,
-				7A0F920C156BA2A0009CB40A /* TException.m in Sources */,
-				7A0F920D156BA2A0009CB40A /* THTTPClient.m in Sources */,
-				7A0F920E156BA2A0009CB40A /* TMemoryBuffer.m in Sources */,
-				7A0F920F156BA2A0009CB40A /* TTransportException.m in Sources */,
-				7A0F9210156BA2A0009CB40A /* TSharedProcessorFactory.m in Sources */,
+				7A0F9203156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9204156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9205156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9206156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9207156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9208156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9209156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920A156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920B156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920C156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920D156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920E156BA2A0009CB40A /* (null) in Sources */,
+				7A0F920F156BA2A0009CB40A /* (null) in Sources */,
+				7A0F9210156BA2A0009CB40A /* (null) in Sources */,
 				7A0F9211156BA2A0009CB40A /* SHKEvernote.m in Sources */,
 				7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */,
 				7A0F921D156BA2A0009CB40A /* NSError+SHKFoursquareV2.m in Sources */,
@@ -1650,7 +1714,7 @@
 				7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
 				7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
-				7A3864B4157E33EA009E427E /* Reachability.m in Sources */,
+				7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1658,12 +1722,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB534AD1552BE7D00171BCE /* SHKCustomActionSheet.m in Sources */,
-				7AB534AF1552BE7D00171BCE /* SHKCustomFormController.m in Sources */,
 				7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */,
 				7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7AB534B51552BE7D00171BCE /* SHKCustomShareMenu.m in Sources */,
-				7AB534B71552BE7D00171BCE /* SHKCustomShareMenuCell.m in Sources */,
 				7AB534BA1552BE7D00171BCE /* SHK.m in Sources */,
 				7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */,
 				7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */,
@@ -1703,20 +1763,20 @@
 				7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */,
 				7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */,
 				7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */,
-				7AB535101552BE7D00171BCE /* EDAMLimits.m in Sources */,
-				7AB535121552BE7D00171BCE /* Errors.m in Sources */,
-				7AB535141552BE7D00171BCE /* NoteStore.m in Sources */,
-				7AB535161552BE7D00171BCE /* Types.m in Sources */,
-				7AB535181552BE7D00171BCE /* UserStore.m in Sources */,
-				7AB5351A1552BE7D00171BCE /* TBinaryProtocol.m in Sources */,
-				7AB5351D1552BE7D00171BCE /* TProtocolException.m in Sources */,
-				7AB535201552BE7D00171BCE /* TProtocolUtil.m in Sources */,
-				7AB535221552BE7D00171BCE /* TApplicationException.m in Sources */,
-				7AB535241552BE7D00171BCE /* TException.m in Sources */,
-				7AB535281552BE7D00171BCE /* THTTPClient.m in Sources */,
-				7AB5352A1552BE7D00171BCE /* TMemoryBuffer.m in Sources */,
-				7AB5352D1552BE7D00171BCE /* TTransportException.m in Sources */,
-				7AB5352F1552BE7D00171BCE /* TSharedProcessorFactory.m in Sources */,
+				7AB535101552BE7D00171BCE /* (null) in Sources */,
+				7AB535121552BE7D00171BCE /* (null) in Sources */,
+				7AB535141552BE7D00171BCE /* (null) in Sources */,
+				7AB535161552BE7D00171BCE /* (null) in Sources */,
+				7AB535181552BE7D00171BCE /* (null) in Sources */,
+				7AB5351A1552BE7D00171BCE /* (null) in Sources */,
+				7AB5351D1552BE7D00171BCE /* (null) in Sources */,
+				7AB535201552BE7D00171BCE /* (null) in Sources */,
+				7AB535221552BE7D00171BCE /* (null) in Sources */,
+				7AB535241552BE7D00171BCE /* (null) in Sources */,
+				7AB535281552BE7D00171BCE /* (null) in Sources */,
+				7AB5352A1552BE7D00171BCE /* (null) in Sources */,
+				7AB5352D1552BE7D00171BCE /* (null) in Sources */,
+				7AB5352F1552BE7D00171BCE /* (null) in Sources */,
 				7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */,
 				7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */,
 				7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */,
@@ -1770,6 +1830,31 @@
 				7A164DC4157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
 				7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB2157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
+				7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */,
+				7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */,
+				7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */,
+				7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */,
+				7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */,
+				7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */,
+				7AB804FB15AC7A21004FB430 /* TException.m in Sources */,
+				7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */,
+				7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */,
+				7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */,
+				7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */,
+				7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */,
+				7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */,
+				7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */,
+				7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */,
+				7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */,
+				7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */,
+				7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */,
+				7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */,
+				7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */,
+				7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */,
+				7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */,
+				7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */,
+				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
+				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1873,7 +1958,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = ShareKitNoSubmodules;
 				SKIP_INSTALL = YES;
 			};
@@ -1896,7 +1984,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = ShareKitNoSubmodules;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -1927,7 +2018,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = ShareKit;
 				SKIP_INSTALL = YES;
 			};
@@ -1950,7 +2044,10 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = ShareKit;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;

@@ -29,7 +29,6 @@
 #import "SHKShareMenu.h"
 #import "SHK.h"
 #import "SHKSharer.h"
-#import "SHKCustomShareMenuCell.h"
 #import "SHKShareItemDelegate.h"
 
 @implementation SHKShareMenu
@@ -226,10 +225,10 @@
 {    
     static NSString *CellIdentifier = @"Cell";
     
-    SHKCustomShareMenuCell *cell = (SHKCustomShareMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[SHKCONFIG(SHKShareMenuCellSubclass) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     
