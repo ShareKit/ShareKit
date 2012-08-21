@@ -25,9 +25,9 @@
 //
 //
 
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKCustomFormControllerLargeTextField.h"
 
-@interface SHKFoursquareV2CheckInForm : SHKFormControllerLargeTextField {
+@interface SHKFoursquareV2CheckInForm : SHKCustomFormControllerLargeTextField {
 
 }
 

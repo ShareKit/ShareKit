@@ -29,7 +29,6 @@
 #import "SHKShareMenu.h"
 #import "SHK.h"
 #import "SHKSharer.h"
-#import "SHKCustomShareMenuCell.h"
 #import "SHKShareItemDelegate.h"
 
 @implementation SHKShareMenu
@@ -65,6 +64,8 @@
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                 target:self
                                                                                                 action:@selector(edit)] autorelease];
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
     
 	return self;
@@ -103,7 +104,15 @@
 	// If not editing, hide them
 	
     if([[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"] != nil){
-        [self setExclusions:[NSMutableArray arrayWithArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"]]];
+    
+        NSObject *excluded = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+        
+        //due to backwards compatibility - SHKExcluded used to be saved as NSDictionary. It is better as NSArray, as favourites are NSArray too.
+        if ([excluded isKindOfClass:[NSDictionary class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:[(NSDictionary*)excluded allKeys]]];
+        } else if ([excluded isKindOfClass:[NSArray class]]) {
+            [self setExclusions:[NSMutableArray arrayWithArray:(NSArray*)excluded]];
+        }
     }else{
         [self setExclusions:[NSMutableArray arrayWithCapacity:0]];
     }
@@ -213,10 +222,10 @@
 {    
     static NSString *CellIdentifier = @"Cell";
     
-    SHKCustomShareMenuCell *cell = (SHKCustomShareMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[SHKCONFIG(SHKShareMenuCellSubclass) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     

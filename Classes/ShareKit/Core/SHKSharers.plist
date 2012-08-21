@@ -14,8 +14,11 @@
 	</array>
 	<key>services</key>
 	<array>
+		<string>SHKReadability</string>
 		<string>SHKEvernote</string>
+		<string>SHKDelicious</string>
 		<string>SHKTwitter</string>
+		<string>SHKDiigo</string>
 		<string>SHKPinboard</string>
 		<string>SHKGoogleReader</string>
 		<string>SHKFacebook</string>

@@ -166,7 +166,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)showSHKTextForm
 {
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
     if (item.shareType == SHKShareTypeURL) {
         rootView.text = item.title;
@@ -201,9 +201,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 }
 
 #pragma mark -
-#pragma mark SHKFormControllerLargeTextField delegate
+#pragma mark SHKCustomFormControllerLargeTextField delegate
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {	
     if (item.shareType == SHKShareTypeURL) {
         item.title = form.textView.text;

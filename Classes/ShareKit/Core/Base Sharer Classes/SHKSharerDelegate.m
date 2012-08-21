@@ -56,4 +56,27 @@
 
 }
 
+- (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer
+{    
+    NSString *errorMessage = SHKLocalizedString(@"Sorry, %@ did not accept your credentials. Please try again.", [[sharer class] sharerTitle]);
+       
+    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+                                 message:errorMessage
+                                delegate:nil
+                       cancelButtonTitle:SHKLocalizedString(@"Close")
+                       otherButtonTitles:nil] autorelease] show];
+}
+
+- (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer
+{    
+    NSString *errorMessage = SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [[sharer class] sharerTitle]);
+    
+    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+                                 message:errorMessage
+                                delegate:nil
+                       cancelButtonTitle:SHKLocalizedString(@"Close")
+                       otherButtonTitles:nil] autorelease] show];
+}
+
+
 @end

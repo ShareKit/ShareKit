@@ -254,7 +254,7 @@ Google Reader API is unoffical, this was hobbled together from:
 		{		
 			self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 															 [NSString stringWithFormat:
-															  @"http://www.google.com/reader/api/0/token?ck=%i",
+															  @"http://www.google.com/reader/api/0/token?ck=%f",
 															  [[NSDate date] timeIntervalSince1970]
 															  ]]
 																   params:nil

@@ -15,7 +15,6 @@
 "Close" = "关闭";
 "Notes" = "笔记";
 "Note" = "笔记";
-"Share" = "分享";
 "Shared" = "已分享";
 "Edit" = "编辑";
 "Actions" = "动作";
@@ -55,13 +54,13 @@
 
 "There was an error saving to Pinboard" = "保存到 Pinboard 的过程中出错";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "抱歉，Instapaper 无法验证您的账号，请重试。";
-"Sorry, Instapaper encountered an error. Please try again." = "抱歉，Instapaper 碰到了一个问题，请重试。";
-"There was a problem saving to Instapaper." = "保存到 Instapaper 的过程中出错。";
+"Sorry, %@ did not accept your credentials. Please try again." = "抱歉，%@ 无法验证您的账号，请重试。";
+"Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 碰到了一个问题，请重试。";
+"There was a problem saving to %@." = "保存到 %@ 的过程中出错。";
 
 "Incorrect username and password" = "用户名或密码不正确";
 "There was an error logging into Google Reader" = "登录到 Google Reader 的过程中出错";
-"There was a problem authenticating your account." = "验证您账户的过程中出错。";
+
 "There was a problem saving your note." = "保存您笔记的过程中出错。";
 
 "Open in Safari" = "在 Safari 中打开";
@@ -73,12 +72,10 @@
 "Enable auto share to skip this step in the future." = "启动自动分享，在以后可以跳过此步。";
 
 "You must be online in order to share with %@" = "要分享 %@ 的话您必须在线。";
-"There was an error while sharing" = "分享过程中出错";
 
 "Could not authenticate you. Please relogin." = "无法验证，请重新登录。";
 "There was a problem requesting authorization from %@" = "在向 %@ 请求验证的过程中出错";
 "Request Error" = "请求错误";
-"There was an error while sharing" = "分享过程中出错";
 
 "Authorize Error" = "验证错误";
 "There was an error while authorizing" = "验证的过程中出错";
@@ -90,3 +87,78 @@
 "There was an error while sharing" = "在分享的过程中出错";
 
 "Save to Photo Album" = "保存到相簿";
+"Logout" = "注销";
+
+"Sharing a Link" = "分享一个链接";
+
+"Sharing an Image" = "分享一张图片";
+
+"Sharing Text" = "分享一段文字";
+
+"Sharing a File" = "分享一份文件";
+
+"Are you sure you want to logout of all share services?" = "确认注销所有绑定的服务？";
+
+"Examples" = "实例";
+
+"EDMA Error" = "EDMA 错误";
+
+"EDMA Version is too old." = "EDMA 版本太旧。";
+
+"Your username and password did not match" = "用户名和密码错误";
+
+"Untitled" = "无标题";
+
+"There was a problem sharing with Evernote" = "在分享到 Evernote 过程中发生错误";
+
+"Get" = "获取";
+
+"Description" = "描述";
+
+"Tag (space) Tag" = "标签 (空格) 标签";
+
+"Is Public" = "是否公开";
+
+"Is Friend" = "好友可见";
+
+"Is Family" = "家庭可见";
+
+"Logged Out!" = "注销完毕！";
+
+"Sent from %@" = "从 %@ 发送";
+
+"Save to Photo Album" = "保存到相簿";
+
+"Tag,Tag" = "标签,标签";
+
+"Logout of All Services" = "退出所有服务";
+
+/* No comment provided by engineer. */
+"Check In" = "签到";
+
+/* No comment provided by engineer. */
+"Could not find any" = "无法找到";
+
+/* No comment provided by engineer. */
+"Determine your location..." = "正在定位当前位置…";
+
+/* No comment provided by engineer. */
+"Loading..." = "加载中...";
+
+/* No comment provided by engineer. */
+"Nearby Places" = "附近地点";
+
+/* No comment provided by engineer. */
+"No Options" = "无选项";
+
+/* No comment provided by engineer. */
+"Post To Groups" = "发送到小组";
+
+/* No comment provided by engineer. */
+"Print" = "打印";
+
+/* No comment provided by engineer. */
+"Search places" = "搜索地点";
+
+/* No comment provided by engineer. */
+"Searching places..." = "正在搜索地点…";

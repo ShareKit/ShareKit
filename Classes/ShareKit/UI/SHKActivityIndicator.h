@@ -47,12 +47,14 @@
 - (void)show;
 - (void)hideAfterDelay;
 - (void)hide;
+- (void)persist;
 - (void)hidden;
 - (void)displayActivity:(NSString *)m;
 - (void)displayCompleted:(NSString *)m;
 - (void)setCenterMessage:(NSString *)message;
 - (void)setSubMessage:(NSString *)message;
 - (void)showSpinner;
+- (void)hideSpinner;
 - (void)setProperRotation;
 - (void)setProperRotation:(BOOL)animated;
 

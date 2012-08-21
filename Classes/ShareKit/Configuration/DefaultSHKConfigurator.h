@@ -53,14 +53,16 @@
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
+- (NSArray*)facebookListOfPermissions;
 - (NSString*)readItLaterKey;
+- (NSString*)diigoKey;
+- (NSNumber*)forcePreIOS5TwitterAccess;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
 - (NSString*)twitterCallbackUrl;
 - (NSNumber*)twitterUseXAuth;
 - (NSString*)twitterUsername;
-- (NSString*)evernoteUserStoreURL;
-- (NSString*)evernoteNetStoreURLBase;
+- (NSString*)evernoteHost;
 - (NSString*)evernoteConsumerKey;
 - (NSString*)evernoteSecret;
 - (NSString*)flickrConsumerKey;
@@ -71,10 +73,12 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
+- (NSString*)readabilityConsumerKey;
+- (NSString*)readabilitySecret;
+- (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
-- (NSNumber*)sharedWithSignature;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
 - (UIColor*)formFontColor;
@@ -82,12 +86,28 @@
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
+- (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;
 - (NSNumber*)showActionSheetMoreButton;
 - (NSNumber*)allowOffline;
 - (NSNumber*)allowAutoShare;
-- (NSNumber*)usePlaceholders;
+- (Class)SHKActionSheetSubclass;
+- (Class)SHKShareMenuSubclass;
+- (Class)SHKShareMenuCellSubclass;
+- (Class)SHKFormControllerSubclass;
+
+//SHKPrint
+- (NSNumber*)printOutputType;
+//SHKMail
+- (NSString*)mailBody;
+- (NSNumber*)isMailHTML;
+- (NSArray*)mailToRecipients;
+- (NSNumber*)mailJPGQuality;
+- (NSNumber*)sharedWithSignature;
+//SHKFacebook
+- (NSString *)facebookURLSharePictureURI;
+- (NSString *)facebookURLShareDescription;
 
 @end

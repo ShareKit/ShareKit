@@ -9,6 +9,7 @@
 @interface SHKFormControllerLargeTextField ()
 
 @property (nonatomic, retain) UILabel *counter;
+@property BOOL shareIsCancelled;
 
 - (void)layoutCounter;
 - (void)updateCounter;
@@ -25,6 +26,7 @@
 @synthesize delegate, textView, maxTextLength;
 @synthesize counter, hasLink, image, imageTextLength;
 @synthesize text;
+@synthesize shareIsCancelled;
 
 - (void)dealloc 
 {
@@ -93,8 +95,11 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name: UIKeyboardWillShowNotification object:nil];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	//If user really cancelled share. Sometimes sharers have more stages (e.g Foursquare) and user only returned to previous stage - back on navigation stack.
+	if (self.shareIsCancelled) {
+        // Remove the SHK view wrapper from the window
+        [[SHK currentHelper] viewWasDismissed];
+    }
 }
 
 - (void)setupBarButtonItems {
@@ -182,10 +187,18 @@
 		[self layoutCounter];
 	}
 	
-	NSInteger count = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
-	counter.text = [NSString stringWithFormat:@"%@%i", self.image ? [NSString stringWithFormat:@"Image %@ ",count>0?@"+":@""]:@"", count];
-	
-	if (count >= 0) {
+	NSString *count;
+    NSInteger countNumber = 0;
+    
+    if (self.maxTextLength) {
+        countNumber = (self.image?(self.maxTextLength - self.imageTextLength):self.maxTextLength) - self.textView.text.length;
+        count = [NSString stringWithFormat:@"%i", countNumber];
+    } else {
+        count = @"";
+    }
+    counter.text = [NSString stringWithFormat:@"%@%@", self.image ? [NSString stringWithFormat:@"Image %@ ",countNumber>0?@"+":@""]:@"", count];
+ 	
+	if (countNumber >= 0) {
 		
 		self.counter.textColor = [UIColor blackColor];        
 		if (self.textView.text.length) self.navigationItem.rightBarButtonItem.enabled = YES; 
@@ -245,7 +258,8 @@
 
 - (void)cancel
 {	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	self.shareIsCancelled = YES;
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	[self.delegate sendDidCancel];
 }
 
