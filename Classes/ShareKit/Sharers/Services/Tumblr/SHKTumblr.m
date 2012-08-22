@@ -193,7 +193,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
             //set tags param
             NSString *tags = [[item tags] componentsJoinedByString:@","];
             if(tags){
-                [params appendFormat:@"&tags=%@",[item tags]];
+                [params appendFormat:@"&tags=%@",tags];
             }
             
             //set slug param
