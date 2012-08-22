@@ -11,4 +11,6 @@
 
 @interface SHKiOS5Twitter : SHKSharer
 
++(NSString *)hashtagsFromTagArray:(NSArray *)tags;
+
 @end

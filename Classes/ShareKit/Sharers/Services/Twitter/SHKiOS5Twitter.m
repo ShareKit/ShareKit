@@ -75,28 +75,16 @@
     [iOS5twitter addImage:self.item.image];    
     [iOS5twitter addURL:self.item.URL];
     
-    NSString *tagComponents = [self.item.tags componentsJoinedByString:@" #"];
-    NSString *tagString = (tagComponents ? [@" #" stringByAppendingString:tagComponents] : @"");
+    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
     
-    if (self.item.shareType == SHKShareTypeText) 
-    {
-        item.text = [item.text stringByAppendingString:tagString];
-        NSUInteger textLength = [item.text length] > 140 ? 140 : [item.text length];
-        
-        while ([iOS5twitter setInitialText:[item.text substringToIndex:textLength]] == NO && textLength > 0)
-        {
-            textLength--;
-        }
-    } 
-    else 
-    {
-        item.title = [item.title stringByAppendingString:tagString];
-        NSUInteger titleLength = [item.title length] > 140 ? 140 : [item.title length];      
-        
-        while ([iOS5twitter setInitialText:[item.title substringToIndex:titleLength]] == NO && titleLength > 0)
-        {
-            titleLength--;
-        }
+    NSString *tagString = [SHKiOS5Twitter hashtagsFromTagArray:self.item.tags];
+    if ([tagString length]) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];
+    
+    // Trim string to fit 140 character max.
+    NSUInteger textLength = [tweetBody length] > 140 ? 140 : [tweetBody length];
+    
+    while ([iOS5twitter setInitialText:[tweetBody substringToIndex:textLength]] == NO && textLength > 0) {
+        textLength--;
     }
     
     iOS5twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
@@ -124,6 +112,21 @@
     self.currentTopViewController = [[SHK currentHelper] rootViewForCustomUIDisplay];
     [self.currentTopViewController presentViewController:iOS5twitter animated:YES completion:nil];
     [iOS5twitter release];
+}
+
++(NSString *)hashtagsFromTagArray:(NSArray *)tags {
+    if (!tags || [tags count] < 1) return @"";
+    
+    NSMutableArray *cleanedTags = [NSMutableArray arrayWithCapacity:[tags count]];
+    for (NSString *tag in tags) {
+        NSCharacterSet *removeSet = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSString *strippedTag = [[tag componentsSeparatedByCharactersInSet:removeSet]
+                                 componentsJoinedByString:@"" ];
+        if (!strippedTag || [strippedTag length] < 1) continue;
+        [cleanedTags addObject:[NSString stringWithFormat:@"#%@", strippedTag]];
+    }
+    if (!cleanedTags || [cleanedTags count] < 1) return @"";
+    return [cleanedTags componentsJoinedByString:@" "];
 }
 
 @end
