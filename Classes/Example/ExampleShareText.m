@@ -75,6 +75,7 @@
 
 	
 	SHKItem *item = [SHKItem text:text];
+    item.tags = [NSArray arrayWithObjects:@"sharekit", @"testing", @"text example", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
