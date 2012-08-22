@@ -132,7 +132,7 @@
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
 				nil];
-	
+    
 	return nil;
 }
 
@@ -149,16 +149,20 @@
 						 SHKEncodeURL(item.URL),
 						 SHKEncode([item.title stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"])];
 		
-		NSString *tags = item.tags == nil || !item.tags.count ? @"" :
+        NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+        [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+        [allowedCharacters removeCharactersInString:@","];
+        NSString *tagString = [self tagStringJoinedBy:@"," allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil];
+		NSString *formattedTagString = [tagString length] < 1 ? @"" :
 		[NSString stringWithFormat:@"&update_tags={\"0\":{\"url\":\"%@\",\"tags\":\"%@\"}}",
-						  SHKEncodeURL(item.URL), SHKEncode([item.tags componentsJoinedByString:@","])];
+						  SHKEncodeURL(item.URL), SHKEncode(tagString)];
 		
 		NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@%@%@",
 									SHKCONFIG(readItLaterKey),
 							SHKEncode([self getAuthValueForKey:@"username"]),
 							SHKEncode([self getAuthValueForKey:@"password"]),
 							new,
-							tags];
+							formattedTagString];
 		
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://readitlaterlist.com/v2/send"]
 									 params:params

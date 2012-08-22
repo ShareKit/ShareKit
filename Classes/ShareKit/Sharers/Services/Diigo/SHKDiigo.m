@@ -137,7 +137,7 @@
 	if ([self validateItem])
 	{	
     
-    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode([item.tags componentsJoinedByString:@", "]),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil]),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
     
     
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];

@@ -140,13 +140,14 @@
 	if ([self validateItem])
 	{			
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
 														[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
 														 SHKEncode([self getAuthValueForKey:@"username"]),
 														 password,
 														 SHKEncodeURL(item.URL),
 														 SHKEncode(item.title),
-														 SHKEncode([item.tags componentsJoinedByString:@","]),
+														 SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" ,"] invertedSet] tagPrefix:nil]),
 														 SHKEncode(item.text),
 														 [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
 														 ]]

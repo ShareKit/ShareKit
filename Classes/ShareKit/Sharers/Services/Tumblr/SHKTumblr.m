@@ -191,9 +191,13 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
             }
             
             //set tags param
-            NSString *tags = [[item tags] componentsJoinedByString:@","];
+            NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+            [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+            [allowedCharacters addCharactersInString:@" "];
+            [allowedCharacters removeCharactersInString:@","];
+            NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil];
             if(tags){
-                [params appendFormat:@"&tags=%@",tags];
+                [params appendFormat:@"&tags=%@",SHKEncode(tags)];
             }
             
             //set slug param
