@@ -11,7 +11,6 @@
 "Public" = "パブリック";
 "Caption" = "キャプション";
 "Title" = "タイトル";
-"Tags" = "タグ";
 "Close" = "閉じる";
 "Notes" = "ノート";
 "Note" = "ノート";
@@ -100,11 +99,10 @@
 "There was a problem sharing with Evernote" = "Evernoteで共有中に問題が発生しました。";
 "Get" = "Get";
 "Description" = "解説";
-"Tag (space) Tag" = "タグ(スペース)タグ";
 "Is Public" = "すべて(公開)";
 "Is Friend" = "友達のみ";
 "Is Family" = "家族のみ";
 "Logged Out!" = "ログアウトしました!";
 "Sent from %@" = " %@から受信";
 "Save to Photo Album" = "アルバムに保存";
-"Tag,Tag" = "タグ,タグ";
+"Tag, tag" = "タグ,タグ";

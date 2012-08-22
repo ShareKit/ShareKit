@@ -24,8 +24,6 @@
 
 "Title" = "Títol";
 
-"Tags" = "Tags";
-
 "Close" = "Tancar";
 
 "Notes" = "Notes";
@@ -159,8 +157,6 @@
 
 "Description" = "Descripció";
 
-"Tag (space) Tag" = "Etiqueta (espai) Etiqueta";
-
 "Is Public" = "És Public";
 
 "Is Friend" = "És Amic";
@@ -173,7 +169,7 @@
 
 "Save to Photo Album" = "Desar a l'Album de fotos";
 
-"Tag,Tag" = "Etiqueta,Etiqueta";
+"Tag, tag" = "Etiqueta, etiqueta";
 
 "Logout of All Services" = "Sortir de tot";
 

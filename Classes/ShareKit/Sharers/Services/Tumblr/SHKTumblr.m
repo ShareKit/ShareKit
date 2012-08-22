@@ -133,7 +133,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag,Tag")
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
                                     key:@"tags"
                                    type:SHKFormFieldTypeText
                                   start:[item.tags componentsJoinedByString:@", "]],

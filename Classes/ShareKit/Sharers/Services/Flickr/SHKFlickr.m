@@ -131,7 +131,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 															 key:@"description"
 															type:SHKFormFieldTypeText
 														   start:self.item.text],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
 															 key:@"tags"
 															type:SHKFormFieldTypeText
 														   start:[self.item.tags componentsJoinedByString:@", "]],

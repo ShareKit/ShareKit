@@ -11,7 +11,6 @@
 "Public" = "公开";
 "Caption" = "标题";
 "Title" = "标题";
-"Tags" = "标签";
 "Close" = "关闭";
 "Notes" = "笔记";
 "Note" = "笔记";
@@ -115,8 +114,6 @@
 
 "Description" = "描述";
 
-"Tag (space) Tag" = "标签 (空格) 标签";
-
 "Is Public" = "是否公开";
 
 "Is Friend" = "好友可见";
@@ -129,7 +126,7 @@
 
 "Save to Photo Album" = "保存到相簿";
 
-"Tag,Tag" = "标签,标签";
+"Tag, tag" = "标签,标签";
 
 "Logout of All Services" = "退出所有服务";
 
