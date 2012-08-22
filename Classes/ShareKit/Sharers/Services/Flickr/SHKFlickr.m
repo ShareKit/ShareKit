@@ -198,12 +198,25 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	[self sendDidStart];
 	NSData *JPEGData = [self generateImageData];
 	self.flickrRequest.sessionInfo = kUploadImageStep;
+    
+    NSMutableArray *cleanedTagArray = [NSMutableArray arrayWithCapacity:[item.tags count]];
+    
+    for (NSString *tag in item.tags) {
+        NSCharacterSet *removeSet = [[NSCharacterSet alphanumericCharacterSet] invertedSet];
+        NSString *strippedTag = [[tag componentsSeparatedByCharactersInSet:removeSet]
+                                 componentsJoinedByString:@"" ];
+        if (!strippedTag || [strippedTag length] < 1) continue;
+        [cleanedTagArray addObject:strippedTag];
+    }
+    
+    NSString *cleanedTags = [cleanedTagArray componentsJoinedByString:@" "];
+    
 	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
 	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  titleVal, @"title",
 						  descript, @"description",
-						  item.tags == nil ? @"" : [item.tags componentsJoinedByString:@" "], @"tags",
+						  item.tags == nil ? @"" : cleanedTags, @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
 						  [item customValueForKey:@"is_friend"], @"is_friend",
 						  [item customValueForKey:@"is_family"], @"is_family",
