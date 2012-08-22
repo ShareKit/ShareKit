@@ -75,7 +75,8 @@
     [iOS5twitter addImage:self.item.image];    
     [iOS5twitter addURL:self.item.URL];
     
-    NSString *tagString = [@" #" stringByAppendingString:[self.item.tags componentsJoinedByString:@" #"]];
+    NSString *tagComponents = [self.item.tags componentsJoinedByString:@" #"];
+    NSString *tagString = (tagComponents ? [@" #" stringByAppendingString:tagComponents] : @"");
     
     if (self.item.shareType == SHKShareTypeText) 
     {
