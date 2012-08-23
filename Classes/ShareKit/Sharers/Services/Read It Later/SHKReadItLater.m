@@ -151,8 +151,9 @@
 		
         NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
         [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+        [allowedCharacters addCharactersInString:@" "];
         [allowedCharacters removeCharactersInString:@","];
-        NSString *tagString = [self tagStringJoinedBy:@"," allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil];
+        NSString *tagString = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil];
 		NSString *formattedTagString = [tagString length] < 1 ? @"" :
 		[NSString stringWithFormat:@"&update_tags={\"0\":{\"url\":\"%@\",\"tags\":\"%@\"}}",
 						  SHKEncodeURL(item.URL), SHKEncode(tagString)];

@@ -135,14 +135,17 @@
 - (BOOL)send
 {	
 	if ([self validateItem])
-	{			
+	{
+        NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+        [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
         NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password,
                         SHKEncodeURL(item.URL),
                         SHKEncode(item.title),
-                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil]),
+                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil]),
                         SHKEncode(item.text),
                         [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];
