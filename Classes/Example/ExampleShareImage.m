@@ -68,6 +68,7 @@
 - (void)share
 {
 	SHKItem *item = [SHKItem image:imageView.image title:@"San Francisco"];
+    item.tags = [NSArray arrayWithObjects:@"bay bridge", @"architecture", @"california", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];

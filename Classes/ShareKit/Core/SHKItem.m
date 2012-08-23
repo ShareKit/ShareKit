@@ -291,7 +291,7 @@
                         self.URLContentType,
                         [self.image description], 
                         self.title, self.text, 
-                        self.tags, 
+                        [self.tags componentsJoinedByString:@", "],
                         [self.custom description],
                         self.printOutputType,
                         self.mailBody,

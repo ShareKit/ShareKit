@@ -24,8 +24,6 @@
 
 "Title" = "Nadpis";
 
-"Tags" = "Tagy";
-
 "Close" = "Zatvoriť";
 
 "Notes" = "Poznámky";
@@ -164,8 +162,6 @@
 
 "Description" = "Popis";
 
-"Tag (space) Tag" = "Tag (medzera) Tag";
-
 "Is Public" = "Verejné";
 
 "Is Friend" = "Pre priateľov";
@@ -178,7 +174,7 @@
 
 "Save to Photo Album" = "Uložiť do Photo Albumu";
 
-"Tag,Tag" = "Tag,Tag";
+"Tag, tag" = "Tag, tag";
 
 "Logout of All Services" = "Odhlásenie zo všetkých služieb";
 

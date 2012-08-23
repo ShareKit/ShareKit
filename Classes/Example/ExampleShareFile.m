@@ -70,6 +70,7 @@
 	NSData *file = [NSData dataWithContentsOfFile:filePath];
 	
 	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+    item.tags = [NSArray arrayWithObjects:[[NSDate date] description], @"pdf document", @"sharekit", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
