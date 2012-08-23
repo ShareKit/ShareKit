@@ -271,13 +271,14 @@
 	if (ticket.didSucceed) {
 		// Finished uploading Image, now need to posh the message and url in twitter
 		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		NSScanner *scanner = [NSScanner scannerWithString:dataString];
-		if ([scanner scanString:@"{\"full\": \"" intoString:nil]) {
-      NSString *urlString = nil;
-			[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\","] intoString:&urlString];
-      urlString = [urlString stringByReplacingOccurrencesOfString:@"\\" withString:@""];
+		NSDictionary *response = [dataString JSONValue];
+    
+		if ([response objectForKey:@"full"]) {
+			NSString *urlString = [response objectForKey:@"full"];
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, urlString] forKey:@"status"];
 			[self showPlurkForm];
+		} else {
+			[self alertUploadImageWithError:nil];
 		}
 	} else {
 		[self alertUploadImageWithError:nil];
