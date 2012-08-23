@@ -190,6 +190,18 @@
     return @"app://foursquare";
 }
 
+// Plurk - http://www.plurk.com/API
+- (NSString *)plurkAppKey {
+  return @"orexUORVkR2C";
+}
+
+- (NSString *)plurkAppSecret {
+  return @"YYQUAeAPY9YMcCP5ol0dB6epaaMFT10C";
+}
+
+- (NSString *)plurkCallbackURL {
+  return @"https://github.com/ShareKit/ShareKit";
+}
 
 /*
  UI Configuration : Basic
