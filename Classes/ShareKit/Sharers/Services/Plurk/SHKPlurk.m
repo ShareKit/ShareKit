@@ -26,6 +26,7 @@
 
 #import "SHKPlurk.h"
 #import "SHKConfiguration.h"
+#import "NSString+SBJSON.h"
 
 @implementation SHKPlurk
 
@@ -358,44 +359,27 @@
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
-	// TODO better error handling here
-  
 	if (ticket.didSucceed)
 		[self sendDidFinish];
   
 	else
 	{
+    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    
 		if (SHKDebugShowLogs)
-			SHKLog(@"Plurk Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-    
-		// CREDIT: Oliver Drobnik
-    
-		NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+			SHKLog(@"Plurk Send Status Error: %@", string);
     
 		// in case our makeshift parsing does not yield an error message
-		NSString *errorMessage = @"Unknown Error";
+		NSString *errorMessage = [[string JSONValue] objectForKey:@"error_text"];
     
-		NSScanner *scanner = [NSScanner scannerWithString:string];
-    
-		// skip until error message
-		[scanner scanUpToString:@"\"error\":\"" intoString:nil];
-    
-    
-		if ([scanner scanString:@"\"error\":\"" intoString:nil])
-		{
-			// get the message until the closing double quotes
-			[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
-		}
-    
-		NSError *error = [NSError errorWithDomain:@"Plurk" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
 		// this is the error message for revoked access
-		if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."])
+		if ([errorMessage isEqualToString:@"40106:invalid access token"])
 		{
-			[self sendDidFailWithError:error shouldRelogin:YES];
+			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
 		}
 		else
 		{
-			[self sendDidFailWithError:error];
+			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error while sharing")]];
 		}
 	}
 }
