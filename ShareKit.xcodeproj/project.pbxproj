@@ -13,6 +13,122 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		3D8C9EDB15E62DC900AF5919 /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
+		3D8C9EDC15E62DC900AF5919 /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
+		3D8C9EDD15E62DC900AF5919 /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
+		3D8C9EDE15E62DC900AF5919 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
+		3D8C9EDF15E62DC900AF5919 /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
+		3D8C9EE015E62DC900AF5919 /* SHKSharerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A36F42614B2021100372747 /* SHKSharerDelegate.m */; };
+		3D8C9EE115E62DC900AF5919 /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2E91291AE5700D2A41E /* NSData+md5.m */; };
+		3D8C9EE215E62DC900AF5919 /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */; };
+		3D8C9EE315E62DC900AF5919 /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */; };
+		3D8C9EE415E62DC900AF5919 /* NSHTTPCookieStorage+DeleteForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */; };
+		3D8C9EE615E62DC900AF5919 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
+		3D8C9EE715E62DC900AF5919 /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368211DBE3B9004A1712 /* NSMutableURLRequest+Parameters.m */; };
+		3D8C9EE815E62DC900AF5919 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368411DBE3B9004A1712 /* NSString+URLEncoding.m */; };
+		3D8C9EE915E62DC900AF5919 /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368611DBE3B9004A1712 /* NSURL+Base.m */; };
+		3D8C9EEA15E62DC900AF5919 /* OAAsynchronousDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */; };
+		3D8C9EEB15E62DC900AF5919 /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369111DBE3B9004A1712 /* OAConsumer.m */; };
+		3D8C9EEC15E62DC900AF5919 /* OADataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369311DBE3B9004A1712 /* OADataFetcher.m */; };
+		3D8C9EED15E62DC900AF5919 /* OAHMAC_SHA1SignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369511DBE3B9004A1712 /* OAHMAC_SHA1SignatureProvider.m */; };
+		3D8C9EEE15E62DC900AF5919 /* OAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369711DBE3B9004A1712 /* OAMutableURLRequest.m */; };
+		3D8C9EEF15E62DC900AF5919 /* OAPlaintextSignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369911DBE3B9004A1712 /* OAPlaintextSignatureProvider.m */; };
+		3D8C9EF015E62DC900AF5919 /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369D11DBE3B9004A1712 /* OARequestParameter.m */; };
+		3D8C9EF115E62DC900AF5919 /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
+		3D8C9EF215E62DC900AF5919 /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
+		3D8C9EF315E62DC900AF5919 /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A511DBE3B9004A1712 /* SHKRequest.m */; };
+		3D8C9EF415E62DC900AF5919 /* SHKXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */; };
+		3D8C9EFC15E62DC900AF5919 /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
+		3D8C9EFD15E62DC900AF5919 /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */; };
+		3D8C9F1115E62DC900AF5919 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
+		3D8C9F1215E62DC900AF5919 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
+		3D8C9F1315E62DC900AF5919 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2C14580A2000126878 /* SBJSON.m */; };
+		3D8C9F1415E62DC900AF5919 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2E14580A2000126878 /* SBJsonBase.m */; };
+		3D8C9F1515E62DC900AF5919 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3014580A2000126878 /* SBJsonParser.m */; };
+		3D8C9F1615E62DC900AF5919 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3214580A2000126878 /* SBJsonWriter.m */; };
+		3D8C9F1715E62DC900AF5919 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D1F14580A2000126878 /* FBRequest.m */; };
+		3D8C9F1815E62DC900AF5919 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2014580A2000126878 /* Facebook.m */; };
+		3D8C9F1915E62DC900AF5919 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2314580A2000126878 /* FBLoginDialog.m */; };
+		3D8C9F1A15E62DC900AF5919 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2514580A2000126878 /* FBDialog.m */; };
+		3D8C9F1B15E62DC900AF5919 /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
+		3D8C9F2E15E62DC900AF5919 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
+		3D8C9F2F15E62DC900AF5919 /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
+		3D8C9F3F15E62DC900AF5919 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
+		3D8C9F4015E62DC900AF5919 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
+		3D8C9F4115E62DC900AF5919 /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA93FC156D192100E7006E /* FBFrictionlessRequestSettings.m */; };
+		3D8C9F5D15E62DC900AF5919 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
+		3D8C9F6515E62DC900AF5919 /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
+		3D8C9F6615E62DC900AF5919 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
+		3D8C9F6715E62DC900AF5919 /* FBFrictionlessRequestSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACA93FB156D192100E7006E /* FBFrictionlessRequestSettings.h */; };
+		3D8C9F7515E6373B00AF5919 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
+		3D8C9F7715E637EF00AF5919 /* SHK.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A611DBE3B9004A1712 /* SHK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7815E637EF00AF5919 /* SHKItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A811DBE3B9004A1712 /* SHKItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7915E637EF00AF5919 /* SHKSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367611DBE3B9004A1712 /* SHKSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7A15E637EF00AF5919 /* SHKLogout.h in Headers */ = {isa = PBXBuildFile; fileRef = E68738BE1416795C00D8C3DD /* SHKLogout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7B15E637EF00AF5919 /* SHKFacebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536DC11DBE3B9004A1712 /* SHKFacebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7C15E637EF00AF5919 /* SHKiOS5Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9F7D15E637EF00AF5919 /* SHKTwitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536E811DBE3B9004A1712 /* SHKTwitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB015E63BAD00AF5919 /* SHKOfflineSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB115E63BAD00AF5919 /* SHKOAuthSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB215E63BAD00AF5919 /* SHKSharerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A36F42514B2021100372747 /* SHKSharerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB315E63BAD00AF5919 /* Facebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2114580A2000126878 /* Facebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB415E63C1D00AF5919 /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D1E14580A2000126878 /* FBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB515E63C1D00AF5919 /* FBDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2414580A2000126878 /* FBDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB615E63C6500AF5919 /* FBLoginDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2214580A2000126878 /* FBLoginDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB715E63CBC00AF5919 /* DefaultSHKConfigurator.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB815E63F2600AF5919 /* SHKCustomFormFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FB915E63F2600AF5919 /* SHKCustomFormControllerLargeTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FBA15E63F2600AF5919 /* GTMNSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FBB15E63F2600AF5919 /* NSData+md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 4379F2E81291AE5700D2A41E /* NSData+md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FBC15E63F2600AF5919 /* NSHTTPCookieStorage+DeleteForURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A333EE314CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FBD15E63F2600AF5919 /* UIWebView+SHK.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FBF15E63F2600AF5919 /* SSKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = A57772B214BA0748003FC744 /* SSKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC015E63F2600AF5919 /* NSMutableURLRequest+Parameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368111DBE3B9004A1712 /* NSMutableURLRequest+Parameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC115E63F2600AF5919 /* NSString+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368311DBE3B9004A1712 /* NSString+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC215E63F2600AF5919 /* NSURL+Base.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368511DBE3B9004A1712 /* NSURL+Base.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC315E63F2600AF5919 /* OAAsynchronousDataFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC415E63F2600AF5919 /* OAConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369011DBE3B9004A1712 /* OAConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC515E63F2600AF5919 /* OADataFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369211DBE3B9004A1712 /* OADataFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC615E63F2600AF5919 /* OAHMAC_SHA1SignatureProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369411DBE3B9004A1712 /* OAHMAC_SHA1SignatureProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC715E63F2600AF5919 /* OAMutableURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369611DBE3B9004A1712 /* OAMutableURLRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC815E63F2600AF5919 /* OAPlaintextSignatureProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369811DBE3B9004A1712 /* OAPlaintextSignatureProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FC915E63F2600AF5919 /* OARequestParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369C11DBE3B9004A1712 /* OARequestParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCA15E63F2600AF5919 /* OAServiceTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369E11DBE3B9004A1712 /* OAServiceTicket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCB15E63F2600AF5919 /* OASignatureProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A011DBE3B9004A1712 /* OASignatureProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCC15E63F2600AF5919 /* OAToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A111DBE3B9004A1712 /* OAToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCD15E63F2600AF5919 /* OAuthConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A311DBE3B9004A1712 /* OAuthConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCE15E63F2600AF5919 /* SHKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A411DBE3B9004A1712 /* SHKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FCF15E63F2600AF5919 /* SHKXMLResponseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD015E63FD000AF5919 /* SHKActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD115E63FD000AF5919 /* SHKActivityIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD215E63FD000AF5919 /* SHKFormController.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F211DBE3B9004A1712 /* SHKFormController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD315E63FD000AF5919 /* SHKFormControllerLargeTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF78BB114B71FD8008ACA5D /* SHKFormControllerLargeTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD415E63FD000AF5919 /* SHKFormFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F411DBE3B9004A1712 /* SHKFormFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD515E63FD000AF5919 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; settings = {ATTRIBUTES = (); }; };
+		3D8C9FD615E63FD000AF5919 /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; settings = {ATTRIBUTES = (); }; };
+		3D8C9FD715E63FD000AF5919 /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; settings = {ATTRIBUTES = (); }; };
+		3D8C9FD815E63FD000AF5919 /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FD915E63FD000AF5919 /* SHKFormFieldSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F611DBE3B9004A1712 /* SHKFormFieldSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FDA15E63FD000AF5919 /* SHKFormOptionController.h in Headers */ = {isa = PBXBuildFile; fileRef = AA511B7E14C893A10022332B /* SHKFormOptionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FDB15E63FD000AF5919 /* SHKOAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D8C9FDC15E63FD000AF5919 /* SHKShareMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536FC11DBE3B9004A1712 /* SHKShareMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D9958DD15E641ED00211890 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
+		3D9958DE15E641ED00211890 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
+		3D9958DF15E641ED00211890 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
+		3D9958E015E641ED00211890 /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
+		3D9958E115E641ED00211890 /* SHKFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F511DBE3B9004A1712 /* SHKFormFieldCell.m */; };
+		3D9958E215E641ED00211890 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
+		3D9958E315E641ED00211890 /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
+		3D9958E415E641ED00211890 /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
+		3D9958E515E641ED00211890 /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */; };
+		3D9958E615E641ED00211890 /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
+		3D9958E715E641ED00211890 /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
+		3D9958E815E641ED00211890 /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
+		3D9958F715E642AC00211890 /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
+		3D9958FD15E643D700211890 /* SHKConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE01913CCB1F500A2118F /* SHKConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3DA0251015ECBE6B00664B84 /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
+		3DA025F115EE281C00664B84 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2523714F0499E00CE8709 /* JSONKit.m */; };
+		3DA025F315EE286200664B84 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF2523614F0499E00CE8709 /* JSONKit.h */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43A5382811DBE480004A1712 /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382611DBE480004A1712 /* example.pdf */; };
 		43A5382911DBE480004A1712 /* sanFran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382711DBE480004A1712 /* sanFran.jpg */; };
@@ -306,6 +422,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
+		3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libILSShareKitFT.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
 		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
 		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -610,6 +727,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D8C9F5E15E62DC900AF5919 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9240156BA2A0009CB40A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -650,6 +774,7 @@
 				7AB5342E1552AADD00171BCE /* libShareKit.a */,
 				7AB5360F1552E26800171BCE /* ShareKit.bundle */,
 				7A0F9246156BA2A0009CB40A /* libShareKitNoSubmodules.a */,
+				3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1434,6 +1559,70 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		3D8C9F5F15E62DC900AF5919 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D8C9FC415E63F2600AF5919 /* OAConsumer.h in Headers */,
+				3D8C9FCC15E63F2600AF5919 /* OAToken.h in Headers */,
+				3D8C9FCD15E63F2600AF5919 /* OAuthConsumer.h in Headers */,
+				3D8C9FDB15E63FD000AF5919 /* SHKOAuthView.h in Headers */,
+				3D8C9FB115E63BAD00AF5919 /* SHKOAuthSharer.h in Headers */,
+				3D8C9FD315E63FD000AF5919 /* SHKFormControllerLargeTextField.h in Headers */,
+				3D8C9FB915E63F2600AF5919 /* SHKCustomFormControllerLargeTextField.h in Headers */,
+				3D8C9FD415E63FD000AF5919 /* SHKFormFieldCell.h in Headers */,
+				3D8C9FDA15E63FD000AF5919 /* SHKFormOptionController.h in Headers */,
+				3D8C9FB815E63F2600AF5919 /* SHKCustomFormFieldCell.h in Headers */,
+				3D8C9FD215E63FD000AF5919 /* SHKFormController.h in Headers */,
+				3D8C9FD915E63FD000AF5919 /* SHKFormFieldSettings.h in Headers */,
+				3D8C9FBD15E63F2600AF5919 /* UIWebView+SHK.h in Headers */,
+				3D8C9FD115E63FD000AF5919 /* SHKActivityIndicator.h in Headers */,
+				3D8C9F7715E637EF00AF5919 /* SHK.h in Headers */,
+				3D8C9F7815E637EF00AF5919 /* SHKItem.h in Headers */,
+				3D8C9FCE15E63F2600AF5919 /* SHKRequest.h in Headers */,
+				3D8C9FB715E63CBC00AF5919 /* DefaultSHKConfigurator.h in Headers */,
+				3D8C9FB315E63BAD00AF5919 /* Facebook.h in Headers */,
+				3D8C9FB415E63C1D00AF5919 /* FBRequest.h in Headers */,
+				3D8C9F7915E637EF00AF5919 /* SHKSharer.h in Headers */,
+				3D8C9F7A15E637EF00AF5919 /* SHKLogout.h in Headers */,
+				3D8C9FB515E63C1D00AF5919 /* FBDialog.h in Headers */,
+				3D8C9F7B15E637EF00AF5919 /* SHKFacebook.h in Headers */,
+				3D8C9F7D15E637EF00AF5919 /* SHKTwitter.h in Headers */,
+				3D8C9F7C15E637EF00AF5919 /* SHKiOS5Twitter.h in Headers */,
+				3D8C9FB615E63C6500AF5919 /* FBLoginDialog.h in Headers */,
+				3D9958FD15E643D700211890 /* SHKConfiguration.h in Headers */,
+				3D8C9FD015E63FD000AF5919 /* SHKActionSheet.h in Headers */,
+				3D8C9FB015E63BAD00AF5919 /* SHKOfflineSharer.h in Headers */,
+				3D8C9FB215E63BAD00AF5919 /* SHKSharerDelegate.h in Headers */,
+				3D8C9FBA15E63F2600AF5919 /* GTMNSString+HTML.h in Headers */,
+				3D8C9FBB15E63F2600AF5919 /* NSData+md5.h in Headers */,
+				3D8C9FBC15E63F2600AF5919 /* NSHTTPCookieStorage+DeleteForURL.h in Headers */,
+				3D8C9FBF15E63F2600AF5919 /* SSKeychain.h in Headers */,
+				3D8C9FC015E63F2600AF5919 /* NSMutableURLRequest+Parameters.h in Headers */,
+				3D8C9FC115E63F2600AF5919 /* NSString+URLEncoding.h in Headers */,
+				3D8C9FC215E63F2600AF5919 /* NSURL+Base.h in Headers */,
+				3D8C9FC315E63F2600AF5919 /* OAAsynchronousDataFetcher.h in Headers */,
+				3D8C9FC515E63F2600AF5919 /* OADataFetcher.h in Headers */,
+				3D8C9FC615E63F2600AF5919 /* OAHMAC_SHA1SignatureProvider.h in Headers */,
+				3D8C9FC715E63F2600AF5919 /* OAMutableURLRequest.h in Headers */,
+				3D8C9FC815E63F2600AF5919 /* OAPlaintextSignatureProvider.h in Headers */,
+				3D8C9FC915E63F2600AF5919 /* OARequestParameter.h in Headers */,
+				3D8C9FCA15E63F2600AF5919 /* OAServiceTicket.h in Headers */,
+				3D8C9FCB15E63F2600AF5919 /* OASignatureProviding.h in Headers */,
+				3D8C9FCF15E63F2600AF5919 /* SHKXMLResponseParser.h in Headers */,
+				3D8C9FD815E63FD000AF5919 /* SHKFormFieldCellOptionPicker.h in Headers */,
+				3D8C9FDC15E63FD000AF5919 /* SHKShareMenu.h in Headers */,
+				3DA025F315EE286200664B84 /* JSONKit.h in Headers */,
+				3DA0251015ECBE6B00664B84 /* Base64Transcoder.h in Headers */,
+				3D8C9F6515E62DC900AF5919 /* hmac.h in Headers */,
+				3D8C9F6615E62DC900AF5919 /* sha1.h in Headers */,
+				3D8C9FD615E63FD000AF5919 /* SHKFormFieldCellText.h in Headers */,
+				3D8C9FD715E63FD000AF5919 /* SHKFormFieldCellSwitch.h in Headers */,
+				3D8C9FD515E63FD000AF5919 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				3D8C9F6715E62DC900AF5919 /* FBFrictionlessRequestSettings.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9241156BA2A0009CB40A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1488,6 +1677,23 @@
 			productName = ShareKit;
 			productReference = 1D6058910D05DD3D006BFB54 /* ShareKitDemo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3D8C9ED715E62DC900AF5919 /* ILSShareKitFT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */;
+			buildPhases = (
+				3D8C9ED815E62DC900AF5919 /* Sources */,
+				3D8C9F5E15E62DC900AF5919 /* Frameworks */,
+				3D8C9F5F15E62DC900AF5919 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ILSShareKitFT;
+			productName = ShareKitLibrary;
+			productReference = 3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		7A0F91D1156BA2A0009CB40A /* Static Library No Submodules */ = {
 			isa = PBXNativeTarget;
@@ -1575,6 +1781,7 @@
 				7AB5342D1552AADD00171BCE /* Static Library */,
 				7AB5360E1552E26800171BCE /* Resource Bundle */,
 				7A0F91D1156BA2A0009CB40A /* Static Library No Submodules */,
+				3D8C9ED715E62DC900AF5919 /* ILSShareKitFT */,
 			);
 		};
 /* End PBXProject section */
@@ -1619,6 +1826,72 @@
 				43A5383A11DBE493004A1712 /* RootViewController.m in Sources */,
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D8C9ED815E62DC900AF5919 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3DA025F115EE281C00664B84 /* JSONKit.m in Sources */,
+				3D9958F715E642AC00211890 /* SHKCustomFormControllerLargeTextField.m in Sources */,
+				3D9958DD15E641ED00211890 /* SHKActionSheet.m in Sources */,
+				3D9958DE15E641ED00211890 /* SHKActivityIndicator.m in Sources */,
+				3D9958DF15E641ED00211890 /* SHKFormController.m in Sources */,
+				3D9958E015E641ED00211890 /* SHKFormControllerLargeTextField.m in Sources */,
+				3D9958E115E641ED00211890 /* SHKFormFieldCell.m in Sources */,
+				3D9958E215E641ED00211890 /* SHKFormFieldCellText.m in Sources */,
+				3D9958E315E641ED00211890 /* SHKFormFieldCellSwitch.m in Sources */,
+				3D9958E415E641ED00211890 /* SHKFormFieldCellOptionPicker.m in Sources */,
+				3D9958E515E641ED00211890 /* SHKFormFieldSettings.m in Sources */,
+				3D9958E615E641ED00211890 /* SHKFormOptionController.m in Sources */,
+				3D9958E715E641ED00211890 /* SHKOAuthView.m in Sources */,
+				3D9958E815E641ED00211890 /* SHKShareMenu.m in Sources */,
+				3D8C9F7515E6373B00AF5919 /* SHKLogout.m in Sources */,
+				3D8C9EDB15E62DC900AF5919 /* SHK.m in Sources */,
+				3D8C9EDC15E62DC900AF5919 /* SHKItem.m in Sources */,
+				3D8C9EDD15E62DC900AF5919 /* SHKOfflineSharer.m in Sources */,
+				3D8C9EDE15E62DC900AF5919 /* SHKOAuthSharer.m in Sources */,
+				3D8C9EDF15E62DC900AF5919 /* SHKSharer.m in Sources */,
+				3D8C9EE015E62DC900AF5919 /* SHKSharerDelegate.m in Sources */,
+				3D8C9EE115E62DC900AF5919 /* NSData+md5.m in Sources */,
+				3D8C9EE215E62DC900AF5919 /* UIWebView+SHK.m in Sources */,
+				3D8C9EE315E62DC900AF5919 /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
+				3D8C9EE415E62DC900AF5919 /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
+				3D8C9EE615E62DC900AF5919 /* SSKeychain.m in Sources */,
+				3D8C9EE715E62DC900AF5919 /* NSMutableURLRequest+Parameters.m in Sources */,
+				3D8C9EE815E62DC900AF5919 /* NSString+URLEncoding.m in Sources */,
+				3D8C9EE915E62DC900AF5919 /* NSURL+Base.m in Sources */,
+				3D8C9EEA15E62DC900AF5919 /* OAAsynchronousDataFetcher.m in Sources */,
+				3D8C9EEB15E62DC900AF5919 /* OAConsumer.m in Sources */,
+				3D8C9EEC15E62DC900AF5919 /* OADataFetcher.m in Sources */,
+				3D8C9EED15E62DC900AF5919 /* OAHMAC_SHA1SignatureProvider.m in Sources */,
+				3D8C9EEE15E62DC900AF5919 /* OAMutableURLRequest.m in Sources */,
+				3D8C9EEF15E62DC900AF5919 /* OAPlaintextSignatureProvider.m in Sources */,
+				3D8C9EF015E62DC900AF5919 /* OARequestParameter.m in Sources */,
+				3D8C9EF115E62DC900AF5919 /* OAServiceTicket.m in Sources */,
+				3D8C9EF215E62DC900AF5919 /* OAToken.m in Sources */,
+				3D8C9EF315E62DC900AF5919 /* SHKRequest.m in Sources */,
+				3D8C9EF415E62DC900AF5919 /* SHKXMLResponseParser.m in Sources */,
+				3D8C9EFC15E62DC900AF5919 /* DefaultSHKConfigurator.m in Sources */,
+				3D8C9EFD15E62DC900AF5919 /* SHKConfiguration.m in Sources */,
+				3D8C9F1115E62DC900AF5919 /* NSObject+SBJSON.m in Sources */,
+				3D8C9F1215E62DC900AF5919 /* NSString+SBJSON.m in Sources */,
+				3D8C9F1315E62DC900AF5919 /* SBJSON.m in Sources */,
+				3D8C9F1415E62DC900AF5919 /* SBJsonBase.m in Sources */,
+				3D8C9F1515E62DC900AF5919 /* SBJsonParser.m in Sources */,
+				3D8C9F1615E62DC900AF5919 /* SBJsonWriter.m in Sources */,
+				3D8C9F1715E62DC900AF5919 /* FBRequest.m in Sources */,
+				3D8C9F1815E62DC900AF5919 /* Facebook.m in Sources */,
+				3D8C9F1915E62DC900AF5919 /* FBLoginDialog.m in Sources */,
+				3D8C9F1A15E62DC900AF5919 /* FBDialog.m in Sources */,
+				3D8C9F1B15E62DC900AF5919 /* SHKFacebook.m in Sources */,
+				3D8C9F2E15E62DC900AF5919 /* SHKiOS5Twitter.m in Sources */,
+				3D8C9F2F15E62DC900AF5919 /* SHKTwitter.m in Sources */,
+				3D8C9F3F15E62DC900AF5919 /* hmac.c in Sources */,
+				3D8C9F4015E62DC900AF5919 /* sha1.c in Sources */,
+				3D8C9F4115E62DC900AF5919 /* FBFrictionlessRequestSettings.m in Sources */,
+				3D8C9F5D15E62DC900AF5919 /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1897,6 +2170,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ILSLib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1922,6 +2199,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ILSLib\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1930,6 +2211,76 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Submodules/** Classes/ShareKit/**";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3D8C9F6D15E62DC900AF5919 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../ILSLib;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ILSLib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = ILSShareKitFT;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3D8C9F6E15E62DC900AF5919 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = ../ILSLib;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/../ILSLib\"",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = ILSShareKitFT;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2158,6 +2509,15 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D8C9F6D15E62DC900AF5919 /* Debug */,
+				3D8C9F6E15E62DC900AF5919 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
