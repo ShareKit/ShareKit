@@ -121,9 +121,9 @@
 - (NSString*)tumblrCallbackUrl {
 	return @"";
 }
-// Currently only works in xAuth mode.
+// Set to 1 to use xAuth mode.
 - (NSNumber*)tumblrUseXAuth {
-	return [NSNumber numberWithInt:1];
+	return [NSNumber numberWithInt:0];
 }
 
 // Evernote - http://www.evernote.com/about/developer/api/

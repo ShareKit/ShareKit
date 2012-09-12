@@ -178,7 +178,10 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
                                                                        value:@"client_auth"] autorelease];
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
-	}
+	} else {
+        [oRequest setOAuthParameterName:@"oauth_verifier"
+                              withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    }
 }
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
