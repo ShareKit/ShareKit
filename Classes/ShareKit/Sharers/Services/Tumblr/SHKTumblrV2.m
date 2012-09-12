@@ -10,7 +10,6 @@
 #import "SHKTumblrV2.h"
 #import "JSONKit.h"
 #import "SHKXMLResponseParser.h"
-#import "SHKiOS5Twitter.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import "NSMutableURLRequest+Parameters.h"
 
@@ -32,7 +31,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 		// OAUTH
 		self.consumerKey = SHKCONFIG(tumblrConsumerKey);
 		self.secretKey = SHKCONFIG(tumblrSecret);
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tumblrCallbackUrl)];// HOW-TO: In your Twitter application settings, use the "Callback URL" field.  If you do not have this field in the settings, set your application type to 'Browser'.
+ 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tumblrCallbackUrl)];
 		
 		// XAUTH
 		self.xAuth = [SHKCONFIG(tumblrUseXAuth) boolValue]?YES:NO;
@@ -323,7 +322,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 		}
 		
 		if (error) {
-			SHKLog(@"Error when parsing json twitter user info request:%@", [error description]);
+			SHKLog(@"Error when parsing json tumblr user info request:%@", [error description]);
 		}
 		
 		[userInfo convertNSNullsToEmptyStrings];
