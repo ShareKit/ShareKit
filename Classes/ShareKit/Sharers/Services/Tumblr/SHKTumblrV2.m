@@ -264,13 +264,19 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem
+- (void)shareFormValidate:(SHKFormController *)form
 {
-    if([item customValueForKey:@"blog"] == nil)
-        return NO;
-	return YES;
+    if([[form formValues] objectForKey:@"blog"] == nil || [[[form formValues] objectForKey:@"blog"] isEqualToString:@""]) {
+        [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
+                                     message:SHKLocalizedString(@"You need to select a blog.")
+                                    delegate:nil
+                           cancelButtonTitle:SHKLocalizedString(@"Close")
+                           otherButtonTitles:nil] autorelease] show];
+        return;
+    }
+    
+    [form saveForm];
 }
-
 - (BOOL)send
 {	
 	switch (item.shareType) {
