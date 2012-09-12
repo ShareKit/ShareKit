@@ -29,7 +29,9 @@
 
 @interface NSMutableURLRequest (OAParameterAdditions)
 
-- (NSArray *)parameters;
-- (void)setParameters:(NSArray *)parameters;
+@property(nonatomic, retain) NSArray *parameters;
+
+- (void)setHTTPBodyWithString:(NSString *)body;
+- (void)attachFileWithName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data;
 
 @end
