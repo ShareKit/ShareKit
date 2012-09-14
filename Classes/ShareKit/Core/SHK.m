@@ -28,7 +28,6 @@
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
-#import "SHKViewControllerWrapper.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"
@@ -37,6 +36,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
+#include <sys/xattr.h>
 
 NSString * SHKLocalizedStringFormat(NSString* key);
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
@@ -157,6 +157,7 @@ BOOL SHKinit;
 		[topViewController presentModalViewController:vc animated:YES];
 		[(UINavigationController *)vc navigationBar].barStyle = 
 		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+		[(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		self.currentView = vc;
 	}
 		
@@ -193,7 +194,8 @@ BOOL SHKinit;
 		
 		if ([nextResponder isKindOfClass:[UIViewController class]])
 			result = nextResponder;
-		
+		else if ([topWindow respondsToSelector:@selector(rootViewController)] && topWindow.rootViewController != nil)
+            result = topWindow.rootViewController;
 		else
 			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
 	}
@@ -327,19 +329,19 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
 				break;
 				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy",@"SHKVkontakte", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",@"SHKVkontakte", @"SHKLinkedIn", nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
+				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
 				break;
 			
 			default:
@@ -349,6 +351,31 @@ BOOL SHKinit;
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
 	}
+    
+    // Remove all sharers which are not part of the SHKSharers.plist
+    NSDictionary *sharersDict = [self sharersDictionary];
+    NSArray *keys = [sharersDict allKeys];
+    NSMutableSet *allAvailableSharers = [NSMutableSet set];
+    for (NSString *key in keys) {
+        NSArray *sharers = [sharersDict objectForKey:key];
+        [allAvailableSharers addObjectsFromArray:sharers];
+    }
+    NSMutableSet *favoriteSharersSet = [NSMutableSet setWithArray:favoriteSharers];
+    [favoriteSharersSet minusSet:allAvailableSharers];
+    if ([favoriteSharersSet count] > 0)
+    {
+        NSMutableArray *newFavs = [favoriteSharers mutableCopy];
+		for(NSString *sharerId in favoriteSharersSet)
+		{
+			[newFavs removeObject:sharerId];
+		}
+        
+        // Update
+		favoriteSharers = [NSArray arrayWithArray:newFavs];
+		[self setFavorites:favoriteSharers forType:type];
+		
+		[newFavs release];
+    }
 	
 	// Make sure the favorites are not using any exclusions, remove them if they are.
 	NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
@@ -372,6 +399,17 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
+    
+    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+    if (exclusions != nil)
+	{
+		for(NSString *sharerId in exclusions)
+		{
+			if([className isEqualToString:sharerId]) return;
+		}
+	}
+    
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];
@@ -389,20 +427,6 @@ BOOL SHKinit;
 {
 	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 }
-
-#pragma mark -
-
-+ (NSDictionary *)getUserExclusions
-{
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-+ (void)setUserExclusions:(NSDictionary *)exclusions
-{
-	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
-}
-
-
 
 #pragma mark -
 #pragma mark Credentials
@@ -467,12 +491,39 @@ BOOL SHKinit;
 
 #pragma mark -
 
+static NSString *shareKitLibraryBundlePath = nil;
+
++ (NSString *)shareKitLibraryBundlePath
+{
+    if (shareKitLibraryBundlePath == nil) {
+        
+        shareKitLibraryBundlePath = [[[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
+    }
+    return shareKitLibraryBundlePath;
+}
+
 static NSDictionary *sharersDictionary = nil;
 
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    {        
+		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    }
+    
+    //if user sets his own sharers plist - name only
+    if (sharersDictionary == nil) 
+    {
+        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+    }
+    
+    //if user sets his own sharers plist - complete path
+    if (sharersDictionary == nil) {
+        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistName)] retain];
+    }
+    
+    NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
+    
 	
 	return sharersDictionary;
 }
@@ -489,15 +540,19 @@ static NSDictionary *sharersDictionary = nil;
 	NSString *SHKPath = [cache stringByAppendingPathComponent:@"SHK"];
 	
 	// Check if the path exists, otherwise create it
-	if (![fileManager fileExistsAtPath:SHKPath]) 
+	if (![fileManager fileExistsAtPath:SHKPath]) {
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
+                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:SHKPath]];
+    }
 	
 	return SHKPath;
 }
 
 + (NSString *)offlineQueueListPath
 {
-	return [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
+	NSString *offlinePathString = [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
+        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:offlinePathString]];
+        return offlinePathString;
 }
 
 + (NSMutableArray *)getOfflineQueueList
@@ -517,7 +572,7 @@ static NSDictionary *sharersDictionary = nil;
 	}
 	
 	// Generate a unique id for the share to use when saving associated files
-	NSString *uid = [NSString stringWithFormat:@"%@-%i-%i-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
+	NSString *uid = [NSString stringWithFormat:@"%@-%i-%f-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
 	
 	
 	// store image in cache
@@ -662,6 +717,10 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
+    string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
 	
 	return string;	
 }
@@ -680,6 +739,31 @@ NSString * SHKEncodeURL(NSURL * value)
 	return result;
 }
 
+NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
+{
+    // Modified from http://rudis.net/content/2009/01/21/flatten-html-content-ie-strip-tags-cocoaobjective-c
+    NSScanner *scanner;
+    NSString *text = nil;
+    
+    scanner = [NSScanner scannerWithString:value];
+    
+    while ([scanner isAtEnd] == NO) 
+    {
+        [scanner scanUpToString:@"<" intoString:NULL]; 
+        [scanner scanUpToString:@">" intoString:&text];
+        
+        value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@" "];
+        
+    }
+    
+    if (preserveLineBreaks == NO)
+    {
+        value = [value stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    }
+    
+    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
+}
+
 void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 {
     Method origMethod = class_getInstanceMethod(c, orig);
@@ -694,9 +778,10 @@ NSString* SHKLocalizedStringFormat(NSString* key)
 {
   static NSBundle* bundle = nil;
   if (nil == bundle) {
-    NSString* path = [[[NSBundle mainBundle] resourcePath]
-                      stringByAppendingPathComponent:@"ShareKit.bundle"];
+    NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
     bundle = [[NSBundle bundleWithPath:path] retain];
+    
+    NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
 }
@@ -713,3 +798,33 @@ NSString* SHKLocalizedString(NSString* key, ...)
 	
 	return string;
 }
+
+@implementation NSFileManager (DoNotBackup)
+
+- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
+{
+    const char* filePath = [[URL path] fileSystemRepresentation];
+    const char* attrName = "com.apple.MobileBackup";
+    if (&NSURLIsExcludedFromBackupKey == nil) {
+        // iOS 5.0.1 and lower
+        u_int8_t attrValue = 1;
+        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+        return result == 0;
+    }
+    else {
+        // First try and remove the extended attribute if it is present
+        int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
+        if (result != -1) {
+            // The attribute exists, we need to remove it
+            int removeResult = removexattr(filePath, attrName, 0);
+            if (removeResult == 0) {
+                NSLog(@"Removed extended attribute on file %@", URL);
+            }
+        }
+        
+        // Set the new key
+        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+    }
+}
+
+@end

@@ -30,6 +30,12 @@
 #import "SHKConfiguration.h"
 #import "SHKSharerDelegate.h"
 
+@interface SHKSharer ()
+
+- (void)updateItemWithForm:(SHKFormController *)form;
+
+@end
+
 @implementation SHKSharer
 
 @synthesize shareDelegate;
@@ -367,7 +373,7 @@
 - (void)authorizationFormShow
 {	
 	// Create the form
-	SHKCustomFormController *form = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
+	SHKFormController *form = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
 	[form addSection:[self authorizationFormFields] header:nil footer:[self authorizationFormCaption]];
 	form.delegate = self;
 	form.validateSelector = @selector(authorizationFormValidate:);
@@ -417,7 +423,7 @@
 	}	
 		
 	// -- Try to share again
-	[self share];
+	[self tryPendingAction];
 }
 
 - (void)authorizationFormCancel:(SHKFormController *)form
@@ -484,7 +490,7 @@
 	
 	else 
 	{	
-		SHKCustomFormController *rootView = [[SHKCustomFormController alloc] initWithStyle:UITableViewStyleGrouped 
+		SHKFormController *rootView = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped 
 																		 title:nil
 															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
@@ -512,9 +518,6 @@
 	}
 }
 
-
-
-
 #pragma mark -
 #pragma mark Share Form
 
@@ -528,7 +531,7 @@
 	return nil;
 }
 
-- (void)shareFormValidate:(SHKCustomFormController *)form
+- (void)shareFormValidate:(SHKFormController *)form
 {	
 	/*
 	 
@@ -555,22 +558,7 @@
 
 - (void)shareFormSave:(SHKFormController *)form
 {		
-	// Update item with new values from form
-	NSDictionary *formValues = [form formValues];
-	for(NSString *key in formValues)
-	{
-		if ([key isEqualToString:@"title"])
-			item.title = [formValues objectForKey:key];
-		
-		else if ([key isEqualToString:@"text"])
-			item.text = [formValues objectForKey:key];
-		
-		else if ([key isEqualToString:@"tags"])
-			item.tags = [formValues objectForKey:key];
-		
-		else
-			[item setCustomValue:[formValues objectForKey:key] forKey:key];
-	}
+    [self updateItemWithForm:form];
 	
 	// Update shouldAutoShare
 	if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
@@ -587,6 +575,28 @@
 - (void)shareFormCancel:(SHKFormController *)form
 {
 	[self sendDidCancel];
+}
+
+#pragma mark -
+
+- (void)updateItemWithForm:(SHKFormController *)form
+{
+	// Update item with new values from form
+    NSDictionary *formValues = [form formValues];
+	for(NSString *key in formValues)
+	{
+		if ([key isEqualToString:@"title"])
+			item.title = [formValues objectForKey:key];
+		
+		else if ([key isEqualToString:@"text"])
+			item.text = [formValues objectForKey:key];
+		
+		else if ([key isEqualToString:@"tags"])
+			item.tags = [formValues objectForKey:key];
+		
+		else
+			[item setCustomValue:[formValues objectForKey:key] forKey:key];
+	}
 }
 
 #pragma mark -
@@ -660,12 +670,25 @@
 {
 	switch (pendingAction) 
 	{
-		case SHKPendingShare:
+		case SHKPendingRefreshToken:
+        case SHKPendingSend:    
+			
+            //resend silently
+            [self tryToSend];
+            
+            //to show alert if reshare finishes with error (see SHKSharerDelegate)
+            self.pendingAction = SHKPendingNone;            
+            break;        
+        case SHKPendingShare:
+                    
+            //show UI or autoshare
 			[self share];
+            
+            //to show alert if reshare finishes with error (see SHKSharerDelegate)
+            self.pendingAction = SHKPendingNone;
 			break;
 		default:
 			break;
-
 	}
 }
 
@@ -704,8 +727,20 @@
 		[self.shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
 	}
 
-- (void)sendDidFailShouldRelogin
+- (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action
 {
+    
+    if (action == SHKPendingShare) {
+        
+        if (curOptionController) {
+            [self popViewControllerAnimated:NO];//dismiss option controller
+            curOptionController = nil;
+            NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
+            [self updateItemWithForm:(SHKFormController *)self.topViewController];
+        }        
+    }
+    
+    self.pendingAction = action;
 	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
 }
 
@@ -717,7 +752,8 @@
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
 	self.lastError = error;
-	
+	SHKLog(@"%@", [self.request description]);
+    
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFailWithError" object:self];
     
 	if ([self.shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
@@ -739,6 +775,27 @@
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];
     }
+}
+
+- (void)authShowBadCredentialsAlert {
+    
+    SHKLog(@"%@", [self.request description]);
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowBadCredentialsAlert:)]) {		
+        [self.shareDelegate sharerShowBadCredentialsAlert:self];
+    }
+}
+
+- (void)authShowOtherAuthorizationErrorAlert {
+    
+    SHKLog(@"%@", [self.request description]);
+    if ([self.shareDelegate respondsToSelector:@selector(sharerShowOtherAuthorizationErrorAlert:)]) {
+        [self.shareDelegate sharerShowOtherAuthorizationErrorAlert:self];
+    }
+}
+
+- (void)sendShowSimpleErrorAlert {
+    
+    [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
 }
 
 @end

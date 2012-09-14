@@ -27,6 +27,7 @@
 #import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
 #import "SHKLinkedInOAMutableURLRequest.h"
+#import "SHKXMLResponseParser.h"
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
@@ -165,17 +166,14 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)showSHKTextForm
 {
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-	// force view to load so we can set textView text
-	[rootView view];
+	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
     if (item.shareType == SHKShareTypeURL) {
-        rootView.textView.text = item.title;
+        rootView.text = item.title;
         rootView.hasLink = YES;
         
     } else {
-        rootView.textView.text = item.text;
+        rootView.text = item.text;
     }
     
     rootView.maxTextLength = 700;  
@@ -203,9 +201,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 }
 
 #pragma mark -
-#pragma mark SHKFormControllerLargeTextField delegate
+#pragma mark SHKCustomFormControllerLargeTextField delegate
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {	
     if (item.shareType == SHKShareTypeURL) {
         item.title = form.textView.text;
@@ -315,18 +313,27 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     
     else 
     {
-        // Handle the error
         
-        // If the error was the result of the user no longer being authenticated, you can reprompt
-        // for the login information with:
-        // [self sendDidFailShouldRelogin];
-        
-        // Otherwise, all other errors should end with:
 #ifdef _SHKDebugShowLogs
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 #endif
         SHKLog(@"%@", responseBody);
-        [self sendDidFailWithError:[SHK error:@"Why it failed"] shouldRelogin:NO];
+        
+        // Handle the error
+        
+        // If the error was the result of the user no longer being authenticated, you can reprompt
+        // for the login information with:
+        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
+        
+        if ([errorCode isEqualToString:@"401"]) {
+            
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+            
+        } else {
+            
+            // Otherwise, all other errors should end with:            
+            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")] shouldRelogin:NO]; 
+        }
     }
 }
 

@@ -31,7 +31,9 @@
 #import "SHKConfiguration.h"
 #import "SHKTwitter.h"
 #import "JSONKit.h"
+#import "SHKXMLResponseParser.h"
 #import "SHKiOS5Twitter.h"
+#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
@@ -42,7 +44,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (void)shortenURLFinished:(SHKRequest *)aRequest;
 - (BOOL)validateItemAfterUserEdit;
 - (void)handleUnsuccessfulTicket:(NSData *)data;
-- (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict;
 - (BOOL)twitterFrameworkAvailable;
 
 @end
@@ -68,9 +69,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		
 		
 		// You do not need to edit these, they are the same for everyone
-	    self.authorizeURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"];
-	    self.requestURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
-	    self.accessURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]; 
+		self.authorizeURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/authorize"];
+		self.requestURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/request_token"];
+		self.accessURL = [NSURL URLWithString:@"https://api.twitter.com/oauth/access_token"]; 
 	}	
 	return self;
 }
@@ -102,7 +103,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 + (BOOL)canGetUserInfo
 {
-    return YES;
+	return YES;
 }
 
 #pragma mark -
@@ -117,44 +118,49 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 #pragma mark Commit Share
 
 - (void)share {
-    
-    if ([self twitterFrameworkAvailable]) {
-        
-        [SHKiOS5Twitter shareItem:self.item];
-        [SHKTwitter logout];//to clean credentials - we will not need them anymore
-        return;
-    }
-    
-    BOOL itemPrepared = [self prepareItem];
-    
-    //the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
-    if (itemPrepared) {
-        [super share];
-    }
+	
+	if ([self twitterFrameworkAvailable]) {
+		
+		SHKSharer *sharer =[SHKiOS5Twitter shareItem:self.item];
+        sharer.quiet = self.quiet;
+        sharer.shareDelegate = self.shareDelegate;
+		[SHKTwitter logout];//to clean credentials - we will not need them anymore
+		return;
+	}
+	
+	BOOL itemPrepared = [self prepareItem];
+	
+	//the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
+	if (itemPrepared) {
+		[super share];
+	}
 }
 
 #pragma mark -
 
 - (BOOL)twitterFrameworkAvailable {
-    
-    BOOL result = NO;
-    
-    if (NSClassFromString(@"TWTweetComposeViewController")) {
-        result = YES;
+	
+    if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
+    {
+        return NO;
     }
     
-    return result;
+	if (NSClassFromString(@"TWTweetComposeViewController")) {
+		return YES;
+	}
+	
+	return NO;
 }
 
 - (BOOL)prepareItem {
-    
-    BOOL result = YES;
-    
-    if (item.shareType == SHKShareTypeURL)
+	
+	BOOL result = YES;
+	
+	if (item.shareType == SHKShareTypeURL)
 	{
 		BOOL isURLAlreadyShortened = [self shortenURL];
-        result = isURLAlreadyShortened;
-        
+		result = isURLAlreadyShortened;
+		
 	}
 	
 	else if (item.shareType == SHKShareTypeImage)
@@ -166,8 +172,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		[item setCustomValue:item.text forKey:@"status"];
 	}
-    
-    return result;
+	
+	return result;
 }
 
 #pragma mark -
@@ -175,19 +181,19 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)isAuthorized
 {		
-    if ([self twitterFrameworkAvailable]) {
-        [SHKTwitter logout];
-        return NO; 
-    }
+	if ([self twitterFrameworkAvailable]) {
+		[SHKTwitter logout];
+		return NO; 
+	}
 	return [self restoreAccessToken];
 }
 
 - (void)promptAuthorization
 {	
-    if ([self twitterFrameworkAvailable]) {
-    SHKLog(@"There is no need to authorize when we use iOS Twitter framework");
-    return;
-    }
+	if ([self twitterFrameworkAvailable]) {
+		SHKLog(@"There is no need to authorize when we use iOS Twitter framework");
+		return;
+	}
 	
 	if (xAuth)
 		[super authorizationFormShow]; // xAuth process
@@ -197,9 +203,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 + (void)logout {
-    
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTwitterUserInfo];
-    [super logout];    
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTwitterUserInfo];
+	[super logout];    
 }
 
 #pragma mark xAuth
@@ -215,10 +221,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow %@", SHKCONFIG(twitterUsername)) key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
-			nil];
+			  [SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
+			  [SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
+			  [SHKFormFieldSettings label:SHKLocalizedString(@"Follow %@", SHKCONFIG(twitterUsername)) key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			  nil];
 }
 
 - (void)authorizationFormValidate:(SHKFormController *)form
@@ -234,13 +240,13 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		NSDictionary *formValues = [pendingForm formValues];
 		
 		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
-																		   value:[formValues objectForKey:@"username"]] autorelease];
+																								 value:[formValues objectForKey:@"username"]] autorelease];
 		
 		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
-																		   value:[formValues objectForKey:@"password"]] autorelease];
+																								 value:[formValues objectForKey:@"password"]] autorelease];
 		
 		OARequestParameter *mode = [[[OARequestParameter alloc] initWithName:@"x_auth_mode"
-																	   value:@"client_auth"] autorelease];
+																							value:@"client_auth"] autorelease];
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
 	}
@@ -290,35 +296,32 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		[self showTwitterForm];
 	}
-    
-    else if (item.shareType == SHKShareTypeUserInfo)
-    {
-        [self setQuiet:YES];
-        [self tryToSend];
-    }
+	
+	else if (item.shareType == SHKShareTypeUserInfo)
+	{
+		[self setQuiet:YES];
+		[self tryToSend];
+	}
 }
 
 - (void)showTwitterForm
 {
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
-	// force view to load so we can set textView text
-	[rootView view];
-	
-	rootView.textView.text = [item customValueForKey:@"status"];
-    rootView.maxTextLength = 140;
+	rootView.text = [item customValueForKey:@"status"];
+	rootView.maxTextLength = 140;
 	rootView.image = item.image;
-    rootView.imageTextLength = 25;
-    
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
+	rootView.imageTextLength = 25;
+	
+	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-    [rootView release];
+	[rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {	
 	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
@@ -328,18 +331,22 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)shortenURL
 {	
-	if (![SHK connected])
+	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
+	NSString *bitLyKey = SHKCONFIG(bitLyKey);
+	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
+	
+	if (bitLyConfigured == NO || ![SHK connected])
 	{
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 		return YES;
 	}
 	
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
-    
+	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-																		 SHKCONFIG(bitLyLogin),
-																		  SHKCONFIG(bitLyKey),																		  
+																		  bitLyLogin,
+																		  bitLyKey,																		  
 																		  SHKEncodeURL(item.URL)
 																		  ]]
 											 params:nil
@@ -360,12 +367,12 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		// TODO - better error message
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
-									 message:SHKLocalizedString(@"We could not shorten the URL.")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Continue")
-						   otherButtonTitles:nil] autorelease] show];
+											  message:SHKLocalizedString(@"We could not shorten the URL.")
+											 delegate:nil
+								 cancelButtonTitle:SHKLocalizedString(@"Continue")
+								 otherButtonTitles:nil] autorelease] show];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 	}
 	
 	else
@@ -374,7 +381,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
 			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, result] forKey:@"status"];
 	}
 	
 	[super share];
@@ -387,25 +394,25 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (BOOL)validateItem
 {
 	if (self.item.shareType == SHKShareTypeUserInfo) {
-        return YES;
-    }
-    
+		return YES;
+	}
+	
 	NSString *status = [item customValueForKey:@"status"];
 	return status != nil;
 }
 
 - (BOOL)validateItemAfterUserEdit {
-    
-    BOOL result = NO;
-    
-    BOOL isValid = [self validateItem];    
-    NSString *status = [item customValueForKey:@"status"];
-    
-    if (isValid && status.length <= 140) {
-        result = YES;
-    }
-    
-    return result;
+	
+	BOOL result = NO;
+	
+	BOOL isValid = [self validateItem];    
+	NSString *status = [item customValueForKey:@"status"];
+	
+	if (isValid && status.length <= 140) {
+		result = YES;
+	}
+	
+	return result;
 }
 
 - (BOOL)send
@@ -418,19 +425,19 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		return NO;
 	
 	switch (item.shareType) {
-            
-        case SHKShareTypeImage:            
-            [self sendImage];
-            break;
-            
-        case SHKShareTypeUserInfo:            
-            [self sendUserInfo];
-            break;
-            
-        default:
-            [self sendStatus];
-            break;
-    }
+			
+		case SHKShareTypeImage:            
+			[self sendImage];
+			break;
+			
+		case SHKShareTypeUserInfo:            
+			[self sendUserInfo];
+			break;
+			
+		default:
+			[self sendStatus];
+			break;
+	}
 	
 	// Notify delegate
 	[self sendDidStart];	
@@ -439,17 +446,17 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 - (void)sendUserInfo {
-    
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"]
-																	consumer:consumer
-																	   token:accessToken
-																	   realm:nil
-														   signatureProvider:nil];	
+	
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"]
+																						 consumer:consumer
+																							 token:accessToken
+																							 realm:nil
+																			 signatureProvider:nil];	
 	[oRequest setHTTPMethod:@"GET"];
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																						  delegate:self
-																				 didFinishSelector:@selector(sendUserInfo:didFinishWithData:)
-																				   didFailSelector:@selector(sendUserInfo:didFailWithError:)];		
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																													  delegate:self
+																										  didFinishSelector:@selector(sendUserInfo:didFinishWithData:)
+																											 didFailSelector:@selector(sendUserInfo:didFailWithError:)];		
 	[fetcher start];
 	[oRequest release];
 }
@@ -457,27 +464,27 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {	
 	if (ticket.didSucceed) {
-        
-        NSError *error = nil;
-        NSMutableDictionary *userInfo;
-        Class serializator = NSClassFromString(@"NSJSONSerialization");
-        if (serializator) {
-            userInfo = [serializator JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-        } else {
-            userInfo = [[JSONDecoder decoder] mutableObjectWithData:data error:&error];
-        }    
-        
-        if (error) {
-            SHKLog(@"Error when parsing json twitter user info request:%@", [error description]);
-        }
-        
-        [self convertNSNullsToEmptyStrings:userInfo];
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKTwitterUserInfo];
-        
-        [self sendDidFinish];
-        
-    } else {
-        
+		
+		NSError *error = nil;
+		NSMutableDictionary *userInfo;
+		Class serializator = NSClassFromString(@"NSJSONSerialization");
+		if (serializator) {
+			userInfo = [serializator JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+		} else {
+			userInfo = [[JSONDecoder decoder] mutableObjectWithData:data error:&error];
+		}    
+		
+		if (error) {
+			SHKLog(@"Error when parsing json twitter user info request:%@", [error description]);
+		}
+		
+		[userInfo convertNSNullsToEmptyStrings];
+		[[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKTwitterUserInfo];
+		
+		[self sendDidFinish];
+		
+	} else {
+		
 		[self handleUnsuccessfulTicket:data];
 	}
 }
@@ -490,23 +497,23 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (void)sendStatus
 {
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"]
-																	consumer:consumer
-																	   token:accessToken
-																	   realm:nil
-														   signatureProvider:nil];
+																						 consumer:consumer
+																							 token:accessToken
+																							 realm:nil
+																			 signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
-																		 value:[item customValueForKey:@"status"]];
+																								value:[item customValueForKey:@"status"]];
 	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
 	[oRequest setParameters:params];
 	[statusParam release];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																						  delegate:self
-																				 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+																													  delegate:self
+																										  didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
+																											 didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
 	
 	[fetcher start];
 	[oRequest release];
@@ -533,20 +540,20 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (void)sendImage {
 	
 	NSURL *serviceURL = nil;
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/update_profile_image.json"];
 	} else {
 		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
 	}
 	
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-																	consumer:consumer
-																	   token:accessToken
-																	   realm:@"https://api.twitter.com/"
-														   signatureProvider:signatureProvider];
+																						 consumer:consumer
+																							 token:accessToken
+																							 realm:@"https://api.twitter.com/"
+																			 signatureProvider:signatureProvider];
 	[oRequest setHTTPMethod:@"GET"];
 	
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		[oRequest prepare];
 	} else {
 		[oRequest prepare];
@@ -559,10 +566,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		
 		serviceURL = [NSURL URLWithString:@"http://img.ly/api/2/upload.xml"];
 		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-												   consumer:consumer
-													  token:accessToken
-													  realm:@"https://api.twitter.com/"
-										  signatureProvider:signatureProvider];
+																 consumer:consumer
+																	 token:accessToken
+																	 realm:@"https://api.twitter.com/"
+													 signatureProvider:signatureProvider];
 		[oRequest setHTTPMethod:@"POST"];
 		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
 		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
@@ -589,7 +596,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	NSMutableData *body = [NSMutableData data];
 	NSString *dispKey = @"";
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
 	} else {
 		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
@@ -602,11 +609,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[body appendData:imageData];
 	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	
-	if([item customValueForKey:@"profile_update"]){
+	if([item customValueForKey:@"profile_update"]){//update_profile does not work
 		// no ops
 	} else {
 		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"message\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+		[body appendData:[@"Content-Disposition: form-data; name=\"message\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 		[body appendData:[[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
 		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
 	}
@@ -621,9 +628,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																						  delegate:self
-																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
+																													  delegate:self
+																										  didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
+																											 didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
 	
 	[fetcher start];
 	
@@ -648,6 +655,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 			//SHKLog(@"extracted string: %@",urlString);
 			[item setCustomValue:[NSString stringWithFormat:@"%@ %@",[item customValueForKey:@"status"],urlString] forKey:@"status"];
 			[self sendStatus];
+		} else {
+			[self handleUnsuccessfulTicket:data];
 		}
 		
 		
@@ -667,17 +676,17 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[item setCustomValue:nil forKey:@"followMe"];
 	
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/friendships/create/%@.json", SHKCONFIG(twitterUsername)]]
-																	consumer:consumer
-																	   token:accessToken
-																	   realm:nil
-														   signatureProvider:nil];
+																						 consumer:consumer
+																							 token:accessToken
+																							 realm:nil
+																			 signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																						  delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
-																				 didFinishSelector:nil
-																				   didFailSelector:nil];	
+																													  delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
+																										  didFinishSelector:nil
+																											 didFailSelector:nil];	
 	
 	[fetcher start];
 	[oRequest release];
@@ -687,53 +696,46 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)handleUnsuccessfulTicket:(NSData *)data
 {
-    if (SHKDebugShowLogs)
-        SHKLog(@"Twitter Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-    
-    // CREDIT: Oliver Drobnik
-    
-    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
-    
-    // in case our makeshift parsing does not yield an error message
-    NSString *errorMessage = @"Unknown Error";		
-    
-    NSScanner *scanner = [NSScanner scannerWithString:string];
-    
-    // skip until error message
-    [scanner scanUpToString:@"\"error\":\"" intoString:nil];
-    
-    
-    if ([scanner scanString:@"\"error\":\"" intoString:nil])
-    {
-        // get the message until the closing double quotes
-        [scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
-    }
-    
-    
-    // this is the error message for revoked access
-    if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."])
-    {
-        [self sendDidFailShouldRelogin];
-    }
-    else 
-    {
-        NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
-        [self sendDidFailWithError:error];
-    }
-}
-
-- (void)convertNSNullsToEmptyStrings:(NSMutableDictionary *)dict
-{
-    NSArray *responseObjectKeys = [dict allKeys];
-    for (NSString *key in responseObjectKeys) {
-        id object = [dict objectForKey:key];
-        if (object == [NSNull null]) {
-            [dict setObject:@"" forKey:key];
-        }
-        if ([object isKindOfClass:[NSDictionary class]]) {
-            [self convertNSNullsToEmptyStrings:object];
-        }
-    }
+	if (SHKDebugShowLogs)
+		SHKLog(@"Twitter Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	// CREDIT: Oliver Drobnik
+	
+	NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];		
+	
+	// in case our makeshift parsing does not yield an error message
+	NSString *errorMessage = @"Unknown Error";		
+	
+	NSScanner *scanner = [NSScanner scannerWithString:string];
+	
+	// skip until error message
+	[scanner scanUpToString:@"\"error\":\"" intoString:nil];
+	
+	
+	if ([scanner scanString:@"\"error\":\"" intoString:nil])
+	{
+		// get the message until the closing double quotes
+		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
+	}
+	
+	
+	// this is the error message for revoked access ...?... || removed app from Twitter
+	if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."]) {
+		
+		[self shouldReloginWithPendingAction:SHKPendingSend];
+		
+	} else {
+		
+		//when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
+		if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
+			
+			[self shouldReloginWithPendingAction:SHKPendingSend];
+			return;
+		}
+	}
+	
+	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+	[self sendDidFailWithError:error];
 }
 
 @end

@@ -28,6 +28,7 @@
 #import "SHKOAuthSharer.h"
 #import "SHKOAuthView.h"
 #import "OAuthConsumer.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 
 @implementation SHKOAuthSharer
@@ -160,6 +161,7 @@
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
+		[self authDidFinish:success];
 	}	
 	
 	else if ([queryParams objectForKey:@"oauth_problem"])
@@ -172,6 +174,7 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		success = NO;
+		[self authDidFinish:success];
 	}
 
 	else 
@@ -180,7 +183,6 @@
 		
 		[self tokenAccess];
 	}
-    [self authDidFinish:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
@@ -298,13 +300,8 @@
 	SHKOAuthSharer *sharer = [[self alloc] init];
 	if (sharer.authorizeURL)
 	{
-		NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-		NSArray *cookies = [storage cookiesForURL:sharer.authorizeURL];
-		for (NSHTTPCookie *each in cookies) 
-		{
-			[storage deleteCookie:each];
-		}
-	}
+		[NSHTTPCookieStorage deleteCookiesForURL:sharer.authorizeURL];
+    }
 	[sharer release];
 }
 
@@ -345,24 +342,5 @@
 	self.pendingAction = SHKPendingRefreshToken;
 	[self tokenAccess:YES];
 }
-
-#pragma mark -
-#pragma mark Pending Actions
-#pragma mark -
-#pragma mark Pending Actions
-
-- (void)tryPendingAction
-{
-	switch (pendingAction) 
-	{
-		case SHKPendingRefreshToken:
-			[self tryToSend]; // try to resend
-			break;
-			
-		default:			
-			[super tryPendingAction];			
-	}
-}
-
 
 @end

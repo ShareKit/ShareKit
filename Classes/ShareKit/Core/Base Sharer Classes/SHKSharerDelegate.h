@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
 
-@interface SHKSharerDelegate : NSObject <SHKSharerDelegate, NSObject>
+@interface SHKSharerDelegate : NSObject <SHKSharerDelegate>
 
 @end

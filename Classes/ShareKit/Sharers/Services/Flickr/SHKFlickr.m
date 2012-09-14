@@ -27,6 +27,9 @@
 
 #import "SHKFlickr.h"
 #import "SHKConfiguration.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
+
+NSString *kFlickrAuthenticationURL = @"http://flickr.com/services/auth/";
 
 NSString *kStoredAuthTokenKeyName = @"FlickrAuthToken";
 
@@ -67,6 +70,11 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	return YES;
 }
 
++ (BOOL)canAutoShare
+{
+	return NO;
+}
+
 - (BOOL)isAuthorized 
 {
 	return [self.flickrContext.authToken length];
@@ -100,7 +108,8 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 + (void)logout
 {
-	[SHK removeAuthValueForKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
+    [SHK removeAuthValueForKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
+    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:kFlickrAuthenticationURL]];
 }
 
 - (void)authorizationFormShow 
@@ -117,15 +126,15 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
 															 key:@"title"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.title],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
 															 key:@"description"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.text],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
 															 key:@"tags"
 															type:SHKFormFieldTypeText
-														   start:nil],
+														   start:self.item.tags],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
 															 key:@"is_public"
 															type:SHKFormFieldTypeSwitch
@@ -141,14 +150,15 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
 															 key:@"postgroup"
 															type:SHKFormFieldTypeOptionPicker
-														   start:@"Select Group"
-												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:@"Flickr Groups", @"title",
+														   start:nil
+												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Flickr Groups"), @"title",
 																  @"-1", @"curIndexes",
 																  [NSArray array],@"itemsList",
 																  [NSNumber numberWithBool:NO], @"static",
 																  [NSNumber numberWithBool:YES], @"allowMultiple",
 																  self, @"SHKFormOptionControllerOptionProvider",
-																  nil]],
+																  nil]
+                                        optionDetailLabelDefault:SHKLocalizedString(@"Select Group")],
 									 nil
 									 ];
 		
@@ -286,7 +296,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 			[self setAndStoreFlickrAuthToken:[[inResponseDictionary valueForKeyPath:@"auth.token"] textContent]];
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
 			
-			[self share];
+			[self tryPendingAction];
 		}
 		else if (inRequest.sessionInfo == kCheckTokenStep) {
 			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
@@ -298,14 +308,31 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
 {
-	if (inRequest.sessionInfo == kGetAuthTokenStep) {
-	}
-	else if (inRequest.sessionInfo == kCheckTokenStep) {
-		[self setAndStoreFlickrAuthToken:nil];
-	}
-	
-	[self.shareDelegate sharer: self failedWithError: inError shouldRelogin: NO];
-    [self release]; //see [self flickrRequest]
+	if (inRequest.sessionInfo == kCheckTokenStep) {
+        
+        //if user revoked app permissions, we should relogin
+        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+            
+            //after relogin silently share. User edited already.
+            self.flickrContext.authToken = nil;
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+        }
+    }
+    else if (inRequest.sessionInfo == kGetGroupsStep) {
+        
+        //if user revoked app permissions, we should relogin
+        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+            
+            //after relogin continue editing
+            self.flickrContext.authToken = nil;
+            [self shouldReloginWithPendingAction:SHKPendingShare];
+        }    
+    }
+    else {
+        
+        [self sendDidFailWithError:inError shouldRelogin:NO];
+    }
+    [self autorelease]; //see [self flickrRequest]
 }
 
 -(void) postToNextGroup

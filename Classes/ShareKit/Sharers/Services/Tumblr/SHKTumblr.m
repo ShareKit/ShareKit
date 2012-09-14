@@ -57,7 +57,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 	return YES;
 }
 
-- (BOOL)shouldAutoShare{
++ (BOOL)canAutoShare{
 	return NO;
 }
 
@@ -155,7 +155,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
                                                         key:@"caption"
                                                        type:SHKFormFieldTypeText
-                                                      start:nil] 
+                                                      start:item.title] 
                         atIndex:0];
     }else{
         [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title")
@@ -211,11 +211,33 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
             
             //set type param
             if ([item shareType] == SHKShareTypeURL){
-                [params appendString:@"&type=link"];
-                [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
-                if([item title]){
-                    [params appendFormat:@"&name=%@", SHKEncode([item title])];   
+                
+                switch (item.URLContentType) {
+                        
+                    case SHKURLContentTypeVideo:
+                        [params appendString:@"&type=video"];
+                        [params appendFormat:@"&embed=%@", SHKEncodeURL([item URL])];
+                        if([item title]){
+                            [params appendFormat:@"&caption=%@", SHKEncode([item title])];
+                        }
+                        break;
+                    case SHKURLContentTypeAudio:
+                        [params appendString:@"&type=audio"];
+                        [params appendFormat:@"&externally-hosted-url=%@", SHKEncodeURL([item URL])];
+                        if([item title]){
+                            [params appendFormat:@"&caption=%@", SHKEncode([item title])];
+                        }
+                        break;
+                    case SHKURLContentTypeWebpage:
+                    default:
+                        [params appendString:@"&type=link"];
+                        [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
+                        if([item title]){
+                            [params appendFormat:@"&name=%@", SHKEncode([item title])];
+                        }
+                        break;
                 }
+                
             }else{
                 [params appendString:@"&type=regular"];
                 if([item title]){
@@ -332,15 +354,17 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 - (void)sendFinished:(SHKRequest *)aRequest{
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
         else if (aRequest.response.statusCode == 500) {
             [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
+            SHKLog(@"error response: %@", [aRequest description]);
             return;
         }
         
 		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error sending your post to Tumblr.")]];
+        SHKLog(@"error response: %@", [aRequest description]);
 		return;
 	}
     

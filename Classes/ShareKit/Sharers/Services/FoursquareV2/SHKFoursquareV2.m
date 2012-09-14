@@ -32,6 +32,7 @@
 #import "SHKConfiguration.h"
 
 #import "NSString+URLEncoding.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 static NSString *authorizeURL = @"https://foursquare.com/oauth2/authenticate";
 static NSString *accessTokenKey = @"accessToken";
@@ -191,15 +192,8 @@ static NSString *accessTokenKey = @"accessToken";
 
 + (void)logout
 {
-	[self deleteStoredAccessToken];
-	
-	// Clear cookies 
-    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [storage cookiesForURL:[NSURL URLWithString:authorizeURL]];
-    for (NSHTTPCookie *each in cookies) 
-    {
-        [storage deleteCookie:each];
-    }
+	[self deleteStoredAccessToken];	
+    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:authorizeURL]];
 }
 
 #pragma mark -
@@ -226,11 +220,7 @@ static NSString *accessTokenKey = @"accessToken";
 - (void)showFoursquareV2CheckInForm;
 {
     SHKFoursquareV2CheckInForm *checkInForm = [[SHKFoursquareV2CheckInForm alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-	// force view to load so we can set textView text
-	[checkInForm view];
-	
-    checkInForm.textView.text = item.text;       
+    checkInForm.text = item.text;       
     checkInForm.maxTextLength = 140;  
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
@@ -238,7 +228,7 @@ static NSString *accessTokenKey = @"accessToken";
     [checkInForm release];
 }
 
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
+- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {  
  	self.item.text = form.textView.text;
  	[self startCheckInRequest];

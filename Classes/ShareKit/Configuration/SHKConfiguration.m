@@ -26,7 +26,6 @@
 //
 
 #import "SHKConfiguration.h"
-#import "LegacySHKConfigurator.h"
 
 @interface SHKConfiguration ()
 
@@ -47,7 +46,7 @@ static SHKConfiguration *sharedInstance = nil;
 
 - (id)configurationValue:(NSString*)selector withObject:(id)object
 {
-	SHKLog(@"Looking for a configuration value for %@.", selector);
+	//SHKLog(@"Looking for a configuration value for %@.", selector);
 
 	SEL sel = NSSelectorFromString(selector);
 	if ([self.configurator respondsToSelector:sel]) {
@@ -59,12 +58,12 @@ static SHKConfiguration *sharedInstance = nil;
         }
 
 		if (value) {
-			SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
+			//SHKLog(@"Found configuration value for %@: %@", selector, [value description]);
 			return value;
 		}
 	}
 
-	SHKLog(@"Didn't find a configuration value for %@.", selector);
+	//SHKLog(@"Configuration value is nil or not found for %@.", selector);
 	return nil;
 }
 
@@ -78,9 +77,7 @@ static SHKConfiguration *sharedInstance = nil;
     @synchronized(self)
     {
         if (sharedInstance == nil) {
-            DefaultSHKConfigurator *aConfigurator = [[LegacySHKConfigurator alloc] init];
-			sharedInstance = [[SHKConfiguration alloc] initWithConfigurator:aConfigurator];
-            [aConfigurator release];
+            [NSException raise:@"IllegalStateException" format:@"ShareKit must be configured before use. Use your subclass of DefaultSHKConfigurator, for more info see https://github.com/ShareKit/ShareKit/wiki/Configuration. Example: ShareKitDemoConfigurator in the demo app"];
         }
     }
     return sharedInstance;

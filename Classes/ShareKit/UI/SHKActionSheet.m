@@ -26,10 +26,10 @@
 //
 
 #import "SHKActionSheet.h"
+#import "SHKShareMenu.h"
 #import "SHK.h"
+#import "SHKConfiguration.h"
 #import "SHKSharer.h"
-#import "SHKCustomShareMenu.h"
-#import "SHKCustomActionSheet.h"
 #import "SHKShareItemDelegate.h"
 
 #import <Foundation/NSObjCRuntime.h>
@@ -48,7 +48,7 @@
 
 + (SHKActionSheet *)actionSheetForType:(SHKShareType)type
 {
-	SHKCustomActionSheet *as = [[SHKCustomActionSheet alloc] initWithTitle:SHKLocalizedString(@"Share")
+	SHKActionSheet *as = [[SHKCONFIG(SHKActionSheetSubclass) alloc] initWithTitle:SHKLocalizedString(@"Share")
 													  delegate:nil
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
@@ -72,8 +72,11 @@
 		}
 	}
 	
-	// Add More button
-	[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+	if([SHKCONFIG(showActionSheetMoreButton) boolValue])
+	{
+		// Add More button
+		[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+	}
 	
 	// Add Cancel button
 	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
@@ -108,9 +111,9 @@
 	}
 	
 	// More
-	else if (buttonIndex == numberOfSharers)
+	else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
 	{
-		SHKShareMenu *shareMenu = [[SHKCustomShareMenu alloc] initWithStyle:UITableViewStyleGrouped];
+		SHKShareMenu *shareMenu = [[SHKCONFIG(SHKShareMenuSubclass) alloc] initWithStyle:UITableViewStyleGrouped];
 		shareMenu.shareDelegate = shareDelegate;
 		shareMenu.item = item;
 		[[SHK currentHelper] showViewController:shareMenu];

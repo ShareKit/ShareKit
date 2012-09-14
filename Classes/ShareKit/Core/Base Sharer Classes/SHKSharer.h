@@ -27,8 +27,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SHK.h"
-#import "SHKCustomFormController.h"
-
+#import "SHKFormController.h"
 
 @class SHKSharer;
 
@@ -38,6 +37,8 @@
 - (void)sharerFinishedSending:(SHKSharer *)sharer;
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sharerCancelledSending:(SHKSharer *)sharer;
+- (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer;
+- (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer;
 @optional
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success;	
 
@@ -47,8 +48,9 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare,
-	SHKPendingRefreshToken
+	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
+	SHKPendingRefreshToken, //when OAuth token expires
+    SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
 
 
@@ -58,6 +60,7 @@ typedef enum
 	
 	SHKItem *item;
 	SHKFormController *pendingForm;
+    SHKFormOptionController* curOptionController;
 	SHKRequest *request;
 		
 	NSError *lastError;
@@ -185,10 +188,14 @@ typedef enum
 
 - (void)sendDidStart;
 - (void)sendDidFinish;
-- (void)sendDidFailShouldRelogin;
+- (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action;
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;
+/*  centralized error reporting */
+- (void)authShowBadCredentialsAlert;
+- (void)authShowOtherAuthorizationErrorAlert;
+- (void)sendShowSimpleErrorAlert;
 /*	called when an auth request returns. This is helpful if you need to use a service somewhere else in your
 	application other than sharing. It lets you use the same stored auth creds and login screens.
  */

@@ -28,7 +28,7 @@
 #import <Foundation/Foundation.h>
 #import "Facebook.h"
 #import "SHKSharer.h"
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKCustomFormControllerLargeTextField.h"
 
 @interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, SHKFormControllerLargeTextFieldDelegate>
 
