@@ -20,7 +20,7 @@
         if (object == [NSNull null]) {
             [self setObject:@"" forKey:key];
         }
-        else if ([object isKindOfClass:[NSDictionary class]]) {
+        else if ([object isKindOfClass:[NSMutableDictionary class]]) {
             [object convertNSNullsToEmptyStrings];
         }
     }
