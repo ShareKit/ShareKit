@@ -82,9 +82,6 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
-	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
 }
 
 - (void)setItem:(SHKItem *)i
@@ -297,8 +294,6 @@
 		}
 		if(doShare)
 			[sharer share];
-		
-		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}
 }
 
