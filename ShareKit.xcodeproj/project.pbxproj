@@ -249,7 +249,6 @@
 		7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
 		7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
 		7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
 		7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
 		7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
@@ -1840,7 +1839,6 @@
 				7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */,
 				7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */,
 				7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */,
-				7AB8050215AC7A64004FB430 /* TSharedProcessorFactory.m in Sources */,
 				7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */,
 				7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */,
 				7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */,
