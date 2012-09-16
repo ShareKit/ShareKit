@@ -11,7 +11,6 @@
 "Public" = "公開";
 "Caption" = "標題";
 "Title" = "標題";
-"Tags" = "標籤";
 "Close" = "關閉";
 "Notes" = "筆記";
 "Note" = "筆記";
@@ -99,7 +98,6 @@
 "There was a problem sharing with Evernote" = "分享到 Evernote 時發生錯誤。";
 "Get" = "取得";
 "Description" = "描述";
-"Tag (space) Tag" = "標籤 （空白） 標籤";
 "Is Public" = "公開";
 "Is Friend" = "朋友";
 "Is Family" = "家庭";

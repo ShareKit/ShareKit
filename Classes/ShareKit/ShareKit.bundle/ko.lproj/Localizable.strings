@@ -11,7 +11,6 @@
 "Public" = "공개";
 "Caption" = "캡션";
 "Title" = "제목";
-"Tags" = "태그";
 "Close" = "닫기";
 "Notes" = "메모";
 "Note" = "메모";
@@ -99,11 +98,10 @@
 "There was a problem sharing with Evernote" = "Evernote로 공유 중에 문제가 발생했습니다";
 "Get" = "Get";
 "Description" = "설명";
-"Tag (space) Tag" = "태그 (공백) 태그";
 "Is Public" = "모두 (공개)";
 "Is Friend" = "내 친구";
 "Is Family" = "내 가족";
 "Logged Out!" = "로그아웃 됨!";
 "Sent from %@" = "%@에서 보냄";
 "Save to Photo Album" = "앨범에 저장";
-"Tag,Tag" = "태그,태그";
+"Tag, tag" = "태그,태그";

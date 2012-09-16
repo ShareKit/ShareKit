@@ -133,10 +133,10 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag,Tag")
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
                                     key:@"tags"
                                    type:SHKFormFieldTypeText
-                                  start:item.tags],
+                                  start:[item.tags componentsJoinedByString:@", "]],
             [SHKFormFieldSettings label:SHKLocalizedString(@"Slug")
                                     key:@"slug"
                                    type:SHKFormFieldTypeText
@@ -191,9 +191,13 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
             }
             
             //set tags param
-            NSString *tags = [item tags];
+            NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+            [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+            [allowedCharacters addCharactersInString:@" "];
+            [allowedCharacters removeCharactersInString:@","];
+            NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil];
             if(tags){
-                [params appendFormat:@"&tags=%@",[item tags]];
+                [params appendFormat:@"&tags=%@",SHKEncode(tags)];
             }
             
             //set slug param
@@ -295,7 +299,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
                 [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                                   dataUsingEncoding:NSUTF8StringEncoding]];
                 [body appendData:[@"Content-Disposition: form-data; name=\"tags\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[[item tags] dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[[[item tags] componentsJoinedByString:@","] dataUsingEncoding:NSUTF8StringEncoding]];
             }
             if([item customValueForKey:@"caption"]){
                 [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
