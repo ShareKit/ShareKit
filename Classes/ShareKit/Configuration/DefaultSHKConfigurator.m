@@ -248,15 +248,9 @@
     return nil;
 }
 
-// iPad views
-- (NSString*)modalPresentationStyle {
+// iPad views. You can change presentation style for different sharers
+- (NSString *)modalPresentationStyleForController:(UIViewController *)controller {
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
-}
-
-// Add ability to change presentation style for different sharers
-- (NSString *)modalPresentationStyleForController:(id)controller
-{
-	return [self modalPresentationStyle];
 }
 
 - (NSString*)modalTransitionStyle {

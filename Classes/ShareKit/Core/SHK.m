@@ -286,21 +286,7 @@ BOOL SHKinit;
 	return UIBarStyleDefault;
 }
 
-+ (UIModalPresentationStyle)modalPresentationStyle
-{
-	if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFullScreen"])
-		return UIModalPresentationFullScreen;
-	
-	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationPageSheet"])
-		return UIModalPresentationPageSheet;
-	
-	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFormSheet"])
-		return UIModalPresentationFormSheet;
-	
-	return UIModalPresentationCurrentContext;
-}
-
-+ (UIModalPresentationStyle)modalPresentationStyleForController:(id)controller
++ (UIModalPresentationStyle)modalPresentationStyleForController:(UIViewController *)controller
 {
 	NSString *styleString = SHKCONFIG_WITH_ARGUMENT(modalPresentationStyleForController:, controller);
 	

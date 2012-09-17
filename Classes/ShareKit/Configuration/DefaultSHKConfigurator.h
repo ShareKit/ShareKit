@@ -83,8 +83,7 @@
 - (UIColor*)barTintForView:(UIViewController*)vc;
 - (UIColor*)formFontColor;
 - (UIColor*)formBackgroundColor;
-- (NSString*)modalPresentationStyle;
-- (NSString*)modalPresentationStyleForController:(id)controller;
+- (NSString*)modalPresentationStyleForController:(UIViewController *)controller;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
 - (NSNumber*)autoOrderFavoriteSharers;

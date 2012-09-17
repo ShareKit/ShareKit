@@ -76,8 +76,7 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 - (void)viewWasDismissed;
 
 + (UIBarStyle)barStyle;
-+ (UIModalPresentationStyle)modalPresentationStyle;
-+ (UIModalPresentationStyle)modalPresentationStyleForController:(id)controller;
++ (UIModalPresentationStyle)modalPresentationStyleForController:(UIViewController *)controller;
 + (UIModalTransitionStyle)modalTransitionStyle;
 
 #pragma mark -
