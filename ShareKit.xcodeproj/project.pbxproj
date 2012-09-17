@@ -92,7 +92,6 @@
 		7A0F922B156BA2A0009CB40A /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		7A0F922C156BA2A0009CB40A /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		7A0F922D156BA2A0009CB40A /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
-		7A0F922E156BA2A0009CB40A /* SHKLinkedInOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */; };
 		7A0F922F156BA2A0009CB40A /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7A0F9230156BA2A0009CB40A /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		7A0F9231156BA2A0009CB40A /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
@@ -223,7 +222,6 @@
 		7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
-		7AB5356F1552BE7D00171BCE /* SHKLinkedInOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */; };
 		7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
@@ -576,8 +574,6 @@
 		C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFoursquareV2Request.m; sourceTree = "<group>"; };
 		C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedIn.h; sourceTree = "<group>"; };
 		C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedIn.m; sourceTree = "<group>"; };
-		C0AD00F4142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedInOAMutableURLRequest.h; sourceTree = "<group>"; };
-		C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedInOAMutableURLRequest.m; sourceTree = "<group>"; };
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLogout.h; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLogout.m; sourceTree = "<group>"; };
@@ -1384,8 +1380,6 @@
 			children = (
 				C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */,
 				C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */,
-				C0AD00F4142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.h */,
-				C0AD00F5142B7B6D000862D9 /* SHKLinkedInOAMutableURLRequest.m */,
 			);
 			path = LinkedIn;
 			sourceTree = "<group>";
@@ -1691,7 +1685,6 @@
 				7A0F922B156BA2A0009CB40A /* SHKGoogleReader.m in Sources */,
 				7A0F922C156BA2A0009CB40A /* SHKInstapaper.m in Sources */,
 				7A0F922D156BA2A0009CB40A /* SHKLinkedIn.m in Sources */,
-				7A0F922E156BA2A0009CB40A /* SHKLinkedInOAMutableURLRequest.m in Sources */,
 				7A0F922F156BA2A0009CB40A /* SHKPinboard.m in Sources */,
 				7A0F9230156BA2A0009CB40A /* SHKReadItLater.m in Sources */,
 				7A0F9231156BA2A0009CB40A /* SHKTumblr.m in Sources */,
@@ -1802,7 +1795,6 @@
 				7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */,
 				7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */,
 				7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */,
-				7AB5356F1552BE7D00171BCE /* SHKLinkedInOAMutableURLRequest.m in Sources */,
 				7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */,
 				7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */,
 				7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */,

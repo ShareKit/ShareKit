@@ -26,7 +26,6 @@
 
 #import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
-#import "SHKLinkedInOAMutableURLRequest.h"
 #import "SHKXMLResponseParser.h"
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
@@ -126,40 +125,20 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	return self;
 }
 
-- (void)tokenAccess:(BOOL)refresh
-{
-	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
-	
-    SHKLinkedInOAMutableURLRequest *oRequest = [[SHKLinkedInOAMutableURLRequest alloc] initWithURL:accessURL
-                                                                                          consumer:consumer
-                                                                                             token:(refresh ? accessToken : requestToken)
-                                                                                             realm:nil   // our service provider doesn't specify a realm
-                                                                                 signatureProvider:signatureProvider // use the default method, HMAC-SHA1
-                                                                                          callback:self.authorizeCallbackURL.absoluteString];
-	
-    [oRequest setHTTPMethod:@"POST"];
-	
-	[self tokenAccessModifyRequest:oRequest];
-	
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(tokenAccessTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(tokenAccessTicket:didFailWithError:)];
-	[fetcher start];
-	[oRequest release];
-}
-
-
 // If you need to add additional headers or parameters to the access_token request, uncomment this section:
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
+
 {
 	SHKLog(@"req: %@", authorizeResponseQueryVars);
-  // Here is an example that adds the oauth_verifier value received from the authorize call.
-  // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
-  [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    // Here is an example that adds the oauth_verifier value received from the authorize call.
+    // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
+- (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
+{
+	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
+}
 
 #pragma mark -
 #pragma mark Share Form
