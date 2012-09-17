@@ -180,7 +180,7 @@
 		self.item = [[[SHKItem alloc] init] autorelease];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
-			self.modalPresentationStyle = [SHK modalPresentationStyle];
+			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
 		
 		if ([self respondsToSelector:@selector(modalTransitionStyle)])
 			self.modalTransitionStyle = [SHK modalTransitionStyle];
