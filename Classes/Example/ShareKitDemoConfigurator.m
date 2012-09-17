@@ -194,20 +194,6 @@
     return @"app://foursquare";
 }
 
-/* SHKMail */
-
-//user enters them in MFMailComposeViewController by default. Should be array of NSStrings.
-- (NSArray *)mailToRecipients {
-	return [NSArray arrayWithObjects:@"one@mail.com", @"two@mail.com", nil];
-}
-
-/* SHKTextMessage */
-
-//user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
-- (NSArray *)textMessageToRecipients {
-	return [NSArray arrayWithObjects: @"581347615", @"581344543", nil];
-}
-
 /*
  UI Configuration : Basic
  ------------------------

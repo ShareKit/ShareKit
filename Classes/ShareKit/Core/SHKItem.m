@@ -87,17 +87,17 @@
 
 - (void)setExtensionPropertiesDefaultValues {
     
-  printOutputType = [SHKCONFIG(printOutputType) intValue];
-
-  mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
-  mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
-  isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
-  mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
-
-  facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
-  facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
-  
-  textMessageToRecipients = [SHKCONFIG(textMessageToRecipients) retain];
+    printOutputType = [SHKCONFIG(printOutputType) intValue];
+    
+    mailToRecipients = [SHKCONFIG(mailToRecipients) retain];
+    mailJPGQuality = [SHKCONFIG(mailJPGQuality) floatValue];
+    isMailHTML = [SHKCONFIG(isMailHTML) boolValue];
+    mailShareWithAppSignature = [SHKCONFIG(sharedWithSignature) boolValue];
+    
+    facebookURLShareDescription = [SHKCONFIG(facebookURLShareDescription) retain];
+    facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
+    
+    textMessageToRecipients = [SHKCONFIG(textMessageToRecipients) retain];
 }
 
 + (id)URL:(NSURL *)url
@@ -188,8 +188,8 @@
 + (id)itemFromDictionary:(NSDictionary *)dictionary
 {
 	SHKItem *item = [[self alloc] init];
-	item.shareType = [[dictionary objectForKey:@"shareType"] intValue];	
-
+	item.shareType = [[dictionary objectForKey:@"shareType"] intValue];
+    
 	item.URLContentType = [[dictionary objectForKey:@"URLContentType"] intValue];
 	
 	if ([dictionary objectForKey:@"URL"] != nil)
@@ -197,44 +197,44 @@
 	
 	item.title = [dictionary objectForKey:@"title"];
 	item.text = [dictionary objectForKey:@"text"];
-	item.tags = [dictionary objectForKey:@"tags"];	
+	item.tags = [dictionary objectForKey:@"tags"];
 	
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
 	
 	if ([dictionary objectForKey:@"mimeType"] != nil)
 		item.mimeType = [dictionary objectForKey:@"mimeType"];
-
+    
 	if ([dictionary objectForKey:@"filename"] != nil)
 		item.filename = [dictionary objectForKey:@"filename"];
-
+    
 	if ([dictionary objectForKey:@"image"] != nil)
 		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
-  
-  if ([dictionary objectForKey:@"printOutputType"] != nil)
+    
+    if ([dictionary objectForKey:@"printOutputType"] != nil)
 		item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
-  
+    
 	if ([dictionary objectForKey:@"mailToRecipients"] != nil)
 		item.mailToRecipients = [dictionary objectForKey:@"mailToRecipients"];
 	
-  if ([dictionary objectForKey:@"isMailHTML"] != nil)
+    if ([dictionary objectForKey:@"isMailHTML"] != nil)
 		item.isMailHTML = [[dictionary objectForKey:@"isMailHTML"] boolValue];
-  
-  if ([dictionary objectForKey:@"mailJPGQuality"] != nil)
+    
+    if ([dictionary objectForKey:@"mailJPGQuality"] != nil)
 		item.mailJPGQuality = [[dictionary objectForKey:@"mailJPGQuality"] floatValue];
-  
-  if ([dictionary objectForKey:@"mailShareWithAppSignature"] != nil)
+    
+    if ([dictionary objectForKey:@"mailShareWithAppSignature"] != nil)
 		item.mailShareWithAppSignature = [[dictionary objectForKey:@"mailShareWithAppSignature"] boolValue];
-  
-  if ([dictionary objectForKey:@"facebookURLShareDescription"] != nil)
+    
+    if ([dictionary objectForKey:@"facebookURLShareDescription"] != nil)
 		item.facebookURLShareDescription = [dictionary objectForKey:@"facebookURLShareDescription"];
-  
-  if ([dictionary objectForKey:@"facebookURLSharePictureURI"] != nil)
+    
+    if ([dictionary objectForKey:@"facebookURLSharePictureURI"] != nil)
 		item.facebookURLSharePictureURI = [dictionary objectForKey:@"facebookURLSharePictureURI"];
-  
-  if ([dictionary objectForKey:@"textMessageToRecipients"] != nil)
+    
+    if ([dictionary objectForKey:@"textMessageToRecipients"] != nil)
 		item.textMessageToRecipients = [dictionary objectForKey:@"textMessageToRecipients"];
-
+    
 	return [item autorelease];
 }
 

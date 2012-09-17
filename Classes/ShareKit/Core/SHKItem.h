@@ -62,15 +62,15 @@ typedef enum
 	NSString *mimeType;
 	NSString *filename;
   
-  NSArray *mailToRecipients;
-  BOOL isMailHTML;
-  CGFloat mailJPGQuality;
-  BOOL mailShareWithAppSignature;
-  
-  NSString *facebookURLSharePictureURI;
-  NSString *facebookURLShareDescription;
-
-  NSArray *textMessageToRecipients;
+    NSArray *mailToRecipients;
+    BOOL isMailHTML;
+    CGFloat mailJPGQuality;
+    BOOL mailShareWithAppSignature;
+    
+    NSString *facebookURLSharePictureURI;
+    NSString *facebookURLShareDescription;
+    
+    NSArray *textMessageToRecipients;
   
 @private
 	NSMutableDictionary *custom;

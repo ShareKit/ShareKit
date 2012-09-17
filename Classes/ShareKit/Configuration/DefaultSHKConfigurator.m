@@ -365,6 +365,11 @@
 
 /* SHKMail */
 
+//You can use this to prefill recipients. User enters them in MFMailComposeViewController by default. Should be array of NSStrings.
+- (NSArray *)mailToRecipients {
+	return nil;
+}
+
 - (NSNumber*)isMailHTML {
     return [NSNumber numberWithInt:1];
 }
@@ -390,16 +395,9 @@
     return nil;
 }
 
-/* SHKMail */
-
-//user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
-- (NSArray *)mailToRecipients {
-	return nil;
-}
-
 /* SHKTextMessage */
 
-//user enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
+//You can use this to prefill recipients. User enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
 - (NSArray *)textMessageToRecipients {
   return nil;
 }
