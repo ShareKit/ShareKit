@@ -77,6 +77,7 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 + (UIBarStyle)barStyle;
 + (UIModalPresentationStyle)modalPresentationStyle;
++ (UIModalPresentationStyle)modalPresentationStyleForController:(id)controller;
 + (UIModalTransitionStyle)modalTransitionStyle;
 
 #pragma mark -
