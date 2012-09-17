@@ -176,23 +176,22 @@ static char const* const ListURIKey = "ListURIKey";
 	// Hide the activity indicator
 	[[SHKActivityIndicator currentIndicator] hide];
 	
-    if (aRequest.success) {
+	if (aRequest.success)
+	{
 		[pendingForm saveForm];
-	} else {
-        NSString *errorMessage = nil;
-        
-        if (aRequest.response.statusCode == 401) {
-            errorMessage = SHKLocalizedString(@"Invalid email or password.");
-        } else {
-            errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
-        }
-        
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                     message:errorMessage
-                                    delegate:nil
-                           cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
 	}
+    else
+    {
+        if (aRequest.response.statusCode == 401)
+        {
+            [self authShowBadCredentialsAlert];
+        }
+        else
+        {
+            [self authShowOtherAuthorizationErrorAlert];
+        }
+    }
+    
 	[self authDidFinish:aRequest.success];
 }
 
@@ -252,6 +251,7 @@ static char const* const ListURIKey = "ListURIKey";
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Failed to fetch lists." forKey:NSLocalizedDescriptionKey];
         NSError *err = [NSError errorWithDomain:@"KPT" code:1 userInfo:userInfo];
         [curOptionController optionsEnumerationFailedWithError:err];
+        curOptionController = nil;
     } else {
         NSDictionary *result = [aRequest.result objectFromJSONString];
         NSMutableArray *lists = [[NSMutableArray alloc] init];
@@ -261,7 +261,8 @@ static char const* const ListURIKey = "ListURIKey";
             [lists addObject:s];
         }
         
-        [curOptionController optionsEnumerated:lists];        
+        [curOptionController optionsEnumerated:lists];
+        curOptionController = nil;
     }
 }
 
@@ -296,17 +297,21 @@ static char const* const ListURIKey = "ListURIKey";
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {
-    if (!aRequest.success) {
-        if (aRequest.response.statusCode == 401) {
-			[self shouldReloginWithPendingAction:SHKPendingSend];
-			return;
-		}
-		
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Kippt")]];
-		return;
-    }    
-    
-    [self sendDidFinish];
+    if (aRequest.success)
+	{
+		[self sendDidFinish];
+	}
+    else
+    {
+        if (aRequest.response.statusCode == 401)
+        {
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+        }
+        else
+        {
+            [self sendShowSimpleErrorAlert];
+        }
+    }
 }
 
 @end
