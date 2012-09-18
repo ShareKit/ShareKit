@@ -138,7 +138,18 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"scope" withValue:@"rw_nus"];
+    
+    NSArray* permissions = SHKCONFIG(linkedInMemberPermissions);
+    NSString* permissionString = nil;
+    for(int i=0;i<[permissions count];i++){
+        if(i == 0){
+            permissionString = [permissions objectAtIndex:i];
+        }
+        else{
+            permissionString = [permissionString stringByAppendingFormat:@"+%@",[permissions objectAtIndex:i]];
+        }
+    }
+    [oRequest setOAuthParameterName:@"scope" withValue:permissionString];
 	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
 }
 
