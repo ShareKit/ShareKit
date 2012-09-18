@@ -130,6 +130,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 {
 	SHKLog(@"req: %@", authorizeResponseQueryVars);
+        
     // Here is an example that adds the oauth_verifier value received from the authorize call.
     // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
     [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
@@ -137,6 +138,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
 {
+    [oRequest setOAuthParameterName:@"scope" withValue:@"rw_nus"];
 	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
 }
 
