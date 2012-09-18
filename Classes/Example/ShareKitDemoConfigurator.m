@@ -161,16 +161,20 @@
 }
 
 // LinkedIn - https://www.linkedin.com/secure/developer
-- (NSString*)linkedInConsumerKey {
-	return @"9f8m5vx0yhjf";
+- (NSString *)linkedInConsumerKey{
+    return @"1d0pnh15wx6y";
 }
 
-- (NSString*)linkedInSecret {
-	return @"UWGKcBWreMKhwzRG";
+- (NSString *)linkedInSecret{
+    return @"XXUSELuEFaQFTWPF";
 }
 
-- (NSString*)linkedInCallbackUrl {
-	return @"http://yourdomain.com/callback";
+- (NSString *)linkedInCallbackUrl{
+    return @"http://www.innovation-transformation.com/";
+}
+
+- (NSArray *)linkedInMemberPermissions{
+    return [NSArray arrayWithObjects:@"rw_nus",nil];
 }
 
 - (NSString*)readabilityConsumerKey {

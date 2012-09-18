@@ -203,6 +203,13 @@
 	return @"";
 }
 
+//Check https://developer.linkedin.com/documents/authentication about the permissions.
+//For example, rw_nus for Network Updates
+//Only Support one Permissions currently. Multiple Permissions will fail which should work actually.
+- (NSArray*)linkedInMemberPermissions {
+	return [NSArray arrayWithObject:@""];
+}
+
 // Readability - http://www.readability.com/publishers/api/
 - (NSString*)readabilityConsumerKey {
 	return @"";

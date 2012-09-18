@@ -73,6 +73,7 @@
 - (NSString*)linkedInConsumerKey;
 - (NSString*)linkedInSecret;
 - (NSString*)linkedInCallbackUrl;
+- (NSArray*)linkedInMemberPermissions;
 - (NSString*)readabilityConsumerKey;
 - (NSString*)readabilitySecret;
 - (NSNumber*)readabilityUseXAuth;
