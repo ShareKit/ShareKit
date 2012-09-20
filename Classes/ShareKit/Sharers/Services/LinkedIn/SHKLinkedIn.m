@@ -30,6 +30,9 @@
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
+// The oauth scope we need to request at LinkedIn
+#define SHKLinkedInRequiredScope @"rw_nus"
+
 @implementation SHKLinkedIn
 
 #pragma mark -
@@ -97,13 +100,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark -
 #pragma mark Authentication
 
-// These defines should be renamed (to match your service name).
-// They will eventually be moved to SHKConfig so the user can modify them.
-
-#define SHKYourServiceNameConsumerKey @""	// The consumer key
-#define SHKYourServiceNameSecretKey @""		// The secret key
-#define SHKYourServiceNameCallbackUrl @""	// The user defined callback url
-
 - (id)init
 {
 	if (self = [super init])
@@ -114,8 +110,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 		
 		// -- //
 		
-		
-		// Edit these to provide the correct urls for each oauth step
 	    self.requestURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/requestToken"];
 	    self.authorizeURL = [NSURL URLWithString:@"https://www.linkedin.com/uas/oauth/authorize"];
 	    self.accessURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/accessToken"];
@@ -125,13 +119,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	return self;
 }
 
-// If you need to add additional headers or parameters to the access_token request, uncomment this section:
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
-
 {
 	SHKLog(@"req: %@", authorizeResponseQueryVars);
-    // Here is an example that adds the oauth_verifier value received from the authorize call.
-    // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
     [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
@@ -140,7 +130,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
     
     // We need the rw_nus scope to be able to share messages.
-    [oRequest setOAuthParameterName:@"scope" withValue:@"rw_nus"];
+    [oRequest setOAuthParameterName:@"scope" withValue:SHKLinkedInRequiredScope];
 }
 
 #pragma mark -
@@ -292,7 +282,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // The send was successful
         [self sendDidFinish];
     }
-    
     else
     {
         
