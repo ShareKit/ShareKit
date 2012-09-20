@@ -138,6 +138,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
 {
 	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
+    
+    // We need the rw_nus scope to be able to share messages.
+    [oRequest setOAuthParameterName:@"scope" withValue:@"rw_nus"];
 }
 
 #pragma mark -
@@ -290,12 +293,12 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         [self sendDidFinish];
     }
     
-    else 
+    else
     {
         
-#ifdef _SHKDebugShowLogs
+//#ifdef _SHKDebugShowLogs
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-#endif
+//#endif
         SHKLog(@"%@", responseBody);
         
         // Handle the error
@@ -304,7 +307,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // for the login information with:
         NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
         
-        if ([errorCode isEqualToString:@"401"]) {
+        // If we receive 401, we're not logged in. If we receive 403, we were logged in before, but didn't
+        // yet have the proper privileges, so we force a relogin so linkedin can ask the user the
+        // correct privileges.
+        if ([errorCode isEqualToString:@"401"] || [errorCode isEqualToString:@"403"]) {
             
             [self shouldReloginWithPendingAction:SHKPendingSend];
             
