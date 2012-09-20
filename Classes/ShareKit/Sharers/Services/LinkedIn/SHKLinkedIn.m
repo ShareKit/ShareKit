@@ -296,9 +296,9 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     else
     {
         
-//#ifdef _SHKDebugShowLogs
+#ifdef _SHKDebugShowLogs
         NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-//#endif
+#endif
         SHKLog(@"%@", responseBody);
         
         // Handle the error
