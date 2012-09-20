@@ -71,6 +71,8 @@ typedef enum
     NSString *facebookURLShareDescription;
     
     NSArray *textMessageToRecipients;
+	
+	CGRect popOverSourceRect;
   
 @private
 	NSMutableDictionary *custom;
@@ -121,7 +123,10 @@ typedef enum
 
 /*** sharer specific extension properties ***/
 
-/* sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. Generally, YOU DO NOT NEED TO SET THESE, as sharers perfectly work with automatic default values. You can change default values in your app's configurator, or individually during SHKItem creation. Example is in the demo app - ExampleShareLink.m - share method. More info about particular setting is in DefaultSHKConfigurator.m
+/* sharers might be instructed to share the item in specific ways, e.g. SHKPrint's print quality, SHKMail's send to specified recipients etc. 
+ Generally, YOU DO NOT NEED TO SET THESE, as sharers perfectly work with automatic default values. You can change default values in your app's 
+ configurator, or individually during SHKItem creation. Example is in the demo app - ExampleShareLink.m - share method. More info about 
+ particular setting is in DefaultSHKConfigurator.m
  */
 
 /* SHKPrint */
@@ -140,5 +145,9 @@ typedef enum
 /* SHKTextMessage */
 @property (nonatomic, retain) NSArray *textMessageToRecipients;
 /* if you add new sharer specific properties, make sure to add them also to dictionaryRepresentation, itemWithDictionary and description methods in SHKItem.m */
+
+/* put in for SHKInstagram, but could be useful in some other place. This is the rect in the coordinates of the view of the viewcontroller set with
+ setRootViewController: where a popover should eminate from. If this isn't provided the popover will be presented from the top left. */
+@property (nonatomic, assign) CGRect popOverSourceRect;
 
 @end

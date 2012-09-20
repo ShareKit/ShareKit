@@ -402,5 +402,9 @@
   return nil;
 }
 
+-(NSString*) popOverSourceRect;
+ {
+  return NSStringFromCGRect(CGRectZero);
+}
 
 @end
