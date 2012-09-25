@@ -74,9 +74,7 @@
     
     [iOS5twitter addImage:self.item.image];    
     [iOS5twitter addURL:self.item.URL];
-    
-    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
-    
+    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : (item.title.length>0?item.title:@""))];
     NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
     if ([tagString length] > 0) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];
     
