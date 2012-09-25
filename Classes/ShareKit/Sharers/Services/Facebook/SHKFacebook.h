@@ -3,6 +3,7 @@
 //  ShareKit
 //
 //  Created by Nathan Weiner on 6/18/10.
+//	3.0 SDK rewrite - Steven Troppoli 9/25/2012
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,11 +27,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Facebook.h"
 #import "SHKSharer.h"
 #import "SHKCustomFormControllerLargeTextField.h"
 
-@interface SHKFacebook : SHKSharer <FBSessionDelegate, FBDialogDelegate, FBRequestDelegate, SHKFormControllerLargeTextFieldDelegate>
+@interface SHKFacebook : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 

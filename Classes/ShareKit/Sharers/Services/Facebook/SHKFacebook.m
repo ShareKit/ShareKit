@@ -3,6 +3,7 @@
 //  ShareKit
 //
 //  Created by Nathan Weiner on 6/18/10.
+//	3.0 SDK rewrite - Steven Troppoli 9/25/2012
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,6 +27,7 @@
 //
 
 #import "SHKFacebook.h"
+#import <FacebookSDK.h>
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
@@ -34,46 +36,127 @@ static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
+static SHKFacebook *authingSHKFacebook=nil;
+
 @interface SHKFacebook()
 
-+ (Facebook*)facebook;
-+ (void)flushAccessToken;
 + (NSString *)storedImagePath:(UIImage*)image;
 + (UIImage*)storedImage:(NSString*)imagePath;
 - (void)showFacebookForm;
-- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate;
 
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLog;
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error;
 @end
 
 @implementation SHKFacebook
+- (id)init
+{
+    self = [super init];
+    if (self) {
+		[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
+    }
+    return self;
+}
 
 - (void)dealloc
 {
-  if ([SHKFacebook facebook].sessionDelegate == self)
-    [SHKFacebook facebook].sessionDelegate = nil;
+	[FBSession.activeSession close];	// unhooks this instance from the sessionStateChanged callback
+	if (authingSHKFacebook == self) {
+		authingSHKFacebook = nil;
+	}
 	[super dealloc];
 }
 
-+ (Facebook*)facebook 
-{
-  static Facebook *facebook=nil;
-  @synchronized([SHKFacebook class]) {
-    if (! facebook)
-      facebook = [[Facebook alloc] initWithAppId:SHKCONFIG(facebookAppId) urlSchemeSuffix:SHKCONFIG(facebookLocalAppId) andDelegate:nil];
-  }
-  return facebook;
+- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
+	// because this routine is used both for checking if we are authed and
+	// initiating auth we do a quick check to see if we have been through
+	// the cycle. If we don't then we'll create an infinite loop due to the
+	// upstream isAuthed then trytosend logic
+	
+	// keep in mind that this reoutine can return TRUE even if the store creds
+	// are no longer valid. For example if the user has revolked the app from
+	// their profile. In this case the stored tolken look like it should work,
+	// but the first request will fail
+	if(FBSession.activeSession.isOpen)
+		return YES;
+	
+    BOOL result = NO;
+    FBSession *session =
+	[[[FBSession alloc] initWithAppID:SHKCONFIG(facebookAppId)
+						 permissions:SHKCONFIG(facebookListOfPermissions)
+					 urlSchemeSuffix:SHKCONFIG(facebookLocalAppId)
+				  tokenCacheStrategy:nil] autorelease];
+    
+    if (allowLoginUI ||
+        (session.state == FBSessionStateCreatedTokenLoaded)) {
+        [FBSession setActiveSession:session];
+        [session openWithCompletionHandler:
+         ^(FBSession *session, FBSessionState state, NSError *error) {
+             [self sessionStateChanged:session state:state error:error];
+         }];
+        result = session.isOpen;
+    }
+	
+    return result;
 }
 
-+ (void)flushAccessToken 
+/*
+ * Callback for session changes.
+ */
+- (void)sessionStateChanged:(FBSession *)session
+                      state:(FBSessionState) state
+                      error:(NSError *)error
 {
-  Facebook *facebook = [self facebook];
-  facebook.accessToken = nil;
-  facebook.expirationDate = nil;
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  [defaults removeObjectForKey:kSHKFacebookAccessTokenKey];
-  [defaults removeObjectForKey:kSHKFacebookExpiryDateKey];
-  [defaults removeObjectForKey:kSHKFacebookUserInfo];
-  [defaults synchronize];
+	if(FB_ISSESSIONOPENWITHSTATE(state)){
+		NSAssert(error == nil, @"ShareKit: Facebook sessionStateChanged open session, but errors?!?!");
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
+		if (storedItem)
+		{
+			self.item = [SHKItem itemFromDictionary:storedItem];
+			NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+			if (imagePath) {
+				self.item.image = [SHKFacebook storedImage:imagePath];
+			}
+			[defaults removeObjectForKey:kSHKStoredItemKey];
+		}
+		[defaults synchronize];
+		if (authingSHKFacebook == self) {	
+			[self authDidFinish:true];
+		}
+		
+		if (self.item)
+			[self tryPendingAction];
+	}else if (FB_ISSESSIONSTATETERMINAL(state)){
+		if (authingSHKFacebook == self) {	// the state can change for a lot of reasons that are out of the login loop
+			[self authDidFinish:NO];		// for exaple closing the session in dealloc.
+		}else{
+			// seems that if you expire the tolken that it thinks is valid it will close the session without reporting
+			// errors super awesome. So look for the errors in the FBRequestHandlerCallback
+		}
+	}
+	
+	// post a notification so that custom UI can show the login state.
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"SHKFacebookSessionStateChangeNotification"
+     object:session];
+    
+    if (error) {
+		[FBSession.activeSession closeAndClearTokenInformation];
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"Error"
+                                  message:error.localizedDescription
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+        [alertView show];
+    }
+	if (authingSHKFacebook == self) {
+		authingSHKFacebook = nil;
+		[self release];
+	}
 }
 
 + (NSString *)storedImagePath:(UIImage*)image
@@ -84,47 +167,43 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	NSString *imagePath = [cache stringByAppendingPathComponent:@"SHKImage"];
 	
 	// Check if the path exists, otherwise create it
-	if (![fileManager fileExistsAtPath:imagePath]) 
+	if (![fileManager fileExistsAtPath:imagePath])
 		[fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
 	
-  NSString *uid = [NSString stringWithFormat:@"img-%f-%i", [[NSDate date] timeIntervalSince1970], arc4random()];    
-  // store image in cache
-  NSData *imageData = UIImagePNGRepresentation(image);
-  imagePath = [imagePath stringByAppendingPathComponent:uid];
-  [imageData writeToFile:imagePath atomically:YES];
-  
+	NSString *uid = [NSString stringWithFormat:@"img-%f-%i", [[NSDate date] timeIntervalSince1970], arc4random()];
+	// store image in cache
+	NSData *imageData = UIImagePNGRepresentation(image);
+	imagePath = [imagePath stringByAppendingPathComponent:uid];
+	[imageData writeToFile:imagePath atomically:YES];
+	
 	return imagePath;
 }
 
 + (UIImage*)storedImage:(NSString*)imagePath {
-  NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
-  UIImage *image = nil;
-  if (imageData) {
-    image = [UIImage imageWithData:imageData];
-  }
-  // Unlink the stored file:
-  [[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
-  return image;
+	NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
+	UIImage *image = nil;
+	if (imageData) {
+		image = [UIImage imageWithData:imageData];
+	}
+	// Unlink the stored file:
+	[[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
+	return image;
 }
 
-+ (BOOL)handleOpenURL:(NSURL*)url 
++ (BOOL)handleOpenURL:(NSURL*)url
 {
-  Facebook *fb = [SHKFacebook facebook];
-  
-  //if app has "Application does not run in background" = YES, or was killed before it could return from Facebook SSO callback (from Safari or Facebook app)
-  if (!fb.sessionDelegate)
-  {      
-    SHKFacebook *facebookSharer = [[SHKFacebook alloc] init]; //released in fbDidLogin
+	//if app has "Application does not run in background" = YES, or was killed before it could return from Facebook SSO callback (from Safari or Facebook app)
+	if (authingSHKFacebook == nil)
+	{
+		authingSHKFacebook = [[SHKFacebook alloc] init]; //released in sessionStateChanged
+		
+		if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
+		{
+			authingSHKFacebook.pendingAction = SHKPendingShare;
+		}
+	}
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
-    {
-        facebookSharer.pendingAction = SHKPendingShare;
-    } 
-      
-    [fb setSessionDelegate:facebookSharer];      
-  }    
-    
-  return [fb handleOpenURL:url];
+	return [FBSession.activeSession handleOpenURL:url];
 }
 
 #pragma mark -
@@ -173,13 +252,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (BOOL)isAuthorized
 {	  
-  Facebook *facebook = [SHKFacebook facebook];
-  if ([facebook isSessionValid]) return YES;
-  
-  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-  facebook.accessToken = [defaults stringForKey:kSHKFacebookAccessTokenKey];
-  facebook.expirationDate = [defaults objectForKey:kSHKFacebookExpiryDateKey];
-  return [facebook isSessionValid];
+	return [self openSessionWithAllowLoginUI:NO];
 }
 
 - (void)promptAuthorization
@@ -191,23 +264,23 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 	}
 	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
 	
-	[[SHKFacebook facebook] setSessionDelegate:self];
-    [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-	[[SHKFacebook facebook] authorize:SHKCONFIG(facebookListOfPermissions)];		
+	authingSHKFacebook = self;
+	[self retain];
+	
+	[self openSessionWithAllowLoginUI:YES];
 }
 
 + (void)logout
 {
-  [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKStoredItemKey];
-  [self flushAccessToken];
-  [[self facebook] logout];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKStoredItemKey];
+	[FBSession.activeSession closeAndClearTokenInformation];
 }
 
 #pragma mark -
 #pragma mark Share API Methods
 
 - (BOOL)send
-{			
+{
  	if (![self validateItem])
 		return NO;
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -233,15 +306,22 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		NSString *description = self.item.facebookURLShareDescription;
 		if (description)
 			[params setObject:description forKey:@"description"];
+		[FBRequestConnection startWithGraphPath:@"me/feed"
+									 parameters:params
+									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+										 [self FBRequestHandlerCallback:connection result:result error:error];
+									 }];
+		
+		return YES;
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
 		[params setObject:item.text forKey:@"message"];
-        [[SHKFacebook facebook] requestWithGraphPath:@"me/feed"
-                                           andParams:params
-                                       andHttpMethod:@"POST"
-                                         andDelegate:self];
-        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+		[FBRequestConnection startWithGraphPath:@"me/feed"
+									 parameters:params
+									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+										 [self FBRequestHandlerCallback:connection result:result error:error];
+									 }];
         return YES;
 	}	
 	else if (item.shareType == SHKShareTypeImage && item.image)
@@ -253,183 +333,55 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 		[params setObject:item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo 
 		// via the dialog option:
-		[[SHKFacebook facebook] requestWithGraphPath:@"me/photos"
-										   andParams:params
-									   andHttpMethod:@"POST"
-										 andDelegate:self];
-        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+		[FBRequestConnection startWithGraphPath:@"me/photos"
+									 parameters:params
+									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+										 [self FBRequestHandlerCallback:connection result:result error:error];
+									 }];
 		return YES;
 	}
     else if (item.shareType == SHKShareTypeUserInfo)
-    {
+    {	// sharekit doesn't use this, I don't know who does
         [self setQuiet:YES];
-        [[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
-        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+		[FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+										 [self FBUserInfoRequestHandlerCallback:connection result:result error:error];
+									 }];
         return YES;
     } 
 	else 
 		// There is nothing to send
 		return NO;
 	
-	[[SHKFacebook facebook] dialog:@"feed"
-						 andParams:params 
-					   andDelegate:self];
-    [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-    
-	return YES;
 }
 
-#pragma mark -
-#pragma mark FBDialogDelegate methods
-
-- (void)dialogDidComplete:(FBDialog *)dialog
+-(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
+						 result:(id) result
+						  error:(NSError *)error
 {
-  [self sendDidFinish];  
-    [self release]; //see [self send]
+	[result convertNSNullsToEmptyStrings];
+	[[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
 }
 
-- (void)dialogDidNotComplete:(FBDialog *)dialog
+-(void)FBRequestHandlerCallback:(FBRequestConnection *)connection
+						 result:(id) result
+						  error:(NSError *)error
 {
-  [self sendDidCancel];
-    [self release]; //see [self send]
-}
-
-- (void)dialogCompleteWithUrl:(NSURL *)url 
-{
-  //if user presses cancel within webview FBDialogue, return string is without any other parameter, see issue #83. We should not show "Saved!".
-  if ([[url absoluteString] isEqualToString:@"fbconnect://success"]) { 
-      [self setQuiet:YES];
-  }
-  // error_code=190: user changed password or revoked access to the application,
-  // so spin the user back over to authentication :
-  NSRange errorRange = [[url absoluteString] rangeOfString:@"error_code=190"];
-  if (errorRange.location != NSNotFound) 
-  {
-    [SHKFacebook flushAccessToken];
-    [self authorize];
-  }
-}
-
-- (void)dialogDidCancel:(FBDialog*)dialog
-{
-  [self sendDidCancel];
-    [self release]; //see [self send]
-}
-
-- (void)dialog:(FBDialog *)dialog didFailWithError:(NSError *)error 
-{
-  if (error.code != NSURLErrorCancelled)
-    [self sendDidFailWithError:error];
-    [self release]; //see [self send]
-}
-
-- (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
-{
-    [self release]; //see [self promptAuthorization]. If callback happens, self will retain again.
-	return YES;
-    
-}
-
-#pragma mark - FBSessionDelegate methods
-
-- (void)fbDidLogin 
-{
-	NSString *accessToken = [[SHKFacebook facebook] accessToken];
-	NSDate *expiryDate = [[SHKFacebook facebook] expirationDate];
-    [self saveFBAccessToken:accessToken expiring:expiryDate];
-	
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
-	if (storedItem)
-	{
-		self.item = [SHKItem itemFromDictionary:storedItem];
-		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
-		if (imagePath) {
-			self.item.image = [SHKFacebook storedImage:imagePath];
+	if(error){
+		//check if user revoked app permissions
+		NSDictionary *response = [error.userInfo valueForKey:FBErrorParsedJSONResponseKey];
+		
+		if ([error.domain isEqualToString:FacebookSDKDomain] &&
+			[[[[response objectForKey:@"body"] objectForKey:@"error"] objectForKey:@"code"] intValue] == 190) {
+			[FBSession.activeSession closeAndClearTokenInformation];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
+		} else {
+			[self sendDidFailWithError:error];
 		}
-		[defaults removeObjectForKey:kSHKStoredItemKey];
+	}else{
+		[self sendDidFinish];
 	}
-	[defaults synchronize];
-    [self authDidFinish:true];
-	
-    if (self.item)        
-        [self tryPendingAction];
-	
-    [self release]; //see [self promptAuthorization]
+
 }
-
-- (void)fbDidNotLogin:(BOOL)cancelled {
-    
-    if (!cancelled) {
-        [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
-									 message:SHKLocalizedString(@"There was an error while authorizing")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
-    }
-    
-    [self authDidFinish:NO]; 
-    [self release]; //see [self promptAuthorization]
-}
-
-- (void)fbDidExtendToken:(NSString*)accessToken
-               expiresAt:(NSDate*)expiresAt {
-    
-    [self saveFBAccessToken:accessToken expiring:expiresAt];
-    
-}
-
-- (void)fbDidLogout {
- 
-    //we do nothing now, as we called [self flushAccessToken] during + (void)logout
-}
-
-- (void)fbSessionInvalidated {
-    
-}
-
-#pragma mark -
-
-- (void)saveFBAccessToken:(NSString *)accessToken expiring:(NSDate *)expiryDate {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:accessToken forKey:kSHKFacebookAccessTokenKey];
-	[defaults setObject:expiryDate forKey:kSHKFacebookExpiryDateKey];
-    [defaults synchronize];
-}
-
-#pragma mark - FBRequestDelegate methods
-
-- (void)requestLoading:(FBRequest *)request
-{
-  [self sendDidStart];
-}
-
-- (void)request:(FBRequest *)fbRequest didLoad:(id)result
-{   
-    if ([fbRequest.url hasSuffix:@"/me"] && [result objectForKey:@"id"]) {
-        [result convertNSNullsToEmptyStrings];
-        [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
-    }     
-
-    [self sendDidFinish];
-    [self release]; //see [self send]
-}
-
-- (void)request:(FBRequest*)aRequest didFailWithError:(NSError*)error 
-{
-    //if user revoked app permissions
-    NSNumber *fbErrorCode = [[error.userInfo valueForKey:@"error"] valueForKey:@"code"];
-    if (error.domain == @"facebookErrDomain" && [fbErrorCode intValue] == 190) {
-        [self shouldReloginWithPendingAction:SHKPendingSend];
-    } else {
-        [self sendDidFailWithError:error];
-    }
-    
-    [self release]; //see [self send]
-}
-
 
 #pragma mark - UI Implementation
 
@@ -444,6 +396,7 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
         [self tryToSend];
     }
 }
+
 
 - (void)showFacebookForm
 {
