@@ -1883,10 +1883,6 @@
 					arm6,
 				);
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/facebook-ios-sdk/build\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1914,10 +1910,6 @@
 					arm6,
 				);
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/facebook-ios-sdk/build\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
