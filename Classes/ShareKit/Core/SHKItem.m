@@ -45,7 +45,7 @@
 @synthesize URL, URLContentType, image, title, text, tags, data, mimeType, filename;
 @synthesize custom;
 @synthesize printOutputType;
-@synthesize mailToRecipients, mailJPGQuality, isMailHTML, mailShareWithAppSignature;
+@synthesize mailToRecipients, mailJPGQuality, isMailHTML, mailShareWithAppSignature, popOverSourceRect;
 @synthesize facebookURLSharePictureURI, facebookURLShareDescription;
 @synthesize textMessageToRecipients;
 
@@ -98,6 +98,7 @@
     facebookURLSharePictureURI = [SHKCONFIG(facebookURLSharePictureURI) retain];
     
     textMessageToRecipients = [SHKCONFIG(textMessageToRecipients) retain];
+	popOverSourceRect = CGRectFromString(SHKCONFIG(popOverSourceRect));
 }
 
 + (id)URL:(NSURL *)url
@@ -235,6 +236,9 @@
     if ([dictionary objectForKey:@"textMessageToRecipients"] != nil)
 		item.textMessageToRecipients = [dictionary objectForKey:@"textMessageToRecipients"];
     
+    if ([dictionary objectForKey:@"popOverSourceRect"] != nil)
+		item.popOverSourceRect = CGRectFromString([dictionary objectForKey:@"popOverSourceRect"]);
+    
 	return [item autorelease];
 }
 
@@ -293,6 +297,8 @@
 	if (textMessageToRecipients) {
 		[dictionary setObject:textMessageToRecipients forKey:@"textMessageToRecipients"];
 	}
+
+	[dictionary setObject:NSStringFromCGRect(popOverSourceRect) forKey:@"popOverSourceRect"];
 	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
@@ -316,8 +322,9 @@
                                                     mailShareWithAppSignature: %i\n\
                                                     facebookURLSharePictureURI: %@\n\
                                                     facebookURLShareDescription: %@\n\
-                                                    textMessageToRecipients: %@",
-                        
+                                                    textMessageToRecipients: %@\n\
+                                                    popOverSourceRect: %@",
+						
                                                     [self shareTypeToString:self.shareType],
                                                     [self.URL absoluteString],
                                                     self.URLContentType,
@@ -332,7 +339,8 @@
                                                     self.mailShareWithAppSignature,
                                                     self.facebookURLSharePictureURI,
                                                     self.facebookURLShareDescription,
-                                                    self.textMessageToRecipients];
+                                                    self.textMessageToRecipients,
+													NSStringFromCGRect(self.popOverSourceRect)];
     
     return result;
 }

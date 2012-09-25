@@ -71,6 +71,10 @@
     item.tags = [NSArray arrayWithObjects:@"bay bridge", @"architecture", @"california", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];
+	
+	//optional line to give a source rect in the coords of the view set with setRootViewController:
+	item.popOverSourceRect = [self.navigationController.toolbar convertRect:self.navigationController.toolbar.bounds toView:self.view];
+
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 

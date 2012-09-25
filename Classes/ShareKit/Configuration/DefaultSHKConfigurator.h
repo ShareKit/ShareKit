@@ -110,5 +110,6 @@
 - (NSString *)facebookURLShareDescription;
 //SHKTextMessage
 - (NSArray *)textMessageToRecipients;
-
+//SHKInstagram and future others
+-(NSString*) popOverSourceRect;
 @end
