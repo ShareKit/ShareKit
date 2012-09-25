@@ -295,10 +295,11 @@
 		{
 			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
 		}
-		if(doShare)
-			[sharer share];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+		
+		if(doShare)
+			[sharer share];
 	}
 }
 
