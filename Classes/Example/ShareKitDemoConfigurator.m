@@ -89,6 +89,10 @@
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
 
+- (NSNumber*)forcePreIOS5TwitterAccess {
+    return [NSNumber numberWithBool:false];
+}
+
 - (NSString*)twitterConsumerKey {
 	return @"48Ii81VO5NtDKIsQDZ3Ggw";
 }
@@ -189,7 +193,6 @@
 - (NSString*)foursquareV2RedirectURI {
     return @"app://foursquare";
 }
-
 
 /*
  UI Configuration : Basic

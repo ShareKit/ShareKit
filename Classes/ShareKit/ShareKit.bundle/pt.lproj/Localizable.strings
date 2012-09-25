@@ -24,8 +24,6 @@
 
 "Title" = "Título";
 
-"Tags" = "Marcações";
-
 "Close" = "Fechar";
 
 "Notes" = "Notas";
@@ -159,8 +157,6 @@
 
 "Description" = "Descrição";
 
-"Tag (space) Tag" = "Marcação (espaço) Marcação";
-
 "Is Public" = "É Público";
 
 "Is Friend" = "É Amigo";
@@ -173,7 +169,7 @@
 
 "Save to Photo Album" = "Salvar no Álbum de Fotos";
 
-"Tag,Tag" = "Marcação,Marcação";
+"Tag, tag" = "Marcação, marcação";
 
 "Logout of All Services" = "Sair de todos serviços";
 

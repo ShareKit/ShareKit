@@ -180,7 +180,7 @@
 		self.item = [[[SHKItem alloc] init] autorelease];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
-			self.modalPresentationStyle = [SHK modalPresentationStyle];
+			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
 		
 		if ([self respondsToSelector:@selector(modalTransitionStyle)])
 			self.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -579,6 +579,27 @@
 
 #pragma mark -
 
+-(NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString {
+    
+    NSMutableArray *cleanedTags = [NSMutableArray arrayWithCapacity:[self.item.tags count]];
+    
+    for (NSString *tag in self.item.tags) {
+        NSCharacterSet *removeSet = [charset invertedSet];
+        NSString *strippedTag = [[tag componentsSeparatedByCharactersInSet:removeSet]
+                                 componentsJoinedByString:@"" ];
+        if ([strippedTag length] < 1) continue;
+        strippedTag = [strippedTag stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        if ([strippedTag length] < 1) continue;
+        if ([prefixString length] > 0) [cleanedTags addObject:[NSString stringWithFormat:@"%@%@", prefixString, strippedTag]];
+            else [cleanedTags addObject:strippedTag];
+    }
+    
+    if ([cleanedTags count] < 1) return @"";
+    return [cleanedTags componentsJoinedByString:joinString];
+}
+
+#pragma mark -
+
 - (void)updateItemWithForm:(SHKFormController *)form
 {
 	// Update item with new values from form
@@ -591,8 +612,15 @@
 		else if ([key isEqualToString:@"text"])
 			item.text = [formValues objectForKey:key];
 		
-		else if ([key isEqualToString:@"tags"])
-			item.tags = [formValues objectForKey:key];
+		else if ([key isEqualToString:@"tags"]) {
+            NSString *unparsedTags = [formValues objectForKey:key];
+            NSArray *tmpValues = [unparsedTags componentsSeparatedByString:@","];
+            NSMutableArray *values = [NSMutableArray arrayWithCapacity:[tmpValues count]];
+            for (NSString *a_tag in tmpValues) {
+                [values addObject:[a_tag stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            }
+			item.tags = values;
+        }
 		
 		else
 			[item setCustomValue:[formValues objectForKey:key] forKey:key];

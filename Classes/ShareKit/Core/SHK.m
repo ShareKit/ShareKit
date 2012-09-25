@@ -133,7 +133,7 @@ BOOL SHKinit;
 		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
 		
 		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
-			nav.modalPresentationStyle = [SHK modalPresentationStyle];
+			nav.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
 		
 		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -149,7 +149,7 @@ BOOL SHKinit;
 	else
 	{		
 		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			vc.modalPresentationStyle = [SHK modalPresentationStyle];
+			vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -286,15 +286,17 @@ BOOL SHKinit;
 	return UIBarStyleDefault;
 }
 
-+ (UIModalPresentationStyle)modalPresentationStyle
++ (UIModalPresentationStyle)modalPresentationStyleForController:(UIViewController *)controller
 {
-	if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFullScreen"])
+	NSString *styleString = SHKCONFIG_WITH_ARGUMENT(modalPresentationStyleForController:, controller);
+	
+	if ([styleString isEqualToString:@"UIModalPresentationFullScreen"])
 		return UIModalPresentationFullScreen;
 	
-	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationPageSheet"])
+	else if ([styleString isEqualToString:@"UIModalPresentationPageSheet"])
 		return UIModalPresentationPageSheet;
 	
-	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFormSheet"])
+	else if ([styleString isEqualToString:@"UIModalPresentationFormSheet"])
 		return UIModalPresentationFormSheet;
 	
 	return UIModalPresentationCurrentContext;

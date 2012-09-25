@@ -56,10 +56,17 @@
 - (void)share
 {
 	SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle] contentType:(SHKURLContentTypeWebpage)];
-    //SHKItem *item = [SHKItem URL:[NSURL URLWithString:@"http://www.youtube.com/watch?v=3t8MeE8Ik4Y"] title:@"Big bang" contentType:SHKURLContentTypeVideo];
-    //item.facebookURLSharePictureURI = @"http://www.state.gov/cms_images/india_tajmahal_2003_06_252.jpg";
-    //item.facebookURLShareDescription = @"description text";
+
+    /* bellow are examples how to preload SHKItem with some custom sharer specific settings. You can prefill them ad hoc during each particular SHKItem createion, or set them globally in your configurator, so that every SHKItem is prefilled with the same values. More info in SHKItem.h or DefaultSHKConfigurator.m.    
+    
+    SHKItem *item = [SHKItem URL:[NSURL URLWithString:@"http://www.youtube.com/watch?v=3t8MeE8Ik4Y"] title:@"Big bang" contentType:SHKURLContentTypeVideo];
+    item.facebookURLSharePictureURI = @"http://www.state.gov/cms_images/india_tajmahal_2003_06_252.jpg";
+    item.facebookURLShareDescription = @"description text";
+    item.tags = [NSArray arrayWithObjects:@"apple inc.",@"computers",@"mac", nil];
     item.mailToRecipients = [NSArray arrayWithObjects:@"frodo@middle-earth.me", @"gandalf@middle-earth.me", nil];
+    item.textMessageToRecipients = [NSArray arrayWithObjects: @"581347615", @"581344543", nil];
+    */
+    
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar]; 

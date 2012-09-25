@@ -11,7 +11,7 @@
 "Public" = "Pubblico";
 "Caption" = "Didascalia";
 "Title" = "Titolo";
-"Tags" = "Tag";
+"Tag, tag" = "Tag";
 "Close" = "Chiudi";
 "Notes" = "Note";
 "Note" = "Nota";

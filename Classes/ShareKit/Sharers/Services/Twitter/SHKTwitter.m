@@ -162,17 +162,13 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		result = isURLAlreadyShortened;
 		
 	}
+    
+    NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    
+    NSString *tweetBody = [NSString stringWithFormat:@"%@%@%@",(item.shareType == SHKShareTypeText ? item.text : item.title ),([hashtags length] ? @" " : @""), hashtags];
 	
-	else if (item.shareType == SHKShareTypeImage)
-	{
-		[item setCustomValue:item.title forKey:@"status"];
-	}
-	
-	else if (item.shareType == SHKShareTypeText)
-	{
-		[item setCustomValue:item.text forKey:@"status"];
-	}
-	
+    [item setCustomValue:tweetBody forKey:@"status"];
+    
 	return result;
 }
 
@@ -363,7 +359,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	
-	if (result == nil || [NSURL URLWithString:result] == nil)
+	if (!aRequest.success || result == nil || [NSURL URLWithString:result] == nil)
 	{
 		// TODO - better error message
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
@@ -371,8 +367,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 											 delegate:nil
 								 cancelButtonTitle:SHKLocalizedString(@"Continue")
 								 otherButtonTitles:nil] autorelease] show];
-		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+        
+        NSString *currentStatus = [item customValueForKey:@"status"];
+        
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", currentStatus, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 	}
 	
 	else
@@ -380,8 +378,10 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		///if already a bitly login, use url instead
 		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
 			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSString *currentStatus = [item customValueForKey:@"status"];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, result] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", currentStatus, result] forKey:@"status"];
 	}
 	
 	[super share];
