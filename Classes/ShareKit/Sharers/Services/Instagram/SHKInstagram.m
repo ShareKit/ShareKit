@@ -131,7 +131,8 @@
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
 		dic.UTI = @"com.instagram.photo";
-		dic.annotation = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@" #%@", SHKCONFIG(appName)] forKey:@"InstagramCaption"];
+		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"]];
+		dic.annotation = @{@"InstagramCaption" : captionString};
 		dic.delegate = self;
 		UIView* bestView = self.view;
 		if(bestView.window == nil){
