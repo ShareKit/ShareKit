@@ -272,6 +272,7 @@ static SHKFacebook *authingSHKFacebook=nil;
 
 + (void)logout
 {
+	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKStoredItemKey];
 	[FBSession.activeSession closeAndClearTokenInformation];
 }
