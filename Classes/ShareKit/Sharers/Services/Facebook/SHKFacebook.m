@@ -32,11 +32,13 @@
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
-static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
-static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
+static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
+// these are ways of getting back to the instance that made the request through statics
+// there are two so that the logic of their lifetimes is understandable.
 static SHKFacebook *authingSHKFacebook=nil;
+static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 @interface SHKFacebook()
 
@@ -48,6 +50,11 @@ static SHKFacebook *authingSHKFacebook=nil;
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error;
+
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
+- (BOOL)restoreItem;
+
+- (void) doSend;
 @end
 
 @implementation SHKFacebook
@@ -66,8 +73,40 @@ static SHKFacebook *authingSHKFacebook=nil;
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
 	}
+	if (requestingPermisSHKFacebook == self) {
+		requestingPermisSHKFacebook = nil;
+	}
 	[super dealloc];
 }
+
+- (BOOL)restoreItem{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
+	if (storedItem)
+	{
+		self.item = [SHKItem itemFromDictionary:storedItem];
+		self.pendingAction = [[storedItem objectForKey:kSHKStoredActionKey] intValue];
+		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+		if (imagePath) {
+			self.item.image = [SHKFacebook storedImage:imagePath];
+		}
+		[defaults removeObjectForKey:kSHKStoredItemKey];
+	}
+	[defaults synchronize];
+
+	return storedItem != nil;
+}
+
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction{
+	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
+	if (item.image)
+	{
+		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+	}
+	[itemRep setObject:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
+	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
+}
+
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
 	// because this routine is used both for checking if we are authed and
@@ -85,15 +124,17 @@ static SHKFacebook *authingSHKFacebook=nil;
     BOOL result = NO;
     FBSession *session =
 	[[[FBSession alloc] initWithAppID:SHKCONFIG(facebookAppId)
-						 permissions:SHKCONFIG(facebookListOfPermissions)
+						 permissions:nil	// FB only wants read or publish so use default read, request publish when we need it
 					 urlSchemeSuffix:SHKCONFIG(facebookLocalAppId)
 				  tokenCacheStrategy:nil] autorelease];
     
     if (allowLoginUI ||
         (session.state == FBSessionStateCreatedTokenLoaded)) {
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
         [FBSession setActiveSession:session];
         [session openWithCompletionHandler:
          ^(FBSession *session, FBSessionState state, NSError *error) {
+			 [[SHKActivityIndicator currentIndicator] hide];
              [self sessionStateChanged:session state:state error:error];
          }];
         result = session.isOpen;
@@ -111,24 +152,15 @@ static SHKFacebook *authingSHKFacebook=nil;
 {
 	if(FB_ISSESSIONOPENWITHSTATE(state)){
 		NSAssert(error == nil, @"ShareKit: Facebook sessionStateChanged open session, but errors?!?!");
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
-		if (storedItem)
-		{
-			self.item = [SHKItem itemFromDictionary:storedItem];
-			NSString *imagePath = [storedItem objectForKey:@"imagePath"];
-			if (imagePath) {
-				self.item.image = [SHKFacebook storedImage:imagePath];
-			}
-			[defaults removeObjectForKey:kSHKStoredItemKey];
-		}
-		[defaults synchronize];
-		if (authingSHKFacebook == self) {	
+
+		[self restoreItem];
+		
+		if (authingSHKFacebook == self) {
 			[self authDidFinish:true];
 		}
 		
-		if (self.item)
-			[self tryPendingAction];
+		[self tryPendingAction];
+		
 	}else if (FB_ISSESSIONSTATETERMINAL(state)){
 		if (authingSHKFacebook == self) {	// the state can change for a lot of reasons that are out of the login loop
 			[self authDidFinish:NO];		// for exaple closing the session in dealloc.
@@ -192,19 +224,36 @@ static SHKFacebook *authingSHKFacebook=nil;
 
 + (BOOL)handleOpenURL:(NSURL*)url
 {
+	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
 	//if app has "Application does not run in background" = YES, or was killed before it could return from Facebook SSO callback (from Safari or Facebook app)
-	if (authingSHKFacebook == nil)
+	if (authingSHKFacebook == nil &&
+		requestingPermisSHKFacebook == nil)
 	{
-		authingSHKFacebook = [[SHKFacebook alloc] init]; //released in sessionStateChanged
-		
-		if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
-		{
-			authingSHKFacebook.pendingAction = SHKPendingShare;
-		}
+		[FBSession.activeSession close];	// close it down because we don't know about it
+		authingSHKFacebook = [[SHKFacebook alloc] init];	//released in sessionStateChanged
+															// resend is triggered in sessionStateChanged
 	}
     
 	return [FBSession.activeSession handleOpenURL:url];
 }
+
++ (void)handleWillTerminate
+{
+	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
+	// if the app is going away, we close the session object; this is a good idea because
+	// things may be hanging off the session, that need releasing (completion block, etc.) and
+	// other components in the app may be awaiting close notification in order to do cleanup
+	[FBSession.activeSession close];
+}
+
++ (void)handleDidBecomeActive
+{
+	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
+	// We need to properly handle activation of the application with regards to SSO
+	//  (e.g., returning from iOS 6.0 authorization dialog or from fast app switching).
+	[FBSession.activeSession handleDidBecomeActive];
+}
+
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -257,13 +306,9 @@ static SHKFacebook *authingSHKFacebook=nil;
 
 - (void)promptAuthorization
 {
-	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
-	if (item.image)
-	{
-		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
-	}
-	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
+	[self saveItemForLater:SHKPendingShare];
 	
+	NSAssert(authingSHKFacebook == nil, @"ShareKit: auth loop logic error - will lead to leaks");
 	authingSHKFacebook = self;
 	[self retain];
 	
@@ -279,14 +324,75 @@ static SHKFacebook *authingSHKFacebook=nil;
 
 #pragma mark -
 #pragma mark Share API Methods
+-(void) sendDidCancel
+{
+	[super sendDidCancel];
+	[FBSession.activeSession close];	// unhook us
+}
 
 - (BOOL)send
 {
  	if (![self validateItem])
 		return NO;
+	
+	if ((item.shareType == SHKShareTypeURL && item.URL)||
+		(item.shareType == SHKShareTypeText && item.text)||
+		(item.shareType == SHKShareTypeImage && item.image)||
+		item.shareType == SHKShareTypeUserInfo)					// sharekit doesn't use this, I don't know who does
+    {
+		// Ask for publish_actions permissions in context
+		if ([FBSession.activeSession.permissions
+			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookListOfPermissions
+			// No permissions found in session, ask for it
+			[self saveItemForLater:SHKPendingSend];
+			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+			if(requestingPermisSHKFacebook == nil){
+				requestingPermisSHKFacebook = self;
+			}
+			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookListOfPermissions)
+													   defaultAudience:FBSessionDefaultAudienceFriends
+													 completionHandler:^(FBSession *session, NSError *error) {
+														 [[SHKActivityIndicator currentIndicator] hide];
+														 requestingPermisSHKFacebook = nil;
+														 if (error) {
+															 UIAlertView *alertView = [[UIAlertView alloc]
+																					   initWithTitle:@"Error"
+																					   message:error.localizedDescription
+																					   delegate:nil
+																					   cancelButtonTitle:@"OK"
+																					   otherButtonTitles:nil];
+															 [alertView show];
+
+															 [self restoreItem];
+															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
+															 [self tryPendingAction];
+														 }else{
+															 // If permissions granted, publish the story
+															 [self doSend];
+														 }
+														 // the session watcher handles the error
+													 }];
+		} else {
+			// If permissions present, publish the story
+			[self doSend];
+		}
+		
+        return YES;
+    } else {
+		// There is nothing to send
+		return NO;
+	}
+}
+
+- (void)doSend
+{
+	// Warning to modifiers of SEND, be sure that if send becomes more than a single FBRequestConnection
+	// you properly deal with closing the session. For the moment we can close the session when these complete
+	// and get un-retained by the session state callback.
+	[self sendDidStart];
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
-				SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
+						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
 	[params setObject:actions forKey:@"actions"];
 	
 	if (item.shareType == SHKShareTypeURL && item.URL)
@@ -294,7 +400,7 @@ static SHKFacebook *authingSHKFacebook=nil;
 		NSString *url = [item.URL absoluteString];
 		[params setObject:url forKey:@"link"];
 		[params setObject:item.title == nil ? url : item.title
-				   forKey:@"name"];    
+				   forKey:@"name"];
 		
         //message parameter is invalid since 2011. Next two lines are useless.
         if (item.text)
@@ -313,7 +419,6 @@ static SHKFacebook *authingSHKFacebook=nil;
 										 [self FBRequestHandlerCallback:connection result:result error:error];
 									 }];
 		
-		return YES;
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
@@ -323,44 +428,44 @@ static SHKFacebook *authingSHKFacebook=nil;
 									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 										 [self FBRequestHandlerCallback:connection result:result error:error];
 									 }];
-        return YES;
-	}	
+	}
 	else if (item.shareType == SHKShareTypeImage && item.image)
-	{	
-		if (item.title) 
+	{
+		if (item.title)
 			[params setObject:item.title forKey:@"caption"];
-		if (item.text) 
+		if (item.text)
 			[params setObject:item.text forKey:@"message"];
 		[params setObject:item.image forKey:@"picture"];
-		// There does not appear to be a way to add the photo 
+		// There does not appear to be a way to add the photo
 		// via the dialog option:
 		[FBRequestConnection startWithGraphPath:@"me/photos"
 									 parameters:params
 									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 										 [self FBRequestHandlerCallback:connection result:result error:error];
 									 }];
-		return YES;
 	}
     else if (item.shareType == SHKShareTypeUserInfo)
     {	// sharekit doesn't use this, I don't know who does
         [self setQuiet:YES];
 		[FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-										 [self FBUserInfoRequestHandlerCallback:connection result:result error:error];
-									 }];
-        return YES;
-    } 
-	else 
-		// There is nothing to send
-		return NO;
-	
+			[self FBUserInfoRequestHandlerCallback:connection result:result error:error];
+		}];
+    }
 }
 
 -(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
 						 result:(id) result
 						  error:(NSError *)error
 {
-	[result convertNSNullsToEmptyStrings];
-	[[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
+	if (error) {
+		[[SHKActivityIndicator currentIndicator] hide];
+		[self sendDidFailWithError:error];
+	}else{
+		[result convertNSNullsToEmptyStrings];
+		[[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
+		[self sendDidFinish];
+	}
+	[FBSession.activeSession close];	// unhook us
 }
 
 -(void)FBRequestHandlerCallback:(FBRequestConnection *)connection
@@ -368,6 +473,7 @@ static SHKFacebook *authingSHKFacebook=nil;
 						  error:(NSError *)error
 {
 	if(error){
+		[[SHKActivityIndicator currentIndicator] hide];
 		//check if user revoked app permissions
 		NSDictionary *response = [error.userInfo valueForKey:FBErrorParsedJSONResponseKey];
 		
@@ -377,9 +483,11 @@ static SHKFacebook *authingSHKFacebook=nil;
 			[self shouldReloginWithPendingAction:SHKPendingSend];
 		} else {
 			[self sendDidFailWithError:error];
+			[FBSession.activeSession close];	// unhook us
 		}
 	}else{
 		[self sendDidFinish];
+		[FBSession.activeSession close];	// unhook us
 	}
 
 }

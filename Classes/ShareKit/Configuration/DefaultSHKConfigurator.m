@@ -84,8 +84,12 @@
 }
 
 //Change if your app needs some special Facebook permissions only. In most cases you can leave it as it is.
+
+// new with the 3.1 SDK facebook wants you to request read and publish permissions separatly. If you don't
+// you won't get a smooth login/auth flow. Since ShareKit does not require any read permissions we're going
+// to treat these as the publishing permissions.
 - (NSArray*)facebookListOfPermissions {    
-    return [NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil];
+    return [NSArray arrayWithObjects:@"publish_actions", nil];
 }
 
 // Read It Later - http://readitlaterlist.com/api/signup/ 

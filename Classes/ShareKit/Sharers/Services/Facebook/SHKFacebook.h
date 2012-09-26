@@ -33,5 +33,6 @@
 @interface SHKFacebook : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
 
 + (BOOL)handleOpenURL:(NSURL*)url;
-
++ (void)handleDidBecomeActive;
++ (void)handleWillTerminate;
 @end
