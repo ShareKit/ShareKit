@@ -132,11 +132,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         (session.state == FBSessionStateCreatedTokenLoaded)) {
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
         [FBSession setActiveSession:session];
-        [session openWithCompletionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-			 [[SHKActivityIndicator currentIndicator] hide];
-             [self sessionStateChanged:session state:state error:error];
-         }];
+        [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
+				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+					[[SHKActivityIndicator currentIndicator] hide];
+					[self sessionStateChanged:session state:state error:error];
+				}];
         result = session.isOpen;
     }
 	
