@@ -154,15 +154,19 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 {
 	if(FB_ISSESSIONOPENWITHSTATE(state)){
 		NSAssert(error == nil, @"ShareKit: Facebook sessionStateChanged open session, but errors?!?!");
-
-		[self restoreItem];
-		
-		if (authingSHKFacebook == self) {
-			[self authDidFinish:true];
+		if(requestingPermisSHKFacebook == self){
+			// in this case, we basically want to ignore the state change because the
+			// completion handler for the permission request handles the post.
+			// this happens when the permissions just get extended 
+		}else{
+			[self restoreItem];
+			
+			if (authingSHKFacebook == self) {
+				[self authDidFinish:true];
+			}
+			
+			[self tryPendingAction];
 		}
-		
-		[self tryPendingAction];
-		
 	}else if (FB_ISSESSIONSTATETERMINAL(state)){
 		if (authingSHKFacebook == self) {	// the state can change for a lot of reasons that are out of the login loop
 			[self authDidFinish:NO];		// for exaple closing the session in dealloc.
