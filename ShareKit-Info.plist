@@ -29,7 +29,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb 281987678567988</string>
+				<string>fb281987678567988</string>
 				<string>app://flickr</string>
 			</array>
 		</dict>
