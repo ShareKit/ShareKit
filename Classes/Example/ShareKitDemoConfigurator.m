@@ -64,6 +64,11 @@
 - (NSString*)facebookLocalAppId {
 	return @"";
 }
+
+- (NSNumber*)forcePreIOS6FacebookPosting {
+	return [NSNumber numberWithBool:true];
+}
+
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"45aT6Vfvg66eWNebybd680gu13pdba3d";

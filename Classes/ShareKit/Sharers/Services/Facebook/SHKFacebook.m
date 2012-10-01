@@ -549,7 +549,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void)show
 {
-	BOOL tryToPresent = [FBNativeDialogs canPresentShareDialogWithSession:[FBSession activeSession]];
+	BOOL tryToPresent = ![SHKCONFIG(forcePreIOS6FacebookPosting) boolValue] && [FBNativeDialogs canPresentShareDialogWithSession:[FBSession activeSession]];
 	if(tryToPresent){	// if there's a shot
 		if ([FBSession.activeSession.permissions
 			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookListOfPermissions

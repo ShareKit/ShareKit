@@ -92,6 +92,16 @@
     return [NSArray arrayWithObjects:@"publish_actions", nil];
 }
 
+/*
+ If you want to force use of old-style, posting path that does not use the native sheet. One of the troubles
+ with the native sheet is that it gives IOS6 props on facebook instead of your app. This flag has no effect
+ on the auth path. It will try to use native auth if availible.
+ */
+- (NSNumber*)forcePreIOS6FacebookPosting {
+	return [NSNumber numberWithBool:false];
+}
+
+
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"";

@@ -54,6 +54,7 @@
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSArray*)facebookListOfPermissions;
+- (NSNumber*)forcePreIOS6FacebookPosting;
 - (NSString*)readItLaterKey;
 - (NSString*)diigoKey;
 - (NSNumber*)forcePreIOS5TwitterAccess;
