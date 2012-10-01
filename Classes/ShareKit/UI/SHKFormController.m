@@ -123,7 +123,10 @@
 	[super viewDidLoad];
 	
 	if (SHKCONFIG(formBackgroundColor) != nil)
-         self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
+	{
+		self.tableView.backgroundView = nil;
+		self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
+	}
 }
 
 

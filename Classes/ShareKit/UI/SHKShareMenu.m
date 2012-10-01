@@ -76,7 +76,10 @@
     [super viewDidLoad];
     
     if (SHKCONFIG(formBackgroundColor) != nil)
+	{
+		self.tableView.backgroundView = nil;
         self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
+	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -295,10 +298,11 @@
 		{
 			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
 		}
-		if(doShare)
-			[sharer share];
 		
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+		
+		if(doShare)
+			[sharer share];
 	}
 }
 
