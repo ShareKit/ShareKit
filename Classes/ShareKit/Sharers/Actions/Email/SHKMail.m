@@ -114,7 +114,7 @@
 }
 
 - (BOOL)sendMail
-{	
+{
 	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
 	if (!mailController) {
 		// e.g. no mail account registered (will show alert)
@@ -133,37 +133,33 @@
 	if (body == nil)
 	{
 		body = @"";
+	}
+	
+	if (item.URL != nil)
+	{
+		NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		
-		if (item.URL != nil)
-		{
-			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			
-			if (isHTML)
-				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
-			else
-				body = urlStr;
-		}
+		if (isHTML)
+			body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
+		else
+			body = urlStr;
+	}
+	
+	if (item.data)
+	{
+		NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
 		
-		if (item.data)
-		{
-			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
-			
-			if (isHTML)
-				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
-			else
-				body = attachedStr;
-		}
-		
-		// fallback
-		if (body == nil)
-			body = @"";
-		
-		// sig
-		if (self.item.mailShareWithAppSignature)
-		{
-			body = [body stringByAppendingString:separator];
-			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
-		}
+		if (isHTML)
+			body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
+		else
+			body = attachedStr;
+	}
+	
+	// sig
+	if (self.item.mailShareWithAppSignature)
+	{
+		body = [body stringByAppendingString:separator];
+		body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 	}
 	
 	if (item.data)		
