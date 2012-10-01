@@ -26,8 +26,5 @@
 #import "SHKSharer.h"
 
 @interface SHKInstagram : SHKSharer <UIDocumentInteractionControllerDelegate>
-{
-	UIDocumentInteractionController* dic;
-	bool didSend;
-}
+
 @end

@@ -26,15 +26,18 @@
 #import "SHKConfiguration.h"
 
 @interface SHKInstagram()
+
 @property (nonatomic, retain) UIDocumentInteractionController* dic;
+@property BOOL didSend;
+
 @end
 
 @implementation SHKInstagram
-@synthesize dic;
 
 - (void)dealloc {
-	dic.delegate = nil;
-	[dic release];
+    
+	_dic.delegate = nil;
+	[_dic release];
 	
 	[super dealloc];
 }
@@ -130,10 +133,10 @@
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
-		dic.UTI = @"com.instagram.photo";
+		self.dic.UTI = @"com.instagram.photo";
 		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"]];
-		dic.annotation = @{@"InstagramCaption" : captionString};
-		dic.delegate = self;
+		self.dic.annotation = @{@"InstagramCaption" : captionString};
+		self.dic.delegate = self;
 		UIView* bestView = self.view;
 		if(bestView.window == nil){
 			// we haven't been presented yet, so we're not in the hierarchy. On the iPad the DIC is
@@ -146,7 +149,7 @@
 		}
 		if(bestView.window != nil){
 			[self retain];	// retain ourselves until the menu has done it's job or we'll nuke the popup (see documentInteractionControllerDidDismissOpenInMenu)
-			[dic presentOpenInMenuFromRect:item.popOverSourceRect inView:bestView animated:YES];
+			[self.dic presentOpenInMenuFromRect:item.popOverSourceRect inView:bestView animated:YES];
 		}
 		return YES;
 	}
@@ -154,13 +157,15 @@
 }
 
 - (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller{
-	if(didSend)
+	if(self.didSend) {
+        self.quiet = YES; //so that we do not show "Saved!" prematurely
 		[self sendDidFinish];
-	else 
+	} else {
 		[self sendDidCancel];
+    }
 	[self autorelease];
 }
 - (void) documentInteractionController: (UIDocumentInteractionController *) controller willBeginSendingToApplication: (NSString *) application{
-	didSend = true;
+	self.didSend = true;
 }
 @end
