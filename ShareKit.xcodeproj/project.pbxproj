@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A0E0324161B0366007595EF /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
+		1A0E0325161B0366007595EF /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
+		1A0E0326161B0366007595EF /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
+		1A0E0327161B0366007595EF /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
+		1A0E0328161B0366007595EF /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
+		1A0E0329161B0366007595EF /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
+		1A0E032A161B0366007595EF /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
+		1A0E0334161B04F6007595EF /* SHKSinaWeibo.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A0E0332161B04F6007595EF /* SHKSinaWeibo.h */; };
+		1A0E0335161B04F6007595EF /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0E0333161B04F6007595EF /* SHKSinaWeibo.m */; };
+		1A0E0337161B05E7007595EF /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0E0336161B05E7007595EF /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1A2B5DFA161B13E70090B77A /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A0E0333161B04F6007595EF /* SHKSinaWeibo.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -544,6 +555,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A0E032E161B0366007595EF /* libSina Weibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSina Weibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0E0332161B04F6007595EF /* SHKSinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKSinaWeibo.h; path = "Sina Weibo/SHKSinaWeibo.h"; sourceTree = "<group>"; };
+		1A0E0333161B04F6007595EF /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKSinaWeibo.m; path = "Sina Weibo/SHKSinaWeibo.m"; sourceTree = "<group>"; };
+		1A0E0336161B05E7007595EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		1A52EDF415CB032B00A737D8 /* SHKKippt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKKippt.h; sourceTree = "<group>"; };
 		1A52EDF515CB032B00A737D8 /* SHKKippt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKKippt.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -872,6 +887,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1A0E0322161B0366007595EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -886,6 +908,7 @@
 				4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */,
 				43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */,
 				43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */,
+				1A0E0337161B05E7007595EF /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1177,8 +1200,18 @@
 				7AEE043D160E1D5B00FEC06E /* libTumblr.a */,
 				7A16F37E161340DD0019645D /* libOAuth.a */,
 				7A16F3C216134A890019645D /* libInstagram.a */,
+				1A0E032E161B0366007595EF /* libSina Weibo.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		1A0E0330161B03F4007595EF /* Sina Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				1A0E0332161B04F6007595EF /* SHKSinaWeibo.h */,
+				1A0E0333161B04F6007595EF /* SHKSinaWeibo.m */,
+			);
+			name = "Sina Weibo";
 			sourceTree = "<group>";
 		};
 		1A52EDF315CB032B00A737D8 /* Kippt */ = {
@@ -1229,6 +1262,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A0E0336161B05E7007595EF /* Social.framework */,
 				7A2B025514A342D800E68A4C /* CFNetwork.framework */,
 				7A3C61ED147520B700C47D14 /* Twitter.framework */,
 				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
@@ -1634,6 +1668,7 @@
 				43A536E411DBE3B9004A1712 /* Read It Later */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
+				1A0E0330161B03F4007595EF /* Sina Weibo */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1977,6 +2012,21 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		1A0E0323161B0366007595EF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0E0324161B0366007595EF /* Base64Transcoder.h in Headers */,
+				1A0E0325161B0366007595EF /* hmac.h in Headers */,
+				1A0E0326161B0366007595EF /* sha1.h in Headers */,
+				1A0E0327161B0366007595EF /* SHKFormFieldCellText.h in Headers */,
+				1A0E0328161B0366007595EF /* SHKFormFieldCellSwitch.h in Headers */,
+				1A0E0329161B0366007595EF /* SHKFormFieldCellOptionPicker.h in Headers */,
+				1A0E032A161B0366007595EF /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				1A0E0334161B04F6007595EF /* SHKSinaWeibo.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9241156BA2A0009CB40A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2448,6 +2498,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		1A0E031E161B0366007595EF /* Sina Weibo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A0E032B161B0366007595EF /* Build configuration list for PBXNativeTarget "Sina Weibo" */;
+			buildPhases = (
+				1A0E031F161B0366007595EF /* Sources */,
+				1A0E0322161B0366007595EF /* Frameworks */,
+				1A0E0323161B0366007595EF /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sina Weibo";
+			productName = ShareKitLibrary;
+			productReference = 1A0E032E161B0366007595EF /* libSina Weibo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		1D6058900D05DD3D006BFB54 /* Demo App */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Demo App" */;
@@ -3111,6 +3178,7 @@
 				7AEE041E160E1D5A00FEC06E /* Read It Later */,
 				7AEE042E160E1D5B00FEC06E /* Tumblr */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
+				1A0E031E161B0366007595EF /* Sina Weibo */,
 			);
 		};
 /* End PBXProject section */
@@ -3143,6 +3211,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1A0E031F161B0366007595EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A0E0335161B04F6007595EF /* SHKSinaWeibo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3463,6 +3539,7 @@
 				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
 				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 				7A16F3B216134A790019645D /* SHKInstagram.m in Sources */,
+				1A2B5DFA161B13E70090B77A /* SHKSinaWeibo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3664,6 +3741,66 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		1A0E032C161B0366007595EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Sina Weibo";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1A0E032D161B0366007595EF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Sina Weibo";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5796,6 +5933,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1A0E032B161B0366007595EF /* Build configuration list for PBXNativeTarget "Sina Weibo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A0E032C161B0366007595EF /* Debug */,
+				1A0E032D161B0366007595EF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Demo App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
