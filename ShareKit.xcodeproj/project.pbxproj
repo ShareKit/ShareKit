@@ -555,7 +555,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1A0E032E161B0366007595EF /* libTwitter copy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libTwitter copy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A0E032E161B0366007595EF /* libSina Weibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSina Weibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A0E0332161B04F6007595EF /* SHKSinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKSinaWeibo.h; path = "Sina Weibo/SHKSinaWeibo.h"; sourceTree = "<group>"; };
 		1A0E0333161B04F6007595EF /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKSinaWeibo.m; path = "Sina Weibo/SHKSinaWeibo.m"; sourceTree = "<group>"; };
 		1A0E0336161B05E7007595EF /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -1200,7 +1200,7 @@
 				7AEE043D160E1D5B00FEC06E /* libTumblr.a */,
 				7A16F37E161340DD0019645D /* libOAuth.a */,
 				7A16F3C216134A890019645D /* libInstagram.a */,
-				1A0E032E161B0366007595EF /* libTwitter copy.a */,
+				1A0E032E161B0366007595EF /* libSina Weibo.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2512,7 +2512,7 @@
 			);
 			name = "Sina Weibo";
 			productName = ShareKitLibrary;
-			productReference = 1A0E032E161B0366007595EF /* libTwitter copy.a */;
+			productReference = 1A0E032E161B0366007595EF /* libSina Weibo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		1D6058900D05DD3D006BFB54 /* Demo App */ = {
@@ -3769,7 +3769,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "Twitter copy";
+				PRODUCT_NAME = "Sina Weibo";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -3795,7 +3795,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "Twitter copy";
+				PRODUCT_NAME = "Sina Weibo";
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
