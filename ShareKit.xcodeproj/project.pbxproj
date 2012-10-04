@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		145E04FE15F51EDB008CC1D7 /* SHKHatena.h in Headers */ = {isa = PBXBuildFile; fileRef = 145E04FC15F51EDB008CC1D7 /* SHKHatena.h */; };
+		145E04FF15F51EDB008CC1D7 /* SHKHatena.h in Headers */ = {isa = PBXBuildFile; fileRef = 145E04FC15F51EDB008CC1D7 /* SHKHatena.h */; };
+		145E050015F51EDB008CC1D7 /* SHKHatena.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E04FD15F51EDB008CC1D7 /* SHKHatena.m */; };
+		145E050115F51EDB008CC1D7 /* SHKHatena.m in Sources */ = {isa = PBXBuildFile; fileRef = 145E04FD15F51EDB008CC1D7 /* SHKHatena.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -544,6 +548,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		145E04FC15F51EDB008CC1D7 /* SHKHatena.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKHatena.h; path = Hatena/SHKHatena.h; sourceTree = "<group>"; };
+		145E04FD15F51EDB008CC1D7 /* SHKHatena.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKHatena.m; path = Hatena/SHKHatena.m; sourceTree = "<group>"; };
 		1A52EDF415CB032B00A737D8 /* SHKKippt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKKippt.h; sourceTree = "<group>"; };
 		1A52EDF515CB032B00A737D8 /* SHKKippt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKKippt.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1139,6 +1145,15 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		145E04FA15F51E9F008CC1D7 /* HatenaBookmark */ = {
+			isa = PBXGroup;
+			children = (
+				145E04FC15F51EDB008CC1D7 /* SHKHatena.h */,
+				145E04FD15F51EDB008CC1D7 /* SHKHatena.m */,
+			);
+			name = HatenaBookmark;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1634,6 +1649,7 @@
 				43A536E411DBE3B9004A1712 /* Read It Later */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
+				145E04FA15F51E9F008CC1D7 /* HatenaBookmark */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1988,6 +2004,7 @@
 				7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */,
 				7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				145E04FF15F51EDB008CC1D7 /* SHKHatena.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2148,6 +2165,7 @@
 				7ABCDBB0157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 				7A16F3B016134A790019645D /* SHKInstagram.h in Headers */,
+				145E04FE15F51EDB008CC1D7 /* SHKHatena.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3191,6 +3209,7 @@
 				7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
 				7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */,
+				145E050115F51EDB008CC1D7 /* SHKHatena.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3463,6 +3482,7 @@
 				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
 				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 				7A16F3B216134A790019645D /* SHKInstagram.m in Sources */,
+				145E050015F51EDB008CC1D7 /* SHKHatena.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5765,6 +5785,7 @@
 				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = _SHKDebugShowLogs;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -5783,6 +5804,7 @@
 				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = _SHKDebugShowLogs;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
