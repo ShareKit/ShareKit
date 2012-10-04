@@ -194,6 +194,19 @@
     return @"app://foursquare";
 }
 
+#define kDropboxAppKey @"App-Key"
+#define kDropboxAppSecret @"Secret-Key"
+
+- (NSString *) dropboxAppKey {
+    return kDropboxAppKey; // @"";
+}
+- (NSString *) dropboxAppSecret {
+    return kDropboxAppSecret; // @"";
+}
+- (NSString *) dropboxRootFolder {
+    return @"sandbox";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

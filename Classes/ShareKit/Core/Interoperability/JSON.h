@@ -2,7 +2,7 @@
 //  JSON.h
 //  ShareKit
 //
-//  Created by submarine on 10/2/12.
+//  Created by Valery Nikitin (submarine). Mistral LLC on 10/2/12.
 //
 //
 
@@ -13,6 +13,7 @@
  *  DBJSON* were moved from Dropbox SDK root folder and overriden to aviod the 
  *  same issue.
  *  See more detail on http://stackoverflow.com/questions/178434/what-is-the-best-way-to-solve-an-objective-c-namespace-
+ *  Valery Nikitin (submarine). Mistral LLC on 10/2/12.
  */
 
 

@@ -11,6 +11,7 @@
 
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
+#import "SHKDropbox.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
@@ -55,8 +56,14 @@
 - (BOOL)handleOpenURL:(NSURL*)url
 {
 	NSString* scheme = [url scheme];
-  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-    return [SHKFacebook handleOpenURL:url];
+    if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
+    {
+        return [SHKFacebook handleOpenURL:url];
+    }
+    else if ([scheme hasPrefix:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]])
+    {
+        return [SHKDropbox handleOpenURL:url];
+    }
   return YES;
 }
 

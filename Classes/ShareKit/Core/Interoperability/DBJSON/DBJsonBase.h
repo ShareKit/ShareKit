@@ -27,6 +27,16 @@
  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+/*!
+ *  This file was modified to avoid namespace collisions for different versions
+ *  of JSON. Ex. FB framework and DB framework use the similar JSON with same
+ *  JSON.h
+ *  DBJSON* were moved from Dropbox SDK root folder and overriden to aviod the
+ *  same issue.
+ *  See more detail on http://stackoverflow.com/questions/178434/what-is-the-best-way-to-solve-an-objective-c-namespace-
+ *  Valery Nikitin (submarine). Mistral LLC on 10/2/12.
+ */
+
 #import <Foundation/Foundation.h>
 
 extern NSString * DBJSONErrorDomain;
