@@ -42,7 +42,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Hatena Bookmark";
+	return @"Hatena";
 }
 
 + (BOOL)canShareURL
