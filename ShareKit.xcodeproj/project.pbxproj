@@ -1145,13 +1145,13 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		145E04FA15F51E9F008CC1D7 /* Hatena */ = {
+		145E04FA15F51E9F008CC1D7 /* HatenaBookmark */ = {
 			isa = PBXGroup;
 			children = (
 				145E04FC15F51EDB008CC1D7 /* SHKHatena.h */,
 				145E04FD15F51EDB008CC1D7 /* SHKHatena.m */,
 			);
-			name = Hatena;
+			name = HatenaBookmark;
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -1649,7 +1649,7 @@
 				43A536E411DBE3B9004A1712 /* Read It Later */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
-				145E04FA15F51E9F008CC1D7 /* Hatena */,
+				145E04FA15F51E9F008CC1D7 /* HatenaBookmark */,
 			);
 			path = Services;
 			sourceTree = "<group>";

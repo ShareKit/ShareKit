@@ -42,7 +42,7 @@
 
 + (NSString *)sharerTitle
 {
-	return NSLocalizedString(@"Hatena Bookmark", nil);
+	return @"Hatena Bookmark";
 }
 
 + (BOOL)canShareURL
@@ -114,10 +114,7 @@
     if (ticket.didSucceed && ticket.response.statusCode == 201) {
         [self sendDidFinish];
     } else {
-#ifdef _SHKDebugShowLogs
-        NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-#endif
-        SHKLog(@"%@", responseBody);
+        SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
         
         if (ticket.response.statusCode == 401) {
             [self shouldReloginWithPendingAction:SHKPendingSend];
