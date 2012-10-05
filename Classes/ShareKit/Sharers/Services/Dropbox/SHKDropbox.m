@@ -326,11 +326,16 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 
         [DBRequest setNetworkRequestDelegate:self];
 
-        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
+
         if (item.image)
         {
-            [itemRep setObject:[SHKDropbox storedItemPath:item.image] forKey:kSHKDropboxStoredFilePath];
+            [item setCustomValue:[SHKDropbox storedItemPath:item.image] forKey:kSHKDropboxStoredFilePath];
         }
+        else if (item.data) {
+            [item setCustomValue:[SHKDropbox storedItemPath:item.data] forKey:kSHKDropboxStoredFilePath];
+        }
+        
+        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
         [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKDropboxStoredItem];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
