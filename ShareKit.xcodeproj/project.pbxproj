@@ -1113,9 +1113,6 @@
 		DE9B42A0161EC75700F2FE1E /* NSURL+MPURLParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPURLParameterAdditions.m"; sourceTree = "<group>"; };
 		DE9B42A1161EC75700F2FE1E /* NSURLResponse+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLResponse+Encoding.m"; sourceTree = "<group>"; };
 		DE9B42C5161EC82B00F2FE1E /* libDropbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDropbox.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE9B42C9161EC82B00F2FE1E /* Dropbox-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Dropbox-Prefix.pch"; sourceTree = "<group>"; };
-		DE9B42CA161EC82B00F2FE1E /* Dropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dropbox.h; sourceTree = "<group>"; };
-		DE9B42CC161EC82B00F2FE1E /* Dropbox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dropbox.m; sourceTree = "<group>"; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLogout.h; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLogout.m; sourceTree = "<group>"; };
 		F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
@@ -1476,7 +1473,6 @@
 				43C91D1B11EB963600F31FAE /* Resources-iPad */,
 				7AB536111552E26800171BCE /* ShareKitLibraryResources */,
 				7A288261155409BC007DC379 /* ShareKitLibrary */,
-				DE9B42C7161EC82B00F2FE1E /* Dropbox */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 			);
@@ -2332,24 +2328,6 @@
 				DE104C3E161B65EB001313A9 /* NSString+DBJSON.m */,
 			);
 			path = DBJSON;
-			sourceTree = "<group>";
-		};
-		DE9B42C7161EC82B00F2FE1E /* Dropbox */ = {
-			isa = PBXGroup;
-			children = (
-				DE9B42CA161EC82B00F2FE1E /* Dropbox.h */,
-				DE9B42CC161EC82B00F2FE1E /* Dropbox.m */,
-				DE9B42C8161EC82B00F2FE1E /* Supporting Files */,
-			);
-			path = Dropbox;
-			sourceTree = "<group>";
-		};
-		DE9B42C8161EC82B00F2FE1E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				DE9B42C9161EC82B00F2FE1E /* Dropbox-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		E68738B6141677C000D8C3DD /* Logout */ = {
@@ -6898,6 +6876,7 @@
 				DE9B42D0161EC82B00F2FE1E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
