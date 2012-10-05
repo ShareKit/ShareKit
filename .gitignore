@@ -9,7 +9,6 @@
 build
 .DS_Store
 Classes/ShareKit/SHKConfig.h
-DerivedData
 FlowCharts
 TestDropboxAppKeys.h
-Notes.m
+Notes.mDerivedData
