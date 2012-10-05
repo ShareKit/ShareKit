@@ -27,6 +27,8 @@
 
 #import "DefaultSHKConfigurator.h"
 
+#import "TestDropboxAppKeys.h"
+
 @implementation DefaultSHKConfigurator
 
 /* 
@@ -58,6 +60,29 @@
  The core principle behind ShareKit is to leave the service choices up to the user.  Thus, you should not remove any services,
  leaving that decision up to the user.
  */
+
+/*
+ *  Dropbox
+ *  ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY
+ *  https://www.dropbox.com/developers/apps
+ *  Access type: kDBRootAppFolder (==  @"sandbox") or kDBRootDropbox (== @"dropbox")
+ *  Dropbox SDK (and REST API) could change constants at any time. 
+ *  Please check before implementation or #import "DropboxSDK.h" in 
+ *  DefaultSHKConfigurator and use pre-defined SDK constants:
+ *  kDBRootDropbox and kDBRootAppFolder
+ *  App folder name in Dropbox you could setup https://www.dropbox.com/developers/apps
+ *
+ */
+
+- (NSString *) dropboxAppKey {
+    return kDropboxAppKey; // @"";
+}
+- (NSString *) dropboxAppSecret {
+    return kDropboxAppSecret; // @"";
+}
+- (NSString *) dropboxRootFolder {
+    return @"sandbox";
+}
 
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
@@ -394,6 +419,7 @@
 - (NSString *)facebookURLShareDescription {
     return nil;
 }
+
 
 /* SHKTextMessage */
 

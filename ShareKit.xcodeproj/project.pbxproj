@@ -527,6 +527,7 @@
 		DE02FBCD161B6F9200BE1416 /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
 		DE02FBCE161B6F9A00BE1416 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C30161B61CE001313A9 /* JSON.h */; };
 		DE02FBD0161B713D00BE1416 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE104C51161B680A001313A9 /* QuartzCore.framework */; };
+		DE08DF48161B960800C23824 /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
 		DE104B83161B5F78001313A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE104BA2161B5FCD001313A9 /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104B91161B5FCD001313A9 /* MPOAuthAPI.m */; };
 		DE104BA3161B5FCD001313A9 /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104B91161B5FCD001313A9 /* MPOAuthAPI.m */; };
@@ -599,7 +600,6 @@
 		DE104C02161B6089001313A9 /* DBRestClient.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104BF5161B6088001313A9 /* DBRestClient.h */; };
 		DE104C03161B6089001313A9 /* DBSession.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104BF6161B6089001313A9 /* DBSession.h */; };
 		DE104C04161B6089001313A9 /* DBSession+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104BF7161B6089001313A9 /* DBSession+iOS.h */; };
-		DE104C05161B6089001313A9 /* DropboxOSX.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104BF8161B6089001313A9 /* DropboxOSX.h */; };
 		DE104C15161B60CD001313A9 /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C06161B60CD001313A9 /* MPDebug.h */; };
 		DE104C16161B60CD001313A9 /* MPOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C07161B60CD001313A9 /* MPOAuth.h */; };
 		DE104C17161B60CD001313A9 /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C08161B60CD001313A9 /* MPOAuthAPI.h */; };
@@ -640,6 +640,8 @@
 		DE104C4E161B65EB001313A9 /* NSString+DBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C3D161B65EB001313A9 /* NSString+DBJSON.h */; };
 		DE104C4F161B65EB001313A9 /* NSString+DBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104C3E161B65EB001313A9 /* NSString+DBJSON.m */; };
 		DE104C50161B65EB001313A9 /* NSString+DBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104C3E161B65EB001313A9 /* NSString+DBJSON.m */; };
+		DE39C370161D5F0800A81346 /* bigPDF.pdf in Resources */ = {isa = PBXBuildFile; fileRef = DE39C36F161D5F0800A81346 /* bigPDF.pdf */; };
+		DE3B7948161E08350016248E /* ShareKit-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D1107310486CEB800E47090 /* ShareKit-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -975,6 +977,9 @@
 		C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedIn.h; sourceTree = "<group>"; };
 		C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedIn.m; sourceTree = "<group>"; };
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DE08DF46161B960800C23824 /* SHKDropbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDropbox.h; sourceTree = "<group>"; };
+		DE08DF47161B960800C23824 /* SHKDropbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDropbox.m; sourceTree = "<group>"; };
+		DE08DF56161C17FB00C23824 /* DropboxSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DropboxSDK.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DropboxSDK.h"; sourceTree = SOURCE_ROOT; };
 		DE104B82161B5F78001313A9 /* libDropbox SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDropbox SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE104B91161B5FCD001313A9 /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
 		DE104B92161B5FCD001313A9 /* MPOAuthAPIRequestLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPIRequestLoader.m; sourceTree = "<group>"; };
@@ -1018,7 +1023,6 @@
 		DE104BF5161B6088001313A9 /* DBRestClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBRestClient.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBRestClient.h"; sourceTree = SOURCE_ROOT; };
 		DE104BF6161B6089001313A9 /* DBSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBSession.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBSession.h"; sourceTree = SOURCE_ROOT; };
 		DE104BF7161B6089001313A9 /* DBSession+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DBSession+iOS.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBSession+iOS.h"; sourceTree = SOURCE_ROOT; };
-		DE104BF8161B6089001313A9 /* DropboxOSX.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropboxOSX.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DropboxOSX.h"; sourceTree = SOURCE_ROOT; };
 		DE104C06161B60CD001313A9 /* MPDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPDebug.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPDebug.h"; sourceTree = SOURCE_ROOT; };
 		DE104C07161B60CD001313A9 /* MPOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPOAuth.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuth.h"; sourceTree = SOURCE_ROOT; };
 		DE104C08161B60CD001313A9 /* MPOAuthAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MPOAuthAPI.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthAPI.h"; sourceTree = SOURCE_ROOT; };
@@ -1053,6 +1057,7 @@
 		DE104C3D161B65EB001313A9 /* NSString+DBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DBJSON.h"; sourceTree = "<group>"; };
 		DE104C3E161B65EB001313A9 /* NSString+DBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DBJSON.m"; sourceTree = "<group>"; };
 		DE104C51161B680A001313A9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DE39C36F161D5F0800A81346 /* bigPDF.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = bigPDF.pdf; path = Classes/Example/bigPDF.pdf; sourceTree = "<group>"; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLogout.h; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLogout.m; sourceTree = "<group>"; };
 		F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
@@ -1421,6 +1426,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DE39C36F161D5F0800A81346 /* bigPDF.pdf */,
 				43A5382611DBE480004A1712 /* example.pdf */,
 				43A5382711DBE480004A1712 /* sanFran.jpg */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
@@ -2145,6 +2151,8 @@
 			isa = PBXGroup;
 			children = (
 				DE104B59161B5F24001313A9 /* Dropbox SDK */,
+				DE08DF46161B960800C23824 /* SHKDropbox.h */,
+				DE08DF47161B960800C23824 /* SHKDropbox.m */,
 			);
 			path = Dropbox;
 			sourceTree = "<group>";
@@ -2152,6 +2160,7 @@
 		DE104B59161B5F24001313A9 /* Dropbox SDK */ = {
 			isa = PBXGroup;
 			children = (
+				DE08DF56161C17FB00C23824 /* DropboxSDK.h */,
 				DE104B8E161B5FCD001313A9 /* MPOAuth */,
 				DE104BEC161B6088001313A9 /* DBAccountInfo.h */,
 				DE104BED161B6088001313A9 /* DBConnectController.h */,
@@ -2165,7 +2174,6 @@
 				DE104BF5161B6088001313A9 /* DBRestClient.h */,
 				DE104BF6161B6089001313A9 /* DBSession.h */,
 				DE104BF7161B6089001313A9 /* DBSession+iOS.h */,
-				DE104BF8161B6089001313A9 /* DropboxOSX.h */,
 				DE104C24161B612A001313A9 /* NSDictionary+Dropbox.h */,
 				DE104C25161B612A001313A9 /* NSString+Dropbox.h */,
 				DE104BC6161B602D001313A9 /* DBAccountInfo.m */,
@@ -2484,7 +2492,6 @@
 				DE104C02161B6089001313A9 /* DBRestClient.h in Headers */,
 				DE104C03161B6089001313A9 /* DBSession.h in Headers */,
 				DE104C04161B6089001313A9 /* DBSession+iOS.h in Headers */,
-				DE104C05161B6089001313A9 /* DropboxOSX.h in Headers */,
 				DE104C15161B60CD001313A9 /* MPDebug.h in Headers */,
 				DE104C16161B60CD001313A9 /* MPOAuth.h in Headers */,
 				DE104C17161B60CD001313A9 /* MPOAuthAPI.h in Headers */,
@@ -3517,6 +3524,8 @@
 				43A5382811DBE480004A1712 /* example.pdf in Resources */,
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
+				DE39C370161D5F0800A81346 /* bigPDF.pdf in Resources */,
+				DE3B7948161E08350016248E /* ShareKit-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3546,6 +3555,7 @@
 				43A5383A11DBE493004A1712 /* RootViewController.m in Sources */,
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
+				DE08DF48161B960800C23824 /* SHKDropbox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4140,6 +4150,8 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					arm6,
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Valeriy Nikitin (F2L5TB3289)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Valeriy Nikitin (F2L5TB3289)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -4153,6 +4165,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = ShareKitDemo;
+				PROVISIONING_PROFILE = "CAF51A3C-17D5-4347-A670-41E5B4C391E1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CAF51A3C-17D5-4347-A670-41E5B4C391E1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Submodules/** Classes/ShareKit/**";
@@ -4167,6 +4181,8 @@
 					"$(ARCHS_STANDARD_32_BIT)",
 					arm6,
 				);
+				CODE_SIGN_IDENTITY = "iPhone Developer: Valeriy Nikitin (F2L5TB3289)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Valeriy Nikitin (F2L5TB3289)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
@@ -4178,6 +4194,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = ShareKitDemo;
+				PROVISIONING_PROFILE = "CAF51A3C-17D5-4347-A670-41E5B4C391E1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "CAF51A3C-17D5-4347-A670-41E5B4C391E1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Submodules/** Classes/ShareKit/**";
@@ -6231,7 +6249,8 @@
 					armv6,
 					armv7,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -6249,7 +6268,8 @@
 					armv6,
 					armv7,
 				);
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
