@@ -76,9 +76,9 @@ static SHKConfiguration *sharedInstance = nil;
 {
     @synchronized(self)
     {
-        if (sharedInstance == nil) {
-            [NSException raise:@"IllegalStateException" format:@"ShareKit must be configured before use. Use your subclass of DefaultSHKConfigurator, for more info see https://github.com/ShareKit/ShareKit/wiki/Configuration. Example: ShareKitDemoConfigurator in the demo app"];
-        }
+//        if (sharedInstance == nil) {
+//            [NSException raise:@"IllegalStateException" format:@"ShareKit must be configured before use. Use your subclass of DefaultSHKConfigurator, for more info see https://github.com/ShareKit/ShareKit/wiki/Configuration. Example: ShareKitDemoConfigurator in the demo app"];
+//        }
     }
     return sharedInstance;
 }

@@ -205,3 +205,20 @@
 
 "Select Group" = "Select Group";
 "Flickr Groups" = "Flickr Groups";
+
+/*  SHKDropbox  */
+/*  
+ *  user can rename file with new name while file is uploading to Dropbox
+ */
+"File name" = "File name"
+/*
+ *  "Path" uses as label to show the user remote dropbox directory, that uses 
+ *  to save share object, ex. "Dropbox path"
+ */
+"Path" = "Path"
+/*
+ *  The resourse that user want to share with Dropbox may exceed the service limits
+ */
+"File size exceed %@ limits" = "File size exceed %@ limits"
+"You are over Dropbox storage quota" = "You are over Dropbox storage quota"
+"The file extension %@ is on Dropbox's ignore list" = "The file extension %@ is on Dropbox's ignore list"

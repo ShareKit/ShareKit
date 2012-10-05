@@ -8,7 +8,8 @@
 
 #import "SHKDropbox.h"
 #import "SHKConfiguration.h"
-
+#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormController.h"
 
 #define kDropboxMaxFileSize 150000000
 #define kSHKDropboxSizeChunks 104800 //TODO: move to configurator
@@ -20,14 +21,30 @@ static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
 static NSString *const kSHKDropboxStoredFilePath =@"SHKDropboxFilePath";
 static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
+static NSString *const kSHKDropboxUploadProgress =@"SHKDropboxUploadProgress";
 static NSString *const kSHKDropboxImagePathExtention =@"png";
+//static NSString *const kSHKDropboxLastRemotePath =@"SHKDropboxLastRemotePath";
+//static NSString *const kSHKDropboxLastRemotePathHash =@"SHKDropboxLastRemotePathHash";
+//static NSString *const kSHKDropboxStoredRemoteMetadata =@"SHKDropboxStoredRemoteMetadata";
+
+
+typedef enum {
+    _isNotChecked  =   0,
+    _isStarting    =   1,
+    _isChecked     =   2,
+} SHKDropboxMetadata;
+
 
 @interface SHKDropbox () {
-    long long __fileOffset;
-    long long __fileSize;
-    NSString *relinkUserId;
-    BOOL _startSending;
+    long long   __fileOffset;
+    long long   __fileSize;
+    NSString    *relinkUserId;
+    NSString    *folderHash;
+//    NSString    *remotePath;
+    BOOL        _startSending;
+    SHKDropboxMetadata metadataStatus;
 }
+
 @property (nonatomic, retain) DBRestClient *restClient;
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
@@ -36,6 +53,10 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 + (NSInteger) fileSizeForImage:(UIImage *) image;
 + (long long) fileSizeForStoredFile:(NSString *) filePath;
 + (void) removeCachedFile:(NSString *)filePath;
+- (void) showDropboxForm;
+- (void) editFormValidate:(SHKFormController *) form;
+- (void) editFormSave:(SHKFormController *) form;
+- (void) editFormCancel:(SHKFormController *) form;
 @end
 
 @implementation SHKDropbox
@@ -43,10 +64,20 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 #pragma mark - Memory
 - (void)dealloc
 {
+    [[self restClient] cancelAllRequests];
     [DBRequest setNetworkRequestDelegate:nil];
     _restClient.delegate = nil;
     [_restClient release];
     _restClient=nil;
+    if (relinkUserId) {
+        [relinkUserId release];
+    }
+    if (folderHash) {
+        [folderHash release];
+    }
+//    if (remotePath) {
+//        [remotePath release];
+//    }
     if ([DBSession sharedSession].delegate == self) {
         [[DBSession sharedSession] setDelegate:nil];
     } else {
@@ -226,8 +257,8 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
         
         if ([[url absoluteString] isEqualToString:response]) {
             [[[[UIAlertView alloc]
-               initWithTitle:@"Dropbox" message:@"Do you want to relink?" delegate:self
-               cancelButtonTitle:@"Cancel" otherButtonTitles:@"Relink", nil]
+               initWithTitle:@"Dropbox" message:SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [self sharerTitle])  delegate:self
+               cancelButtonTitle:SHKLocalizedString(@"Cancel") otherButtonTitles:SHKLocalizedString(@"Continue"), nil]
               autorelease]
              show];
             return;
@@ -304,11 +335,24 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 // TODO: version Bravo - forms to work with remote path
-//- (BOOL)shouldAutoShare
-//{
-//	return NO;
+//- (BOOL)shouldAutoShare {
+//    /*!
+//     *  Currently we don't have enough information about remote folder content
+//     *  and couldn't show to user the remote path and
+//     *  possible collision with existing file.
+//     *  So we return TRUE and start loading remote metadata.
+//     *  We call startLoadDropboxMetadata before SHKSharer check reachability
+//     *  just to make response better.
+//     */
+//    if (metadataStatus == _isNotChecked) {
+//        [self performSelector:@selector(startLoadDropboxMetadata)];
+//    }
+//    metadataStatus = _isNotChecked;
+//	return TRUE;
 //}
-
+- (BOOL) shouldOverwrite {
+    return SHKCONFIG(dropboxShouldOverwrite);
+}
 #pragma mark -
 #pragma mark Authentication
 - (BOOL)isAuthorized
@@ -326,16 +370,20 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 
         [DBRequest setNetworkRequestDelegate:self];
 
-        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
         if (item.image)
         {
-            [itemRep setObject:[SHKDropbox storedItemPath:item.image] forKey:kSHKDropboxStoredFilePath];
+            [item setCustomValue:[SHKDropbox storedItemPath:item.image] forKey:kSHKDropboxStoredFilePath];
         }
+        else if (item.data) {
+            [item setCustomValue:[SHKDropbox storedItemPath:item.data] forKey:kSHKDropboxStoredFilePath];
+        }
+        
+        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
         [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKDropboxStoredItem];
         [[NSUserDefaults standardUserDefaults] synchronize];
         
         [self retain]; // DBSession doesn't retain delegates
-        [dropbox linkFromController:[[SHK currentHelper] rootViewForCustomUIDisplay]];
+        [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForCustomUIDisplay] afterDelay:0.2]; //Avoid exeption with animation conflicts between SDK and SHK UIs
     }
 }
 + (void)logout
@@ -345,8 +393,10 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 }
 
 
-#pragma mark -
-#pragma mark Implementation
+#pragma mark - Before send
+
+
+#pragma mark - Send
 
 - (BOOL) send
 {
@@ -355,10 +405,16 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
 		return NO;
     _startSending = FALSE;
 
-//        TODO: version Bravo - add form to select remote path
-    NSString *destinationDir = @"/";
+    NSString *destinationDir = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKDropboxDestinationDir];
+    if (destinationDir.length < 1) {
+
+        if (![[DBSession sharedSession].root isEqualToDropboxPath:@"sandbox"]) {
+            destinationDir = [[NSString stringWithFormat:@"/%@/", SHKCONFIG(appName)] normalizedDropboxPath];
+        } else {
+            destinationDir = [NSString stringWithFormat:@"/"];
+        }
+    }
     
-    //hope image and data properties will be deprecated
     if ((item.shareType == SHKShareTypeFile && item.data)  || (item.shareType == SHKShareTypeImage && item.image))
     {
         if (![item customValueForKey:kSHKDropboxStoredFilePath]) {
@@ -393,13 +449,38 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
             [item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDir];
             [item setCustomValue:filename forKey:kSHKDropboxStoredFileName];            
         }
-//        [self performSelectorOnMainThread:@selector(startSendingStoredObject) withObject:nil waitUntilDone:NO]; //see [self startSendingStoredObject]
-        [self startSendingStoredObject];
+        
+        metadataStatus = _isNotChecked;
+        [self performSelectorOnMainThread:@selector(startLoadDropboxMetadata) withObject:destinationDir waitUntilDone:FALSE];
+        
         [self retain];
 		return TRUE;
     }
 	
 	return NO;
+}
+
+//remote path could be directory or file
+- (void) startLoadDropboxMetadata:(NSString *) remotePath {
+    if (remotePath.length < 1) {
+        remotePath = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKDropboxDestinationDir];
+        if (remotePath.length < 1) {
+            remotePath = @"/";
+        }
+    }
+    [self startLoadMetadataForPath:remotePath withHash:nil];
+}
+
+- (void) startLoadMetadataForPath:(NSString *)path withHash:(NSString *) remoteHash {
+    DBRestClient *restClient = [self restClient];
+    [restClient setDelegate:self];
+    [DBRequest setNetworkRequestDelegate:self];
+    if (remoteHash.length > 0) {
+        [restClient loadMetadata:path withHash:remoteHash];
+    } else {
+        [restClient loadMetadata:path];
+    }
+    metadataStatus = _isStarting;
 }
 
 //  https://www.dropbox.com/developers/start/files#ios
@@ -430,7 +511,7 @@ static NSString *const kSHKDropboxImagePathExtention =@"png";
     NSInteger fileSize = [SHKDropbox fileSizeForStoredFile:localPath];
     if (fileSize < 0) {
         // TODO: version Bravo - check localization
-        [self SHKDropboxDidFailWithError:[SHK error:SHKLocalizedString(@"File was removed before it was sending to %@", [self sharerTitle])]];
+        [self SHKDropboxDidFailWithError:[SHK error:@"File was removed before it was sending to Dropbox"]];
     }
     __fileOffset = 0;
     __fileSize = fileSize;
@@ -478,24 +559,25 @@ static int outstandingRequests = 0;
 #pragma mark - DBSessionDelegate methods
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
 	relinkUserId = [userId retain];
-	[[[[UIAlertView alloc]
-	   initWithTitle:@"Dropbox" message:SHKLocalizedString(@"Could not authenticate you. Please relogin.") delegate:self
-	   cancelButtonTitle:@"Cancel" otherButtonTitles:@"Proceed", nil]
-	  autorelease]
-	 show];
+	[[[[UIAlertView alloc] initWithTitle:@"Dropbox"
+                                 message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
+                                delegate:self
+                       cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
 }
 
 #pragma mark - DBRestClientDelegate methods
-// version Alpha - complete
+
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath from:(NSString*)srcPath
           metadata:(DBMetadata*)metadata {
-    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath,srcPath, [metadata description]);
+//    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath, srcPath, [metadata description]);
     [SHKDropbox removeCachedFile:srcPath];
-    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.2]; // problem with DBRestClient
+    [self sessionDidFinishWithUploadedFile:destPath fromUploadId:nil metadata:metadata];
 }
 - (void)restClient:(DBRestClient*)client uploadProgress:(CGFloat)progress
            forFile:(NSString*)destPath from:(NSString*)srcPath {
-    SHKLog(@"%@ %@ %@ %.2f", [client description], destPath,srcPath, progress * 100);
+    SHKLog(@"%@ %@ %@ upload progress = %.2f %", [client description], destPath,srcPath, progress * 100);
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
 }
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
     NSString *srcPath = [[error userInfo] objectForKey:@"sourcePath"];
@@ -532,23 +614,38 @@ static int outstandingRequests = 0;
           metadata:(DBMetadata *)metadata {
     NSString *srcPath = [self.item customValueForKey:uploadId];
     [SHKDropbox removeCachedFile:srcPath];
-    [self SHKDropboxDidFinishSuccess];
+    [self sessionDidFinishWithUploadedFile:destPath fromUploadId:uploadId metadata:metadata];
 }
 - (void)restClient:(DBRestClient *)client uploadFromUploadIdFailedWithError:(NSError *)error {
     NSString *srcPath = [[error userInfo] objectForKey:@"sourcePath"];
     [SHKDropbox removeCachedFile:srcPath];
     [self SHKDropboxDidFailWithError:error];
 }
+
 // TODO: version Bravo - methods below
 - (void)restClient:(DBRestClient*)client loadedMetadata:(DBMetadata*)metadata {
     SHKLog(@"DBRestClient <%@ %@>\n%@", client, [client description], metadata);
+    if (metadata.hash.length > 0) {
+        if (folderHash.length > 0 && ![metadata.hash isEqualToString:[NSString stringWithFormat:@"%@", folderHash]]) {
+            [folderHash release];
+            folderHash = nil;
+            folderHash = [metadata hash];
+            [self serializeRemoteMetadata:[[metadata retain] autorelease]];            
+        } else if (folderHash.length < 1) {
+            folderHash = [metadata hash];
+            [self serializeRemoteMetadata:[[metadata retain] autorelease]];
+        }
+    } 
+    metadataStatus = _isChecked;
 }
+
 - (void)restClient:(DBRestClient*)client metadataUnchangedAtPath:(NSString*)path {
     SHKLog(@"DBRestClient <%@ %@>\n%@", client, [client description], path);
+    metadataStatus = _isChecked;
 }
 - (void)restClient:(DBRestClient*)client loadMetadataFailedWithError:(NSError*)error {
     SHKLog(@"restClient:loadMetadataFailedWithError: %@", [error localizedDescription]);
-    [self sendDidFailWithError:error];
+    metadataStatus = _isNotChecked;
 }
 
 #pragma mark -
@@ -589,9 +686,23 @@ static int outstandingRequests = 0;
     NSInteger dbErrorCode = error.code;
     if (error.domain == kDropboxErrorDomain && dbErrorCode == 401) {
         [[SHKDropbox dropbox] unlinkAll];
-        [self performSelector:@selector(authorize) withObject:nil afterDelay:0.5];
+        [[[[UIAlertView alloc] initWithTitle:[self sharerTitle]
+                                     message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
+                                    delegate:self
+                           cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
     } else {
-        [self sendDidFailWithError:error];
+        NSError *internal = nil;
+        if (dbErrorCode == 507) {
+            internal = [SHK error:SHKLocalizedString(@"You are over Dropbox storage quota")];
+        }
+        if (dbErrorCode >= 500 && dbErrorCode < 600 && dbErrorCode != 507) {
+            internal = [SHK error:SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [self sharerTitle])];
+        }
+        if (dbErrorCode == 400) {
+            internal = [SHK error:SHKLocalizedString(@"The file extension %@ is on Dropbox's ignore list", [item.filename pathExtension])];
+        }
+        [self sendDidFailWithError:internal];
         [self stopNetworkIndication];        
         [self release]; //see [self send]
     }
@@ -614,11 +725,136 @@ static int outstandingRequests = 0;
     outstandingRequests = 0;
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
+#pragma mark - Check Overwrite
+//  - replace/duplicate file in Dropbox remote directory
+- (void) sessionDidFinishWithUploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
+metadata:(DBMetadata *)metadata {
+    
+    if (metadata && destPath.length > 0 && metadata.path.length > 0) {
+        if (![destPath isEqualToDropboxPath:metadata.path]) {
+            if (![self shouldOverwrite]) {
+                [self showDropboxForm];
+            } else {
+                [self restClient] 
+            }
+        } else {
+            [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil];
+        }
+    } else {
+        [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil];
+    }
+}
+
 #pragma mark - UI
-//  TODO: version Bravo
-//  - working with directory Items
-//  - callback for choosing directory in Dropbox
-//  - replace/duplicate file in working directory
+- (void) showDropboxForm {
+    
+	SHKFormController *form = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Edit") rightButtonTitle:SHKLocalizedString(@"Done")];
+    
+    NSArray *fileSecton = [NSArray arrayWithObjects:
+                        [SHKFormFieldSettings label:SHKLocalizedString(@"File name")
+                                                key:@"name"
+                                               type:SHKFormFieldTypeTextNoCorrect
+                                              start:item.filename],
+                           [SHKFormFieldSettings label:[NSString stringWithFormat:@"%@ %@", [self sharerTitle],SHKLocalizedString(@"path")]
+                                               key:@"path"
+                                              type:SHKFormFieldTypeTextNoCorrect
+                                             start:remotePath],
+                        nil];
+//TODO:  SHKLocalizedString
+	[form addSection:fileSecton header:@"You have file with same name in Dropbox:" footer:nil];
+	form.delegate = self;
+	form.validateSelector = @selector(editFormValidate:);
+	form.saveSelector = @selector(editFormSave:);
+	form.cancelSelector = @selector(editFormCancel:);
+	form.autoSelect = YES;
+	
+    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:, self);
+    [self pushViewController:form animated:NO];
+    [form release];
+    
+	[[SHK currentHelper] showViewController:self];
+}
+
+- (void) editFormValidate:(SHKFormController *) form {
+    
+}
+- (void) editFormSave:(SHKFormController *) form {
+    
+}
+
+- (void) editFormCancel:(SHKFormController *) form {
+    
+}
+
+
+//#pragma mark - Helpers
+//- (void) serializeRemoteMetadata:(DBMetadata *) metadata {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *archivePath = [defaults objectForKey:kSHKDropboxStoredRemoteMetadata];
+//    if (archivePath.length > 0) {
+//        NSFileManager *fileManager = [NSFileManager defaultManager];
+//        [fileManager removeItemAtPath:archivePath error:nil];
+//    }
+//    
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
+//    NSString *cache = [paths objectAtIndex:0];
+//    NSString *localFilePath = [cache stringByAppendingPathComponent:@"Dropbox"];
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    if (![fileManager fileExistsAtPath:localFilePath]) {
+//        [fileManager createDirectoryAtPath:localFilePath withIntermediateDirectories:YES attributes:nil error:nil];
+//    }
+//    NSString *hash = nil;
+//    if (metadata.hash.length > 0) {
+//        archivePath = [localFilePath stringByAppendingPathComponent:metadata.hash];
+//        hash = metadata.hash;
+//    } else {
+//        archivePath = [localFilePath stringByAppendingPathComponent:@"metadata"];
+//        hash = @"metadata";
+//    }
+//    
+//    NSMutableArray *remoteContent = [NSMutableArray arrayWithCapacity:[metadata.contents count]];
+//    for (DBMetadata* child in metadata.contents) {
+//        if (child.path.length > 0) {
+//            [remoteContent addObject:[NSDictionary dictionaryWithObjectsAndKeys:child.path, @"path", [NSNumber numberWithBool:child.isDirectory], @"flag", nil]];
+//        }
+//    }
+//    if (remoteContent.count > 0) {
+//        NSMutableData *data = [NSMutableData data];
+//        NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+//        [archiver encodeObject:remoteContent forKey:hash];
+//        [archiver finishEncoding];
+//        BOOL result = [data writeToFile:archivePath atomically:YES];
+//
+//        if (!result) {
+//            [defaults removeObjectForKey:kSHKDropboxStoredRemoteMetadata];
+//            [defaults removeObjectForKey:kSHKDropboxLastRemotePathHash];
+//        } else {
+//            [defaults setObject:archivePath forKey:kSHKDropboxStoredRemoteMetadata];
+//            [defaults setObject:hash forKey:kSHKDropboxLastRemotePathHash];
+//        }
+//        data = nil;
+//        [archiver release];
+//        archiver = nil;        
+//    }
+//    [defaults synchronize];
+//}
+//
+//- (NSArray *) remoteContentFromStoredMetadata {
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSString *archivePath = [defaults objectForKey:kSHKDropboxStoredRemoteMetadata];
+//    NSString *hash = [defaults objectForKey:kSHKDropboxLastRemotePathHash];
+//    if (hash.length < 1 || archivePath.length < 1) {
+//        return nil;
+//    }
+//    NSData *data = [NSData dataWithContentsOfFile:archivePath];
+//    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+//    NSArray *result = [unarchiver decodeObjectForKey:hash];
+//    [unarchiver finishDecoding];
+//    [unarchiver release];
+//    unarchiver = nil;
+//    data = nil;
+//    return result;
+//}
 
 #pragma mark - Description
 

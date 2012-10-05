@@ -194,14 +194,18 @@
     return @"app://foursquare";
 }
 
+/*
+ *  P.S.
+ *  Key and secret below could be used for 5 account only
+ */
 - (NSString *) dropboxAppKey {
-    return @"App-Key";
+    return @"n18olaziz6f8752";
 }
 - (NSString *) dropboxAppSecret {
-    return @"Secret-Key";
+    return @"6cjsemxx6i2qdvc";
 }
 - (NSString *) dropboxRootFolder {
-    return @"sandbox";
+    return @"dropbox";
 }
 
 /*
@@ -218,6 +222,9 @@
     if ([NSStringFromClass([vc class]) isEqualToString:@"SHKFacebook"]) 
         return [UIColor colorWithRed:59.0f/255 green:89.0f/255 blue:152.0f/255 alpha:1];
     
+    if ([NSStringFromClass([vc class]) isEqualToString:@"SHKDropbox"])
+        return [UIColor colorWithRed:54.0f/255 green:146.0f/255 blue:227.0f/255 alpha:1];
+
     return nil;
 }
 
