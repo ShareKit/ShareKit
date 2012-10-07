@@ -649,7 +649,6 @@
 		DE9B42E7161EC8AB00F2FE1E /* NSString+Dropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C25161B612A001313A9 /* NSString+Dropbox.h */; };
 		DE9B42E8161EC8B500F2FE1E /* DBDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104BC8161B602D001313A9 /* DBDefines.h */; };
 		DE9B42E9161EC8BA00F2FE1E /* DropboxSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF56161C17FB00C23824 /* DropboxSDK.h */; };
-		DE9B42EA161EC8C700F2FE1E /* DropboxSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF56161C17FB00C23824 /* DropboxSDK.h */; };
 		DE9B42EB161EC8D500F2FE1E /* MPDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C06161B60CD001313A9 /* MPDebug.h */; };
 		DE9B42EC161EC8D500F2FE1E /* MPOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C07161B60CD001313A9 /* MPOAuth.h */; };
 		DE9B42ED161EC8D500F2FE1E /* MPOAuthAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C08161B60CD001313A9 /* MPOAuthAPI.h */; };
@@ -674,7 +673,6 @@
 		DE9B4302161EC96F00F2FE1E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE104C51161B680A001313A9 /* QuartzCore.framework */; };
 		DE9B4303161EC9B400F2FE1E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		DECE0DD9161FF6950064788D /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
-		DECE0DDA161FF6AC0064788D /* SHKDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF46161B960800C23824 /* SHKDropbox.h */; };
 		DECE0DDB161FF6CE0064788D /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
 		DECE0DDC161FF6DB0064788D /* SHKDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF46161B960800C23824 /* SHKDropbox.h */; };
 /* End PBXBuildFile section */
@@ -2532,7 +2530,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DECE0DDA161FF6AC0064788D /* SHKDropbox.h in Headers */,
 				7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */,
 				7A0F9253156BA5F3009CB40A /* LFSiteReachability.h in Headers */,
 				7A0F9255156BA5F3009CB40A /* LFWebAPIKit.h in Headers */,
@@ -2586,7 +2583,6 @@
 				DE104C48161B65EB001313A9 /* DBJsonWriter.h in Headers */,
 				DE104C4B161B65EB001313A9 /* NSObject+DBJSON.h in Headers */,
 				DE104C4E161B65EB001313A9 /* NSString+DBJSON.h in Headers */,
-				DE9B42EA161EC8C700F2FE1E /* DropboxSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
