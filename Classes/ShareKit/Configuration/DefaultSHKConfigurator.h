@@ -115,4 +115,6 @@
 - (NSArray *)textMessageToRecipients;
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
+//SHKDropbox
+- (BOOL) dropboxShouldOverwrite;
 @end

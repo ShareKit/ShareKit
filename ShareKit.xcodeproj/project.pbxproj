@@ -258,20 +258,6 @@
 		7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
 		7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
 		7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7AB535101552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535121552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535141552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535161552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535181552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5351A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5351D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535201552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535221552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535241552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535281552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352F1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
 		7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
@@ -527,7 +513,6 @@
 		DE02FBCD161B6F9200BE1416 /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
 		DE02FBCE161B6F9A00BE1416 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C30161B61CE001313A9 /* JSON.h */; };
 		DE02FBD0161B713D00BE1416 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE104C51161B680A001313A9 /* QuartzCore.framework */; };
-		DE08DF48161B960800C23824 /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
 		DE104B83161B5F78001313A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE104BC2161B5FF6001313A9 /* NSDictionary+Dropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104BC0161B5FF6001313A9 /* NSDictionary+Dropbox.m */; };
 		DE104BC3161B5FF6001313A9 /* NSDictionary+Dropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE104BC0161B5FF6001313A9 /* NSDictionary+Dropbox.m */; };
@@ -642,7 +627,6 @@
 		DE9B42BD161EC75700F2FE1E /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9B42A0161EC75700F2FE1E /* NSURL+MPURLParameterAdditions.m */; };
 		DE9B42BE161EC75700F2FE1E /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9B42A1161EC75700F2FE1E /* NSURLResponse+Encoding.m */; };
 		DE9B42BF161EC75700F2FE1E /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = DE9B42A1161EC75700F2FE1E /* NSURLResponse+Encoding.m */; };
-		DE9B42D1161EC83B00F2FE1E /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
 		DE9B42D4161EC86A00F2FE1E /* DBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C33161B65EB001313A9 /* DBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DE9B42D5161EC87300F2FE1E /* DBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C35161B65EB001313A9 /* DBJsonBase.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		DE9B42D6161EC87700F2FE1E /* DBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = DE104C37161B65EB001313A9 /* DBJsonParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -689,6 +673,10 @@
 		DE9B4300161EC94000F2FE1E /* DropboxSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF56161C17FB00C23824 /* DropboxSDK.h */; };
 		DE9B4302161EC96F00F2FE1E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE104C51161B680A001313A9 /* QuartzCore.framework */; };
 		DE9B4303161EC9B400F2FE1E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
+		DECE0DD9161FF6950064788D /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
+		DECE0DDA161FF6AC0064788D /* SHKDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF46161B960800C23824 /* SHKDropbox.h */; };
+		DECE0DDB161FF6CE0064788D /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE08DF47161B960800C23824 /* SHKDropbox.m */; };
+		DECE0DDC161FF6DB0064788D /* SHKDropbox.h in Headers */ = {isa = PBXBuildFile; fileRef = DE08DF46161B960800C23824 /* SHKDropbox.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -714,6 +702,18 @@
 			remoteInfo = "Dropbox SDK";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DE7D4E38161F231A006FB741 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1A52EDF415CB032B00A737D8 /* SHKKippt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKKippt.h; sourceTree = "<group>"; };
@@ -2532,6 +2532,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DECE0DDA161FF6AC0064788D /* SHKDropbox.h in Headers */,
 				7A0F9251156BA5F3009CB40A /* LFHTTPRequest.h in Headers */,
 				7A0F9253156BA5F3009CB40A /* LFSiteReachability.h in Headers */,
 				7A0F9255156BA5F3009CB40A /* LFWebAPIKit.h in Headers */,
@@ -2938,6 +2939,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DECE0DDC161FF6DB0064788D /* SHKDropbox.h in Headers */,
 				DE9B4300161EC94000F2FE1E /* DropboxSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3158,6 +3160,7 @@
 				7AB5342A1552AADD00171BCE /* Sources */,
 				7AB5342B1552AADD00171BCE /* Frameworks */,
 				7AB5342C1552AADD00171BCE /* Headers */,
+				DE7D4E38161F231A006FB741 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -3691,7 +3694,6 @@
 				43A5383A11DBE493004A1712 /* RootViewController.m in Sources */,
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
-				DE08DF48161B960800C23824 /* SHKDropbox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3867,6 +3869,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DECE0DD9161FF6950064788D /* SHKDropbox.m in Sources */,
 				7AB418E2160761AB002059FA /* SHKKippt.m in Sources */,
 				7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */,
 				7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */,
@@ -3909,20 +3912,6 @@
 				7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */,
 				7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */,
 				7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */,
-				7AB535101552BE7D00171BCE /* (null) in Sources */,
-				7AB535121552BE7D00171BCE /* (null) in Sources */,
-				7AB535141552BE7D00171BCE /* (null) in Sources */,
-				7AB535161552BE7D00171BCE /* (null) in Sources */,
-				7AB535181552BE7D00171BCE /* (null) in Sources */,
-				7AB5351A1552BE7D00171BCE /* (null) in Sources */,
-				7AB5351D1552BE7D00171BCE /* (null) in Sources */,
-				7AB535201552BE7D00171BCE /* (null) in Sources */,
-				7AB535221552BE7D00171BCE /* (null) in Sources */,
-				7AB535241552BE7D00171BCE /* (null) in Sources */,
-				7AB535281552BE7D00171BCE /* (null) in Sources */,
-				7AB5352A1552BE7D00171BCE /* (null) in Sources */,
-				7AB5352D1552BE7D00171BCE /* (null) in Sources */,
-				7AB5352F1552BE7D00171BCE /* (null) in Sources */,
 				7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */,
 				7AB535351552BE7D00171BCE /* NSObject+SBJSON.m in Sources */,
 				7AB535371552BE7D00171BCE /* NSString+SBJSON.m in Sources */,
@@ -4266,7 +4255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE9B42D1161EC83B00F2FE1E /* SHKDropbox.m in Sources */,
+				DECE0DDB161FF6CE0064788D /* SHKDropbox.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

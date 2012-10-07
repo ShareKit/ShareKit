@@ -27,8 +27,6 @@
 
 #import "DefaultSHKConfigurator.h"
 
-#import "TestDropboxAppKeys.h"
-
 @implementation DefaultSHKConfigurator
 
 /* 
@@ -75,10 +73,10 @@
  */
 
 - (NSString *) dropboxAppKey {
-    return kDropboxAppKey; // @"";
+    return @"";
 }
 - (NSString *) dropboxAppSecret {
-    return kDropboxAppSecret; // @"";
+    return @"";
 }
 - (NSString *) dropboxRootFolder {
     return @"sandbox";
@@ -315,7 +313,7 @@
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 }
 - (NSArray*)defaultFavoriteFileSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+    return [NSArray arrayWithObjects:@"SHKDropbox", @"SHKMail",@"SHKEvernote", nil];
 }
 
 //by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
@@ -433,4 +431,10 @@
   return NSStringFromCGRect(CGRectZero);
 }
 
+/*  SHKDropbox  */
+//if file with same name is present at remote path should it be overwritten or not
+//if NO - SHKDropbox ask user for new file name
+- (BOOL) dropboxShouldOverwrite {
+    return FALSE;
+}
 @end
