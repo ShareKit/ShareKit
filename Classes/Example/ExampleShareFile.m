@@ -25,6 +25,8 @@
 //
 //
 
+#define kExampleSharePDFFile @"bigPDF.pdf"
+
 #import "ExampleShareFile.h"
 #import "SHK.h"
 #import "SHKActionSheet.h"
@@ -59,17 +61,17 @@
 	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
 	webView.delegate = self;
 	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
+	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kExampleSharePDFFile]]]];
 	
 	self.view = webView;
 }
 
 - (void)share
 {
-	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
+	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:kExampleSharePDFFile];
 	NSData *file = [NSData dataWithContentsOfFile:filePath];
 	
-	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+	SHKItem *item = [SHKItem file:file filename:kExampleSharePDFFile mimeType:@"application/pdf" title:@"My Awesome PDF"];
     item.tags = [NSArray arrayWithObjects:[[NSDate date] description], @"pdf document", @"sharekit", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];

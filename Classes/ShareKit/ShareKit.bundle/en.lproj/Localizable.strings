@@ -205,3 +205,37 @@
 
 "Select Group" = "Select Group";
 "Flickr Groups" = "Flickr Groups";
+
+/*  SHKDropbox  */
+/*  
+ *  user can rename file with new name while file is uploading to Dropbox
+ */
+"File name" = "File name"
+/*
+ *  "Path" uses as label to show the user remote dropbox directory, that uses 
+ *  to save share object, ex. "Dropbox path"
+ */
+"Path" = "Path"
+/*
+ *  The resourse that user want to share with Dropbox may exceed the service limits
+ */
+"File size exceed %@ limits" = "File size exceed %@ limits"
+"You are over Dropbox storage quota" = "You are over Dropbox storage quota"
+/*
+ *  Dropbox could refuse the share file.
+ *  The reason could be: wrong path, or file name, or file name extenition is in Dropbox ignore list, etc..
+ */
+"File name is wrong" = "File name is wrong"
+/*
+ *  When file exist in dropbox remote directory SHKDropbox ask user permission to overwrite the file or enter new name.
+ *  Example "Do you want to overwrite existing file in Dropbox?"
+ */
+"Do you want to overwrite existing file in %@?" = "Do you want to overwrite existing file in %@?"
+/*
+ *  Show tips for user how to rename file or enter another remote directory while upload a file
+ */
+"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name" = "Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name"
+/*
+ *  SHKDropbox could show the message when validate the user's file name
+ */
+"File name is wrong" = "File name is wrong"

@@ -50,6 +50,9 @@
 - (NSArray*)defaultFavoriteImageSharers;
 - (NSArray*)defaultFavoriteTextSharers;
 - (NSArray*)defaultFavoriteFileSharers;
+- (NSString *) dropboxAppKey;
+- (NSString *) dropboxAppSecret;
+- (NSString *) dropboxRootFolder;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
@@ -112,4 +115,6 @@
 - (NSArray *)textMessageToRecipients;
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
+//SHKDropbox
+- (BOOL) dropboxShouldOverwrite;
 @end

@@ -13,3 +13,6 @@
 [submodule "Submodules/evernote-ios-sdk"]
 	path = Submodules/evernote-ios-sdk
 	url = https://github.com/evernote/evernote-sdk-ios.git
+[submodule "Submodules/dropbox-sdk-ios"]
+	path = Submodules/dropbox-sdk-ios
+	url = https://github.com/dropbox-sdk-mirror/dropbox-sdk-ios.git

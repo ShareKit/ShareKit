@@ -59,6 +59,29 @@
  leaving that decision up to the user.
  */
 
+/*
+ *  Dropbox
+ *  ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY
+ *  https://www.dropbox.com/developers/apps
+ *  Access type: kDBRootAppFolder (==  @"sandbox") or kDBRootDropbox (== @"dropbox")
+ *  Dropbox SDK (and REST API) could change constants at any time. 
+ *  Please check before implementation or #import "DropboxSDK.h" in 
+ *  DefaultSHKConfigurator and use pre-defined SDK constants:
+ *  kDBRootDropbox and kDBRootAppFolder
+ *  App folder name in Dropbox you could setup https://www.dropbox.com/developers/apps
+ *
+ */
+
+- (NSString *) dropboxAppKey {
+    return @"";
+}
+- (NSString *) dropboxAppSecret {
+    return @"";
+}
+- (NSString *) dropboxRootFolder {
+    return @"sandbox";
+}
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {
@@ -290,7 +313,7 @@
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 }
 - (NSArray*)defaultFavoriteFileSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+    return [NSArray arrayWithObjects:@"SHKDropbox", @"SHKMail",@"SHKEvernote", nil];
 }
 
 //by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
@@ -395,6 +418,7 @@
     return nil;
 }
 
+
 /* SHKTextMessage */
 
 //You can use this to prefill recipients. User enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
@@ -407,4 +431,10 @@
   return NSStringFromCGRect(CGRectZero);
 }
 
+/*  SHKDropbox  */
+//if file with same name is present at remote path should it be overwritten or not
+//if NO - SHKDropbox ask user for new file name
+- (BOOL) dropboxShouldOverwrite {
+    return FALSE;
+}
 @end

@@ -518,8 +518,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Share Form
+#pragma mark - Share Form
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
