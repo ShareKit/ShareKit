@@ -172,6 +172,270 @@
 		3D97DFFF16118687003945BE /* SHKEvernote.h in Headers */ = {isa = PBXBuildFile; fileRef = 4379F2B01291AC9700D2A41E /* SHKEvernote.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E00016118690003945BE /* SHKEvernote.md in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B21291AC9700D2A41E /* SHKEvernote.md */; };
 		3D97E00B16119452003945BE /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB5342E1552AADD00171BCE /* libShareKit.a */; };
+		3D97E0681612A4E3003945BE /* SHKKippt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A52EDF515CB032B00A737D8 /* SHKKippt.m */; };
+		3D97E0691612A4E3003945BE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
+		3D97E06A1612A4E3003945BE /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
+		3D97E06B1612A4E3003945BE /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
+		3D97E06C1612A4E3003945BE /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
+		3D97E06D1612A4E3003945BE /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
+		3D97E06E1612A4E3003945BE /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
+		3D97E06F1612A4E3003945BE /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
+		3D97E0701612A4E3003945BE /* SHKSharerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A36F42614B2021100372747 /* SHKSharerDelegate.m */; };
+		3D97E0711612A4E3003945BE /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2E91291AE5700D2A41E /* NSData+md5.m */; };
+		3D97E0721612A4E3003945BE /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */; };
+		3D97E0731612A4E3003945BE /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */; };
+		3D97E0741612A4E3003945BE /* NSHTTPCookieStorage+DeleteForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */; };
+		3D97E0751612A4E3003945BE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2523714F0499E00CE8709 /* JSONKit.m */; };
+		3D97E0761612A4E3003945BE /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
+		3D97E0771612A4E3003945BE /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368211DBE3B9004A1712 /* NSMutableURLRequest+Parameters.m */; };
+		3D97E0781612A4E3003945BE /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368411DBE3B9004A1712 /* NSString+URLEncoding.m */; };
+		3D97E0791612A4E3003945BE /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368611DBE3B9004A1712 /* NSURL+Base.m */; };
+		3D97E07A1612A4E3003945BE /* OAAsynchronousDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */; };
+		3D97E07B1612A4E3003945BE /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369111DBE3B9004A1712 /* OAConsumer.m */; };
+		3D97E07C1612A4E3003945BE /* OADataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369311DBE3B9004A1712 /* OADataFetcher.m */; };
+		3D97E07D1612A4E3003945BE /* OAHMAC_SHA1SignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369511DBE3B9004A1712 /* OAHMAC_SHA1SignatureProvider.m */; };
+		3D97E07E1612A4E3003945BE /* OAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369711DBE3B9004A1712 /* OAMutableURLRequest.m */; };
+		3D97E07F1612A4E3003945BE /* OAPlaintextSignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369911DBE3B9004A1712 /* OAPlaintextSignatureProvider.m */; };
+		3D97E0801612A4E3003945BE /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369D11DBE3B9004A1712 /* OARequestParameter.m */; };
+		3D97E0811612A4E3003945BE /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
+		3D97E0821612A4E3003945BE /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
+		3D97E0831612A4E3003945BE /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A511DBE3B9004A1712 /* SHKRequest.m */; };
+		3D97E0841612A4E3003945BE /* SHKXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */; };
+		3D97E0851612A4E3003945BE /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
+		3D97E0861612A4E3003945BE /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
+		3D97E0871612A4E3003945BE /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
+		3D97E0881612A4E3003945BE /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BC11DBE3B9004A1712 /* SHKMail.m */; };
+		3D97E0891612A4E3003945BE /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BF11DBE3B9004A1712 /* SHKSafari.m */; };
+		3D97E08A1612A4E3003945BE /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
+		3D97E08B1612A4E3003945BE /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F3B11291C45700D2A41E /* SHKTextMessage.m */; };
+		3D97E08C1612A4E3003945BE /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
+		3D97E08D1612A4E3003945BE /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */; };
+		3D97E08E1612A4E3003945BE /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
+		3D97E08F1612A4E3003945BE /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
+		3D97E0901612A4E3003945BE /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
+		3D97E0911612A4E3003945BE /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
+		3D97E0921612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0931612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0941612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0951612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0961612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0971612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0981612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0991612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09A1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09B1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09C1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09D1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09E1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E09F1612A4E3003945BE /* (null) in Sources */ = {isa = PBXBuildFile; };
+		3D97E0A01612A4E3003945BE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
+		3D97E0A11612A4E3003945BE /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2814580A2000126878 /* NSObject+SBJSON.m */; };
+		3D97E0A21612A4E3003945BE /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2A14580A2000126878 /* NSString+SBJSON.m */; };
+		3D97E0A31612A4E3003945BE /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2C14580A2000126878 /* SBJSON.m */; };
+		3D97E0A41612A4E3003945BE /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2E14580A2000126878 /* SBJsonBase.m */; };
+		3D97E0A51612A4E3003945BE /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3014580A2000126878 /* SBJsonParser.m */; };
+		3D97E0A61612A4E3003945BE /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D3214580A2000126878 /* SBJsonWriter.m */; };
+		3D97E0A71612A4E3003945BE /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D1F14580A2000126878 /* FBRequest.m */; };
+		3D97E0A81612A4E3003945BE /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2014580A2000126878 /* Facebook.m */; };
+		3D97E0A91612A4E3003945BE /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2314580A2000126878 /* FBLoginDialog.m */; };
+		3D97E0AA1612A4E3003945BE /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2514580A2000126878 /* FBDialog.m */; };
+		3D97E0AB1612A4E3003945BE /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
+		3D97E0AC1612A4E3003945BE /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
+		3D97E0AD1612A4E3003945BE /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
+		3D97E0AE1612A4E3003945BE /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
+		3D97E0AF1612A4E3003945BE /* SHKFoursquareV2VenuesForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */; };
+		3D97E0B01612A4E3003945BE /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
+		3D97E0B11612A4E3003945BE /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
+		3D97E0B21612A4E3003945BE /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
+		3D97E0B31612A4E3003945BE /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B714BA1900003FC744 /* ObjectiveFlickr.m */; };
+		3D97E0B41612A4E3003945BE /* OFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B914BA1900003FC744 /* OFUtilities.m */; };
+		3D97E0B51612A4E3003945BE /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
+		3D97E0B61612A4E3003945BE /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
+		3D97E0B71612A4E3003945BE /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
+		3D97E0B81612A4E3003945BE /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
+		3D97E0B91612A4E3003945BE /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
+		3D97E0BA1612A4E3003945BE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
+		3D97E0BB1612A4E3003945BE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
+		3D97E0BC1612A4E3003945BE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
+		3D97E0BD1612A4E3003945BE /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
+		3D97E0BE1612A4E3003945BE /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
+		3D97E0BF1612A4E3003945BE /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
+		3D97E0C01612A4E3003945BE /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
+		3D97E0C11612A4E3003945BE /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
+		3D97E0C21612A4E3003945BE /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
+		3D97E0C31612A4E3003945BE /* SHKFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F511DBE3B9004A1712 /* SHKFormFieldCell.m */; };
+		3D97E0C41612A4E3003945BE /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */; };
+		3D97E0C51612A4E3003945BE /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
+		3D97E0C61612A4E3003945BE /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
+		3D97E0C71612A4E3003945BE /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
+		3D97E0C81612A4E3003945BE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
+		3D97E0C91612A4E3003945BE /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
+		3D97E0CA1612A4E3003945BE /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
+		3D97E0CB1612A4E3003945BE /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
+		3D97E0CC1612A4E3003945BE /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
+		3D97E0CD1612A4E3003945BE /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
+		3D97E0CE1612A4E3003945BE /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
+		3D97E0CF1612A4E3003945BE /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
+		3D97E0D01612A4E3003945BE /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA93FC156D192100E7006E /* FBFrictionlessRequestSettings.m */; };
+		3D97E0D11612A4E3003945BE /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
+		3D97E0D21612A4E3003945BE /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
+		3D97E0D31612A4E3003945BE /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
+		3D97E0D41612A4E3003945BE /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
+		3D97E0D51612A4E3003945BE /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
+		3D97E0D61612A4E3003945BE /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
+		3D97E0D71612A4E3003945BE /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
+		3D97E0D81612A4E3003945BE /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
+		3D97E0D91612A4E3003945BE /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
+		3D97E0DA1612A4E3003945BE /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
+		3D97E0DB1612A4E3003945BE /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
+		3D97E0DC1612A4E3003945BE /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
+		3D97E0DD1612A4E3003945BE /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
+		3D97E0DE1612A4E3003945BE /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
+		3D97E0DF1612A4E3003945BE /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
+		3D97E0E01612A4E3003945BE /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
+		3D97E0E11612A4E3003945BE /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
+		3D97E0E21612A4E3003945BE /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
+		3D97E0E31612A4E3003945BE /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
+		3D97E0E41612A4E3003945BE /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
+		3D97E0E51612A4E3003945BE /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
+		3D97E0E61612A4E3003945BE /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
+		3D97E0E71612A4E3003945BE /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
+		3D97E0E81612A4E3003945BE /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
+		3D97E0E91612A4E3003945BE /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
+		3D97E0EA1612A4E3003945BE /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
+		3D97E0EB1612A4E3003945BE /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
+		3D97E0EE1612A4E3003945BE /* LFHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E0EF1612A4E3003945BE /* LFSiteReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E0F01612A4E3003945BE /* LFWebAPIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E0F11612A4E3003945BE /* NSData+LFHTTPFormExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E0F21612A4E3003945BE /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
+		3D97E0F31612A4E3003945BE /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
+		3D97E0F41612A4E3003945BE /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
+		3D97E0F51612A4E3003945BE /* FBFrictionlessRequestSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACA93FB156D192100E7006E /* FBFrictionlessRequestSettings.h */; };
+		3D97E0F61612A4E3003945BE /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
+		3D97E0F71612A4E3003945BE /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
+		3D97E0F81612A4E3003945BE /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
+		3D97E0F91612A4E3003945BE /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
+		3D97E0FE1612A5A5003945BE /* SHKCustomFormFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E0FF1612A5A5003945BE /* SHKCustomFormControllerLargeTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1001612A5A5003945BE /* SHK.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A611DBE3B9004A1712 /* SHK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1011612A5A5003945BE /* SHKItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A811DBE3B9004A1712 /* SHKItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1021612A5A5003945BE /* SHKOfflineSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1031612A5A5003945BE /* SHKOAuthSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1041612A5A5003945BE /* SHKSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367611DBE3B9004A1712 /* SHKSharer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1051612A5A5003945BE /* SHKSharerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A36F42514B2021100372747 /* SHKSharerDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1061612A5A5003945BE /* GTMNSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1071612A5A5003945BE /* NSData+md5.h in Headers */ = {isa = PBXBuildFile; fileRef = 4379F2E81291AE5700D2A41E /* NSData+md5.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1081612A5A5003945BE /* NSHTTPCookieStorage+DeleteForURL.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A333EE314CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1091612A5A5003945BE /* NSMutableDictionary+NSNullsToEmptyStrings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10A1612A5A5003945BE /* UIWebView+SHK.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10B1612A5A5003945BE /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF2523614F0499E00CE8709 /* JSONKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10C1612A5A5003945BE /* SSKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = A57772B214BA0748003FC744 /* SSKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10D1612A5A5003945BE /* NSMutableURLRequest+Parameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368111DBE3B9004A1712 /* NSMutableURLRequest+Parameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10E1612A5A5003945BE /* NSString+URLEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368311DBE3B9004A1712 /* NSString+URLEncoding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E10F1612A5A5003945BE /* NSURL+Base.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368511DBE3B9004A1712 /* NSURL+Base.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1101612A5A5003945BE /* OAAsynchronousDataFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1111612A5A5003945BE /* OAConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369011DBE3B9004A1712 /* OAConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1121612A5A5003945BE /* OADataFetcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369211DBE3B9004A1712 /* OADataFetcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1131612A5A5003945BE /* OAHMAC_SHA1SignatureProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369411DBE3B9004A1712 /* OAHMAC_SHA1SignatureProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1141612A5A5003945BE /* OAMutableURLRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369611DBE3B9004A1712 /* OAMutableURLRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1151612A5A5003945BE /* OAPlaintextSignatureProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369811DBE3B9004A1712 /* OAPlaintextSignatureProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1161612A5A5003945BE /* OARequestParameter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369C11DBE3B9004A1712 /* OARequestParameter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1171612A5A5003945BE /* OAServiceTicket.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A5369E11DBE3B9004A1712 /* OAServiceTicket.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1181612A5A5003945BE /* OASignatureProviding.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A011DBE3B9004A1712 /* OASignatureProviding.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1191612A5A5003945BE /* OAToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A111DBE3B9004A1712 /* OAToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11A1612A5A5003945BE /* OAuthConsumer.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A311DBE3B9004A1712 /* OAuthConsumer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11B1612A5A5003945BE /* SHKRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A411DBE3B9004A1712 /* SHKRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11C1612A5A5003945BE /* SHKXMLResponseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11D1612A5A5003945BE /* SHKPrint.h in Headers */ = {isa = PBXBuildFile; fileRef = BA465F1D14CC3C5A00B52394 /* SHKPrint.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11E1612A5A5003945BE /* SHKLogout.h in Headers */ = {isa = PBXBuildFile; fileRef = E68738BE1416795C00D8C3DD /* SHKLogout.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E11F1612A5A5003945BE /* SHKCopy.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536B811DBE3B9004A1712 /* SHKCopy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1201612A5A5003945BE /* SHKMail.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536BB11DBE3B9004A1712 /* SHKMail.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1211612A5A5003945BE /* SHKSafari.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536BE11DBE3B9004A1712 /* SHKSafari.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1221612A5A5003945BE /* SHKPhotoAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 432B147A11FF4B0700291B37 /* SHKPhotoAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1231612A5A5003945BE /* SHKTextMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4379F3B01291C45700D2A41E /* SHKTextMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1241612A5A5003945BE /* DefaultSHKConfigurator.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1251612A5A5003945BE /* SHKConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE01913CCB1F500A2118F /* SHKConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1261612A5A5003945BE /* SHKKippt.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A52EDF415CB032B00A737D8 /* SHKKippt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1271612A5A5003945BE /* SHKDelicious.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1281612A5A5003945BE /* SHKReadability.h in Headers */ = {isa = PBXBuildFile; fileRef = FDB495A21520349A00505A99 /* SHKReadability.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1291612A5A5003945BE /* SHKDiigo.h in Headers */ = {isa = PBXBuildFile; fileRef = B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12A1612A5A5003945BE /* SHKVkontakteOAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12B1612A5A5003945BE /* SHKVkontakte.h in Headers */ = {isa = PBXBuildFile; fileRef = FA5AA3BB149625460064DB24 /* SHKVkontakte.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12C1612A5A5003945BE /* GCOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC75D156CFBF400E3303E /* GCOAuth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12D1612A5A5003945BE /* NSData+Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC760156CFBF400E3303E /* NSData+Base64.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12E1612A5A5003945BE /* TBinaryProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC76D156CFBF400E3303E /* TBinaryProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E12F1612A5A5003945BE /* TProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC76F156CFBF400E3303E /* TProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1301612A5A5003945BE /* TProtocolException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC770156CFBF400E3303E /* TProtocolException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1311612A5A5003945BE /* TProtocolFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC772156CFBF400E3303E /* TProtocolFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1321612A5A5003945BE /* TProtocolUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC773156CFBF400E3303E /* TProtocolUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1331612A5A5003945BE /* TApplicationException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC778156CFBF400E3303E /* TApplicationException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1341612A5A5003945BE /* TException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC77A156CFBF400E3303E /* TException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1351612A5A5003945BE /* Thrift.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC77C156CFBF400E3303E /* Thrift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1361612A5A5003945BE /* TProcessor.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC77D156CFBF400E3303E /* TProcessor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1371612A5A5003945BE /* TProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC77E156CFBF400E3303E /* TProcessorFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1381612A5A5003945BE /* THTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC780156CFBF400E3303E /* THTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1391612A5A5003945BE /* TMemoryBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC782156CFBF400E3303E /* TMemoryBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13A1612A5A5003945BE /* TTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78A156CFBF400E3303E /* TTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13B1612A5A5003945BE /* TTransportException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78B156CFBF400E3303E /* TTransportException.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13C1612A5A5003945BE /* TSharedProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13D1612A5A5003945BE /* EDAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC790156CFBF400E3303E /* EDAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13E1612A5A5003945BE /* EDAMErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC791156CFBF400E3303E /* EDAMErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E13F1612A5A5003945BE /* EDAMLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC793156CFBF400E3303E /* EDAMLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1401612A5A5003945BE /* EDAMNoteStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC795156CFBF400E3303E /* EDAMNoteStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1411612A5A5003945BE /* EDAMTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC797156CFBF400E3303E /* EDAMTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1421612A5A5003945BE /* EDAMUserStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC799156CFBF400E3303E /* EDAMUserStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1431612A5A5003945BE /* EvernoteNoteStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC79C156CFBF400E3303E /* EvernoteNoteStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1441612A5A5003945BE /* EvernoteSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC79E156CFBF400E3303E /* EvernoteSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1451612A5A5003945BE /* EvernoteSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC7A0156CFBF400E3303E /* EvernoteSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1461612A5A5003945BE /* EvernoteUserStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC7A2156CFBF400E3303E /* EvernoteUserStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1471612A5A5003945BE /* ENAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC7A5156CFBF400E3303E /* ENAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1481612A5A5003945BE /* ENCredentials.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC7A7156CFBF400E3303E /* ENCredentials.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1491612A5A5003945BE /* ENCredentialStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14A1612A5A5003945BE /* ENOAuthViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 427FBAB11592F7C90024F825 /* ENOAuthViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14B1612A5A5003945BE /* SHKEvernote.h in Headers */ = {isa = PBXBuildFile; fileRef = 4379F2B01291AC9700D2A41E /* SHKEvernote.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14C1612A5A5003945BE /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2614580A2000126878 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14D1612A5A5003945BE /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2714580A2000126878 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14E1612A5A5003945BE /* NSString+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2914580A2000126878 /* NSString+SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E14F1612A5A5003945BE /* SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2B14580A2000126878 /* SBJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1501612A5A5003945BE /* SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2D14580A2000126878 /* SBJsonBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1511612A5A5003945BE /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2F14580A2000126878 /* SBJsonParser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1521612A5A5003945BE /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D3114580A2000126878 /* SBJsonWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1531612A5A5003945BE /* FBConnect.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D1D14580A2000126878 /* FBConnect.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1541612A5A5003945BE /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D1E14580A2000126878 /* FBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1551612A5A5003945BE /* Facebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2114580A2000126878 /* Facebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1561612A5A5003945BE /* FBLoginDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2214580A2000126878 /* FBLoginDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1571612A5A5003945BE /* FBDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AC22D2414580A2000126878 /* FBDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1581612A5A5003945BE /* SHKFacebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536DC11DBE3B9004A1712 /* SHKFacebook.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1591612A5A5003945BE /* NSError+SHKFoursquareV2.h in Headers */ = {isa = PBXBuildFile; fileRef = C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15A1612A5A5003945BE /* SHKFoursquareV2CheckInForm.h in Headers */ = {isa = PBXBuildFile; fileRef = C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15B1612A5A5003945BE /* SHKFoursquareV2Venue.h in Headers */ = {isa = PBXBuildFile; fileRef = C0276D7814336ACD00C93FAA /* SHKFoursquareV2Venue.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15C1612A5A5003945BE /* SHKFoursquareV2VenuesForm.h in Headers */ = {isa = PBXBuildFile; fileRef = C0276D7A14336ACD00C93FAA /* SHKFoursquareV2VenuesForm.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15D1612A5A5003945BE /* SHKFoursquareV2.h in Headers */ = {isa = PBXBuildFile; fileRef = C042A61F1430AB7800DF9AF6 /* SHKFoursquareV2.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15E1612A5A5003945BE /* SHKFoursquareV2OAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = C042A6221430B35300DF9AF6 /* SHKFoursquareV2OAuthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E15F1612A5A5003945BE /* SHKFoursquareV2Request.h in Headers */ = {isa = PBXBuildFile; fileRef = C05E48071430D9BC008F2366 /* SHKFoursquareV2Request.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1601612A5A5003945BE /* ObjectiveFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = A57772B614BA1900003FC744 /* ObjectiveFlickr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1611612A5A5003945BE /* OFUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = A57772B814BA1900003FC744 /* OFUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1621612A5A5003945BE /* OFXMLMapper.h in Headers */ = {isa = PBXBuildFile; fileRef = A57772BA14BA1900003FC744 /* OFXMLMapper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1631612A5A5003945BE /* SHKFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE06013CCBED400A2118F /* SHKFlickr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1641612A5A5003945BE /* SHKGoogleReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536DF11DBE3B9004A1712 /* SHKGoogleReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1651612A5A5003945BE /* SHKInstapaper.h in Headers */ = {isa = PBXBuildFile; fileRef = 43150A8B11E78697008C6B68 /* SHKInstapaper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1661612A5A5003945BE /* SHKLinkedIn.h in Headers */ = {isa = PBXBuildFile; fileRef = C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1671612A5A5003945BE /* SHKPinboard.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536E211DBE3B9004A1712 /* SHKPinboard.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1681612A5A5003945BE /* SHKReadItLater.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536E511DBE3B9004A1712 /* SHKReadItLater.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1691612A5A5003945BE /* SHKTumblr.h in Headers */ = {isa = PBXBuildFile; fileRef = 43C91DF311EBAE4800F31FAE /* SHKTumblr.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16A1612A5A5003945BE /* SHKiOS5Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16B1612A5A5003945BE /* SHKTwitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536E811DBE3B9004A1712 /* SHKTwitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16C1612A5A5003945BE /* SHKActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16D1612A5A5003945BE /* SHKActivityIndicator.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16E1612A5A5003945BE /* SHKFormController.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F211DBE3B9004A1712 /* SHKFormController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E16F1612A5A5003945BE /* SHKFormControllerLargeTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF78BB114B71FD8008ACA5D /* SHKFormControllerLargeTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1701612A5A5003945BE /* SHKFormFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F411DBE3B9004A1712 /* SHKFormFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1711612A5A5003945BE /* SHKFormFieldSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536F611DBE3B9004A1712 /* SHKFormFieldSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1721612A5A5003945BE /* SHKFormOptionController.h in Headers */ = {isa = PBXBuildFile; fileRef = AA511B7E14C893A10022332B /* SHKFormOptionController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1731612A5A5003945BE /* SHKOAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1741612A5A5003945BE /* SHKShareMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536FC11DBE3B9004A1712 /* SHKShareMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3D97E1751612A5A5003945BE /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536B311DBE3B9004A1712 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D9958DD15E641ED00211890 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
 		3D9958DE15E641ED00211890 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
 		3D9958DF15E641ED00211890 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
@@ -483,6 +747,7 @@
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libILSShareKitFT.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D97E0FD1612A4E3003945BE /* libILSShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libILSShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
 		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
 		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -792,6 +1057,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D97E0EC1612A4E3003945BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9240156BA2A0009CB40A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -833,6 +1105,7 @@
 				7AB5360F1552E26800171BCE /* ShareKit.bundle */,
 				7A0F9246156BA2A0009CB40A /* libShareKitNoSubmodules.a */,
 				3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */,
+				3D97E0FD1612A4E3003945BE /* libILSShareKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1721,6 +1994,145 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3D97E0ED1612A4E3003945BE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D97E0EF1612A4E3003945BE /* LFSiteReachability.h in Headers */,
+				3D97E0F11612A4E3003945BE /* NSData+LFHTTPFormExtensions.h in Headers */,
+				3D97E0EE1612A4E3003945BE /* LFHTTPRequest.h in Headers */,
+				3D97E0F01612A4E3003945BE /* LFWebAPIKit.h in Headers */,
+				3D97E0FE1612A5A5003945BE /* SHKCustomFormFieldCell.h in Headers */,
+				3D97E0FF1612A5A5003945BE /* SHKCustomFormControllerLargeTextField.h in Headers */,
+				3D97E1001612A5A5003945BE /* SHK.h in Headers */,
+				3D97E1011612A5A5003945BE /* SHKItem.h in Headers */,
+				3D97E1021612A5A5003945BE /* SHKOfflineSharer.h in Headers */,
+				3D97E1031612A5A5003945BE /* SHKOAuthSharer.h in Headers */,
+				3D97E1041612A5A5003945BE /* SHKSharer.h in Headers */,
+				3D97E1051612A5A5003945BE /* SHKSharerDelegate.h in Headers */,
+				3D97E1061612A5A5003945BE /* GTMNSString+HTML.h in Headers */,
+				3D97E1071612A5A5003945BE /* NSData+md5.h in Headers */,
+				3D97E1081612A5A5003945BE /* NSHTTPCookieStorage+DeleteForURL.h in Headers */,
+				3D97E1091612A5A5003945BE /* NSMutableDictionary+NSNullsToEmptyStrings.h in Headers */,
+				3D97E10A1612A5A5003945BE /* UIWebView+SHK.h in Headers */,
+				3D97E10B1612A5A5003945BE /* JSONKit.h in Headers */,
+				3D97E10C1612A5A5003945BE /* SSKeychain.h in Headers */,
+				3D97E10D1612A5A5003945BE /* NSMutableURLRequest+Parameters.h in Headers */,
+				3D97E10E1612A5A5003945BE /* NSString+URLEncoding.h in Headers */,
+				3D97E10F1612A5A5003945BE /* NSURL+Base.h in Headers */,
+				3D97E1101612A5A5003945BE /* OAAsynchronousDataFetcher.h in Headers */,
+				3D97E1111612A5A5003945BE /* OAConsumer.h in Headers */,
+				3D97E1121612A5A5003945BE /* OADataFetcher.h in Headers */,
+				3D97E1131612A5A5003945BE /* OAHMAC_SHA1SignatureProvider.h in Headers */,
+				3D97E1141612A5A5003945BE /* OAMutableURLRequest.h in Headers */,
+				3D97E1151612A5A5003945BE /* OAPlaintextSignatureProvider.h in Headers */,
+				3D97E1161612A5A5003945BE /* OARequestParameter.h in Headers */,
+				3D97E1171612A5A5003945BE /* OAServiceTicket.h in Headers */,
+				3D97E1181612A5A5003945BE /* OASignatureProviding.h in Headers */,
+				3D97E1191612A5A5003945BE /* OAToken.h in Headers */,
+				3D97E11A1612A5A5003945BE /* OAuthConsumer.h in Headers */,
+				3D97E11B1612A5A5003945BE /* SHKRequest.h in Headers */,
+				3D97E11C1612A5A5003945BE /* SHKXMLResponseParser.h in Headers */,
+				3D97E11D1612A5A5003945BE /* SHKPrint.h in Headers */,
+				3D97E11E1612A5A5003945BE /* SHKLogout.h in Headers */,
+				3D97E11F1612A5A5003945BE /* SHKCopy.h in Headers */,
+				3D97E1201612A5A5003945BE /* SHKMail.h in Headers */,
+				3D97E1211612A5A5003945BE /* SHKSafari.h in Headers */,
+				3D97E1221612A5A5003945BE /* SHKPhotoAlbum.h in Headers */,
+				3D97E1231612A5A5003945BE /* SHKTextMessage.h in Headers */,
+				3D97E1241612A5A5003945BE /* DefaultSHKConfigurator.h in Headers */,
+				3D97E1251612A5A5003945BE /* SHKConfiguration.h in Headers */,
+				3D97E1261612A5A5003945BE /* SHKKippt.h in Headers */,
+				3D97E1271612A5A5003945BE /* SHKDelicious.h in Headers */,
+				3D97E1281612A5A5003945BE /* SHKReadability.h in Headers */,
+				3D97E1291612A5A5003945BE /* SHKDiigo.h in Headers */,
+				3D97E12A1612A5A5003945BE /* SHKVkontakteOAuthView.h in Headers */,
+				3D97E12B1612A5A5003945BE /* SHKVkontakte.h in Headers */,
+				3D97E12C1612A5A5003945BE /* GCOAuth.h in Headers */,
+				3D97E12D1612A5A5003945BE /* NSData+Base64.h in Headers */,
+				3D97E12E1612A5A5003945BE /* TBinaryProtocol.h in Headers */,
+				3D97E12F1612A5A5003945BE /* TProtocol.h in Headers */,
+				3D97E1301612A5A5003945BE /* TProtocolException.h in Headers */,
+				3D97E1311612A5A5003945BE /* TProtocolFactory.h in Headers */,
+				3D97E1321612A5A5003945BE /* TProtocolUtil.h in Headers */,
+				3D97E1331612A5A5003945BE /* TApplicationException.h in Headers */,
+				3D97E1341612A5A5003945BE /* TException.h in Headers */,
+				3D97E1351612A5A5003945BE /* Thrift.h in Headers */,
+				3D97E1361612A5A5003945BE /* TProcessor.h in Headers */,
+				3D97E1371612A5A5003945BE /* TProcessorFactory.h in Headers */,
+				3D97E1381612A5A5003945BE /* THTTPClient.h in Headers */,
+				3D97E1391612A5A5003945BE /* TMemoryBuffer.h in Headers */,
+				3D97E13A1612A5A5003945BE /* TTransport.h in Headers */,
+				3D97E13B1612A5A5003945BE /* TTransportException.h in Headers */,
+				3D97E13C1612A5A5003945BE /* TSharedProcessorFactory.h in Headers */,
+				3D97E13D1612A5A5003945BE /* EDAM.h in Headers */,
+				3D97E13E1612A5A5003945BE /* EDAMErrors.h in Headers */,
+				3D97E13F1612A5A5003945BE /* EDAMLimits.h in Headers */,
+				3D97E1401612A5A5003945BE /* EDAMNoteStore.h in Headers */,
+				3D97E1411612A5A5003945BE /* EDAMTypes.h in Headers */,
+				3D97E1421612A5A5003945BE /* EDAMUserStore.h in Headers */,
+				3D97E1431612A5A5003945BE /* EvernoteNoteStore.h in Headers */,
+				3D97E1441612A5A5003945BE /* EvernoteSDK.h in Headers */,
+				3D97E1451612A5A5003945BE /* EvernoteSession.h in Headers */,
+				3D97E1461612A5A5003945BE /* EvernoteUserStore.h in Headers */,
+				3D97E1471612A5A5003945BE /* ENAPI.h in Headers */,
+				3D97E1481612A5A5003945BE /* ENCredentials.h in Headers */,
+				3D97E1491612A5A5003945BE /* ENCredentialStore.h in Headers */,
+				3D97E14A1612A5A5003945BE /* ENOAuthViewController.h in Headers */,
+				3D97E14B1612A5A5003945BE /* SHKEvernote.h in Headers */,
+				3D97E14C1612A5A5003945BE /* JSON.h in Headers */,
+				3D97E14D1612A5A5003945BE /* NSObject+SBJSON.h in Headers */,
+				3D97E14E1612A5A5003945BE /* NSString+SBJSON.h in Headers */,
+				3D97E14F1612A5A5003945BE /* SBJSON.h in Headers */,
+				3D97E1501612A5A5003945BE /* SBJsonBase.h in Headers */,
+				3D97E1511612A5A5003945BE /* SBJsonParser.h in Headers */,
+				3D97E1521612A5A5003945BE /* SBJsonWriter.h in Headers */,
+				3D97E1531612A5A5003945BE /* FBConnect.h in Headers */,
+				3D97E1541612A5A5003945BE /* FBRequest.h in Headers */,
+				3D97E1551612A5A5003945BE /* Facebook.h in Headers */,
+				3D97E1561612A5A5003945BE /* FBLoginDialog.h in Headers */,
+				3D97E1571612A5A5003945BE /* FBDialog.h in Headers */,
+				3D97E1581612A5A5003945BE /* SHKFacebook.h in Headers */,
+				3D97E1591612A5A5003945BE /* NSError+SHKFoursquareV2.h in Headers */,
+				3D97E15A1612A5A5003945BE /* SHKFoursquareV2CheckInForm.h in Headers */,
+				3D97E15B1612A5A5003945BE /* SHKFoursquareV2Venue.h in Headers */,
+				3D97E15C1612A5A5003945BE /* SHKFoursquareV2VenuesForm.h in Headers */,
+				3D97E15D1612A5A5003945BE /* SHKFoursquareV2.h in Headers */,
+				3D97E15E1612A5A5003945BE /* SHKFoursquareV2OAuthView.h in Headers */,
+				3D97E15F1612A5A5003945BE /* SHKFoursquareV2Request.h in Headers */,
+				3D97E1601612A5A5003945BE /* ObjectiveFlickr.h in Headers */,
+				3D97E1611612A5A5003945BE /* OFUtilities.h in Headers */,
+				3D97E1621612A5A5003945BE /* OFXMLMapper.h in Headers */,
+				3D97E1631612A5A5003945BE /* SHKFlickr.h in Headers */,
+				3D97E1641612A5A5003945BE /* SHKGoogleReader.h in Headers */,
+				3D97E1651612A5A5003945BE /* SHKInstapaper.h in Headers */,
+				3D97E1661612A5A5003945BE /* SHKLinkedIn.h in Headers */,
+				3D97E1671612A5A5003945BE /* SHKPinboard.h in Headers */,
+				3D97E1681612A5A5003945BE /* SHKReadItLater.h in Headers */,
+				3D97E1691612A5A5003945BE /* SHKTumblr.h in Headers */,
+				3D97E16A1612A5A5003945BE /* SHKiOS5Twitter.h in Headers */,
+				3D97E16B1612A5A5003945BE /* SHKTwitter.h in Headers */,
+				3D97E16C1612A5A5003945BE /* SHKActionSheet.h in Headers */,
+				3D97E16D1612A5A5003945BE /* SHKActivityIndicator.h in Headers */,
+				3D97E16E1612A5A5003945BE /* SHKFormController.h in Headers */,
+				3D97E16F1612A5A5003945BE /* SHKFormControllerLargeTextField.h in Headers */,
+				3D97E1701612A5A5003945BE /* SHKFormFieldCell.h in Headers */,
+				3D97E1711612A5A5003945BE /* SHKFormFieldSettings.h in Headers */,
+				3D97E1721612A5A5003945BE /* SHKFormOptionController.h in Headers */,
+				3D97E1731612A5A5003945BE /* SHKOAuthView.h in Headers */,
+				3D97E1741612A5A5003945BE /* SHKShareMenu.h in Headers */,
+				3D97E1751612A5A5003945BE /* Reachability.h in Headers */,
+				3D97E0F21612A4E3003945BE /* Base64Transcoder.h in Headers */,
+				3D97E0F31612A4E3003945BE /* hmac.h in Headers */,
+				3D97E0F41612A4E3003945BE /* sha1.h in Headers */,
+				3D97E0F51612A4E3003945BE /* FBFrictionlessRequestSettings.h in Headers */,
+				3D97E0F61612A4E3003945BE /* SHKFormFieldCellText.h in Headers */,
+				3D97E0F71612A4E3003945BE /* SHKFormFieldCellSwitch.h in Headers */,
+				3D97E0F81612A4E3003945BE /* SHKFormFieldCellOptionPicker.h in Headers */,
+				3D97E0F91612A4E3003945BE /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9241156BA2A0009CB40A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1791,6 +2203,23 @@
 			name = ILSShareKitFT;
 			productName = ShareKitLibrary;
 			productReference = 3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		3D97E0661612A4E3003945BE /* ILSShareKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D97E0FA1612A4E3003945BE /* Build configuration list for PBXNativeTarget "ILSShareKit" */;
+			buildPhases = (
+				3D97E0671612A4E3003945BE /* Sources */,
+				3D97E0EC1612A4E3003945BE /* Frameworks */,
+				3D97E0ED1612A4E3003945BE /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ILSShareKit;
+			productName = ShareKitLibrary;
+			productReference = 3D97E0FD1612A4E3003945BE /* libILSShareKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7A0F91D1156BA2A0009CB40A /* Static Library No Submodules */ = {
@@ -1880,6 +2309,7 @@
 				7AB5360E1552E26800171BCE /* Resource Bundle */,
 				7A0F91D1156BA2A0009CB40A /* Static Library No Submodules */,
 				3D8C9ED715E62DC900AF5919 /* ILSShareKitFT */,
+				3D97E0661612A4E3003945BE /* ILSShareKit */,
 			);
 		};
 /* End PBXProject section */
@@ -2017,6 +2447,145 @@
 				3D8C9F4015E62DC900AF5919 /* sha1.c in Sources */,
 				3D8C9F4115E62DC900AF5919 /* FBFrictionlessRequestSettings.m in Sources */,
 				3D8C9F5D15E62DC900AF5919 /* GTMNSString+HTML.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3D97E0671612A4E3003945BE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D97E0681612A4E3003945BE /* SHKKippt.m in Sources */,
+				3D97E0691612A4E3003945BE /* SHKCustomFormFieldCell.m in Sources */,
+				3D97E06A1612A4E3003945BE /* SHKCustomFormControllerLargeTextField.m in Sources */,
+				3D97E06B1612A4E3003945BE /* SHK.m in Sources */,
+				3D97E06C1612A4E3003945BE /* SHKItem.m in Sources */,
+				3D97E06D1612A4E3003945BE /* SHKOfflineSharer.m in Sources */,
+				3D97E06E1612A4E3003945BE /* SHKOAuthSharer.m in Sources */,
+				3D97E06F1612A4E3003945BE /* SHKSharer.m in Sources */,
+				3D97E0701612A4E3003945BE /* SHKSharerDelegate.m in Sources */,
+				3D97E0711612A4E3003945BE /* NSData+md5.m in Sources */,
+				3D97E0721612A4E3003945BE /* UIWebView+SHK.m in Sources */,
+				3D97E0731612A4E3003945BE /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
+				3D97E0741612A4E3003945BE /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
+				3D97E0751612A4E3003945BE /* JSONKit.m in Sources */,
+				3D97E0761612A4E3003945BE /* SSKeychain.m in Sources */,
+				3D97E0771612A4E3003945BE /* NSMutableURLRequest+Parameters.m in Sources */,
+				3D97E0781612A4E3003945BE /* NSString+URLEncoding.m in Sources */,
+				3D97E0791612A4E3003945BE /* NSURL+Base.m in Sources */,
+				3D97E07A1612A4E3003945BE /* OAAsynchronousDataFetcher.m in Sources */,
+				3D97E07B1612A4E3003945BE /* OAConsumer.m in Sources */,
+				3D97E07C1612A4E3003945BE /* OADataFetcher.m in Sources */,
+				3D97E07D1612A4E3003945BE /* OAHMAC_SHA1SignatureProvider.m in Sources */,
+				3D97E07E1612A4E3003945BE /* OAMutableURLRequest.m in Sources */,
+				3D97E07F1612A4E3003945BE /* OAPlaintextSignatureProvider.m in Sources */,
+				3D97E0801612A4E3003945BE /* OARequestParameter.m in Sources */,
+				3D97E0811612A4E3003945BE /* OAServiceTicket.m in Sources */,
+				3D97E0821612A4E3003945BE /* OAToken.m in Sources */,
+				3D97E0831612A4E3003945BE /* SHKRequest.m in Sources */,
+				3D97E0841612A4E3003945BE /* SHKXMLResponseParser.m in Sources */,
+				3D97E0851612A4E3003945BE /* SHKPrint.m in Sources */,
+				3D97E0861612A4E3003945BE /* SHKLogout.m in Sources */,
+				3D97E0871612A4E3003945BE /* SHKCopy.m in Sources */,
+				3D97E0881612A4E3003945BE /* SHKMail.m in Sources */,
+				3D97E0891612A4E3003945BE /* SHKSafari.m in Sources */,
+				3D97E08A1612A4E3003945BE /* SHKPhotoAlbum.m in Sources */,
+				3D97E08B1612A4E3003945BE /* SHKTextMessage.m in Sources */,
+				3D97E08C1612A4E3003945BE /* DefaultSHKConfigurator.m in Sources */,
+				3D97E08D1612A4E3003945BE /* SHKConfiguration.m in Sources */,
+				3D97E08E1612A4E3003945BE /* SHKReadability.m in Sources */,
+				3D97E08F1612A4E3003945BE /* SHKDiigo.m in Sources */,
+				3D97E0901612A4E3003945BE /* SHKVkontakteOAuthView.m in Sources */,
+				3D97E0911612A4E3003945BE /* SHKVkontakte.m in Sources */,
+				3D97E0921612A4E3003945BE /* (null) in Sources */,
+				3D97E0931612A4E3003945BE /* (null) in Sources */,
+				3D97E0941612A4E3003945BE /* (null) in Sources */,
+				3D97E0951612A4E3003945BE /* (null) in Sources */,
+				3D97E0961612A4E3003945BE /* (null) in Sources */,
+				3D97E0971612A4E3003945BE /* (null) in Sources */,
+				3D97E0981612A4E3003945BE /* (null) in Sources */,
+				3D97E0991612A4E3003945BE /* (null) in Sources */,
+				3D97E09A1612A4E3003945BE /* (null) in Sources */,
+				3D97E09B1612A4E3003945BE /* (null) in Sources */,
+				3D97E09C1612A4E3003945BE /* (null) in Sources */,
+				3D97E09D1612A4E3003945BE /* (null) in Sources */,
+				3D97E09E1612A4E3003945BE /* (null) in Sources */,
+				3D97E09F1612A4E3003945BE /* (null) in Sources */,
+				3D97E0A01612A4E3003945BE /* SHKEvernote.m in Sources */,
+				3D97E0A11612A4E3003945BE /* NSObject+SBJSON.m in Sources */,
+				3D97E0A21612A4E3003945BE /* NSString+SBJSON.m in Sources */,
+				3D97E0A31612A4E3003945BE /* SBJSON.m in Sources */,
+				3D97E0A41612A4E3003945BE /* SBJsonBase.m in Sources */,
+				3D97E0A51612A4E3003945BE /* SBJsonParser.m in Sources */,
+				3D97E0A61612A4E3003945BE /* SBJsonWriter.m in Sources */,
+				3D97E0A71612A4E3003945BE /* FBRequest.m in Sources */,
+				3D97E0A81612A4E3003945BE /* Facebook.m in Sources */,
+				3D97E0A91612A4E3003945BE /* FBLoginDialog.m in Sources */,
+				3D97E0AA1612A4E3003945BE /* FBDialog.m in Sources */,
+				3D97E0AB1612A4E3003945BE /* SHKFacebook.m in Sources */,
+				3D97E0AC1612A4E3003945BE /* NSError+SHKFoursquareV2.m in Sources */,
+				3D97E0AD1612A4E3003945BE /* SHKFoursquareV2CheckInForm.m in Sources */,
+				3D97E0AE1612A4E3003945BE /* SHKFoursquareV2Venue.m in Sources */,
+				3D97E0AF1612A4E3003945BE /* SHKFoursquareV2VenuesForm.m in Sources */,
+				3D97E0B01612A4E3003945BE /* SHKFoursquareV2.m in Sources */,
+				3D97E0B11612A4E3003945BE /* SHKFoursquareV2OAuthView.m in Sources */,
+				3D97E0B21612A4E3003945BE /* SHKFoursquareV2Request.m in Sources */,
+				3D97E0B31612A4E3003945BE /* ObjectiveFlickr.m in Sources */,
+				3D97E0B41612A4E3003945BE /* OFUtilities.m in Sources */,
+				3D97E0B51612A4E3003945BE /* OFXMLMapper.m in Sources */,
+				3D97E0B61612A4E3003945BE /* SHKFlickr.m in Sources */,
+				3D97E0B71612A4E3003945BE /* SHKGoogleReader.m in Sources */,
+				3D97E0B81612A4E3003945BE /* SHKInstapaper.m in Sources */,
+				3D97E0B91612A4E3003945BE /* SHKLinkedIn.m in Sources */,
+				3D97E0BA1612A4E3003945BE /* SHKPinboard.m in Sources */,
+				3D97E0BB1612A4E3003945BE /* SHKReadItLater.m in Sources */,
+				3D97E0BC1612A4E3003945BE /* SHKTumblr.m in Sources */,
+				3D97E0BD1612A4E3003945BE /* SHKiOS5Twitter.m in Sources */,
+				3D97E0BE1612A4E3003945BE /* SHKTwitter.m in Sources */,
+				3D97E0BF1612A4E3003945BE /* SHKActionSheet.m in Sources */,
+				3D97E0C01612A4E3003945BE /* SHKActivityIndicator.m in Sources */,
+				3D97E0C11612A4E3003945BE /* SHKFormController.m in Sources */,
+				3D97E0C21612A4E3003945BE /* SHKFormControllerLargeTextField.m in Sources */,
+				3D97E0C31612A4E3003945BE /* SHKFormFieldCell.m in Sources */,
+				3D97E0C41612A4E3003945BE /* SHKFormFieldSettings.m in Sources */,
+				3D97E0C51612A4E3003945BE /* SHKFormOptionController.m in Sources */,
+				3D97E0C61612A4E3003945BE /* SHKOAuthView.m in Sources */,
+				3D97E0C71612A4E3003945BE /* SHKShareMenu.m in Sources */,
+				3D97E0C81612A4E3003945BE /* Reachability.m in Sources */,
+				3D97E0C91612A4E3003945BE /* SHKDelicious.m in Sources */,
+				3D97E0CA1612A4E3003945BE /* LFHTTPRequest.m in Sources */,
+				3D97E0CB1612A4E3003945BE /* LFSiteReachability.m in Sources */,
+				3D97E0CC1612A4E3003945BE /* NSData+LFHTTPFormExtensions.m in Sources */,
+				3D97E0CD1612A4E3003945BE /* Base64Transcoder.c in Sources */,
+				3D97E0CE1612A4E3003945BE /* hmac.c in Sources */,
+				3D97E0CF1612A4E3003945BE /* sha1.c in Sources */,
+				3D97E0D01612A4E3003945BE /* FBFrictionlessRequestSettings.m in Sources */,
+				3D97E0D11612A4E3003945BE /* SHKFormFieldCellText.m in Sources */,
+				3D97E0D21612A4E3003945BE /* SHKFormFieldCellSwitch.m in Sources */,
+				3D97E0D31612A4E3003945BE /* SHKFormFieldCellOptionPicker.m in Sources */,
+				3D97E0D41612A4E3003945BE /* GCOAuth.m in Sources */,
+				3D97E0D51612A4E3003945BE /* NSData+Base64.m in Sources */,
+				3D97E0D61612A4E3003945BE /* TBinaryProtocol.m in Sources */,
+				3D97E0D71612A4E3003945BE /* TProtocolException.m in Sources */,
+				3D97E0D81612A4E3003945BE /* TProtocolUtil.m in Sources */,
+				3D97E0D91612A4E3003945BE /* TApplicationException.m in Sources */,
+				3D97E0DA1612A4E3003945BE /* TException.m in Sources */,
+				3D97E0DB1612A4E3003945BE /* THTTPClient.m in Sources */,
+				3D97E0DC1612A4E3003945BE /* TMemoryBuffer.m in Sources */,
+				3D97E0DD1612A4E3003945BE /* TTransportException.m in Sources */,
+				3D97E0DE1612A4E3003945BE /* EDAMErrors.m in Sources */,
+				3D97E0DF1612A4E3003945BE /* EDAMLimits.m in Sources */,
+				3D97E0E01612A4E3003945BE /* EDAMNoteStore.m in Sources */,
+				3D97E0E11612A4E3003945BE /* EDAMTypes.m in Sources */,
+				3D97E0E21612A4E3003945BE /* EDAMUserStore.m in Sources */,
+				3D97E0E31612A4E3003945BE /* EvernoteNoteStore.m in Sources */,
+				3D97E0E41612A4E3003945BE /* EvernoteSDK.m in Sources */,
+				3D97E0E51612A4E3003945BE /* EvernoteSession.m in Sources */,
+				3D97E0E61612A4E3003945BE /* EvernoteUserStore.m in Sources */,
+				3D97E0E71612A4E3003945BE /* ENAPI.m in Sources */,
+				3D97E0E81612A4E3003945BE /* ENCredentials.m in Sources */,
+				3D97E0E91612A4E3003945BE /* ENCredentialStore.m in Sources */,
+				3D97E0EA1612A4E3003945BE /* ENOAuthViewController.m in Sources */,
+				3D97E0EB1612A4E3003945BE /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2344,8 +2913,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
 				);
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
@@ -2382,8 +2951,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
-					armv6,
 					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
 				);
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
@@ -2404,6 +2973,66 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = ILSShareKitFT;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3D97E0FB1612A4E3003945BE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = ILSShareKit;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		3D97E0FC1612A4E3003945BE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD_32_BIT)",
+					armv6,
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = ILSShareKit;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2642,6 +3271,15 @@
 			buildConfigurations = (
 				3D8C9F6D15E62DC900AF5919 /* Debug */,
 				3D8C9F6E15E62DC900AF5919 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D97E0FA1612A4E3003945BE /* Build configuration list for PBXNativeTarget "ILSShareKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D97E0FB1612A4E3003945BE /* Debug */,
+				3D97E0FC1612A4E3003945BE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

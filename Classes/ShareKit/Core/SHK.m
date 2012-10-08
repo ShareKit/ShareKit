@@ -37,7 +37,7 @@
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
 #include <sys/xattr.h>
-
+#import "SHKEvernote.h"
 NSString * SHKLocalizedStringFormat(NSString* key);
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
 
@@ -96,6 +96,14 @@ BOOL SHKinit;
 #pragma mark -
 #pragma mark View Management
 
+- (void)popUpController:(UIViewController *)vc{
+    [[self getTopViewController:self.currentRootViewController] presentModalViewController:vc animated:YES];
+    [(UINavigationController *)vc navigationBar].barStyle =
+    [(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+    [(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
+    self.currentView = vc;
+}
+
 + (void)setRootViewController:(UIViewController *)vc
 {	
 	SHK *helper = [self currentHelper];
@@ -141,7 +149,7 @@ BOOL SHKinit;
 		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
         nav.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
 		
-		[topViewController presentModalViewController:nav animated:YES];			
+		[topViewController presentModalViewController:nav animated:NO];
 		self.currentView = nav;
 	}
 	
@@ -153,12 +161,12 @@ BOOL SHKinit;
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
+		if ([vc isKindOfClass:[SHKEvernote class]]) {           //fix SHKEvernote  presentController bug  qjhuan modifiy
+            [self performSelector:@selector(popUpController:) withObject:vc afterDelay:0.5];
+        }else {
+            [self popUpController:vc];
+        }
 		
-		[topViewController presentModalViewController:vc animated:YES];
-		[(UINavigationController *)vc navigationBar].barStyle = 
-		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
-		[(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
-		self.currentView = vc;
 	}
 		
 	self.pendingView = nil;		
@@ -259,7 +267,7 @@ BOOL SHKinit;
 		// This is an ugly way to do it, but it works.
 		// There seems to be an issue chaining modal views otherwise
 		// See: http://github.com/ideashower/ShareKit/issues#issue/24
-		[self performSelector:@selector(showPendingView) withObject:nil afterDelay:0.02];
+		[self performSelector:@selector(showPendingView) withObject:nil afterDelay:0.5];
 		return;
 	}
 }
