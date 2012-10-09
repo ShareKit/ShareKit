@@ -35,4 +35,8 @@
 + (BOOL)handleOpenURL:(NSURL*)url;
 + (void)handleDidBecomeActive;
 + (void)handleWillTerminate;
+
+// override point for subclasses that want to do something interesting while sending non-nativly
+- (void)doSend;
+
 @end

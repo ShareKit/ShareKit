@@ -126,7 +126,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     BOOL result = NO;
     FBSession *session =
 	[[[FBSession alloc] initWithAppID:SHKCONFIG(facebookAppId)
-						 permissions:nil	// FB only wants read or publish so use default read, request publish when we need it
+						 permissions:SHKCONFIG(facebookReadPermissions)	// FB only wants read or publish so use default read, request publish when we need it
 					 urlSchemeSuffix:SHKCONFIG(facebookLocalAppId)
 				  tokenCacheStrategy:nil] autorelease];
     
@@ -348,14 +348,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     {
 		// Ask for publish_actions permissions in context
 		if ([FBSession.activeSession.permissions
-			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookListOfPermissions
+			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
 			// No permissions found in session, ask for it
 			[self saveItemForLater:SHKPendingSend];
 			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
 			if(requestingPermisSHKFacebook == nil){
 				requestingPermisSHKFacebook = self;
 			}
-			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookListOfPermissions)
+			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
 														 [[SHKActivityIndicator currentIndicator] hide];
@@ -552,14 +552,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	BOOL tryToPresent = ![SHKCONFIG(forcePreIOS6FacebookPosting) boolValue] && [FBNativeDialogs canPresentShareDialogWithSession:[FBSession activeSession]];
 	if(tryToPresent){	// if there's a shot
 		if ([FBSession.activeSession.permissions
-			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookListOfPermissions
+			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
 			// No permissions found in session, ask for it
 			[self saveItemForLater:SHKPendingSend];
 			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
 			if(requestingPermisSHKFacebook == nil){
 				requestingPermisSHKFacebook = self;
 			}
-			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookListOfPermissions)
+			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
 														 [[SHKActivityIndicator currentIndicator] hide];

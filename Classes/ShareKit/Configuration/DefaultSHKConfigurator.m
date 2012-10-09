@@ -86,10 +86,12 @@
 //Change if your app needs some special Facebook permissions only. In most cases you can leave it as it is.
 
 // new with the 3.1 SDK facebook wants you to request read and publish permissions separatly. If you don't
-// you won't get a smooth login/auth flow. Since ShareKit does not require any read permissions we're going
-// to treat these as the publishing permissions.
-- (NSArray*)facebookListOfPermissions {    
+// you won't get a smooth login/auth flow. Since ShareKit does not require any read permissions.
+- (NSArray*)facebookWritePermissions {    
     return [NSArray arrayWithObjects:@"publish_actions", nil];
+}
+- (NSArray*)facebookReadPermissions {    
+    return nil;	// this is the defaul value for the SDK and will afford basic read permissions
 }
 
 /*
