@@ -57,13 +57,19 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 - (void) doSend;
 - (void) doNativeShow;
 - (void) doSHKShow;
+
+@property (readwrite,retain) NSMutableSet* pendingConnections;
 @end
 
 @implementation SHKFacebook
+
+@synthesize pendingConnections;
+
 - (id)init
 {
     self = [super init];
     if (self) {
+        self.pendingConnections = [[[NSMutableSet alloc] init] autorelease];
 		[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
     }
     return self;
@@ -71,6 +77,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void)dealloc
 {
+	[self cancelPendingRequests];
 	[FBSession.activeSession close];	// unhooks this instance from the sessionStateChanged callback
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
@@ -80,6 +87,21 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	[super dealloc];
 }
+
+- (void)cancelPendingRequests{
+	// since items are added and removed in the various handlers we're just
+	// going to make a copy of the set before we start telling things to cancel
+	// so that we don;t have to deal with having the collection be modified
+	// while working on it.
+	NSSet* tempSet = [NSSet setWithSet:self.pendingConnections];
+	for (id conn in tempSet) {
+		if ([conn respondsToSelector:@selector(cancel)]) {
+			[conn cancel];
+		}
+	}
+	[self.pendingConnections removeAllObjects];
+}
+
 
 - (BOOL)restoreItem{
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -92,7 +114,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		if (imagePath) {
 			self.item.image = [SHKFacebook storedImage:imagePath];
 		}
-		[defaults removeObjectForKey:kSHKStoredItemKey];
+		[SHKFacebook clearSavedItem];
 	}
 	[defaults synchronize];
 
@@ -321,10 +343,18 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	[self openSessionWithAllowLoginUI:YES];
 }
 
++ (void)clearSavedItem{
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+	[defaults removeObjectForKey:kSHKStoredItemKey];
+	[defaults removeObjectForKey:kSHKStoredActionKey];
+	[defaults synchronize];
+}
+
 + (void)logout
 {
+	[SHKFacebook clearSavedItem];
 	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKStoredItemKey];
 	[FBSession.activeSession closeAndClearTokenInformation];
 }
 
@@ -333,7 +363,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 -(void) sendDidCancel
 {
 	[super sendDidCancel];
+	[self cancelPendingRequests];
 	[FBSession.activeSession close];	// unhook us
+}
+
+- (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
+{
+	[self cancelPendingRequests];
+	[super sendDidFailWithError:error shouldRelogin:shouldRelogin];
 }
 
 - (BOOL)send
@@ -419,21 +456,25 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		NSString *description = self.item.facebookURLShareDescription;
 		if (description)
 			[params setObject:description forKey:@"description"];
-		[FBRequestConnection startWithGraphPath:@"me/feed"
-									 parameters:params
-									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-										 [self FBRequestHandlerCallback:connection result:result error:error];
-									 }];
+		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
+																parameters:params
+																HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+																	[self FBRequestHandlerCallback:connection result:result error:error];
+																}];
+		[self.pendingConnections addObject:con];
 		
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
 		[params setObject:item.text forKey:@"message"];
-		[FBRequestConnection startWithGraphPath:@"me/feed"
-									 parameters:params
-									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
+																 parameters:params
+																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
+									 {
 										 [self FBRequestHandlerCallback:connection result:result error:error];
 									 }];
+		[self.pendingConnections addObject:con];
+
 	}
 	else if (item.shareType == SHKShareTypeImage && item.image)
 	{
@@ -444,18 +485,20 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[params setObject:item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo
 		// via the dialog option:
-		[FBRequestConnection startWithGraphPath:@"me/photos"
-									 parameters:params
-									 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-										 [self FBRequestHandlerCallback:connection result:result error:error];
-									 }];
+		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/photos"
+																 parameters:params
+																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+																	 [self FBRequestHandlerCallback:connection result:result error:error];
+																 }];
+		[self.pendingConnections addObject:con];
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
 	{	// sharekit doesn't use this, I don't know who does
 		[self setQuiet:YES];
-		[FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+		FBRequestConnection* con = [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 			[self FBUserInfoRequestHandlerCallback:connection result:result error:error];
 		}];
+		[self.pendingConnections addObject:con];
 	}
 }
 
@@ -463,6 +506,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 						 result:(id) result
 						  error:(NSError *)error
 {
+	if(![self.pendingConnections containsObject:connection]){
+		NSLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
+	}
+	[self.pendingConnections removeObject:connection];
 	if (error) {
 		[[SHKActivityIndicator currentIndicator] hide];
 		[self sendDidFailWithError:error];
@@ -478,6 +525,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 						 result:(id) result
 						  error:(NSError *)error
 {
+	if(![self.pendingConnections containsObject:connection]){
+		NSLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
+	}
+	[self.pendingConnections removeObject:connection];
 	if(error){
 		[[SHKActivityIndicator currentIndicator] hide];
 		//check if user revoked app permissions
