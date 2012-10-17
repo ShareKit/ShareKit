@@ -28,6 +28,7 @@
 #import <UIKit/UIKit.h>
 #import "SHK.h"
 
+@class SHKSharer;
 @protocol SHKShareItemDelegate;
 
 @interface SHKShareMenu : UITableViewController 
@@ -36,6 +37,7 @@
 	NSMutableArray *tableData;
 	NSMutableArray *exclusions;
 	id<SHKShareItemDelegate> shareDelegate;
+	SHKSharer* limboSharer;
 }
 
 @property (nonatomic, retain) SHKItem *item;
