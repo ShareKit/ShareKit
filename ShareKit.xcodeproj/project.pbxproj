@@ -170,14 +170,6 @@
 		7A1AFD36160E14340086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFD3B160E14520086B98A /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
-		7A1AFD43160E14590086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFD44160E14590086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFD45160E14590086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFD46160E14590086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFD47160E14590086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFD48160E14590086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFD49160E14590086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
-		7A1AFD4E160E14840086B98A /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		7A26E5BB156CD8A70011E15F /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
 		7A26E5BC156CD8A70011E15F /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
@@ -317,39 +309,47 @@
 		7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
 		7ABCDBB2157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
-		AA21CE48162E063800F6C709 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		AA3B1DDE161292A100036C82 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDC161292A100036C82 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA3B1DDF161292A100036C82 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDD161292A100036C82 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		AA3B1DE51612938F00036C82 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DE41612938F00036C82 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		AAE40A96161A1B5C00DAA832 /* SHKFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE06013CCBED400A2118F /* SHKFlickr.h */; };
-		AAE40A97161A1B5C00DAA832 /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
-		AAE40A98161A1B8100DAA832 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
-		AAE40A99161A1BA200DAA832 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
-		AAE40A9A161A1BAD00DAA832 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
-		AAE40A9B161A1BB400DAA832 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
-		AAE40A9C161A1BBB00DAA832 /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BC11DBE3B9004A1712 /* SHKMail.m */; };
-		AAE40A9D161A1BC400DAA832 /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BF11DBE3B9004A1712 /* SHKSafari.m */; };
-		AAE40A9E161A1BCF00DAA832 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
-		AAE40A9F161A1BF200DAA832 /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F3B11291C45700D2A41E /* SHKTextMessage.m */; };
-		AAE40AA0161A1C1500DAA832 /* SHKKippt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A52EDF515CB032B00A737D8 /* SHKKippt.m */; };
-		AAE40AA1161A1C2000DAA832 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
+		AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
+		AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
+		AABBECCC162F0756009D46E4 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
+		AABBECD5162F0779009D46E4 /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BC11DBE3B9004A1712 /* SHKMail.m */; };
+		AABBECDE162F07B4009D46E4 /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BF11DBE3B9004A1712 /* SHKSafari.m */; };
+		AABBECE7162F07DF009D46E4 /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
+		AABBECF0162F080F009D46E4 /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F3B11291C45700D2A41E /* SHKTextMessage.m */; };
+		AABBECF9162F0835009D46E4 /* SHKKippt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A52EDF515CB032B00A737D8 /* SHKKippt.m */; };
+		AABBED02162F0858009D46E4 /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
+		AABBED0B162F087F009D46E4 /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
+		AABBED14162F08A3009D46E4 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
+		AABBED15162F08A3009D46E4 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
+		AABBED1E162F08E6009D46E4 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
+		AABBED29162F0B65009D46E4 /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
+		AABBED2B162F0B65009D46E4 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
+		AABBED2D162F0B65009D46E4 /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
+		AABBED2E162F0B65009D46E4 /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
+		AABBED2F162F0B65009D46E4 /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
+		AABBED30162F0B65009D46E4 /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
+		AABBED31162F0B65009D46E4 /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
+		AABBED32162F0B65009D46E4 /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
+		AABBED33162F0B65009D46E4 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
+		AABBED3A162F0B86009D46E4 /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
+		AABBED3B162F0B86009D46E4 /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
+		AABBED3C162F0B86009D46E4 /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
+		AABBED3D162F0B86009D46E4 /* SHKFoursquareV2VenuesForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */; };
+		AABBED3E162F0B86009D46E4 /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
+		AABBED3F162F0B86009D46E4 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
+		AABBED40162F0B86009D46E4 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
+		AABBED49162F0BA7009D46E4 /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
+		AABBED4C162F0BA7009D46E4 /* SHKFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE06013CCBED400A2118F /* SHKFlickr.h */; };
+		AABBED53162F0BC5009D46E4 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
+		AABBED5C162F0BE8009D46E4 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
+		AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
+		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
+		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
+		AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		AAE40AA2161A1C2900DAA832 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
-		AAE40AA3161A1C3500DAA832 /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
-		AAE40AA4161A1C4500DAA832 /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
-		AAE40AA5161A1C4500DAA832 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		AAE40AA6161A1C5D00DAA832 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
-		AAE40AA7161A1C8D00DAA832 /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
-		AAE40AA8161A1C8D00DAA832 /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
-		AAE40AA9161A1C8D00DAA832 /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
-		AAE40AAA161A1C8D00DAA832 /* SHKFoursquareV2VenuesForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */; };
-		AAE40AAB161A1C8D00DAA832 /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
-		AAE40AAC161A1C8D00DAA832 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
-		AAE40AAD161A1C8D00DAA832 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
-		AAE40AAE161A1CA100DAA832 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
-		AAE40AAF161A1CA700DAA832 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
-		AAE40AB0161A1CAE00DAA832 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
-		AAE40AB1161A1CB700DAA832 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		AAE40AB2161A1CBE00DAA832 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		AAE40C6E161A21D700DAA832 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		AAF54549160BB0F200A93975 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
@@ -369,13 +369,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
-		};
-		AA21CE44162E060E00F6C709 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -397,6 +390,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = B9CBC519152537270036AA71;
 			remoteInfo = FacebookSDKTests;
+		};
+		AABBED27162F0B65009D46E4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
 		};
 		AAE40C6C161A21C400DAA832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -604,7 +604,6 @@
 		7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libEvernote SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD24160E13740086B98A /* libFlickr SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFlickr SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD3A160E14340086B98A /* libTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFD4D160E14590086B98A /* libFacebook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFacebook.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+NSNullsToEmptyStrings.h"; sourceTree = "<group>"; };
 		7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+NSNullsToEmptyStrings.m"; sourceTree = "<group>"; };
 		7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
@@ -659,6 +658,27 @@
 		AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
+		AABBECBE162F063F009D46E4 /* libPrint.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPrint.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECC9162F0719009D46E4 /* libLogout.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLogout.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECD2162F0756009D46E4 /* libCopy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCopy.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECDB162F0779009D46E4 /* libEmail.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEmail.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECE4162F07B4009D46E4 /* libOpen in Safari.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in Safari.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECED162F07DF009D46E4 /* libSave to Album.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSave to Album.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECF6162F080F009D46E4 /* libText Message.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libText Message.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBECFF162F0835009D46E4 /* libKippt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKippt.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED08162F0858009D46E4 /* libDelicious.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDelicious.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED11162F087F009D46E4 /* libDiigo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDiigo.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED1B162F08A3009D46E4 /* libVKontakte.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libVKontakte.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED24162F08E6009D46E4 /* libEvernote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libEvernote.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED37162F0B65009D46E4 /* libFacebook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFacebook.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED46162F0B86009D46E4 /* libFoursquareV2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFoursquareV2.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED50162F0BA7009D46E4 /* libFlickr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFlickr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Reader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED62162F0BE8009D46E4 /* libInstapaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstapaper.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED6B162F0C03009D46E4 /* libLinkedIn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLinkedIn.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED74162F0C1A009D46E4 /* libPinboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPinboard.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED7D162F0C33009D46E4 /* libRead It Later.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRead It Later.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBED86162F0C4D009D46E4 /* libTumblr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTumblr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDiigo.m; sourceTree = "<group>"; };
@@ -778,14 +798,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFD41160E14590086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA21CE48162E063800F6C709 /* libfacebook_ios_sdk.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AB5342B1552AADD00171BCE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -801,76 +813,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE02CD160E188400FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02DE160E18A700FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02FB160E1A3F00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE030C160E1A6300FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE031D160E1A8A00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE032E160E1ABC00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE033F160E1AF400FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0350160E1B3A00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0360160E1B3D00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0370160E1B3E00FEC06E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AEE0380160E1B4000FEC06E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,70 +820,148 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0390160E1B4200FEC06E /* Frameworks */ = {
+		AABBECB9162F063F009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03A6160E1C0600FEC06E /* Frameworks */ = {
+		AABBECC4162F0719009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03B6160E1C0800FEC06E /* Frameworks */ = {
+		AABBECCD162F0756009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03C6160E1C0C00FEC06E /* Frameworks */ = {
+		AABBECD6162F0779009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03D6160E1C0D00FEC06E /* Frameworks */ = {
+		AABBECDF162F07B4009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03E6160E1C0E00FEC06E /* Frameworks */ = {
+		AABBECE8162F07DF009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0401160E1D5400FEC06E /* Frameworks */ = {
+		AABBECF1162F080F009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0411160E1D5800FEC06E /* Frameworks */ = {
+		AABBECFA162F0835009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0421160E1D5A00FEC06E /* Frameworks */ = {
+		AABBED03162F0858009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0431160E1D5B00FEC06E /* Frameworks */ = {
+		AABBED0C162F087F009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED16162F08A3009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED1F162F08E6009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED2A162F0B65009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED2B162F0B65009D46E4 /* libfacebook_ios_sdk.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED41162F0B86009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED4A162F0BA7009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED54162F0BC5009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED5D162F0BE8009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED66162F0C03009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED6F162F0C1A009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED78162F0C33009D46E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED81162F0C4D009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -973,9 +993,29 @@
 				7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */,
 				7A1AFD24160E13740086B98A /* libFlickr SDK.a */,
 				7A1AFD3A160E14340086B98A /* libTwitter.a */,
-				7A1AFD4D160E14590086B98A /* libFacebook.a */,
 				7A16F37E161340DD0019645D /* libOAuth.a */,
 				7A16F3C216134A890019645D /* libInstagram.a */,
+				AABBECBE162F063F009D46E4 /* libPrint.a */,
+				AABBECC9162F0719009D46E4 /* libLogout.a */,
+				AABBECD2162F0756009D46E4 /* libCopy.a */,
+				AABBECDB162F0779009D46E4 /* libEmail.a */,
+				AABBECE4162F07B4009D46E4 /* libOpen in Safari.a */,
+				AABBECED162F07DF009D46E4 /* libSave to Album.a */,
+				AABBECF6162F080F009D46E4 /* libText Message.a */,
+				AABBECFF162F0835009D46E4 /* libKippt.a */,
+				AABBED08162F0858009D46E4 /* libDelicious.a */,
+				AABBED11162F087F009D46E4 /* libDiigo.a */,
+				AABBED1B162F08A3009D46E4 /* libVKontakte.a */,
+				AABBED24162F08E6009D46E4 /* libEvernote.a */,
+				AABBED37162F0B65009D46E4 /* libFacebook.a */,
+				AABBED46162F0B86009D46E4 /* libFoursquareV2.a */,
+				AABBED50162F0BA7009D46E4 /* libFlickr.a */,
+				AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */,
+				AABBED62162F0BE8009D46E4 /* libInstapaper.a */,
+				AABBED6B162F0C03009D46E4 /* libLinkedIn.a */,
+				AABBED74162F0C1A009D46E4 /* libPinboard.a */,
+				AABBED7D162F0C33009D46E4 /* libRead It Later.a */,
+				AABBED86162F0C4D009D46E4 /* libTumblr.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1874,20 +1914,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFD42160E14590086B98A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFD43160E14590086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFD44160E14590086B98A /* hmac.h in Headers */,
-				7A1AFD45160E14590086B98A /* sha1.h in Headers */,
-				7A1AFD46160E14590086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFD47160E14590086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFD48160E14590086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFD49160E14590086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AB5342C1552AADD00171BCE /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1907,76 +1933,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE02CE160E188400FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02DF160E18A700FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02FC160E1A3F00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE030D160E1A6300FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE031E160E1A8A00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE032F160E1ABC00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0340160E1AF400FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0351160E1B3A00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0361160E1B3D00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0371160E1B3E00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AEE0381160E1B4000FEC06E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1984,71 +1940,155 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0391160E1B4200FEC06E /* Headers */ = {
+		AABBECBA162F063F009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03A7160E1C0600FEC06E /* Headers */ = {
+		AABBECC5162F0719009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03B7160E1C0800FEC06E /* Headers */ = {
+		AABBECCE162F0756009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03C7160E1C0C00FEC06E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A96161A1B5C00DAA832 /* SHKFlickr.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE03D7160E1C0D00FEC06E /* Headers */ = {
+		AABBECD7162F0779009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03E7160E1C0E00FEC06E /* Headers */ = {
+		AABBECE0162F07B4009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0402160E1D5400FEC06E /* Headers */ = {
+		AABBECE9162F07DF009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0412160E1D5800FEC06E /* Headers */ = {
+		AABBECF2162F080F009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0422160E1D5A00FEC06E /* Headers */ = {
+		AABBECFB162F0835009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE0432160E1D5B00FEC06E /* Headers */ = {
+		AABBED04162F0858009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED0D162F087F009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED17162F08A3009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED20162F08E6009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED2C162F0B65009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED2D162F0B65009D46E4 /* Base64Transcoder.h in Headers */,
+				AABBED2E162F0B65009D46E4 /* hmac.h in Headers */,
+				AABBED2F162F0B65009D46E4 /* sha1.h in Headers */,
+				AABBED30162F0B65009D46E4 /* SHKFormFieldCellText.h in Headers */,
+				AABBED31162F0B65009D46E4 /* SHKFormFieldCellSwitch.h in Headers */,
+				AABBED32162F0B65009D46E4 /* SHKFormFieldCellOptionPicker.h in Headers */,
+				AABBED33162F0B65009D46E4 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED42162F0B86009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED4B162F0BA7009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED4C162F0BA7009D46E4 /* SHKFlickr.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED55162F0BC5009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED5E162F0BE8009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED67162F0C03009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED70162F0C1A009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED79162F0C33009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED82162F0C4D009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2231,24 +2271,6 @@
 			productReference = 7A1AFD3A160E14340086B98A /* libTwitter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7A1AFD3D160E14590086B98A /* Facebook */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFD4A160E14590086B98A /* Build configuration list for PBXNativeTarget "Facebook" */;
-			buildPhases = (
-				7A1AFD3E160E14590086B98A /* Sources */,
-				7A1AFD41160E14590086B98A /* Frameworks */,
-				7A1AFD42160E14590086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA21CE45162E060E00F6C709 /* PBXTargetDependency */,
-			);
-			name = Facebook;
-			productName = ShareKitLibrary;
-			productReference = 7A1AFD4D160E14590086B98A /* libFacebook.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		7AB5342D1552AADD00171BCE /* Static Library */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */;
@@ -2284,166 +2306,6 @@
 			productReference = 7AB5360F1552E26800171BCE /* ShareKit.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		7AEE02CA160E188400FEC06E /* Email */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE02D6160E188400FEC06E /* Build configuration list for PBXNativeTarget "Email" */;
-			buildPhases = (
-				7AEE02CB160E188400FEC06E /* Sources */,
-				7AEE02CD160E188400FEC06E /* Frameworks */,
-				7AEE02CE160E188400FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Email;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE02DB160E18A700FEC06E /* Text Message */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE02E7160E18A700FEC06E /* Build configuration list for PBXNativeTarget "Text Message" */;
-			buildPhases = (
-				7AEE02DC160E18A700FEC06E /* Sources */,
-				7AEE02DE160E18A700FEC06E /* Frameworks */,
-				7AEE02DF160E18A700FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Text Message";
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE02F8160E1A3F00FEC06E /* Print */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0304160E1A3F00FEC06E /* Build configuration list for PBXNativeTarget "Print" */;
-			buildPhases = (
-				7AEE02F9160E1A3F00FEC06E /* Sources */,
-				7AEE02FB160E1A3F00FEC06E /* Frameworks */,
-				7AEE02FC160E1A3F00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Print;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE0309160E1A6300FEC06E /* Logout */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0315160E1A6300FEC06E /* Build configuration list for PBXNativeTarget "Logout" */;
-			buildPhases = (
-				7AEE030A160E1A6300FEC06E /* Sources */,
-				7AEE030C160E1A6300FEC06E /* Frameworks */,
-				7AEE030D160E1A6300FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Logout;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE031A160E1A8A00FEC06E /* Copy */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0326160E1A8A00FEC06E /* Build configuration list for PBXNativeTarget "Copy" */;
-			buildPhases = (
-				7AEE031B160E1A8A00FEC06E /* Sources */,
-				7AEE031D160E1A8A00FEC06E /* Frameworks */,
-				7AEE031E160E1A8A00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Copy;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE032B160E1ABC00FEC06E /* Open in Safari */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0337160E1ABC00FEC06E /* Build configuration list for PBXNativeTarget "Open in Safari" */;
-			buildPhases = (
-				7AEE032C160E1ABC00FEC06E /* Sources */,
-				7AEE032E160E1ABC00FEC06E /* Frameworks */,
-				7AEE032F160E1ABC00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Open in Safari";
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE033C160E1AF400FEC06E /* Save to Album */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0348160E1AF400FEC06E /* Build configuration list for PBXNativeTarget "Save to Album" */;
-			buildPhases = (
-				7AEE033D160E1AF400FEC06E /* Sources */,
-				7AEE033F160E1AF400FEC06E /* Frameworks */,
-				7AEE0340160E1AF400FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Save to Album";
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE034D160E1B3A00FEC06E /* Kippt */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0359160E1B3A00FEC06E /* Build configuration list for PBXNativeTarget "Kippt" */;
-			buildPhases = (
-				7AEE034E160E1B3A00FEC06E /* Sources */,
-				7AEE0350160E1B3A00FEC06E /* Frameworks */,
-				7AEE0351160E1B3A00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Kippt;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE035D160E1B3D00FEC06E /* Delicious */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0369160E1B3D00FEC06E /* Build configuration list for PBXNativeTarget "Delicious" */;
-			buildPhases = (
-				7AEE035E160E1B3D00FEC06E /* Sources */,
-				7AEE0360160E1B3D00FEC06E /* Frameworks */,
-				7AEE0361160E1B3D00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Delicious;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE036D160E1B3E00FEC06E /* Diigo */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0379160E1B3E00FEC06E /* Build configuration list for PBXNativeTarget "Diigo" */;
-			buildPhases = (
-				7AEE036E160E1B3E00FEC06E /* Sources */,
-				7AEE0370160E1B3E00FEC06E /* Frameworks */,
-				7AEE0371160E1B3E00FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Diigo;
-			productName = ShareKitLibrary;
-			productType = "com.apple.product-type.library.static";
-		};
 		7AEE037D160E1B4000FEC06E /* Readability */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AEE0389160E1B4000FEC06E /* Build configuration list for PBXNativeTarget "Readability" */;
@@ -2460,13 +2322,183 @@
 			productName = ShareKitLibrary;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE038D160E1B4200FEC06E /* VKontakte */ = {
+		AABBECB6162F063F009D46E4 /* Print */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0399160E1B4200FEC06E /* Build configuration list for PBXNativeTarget "VKontakte" */;
+			buildConfigurationList = AABBECBB162F063F009D46E4 /* Build configuration list for PBXNativeTarget "Print" */;
 			buildPhases = (
-				7AEE038E160E1B4200FEC06E /* Sources */,
-				7AEE0390160E1B4200FEC06E /* Frameworks */,
-				7AEE0391160E1B4200FEC06E /* Headers */,
+				AABBECB7162F063F009D46E4 /* Sources */,
+				AABBECB9162F063F009D46E4 /* Frameworks */,
+				AABBECBA162F063F009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Print;
+			productName = ShareKitLibrary;
+			productReference = AABBECBE162F063F009D46E4 /* libPrint.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECC1162F0719009D46E4 /* Logout */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECC6162F0719009D46E4 /* Build configuration list for PBXNativeTarget "Logout" */;
+			buildPhases = (
+				AABBECC2162F0719009D46E4 /* Sources */,
+				AABBECC4162F0719009D46E4 /* Frameworks */,
+				AABBECC5162F0719009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Logout;
+			productName = ShareKitLibrary;
+			productReference = AABBECC9162F0719009D46E4 /* libLogout.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECCA162F0756009D46E4 /* Copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECCF162F0756009D46E4 /* Build configuration list for PBXNativeTarget "Copy" */;
+			buildPhases = (
+				AABBECCB162F0756009D46E4 /* Sources */,
+				AABBECCD162F0756009D46E4 /* Frameworks */,
+				AABBECCE162F0756009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Copy;
+			productName = ShareKitLibrary;
+			productReference = AABBECD2162F0756009D46E4 /* libCopy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECD3162F0779009D46E4 /* Email */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECD8162F0779009D46E4 /* Build configuration list for PBXNativeTarget "Email" */;
+			buildPhases = (
+				AABBECD4162F0779009D46E4 /* Sources */,
+				AABBECD6162F0779009D46E4 /* Frameworks */,
+				AABBECD7162F0779009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Email;
+			productName = ShareKitLibrary;
+			productReference = AABBECDB162F0779009D46E4 /* libEmail.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECDC162F07B4009D46E4 /* Open in Safari */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECE1162F07B4009D46E4 /* Build configuration list for PBXNativeTarget "Open in Safari" */;
+			buildPhases = (
+				AABBECDD162F07B4009D46E4 /* Sources */,
+				AABBECDF162F07B4009D46E4 /* Frameworks */,
+				AABBECE0162F07B4009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Open in Safari";
+			productName = ShareKitLibrary;
+			productReference = AABBECE4162F07B4009D46E4 /* libOpen in Safari.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECE5162F07DF009D46E4 /* Save to Album */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECEA162F07DF009D46E4 /* Build configuration list for PBXNativeTarget "Save to Album" */;
+			buildPhases = (
+				AABBECE6162F07DF009D46E4 /* Sources */,
+				AABBECE8162F07DF009D46E4 /* Frameworks */,
+				AABBECE9162F07DF009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Save to Album";
+			productName = ShareKitLibrary;
+			productReference = AABBECED162F07DF009D46E4 /* libSave to Album.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECEE162F080F009D46E4 /* Text Message */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECF3162F080F009D46E4 /* Build configuration list for PBXNativeTarget "Text Message" */;
+			buildPhases = (
+				AABBECEF162F080F009D46E4 /* Sources */,
+				AABBECF1162F080F009D46E4 /* Frameworks */,
+				AABBECF2162F080F009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Text Message";
+			productName = ShareKitLibrary;
+			productReference = AABBECF6162F080F009D46E4 /* libText Message.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBECF7162F0835009D46E4 /* Kippt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBECFC162F0835009D46E4 /* Build configuration list for PBXNativeTarget "Kippt" */;
+			buildPhases = (
+				AABBECF8162F0835009D46E4 /* Sources */,
+				AABBECFA162F0835009D46E4 /* Frameworks */,
+				AABBECFB162F0835009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Kippt;
+			productName = ShareKitLibrary;
+			productReference = AABBECFF162F0835009D46E4 /* libKippt.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBED00162F0858009D46E4 /* Delicious */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBED05162F0858009D46E4 /* Build configuration list for PBXNativeTarget "Delicious" */;
+			buildPhases = (
+				AABBED01162F0858009D46E4 /* Sources */,
+				AABBED03162F0858009D46E4 /* Frameworks */,
+				AABBED04162F0858009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Delicious;
+			productName = ShareKitLibrary;
+			productReference = AABBED08162F0858009D46E4 /* libDelicious.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBED09162F087F009D46E4 /* Diigo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBED0E162F087F009D46E4 /* Build configuration list for PBXNativeTarget "Diigo" */;
+			buildPhases = (
+				AABBED0A162F087F009D46E4 /* Sources */,
+				AABBED0C162F087F009D46E4 /* Frameworks */,
+				AABBED0D162F087F009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Diigo;
+			productName = ShareKitLibrary;
+			productReference = AABBED11162F087F009D46E4 /* libDiigo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBED12162F08A3009D46E4 /* VKontakte */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBED18162F08A3009D46E4 /* Build configuration list for PBXNativeTarget "VKontakte" */;
+			buildPhases = (
+				AABBED13162F08A3009D46E4 /* Sources */,
+				AABBED16162F08A3009D46E4 /* Frameworks */,
+				AABBED17162F08A3009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2474,15 +2506,16 @@
 			);
 			name = VKontakte;
 			productName = ShareKitLibrary;
+			productReference = AABBED1B162F08A3009D46E4 /* libVKontakte.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03A3160E1C0600FEC06E /* Evernote */ = {
+		AABBED1C162F08E6009D46E4 /* Evernote */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE03AF160E1C0600FEC06E /* Build configuration list for PBXNativeTarget "Evernote" */;
+			buildConfigurationList = AABBED21162F08E6009D46E4 /* Build configuration list for PBXNativeTarget "Evernote" */;
 			buildPhases = (
-				7AEE03A4160E1C0600FEC06E /* Sources */,
-				7AEE03A6160E1C0600FEC06E /* Frameworks */,
-				7AEE03A7160E1C0600FEC06E /* Headers */,
+				AABBED1D162F08E6009D46E4 /* Sources */,
+				AABBED1F162F08E6009D46E4 /* Frameworks */,
+				AABBED20162F08E6009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2490,15 +2523,34 @@
 			);
 			name = Evernote;
 			productName = ShareKitLibrary;
+			productReference = AABBED24162F08E6009D46E4 /* libEvernote.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03B3160E1C0800FEC06E /* FoursquareV2 */ = {
+		AABBED25162F0B65009D46E4 /* Facebook */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE03BF160E1C0800FEC06E /* Build configuration list for PBXNativeTarget "FoursquareV2" */;
+			buildConfigurationList = AABBED34162F0B65009D46E4 /* Build configuration list for PBXNativeTarget "Facebook" */;
 			buildPhases = (
-				7AEE03B4160E1C0800FEC06E /* Sources */,
-				7AEE03B6160E1C0800FEC06E /* Frameworks */,
-				7AEE03B7160E1C0800FEC06E /* Headers */,
+				AABBED28162F0B65009D46E4 /* Sources */,
+				AABBED2A162F0B65009D46E4 /* Frameworks */,
+				AABBED2C162F0B65009D46E4 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABBED26162F0B65009D46E4 /* PBXTargetDependency */,
+			);
+			name = Facebook;
+			productName = ShareKitLibrary;
+			productReference = AABBED37162F0B65009D46E4 /* libFacebook.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AABBED38162F0B86009D46E4 /* FoursquareV2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABBED43162F0B86009D46E4 /* Build configuration list for PBXNativeTarget "FoursquareV2" */;
+			buildPhases = (
+				AABBED39162F0B86009D46E4 /* Sources */,
+				AABBED41162F0B86009D46E4 /* Frameworks */,
+				AABBED42162F0B86009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2506,15 +2558,16 @@
 			);
 			name = FoursquareV2;
 			productName = ShareKitLibrary;
+			productReference = AABBED46162F0B86009D46E4 /* libFoursquareV2.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03C3160E1C0C00FEC06E /* Flickr */ = {
+		AABBED47162F0BA7009D46E4 /* Flickr */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE03CF160E1C0C00FEC06E /* Build configuration list for PBXNativeTarget "Flickr" */;
+			buildConfigurationList = AABBED4D162F0BA7009D46E4 /* Build configuration list for PBXNativeTarget "Flickr" */;
 			buildPhases = (
-				7AEE03C4160E1C0C00FEC06E /* Sources */,
-				7AEE03C6160E1C0C00FEC06E /* Frameworks */,
-				7AEE03C7160E1C0C00FEC06E /* Headers */,
+				AABBED48162F0BA7009D46E4 /* Sources */,
+				AABBED4A162F0BA7009D46E4 /* Frameworks */,
+				AABBED4B162F0BA7009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2522,15 +2575,16 @@
 			);
 			name = Flickr;
 			productName = ShareKitLibrary;
+			productReference = AABBED50162F0BA7009D46E4 /* libFlickr.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03D3160E1C0D00FEC06E /* Google Reader */ = {
+		AABBED51162F0BC5009D46E4 /* Google Reader */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE03DF160E1C0D00FEC06E /* Build configuration list for PBXNativeTarget "Google Reader" */;
+			buildConfigurationList = AABBED56162F0BC5009D46E4 /* Build configuration list for PBXNativeTarget "Google Reader" */;
 			buildPhases = (
-				7AEE03D4160E1C0D00FEC06E /* Sources */,
-				7AEE03D6160E1C0D00FEC06E /* Frameworks */,
-				7AEE03D7160E1C0D00FEC06E /* Headers */,
+				AABBED52162F0BC5009D46E4 /* Sources */,
+				AABBED54162F0BC5009D46E4 /* Frameworks */,
+				AABBED55162F0BC5009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2538,15 +2592,16 @@
 			);
 			name = "Google Reader";
 			productName = ShareKitLibrary;
+			productReference = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03E3160E1C0E00FEC06E /* Instapaper */ = {
+		AABBED5A162F0BE8009D46E4 /* Instapaper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE03EF160E1C0E00FEC06E /* Build configuration list for PBXNativeTarget "Instapaper" */;
+			buildConfigurationList = AABBED5F162F0BE8009D46E4 /* Build configuration list for PBXNativeTarget "Instapaper" */;
 			buildPhases = (
-				7AEE03E4160E1C0E00FEC06E /* Sources */,
-				7AEE03E6160E1C0E00FEC06E /* Frameworks */,
-				7AEE03E7160E1C0E00FEC06E /* Headers */,
+				AABBED5B162F0BE8009D46E4 /* Sources */,
+				AABBED5D162F0BE8009D46E4 /* Frameworks */,
+				AABBED5E162F0BE8009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2554,15 +2609,16 @@
 			);
 			name = Instapaper;
 			productName = ShareKitLibrary;
+			productReference = AABBED62162F0BE8009D46E4 /* libInstapaper.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE03FE160E1D5400FEC06E /* LinkedIn */ = {
+		AABBED63162F0C03009D46E4 /* LinkedIn */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE040A160E1D5400FEC06E /* Build configuration list for PBXNativeTarget "LinkedIn" */;
+			buildConfigurationList = AABBED68162F0C03009D46E4 /* Build configuration list for PBXNativeTarget "LinkedIn" */;
 			buildPhases = (
-				7AEE03FF160E1D5400FEC06E /* Sources */,
-				7AEE0401160E1D5400FEC06E /* Frameworks */,
-				7AEE0402160E1D5400FEC06E /* Headers */,
+				AABBED64162F0C03009D46E4 /* Sources */,
+				AABBED66162F0C03009D46E4 /* Frameworks */,
+				AABBED67162F0C03009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2570,15 +2626,16 @@
 			);
 			name = LinkedIn;
 			productName = ShareKitLibrary;
+			productReference = AABBED6B162F0C03009D46E4 /* libLinkedIn.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE040E160E1D5800FEC06E /* Pinboard */ = {
+		AABBED6C162F0C1A009D46E4 /* Pinboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE041A160E1D5800FEC06E /* Build configuration list for PBXNativeTarget "Pinboard" */;
+			buildConfigurationList = AABBED71162F0C1A009D46E4 /* Build configuration list for PBXNativeTarget "Pinboard" */;
 			buildPhases = (
-				7AEE040F160E1D5800FEC06E /* Sources */,
-				7AEE0411160E1D5800FEC06E /* Frameworks */,
-				7AEE0412160E1D5800FEC06E /* Headers */,
+				AABBED6D162F0C1A009D46E4 /* Sources */,
+				AABBED6F162F0C1A009D46E4 /* Frameworks */,
+				AABBED70162F0C1A009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2586,15 +2643,16 @@
 			);
 			name = Pinboard;
 			productName = ShareKitLibrary;
+			productReference = AABBED74162F0C1A009D46E4 /* libPinboard.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE041E160E1D5A00FEC06E /* Read It Later */ = {
+		AABBED75162F0C33009D46E4 /* Read It Later */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE042A160E1D5A00FEC06E /* Build configuration list for PBXNativeTarget "Read It Later" */;
+			buildConfigurationList = AABBED7A162F0C33009D46E4 /* Build configuration list for PBXNativeTarget "Read It Later" */;
 			buildPhases = (
-				7AEE041F160E1D5A00FEC06E /* Sources */,
-				7AEE0421160E1D5A00FEC06E /* Frameworks */,
-				7AEE0422160E1D5A00FEC06E /* Headers */,
+				AABBED76162F0C33009D46E4 /* Sources */,
+				AABBED78162F0C33009D46E4 /* Frameworks */,
+				AABBED79162F0C33009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -2602,22 +2660,24 @@
 			);
 			name = "Read It Later";
 			productName = ShareKitLibrary;
+			productReference = AABBED7D162F0C33009D46E4 /* libRead It Later.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AEE042E160E1D5B00FEC06E /* Tumblr */ = {
+		AABBED7E162F0C4D009D46E4 /* Tumbl */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE043A160E1D5B00FEC06E /* Build configuration list for PBXNativeTarget "Tumblr" */;
+			buildConfigurationList = AABBED83162F0C4D009D46E4 /* Build configuration list for PBXNativeTarget "Tumbl" */;
 			buildPhases = (
-				7AEE042F160E1D5B00FEC06E /* Sources */,
-				7AEE0431160E1D5B00FEC06E /* Frameworks */,
-				7AEE0432160E1D5B00FEC06E /* Headers */,
+				AABBED7F162F0C4D009D46E4 /* Sources */,
+				AABBED81162F0C4D009D46E4 /* Frameworks */,
+				AABBED82162F0C4D009D46E4 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = Tumblr;
+			name = Tumbl;
 			productName = ShareKitLibrary;
+			productReference = AABBED86162F0C4D009D46E4 /* libTumblr.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -2665,31 +2725,31 @@
 				7A1AFCB1160E11F90086B98A /* SSKeyChain */,
 				7A16F36F161340DD0019645D /* OAuth */,
 				7A1AFCC2160E123C0086B98A /* Reachability */,
-				7AEE02F8160E1A3F00FEC06E /* Print */,
-				7AEE0309160E1A6300FEC06E /* Logout */,
-				7AEE031A160E1A8A00FEC06E /* Copy */,
-				7AEE02CA160E188400FEC06E /* Email */,
-				7AEE032B160E1ABC00FEC06E /* Open in Safari */,
-				7AEE033C160E1AF400FEC06E /* Save to Album */,
-				7AEE02DB160E18A700FEC06E /* Text Message */,
-				7AEE034D160E1B3A00FEC06E /* Kippt */,
-				7AEE035D160E1B3D00FEC06E /* Delicious */,
+				AABBECB6162F063F009D46E4 /* Print */,
+				AABBECC1162F0719009D46E4 /* Logout */,
+				AABBECCA162F0756009D46E4 /* Copy */,
+				AABBECD3162F0779009D46E4 /* Email */,
+				AABBECDC162F07B4009D46E4 /* Open in Safari */,
+				AABBECE5162F07DF009D46E4 /* Save to Album */,
+				AABBECEE162F080F009D46E4 /* Text Message */,
+				AABBECF7162F0835009D46E4 /* Kippt */,
+				AABBED00162F0858009D46E4 /* Delicious */,
 				7AEE037D160E1B4000FEC06E /* Readability */,
-				7AEE036D160E1B3E00FEC06E /* Diigo */,
-				7AEE038D160E1B4200FEC06E /* VKontakte */,
-				7AEE03A3160E1C0600FEC06E /* Evernote */,
+				AABBED09162F087F009D46E4 /* Diigo */,
+				AABBED12162F08A3009D46E4 /* VKontakte */,
+				AABBED1C162F08E6009D46E4 /* Evernote */,
 				7A1AFCD3160E127B0086B98A /* Evernote SDK */,
-				7A1AFD3D160E14590086B98A /* Facebook */,
-				7AEE03B3160E1C0800FEC06E /* FoursquareV2 */,
-				7AEE03C3160E1C0C00FEC06E /* Flickr */,
+				AABBED25162F0B65009D46E4 /* Facebook */,
+				AABBED38162F0B86009D46E4 /* FoursquareV2 */,
+				AABBED47162F0BA7009D46E4 /* Flickr */,
 				7A1AFD15160E13740086B98A /* Flickr SDK */,
-				7AEE03D3160E1C0D00FEC06E /* Google Reader */,
+				AABBED51162F0BC5009D46E4 /* Google Reader */,
 				7A16F3B316134A890019645D /* Instagram */,
-				7AEE03E3160E1C0E00FEC06E /* Instapaper */,
-				7AEE03FE160E1D5400FEC06E /* LinkedIn */,
-				7AEE040E160E1D5800FEC06E /* Pinboard */,
-				7AEE041E160E1D5A00FEC06E /* Read It Later */,
-				7AEE042E160E1D5B00FEC06E /* Tumblr */,
+				AABBED5A162F0BE8009D46E4 /* Instapaper */,
+				AABBED63162F0C03009D46E4 /* LinkedIn */,
+				AABBED6C162F0C1A009D46E4 /* Pinboard */,
+				AABBED75162F0C33009D46E4 /* Read It Later */,
+				AABBED7E162F0C4D009D46E4 /* Tumbl */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
 			);
 		};
@@ -2896,14 +2956,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFD3E160E14590086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFD4E160E14840086B98A /* SHKFacebook.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AB5342A1552AADD00171BCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3040,86 +3092,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE02CB160E188400FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9C161A1BBB00DAA832 /* SHKMail.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02DC160E18A700FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9F161A1BF200DAA832 /* SHKTextMessage.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE02F9160E1A3F00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A99161A1BA200DAA832 /* SHKPrint.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE030A160E1A6300FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9A161A1BAD00DAA832 /* SHKLogout.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE031B160E1A8A00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9B161A1BB400DAA832 /* SHKCopy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE032C160E1ABC00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9D161A1BC400DAA832 /* SHKSafari.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE033D160E1AF400FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40A9E161A1BCF00DAA832 /* SHKPhotoAlbum.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE034E160E1B3A00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40AA0161A1C1500DAA832 /* SHKKippt.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE035E160E1B3D00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40AA1161A1C2000DAA832 /* SHKDelicious.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE036E160E1B3E00FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40AA3161A1C3500DAA832 /* SHKDiigo.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7AEE037E160E1B4000FEC06E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3128,90 +3100,178 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE038E160E1B4200FEC06E /* Sources */ = {
+		AABBECB7162F063F009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AA4161A1C4500DAA832 /* SHKVkontakteOAuthView.m in Sources */,
-				AAE40AA5161A1C4500DAA832 /* SHKVkontakte.m in Sources */,
+				AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03A4160E1C0600FEC06E /* Sources */ = {
+		AABBECC2162F0719009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AA6161A1C5D00DAA832 /* SHKEvernote.m in Sources */,
+				AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03B4160E1C0800FEC06E /* Sources */ = {
+		AABBECCB162F0756009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AA7161A1C8D00DAA832 /* NSError+SHKFoursquareV2.m in Sources */,
-				AAE40AA8161A1C8D00DAA832 /* SHKFoursquareV2CheckInForm.m in Sources */,
-				AAE40AA9161A1C8D00DAA832 /* SHKFoursquareV2Venue.m in Sources */,
-				AAE40AAA161A1C8D00DAA832 /* SHKFoursquareV2VenuesForm.m in Sources */,
-				AAE40AAB161A1C8D00DAA832 /* SHKFoursquareV2.m in Sources */,
-				AAE40AAC161A1C8D00DAA832 /* SHKFoursquareV2OAuthView.m in Sources */,
-				AAE40AAD161A1C8D00DAA832 /* SHKFoursquareV2Request.m in Sources */,
+				AABBECCC162F0756009D46E4 /* SHKCopy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03C4160E1C0C00FEC06E /* Sources */ = {
+		AABBECD4162F0779009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40A97161A1B5C00DAA832 /* SHKFlickr.m in Sources */,
+				AABBECD5162F0779009D46E4 /* SHKMail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03D4160E1C0D00FEC06E /* Sources */ = {
+		AABBECDD162F07B4009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40A98161A1B8100DAA832 /* SHKGoogleReader.m in Sources */,
+				AABBECDE162F07B4009D46E4 /* SHKSafari.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03E4160E1C0E00FEC06E /* Sources */ = {
+		AABBECE6162F07DF009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AAE161A1CA100DAA832 /* SHKInstapaper.m in Sources */,
+				AABBECE7162F07DF009D46E4 /* SHKPhotoAlbum.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE03FF160E1D5400FEC06E /* Sources */ = {
+		AABBECEF162F080F009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AAF161A1CA700DAA832 /* SHKLinkedIn.m in Sources */,
+				AABBECF0162F080F009D46E4 /* SHKTextMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE040F160E1D5800FEC06E /* Sources */ = {
+		AABBECF8162F0835009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AB0161A1CAE00DAA832 /* SHKPinboard.m in Sources */,
+				AABBECF9162F0835009D46E4 /* SHKKippt.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE041F160E1D5A00FEC06E /* Sources */ = {
+		AABBED01162F0858009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AB1161A1CB700DAA832 /* SHKReadItLater.m in Sources */,
+				AABBED02162F0858009D46E4 /* SHKDelicious.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7AEE042F160E1D5B00FEC06E /* Sources */ = {
+		AABBED0A162F087F009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40AB2161A1CBE00DAA832 /* SHKTumblr.m in Sources */,
+				AABBED0B162F087F009D46E4 /* SHKDiigo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED13162F08A3009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED14162F08A3009D46E4 /* SHKVkontakteOAuthView.m in Sources */,
+				AABBED15162F08A3009D46E4 /* SHKVkontakte.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED1D162F08E6009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED1E162F08E6009D46E4 /* SHKEvernote.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED28162F0B65009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED29162F0B65009D46E4 /* SHKFacebook.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED39162F0B86009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED3A162F0B86009D46E4 /* NSError+SHKFoursquareV2.m in Sources */,
+				AABBED3B162F0B86009D46E4 /* SHKFoursquareV2CheckInForm.m in Sources */,
+				AABBED3C162F0B86009D46E4 /* SHKFoursquareV2Venue.m in Sources */,
+				AABBED3D162F0B86009D46E4 /* SHKFoursquareV2VenuesForm.m in Sources */,
+				AABBED3E162F0B86009D46E4 /* SHKFoursquareV2.m in Sources */,
+				AABBED3F162F0B86009D46E4 /* SHKFoursquareV2OAuthView.m in Sources */,
+				AABBED40162F0B86009D46E4 /* SHKFoursquareV2Request.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED48162F0BA7009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED49162F0BA7009D46E4 /* SHKFlickr.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED52162F0BC5009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED53162F0BC5009D46E4 /* SHKGoogleReader.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED5B162F0BE8009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED5C162F0BE8009D46E4 /* SHKInstapaper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED64162F0C03009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED6D162F0C1A009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED76162F0C33009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AABBED7F162F0C4D009D46E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3228,15 +3288,15 @@
 			target = 7AB5360E1552E26800171BCE /* Resource Bundle */;
 			targetProxy = 7A28825B1553FF9A007DC379 /* PBXContainerItemProxy */;
 		};
-		AA21CE45162E060E00F6C709 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = AA21CE44162E060E00F6C709 /* PBXContainerItemProxy */;
-		};
 		AA6C0A7E161234210023EE48 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "facebook-ios-sdk";
 			targetProxy = AA6C0A7D161234210023EE48 /* PBXContainerItemProxy */;
+		};
+		AABBED26162F0B65009D46E4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = AABBED27162F0B65009D46E4 /* PBXContainerItemProxy */;
 		};
 		AAE40C6D161A21C400DAA832 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3839,68 +3899,6 @@
 			};
 			name = Release;
 		};
-		7A1AFD4B160E14590086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Facebook;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFD4C160E14590086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Facebook;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		7AB534371552AADD00171BCE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4022,606 +4020,6 @@
 			};
 			name = Release;
 		};
-		7AEE02D7160E188400FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Email;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE02D8160E188400FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Email;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE02E8160E18A700FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Text Message";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE02E9160E18A700FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Text Message";
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE0305160E1A3F00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Print;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE0306160E1A3F00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Print;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE0316160E1A6300FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Logout;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE0317160E1A6300FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Logout;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE0327160E1A8A00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Copy;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE0328160E1A8A00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Copy;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE0338160E1ABC00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Open in Safari";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE0339160E1ABC00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Open in Safari";
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE0349160E1AF400FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Save to Album";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE034A160E1AF400FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Save to Album";
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE035A160E1B3A00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Kippt;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE035B160E1B3A00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Kippt;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE036A160E1B3D00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Delicious;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE036B160E1B3D00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Delicious;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE037A160E1B3E00FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Diigo;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE037B160E1B3E00FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Diigo;
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		7AEE038A160E1B4000FEC06E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4682,7 +4080,607 @@
 			};
 			name = Release;
 		};
-		7AEE039A160E1B4200FEC06E /* Debug */ = {
+		AABBECBC162F063F009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Print;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECBD162F063F009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Print;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECC7162F0719009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Logout;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECC8162F0719009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Logout;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECD0162F0756009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Copy;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECD1162F0756009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Copy;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECD9162F0779009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Email;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECDA162F0779009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Email;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECE2162F07B4009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Open in Safari";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECE3162F07B4009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Open in Safari";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECEB162F07DF009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Save to Album";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECEC162F07DF009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Save to Album";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECF4162F080F009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Text Message";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECF5162F080F009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Text Message";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBECFD162F0835009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Kippt;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBECFE162F0835009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Kippt;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBED06162F0858009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Delicious;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBED07162F0858009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Delicious;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBED0F162F087F009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Diigo;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBED10162F087F009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Diigo;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBED19162F08A3009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4715,7 +4713,7 @@
 			};
 			name = Debug;
 		};
-		7AEE039B160E1B4200FEC06E /* Release */ = {
+		AABBED1A162F08A3009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4742,7 +4740,7 @@
 			};
 			name = Release;
 		};
-		7AEE03B0160E1C0600FEC06E /* Debug */ = {
+		AABBED22162F08E6009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4775,7 +4773,7 @@
 			};
 			name = Debug;
 		};
-		7AEE03B1160E1C0600FEC06E /* Release */ = {
+		AABBED23162F08E6009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4802,7 +4800,69 @@
 			};
 			name = Release;
 		};
-		7AEE03C0160E1C0800FEC06E /* Debug */ = {
+		AABBED35162F0B65009D46E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Facebook;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AABBED36162F0B65009D46E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Facebook;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AABBED44162F0B86009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4835,7 +4895,7 @@
 			};
 			name = Debug;
 		};
-		7AEE03C1160E1C0800FEC06E /* Release */ = {
+		AABBED45162F0B86009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4862,7 +4922,7 @@
 			};
 			name = Release;
 		};
-		7AEE03D0160E1C0C00FEC06E /* Debug */ = {
+		AABBED4E162F0BA7009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4895,7 +4955,7 @@
 			};
 			name = Debug;
 		};
-		7AEE03D1160E1C0C00FEC06E /* Release */ = {
+		AABBED4F162F0BA7009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4922,7 +4982,7 @@
 			};
 			name = Release;
 		};
-		7AEE03E0160E1C0D00FEC06E /* Debug */ = {
+		AABBED57162F0BC5009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4955,7 +5015,7 @@
 			};
 			name = Debug;
 		};
-		7AEE03E1160E1C0D00FEC06E /* Release */ = {
+		AABBED58162F0BC5009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -4982,7 +5042,7 @@
 			};
 			name = Release;
 		};
-		7AEE03F0160E1C0E00FEC06E /* Debug */ = {
+		AABBED60162F0BE8009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5015,7 +5075,7 @@
 			};
 			name = Debug;
 		};
-		7AEE03F1160E1C0E00FEC06E /* Release */ = {
+		AABBED61162F0BE8009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5042,7 +5102,7 @@
 			};
 			name = Release;
 		};
-		7AEE040B160E1D5400FEC06E /* Debug */ = {
+		AABBED69162F0C03009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5070,12 +5130,12 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "Linked In";
+				PRODUCT_NAME = LinkedIn;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		7AEE040C160E1D5400FEC06E /* Release */ = {
+		AABBED6A162F0C03009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5096,13 +5156,13 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_NAME = "Linked In";
+				PRODUCT_NAME = LinkedIn;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		7AEE041B160E1D5800FEC06E /* Debug */ = {
+		AABBED72162F0C1A009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5136,7 +5196,7 @@
 			};
 			name = Debug;
 		};
-		7AEE041C160E1D5800FEC06E /* Release */ = {
+		AABBED73162F0C1A009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5164,7 +5224,7 @@
 			};
 			name = Release;
 		};
-		7AEE042B160E1D5A00FEC06E /* Debug */ = {
+		AABBED7B162F0C33009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5202,7 +5262,7 @@
 			};
 			name = Debug;
 		};
-		7AEE042C160E1D5A00FEC06E /* Release */ = {
+		AABBED7C162F0C33009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5234,7 +5294,7 @@
 			};
 			name = Release;
 		};
-		7AEE043B160E1D5B00FEC06E /* Debug */ = {
+		AABBED84162F0C4D009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5267,7 +5327,7 @@
 			};
 			name = Debug;
 		};
-		7AEE043C160E1D5B00FEC06E /* Release */ = {
+		AABBED85162F0C4D009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -5424,15 +5484,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A1AFD4A160E14590086B98A /* Build configuration list for PBXNativeTarget "Facebook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFD4B160E14590086B98A /* Debug */,
-				7A1AFD4C160E14590086B98A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5451,96 +5502,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE02D6160E188400FEC06E /* Build configuration list for PBXNativeTarget "Email" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE02D7160E188400FEC06E /* Debug */,
-				7AEE02D8160E188400FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE02E7160E18A700FEC06E /* Build configuration list for PBXNativeTarget "Text Message" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE02E8160E18A700FEC06E /* Debug */,
-				7AEE02E9160E18A700FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0304160E1A3F00FEC06E /* Build configuration list for PBXNativeTarget "Print" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE0305160E1A3F00FEC06E /* Debug */,
-				7AEE0306160E1A3F00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0315160E1A6300FEC06E /* Build configuration list for PBXNativeTarget "Logout" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE0316160E1A6300FEC06E /* Debug */,
-				7AEE0317160E1A6300FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0326160E1A8A00FEC06E /* Build configuration list for PBXNativeTarget "Copy" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE0327160E1A8A00FEC06E /* Debug */,
-				7AEE0328160E1A8A00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0337160E1ABC00FEC06E /* Build configuration list for PBXNativeTarget "Open in Safari" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE0338160E1ABC00FEC06E /* Debug */,
-				7AEE0339160E1ABC00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0348160E1AF400FEC06E /* Build configuration list for PBXNativeTarget "Save to Album" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE0349160E1AF400FEC06E /* Debug */,
-				7AEE034A160E1AF400FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0359160E1B3A00FEC06E /* Build configuration list for PBXNativeTarget "Kippt" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE035A160E1B3A00FEC06E /* Debug */,
-				7AEE035B160E1B3A00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0369160E1B3D00FEC06E /* Build configuration list for PBXNativeTarget "Delicious" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE036A160E1B3D00FEC06E /* Debug */,
-				7AEE036B160E1B3D00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0379160E1B3E00FEC06E /* Build configuration list for PBXNativeTarget "Diigo" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE037A160E1B3E00FEC06E /* Debug */,
-				7AEE037B160E1B3E00FEC06E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7AEE0389160E1B4000FEC06E /* Build configuration list for PBXNativeTarget "Readability" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5550,92 +5511,191 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE0399160E1B4200FEC06E /* Build configuration list for PBXNativeTarget "VKontakte" */ = {
+		AABBECBB162F063F009D46E4 /* Build configuration list for PBXNativeTarget "Print" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE039A160E1B4200FEC06E /* Debug */,
-				7AEE039B160E1B4200FEC06E /* Release */,
+				AABBECBC162F063F009D46E4 /* Debug */,
+				AABBECBD162F063F009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE03AF160E1C0600FEC06E /* Build configuration list for PBXNativeTarget "Evernote" */ = {
+		AABBECC6162F0719009D46E4 /* Build configuration list for PBXNativeTarget "Logout" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE03B0160E1C0600FEC06E /* Debug */,
-				7AEE03B1160E1C0600FEC06E /* Release */,
+				AABBECC7162F0719009D46E4 /* Debug */,
+				AABBECC8162F0719009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE03BF160E1C0800FEC06E /* Build configuration list for PBXNativeTarget "FoursquareV2" */ = {
+		AABBECCF162F0756009D46E4 /* Build configuration list for PBXNativeTarget "Copy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE03C0160E1C0800FEC06E /* Debug */,
-				7AEE03C1160E1C0800FEC06E /* Release */,
+				AABBECD0162F0756009D46E4 /* Debug */,
+				AABBECD1162F0756009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE03CF160E1C0C00FEC06E /* Build configuration list for PBXNativeTarget "Flickr" */ = {
+		AABBECD8162F0779009D46E4 /* Build configuration list for PBXNativeTarget "Email" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE03D0160E1C0C00FEC06E /* Debug */,
-				7AEE03D1160E1C0C00FEC06E /* Release */,
+				AABBECD9162F0779009D46E4 /* Debug */,
+				AABBECDA162F0779009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE03DF160E1C0D00FEC06E /* Build configuration list for PBXNativeTarget "Google Reader" */ = {
+		AABBECE1162F07B4009D46E4 /* Build configuration list for PBXNativeTarget "Open in Safari" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE03E0160E1C0D00FEC06E /* Debug */,
-				7AEE03E1160E1C0D00FEC06E /* Release */,
+				AABBECE2162F07B4009D46E4 /* Debug */,
+				AABBECE3162F07B4009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE03EF160E1C0E00FEC06E /* Build configuration list for PBXNativeTarget "Instapaper" */ = {
+		AABBECEA162F07DF009D46E4 /* Build configuration list for PBXNativeTarget "Save to Album" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE03F0160E1C0E00FEC06E /* Debug */,
-				7AEE03F1160E1C0E00FEC06E /* Release */,
+				AABBECEB162F07DF009D46E4 /* Debug */,
+				AABBECEC162F07DF009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE040A160E1D5400FEC06E /* Build configuration list for PBXNativeTarget "LinkedIn" */ = {
+		AABBECF3162F080F009D46E4 /* Build configuration list for PBXNativeTarget "Text Message" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE040B160E1D5400FEC06E /* Debug */,
-				7AEE040C160E1D5400FEC06E /* Release */,
+				AABBECF4162F080F009D46E4 /* Debug */,
+				AABBECF5162F080F009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE041A160E1D5800FEC06E /* Build configuration list for PBXNativeTarget "Pinboard" */ = {
+		AABBECFC162F0835009D46E4 /* Build configuration list for PBXNativeTarget "Kippt" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE041B160E1D5800FEC06E /* Debug */,
-				7AEE041C160E1D5800FEC06E /* Release */,
+				AABBECFD162F0835009D46E4 /* Debug */,
+				AABBECFE162F0835009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE042A160E1D5A00FEC06E /* Build configuration list for PBXNativeTarget "Read It Later" */ = {
+		AABBED05162F0858009D46E4 /* Build configuration list for PBXNativeTarget "Delicious" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE042B160E1D5A00FEC06E /* Debug */,
-				7AEE042C160E1D5A00FEC06E /* Release */,
+				AABBED06162F0858009D46E4 /* Debug */,
+				AABBED07162F0858009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AEE043A160E1D5B00FEC06E /* Build configuration list for PBXNativeTarget "Tumblr" */ = {
+		AABBED0E162F087F009D46E4 /* Build configuration list for PBXNativeTarget "Diigo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7AEE043B160E1D5B00FEC06E /* Debug */,
-				7AEE043C160E1D5B00FEC06E /* Release */,
+				AABBED0F162F087F009D46E4 /* Debug */,
+				AABBED10162F087F009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED18162F08A3009D46E4 /* Build configuration list for PBXNativeTarget "VKontakte" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED19162F08A3009D46E4 /* Debug */,
+				AABBED1A162F08A3009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED21162F08E6009D46E4 /* Build configuration list for PBXNativeTarget "Evernote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED22162F08E6009D46E4 /* Debug */,
+				AABBED23162F08E6009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED34162F0B65009D46E4 /* Build configuration list for PBXNativeTarget "Facebook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED35162F0B65009D46E4 /* Debug */,
+				AABBED36162F0B65009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED43162F0B86009D46E4 /* Build configuration list for PBXNativeTarget "FoursquareV2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED44162F0B86009D46E4 /* Debug */,
+				AABBED45162F0B86009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED4D162F0BA7009D46E4 /* Build configuration list for PBXNativeTarget "Flickr" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED4E162F0BA7009D46E4 /* Debug */,
+				AABBED4F162F0BA7009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED56162F0BC5009D46E4 /* Build configuration list for PBXNativeTarget "Google Reader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED57162F0BC5009D46E4 /* Debug */,
+				AABBED58162F0BC5009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED5F162F0BE8009D46E4 /* Build configuration list for PBXNativeTarget "Instapaper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED60162F0BE8009D46E4 /* Debug */,
+				AABBED61162F0BE8009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED68162F0C03009D46E4 /* Build configuration list for PBXNativeTarget "LinkedIn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED69162F0C03009D46E4 /* Debug */,
+				AABBED6A162F0C03009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED71162F0C1A009D46E4 /* Build configuration list for PBXNativeTarget "Pinboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED72162F0C1A009D46E4 /* Debug */,
+				AABBED73162F0C1A009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED7A162F0C33009D46E4 /* Build configuration list for PBXNativeTarget "Read It Later" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED7B162F0C33009D46E4 /* Debug */,
+				AABBED7C162F0C33009D46E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABBED83162F0C4D009D46E4 /* Build configuration list for PBXNativeTarget "Tumbl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABBED84162F0C4D009D46E4 /* Debug */,
+				AABBED85162F0C4D009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
