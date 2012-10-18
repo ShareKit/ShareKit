@@ -544,7 +544,7 @@ static NSDictionary *sharersDictionary = nil;
 	// Check if the path exists, otherwise create it
 	if (![fileManager fileExistsAtPath:SHKPath]) {
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
-                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:SHKPath]];
+                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:SHKPath]];
     }
 	
 	return SHKPath;
@@ -553,7 +553,7 @@ static NSDictionary *sharersDictionary = nil;
 + (NSString *)offlineQueueListPath
 {
 	NSString *offlinePathString = [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
-        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL URLWithString:offlinePathString]];
+        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:offlinePathString]];
         return offlinePathString;
 }
 
