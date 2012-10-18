@@ -32,4 +32,9 @@
 - (NSString *)encodedURLParameterString;
 - (NSString *)decodedURLString;
 - (NSString *)removeQuotes;
+
+// some synonyms for libs written to different interfaces
+- (NSString *)URLEncodedString;
+- (NSString *)URLDecodedString;
+
 @end
