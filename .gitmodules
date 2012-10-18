@@ -1,6 +1,6 @@
 [submodule "Submodules/facebook-ios-sdk"]
 	path = Submodules/facebook-ios-sdk
-	url = https://github.com/ShareKit/facebook-ios-sdk.git
+	url = https://github.com/facebook/facebook-ios-sdk.git
 [submodule "Submodules/JSONKit"]
 	path = Submodules/JSONKit
 	url = https://github.com/johnezang/JSONKit.git
