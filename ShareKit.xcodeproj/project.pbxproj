@@ -263,7 +263,6 @@
 		7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		7AB535771552BE7D00171BCE /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
 		7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
@@ -348,7 +347,26 @@
 		AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
+		AABBF2A9163089D8009D46E4 /* SHKTumblrV2.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2A7163089D8009D46E4 /* SHKTumblrV2.h */; };
+		AABBF2AA163089D8009D46E4 /* SHKTumblrV2.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2A7163089D8009D46E4 /* SHKTumblrV2.h */; };
+		AABBF2AB163089D8009D46E4 /* SHKTumblrV2.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2A8163089D8009D46E4 /* SHKTumblrV2.m */; };
+		AABBF2AC163089D8009D46E4 /* SHKTumblrV2.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2A8163089D8009D46E4 /* SHKTumblrV2.m */; };
+		AABBF2B516308A02009D46E4 /* OAAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2AD16308A02009D46E4 /* OAAttachment.h */; };
+		AABBF2B616308A02009D46E4 /* OAAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2AD16308A02009D46E4 /* OAAttachment.h */; };
+		AABBF2B716308A02009D46E4 /* OAAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2AE16308A02009D46E4 /* OAAttachment.m */; };
+		AABBF2B816308A02009D46E4 /* OAAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2AE16308A02009D46E4 /* OAAttachment.m */; };
+		AABBF2B916308A02009D46E4 /* OACall.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2AF16308A02009D46E4 /* OACall.h */; };
+		AABBF2BA16308A02009D46E4 /* OACall.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2AF16308A02009D46E4 /* OACall.h */; };
+		AABBF2BB16308A02009D46E4 /* OACall.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B016308A02009D46E4 /* OACall.m */; };
+		AABBF2BC16308A02009D46E4 /* OACall.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B016308A02009D46E4 /* OACall.m */; };
+		AABBF2BD16308A02009D46E4 /* OAProblem.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2B116308A02009D46E4 /* OAProblem.h */; };
+		AABBF2BE16308A02009D46E4 /* OAProblem.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2B116308A02009D46E4 /* OAProblem.h */; };
+		AABBF2BF16308A02009D46E4 /* OAProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B216308A02009D46E4 /* OAProblem.m */; };
+		AABBF2C016308A02009D46E4 /* OAProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B216308A02009D46E4 /* OAProblem.m */; };
+		AABBF2C116308A02009D46E4 /* OATokenManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2B316308A02009D46E4 /* OATokenManager.h */; };
+		AABBF2C216308A02009D46E4 /* OATokenManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF2B316308A02009D46E4 /* OATokenManager.h */; };
+		AABBF2C316308A02009D46E4 /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B416308A02009D46E4 /* OATokenManager.m */; };
+		AABBF2C416308A02009D46E4 /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF2B416308A02009D46E4 /* OATokenManager.m */; };
 		AAE40AA2161A1C2900DAA832 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
 		AAE40C6E161A21D700DAA832 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		AAF54549160BB0F200A93975 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */; };
@@ -571,8 +589,6 @@
 		43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitAppDelegate.h; path = Example/ShareKitAppDelegate.h; sourceTree = "<group>"; };
 		43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitAppDelegate.m; path = Example/ShareKitAppDelegate.m; sourceTree = "<group>"; };
 		43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
-		43C91DF311EBAE4800F31FAE /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
-		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
 		43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
@@ -672,6 +688,16 @@
 		AABBED74162F0C1A009D46E4 /* libPinboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPinboard.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED7D162F0C33009D46E4 /* libRead It Later.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRead It Later.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED86162F0C4D009D46E4 /* libTumblr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTumblr.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABBF2A7163089D8009D46E4 /* SHKTumblrV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblrV2.h; sourceTree = "<group>"; };
+		AABBF2A8163089D8009D46E4 /* SHKTumblrV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblrV2.m; sourceTree = "<group>"; };
+		AABBF2AD16308A02009D46E4 /* OAAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAAttachment.h; sourceTree = "<group>"; };
+		AABBF2AE16308A02009D46E4 /* OAAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAAttachment.m; sourceTree = "<group>"; };
+		AABBF2AF16308A02009D46E4 /* OACall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OACall.h; sourceTree = "<group>"; };
+		AABBF2B016308A02009D46E4 /* OACall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OACall.m; sourceTree = "<group>"; };
+		AABBF2B116308A02009D46E4 /* OAProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAProblem.h; sourceTree = "<group>"; };
+		AABBF2B216308A02009D46E4 /* OAProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAProblem.m; sourceTree = "<group>"; };
+		AABBF2B316308A02009D46E4 /* OATokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OATokenManager.h; sourceTree = "<group>"; };
+		AABBF2B416308A02009D46E4 /* OATokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OATokenManager.m; sourceTree = "<group>"; };
 		AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDiigo.m; sourceTree = "<group>"; };
@@ -1343,10 +1369,14 @@
 		43A5367F11DBE3B9004A1712 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				7A26E5B2156CD8A70011E15F /* Crypto */,
 				43A5368011DBE3B9004A1712 /* Categories */,
+				7A26E5B2156CD8A70011E15F /* Crypto */,
 				43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */,
 				43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */,
+				AABBF2AD16308A02009D46E4 /* OAAttachment.h */,
+				AABBF2AE16308A02009D46E4 /* OAAttachment.m */,
+				AABBF2AF16308A02009D46E4 /* OACall.h */,
+				AABBF2B016308A02009D46E4 /* OACall.m */,
 				43A5369011DBE3B9004A1712 /* OAConsumer.h */,
 				43A5369111DBE3B9004A1712 /* OAConsumer.m */,
 				43A5369211DBE3B9004A1712 /* OADataFetcher.h */,
@@ -1357,6 +1387,8 @@
 				43A5369711DBE3B9004A1712 /* OAMutableURLRequest.m */,
 				43A5369811DBE3B9004A1712 /* OAPlaintextSignatureProvider.h */,
 				43A5369911DBE3B9004A1712 /* OAPlaintextSignatureProvider.m */,
+				AABBF2B116308A02009D46E4 /* OAProblem.h */,
+				AABBF2B216308A02009D46E4 /* OAProblem.m */,
 				43A5369C11DBE3B9004A1712 /* OARequestParameter.h */,
 				43A5369D11DBE3B9004A1712 /* OARequestParameter.m */,
 				43A5369E11DBE3B9004A1712 /* OAServiceTicket.h */,
@@ -1364,6 +1396,8 @@
 				43A536A011DBE3B9004A1712 /* OASignatureProviding.h */,
 				43A536A111DBE3B9004A1712 /* OAToken.h */,
 				43A536A211DBE3B9004A1712 /* OAToken.m */,
+				AABBF2B316308A02009D46E4 /* OATokenManager.h */,
+				AABBF2B416308A02009D46E4 /* OATokenManager.m */,
 				43A536A311DBE3B9004A1712 /* OAuthConsumer.h */,
 			);
 			path = OAuth;
@@ -1576,8 +1610,8 @@
 		43C91DF211EBAE4800F31FAE /* Tumblr */ = {
 			isa = PBXGroup;
 			children = (
-				43C91DF311EBAE4800F31FAE /* SHKTumblr.h */,
-				43C91DF411EBAE4800F31FAE /* SHKTumblr.m */,
+				AABBF2A7163089D8009D46E4 /* SHKTumblrV2.h */,
+				AABBF2A8163089D8009D46E4 /* SHKTumblrV2.m */,
 			);
 			path = Tumblr;
 			sourceTree = "<group>";
@@ -1791,6 +1825,10 @@
 				7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */,
 				7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				AABBF2B616308A02009D46E4 /* OAAttachment.h in Headers */,
+				AABBF2BA16308A02009D46E4 /* OACall.h in Headers */,
+				AABBF2BE16308A02009D46E4 /* OAProblem.h in Headers */,
+				AABBF2C216308A02009D46E4 /* OATokenManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1922,6 +1960,11 @@
 				7ABCDBB0157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 				7A16F3B016134A790019645D /* SHKInstagram.h in Headers */,
+				AABBF2A9163089D8009D46E4 /* SHKTumblrV2.h in Headers */,
+				AABBF2B516308A02009D46E4 /* OAAttachment.h in Headers */,
+				AABBF2B916308A02009D46E4 /* OACall.h in Headers */,
+				AABBF2BD16308A02009D46E4 /* OAProblem.h in Headers */,
+				AABBF2C116308A02009D46E4 /* OATokenManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2084,6 +2127,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AABBF2AA163089D8009D46E4 /* SHKTumblrV2.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2832,6 +2876,10 @@
 				7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
 				7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */,
+				AABBF2B816308A02009D46E4 /* OAAttachment.m in Sources */,
+				AABBF2BC16308A02009D46E4 /* OACall.m in Sources */,
+				AABBF2C016308A02009D46E4 /* OAProblem.m in Sources */,
+				AABBF2C416308A02009D46E4 /* OATokenManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3019,7 +3067,6 @@
 				7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */,
 				7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */,
 				7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */,
-				7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */,
 				7AB535771552BE7D00171BCE /* SHKiOS5Twitter.m in Sources */,
 				7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */,
 				7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */,
@@ -3067,6 +3114,11 @@
 				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
 				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 				7A16F3B216134A790019645D /* SHKInstagram.m in Sources */,
+				AABBF2AB163089D8009D46E4 /* SHKTumblrV2.m in Sources */,
+				AABBF2B716308A02009D46E4 /* OAAttachment.m in Sources */,
+				AABBF2BB16308A02009D46E4 /* OACall.m in Sources */,
+				AABBF2BF16308A02009D46E4 /* OAProblem.m in Sources */,
+				AABBF2C316308A02009D46E4 /* OATokenManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3256,7 +3308,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */,
+				AABBF2AC163089D8009D46E4 /* SHKTumblrV2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
