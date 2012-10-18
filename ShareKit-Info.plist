@@ -30,6 +30,7 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb232705466797125</string>
+				<string>app://tumblr</string>
 				<string>app://flickr</string>
 			</array>
 		</dict>

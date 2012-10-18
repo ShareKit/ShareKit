@@ -213,6 +213,8 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
+    NSString *tags = (item.tags == nil) ? @"" : [[item tags] componentsJoinedByString:@","];
+
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
                                                          key:@"blog"
@@ -229,7 +231,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Tag,Tag")
                                                          key:@"tags"
                                                         type:SHKFormFieldTypeText
-                                                       start:item.tags],
+                                                       start:tags],
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Slug")
                                                          key:@"slug"
                                                         type:SHKFormFieldTypeText
@@ -378,7 +380,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 	[oRequest setHTTPMethod:@"POST"];
 	
     NSString *shouldTweet = ([item customBoolForSwitchKey:@"twitter"]) ? @"" : @"off";
-    NSString *tags = (item.tags == nil) ? @"" : item.tags;
+    NSString *tags = (item.tags == nil) ? @"" : [[item tags] componentsJoinedByString:@","];
     NSString *slug = [item customValueForKey:@"slug"];
     NSString *private = ([item customBoolForSwitchKey:@"private"]) ? @"private" : @"published";
     
@@ -444,7 +446,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 	[oRequest setHTTPMethod:@"POST"];
 	
     NSString *shouldTweet = ([item customBoolForSwitchKey:@"twitter"]) ? @"" : @"off";
-    NSString *tags = (item.tags == nil) ? @"" : item.tags;
+    NSString *tags = (item.tags == nil) ? @"" : [[item tags] componentsJoinedByString:@","];
     NSString *slug = [item customValueForKey:@"slug"];
     NSString *private = ([item customBoolForSwitchKey:@"private"]) ? @"private" : @"published";
     
@@ -511,7 +513,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 	[oRequest setHTTPMethod:@"POST"];
 	
     NSString *shouldTweet = ([item customBoolForSwitchKey:@"twitter"]) ? @"" : @"off";
-    NSString *tags = (item.tags == nil) ? @"" : item.tags;
+    NSString *tags = (item.tags == nil) ? @"" : [[item tags] componentsJoinedByString:@","];
     NSString *slug = [item customValueForKey:@"slug"];
     NSString *private = ([item customBoolForSwitchKey:@"private"]) ? @"private" : @"published";
     

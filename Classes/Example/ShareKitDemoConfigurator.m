@@ -123,7 +123,7 @@
 }
 // You need to set this if using OAuth
 - (NSString*)tumblrCallbackUrl {
-	return @"";
+	return @"app://tumblr";	//where app is something unique to your app
 }
 // Set to 1 to use xAuth mode.
 - (NSNumber*)tumblrUseXAuth {
