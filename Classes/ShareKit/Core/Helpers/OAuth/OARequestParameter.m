@@ -30,15 +30,8 @@
 @implementation OARequestParameter
 @synthesize name, value;
 
-+ (id)requestParameterWithName:(NSString *)aName value:(NSString *)aValue 
-{
-	return [[[OARequestParameter alloc] initWithName:aName value:aValue] autorelease];
-}
-
-- (id)initWithName:(NSString *)aName value:(NSString *)aValue 
-{
-    if (self = [super init])
-	{
+- (id)initWithName:(NSString *)aName value:(NSString *)aValue {
+    if ((self = [super init])) {
 		self.name = aName;
 		self.value = aValue;
 	}
@@ -52,19 +45,36 @@
 	[super dealloc];
 }
 
-- (NSString *)URLEncodedName 
-{
-	return [self.name URLEncodedString];
+- (NSString *)URLEncodedName {
+	return self.name;
+//    return [self.name encodedURLParameterString];
 }
 
-- (NSString *)URLEncodedValue 
-{
-    return [self.value URLEncodedString];
+- (NSString *)URLEncodedValue {
+    return [self.value encodedURLParameterString];
 }
 
-- (NSString *)URLEncodedNameValuePair 
-{
+- (NSString *)URLEncodedNameValuePair {
     return [NSString stringWithFormat:@"%@=%@", [self URLEncodedName], [self URLEncodedValue]];
+}
+
+- (BOOL)isEqual:(id)object {
+	if ([object isKindOfClass:[self class]]) {
+		return [self isEqualToRequestParameter:(OARequestParameter *)object];
+	}
+	
+	return NO;
+}
+
+- (BOOL)isEqualToRequestParameter:(OARequestParameter *)parameter {
+	return ([self.name isEqualToString:parameter.name] &&
+			[self.value isEqualToString:parameter.value]);
+}
+
+
++ (id)requestParameter:(NSString *)aName value:(NSString *)aValue
+{
+	return [[[self alloc] initWithName:aName value:aValue] autorelease];
 }
 
 @end

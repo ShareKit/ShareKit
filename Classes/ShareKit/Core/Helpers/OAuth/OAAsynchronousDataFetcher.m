@@ -28,6 +28,7 @@
 
 @implementation OAAsynchronousDataFetcher
 
+
 + (id)asynchronousFetcherWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector
 {
 	return [[[OAAsynchronousDataFetcher alloc] initWithRequest:aRequest delegate:aDelegate didFinishSelector:finishSelector didFailSelector:failSelector] autorelease];
@@ -40,13 +41,13 @@
 		request = [aRequest retain];
 		delegate = [aDelegate retain];
 		didFinishSelector = finishSelector;
-		didFailSelector = failSelector;	
+		didFailSelector = failSelector;
 	}
 	return self;
 }
 
 - (void)start
-{    
+{
     [request prepare];
 	
 	if (connection)
@@ -64,6 +65,7 @@
 	{
         OAServiceTicket *ticket= [[OAServiceTicket alloc] initWithRequest:request
                                                                  response:nil
+                                                                     data:nil
                                                                didSucceed:NO];
         [delegate performSelector:didFailSelector
                        withObject:ticket
@@ -114,6 +116,7 @@
 {
 	OAServiceTicket *ticket= [[OAServiceTicket alloc] initWithRequest:request
 															 response:response
+                                                                 data:responseData
 														   didSucceed:NO];
 	[delegate performSelector:didFailSelector
 				   withObject:ticket
@@ -128,6 +131,7 @@
 {
 	OAServiceTicket *ticket = [[OAServiceTicket alloc] initWithRequest:request
 															  response:response
+                                                                  data:responseData
 															didSucceed:[(NSHTTPURLResponse *)response statusCode] < 400];
 	[delegate performSelector:didFinishSelector
 				   withObject:ticket

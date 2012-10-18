@@ -141,6 +141,24 @@
 - (NSString*)twitterUsername {
 	return @"";
 }
+
+// Tumblr - http://www.tumblr.com/docs/en/api/v2
+- (NSString*)tumblrConsumerKey {
+	return @"";
+}
+
+- (NSString*)tumblrSecret {
+	return @"";
+}
+// You need to set this if using OAuth
+- (NSString*)tumblrCallbackUrl {
+	return @"";
+}
+// Currently only works in xAuth mode.
+- (NSNumber*)tumblrUseXAuth {
+	return [NSNumber numberWithInt:1];
+}
+
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
     If you already have a consumer-key and secret which have been created with the old username/password authentication system

@@ -115,7 +115,7 @@ static NSString *apiDateVerified = @"20110927";
     [url appendFormat:@"&altAcc=%.2lf", l.verticalAccuracy];
     if (q != nil)
     {
-        [url appendFormat:@"&query=%@", [q URLEncodedString]];
+        [url appendFormat:@"&query=%@", [q encodedURLString]];
     }
     
     return [[[SHKFoursquareV2Request alloc] initWithURL:[NSURL URLWithString:url] 
@@ -136,7 +136,7 @@ static NSString *apiDateVerified = @"20110927";
     [url appendFormat:@"&altAcc=%.2lf", l.verticalAccuracy];
     
     if (m != nil && m.length > 0) {
-        [url appendFormat:@"&shout=%@", [m URLEncodedString]];
+        [url appendFormat:@"&shout=%@", [m encodedURLString]];
     }
     
     return [[[SHKFoursquareV2Request alloc] initWithURL:[NSURL URLWithString:url] 
