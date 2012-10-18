@@ -129,7 +129,7 @@
 			
 		}
 		
-		NSData* imgData = UIImageJPEGRepresentation(tmpImg, 1.0);
+		NSData* imgData = [self generateImageData:tmpImg];
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
@@ -154,6 +154,11 @@
 		return YES;
 	}
 	return NO;
+}
+
+- (NSData*) generateImageData:(UIImage*)image
+{
+	return UIImageJPEGRepresentation(image,1.0);
 }
 
 - (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller{
