@@ -28,6 +28,16 @@
 
 @implementation NSString (OAURLEncodingAdditions)
 
+- (NSString *)URLEncodedString
+{
+	return [self encodedURLString];
+}
+- (NSString *)URLDecodedString
+{
+	return [self decodedURLString];
+}
+
+
 - (NSString *)encodedURLString {
 	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
                                                                            (CFStringRef)self,
