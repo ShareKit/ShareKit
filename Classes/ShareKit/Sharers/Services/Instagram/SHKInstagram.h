@@ -27,4 +27,6 @@
 
 @interface SHKInstagram : SHKSharer <UIDocumentInteractionControllerDelegate>
 
+- (NSData*) generateImageData:(UIImage*)image;
+
 @end
