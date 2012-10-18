@@ -37,7 +37,7 @@
 	NSMutableArray *tableData;
 	NSMutableArray *exclusions;
 	id<SHKShareItemDelegate> shareDelegate;
-	SHKSharer* limboSharer;
+	SHKSharer* limboSharer;	// used to postpone the call to share until the menu has finished animating out.
 }
 
 @property (nonatomic, retain) SHKItem *item;
