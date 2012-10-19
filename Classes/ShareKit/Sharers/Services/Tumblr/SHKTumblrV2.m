@@ -14,6 +14,7 @@
 #import "NSMutableURLRequest+Parameters.h"
 
 static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
+static NSString *const kSHKTumblrLastBlog=@"kSHKTumblrLastBlog";
 
 @interface SHKTumblrV2 ()
 - (BOOL)prepareItem;
@@ -134,6 +135,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 
 + (void)logout {
 	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTumblrLastBlog];
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTumblrUserInfo];
 	[super logout];
 }
@@ -219,7 +221,7 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
                                                          key:@"blog"
                                                         type:SHKFormFieldTypeOptionPicker
-                                                       start:nil
+                                                       start:[[NSUserDefaults standardUserDefaults] objectForKey:kSHKTumblrLastBlog]
                                             optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Tumblr Blogs"), @"title",
                                                               @"-1", @"curIndexes",
                                                               [NSArray array],@"itemsList",
@@ -280,7 +282,12 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
     [form saveForm];
 }
 - (BOOL)send
-{	
+{
+	NSString* toBlog = [self.item customValueForKey:@"blog"];
+	if(toBlog){
+		[[NSUserDefaults standardUserDefaults] setObject:toBlog forKey:kSHKTumblrLastBlog];
+	}
+	
 	switch (item.shareType) {
 			
 		case SHKShareTypeImage:
@@ -301,6 +308,11 @@ static NSString *const kSHKTumblrUserInfo=@"kSHKTumblrUserInfo";
 	[self sendDidStart];
 	
 	return YES;
+}
+
+- (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin{
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTumblrLastBlog];
+	[super sendDidFailWithError:error shouldRelogin:shouldRelogin];
 }
 
 - (void)getUserInfo {
