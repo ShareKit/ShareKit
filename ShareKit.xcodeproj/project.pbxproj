@@ -300,7 +300,6 @@
 		7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		7AB535771552BE7D00171BCE /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */; };
 		7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
 		7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
@@ -522,7 +521,24 @@
 		7AEE044E160E1DAA00FEC06E /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		7AEE044F160E1DB600FEC06E /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7AEE0450160E1DC500FEC06E /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		7AEE0451160E1DD200FEC06E /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
+		AABBF27616307677009D46E4 /* SHKTumblrV2.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF26E1630763F009D46E4 /* SHKTumblrV2.m */; };
+		AABBF278163076A5009D46E4 /* SHKTumblrV2.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF26E1630763F009D46E4 /* SHKTumblrV2.m */; };
+		AABBF281163076CD009D46E4 /* OAAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF279163076CD009D46E4 /* OAAttachment.h */; };
+		AABBF282163076CD009D46E4 /* OAAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF279163076CD009D46E4 /* OAAttachment.h */; };
+		AABBF283163076CD009D46E4 /* OAAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27A163076CD009D46E4 /* OAAttachment.m */; };
+		AABBF284163076CD009D46E4 /* OAAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27A163076CD009D46E4 /* OAAttachment.m */; };
+		AABBF285163076CD009D46E4 /* OACall.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27B163076CD009D46E4 /* OACall.h */; };
+		AABBF286163076CD009D46E4 /* OACall.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27B163076CD009D46E4 /* OACall.h */; };
+		AABBF287163076CD009D46E4 /* OACall.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27C163076CD009D46E4 /* OACall.m */; };
+		AABBF288163076CD009D46E4 /* OACall.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27C163076CD009D46E4 /* OACall.m */; };
+		AABBF289163076CD009D46E4 /* OAProblem.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27D163076CD009D46E4 /* OAProblem.h */; };
+		AABBF28A163076CD009D46E4 /* OAProblem.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27D163076CD009D46E4 /* OAProblem.h */; };
+		AABBF28B163076CD009D46E4 /* OAProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27E163076CD009D46E4 /* OAProblem.m */; };
+		AABBF28C163076CD009D46E4 /* OAProblem.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF27E163076CD009D46E4 /* OAProblem.m */; };
+		AABBF28D163076CD009D46E4 /* OATokenManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27F163076CD009D46E4 /* OATokenManager.h */; };
+		AABBF28E163076CD009D46E4 /* OATokenManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AABBF27F163076CD009D46E4 /* OATokenManager.h */; };
+		AABBF28F163076CD009D46E4 /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF280163076CD009D46E4 /* OATokenManager.m */; };
+		AABBF290163076CD009D46E4 /* OATokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AABBF280163076CD009D46E4 /* OATokenManager.m */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -714,8 +730,6 @@
 		43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitAppDelegate.h; path = Example/ShareKitAppDelegate.h; sourceTree = "<group>"; };
 		43A5383511DBE493004A1712 /* ShareKitAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitAppDelegate.m; path = Example/ShareKitAppDelegate.m; sourceTree = "<group>"; };
 		43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
-		43C91DF311EBAE4800F31FAE /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
-		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
 		43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
@@ -838,6 +852,16 @@
 		AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKConfiguration.m; sourceTree = "<group>"; };
 		AAACE06013CCBED400A2118F /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
+		AABBF26D1630763F009D46E4 /* SHKTumblrV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblrV2.h; sourceTree = "<group>"; };
+		AABBF26E1630763F009D46E4 /* SHKTumblrV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblrV2.m; sourceTree = "<group>"; };
+		AABBF279163076CD009D46E4 /* OAAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAAttachment.h; sourceTree = "<group>"; };
+		AABBF27A163076CD009D46E4 /* OAAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAAttachment.m; sourceTree = "<group>"; };
+		AABBF27B163076CD009D46E4 /* OACall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OACall.h; sourceTree = "<group>"; };
+		AABBF27C163076CD009D46E4 /* OACall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OACall.m; sourceTree = "<group>"; };
+		AABBF27D163076CD009D46E4 /* OAProblem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAProblem.h; sourceTree = "<group>"; };
+		AABBF27E163076CD009D46E4 /* OAProblem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAProblem.m; sourceTree = "<group>"; };
+		AABBF27F163076CD009D46E4 /* OATokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OATokenManager.h; sourceTree = "<group>"; };
+		AABBF280163076CD009D46E4 /* OATokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OATokenManager.m; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDiigo.m; sourceTree = "<group>"; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
@@ -1507,10 +1531,14 @@
 		43A5367F11DBE3B9004A1712 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				7A26E5B2156CD8A70011E15F /* Crypto */,
 				43A5368011DBE3B9004A1712 /* Categories */,
+				7A26E5B2156CD8A70011E15F /* Crypto */,
 				43A5368E11DBE3B9004A1712 /* OAAsynchronousDataFetcher.h */,
 				43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */,
+				AABBF279163076CD009D46E4 /* OAAttachment.h */,
+				AABBF27A163076CD009D46E4 /* OAAttachment.m */,
+				AABBF27B163076CD009D46E4 /* OACall.h */,
+				AABBF27C163076CD009D46E4 /* OACall.m */,
 				43A5369011DBE3B9004A1712 /* OAConsumer.h */,
 				43A5369111DBE3B9004A1712 /* OAConsumer.m */,
 				43A5369211DBE3B9004A1712 /* OADataFetcher.h */,
@@ -1521,6 +1549,8 @@
 				43A5369711DBE3B9004A1712 /* OAMutableURLRequest.m */,
 				43A5369811DBE3B9004A1712 /* OAPlaintextSignatureProvider.h */,
 				43A5369911DBE3B9004A1712 /* OAPlaintextSignatureProvider.m */,
+				AABBF27D163076CD009D46E4 /* OAProblem.h */,
+				AABBF27E163076CD009D46E4 /* OAProblem.m */,
 				43A5369C11DBE3B9004A1712 /* OARequestParameter.h */,
 				43A5369D11DBE3B9004A1712 /* OARequestParameter.m */,
 				43A5369E11DBE3B9004A1712 /* OAServiceTicket.h */,
@@ -1528,6 +1558,8 @@
 				43A536A011DBE3B9004A1712 /* OASignatureProviding.h */,
 				43A536A111DBE3B9004A1712 /* OAToken.h */,
 				43A536A211DBE3B9004A1712 /* OAToken.m */,
+				AABBF27F163076CD009D46E4 /* OATokenManager.h */,
+				AABBF280163076CD009D46E4 /* OATokenManager.m */,
 				43A536A311DBE3B9004A1712 /* OAuthConsumer.h */,
 			);
 			path = OAuth;
@@ -1740,8 +1772,8 @@
 		43C91DF211EBAE4800F31FAE /* Tumblr */ = {
 			isa = PBXGroup;
 			children = (
-				43C91DF311EBAE4800F31FAE /* SHKTumblr.h */,
-				43C91DF411EBAE4800F31FAE /* SHKTumblr.m */,
+				AABBF26D1630763F009D46E4 /* SHKTumblrV2.h */,
+				AABBF26E1630763F009D46E4 /* SHKTumblrV2.m */,
 			);
 			path = Tumblr;
 			sourceTree = "<group>";
@@ -1988,6 +2020,10 @@
 				7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */,
 				7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				AABBF282163076CD009D46E4 /* OAAttachment.h in Headers */,
+				AABBF286163076CD009D46E4 /* OACall.h in Headers */,
+				AABBF28A163076CD009D46E4 /* OAProblem.h in Headers */,
+				AABBF28E163076CD009D46E4 /* OATokenManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2148,6 +2184,10 @@
 				7ABCDBB0157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 				7A16F3B016134A790019645D /* SHKInstagram.h in Headers */,
+				AABBF281163076CD009D46E4 /* OAAttachment.h in Headers */,
+				AABBF285163076CD009D46E4 /* OACall.h in Headers */,
+				AABBF289163076CD009D46E4 /* OAProblem.h in Headers */,
+				AABBF28D163076CD009D46E4 /* OATokenManager.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3191,6 +3231,10 @@
 				7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
 				7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
 				7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */,
+				AABBF284163076CD009D46E4 /* OAAttachment.m in Sources */,
+				AABBF288163076CD009D46E4 /* OACall.m in Sources */,
+				AABBF28C163076CD009D46E4 /* OAProblem.m in Sources */,
+				AABBF290163076CD009D46E4 /* OATokenManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3414,7 +3458,6 @@
 				7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */,
 				7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */,
 				7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */,
-				7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */,
 				7AB535771552BE7D00171BCE /* SHKiOS5Twitter.m in Sources */,
 				7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */,
 				7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */,
@@ -3463,6 +3506,11 @@
 				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
 				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
 				7A16F3B216134A790019645D /* SHKInstagram.m in Sources */,
+				AABBF278163076A5009D46E4 /* SHKTumblrV2.m in Sources */,
+				AABBF283163076CD009D46E4 /* OAAttachment.m in Sources */,
+				AABBF287163076CD009D46E4 /* OACall.m in Sources */,
+				AABBF28B163076CD009D46E4 /* OAProblem.m in Sources */,
+				AABBF28F163076CD009D46E4 /* OATokenManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3644,7 +3692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AEE0451160E1DD200FEC06E /* SHKTumblr.m in Sources */,
+				AABBF27616307677009D46E4 /* SHKTumblrV2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

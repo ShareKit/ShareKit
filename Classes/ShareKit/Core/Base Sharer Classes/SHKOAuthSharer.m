@@ -277,9 +277,6 @@
 					 forKey:@"accessSecret"
 			forSharer:[self sharerId]];
 	
-	[SHK setAuthValue:accessToken.sessionHandle
-			   forKey:@"sessionHandle"
-			forSharer:[self sharerId]];
 }
 
 + (void)deleteStoredAccessToken
@@ -318,15 +315,11 @@
 	NSString *secret = [SHK getAuthValueForKey:@"accessSecret"
 									 forSharer:[self sharerId]];
 	
-	NSString *sessionHandle = [SHK getAuthValueForKey:@"sessionHandle"
-									 forSharer:[self sharerId]];
 	
 	if (key != nil && secret != nil)
 	{
 		self.accessToken = [[[OAToken alloc] initWithKey:key secret:secret] autorelease];
 		
-		if (sessionHandle != nil)
-			accessToken.sessionHandle = sessionHandle;
 		
 		return accessToken != nil;
 	}

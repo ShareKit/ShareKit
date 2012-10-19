@@ -42,7 +42,7 @@
     id<OASignatureProviding> signatureProvider;
     NSString *nonce;
     NSString *timestamp;
-	NSMutableDictionary *extraOAuthParameters;
+    NSMutableDictionary *extraOAuthParameters;
 	BOOL didPrepare;
 }
 @property(readonly) NSString *signature;
@@ -52,18 +52,17 @@
 		 consumer:(OAConsumer *)aConsumer
 			token:(OAToken *)aToken
             realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider;
+signatureProvider:(id<OASignatureProviding>)aProvider;
 
 - (id)initWithURL:(NSURL *)aUrl
 		 consumer:(OAConsumer *)aConsumer
 			token:(OAToken *)aToken
             realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
+signatureProvider:(id<OASignatureProviding>)aProvider
             nonce:(NSString *)aNonce
         timestamp:(NSString *)aTimestamp;
 
 - (void)prepare;
-
 - (void)setOAuthParameterName:(NSString*)parameterName withValue:(NSString*)parameterValue;
 
 @end

@@ -39,7 +39,7 @@
 - (BOOL)sendTextAndLink;
 - (BOOL)sendImageAction;
 - (BOOL)sendText;
-- (NSString *)URLEncodedString:(NSString *)str;
+- (NSString *)encodedURLString:(NSString *)str;
 
 @end
 
@@ -245,14 +245,14 @@
 	NSString *photo = [postDictionary objectForKey:@"photo"];
 	NSString *server = [postDictionary objectForKey:@"server"];
 
-	NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, [self URLEncodedString:photo], hash];
+	NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, [self encodedURLString:photo], hash];
 	
 	NSDictionary *saveWallPhotoDict = [self sendRequest:saveWallPhoto withCaptcha:NO];
 	
 	NSDictionary *photoDict = [[saveWallPhotoDict objectForKey:@"response"] lastObject];
 	NSString *photoId = [photoDict objectForKey:@"id"];
 	
-	NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.title], photoId];
+	NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.title], photoId];
 	
 	NSDictionary *postToWallDict = [self sendRequest:postToWallLink withCaptcha:NO];
 	NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
@@ -309,7 +309,7 @@
 
 - (BOOL) sendText 
 {		
-	NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.text]];
+	NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.text]];
 	
 	NSDictionary *result = [self sendRequest:sendTextMessage withCaptcha:NO];
 
@@ -328,7 +328,7 @@
 
 - (BOOL) sendTextAndLink 
 {	
-	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.text]?[self URLEncodedString:item.text]:[item.URL absoluteString], [item.URL absoluteString]];
+	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.text]?[self encodedURLString:item.text]:[item.URL absoluteString], [item.URL absoluteString]];
 	
 	NSDictionary *result = [self sendRequest:sendTextAndLinkMessage withCaptcha:NO];
 	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
@@ -351,7 +351,7 @@
 		NSString *captcha_sid = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_sid"];
 		NSString *captcha_user = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_user"];
 
-		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self URLEncodedString: captcha_user]];
+		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self encodedURLString: captcha_user]];
 	}
 	NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
@@ -428,7 +428,7 @@
 	return nil;
 }
 
-- (NSString *)URLEncodedString:(NSString *)str
+- (NSString *)encodedURLString:(NSString *)str
 {
 	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
 																																				 (CFStringRef)str,
