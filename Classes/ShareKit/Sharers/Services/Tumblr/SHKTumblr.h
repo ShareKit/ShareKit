@@ -2,17 +2,13 @@
 //  SHKTumblr.h
 //  ShareKit
 //
-//  Created by Jamie Pinkham on 7/10/10.
-//  Copyright 2010 Mobelux. All rights reserved.
+//  Created by Che-Bin Liu on 10/17/12.
 //
 
-#import <Foundation/Foundation.h>
-#import "SHKSharer.h"
+#import "SHKOAuthSharer.h"
 
-@interface SHKTumblr : SHKSharer {
-    //for photo posts
-    NSMutableData *data;
-    NSHTTPURLResponse *response;
+@interface SHKTumblr : SHKOAuthSharer
+{
+	BOOL xAuth;
 }
-- (NSData*) generateImageData;
 @end
