@@ -112,6 +112,24 @@
 - (NSString*)twitterUsername {
 	return @"";
 }
+
+// Tumblr - http://www.tumblr.com/docs/en/api/v2
+- (NSString*)tumblrConsumerKey {
+	return @"";
+}
+
+- (NSString*)tumblrSecret {
+	return @"";
+}
+// You need to set this if using OAuth, see note above (xAuth users can skip it)
+- (NSString*)tumblrCallbackUrl {
+	return @"";
+}
+// To use xAuth, set to 1
+- (NSNumber*)tumblrUseXAuth {
+	return [NSNumber numberWithInt:0];
+}
+
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote
  // Sandbox
