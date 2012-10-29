@@ -180,6 +180,9 @@
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                                             timeoutInterval:60.0];
         [NSURLConnection connectionWithRequest:requestM delegate:self];
+    } else
+    {
+        [self authDidFinish: NO];
     }
 }
 
