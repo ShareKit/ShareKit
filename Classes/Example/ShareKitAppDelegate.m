@@ -47,9 +47,15 @@
 	[SHK flushOfflineQueue];
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+	[SHKFacebook handleDidBecomeActive];
+}
+
 - (void)applicationWillTerminate:(UIApplication *)application 
 {
 	// Save data if appropriate
+	[SHKFacebook handleWillTerminate];
 }
 
 - (BOOL)handleOpenURL:(NSURL*)url

@@ -53,7 +53,9 @@
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
-- (NSArray*)facebookListOfPermissions;
+- (NSArray*)facebookWritePermissions;
+- (NSArray*)facebookReadPermissions;
+- (NSNumber*)forcePreIOS6FacebookPosting;
 - (NSString*)readItLaterKey;
 - (NSString*)diigoKey;
 - (NSNumber*)forcePreIOS5TwitterAccess;

@@ -84,9 +84,25 @@
 }
 
 //Change if your app needs some special Facebook permissions only. In most cases you can leave it as it is.
-- (NSArray*)facebookListOfPermissions {    
-    return [NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil];
+
+// new with the 3.1 SDK facebook wants you to request read and publish permissions separatly. If you don't
+// you won't get a smooth login/auth flow. Since ShareKit does not require any read permissions.
+- (NSArray*)facebookWritePermissions {    
+    return [NSArray arrayWithObjects:@"publish_actions", nil];
 }
+- (NSArray*)facebookReadPermissions {    
+    return nil;	// this is the defaul value for the SDK and will afford basic read permissions
+}
+
+/*
+ If you want to force use of old-style, posting path that does not use the native sheet. One of the troubles
+ with the native sheet is that it gives IOS6 props on facebook instead of your app. This flag has no effect
+ on the auth path. It will try to use native auth if availible.
+ */
+- (NSNumber*)forcePreIOS6FacebookPosting {
+	return [NSNumber numberWithBool:false];
+}
+
 
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
