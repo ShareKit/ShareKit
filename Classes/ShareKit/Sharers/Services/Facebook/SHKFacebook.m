@@ -395,6 +395,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
+														 [self restoreItem];
 														 [[SHKActivityIndicator currentIndicator] hide];
 														 requestingPermisSHKFacebook = nil;
 														 if (error) {
@@ -406,7 +407,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   otherButtonTitles:nil];
 															 [alertView show];
 
-															 [self restoreItem];
 															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
 															 [self tryPendingAction];
 														 }else{
@@ -613,6 +613,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
+														 [self restoreItem];
 														 [[SHKActivityIndicator currentIndicator] hide];
 														 requestingPermisSHKFacebook = nil;
 														 if (error) {
