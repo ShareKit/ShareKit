@@ -33,6 +33,7 @@ static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKFacebookAccessTokenKey=@"kSHKFacebookAccessToken";
 static NSString *const kSHKFacebookExpiryDateKey=@"kSHKFacebookExpiryDate";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
+static NSString *const kSHKFacebookGraphPayload =@"kSHKFacebookGraphPayload";
 
 @interface SHKFacebook()
 
@@ -266,8 +267,18 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
         [[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
         [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
         return YES;
-    } 
-	else 
+    }
+    else if (item.shareType == SHKShareTypeUndefined)
+    {
+        [self setQuiet:YES];
+        
+        NSString *graphPath = [item customValueForKey:@"graphPath"];
+        
+        [[SHKFacebook facebook] requestWithGraphPath:graphPath andDelegate:self];
+        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
+        return YES;
+    }
+	else
 		// There is nothing to send
 		return NO;
 	
@@ -411,7 +422,10 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     if ([fbRequest.url hasSuffix:@"/me"] && [result objectForKey:@"id"]) {
         [result convertNSNullsToEmptyStrings];
         [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
-    }     
+    } else if ([fbRequest.url hasSuffix:@"/me/permissions"] && [result objectForKey:@"data"]) {
+        [result convertNSNullsToEmptyStrings];
+        [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookGraphPayload];
+    }
 
     [self sendDidFinish];
     [self release]; //see [self send]
