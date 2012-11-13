@@ -24,8 +24,6 @@
 
 "Title" = "Title";
 
-"Tags" = "Tags";
-
 "Close" = "Close";
 
 "Notes" = "Notes";
@@ -159,8 +157,6 @@
 
 "Description" = "Description";
 
-"Tag (space) Tag" = "Tag (space) Tag";
-
 "Is Public" = "Is Public";
 
 "Is Friend" = "Is Friend";
@@ -173,7 +169,7 @@
 
 "Save to Photo Album" = "Save to Photo Album";
 
-"Tag,Tag" = "Tag,Tag";
+"Tag, tag" = "Tag, tag";
 
 "Logout of All Services" = "Logout of all";
 

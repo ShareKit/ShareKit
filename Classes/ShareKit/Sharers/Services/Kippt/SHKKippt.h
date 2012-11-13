@@ -1,8 +1,8 @@
 //
-//  SHKLinkedInOAMutableURLRequest.h
+//  SHKKippt.h
 //  ShareKit
 //
-//  Created by Robin Hos (Everdune) on 9/22/11.
+
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,28 +22,21 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//
 
-#import "OAMutableURLRequest.h"
+#import "SHKSharer.h"
 
-@interface SHKLinkedInOAMutableURLRequest : OAMutableURLRequest {
-    NSString *callback;
+// Needed for HTTP Basic Auth
+NSString *base64(NSData *plainText);
+
+@interface SHKKippt : SHKSharer <SHKFormOptionControllerOptionProvider> {
+@private
+    NSString *_username;
+    NSString *_password;
 }
 
-- (id)initWithURL:(NSURL *)aUrl
-		 consumer:(OAConsumer *)aConsumer
-			token:(OAToken *)aToken
-            realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider 
-         callback:(NSString*)aCallback;
+// Convenience method: trigger request with Basic Auth added
+- (void)sendRequest:(NSString *)url params:(NSString *)params isFinishedSelector:(SEL)sel method:(NSString *)method;
 
-- (id)initWithURL:(NSURL *)aUrl
-		 consumer:(OAConsumer *)aConsumer
-			token:(OAToken *)aToken
-            realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
-            nonce:(NSString *)aNonce
-        timestamp:(NSString *)aTimestamp
-         callback:(NSString*)aCallback;
+- (void)didFetchLists:(SHKRequest *)aRequest;
 
 @end

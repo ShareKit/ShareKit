@@ -68,6 +68,14 @@
 - (void)share
 {
 	SHKItem *item = [SHKItem image:imageView.image title:@"San Francisco"];
+    
+    /* optional examples
+    item.tags = [NSArray arrayWithObjects:@"bay bridge", @"architecture", @"california", nil];
+    
+    //give a source rect in the coords of the view set with setRootViewController:
+    item.popOverSourceRect = [self.navigationController.toolbar convertRect:self.navigationController.toolbar.bounds toView:self.view];
+     */
+
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	[SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];

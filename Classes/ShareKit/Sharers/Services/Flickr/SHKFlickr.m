@@ -131,10 +131,10 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 															 key:@"description"
 															type:SHKFormFieldTypeText
 														   start:self.item.text],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag (space) Tag")
+									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
 															 key:@"tags"
 															type:SHKFormFieldTypeText
-														   start:self.item.tags],
+														   start:[self.item.tags componentsJoinedByString:@", "]],
 									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
 															 key:@"is_public"
 															type:SHKFormFieldTypeSwitch
@@ -198,12 +198,15 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	[self sendDidStart];
 	NSData *JPEGData = [self generateImageData];
 	self.flickrRequest.sessionInfo = kUploadImageStep;
+    
+    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil];
+    
 	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
 	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  titleVal, @"title",
 						  descript, @"description",
-						  item.tags == nil ? @"" : item.tags, @"tags",
+						  item.tags == nil ? @"" : tagString, @"tags",
 						  [item customValueForKey:@"is_public"], @"is_public",
 						  [item customValueForKey:@"is_friend"], @"is_friend",
 						  [item customValueForKey:@"is_family"], @"is_family",

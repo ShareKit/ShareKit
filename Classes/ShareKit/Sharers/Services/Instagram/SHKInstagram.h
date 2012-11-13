@@ -1,10 +1,8 @@
 //
-//  SHKShareMenu.h
-//  ShareKit
+//  SHKInstagram.h
+//  PhotoToaster
 //
-//  Created by Nathan Weiner on 6/18/10.
-
-//
+//  Created by Steve Troppoli on 8/5/11.
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -23,40 +21,12 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 //
-//
 
-#import <UIKit/UIKit.h>
-#import "SHK.h"
+#import <Foundation/Foundation.h>
+#import "SHKSharer.h"
 
-@class SHKSharer;
-@protocol SHKShareItemDelegate;
+@interface SHKInstagram : SHKSharer <UIDocumentInteractionControllerDelegate>
 
-@interface SHKShareMenu : UITableViewController 
-{
-	SHKItem *item;
-	NSMutableArray *tableData;
-	NSMutableArray *exclusions;
-	id<SHKShareItemDelegate> shareDelegate;
-	SHKSharer* limboSharer;	// used to postpone the call to share until the menu has finished animating out.
-}
-
-@property (nonatomic, retain) SHKItem *item;
-@property (retain) NSMutableArray *tableData;
-@property (retain) NSMutableArray *exclusions;
-@property (retain) id<SHKShareItemDelegate> shareDelegate;
-
-
-- (void)rebuildTableDataAnimated:(BOOL)animated;
-- (NSMutableArray *)section:(NSString *)section;
-- (NSDictionary *)rowDataAtIndexPath:(NSIndexPath *)indexPath;
-
-#pragma mark -
-#pragma mark Toolbar Buttons
-
-- (void)cancel;
-- (void)edit;
-- (void)save;
-
-
+- (NSData*) generateImageData:(UIImage*)image;
 
 @end

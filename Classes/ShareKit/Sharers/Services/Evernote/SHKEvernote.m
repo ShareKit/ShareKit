@@ -102,7 +102,7 @@
 	return [NSArray arrayWithObjects:
 	 [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
 	 //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:item.text],
-	 [SHKFormFieldSettings label:SHKLocalizedString(@"Tags")  key:@"tags" type:SHKFormFieldTypeText start:item.tags],
+	 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")  key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
 	 nil];
 }
 
@@ -145,7 +145,7 @@
     note.title = item.title.length > 0 ? item.title :( [note titleIsSet] ? note.title : SHKLocalizedString(@"Untitled") );
     
     if(![note tagNamesIsSet]&&item.tags)
-    	[note setTagNames:[item.tags componentsSeparatedByString:@" "]];
+    	[note setTagNames:item.tags];
     
     if(![note contentIsSet]) {
         NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];

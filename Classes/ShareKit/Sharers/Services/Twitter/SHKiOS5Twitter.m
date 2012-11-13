@@ -75,23 +75,16 @@
     [iOS5twitter addImage:self.item.image];    
     [iOS5twitter addURL:self.item.URL];
     
-    if (self.item.shareType == SHKShareTypeText) 
-    {
-        NSUInteger textLength = [item.text length] > 140 ? 140 : [item.text length];
-        
-        while ([iOS5twitter setInitialText:[item.text substringToIndex:textLength]] == NO && textLength > 0)
-        {
-            textLength--;
-        }
-    } 
-    else 
-    {
-        NSUInteger titleLength = [item.title length] > 140 ? 140 : [item.title length];      
-        
-        while ([iOS5twitter setInitialText:[item.title substringToIndex:titleLength]] == NO && titleLength > 0)
-        {
-            titleLength--;
-        }
+    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
+    
+    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    if ([tagString length] > 0) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];
+    
+    // Trim string to fit 140 character max.
+    NSUInteger textLength = [tweetBody length] > 140 ? 140 : [tweetBody length];
+    
+    while ([iOS5twitter setInitialText:[tweetBody substringToIndex:textLength]] == NO && textLength > 0) {
+        textLength--;
     }
     
     iOS5twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 

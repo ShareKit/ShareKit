@@ -26,10 +26,12 @@
 
 #import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
-#import "SHKLinkedInOAMutableURLRequest.h"
 #import "SHKXMLResponseParser.h"
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
+
+// The oauth scope we need to request at LinkedIn
+#define SHKLinkedInRequiredScope @"rw_nus"
 
 @implementation SHKLinkedIn
 
@@ -98,13 +100,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark -
 #pragma mark Authentication
 
-// These defines should be renamed (to match your service name).
-// They will eventually be moved to SHKConfig so the user can modify them.
-
-#define SHKYourServiceNameConsumerKey @""	// The consumer key
-#define SHKYourServiceNameSecretKey @""		// The secret key
-#define SHKYourServiceNameCallbackUrl @""	// The user defined callback url
-
 - (id)init
 {
 	if (self = [super init])
@@ -115,8 +110,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 		
 		// -- //
 		
-		
-		// Edit these to provide the correct urls for each oauth step
 	    self.requestURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/requestToken"];
 	    self.authorizeURL = [NSURL URLWithString:@"https://www.linkedin.com/uas/oauth/authorize"];
 	    self.accessURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/accessToken"];
@@ -126,40 +119,19 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	return self;
 }
 
-- (void)tokenAccess:(BOOL)refresh
-{
-	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
-	
-    SHKLinkedInOAMutableURLRequest *oRequest = [[SHKLinkedInOAMutableURLRequest alloc] initWithURL:accessURL
-                                                                                          consumer:consumer
-                                                                                             token:(refresh ? accessToken : requestToken)
-                                                                                             realm:nil   // our service provider doesn't specify a realm
-                                                                                 signatureProvider:signatureProvider // use the default method, HMAC-SHA1
-                                                                                          callback:self.authorizeCallbackURL.absoluteString];
-	
-    [oRequest setHTTPMethod:@"POST"];
-	
-	[self tokenAccessModifyRequest:oRequest];
-	
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(tokenAccessTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(tokenAccessTicket:didFailWithError:)];
-	[fetcher start];
-	[oRequest release];
-}
-
-
-// If you need to add additional headers or parameters to the access_token request, uncomment this section:
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
 	SHKLog(@"req: %@", authorizeResponseQueryVars);
-  // Here is an example that adds the oauth_verifier value received from the authorize call.
-  // authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
-  [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
+- (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
+{
+	[oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
+    
+    // We need the rw_nus scope to be able to share messages.
+    [oRequest setOAuthParameterName:@"scope" withValue:SHKLinkedInRequiredScope];
+}
 
 #pragma mark -
 #pragma mark Share Form
@@ -310,8 +282,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // The send was successful
         [self sendDidFinish];
     }
-    
-    else 
+    else
     {
         
 #ifdef _SHKDebugShowLogs
@@ -325,7 +296,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // for the login information with:
         NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
         
-        if ([errorCode isEqualToString:@"401"]) {
+        // If we receive 401, we're not logged in. If we receive 403, we were logged in before, but didn't
+        // yet have the proper privileges, so we force a relogin so linkedin can ask the user the
+        // correct privileges.
+        if ([errorCode isEqualToString:@"401"] || [errorCode isEqualToString:@"403"]) {
             
             [self shouldReloginWithPendingAction:SHKPendingSend];
             

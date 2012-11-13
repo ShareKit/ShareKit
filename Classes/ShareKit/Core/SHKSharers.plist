@@ -14,6 +14,7 @@
 	</array>
 	<key>services</key>
 	<array>
+		<string>SHKKippt</string>
 		<string>SHKReadability</string>
 		<string>SHKEvernote</string>
 		<string>SHKDelicious</string>
@@ -29,6 +30,7 @@
 		<string>SHKFlickr</string>
 		<string>SHKLinkedIn</string>
 		<string>SHKFoursquareV2</string>
+		<string>SHKInstagram</string>
 	</array>
 </dict>
 </plist>

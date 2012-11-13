@@ -4,14 +4,13 @@
 "Follow %@" = "關注 %@";
 "Continue" = "繼續";
 "Share" = "分享";
-"More..." = "更多...";
+"More..." = "更多…";
 "Cancel" = "取消";
 "Slug" = "Slug";
 "Private" = "私人";
 "Public" = "公開";
 "Caption" = "標題";
 "Title" = "標題";
-"Tags" = "標籤";
 "Close" = "關閉";
 "Notes" = "筆記";
 "Note" = "筆記";
@@ -99,7 +98,6 @@
 "There was a problem sharing with Evernote" = "分享到 Evernote 時發生錯誤。";
 "Get" = "取得";
 "Description" = "描述";
-"Tag (space) Tag" = "標籤 （空白） 標籤";
 "Is Public" = "公開";
 "Is Friend" = "朋友";
 "Is Family" = "家庭";
@@ -107,3 +105,27 @@
 "Sent from %@" = "由 %@ 發送";
 "Save to Photo Album" = "儲存相片";
 "Tag,Tag" = "標籤,標籤";
+"Logout of All Services" = "登出全部服務";
+
+"Check In" = "打卡";
+
+"Could not find any" = "無法找到";
+
+"Determine your location..." = "正在定位目前位置…";
+
+"Loading..." = "讀取中…";
+
+"Nearby Places" = "鄰近地標";
+
+"No Options" = "無選項";
+
+"Post To Groups" = "新增至群組";
+
+"Print" = "列印";
+
+"Search places" = "搜尋地標";
+
+"Searching places..." = "搜尋地標中…";
+
+"Select Group" = "選擇群組";
+"Flickr Groups" = "Flickr 群組";

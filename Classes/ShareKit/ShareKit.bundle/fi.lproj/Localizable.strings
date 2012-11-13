@@ -11,7 +11,6 @@
 "Public" = "Julkinen";
 "Caption" = "Kuvateksti";
 "Title" = "Otsikko";
-"Tags" = "Tägit";
 "Close" = "Sulje";
 "Notes" = "Muistiinpanot";
 "Note" = "Muistiinpano";
@@ -98,11 +97,10 @@
 "There was a problem sharing with Evernote" = "Virhe jaettaessa palveluun Evernote";
 "Get" = "Hae";
 "Description" = "Kuvaus";
-"Tag (space) Tag" = "Tagi (space) Tagi";
 "Is Public" = "On julkinen";
 "Is Friend" = "On ystävä";
 "Is Family" = "On perhettä";
 "Logged Out!" = "Kirjauduttu ulos!";
 "Sent from %@" = "Lähetetty palvelusta %@";
 "Save to Photo Album" = "Tallenna Kuva-albumiin";
-"Tag,Tag" = "Tagi,Tagi";
+"Tag, tag" = "Tagi, tagi";

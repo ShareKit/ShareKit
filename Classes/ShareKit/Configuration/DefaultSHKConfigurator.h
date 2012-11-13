@@ -30,7 +30,7 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-// #define _SHKDebugShowLogs
+//#define _SHKDebugShowLogs
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
@@ -89,8 +89,7 @@
 - (UIColor*)barTintForView:(UIViewController*)vc;
 - (UIColor*)formFontColor;
 - (UIColor*)formBackgroundColor;
-- (NSString*)modalPresentationStyle;
-- (NSString*)modalPresentationStyleForController:(id)controller;
+- (NSString*)modalPresentationStyleForController:(UIViewController *)controller;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
 - (NSNumber*)autoOrderFavoriteSharers;
@@ -108,13 +107,15 @@
 //SHKPrint
 - (NSNumber*)printOutputType;
 //SHKMail
-- (NSString*)mailBody;
+- (NSArray *)mailToRecipients;
 - (NSNumber*)isMailHTML;
-- (NSArray*)mailToRecipients;
 - (NSNumber*)mailJPGQuality;
 - (NSNumber*)sharedWithSignature;
 //SHKFacebook
 - (NSString *)facebookURLSharePictureURI;
 - (NSString *)facebookURLShareDescription;
-
+//SHKTextMessage
+- (NSArray *)textMessageToRecipients;
+//SHKInstagram and future others
+-(NSString*) popOverSourceRect;
 @end

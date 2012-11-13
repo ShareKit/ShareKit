@@ -277,8 +277,8 @@
     return nil;
 }
 
-// iPad views
-- (NSString*)modalPresentationStyle {
+// iPad views. You can change presentation style for different sharers
+- (NSString *)modalPresentationStyleForController:(UIViewController *)controller {
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 }
 
@@ -400,18 +400,13 @@
 
 /* SHKMail */
 
-//constructed during runtime from user input in shareForm by default
-- (NSString*)mailBody {
-    return nil;
+//You can use this to prefill recipients. User enters them in MFMailComposeViewController by default. Should be array of NSStrings.
+- (NSArray *)mailToRecipients {
+	return nil;
 }
 
 - (NSNumber*)isMailHTML {
     return [NSNumber numberWithInt:1];
-}
-
-//user enters them in MFMailComposeViewController by default. Should be array of NSStrings.
-- (NSArray*)mailToRecipients {
-    return nil;
 }
 
 //used only if you share image. Values from 1.0 to 0.0 (maximum compression).
@@ -435,7 +430,16 @@
     return nil;
 }
 
+/* SHKTextMessage */
 
+//You can use this to prefill recipients. User enters them in MFMessageComposeViewController by default. Should be array of NSStrings.
+- (NSArray *)textMessageToRecipients {
+  return nil;
+}
 
+-(NSString*) popOverSourceRect;
+ {
+  return NSStringFromCGRect(CGRectZero);
+}
 
 @end
