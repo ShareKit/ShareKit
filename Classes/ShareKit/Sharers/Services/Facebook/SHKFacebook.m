@@ -552,7 +552,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark - UI Implementation
 - (void) doNativeShow
 {
-	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForCustomUIDisplay]
+	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForUIDisplay]
 																	initialText:item.text ? item.text : item.title
 																		  image:item.image
 																			url:item.URL

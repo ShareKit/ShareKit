@@ -35,13 +35,14 @@
 	[super viewDidDisappear:animated];
 	
 	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
-	if (self.modalViewController == nil)
-		[[SHK currentHelper] viewWasDismissed];
+	if (self.modalViewController == nil) {
+        if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+            [[SHK currentHelper] viewWasDismissed];
+        }
+    }
 }
 
 @end
-
-
 
 @implementation SHKTextMessage
 

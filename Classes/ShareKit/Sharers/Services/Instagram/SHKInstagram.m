@@ -142,7 +142,7 @@
 			// we haven't been presented yet, so we're not in the hierarchy. On the iPad the DIC is
 			// presented in a popover and that really wants a view rooted in a window. Since we
 			// set the rootViewController in the controller that presents this one, we can use it
-			UIViewController* crvc = [[SHK currentHelper] rootViewForCustomUIDisplay];
+			UIViewController* crvc = [[SHK currentHelper] rootViewForUIDisplay];
 			if (crvc != nil && crvc.view.window != nil ) {
 				bestView = crvc.view;
 			}

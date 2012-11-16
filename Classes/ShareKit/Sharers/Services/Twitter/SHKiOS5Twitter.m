@@ -12,20 +12,12 @@
 
 @interface SHKiOS5Twitter ()
 
-@property (retain) UIViewController *currentTopViewController;
-
-- (void)callUI:(NSNotification *)notif;
-- (void)presentUI;
-
 @end
 
 @implementation SHKiOS5Twitter
 
-@synthesize currentTopViewController;
-
 - (void)dealloc {
-    
-    [currentTopViewController release];
+
     [super dealloc];
 }
 
@@ -40,31 +32,7 @@
 }
 
 - (void)share {
-           
-    if ([[SHK currentHelper] currentView]) { //user is sharing from SHKShareMenu    
-        [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                 selector:@selector(callUI:) 
-                                                     name:SHKHideCurrentViewFinishedNotification                                       
-                                                   object:nil];
-        [self retain];  //must retain, so that it is still around for SHKShareMenu hide callback. Menu hides asynchronously when sharer is chosen.
         
-    } else {  
-    
-        [self presentUI];   
-    }
-}
-
-#pragma mark -
-
-- (void)callUI:(NSNotification *)notif {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SHKHideCurrentViewFinishedNotification object:nil];
-    [self presentUI];
-    [self release]; //see share
-}
-
-- (void)presentUI {
-    
     if ([self.item shareType] == SHKShareTypeUserInfo) {
         SHKLog(@"User info not possible to download on iOS5+. You can get Twitter enabled user info from Accounts framework");
         return;
@@ -72,7 +40,7 @@
     
     TWTweetComposeViewController *iOS5twitter = [[TWTweetComposeViewController alloc] init];
     
-    [iOS5twitter addImage:self.item.image];    
+    [iOS5twitter addImage:self.item.image];
     [iOS5twitter addURL:self.item.URL];
     
     NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
@@ -87,13 +55,9 @@
         textLength--;
     }
     
-    iOS5twitter.completionHandler = ^(TWTweetComposeViewControllerResult result) 
+    iOS5twitter.completionHandler = ^(TWTweetComposeViewControllerResult result)
     {
-         [self.currentTopViewController dismissViewControllerAnimated:YES completion:^{                                                                           
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
-            }];
-        }];
+        [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
         
         switch (result) {
                 
@@ -102,15 +66,14 @@
                 break;
                 
             case TWTweetComposeViewControllerResultCancelled:
-                [self sendDidCancel];                
+                [self sendDidCancel];
                 
             default:
                 break;
         }
-    };   
+    };
     
-    self.currentTopViewController = [[SHK currentHelper] rootViewForCustomUIDisplay];
-    [self.currentTopViewController presentViewController:iOS5twitter animated:YES completion:nil];
+    [[SHK currentHelper] showStandaloneViewController:iOS5twitter];
     [iOS5twitter release];
 }
 
