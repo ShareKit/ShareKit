@@ -566,23 +566,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark - UI Implementation
 - (void) doNativeShow
 {
-<<<<<<< HEAD
-  [self sendDidStart];
-}
-
-- (void)request:(FBRequest *)fbRequest didLoad:(id)result
-{   
-    if ([fbRequest.url hasSuffix:@"/me"] && [result objectForKey:@"id"]) {
-        [result convertNSNullsToEmptyStrings];
-        [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookUserInfo];
-    } else if ([fbRequest.url hasSuffix:@"/me/permissions"] && [result objectForKey:@"data"]) {
-        [result convertNSNullsToEmptyStrings];
-        [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookGraphPayload];
-    }
-
-    [self sendDidFinish];
-    [self release]; //see [self send]
-=======
 	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForCustomUIDisplay]
 																	initialText:item.text ? item.text : item.title
 																		  image:item.image
@@ -615,7 +598,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if (!displayedNativeDialog) {
 		[self doSHKShow];
 	}
->>>>>>> upstream/master
 }
 
 - (void) doSHKShow
