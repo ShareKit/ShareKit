@@ -501,13 +501,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		}];
 		[self.pendingConnections addObject:con];
 	}
-    else if (item.shareType == SHKShareTypeUserInfo)
-    {
-        [self setQuiet:YES];
-        [[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
-        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-        return YES;
-    }
     else if (item.shareType == SHKShareTypeUndefined)
     {
         [self setQuiet:YES];
