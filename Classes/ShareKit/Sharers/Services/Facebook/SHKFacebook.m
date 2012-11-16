@@ -507,9 +507,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         
         NSString *graphPath = [item customValueForKey:@"graphPath"];
         
-        [[SHKFacebook facebook] requestWithGraphPath:graphPath andDelegate:self];
-        [self retain]; //must retain, because FBConnect does not retain its delegates. Released in callback.
-        return YES;
+        FBRequestConnection* con = [FBRequestConnection startWithGraphPath:graphPath
+                                                                parameters:params
+                                                                HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                    [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                }];
+		[self.pendingConnections addObject:con];
     }
 }
 
