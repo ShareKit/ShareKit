@@ -152,13 +152,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 					 urlSchemeSuffix:SHKCONFIG(facebookLocalAppId)
 				  tokenCacheStrategy:nil] autorelease];
     
-    if (allowLoginUI ||
-        (session.state == FBSessionStateCreatedTokenLoaded)) {
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+    if (allowLoginUI || (session.state == FBSessionStateCreatedTokenLoaded)) {
+        
+		if (allowLoginUI) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
         [FBSession setActiveSession:session];
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-					[[SHKActivityIndicator currentIndicator] hide];
+					if (allowLoginUI) [[SHKActivityIndicator currentIndicator] hide];
 					[self sessionStateChanged:session state:state error:error];
 				}];
         result = session.isOpen;
@@ -381,11 +382,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
-		item.shareType == SHKShareTypeUserInfo)					// sharekit doesn't use this, I don't know who does
-    {
+		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services
+        
 		// Ask for publish_actions permissions in context
-		if ([FBSession.activeSession.permissions
-			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
+        if (item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
 			// No permissions found in session, ask for it
 			[self saveItemForLater:SHKPendingSend];
 			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
