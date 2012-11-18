@@ -32,8 +32,9 @@
 #import "SHKTwitter.h"
 #import "JSONKit.h"
 #import "SHKXMLResponseParser.h"
-#import "SHKiOS5Twitter.h"
+#import "SHKiOSTwitter.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import <Social/Social.h>
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
@@ -121,7 +122,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	if ([self twitterFrameworkAvailable]) {
 		
-		SHKSharer *sharer =[SHKiOS5Twitter shareItem:self.item];
+		SHKSharer *sharer =[SHKiOSTwitter shareItem:self.item];
         sharer.quiet = self.quiet;
         sharer.shareDelegate = self.shareDelegate;
 		[SHKTwitter logout];//to clean credentials - we will not need them anymore

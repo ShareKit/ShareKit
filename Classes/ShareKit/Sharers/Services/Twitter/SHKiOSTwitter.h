@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHKSharer.h"
+#import "SHKiOSSharer.h"
 
-@interface SHKiOS5Twitter : SHKSharer
+@interface SHKiOSTwitter : SHKiOSSharer
 
 @end
