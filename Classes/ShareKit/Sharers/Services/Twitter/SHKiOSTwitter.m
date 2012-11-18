@@ -7,7 +7,6 @@
 //
 
 #import "SHKiOSTwitter.h"
-#import <Social/Social.h>
 #import "SHKiOSSharer_Protected.h"
 
 @implementation SHKiOSTwitter
@@ -20,6 +19,16 @@
 + (NSString *)sharerId
 {
 	return @"SHKTwitter";
+}
+
+- (NSUInteger)maxTextLength {
+    
+    return 140;
+}
+
+- (NSString *)joinedTags {
+    
+    return [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
 }
 
 - (void)share {

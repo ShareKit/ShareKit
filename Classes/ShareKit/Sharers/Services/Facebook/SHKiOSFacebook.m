@@ -8,7 +8,6 @@
 
 #import "SHKiOSFacebook.h"
 #import "SHKiOSSharer_Protected.h"
-#import <Social/Social.h>
 
 @implementation SHKiOSFacebook
 

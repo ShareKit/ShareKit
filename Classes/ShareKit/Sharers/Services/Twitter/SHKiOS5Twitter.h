@@ -8,6 +8,8 @@
 
 #import "SHKSharer.h"
 
+/* after we stop supporting iOS5 this sharer might be deleted */
+
 @interface SHKiOS5Twitter : SHKSharer
 
 @end

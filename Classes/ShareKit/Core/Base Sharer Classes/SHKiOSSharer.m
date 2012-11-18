@@ -15,11 +15,6 @@
 
 @implementation SHKiOSSharer
 
-- (void)dealloc {
-    
-    [super dealloc];
-}
-
 - (void)shareWithServiceType:(NSString *)serviceType {
     
     if ([self.item shareType] == SHKShareTypeUserInfo) {
@@ -32,16 +27,22 @@
     [sharerUIController addImage:self.item.image];
     [sharerUIController addURL:self.item.URL];
     
-    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
+    NSString *initialText = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
     
-    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
-    if ([tagString length] > 0) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];
-    
-    // Trim string to fit 140 character max.
-    NSUInteger textLength = [tweetBody length] > 140 ? 140 : [tweetBody length];
-    
-    while ([sharerUIController setInitialText:[tweetBody substringToIndex:textLength]] == NO && textLength > 0) {
-        textLength--;
+    NSString *tagString = [self joinedTags];
+    if ([tagString length] > 0) initialText = [initialText stringByAppendingFormat:@" %@",tagString];
+
+    // Trim string to fit limit, if any.    
+    if (self.maxTextLength != NSNotFound) {
+        
+        NSUInteger textLength = [initialText length] > self.maxTextLength ? self.maxTextLength : [initialText length];
+        while ([sharerUIController setInitialText:[initialText substringToIndex:textLength]] == NO && textLength > 0) {
+            textLength--;
+        }
+        
+    } else {
+        
+        [sharerUIController setInitialText:initialText];
     }
     
     sharerUIController.completionHandler = ^(SLComposeViewControllerResult result)
@@ -63,6 +64,16 @@
     };
     
     [[SHK currentHelper] showStandaloneViewController:sharerUIController];
+}
+
+- (NSString *)joinedTags {
+    
+    return nil;
+}
+
+- (NSUInteger)maxTextLength {
+    
+    return NSNotFound;
 }
 
 @end
