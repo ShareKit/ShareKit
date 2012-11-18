@@ -192,6 +192,11 @@
 		7A56BFC21659173D00134F04 /* SHKiOSSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */; };
 		7A56BFC31659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
+		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
+		7A56BFE11659278E00134F04 /* SHKiOS5Twitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */; };
+		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
+		7A56BFF7165935C700134F04 /* libFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED37162F0B65009D46E4 /* libFacebook.a */; };
+		7A56BFF8165935CE00134F04 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
 		7AB418E2160761AB002059FA /* SHKKippt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A52EDF515CB032B00A737D8 /* SHKKippt.m */; };
 		7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
@@ -250,7 +255,6 @@
 		7AB5352D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AB5352F1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
-		7AB5354A1552BE7D00171BCE /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7AB5354C1552BE7D00171BCE /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
 		7AB5354E1552BE7D00171BCE /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
 		7AB535501552BE7D00171BCE /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
@@ -268,8 +272,6 @@
 		7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
-		7AB535771552BE7D00171BCE /* SHKiOSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOSTwitter.m */; };
-		7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
 		7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
 		7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
 		7AB5357F1552BE7D00171BCE /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
@@ -347,9 +349,7 @@
 		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		AAE40AA2161A1C2900DAA832 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
-		AAE40C6E161A21D700DAA832 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		AAF54549160BB0F200A93975 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */; };
-		AAFAC77216419ABA00035CCE /* SHKFacebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536DC11DBE3B9004A1712 /* SHKFacebook.h */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -367,6 +367,27 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
+		};
+		7A56BFEF1659321A00134F04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFD2B160E14340086B98A;
+			remoteInfo = Twitter;
+		};
+		7A56BFF31659328700134F04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED25162F0B65009D46E4;
+			remoteInfo = Facebook;
+		};
+		7A56BFF51659329B00134F04 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
 		};
 		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -388,20 +409,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = B9CBC519152537270036AA71;
 			remoteInfo = FacebookSDKTests;
-		};
-		AABBED27162F0B65009D46E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
-		AAE40C6C161A21C400DAA832 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -621,6 +628,10 @@
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
 		7A56BFC01659173D00134F04 /* SHKiOSSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOSSharer.m; sourceTree = "<group>"; };
 		7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer_Protected.h; sourceTree = "<group>"; };
+		7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSFacebook.h; sourceTree = "<group>"; };
+		7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOSFacebook.m; sourceTree = "<group>"; };
+		7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
+		7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOS5Twitter.m; sourceTree = "<group>"; };
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
 		7AB5342E1552AADD00171BCE /* libShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -803,7 +814,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE40C6E161A21D700DAA832 /* libfacebook_ios_sdk.a in Frameworks */,
+				7A56BFF8165935CE00134F04 /* libTwitter.a in Frameworks */,
+				7A56BFF7165935C700134F04 /* libFacebook.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1491,6 +1503,8 @@
 				AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */,
 				43A536DC11DBE3B9004A1712 /* SHKFacebook.h */,
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
+				7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */,
+				7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -1529,6 +1543,8 @@
 				F92EF488148E915E0070F913 /* SHKiOSTwitter.m */,
 				43A536E811DBE3B9004A1712 /* SHKTwitter.h */,
 				43A536E911DBE3B9004A1712 /* SHKTwitter.m */,
+				7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */,
+				7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -1916,6 +1932,7 @@
 				7A1AFD34160E14340086B98A /* SHKFormFieldCellSwitch.h in Headers */,
 				7A1AFD35160E14340086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A1AFD36160E14340086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				7A56BFE11659278E00134F04 /* SHKiOS5Twitter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2034,7 +2051,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAFAC77216419ABA00035CCE /* SHKFacebook.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2282,7 +2298,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				AAE40C6D161A21C400DAA832 /* PBXTargetDependency */,
+				7A56BFF41659328700134F04 /* PBXTargetDependency */,
+				7A56BFF01659321A00134F04 /* PBXTargetDependency */,
 			);
 			name = "Static Library";
 			productName = ShareKitLibrary;
@@ -2537,7 +2554,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				AABBED26162F0B65009D46E4 /* PBXTargetDependency */,
+				7A56BFF61659329B00134F04 /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -2826,9 +2843,9 @@
 				7A0F91DC156BA2A0009CB40A /* SHKOAuthSharer.m in Sources */,
 				7A0F91DD156BA2A0009CB40A /* SHKSharer.m in Sources */,
 				7A0F91DE156BA2A0009CB40A /* SHKSharerDelegate.m in Sources */,
+				7A0F91E1156BA2A0009CB40A /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
 				7A0F91DF156BA2A0009CB40A /* NSData+md5.m in Sources */,
 				7A0F91E0156BA2A0009CB40A /* UIWebView+SHK.m in Sources */,
-				7A0F91E1156BA2A0009CB40A /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
 				7A0F91E2156BA2A0009CB40A /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
 				7A0F91F4156BA2A0009CB40A /* SHKRequest.m in Sources */,
 				7A0F91F5156BA2A0009CB40A /* SHKXMLResponseParser.m in Sources */,
@@ -2954,6 +2971,7 @@
 			files = (
 				7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */,
 				7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */,
+				7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3018,7 +3036,6 @@
 				7AB5352D1552BE7D00171BCE /* (null) in Sources */,
 				7AB5352F1552BE7D00171BCE /* (null) in Sources */,
 				7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */,
-				7AB5354A1552BE7D00171BCE /* SHKFacebook.m in Sources */,
 				7AB5354C1552BE7D00171BCE /* NSError+SHKFoursquareV2.m in Sources */,
 				7AB5354E1552BE7D00171BCE /* SHKFoursquareV2CheckInForm.m in Sources */,
 				7AB535501552BE7D00171BCE /* SHKFoursquareV2Venue.m in Sources */,
@@ -3036,8 +3053,6 @@
 				7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */,
 				7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */,
 				7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */,
-				7AB535771552BE7D00171BCE /* SHKiOSTwitter.m in Sources */,
-				7AB535791552BE7D00171BCE /* SHKTwitter.m in Sources */,
 				7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */,
 				7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */,
 				7AB5357F1552BE7D00171BCE /* SHKFormController.m in Sources */,
@@ -3204,6 +3219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AABBED29162F0B65009D46E4 /* SHKFacebook.m in Sources */,
+				7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3290,20 +3306,25 @@
 			target = 7AB5360E1552E26800171BCE /* Resource Bundle */;
 			targetProxy = 7A28825B1553FF9A007DC379 /* PBXContainerItemProxy */;
 		};
+		7A56BFF01659321A00134F04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFD2B160E14340086B98A /* Twitter */;
+			targetProxy = 7A56BFEF1659321A00134F04 /* PBXContainerItemProxy */;
+		};
+		7A56BFF41659328700134F04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED25162F0B65009D46E4 /* Facebook */;
+			targetProxy = 7A56BFF31659328700134F04 /* PBXContainerItemProxy */;
+		};
+		7A56BFF61659329B00134F04 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = 7A56BFF51659329B00134F04 /* PBXContainerItemProxy */;
+		};
 		AA6C0A7E161234210023EE48 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "facebook-ios-sdk";
 			targetProxy = AA6C0A7D161234210023EE48 /* PBXContainerItemProxy */;
-		};
-		AABBED26162F0B65009D46E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = AABBED27162F0B65009D46E4 /* PBXContainerItemProxy */;
-		};
-		AAE40C6D161A21C400DAA832 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = AAE40C6C161A21C400DAA832 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

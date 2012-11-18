@@ -1,34 +1,38 @@
 //
-//  SHKiOSSharerViewController.m
+//  SHKiOS5Twitter.m
 //  ShareKit
 //
 //  Created by Vilem Kurz on 18/11/2012.
 //
 //
 
-#import "SHKiOSSharer_Protected.h"
-#import <Social/Social.h>
+#import "SHKiOS5Twitter.h"
+#import <Twitter/Twitter.h>
 
-@interface SHKiOSSharer ()
+@interface SHKiOS5Twitter ()
 
 @end
 
-@implementation SHKiOSSharer
+@implementation SHKiOS5Twitter
 
-- (void)dealloc {
-    
-    [super dealloc];
++ (NSString *)sharerTitle
+{
+	return @"Twitter";
 }
 
-- (void)shareWithServiceType:(NSString *)serviceType {
++ (NSString *)sharerId
+{
+	return @"SHKTwitter";
+}
+
+- (void)share {
     
     if ([self.item shareType] == SHKShareTypeUserInfo) {
-        SHKLog(@"User info not possible to download on iOS sharing. You can get service enabled user info from Accounts framework");
+        SHKLog(@"User info not possible to download on iOS5+. You can get Twitter enabled user info from Accounts framework");
         return;
     }
     
-    SLComposeViewController *sharerUIController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
-    
+    TWTweetComposeViewController *sharerUIController = [[TWTweetComposeViewController alloc] init];
     [sharerUIController addImage:self.item.image];
     [sharerUIController addURL:self.item.URL];
     
@@ -50,11 +54,11 @@
         
         switch (result) {
                 
-            case SLComposeViewControllerResultDone:
+            case TWTweetComposeViewControllerResultDone:
                 [self sendDidFinish];
                 break;
                 
-            case SLComposeViewControllerResultCancelled:
+            case TWTweetComposeViewControllerResultCancelled:
                 [self sendDidCancel];
                 
             default:

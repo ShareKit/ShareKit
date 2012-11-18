@@ -12,11 +12,6 @@
 
 @implementation SHKiOSTwitter
 
-- (void)dealloc {
-
-    [super dealloc];
-}
-
 + (NSString *)sharerTitle
 {
 	return @"Twitter";
