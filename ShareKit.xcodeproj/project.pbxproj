@@ -25,7 +25,6 @@
 		43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */; };
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
-		7A0F91D0156B9FF2009CB40A /* SHKDelicious.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -51,19 +50,7 @@
 		7A0F923A156BA2A0009CB40A /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
 		7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7A0F923C156BA2A0009CB40A /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
-		7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
-		7A0F9254156BA5F3009CB40A /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
-		7A0F9257156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
-		7A164DC3157662ED00D55DB4 /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A164DC4157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
 		7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
-		7A16F374161340DD0019645D /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A16F375161340DD0019645D /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A16F376161340DD0019645D /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A16F377161340DD0019645D /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A16F378161340DD0019645D /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A16F379161340DD0019645D /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A16F37A161340DD0019645D /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A16F380161341570019645D /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		7A16F381161341570019645D /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
 		7A16F382161341570019645D /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
@@ -79,46 +66,10 @@
 		7A16F38C161341570019645D /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369D11DBE3B9004A1712 /* OARequestParameter.m */; };
 		7A16F38D161341570019645D /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
 		7A16F38E161341570019645D /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
-		7A16F3B216134A790019645D /* SHKInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A16F3AF16134A790019645D /* SHKInstagram.m */; };
-		7A16F3B816134A890019645D /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A16F3B916134A890019645D /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A16F3BA16134A890019645D /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A16F3BB16134A890019645D /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A16F3BC16134A890019645D /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A16F3BD16134A890019645D /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A16F3BE16134A890019645D /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A16F3C316134AA10019645D /* SHKInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A16F3AF16134A790019645D /* SHKInstagram.m */; };
-		7A1AFCA4160E11810086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFCA5160E11810086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFCA6160E11810086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFCA7160E11810086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFCA8160E11810086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFCA9160E11810086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFCAA160E11810086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFCB0160E11F50086B98A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2523714F0499E00CE8709 /* JSONKit.m */; };
-		7A1AFCB6160E11F90086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFCB7160E11F90086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFCB8160E11F90086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFCB9160E11F90086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFCBA160E11F90086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFCBB160E11F90086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFCBC160E11F90086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFCC1160E12330086B98A /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
-		7A1AFCC7160E123C0086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFCC8160E123C0086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFCC9160E123C0086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFCCA160E123C0086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFCCB160E123C0086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFCCC160E123C0086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFCCD160E123C0086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFCD2160E12720086B98A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
-		7A1AFCD8160E127B0086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFCD9160E127B0086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFCDA160E127B0086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFCDB160E127B0086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFCDC160E127B0086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFCDD160E127B0086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFCDE160E127B0086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFCE3160E13080086B98A /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
 		7A1AFCE4160E13080086B98A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
 		7A1AFCE5160E13080086B98A /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
@@ -142,13 +93,6 @@
 		7A1AFCF7160E13080086B98A /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
 		7A1AFCF8160E13080086B98A /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
 		7A1AFCF9160E13080086B98A /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
-		7A1AFD1A160E13740086B98A /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A1AFD1B160E13740086B98A /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A1AFD1C160E13740086B98A /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A1AFD1D160E13740086B98A /* SHKFormFieldCellText.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */; };
-		7A1AFD1E160E13740086B98A /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7A1AFD1F160E13740086B98A /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7A1AFD20160E13740086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
 		7A1AFD25160E13AB0086B98A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
 		7A1AFD26160E13AB0086B98A /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
 		7A1AFD27160E13AB0086B98A /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
@@ -157,12 +101,6 @@
 		7A1AFD2A160E13AB0086B98A /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
 		7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOSTwitter.m */; };
 		7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
-		7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
-		7A26E5BC156CD8A70011E15F /* Base64Transcoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
-		7A26E5BD156CD8A70011E15F /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
-		7A26E5C0156CD8A70011E15F /* hmac.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B6156CD8A70011E15F /* hmac.h */; };
-		7A26E5C1156CD8A70011E15F /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
-		7A26E5C4156CD8A70011E15F /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
 		7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A536AC11DBE3B9004A1712 /* SHKSharers.plist */; };
 		7A2882581553FEE6007DC379 /* SHKEvernote.md in Resources */ = {isa = PBXBuildFile; fileRef = 4379F2B21291AC9700D2A41E /* SHKEvernote.md */; };
@@ -174,132 +112,46 @@
 		7A4BC544165A09CB00460B01 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDC161292A100036C82 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7A4BC545165A09DD00460B01 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DE41612938F00036C82 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7A4BC546165A0A2000460B01 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDD161292A100036C82 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */; };
-		7A56BFC21659173D00134F04 /* SHKiOSSharer.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */; };
-		7A56BFC31659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
-		7A56BFF7165935C700134F04 /* libFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED37162F0B65009D46E4 /* libFacebook.a */; };
-		7A56BFF8165935CE00134F04 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
-		7AB418E2160761AB002059FA /* SHKKippt.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A52EDF515CB032B00A737D8 /* SHKKippt.m */; };
-		7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
-		7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
-		7AB534BA1552BE7D00171BCE /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
-		7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
-		7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
-		7AB534C01552BE7D00171BCE /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
-		7AB534C21552BE7D00171BCE /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
-		7AB534C41552BE7D00171BCE /* SHKSharerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A36F42614B2021100372747 /* SHKSharerDelegate.m */; };
-		7AB534C61552BE7D00171BCE /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2E91291AE5700D2A41E /* NSData+md5.m */; };
-		7AB534C81552BE7D00171BCE /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */; };
-		7AB534CA1552BE7D00171BCE /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */; };
-		7AB534CC1552BE7D00171BCE /* NSHTTPCookieStorage+DeleteForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */; };
-		7AB534CE1552BE7D00171BCE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2523714F0499E00CE8709 /* JSONKit.m */; };
-		7AB534D01552BE7D00171BCE /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
-		7AB534D21552BE7D00171BCE /* NSMutableURLRequest+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368211DBE3B9004A1712 /* NSMutableURLRequest+Parameters.m */; };
-		7AB534D41552BE7D00171BCE /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368411DBE3B9004A1712 /* NSString+URLEncoding.m */; };
-		7AB534D61552BE7D00171BCE /* NSURL+Base.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368611DBE3B9004A1712 /* NSURL+Base.m */; };
-		7AB534DE1552BE7D00171BCE /* OAAsynchronousDataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5368F11DBE3B9004A1712 /* OAAsynchronousDataFetcher.m */; };
-		7AB534E01552BE7D00171BCE /* OAConsumer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369111DBE3B9004A1712 /* OAConsumer.m */; };
-		7AB534E21552BE7D00171BCE /* OADataFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369311DBE3B9004A1712 /* OADataFetcher.m */; };
-		7AB534E41552BE7D00171BCE /* OAHMAC_SHA1SignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369511DBE3B9004A1712 /* OAHMAC_SHA1SignatureProvider.m */; };
-		7AB534E61552BE7D00171BCE /* OAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369711DBE3B9004A1712 /* OAMutableURLRequest.m */; };
-		7AB534E81552BE7D00171BCE /* OAPlaintextSignatureProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369911DBE3B9004A1712 /* OAPlaintextSignatureProvider.m */; };
-		7AB534EA1552BE7D00171BCE /* OARequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369D11DBE3B9004A1712 /* OARequestParameter.m */; };
-		7AB534EC1552BE7D00171BCE /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
-		7AB534EF1552BE7D00171BCE /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
-		7AB534F21552BE7D00171BCE /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A511DBE3B9004A1712 /* SHKRequest.m */; };
-		7AB534F41552BE7D00171BCE /* SHKXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */; };
-		7AB534F61552BE7D00171BCE /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
-		7AB534F81552BE7D00171BCE /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
-		7AB534FA1552BE7D00171BCE /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
-		7AB534FC1552BE7D00171BCE /* SHKMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BC11DBE3B9004A1712 /* SHKMail.m */; };
-		7AB534FE1552BE7D00171BCE /* SHKSafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536BF11DBE3B9004A1712 /* SHKSafari.m */; };
-		7AB535001552BE7D00171BCE /* SHKPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 432B147B11FF4B0700291B37 /* SHKPhotoAlbum.m */; };
-		7AB535021552BE7D00171BCE /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F3B11291C45700D2A41E /* SHKTextMessage.m */; };
-		7AB535041552BE7D00171BCE /* DefaultSHKConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */; };
-		7AB535061552BE7D00171BCE /* SHKConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE01A13CCB1F500A2118F /* SHKConfiguration.m */; };
-		7AB535081552BE7D00171BCE /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
-		7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
-		7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */; };
-		7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
-		7AB535101552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535121552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535141552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535161552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535181552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5351A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5351D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535201552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535221552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535241552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535281552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352A1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352D1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB5352F1552BE7D00171BCE /* (null) in Sources */ = {isa = PBXBuildFile; };
-		7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
-		7AB5354C1552BE7D00171BCE /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
-		7AB5354E1552BE7D00171BCE /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
-		7AB535501552BE7D00171BCE /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
-		7AB535521552BE7D00171BCE /* SHKFoursquareV2VenuesForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7B14336ACE00C93FAA /* SHKFoursquareV2VenuesForm.m */; };
-		7AB535541552BE7D00171BCE /* SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6201430AB7800DF9AF6 /* SHKFoursquareV2.m */; };
-		7AB535561552BE7D00171BCE /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
-		7AB535581552BE7D00171BCE /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
-		7AB5355A1552BE7D00171BCE /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B714BA1900003FC744 /* ObjectiveFlickr.m */; };
-		7AB5355C1552BE7D00171BCE /* OFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B914BA1900003FC744 /* OFUtilities.m */; };
-		7AB5355E1552BE7D00171BCE /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
-		7AB535671552BE7D00171BCE /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
-		7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
-		7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
-		7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
-		7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
-		7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
-		7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
-		7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
-		7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
-		7AB5357F1552BE7D00171BCE /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
-		7AB535811552BE7D00171BCE /* SHKFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */; };
-		7AB535831552BE7D00171BCE /* SHKFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F511DBE3B9004A1712 /* SHKFormFieldCell.m */; };
-		7AB535851552BE7D00171BCE /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */; };
-		7AB535871552BE7D00171BCE /* SHKFormOptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AA511B7F14C893A10022332B /* SHKFormOptionController.m */; };
-		7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
-		7AB5358B1552BE7D00171BCE /* SHKShareMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */; };
-		7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
-		7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
-		7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC761156CFBF400E3303E /* NSData+Base64.m */; };
-		7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
-		7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
-		7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
-		7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
-		7AB804FB15AC7A21004FB430 /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
-		7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
-		7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
-		7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
-		7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
-		7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
-		7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
-		7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
-		7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
-		7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
-		7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
-		7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
-		7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
-		7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
-		7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
-		7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
-		7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
 		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
-		7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */; };
-		7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
 		7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
-		7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; };
-		7ABCDBB2157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
+		7AC28F0B165A21C2006D7441 /* libCopy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECD2162F0756009D46E4 /* libCopy.a */; };
+		7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED08162F0858009D46E4 /* libDelicious.a */; };
+		7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED11162F087F009D46E4 /* libDiigo.a */; };
+		7AC28F0E165A21C2006D7441 /* libEmail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECDB162F0779009D46E4 /* libEmail.a */; };
+		7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */; };
+		7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED24162F08E6009D46E4 /* libEvernote.a */; };
+		7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED37162F0B65009D46E4 /* libFacebook.a */; };
+		7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */; };
+		7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED50162F0BA7009D46E4 /* libFlickr.a */; };
+		7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED46162F0B86009D46E4 /* libFoursquareV2.a */; };
+		7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */; };
+		7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A16F3C216134A890019645D /* libInstagram.a */; };
+		7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED62162F0BE8009D46E4 /* libInstapaper.a */; };
+		7AC28F18165A21C2006D7441 /* libJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCAE160E11810086B98A /* libJSONKit.a */; };
+		7AC28F19165A21C2006D7441 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
+		7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED6B162F0C03009D46E4 /* libLinkedIn.a */; };
+		7AC28F1B165A21C2006D7441 /* libLogout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECC9162F0719009D46E4 /* libLogout.a */; };
+		7AC28F1C165A21C2006D7441 /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A16F37E161340DD0019645D /* libOAuth.a */; };
+		7AC28F1D165A21C2006D7441 /* libOpen in Safari.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECE4162F07B4009D46E4 /* libOpen in Safari.a */; };
+		7AC28F1E165A21C2006D7441 /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED74162F0C1A009D46E4 /* libPinboard.a */; };
+		7AC28F1F165A21C2006D7441 /* libPrint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECBE162F063F009D46E4 /* libPrint.a */; };
+		7AC28F20165A21C2006D7441 /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCD1160E123C0086B98A /* libReachability.a */; };
+		7AC28F21165A21C2006D7441 /* libRead It Later.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED7D162F0C33009D46E4 /* libRead It Later.a */; };
+		7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECED162F07DF009D46E4 /* libSave to Album.a */; };
+		7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0F9246156BA2A0009CB40A /* libShareKitCore.a */; };
+		7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */; };
+		7AC28F25165A21C2006D7441 /* libSSKeyChain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */; };
+		7AC28F26165A21C2006D7441 /* libText Message.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECF6162F080F009D46E4 /* libText Message.a */; };
+		7AC28F27165A21C2006D7441 /* libTumblr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED86162F0C4D009D46E4 /* libTumblr.a */; };
+		7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
+		7AC28F29165A21C2006D7441 /* libVKontakte.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED1B162F08A3009D46E4 /* libVKontakte.a */; };
+		7AC28F2C165A2539006D7441 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */; };
-		7AC2A3A4165980C20089ABE8 /* libSina Weibo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */; };
 		AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 		AABBECCC162F0756009D46E4 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
@@ -314,7 +166,6 @@
 		AABBED15162F08A3009D46E4 /* SHKVkontakte.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5AA3BA149625460064DB24 /* SHKVkontakte.m */; };
 		AABBED1E162F08E6009D46E4 /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
 		AABBED29162F0B65009D46E4 /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
-		AABBED2B162F0B65009D46E4 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		AABBED3A162F0B86009D46E4 /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
 		AABBED3B162F0B86009D46E4 /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
 		AABBED3C162F0B86009D46E4 /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
@@ -323,7 +174,6 @@
 		AABBED3F162F0B86009D46E4 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
 		AABBED40162F0B86009D46E4 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
 		AABBED49162F0BA7009D46E4 /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
-		AABBED4C162F0BA7009D46E4 /* SHKFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = AAACE06013CCBED400A2118F /* SHKFlickr.h */; };
 		AABBED53162F0BC5009D46E4 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		AABBED5C162F0BE8009D46E4 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
@@ -349,46 +199,242 @@
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
 		};
-		7A56BFEF1659321A00134F04 /* PBXContainerItemProxy */ = {
+		7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7A1AFD2B160E14340086B98A;
-			remoteInfo = Twitter;
+			remoteGlobalIDString = 7A0F91D1156BA2A0009CB40A;
+			remoteInfo = "Static Library Core";
 		};
-		7A56BFF31659328700134F04 /* PBXContainerItemProxy */ = {
+		7AC28ECD165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFC47160E11810086B98A;
+			remoteInfo = JSONKit;
+		};
+		7AC28ECF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFCB1160E11F90086B98A;
+			remoteInfo = SSKeyChain;
+		};
+		7AC28ED1165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A16F36F161340DD0019645D;
+			remoteInfo = OAuth;
+		};
+		7AC28ED3165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFCC2160E123C0086B98A;
+			remoteInfo = Reachability;
+		};
+		7AC28ED5165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECB6162F063F009D46E4;
+			remoteInfo = Print;
+		};
+		7AC28ED7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECC1162F0719009D46E4;
+			remoteInfo = Logout;
+		};
+		7AC28ED9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECCA162F0756009D46E4;
+			remoteInfo = Copy;
+		};
+		7AC28EDB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECD3162F0779009D46E4;
+			remoteInfo = Email;
+		};
+		7AC28EDD165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECDC162F07B4009D46E4;
+			remoteInfo = "Open in Safari";
+		};
+		7AC28EDF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECE5162F07DF009D46E4;
+			remoteInfo = "Save to Album";
+		};
+		7AC28EE1165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECEE162F080F009D46E4;
+			remoteInfo = "Text Message";
+		};
+		7AC28EE3165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECF7162F0835009D46E4;
+			remoteInfo = Kippt;
+		};
+		7AC28EE5165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED00162F0858009D46E4;
+			remoteInfo = Delicious;
+		};
+		7AC28EE7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AEE037D160E1B4000FEC06E;
+			remoteInfo = Readability;
+		};
+		7AC28EE9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED09162F087F009D46E4;
+			remoteInfo = Diigo;
+		};
+		7AC28EEB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED12162F08A3009D46E4;
+			remoteInfo = VKontakte;
+		};
+		7AC28EED165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED1C162F08E6009D46E4;
+			remoteInfo = Evernote;
+		};
+		7AC28EEF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFCD3160E127B0086B98A;
+			remoteInfo = "Evernote SDK";
+		};
+		7AC28EF1165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = AABBED25162F0B65009D46E4;
 			remoteInfo = Facebook;
 		};
-		7A56BFF51659329B00134F04 /* PBXContainerItemProxy */ = {
+		7AC28EF3165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
+			remoteGlobalIDString = AABBED38162F0B86009D46E4;
+			remoteInfo = FoursquareV2;
 		};
-		7AC2A3A2165980AB0089ABE8 /* PBXContainerItemProxy */ = {
+		7AC28EF5165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED47162F0BA7009D46E4;
+			remoteInfo = Flickr;
+		};
+		7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFD15160E13740086B98A;
+			remoteInfo = "Flickr SDK";
+		};
+		7AC28EF9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED51162F0BC5009D46E4;
+			remoteInfo = "Google Reader";
+		};
+		7AC28EFB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A16F3B316134A890019645D;
+			remoteInfo = Instagram;
+		};
+		7AC28EFD165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED5A162F0BE8009D46E4;
+			remoteInfo = Instapaper;
+		};
+		7AC28EFF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED63162F0C03009D46E4;
+			remoteInfo = LinkedIn;
+		};
+		7AC28F01165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED6C162F0C1A009D46E4;
+			remoteInfo = Pinboard;
+		};
+		7AC28F03165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED75162F0C33009D46E4;
+			remoteInfo = "Read It Later";
+		};
+		7AC28F05165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED7E162F0C4D009D46E4;
+			remoteInfo = Tumbl;
+		};
+		7AC28F07165A1EE7006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFD2B160E14340086B98A;
+			remoteInfo = Twitter;
+		};
+		7AC28F09165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7AC2A38E16597F4C0089ABE8;
 			remoteInfo = "Sina Weibo";
 		};
+		7AC28F2A165A251E006D7441 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
 		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
-		AA6C0A7D161234210023EE48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = "facebook-ios-sdk";
 		};
 		AA75856F1624AABF001EFCBE /* PBXContainerItemProxy */ = {
@@ -806,9 +852,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AC2A3A4165980C20089ABE8 /* libSina Weibo.a in Frameworks */,
-				7A56BFF8165935CE00134F04 /* libTwitter.a in Frameworks */,
-				7A56BFF7165935C700134F04 /* libFacebook.a in Frameworks */,
+				7AC28F0B165A21C2006D7441 /* libCopy.a in Frameworks */,
+				7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */,
+				7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */,
+				7AC28F0E165A21C2006D7441 /* libEmail.a in Frameworks */,
+				7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */,
+				7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */,
+				7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */,
+				7AC28F2C165A2539006D7441 /* libfacebook_ios_sdk.a in Frameworks */,
+				7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */,
+				7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */,
+				7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */,
+				7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */,
+				7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */,
+				7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */,
+				7AC28F18165A21C2006D7441 /* libJSONKit.a in Frameworks */,
+				7AC28F19165A21C2006D7441 /* libKippt.a in Frameworks */,
+				7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */,
+				7AC28F1B165A21C2006D7441 /* libLogout.a in Frameworks */,
+				7AC28F1C165A21C2006D7441 /* libOAuth.a in Frameworks */,
+				7AC28F1D165A21C2006D7441 /* libOpen in Safari.a in Frameworks */,
+				7AC28F1E165A21C2006D7441 /* libPinboard.a in Frameworks */,
+				7AC28F1F165A21C2006D7441 /* libPrint.a in Frameworks */,
+				7AC28F20165A21C2006D7441 /* libReachability.a in Frameworks */,
+				7AC28F21165A21C2006D7441 /* libRead It Later.a in Frameworks */,
+				7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */,
+				7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */,
+				7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */,
+				7AC28F25165A21C2006D7441 /* libSSKeyChain.a in Frameworks */,
+				7AC28F26165A21C2006D7441 /* libText Message.a in Frameworks */,
+				7AC28F27165A21C2006D7441 /* libTumblr.a in Frameworks */,
+				7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */,
+				7AC28F29165A21C2006D7441 /* libVKontakte.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -921,7 +996,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABBED2B162F0B65009D46E4 /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1824,14 +1898,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A26E5BC156CD8A70011E15F /* Base64Transcoder.h in Headers */,
-				7A26E5C0156CD8A70011E15F /* hmac.h in Headers */,
-				7A26E5C4156CD8A70011E15F /* sha1.h in Headers */,
-				7A164DC3157662ED00D55DB4 /* SHKFormFieldCellText.h in Headers */,
-				7ABCDBAA1577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */,
-				7ABCDBB1157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A4CAA181577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
-				7A56BFC21659173D00134F04 /* SHKiOSSharer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1839,13 +1905,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A16F374161340DD0019645D /* Base64Transcoder.h in Headers */,
-				7A16F375161340DD0019645D /* hmac.h in Headers */,
-				7A16F376161340DD0019645D /* sha1.h in Headers */,
-				7A16F377161340DD0019645D /* SHKFormFieldCellText.h in Headers */,
-				7A16F378161340DD0019645D /* SHKFormFieldCellSwitch.h in Headers */,
-				7A16F379161340DD0019645D /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A16F37A161340DD0019645D /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1853,13 +1912,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A16F3B816134A890019645D /* Base64Transcoder.h in Headers */,
-				7A16F3B916134A890019645D /* hmac.h in Headers */,
-				7A16F3BA16134A890019645D /* sha1.h in Headers */,
-				7A16F3BB16134A890019645D /* SHKFormFieldCellText.h in Headers */,
-				7A16F3BC16134A890019645D /* SHKFormFieldCellSwitch.h in Headers */,
-				7A16F3BD16134A890019645D /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A16F3BE16134A890019645D /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1867,13 +1919,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1AFCA4160E11810086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFCA5160E11810086B98A /* hmac.h in Headers */,
-				7A1AFCA6160E11810086B98A /* sha1.h in Headers */,
-				7A1AFCA7160E11810086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFCA8160E11810086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFCA9160E11810086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFCAA160E11810086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1881,13 +1926,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1AFCB6160E11F90086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFCB7160E11F90086B98A /* hmac.h in Headers */,
-				7A1AFCB8160E11F90086B98A /* sha1.h in Headers */,
-				7A1AFCB9160E11F90086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFCBA160E11F90086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFCBB160E11F90086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFCBC160E11F90086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1895,13 +1933,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1AFCC7160E123C0086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFCC8160E123C0086B98A /* hmac.h in Headers */,
-				7A1AFCC9160E123C0086B98A /* sha1.h in Headers */,
-				7A1AFCCA160E123C0086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFCCB160E123C0086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFCCC160E123C0086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFCCD160E123C0086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1909,13 +1940,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1AFCD8160E127B0086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFCD9160E127B0086B98A /* hmac.h in Headers */,
-				7A1AFCDA160E127B0086B98A /* sha1.h in Headers */,
-				7A1AFCDB160E127B0086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFCDC160E127B0086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFCDD160E127B0086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFCDE160E127B0086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1923,13 +1947,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A1AFD1A160E13740086B98A /* Base64Transcoder.h in Headers */,
-				7A1AFD1B160E13740086B98A /* hmac.h in Headers */,
-				7A1AFD1C160E13740086B98A /* sha1.h in Headers */,
-				7A1AFD1D160E13740086B98A /* SHKFormFieldCellText.h in Headers */,
-				7A1AFD1E160E13740086B98A /* SHKFormFieldCellSwitch.h in Headers */,
-				7A1AFD1F160E13740086B98A /* SHKFormFieldCellOptionPicker.h in Headers */,
-				7A1AFD20160E13740086B98A /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2063,7 +2080,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AABBED4C162F0BA7009D46E4 /* SHKFlickr.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2142,7 +2158,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				AA6C0A7E161234210023EE48 /* PBXTargetDependency */,
 			);
 			name = "Static Library Core";
 			productName = ShareKitLibrary;
@@ -2296,9 +2311,39 @@
 			buildRules = (
 			);
 			dependencies = (
-				7AC2A3A3165980AB0089ABE8 /* PBXTargetDependency */,
-				7A56BFF41659328700134F04 /* PBXTargetDependency */,
-				7A56BFF01659321A00134F04 /* PBXTargetDependency */,
+				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ECE165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ED2165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ED4165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ED6165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28ED8165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EDA165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EDC165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EDE165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EE0165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EE2165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EE4165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EE6165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EE8165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EEA165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EEC165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F2B165A251E006D7441 /* PBXTargetDependency */,
+				7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28EFE165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F00165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F02165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F04165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F06165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F08165A1EE7006D7441 /* PBXTargetDependency */,
+				7AC28F0A165A1EE7006D7441 /* PBXTargetDependency */,
 			);
 			name = "Static Library";
 			productName = ShareKitLibrary;
@@ -2570,7 +2615,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7A56BFF61659329B00134F04 /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -2996,126 +3040,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AB418E2160761AB002059FA /* SHKKippt.m in Sources */,
-				7AB534B11552BE7D00171BCE /* SHKCustomFormFieldCell.m in Sources */,
-				7AB534B31552BE7D00171BCE /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7AB534BA1552BE7D00171BCE /* SHK.m in Sources */,
-				7AB534BC1552BE7D00171BCE /* SHKItem.m in Sources */,
-				7AB534BE1552BE7D00171BCE /* SHKOfflineSharer.m in Sources */,
-				7AB534C01552BE7D00171BCE /* SHKOAuthSharer.m in Sources */,
-				7AB534C21552BE7D00171BCE /* SHKSharer.m in Sources */,
-				7AB534C41552BE7D00171BCE /* SHKSharerDelegate.m in Sources */,
-				7AB534C61552BE7D00171BCE /* NSData+md5.m in Sources */,
-				7AB534C81552BE7D00171BCE /* UIWebView+SHK.m in Sources */,
-				7AB534CA1552BE7D00171BCE /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
-				7AB534CC1552BE7D00171BCE /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
-				7AB534CE1552BE7D00171BCE /* JSONKit.m in Sources */,
-				7AB534D01552BE7D00171BCE /* SSKeychain.m in Sources */,
-				7AB534D21552BE7D00171BCE /* NSMutableURLRequest+Parameters.m in Sources */,
-				7AB534D41552BE7D00171BCE /* NSString+URLEncoding.m in Sources */,
-				7AB534D61552BE7D00171BCE /* NSURL+Base.m in Sources */,
-				7AB534DE1552BE7D00171BCE /* OAAsynchronousDataFetcher.m in Sources */,
-				7AB534E01552BE7D00171BCE /* OAConsumer.m in Sources */,
-				7AB534E21552BE7D00171BCE /* OADataFetcher.m in Sources */,
-				7AB534E41552BE7D00171BCE /* OAHMAC_SHA1SignatureProvider.m in Sources */,
-				7AB534E61552BE7D00171BCE /* OAMutableURLRequest.m in Sources */,
-				7AB534E81552BE7D00171BCE /* OAPlaintextSignatureProvider.m in Sources */,
-				7AB534EA1552BE7D00171BCE /* OARequestParameter.m in Sources */,
-				7AB534EC1552BE7D00171BCE /* OAServiceTicket.m in Sources */,
-				7AB534EF1552BE7D00171BCE /* OAToken.m in Sources */,
-				7AB534F21552BE7D00171BCE /* SHKRequest.m in Sources */,
-				7AB534F41552BE7D00171BCE /* SHKXMLResponseParser.m in Sources */,
-				7AB534F61552BE7D00171BCE /* SHKPrint.m in Sources */,
-				7AB534F81552BE7D00171BCE /* SHKLogout.m in Sources */,
-				7AB534FA1552BE7D00171BCE /* SHKCopy.m in Sources */,
-				7AB534FC1552BE7D00171BCE /* SHKMail.m in Sources */,
-				7AB534FE1552BE7D00171BCE /* SHKSafari.m in Sources */,
-				7AB535001552BE7D00171BCE /* SHKPhotoAlbum.m in Sources */,
-				7AB535021552BE7D00171BCE /* SHKTextMessage.m in Sources */,
-				7AB535041552BE7D00171BCE /* DefaultSHKConfigurator.m in Sources */,
-				7AB535061552BE7D00171BCE /* SHKConfiguration.m in Sources */,
-				7AB535081552BE7D00171BCE /* SHKReadability.m in Sources */,
-				7AB5350A1552BE7D00171BCE /* SHKDiigo.m in Sources */,
-				7AB5350B1552BE7D00171BCE /* SHKVkontakteOAuthView.m in Sources */,
-				7AB5350D1552BE7D00171BCE /* SHKVkontakte.m in Sources */,
-				7AB535101552BE7D00171BCE /* (null) in Sources */,
-				7AB535121552BE7D00171BCE /* (null) in Sources */,
-				7AB535141552BE7D00171BCE /* (null) in Sources */,
-				7AB535161552BE7D00171BCE /* (null) in Sources */,
-				7AB535181552BE7D00171BCE /* (null) in Sources */,
-				7AB5351A1552BE7D00171BCE /* (null) in Sources */,
-				7AB5351D1552BE7D00171BCE /* (null) in Sources */,
-				7AB535201552BE7D00171BCE /* (null) in Sources */,
-				7AB535221552BE7D00171BCE /* (null) in Sources */,
-				7AB535241552BE7D00171BCE /* (null) in Sources */,
-				7AB535281552BE7D00171BCE /* (null) in Sources */,
-				7AB5352A1552BE7D00171BCE /* (null) in Sources */,
-				7AB5352D1552BE7D00171BCE /* (null) in Sources */,
-				7AB5352F1552BE7D00171BCE /* (null) in Sources */,
-				7AB535311552BE7D00171BCE /* SHKEvernote.m in Sources */,
-				7AB5354C1552BE7D00171BCE /* NSError+SHKFoursquareV2.m in Sources */,
-				7AB5354E1552BE7D00171BCE /* SHKFoursquareV2CheckInForm.m in Sources */,
-				7AB535501552BE7D00171BCE /* SHKFoursquareV2Venue.m in Sources */,
-				7AB535521552BE7D00171BCE /* SHKFoursquareV2VenuesForm.m in Sources */,
-				7AB535541552BE7D00171BCE /* SHKFoursquareV2.m in Sources */,
-				7AB535561552BE7D00171BCE /* SHKFoursquareV2OAuthView.m in Sources */,
-				7AB535581552BE7D00171BCE /* SHKFoursquareV2Request.m in Sources */,
-				7AB5355A1552BE7D00171BCE /* ObjectiveFlickr.m in Sources */,
-				7AB5355C1552BE7D00171BCE /* OFUtilities.m in Sources */,
-				7AB5355E1552BE7D00171BCE /* OFXMLMapper.m in Sources */,
-				7AB535671552BE7D00171BCE /* SHKFlickr.m in Sources */,
-				7AB535691552BE7D00171BCE /* SHKGoogleReader.m in Sources */,
-				7AB5356B1552BE7D00171BCE /* SHKInstapaper.m in Sources */,
-				7AB5356D1552BE7D00171BCE /* SHKLinkedIn.m in Sources */,
-				7AB535711552BE7D00171BCE /* SHKPinboard.m in Sources */,
-				7AB535731552BE7D00171BCE /* SHKReadItLater.m in Sources */,
-				7AB535751552BE7D00171BCE /* SHKTumblr.m in Sources */,
-				7AB5357B1552BE7D00171BCE /* SHKActionSheet.m in Sources */,
-				7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */,
-				7AB5357F1552BE7D00171BCE /* SHKFormController.m in Sources */,
-				7AB535811552BE7D00171BCE /* SHKFormControllerLargeTextField.m in Sources */,
-				7AB535831552BE7D00171BCE /* SHKFormFieldCell.m in Sources */,
-				7AB535851552BE7D00171BCE /* SHKFormFieldSettings.m in Sources */,
-				7AB535871552BE7D00171BCE /* SHKFormOptionController.m in Sources */,
-				7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */,
-				7AB5358B1552BE7D00171BCE /* SHKShareMenu.m in Sources */,
-				7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */,
-				7A0F91D0156B9FF2009CB40A /* SHKDelicious.m in Sources */,
-				7A0F9252156BA5F3009CB40A /* LFHTTPRequest.m in Sources */,
-				7A0F9254156BA5F3009CB40A /* LFSiteReachability.m in Sources */,
-				7A0F9257156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m in Sources */,
-				7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */,
-				7A26E5BD156CD8A70011E15F /* hmac.c in Sources */,
-				7A26E5C1156CD8A70011E15F /* sha1.c in Sources */,
-				7A164DC4157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */,
-				7ABCDBAB1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */,
-				7ABCDBB2157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */,
-				7AB804F115AC79D8004FB430 /* GCOAuth.m in Sources */,
-				7AB804F315AC79D8004FB430 /* NSData+Base64.m in Sources */,
-				7AB804F715AC7A21004FB430 /* TBinaryProtocol.m in Sources */,
-				7AB804F815AC7A21004FB430 /* TProtocolException.m in Sources */,
-				7AB804F915AC7A21004FB430 /* TProtocolUtil.m in Sources */,
-				7AB804FA15AC7A21004FB430 /* TApplicationException.m in Sources */,
-				7AB804FB15AC7A21004FB430 /* TException.m in Sources */,
-				7AB804FC15AC7A21004FB430 /* THTTPClient.m in Sources */,
-				7AB804FD15AC7A21004FB430 /* TMemoryBuffer.m in Sources */,
-				7AB8050115AC7A5F004FB430 /* TTransportException.m in Sources */,
-				7AB8050315AC7A6A004FB430 /* EDAMErrors.m in Sources */,
-				7AB8050415AC7A6F004FB430 /* EDAMLimits.m in Sources */,
-				7AB8050515AC7A73004FB430 /* EDAMNoteStore.m in Sources */,
-				7AB8050615AC7A7E004FB430 /* EDAMTypes.m in Sources */,
-				7AB8050715AC7A83004FB430 /* EDAMUserStore.m in Sources */,
-				7AB8050815AC7A8B004FB430 /* EvernoteNoteStore.m in Sources */,
-				7AB8050915AC7A8E004FB430 /* EvernoteSDK.m in Sources */,
-				7AB8050A15AC7A90004FB430 /* EvernoteSession.m in Sources */,
-				7AB8050B15AC7A93004FB430 /* EvernoteUserStore.m in Sources */,
-				7AB8050C15AC7A97004FB430 /* ENAPI.m in Sources */,
-				7AB8050D15AC7A9A004FB430 /* ENCredentials.m in Sources */,
-				7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */,
-				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
-				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
-				7A16F3B216134A790019645D /* SHKInstagram.m in Sources */,
-				7A56BFC31659173D00134F04 /* SHKiOSSharer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3331,30 +3255,170 @@
 			target = 7AB5360E1552E26800171BCE /* Resource Bundle */;
 			targetProxy = 7A28825B1553FF9A007DC379 /* PBXContainerItemProxy */;
 		};
-		7A56BFF01659321A00134F04 /* PBXTargetDependency */ = {
+		7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A1AFD2B160E14340086B98A /* Twitter */;
-			targetProxy = 7A56BFEF1659321A00134F04 /* PBXContainerItemProxy */;
+			target = 7A0F91D1156BA2A0009CB40A /* Static Library Core */;
+			targetProxy = 7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
-		7A56BFF41659328700134F04 /* PBXTargetDependency */ = {
+		7AC28ECE165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFC47160E11810086B98A /* JSONKit */;
+			targetProxy = 7AC28ECD165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFCB1160E11F90086B98A /* SSKeyChain */;
+			targetProxy = 7AC28ECF165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28ED2165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A16F36F161340DD0019645D /* OAuth */;
+			targetProxy = 7AC28ED1165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28ED4165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFCC2160E123C0086B98A /* Reachability */;
+			targetProxy = 7AC28ED3165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28ED6165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECB6162F063F009D46E4 /* Print */;
+			targetProxy = 7AC28ED5165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28ED8165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECC1162F0719009D46E4 /* Logout */;
+			targetProxy = 7AC28ED7165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EDA165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECCA162F0756009D46E4 /* Copy */;
+			targetProxy = 7AC28ED9165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EDC165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECD3162F0779009D46E4 /* Email */;
+			targetProxy = 7AC28EDB165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EDE165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECDC162F07B4009D46E4 /* Open in Safari */;
+			targetProxy = 7AC28EDD165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EE0165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECE5162F07DF009D46E4 /* Save to Album */;
+			targetProxy = 7AC28EDF165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EE2165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECEE162F080F009D46E4 /* Text Message */;
+			targetProxy = 7AC28EE1165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EE4165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBECF7162F0835009D46E4 /* Kippt */;
+			targetProxy = 7AC28EE3165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EE6165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED00162F0858009D46E4 /* Delicious */;
+			targetProxy = 7AC28EE5165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EE8165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AEE037D160E1B4000FEC06E /* Readability */;
+			targetProxy = 7AC28EE7165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EEA165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED09162F087F009D46E4 /* Diigo */;
+			targetProxy = 7AC28EE9165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EEC165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED12162F08A3009D46E4 /* VKontakte */;
+			targetProxy = 7AC28EEB165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED1C162F08E6009D46E4 /* Evernote */;
+			targetProxy = 7AC28EED165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFCD3160E127B0086B98A /* Evernote SDK */;
+			targetProxy = 7AC28EEF165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AABBED25162F0B65009D46E4 /* Facebook */;
-			targetProxy = 7A56BFF31659328700134F04 /* PBXContainerItemProxy */;
+			targetProxy = 7AC28EF1165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
-		7A56BFF61659329B00134F04 /* PBXTargetDependency */ = {
+		7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = 7A56BFF51659329B00134F04 /* PBXContainerItemProxy */;
+			target = AABBED38162F0B86009D46E4 /* FoursquareV2 */;
+			targetProxy = 7AC28EF3165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
-		7AC2A3A3165980AB0089ABE8 /* PBXTargetDependency */ = {
+		7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED47162F0BA7009D46E4 /* Flickr */;
+			targetProxy = 7AC28EF5165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFD15160E13740086B98A /* Flickr SDK */;
+			targetProxy = 7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED51162F0BC5009D46E4 /* Google Reader */;
+			targetProxy = 7AC28EF9165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A16F3B316134A890019645D /* Instagram */;
+			targetProxy = 7AC28EFB165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28EFE165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED5A162F0BE8009D46E4 /* Instapaper */;
+			targetProxy = 7AC28EFD165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F00165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED63162F0C03009D46E4 /* LinkedIn */;
+			targetProxy = 7AC28EFF165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F02165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED6C162F0C1A009D46E4 /* Pinboard */;
+			targetProxy = 7AC28F01165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F04165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED75162F0C33009D46E4 /* Read It Later */;
+			targetProxy = 7AC28F03165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F06165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AABBED7E162F0C4D009D46E4 /* Tumbl */;
+			targetProxy = 7AC28F05165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F08165A1EE7006D7441 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A1AFD2B160E14340086B98A /* Twitter */;
+			targetProxy = 7AC28F07165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7AC28F0A165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7AC2A38E16597F4C0089ABE8 /* Sina Weibo */;
-			targetProxy = 7AC2A3A2165980AB0089ABE8 /* PBXContainerItemProxy */;
+			targetProxy = 7AC28F09165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
-		AA6C0A7E161234210023EE48 /* PBXTargetDependency */ = {
+		7AC28F2B165A251E006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "facebook-ios-sdk";
-			targetProxy = AA6C0A7D161234210023EE48 /* PBXContainerItemProxy */;
+			targetProxy = 7AC28F2A165A251E006D7441 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
