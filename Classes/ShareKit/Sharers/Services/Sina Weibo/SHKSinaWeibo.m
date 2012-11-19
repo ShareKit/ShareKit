@@ -80,6 +80,18 @@
     [self release];
 }
 
+- (NSString *)tagString {
+    if ([self.item.tags count] == 0) {
+        return @"";
+    }
+
+    NSMutableArray *tags = [NSMutableArray arrayWithCapacity:[self.item.tags count]];
+    for (NSString *tag in self.item.tags) {
+        [tags addObject:[NSString stringWithFormat:@"#%@#", tag]];
+    }
+    return [tags componentsJoinedByString:@" "];
+}
+
 - (void)presentUI {
     if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo]) {
         return;
@@ -90,7 +102,7 @@
     [composeViewController addURL:self.item.URL];
 
     NSString *text = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
-    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    NSString *tagString = [self tagString];
     if ([tagString length] > 0) {
         text = [text stringByAppendingFormat:@" %@",tagString];
     }
