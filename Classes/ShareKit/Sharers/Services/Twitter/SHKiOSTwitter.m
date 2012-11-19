@@ -28,7 +28,7 @@
 
 - (NSString *)joinedTags {
     
-    return [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    return [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil];
 }
 
 - (void)share {

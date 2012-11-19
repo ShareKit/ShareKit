@@ -147,7 +147,7 @@
 														 password,
 														 SHKEncodeURL(item.URL),
 														 SHKEncode(item.title),
-														 SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" ,"] invertedSet] tagPrefix:nil]),
+														 SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" ,"] invertedSet] tagPrefix:nil tagSuffix:nil]),
 														 SHKEncode(item.text),
 														 [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
 														 ]]

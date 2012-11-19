@@ -191,7 +191,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		
 	}
     
-    NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil];
     
     NSString *tweetBody = [NSString stringWithFormat:@"%@%@%@",(item.shareType == SHKShareTypeText ? item.text : item.title ),([hashtags length] ? @" " : @""), hashtags];
 	

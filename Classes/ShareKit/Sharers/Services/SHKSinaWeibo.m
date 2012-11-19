@@ -63,4 +63,10 @@
     [self shareWithServiceType:SLServiceTypeSinaWeibo];
 }
 
+- (NSString *)joinedTags {
+    
+    NSString *result = [self tagStringJoinedBy:@" " allowedCharacters:nil tagPrefix:@"#" tagSuffix:@"#"];
+    return result;
+}
+
 @end

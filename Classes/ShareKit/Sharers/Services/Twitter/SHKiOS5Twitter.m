@@ -38,7 +38,7 @@
     
     NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
     
-    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"];
+    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil];
     if ([tagString length] > 0) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];
     
     // Trim string to fit 140 character max.

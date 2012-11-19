@@ -134,7 +134,7 @@
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
 		self.dic.UTI = @"com.instagram.photo";
-		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"]];
+		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
 		self.dic.annotation = @{@"InstagramCaption" : captionString};
 		self.dic.delegate = self;
 		UIView* bestView = self.view;
