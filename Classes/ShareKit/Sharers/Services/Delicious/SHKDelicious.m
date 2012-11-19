@@ -145,7 +145,7 @@
                         password,
                         SHKEncodeURL(item.URL),
                         SHKEncode(item.title),
-                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil]),
+                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),
                         SHKEncode(item.text),
                         [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];

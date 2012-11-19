@@ -199,7 +199,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 	NSData *JPEGData = [self generateImageData];
 	self.flickrRequest.sessionInfo = kUploadImageStep;
     
-    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil];
+    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil tagSuffix:nil];
     
 	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
 	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";

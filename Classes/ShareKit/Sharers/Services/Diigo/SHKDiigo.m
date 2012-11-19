@@ -140,7 +140,7 @@
         NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
         [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
         [allowedCharacters removeCharactersInString:@","];
-        NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil]),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+        NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(item.URL),SHKEncode(item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),SHKEncode(item.text),[item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
     
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
     
