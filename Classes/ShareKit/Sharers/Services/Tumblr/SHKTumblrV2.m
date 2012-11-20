@@ -528,11 +528,12 @@ static NSString *const kSHKTumblrLastBlog=@"kSHKTumblrLastBlog";
     NSString *tags = (item.tags == nil) ? @"" : [[item tags] componentsJoinedByString:@","];
     NSString *slug = [item customValueForKey:@"slug"];
     NSString *private = ([item customBoolForSwitchKey:@"private"]) ? @"private" : @"published";
+	NSString *caption = ([item customValueForKey:@"caption"] == nil) ? @"" : [item customValueForKey:@"caption"];
     
 	OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type"
                                                                        value:@"photo"];
     OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption"
-                                                                       value:[item customValueForKey:@"caption"]];
+                                                                       value:caption];
     OARequestParameter *tweetParam = [[OARequestParameter alloc] initWithName:@"tweet"
                                                                         value:shouldTweet];
     OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags"
