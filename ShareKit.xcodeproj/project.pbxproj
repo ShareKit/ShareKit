@@ -15,6 +15,13 @@
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
 		3B4EB5ED165C5EC900C2FF50 /* SHKSinaWeibo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B4EB5EB165C5EC900C2FF50 /* SHKSinaWeibo.h */; };
 		3B4EB5EE165C5EC900C2FF50 /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4EB5EC165C5EC900C2FF50 /* SHKSinaWeibo.m */; };
+		3BA5EDCA165D116600ADA128 /* SinaWeibo.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA5EDC3165D116600ADA128 /* SinaWeibo.h */; };
+		3BA5EDCB165D116600ADA128 /* SinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5EDC4165D116600ADA128 /* SinaWeibo.m */; };
+		3BA5EDCC165D116600ADA128 /* SinaWeiboAuthorizeView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA5EDC5165D116600ADA128 /* SinaWeiboAuthorizeView.h */; };
+		3BA5EDCD165D116600ADA128 /* SinaWeiboAuthorizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5EDC6165D116600ADA128 /* SinaWeiboAuthorizeView.m */; };
+		3BA5EDCE165D116600ADA128 /* SinaWeiboConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA5EDC7165D116600ADA128 /* SinaWeiboConstants.h */; };
+		3BA5EDCF165D116600ADA128 /* SinaWeiboRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BA5EDC8165D116600ADA128 /* SinaWeiboRequest.h */; };
+		3BA5EDD0165D116600ADA128 /* SinaWeiboRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA5EDC9165D116600ADA128 /* SinaWeiboRequest.m */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43A5382811DBE480004A1712 /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382611DBE480004A1712 /* example.pdf */; };
 		43A5382911DBE480004A1712 /* sanFran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382711DBE480004A1712 /* sanFran.jpg */; };
@@ -463,6 +470,14 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3B4EB5EB165C5EC900C2FF50 /* SHKSinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
 		3B4EB5EC165C5EC900C2FF50 /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
+		3BA5EDC2165D116600ADA128 /* SinaWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinaWeibo.bundle; sourceTree = "<group>"; };
+		3BA5EDC3165D116600ADA128 /* SinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeibo.h; sourceTree = "<group>"; };
+		3BA5EDC4165D116600ADA128 /* SinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeibo.m; sourceTree = "<group>"; };
+		3BA5EDC5165D116600ADA128 /* SinaWeiboAuthorizeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboAuthorizeView.h; sourceTree = "<group>"; };
+		3BA5EDC6165D116600ADA128 /* SinaWeiboAuthorizeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboAuthorizeView.m; sourceTree = "<group>"; };
+		3BA5EDC7165D116600ADA128 /* SinaWeiboConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboConstants.h; sourceTree = "<group>"; };
+		3BA5EDC8165D116600ADA128 /* SinaWeiboRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboRequest.h; sourceTree = "<group>"; };
+		3BA5EDC9165D116600ADA128 /* SinaWeiboRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboRequest.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
@@ -1181,6 +1196,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3BA5EDC1165D116600ADA128 /* SinaWeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3BA5EDC2165D116600ADA128 /* SinaWeibo.bundle */,
+				3BA5EDC3165D116600ADA128 /* SinaWeibo.h */,
+				3BA5EDC4165D116600ADA128 /* SinaWeibo.m */,
+				3BA5EDC5165D116600ADA128 /* SinaWeiboAuthorizeView.h */,
+				3BA5EDC6165D116600ADA128 /* SinaWeiboAuthorizeView.m */,
+				3BA5EDC7165D116600ADA128 /* SinaWeiboConstants.h */,
+				3BA5EDC8165D116600ADA128 /* SinaWeiboRequest.h */,
+				3BA5EDC9165D116600ADA128 /* SinaWeiboRequest.m */,
+			);
+			name = SinaWeiboSDK;
+			path = "Submodules/sinaweibo-ios-sdk/src/SinaWeibo";
+			sourceTree = SOURCE_ROOT;
+		};
 		42EDC75A156CFBF400E3303E /* Evernote-SDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -1759,6 +1790,7 @@
 		7AC2A38B16597C680089ABE8 /* Sina Weibo */ = {
 			isa = PBXGroup;
 			children = (
+				3BA5EDC1165D116600ADA128 /* SinaWeiboSDK */,
 				3B4EB5EB165C5EC900C2FF50 /* SHKSinaWeibo.h */,
 				3B4EB5EC165C5EC900C2FF50 /* SHKSinaWeibo.m */,
 				7AC2A38C16597CCC0089ABE8 /* SHKiOSSinaWeibo.h */,
@@ -1980,6 +2012,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B4EB5ED165C5EC900C2FF50 /* SHKSinaWeibo.h in Headers */,
+				3BA5EDCA165D116600ADA128 /* SinaWeibo.h in Headers */,
+				3BA5EDCC165D116600ADA128 /* SinaWeiboAuthorizeView.h in Headers */,
+				3BA5EDCE165D116600ADA128 /* SinaWeiboConstants.h in Headers */,
+				3BA5EDCF165D116600ADA128 /* SinaWeiboRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3069,6 +3105,9 @@
 			files = (
 				7AC2A3A116597F9C0089ABE8 /* SHKiOSSinaWeibo.m in Sources */,
 				3B4EB5EE165C5EC900C2FF50 /* SHKSinaWeibo.m in Sources */,
+				3BA5EDCB165D116600ADA128 /* SinaWeibo.m in Sources */,
+				3BA5EDCD165D116600ADA128 /* SinaWeiboAuthorizeView.m in Sources */,
+				3BA5EDD0165D116600ADA128 /* SinaWeiboRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

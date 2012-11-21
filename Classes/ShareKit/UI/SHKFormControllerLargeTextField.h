@@ -25,7 +25,7 @@
 @end
 
 @protocol SHKFormControllerLargeTextFieldDelegate <NSObject> 
-
+@required
 - (void)sendForm:(SHKFormControllerLargeTextField *)form;
 + (NSString *)sharerTitle;
 - (void)sendDidCancel;
