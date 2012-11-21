@@ -1758,7 +1758,7 @@
 				7AC2A38C16597CCC0089ABE8 /* SHKSinaWeibo.h */,
 				7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */,
 			);
-			name = "Sina Weibo";
+			path = "Sina Weibo";
 			sourceTree = "<group>";
 		};
 		A57772B514BA1900003FC744 /* ObjectiveFlickr */ = {
