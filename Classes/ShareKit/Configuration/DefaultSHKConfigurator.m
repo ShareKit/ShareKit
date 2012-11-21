@@ -240,6 +240,53 @@
     return @"";
 }
 
+// Sina Weibo - http://open.weibo.com/
+
+// If you want to force use of old-style, for example to ensure
+// sina weibo accounts don't end up in the devices account store, set this to true.
+- (NSNumber*)forcePreSinaWeiboAccess
+{
+    return [NSNumber numberWithBool:NO];
+}
+
+// Fill sina weibo App Key(Consumer Key) below and Do not forget to fill it on weibo ("URL Scheme Suffix").
+// Leave it blank unless you are sure of what you are doing.
+//
+// The CFBundleURLSchemes in your App-Info.plist should be "sinaweibosso." + App Key
+// Example:
+//    sinaWeiboConsumerKey = 1631351849
+//
+//    Your CFBundleURLSchemes entry: sinaweibosso.1631351849
+- (NSString*)sinaWeiboConsumerKey {
+	return @"";
+}
+
+- (NSString*)sinaWeiboConsumerSecret {
+	return @"";
+}
+
+// You need to set this if using OAuth (MUST be set and SAME AS "Callback Url" of "OAuth 2.0 Auth Settings" on Sina Weibo open plaform.
+// Url like this: http://open.weibo.com/apps/{app_key}/info/advanced
+- (NSString*)sinaWeiboCallbackUrl {
+	return @"";
+}
+
+// To use xAuth, set to 1
+- (NSNumber*)sinaWeiboUseXAuth {
+	return [NSNumber numberWithBool:0];
+}
+
+// Enter your sina weibo screen name (Only for xAuth)
+- (NSString*)sinaWeiboScreenname {
+	return @"";
+}
+
+//Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+- (NSString*)sinaWeiboUserID {
+	return @"";
+}
+
+
 /*
  UI Configuration : Basic
  ------------------------
