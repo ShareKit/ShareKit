@@ -160,11 +160,13 @@ BOOL SHKinit;
 
 /* method for sharers with custom UI, e.g. all social.framework sharers, print etc */
 - (void)showStandaloneViewController:(UIViewController *)vc {
-           
-    if ([vc respondsToSelector:@selector(modalPresentationStyle)])
+    
+    BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:@selector(setInitialText:)];
+
+    if ([vc respondsToSelector:@selector(modalPresentationStyle)] && !isSocialOrTwitterComposeVc)
         vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
     
-    if ([vc respondsToSelector:@selector(modalTransitionStyle)])
+    if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
         vc.modalTransitionStyle = [SHK modalTransitionStyle];
     
     // If a view is already being shown, hide it, and then try again
