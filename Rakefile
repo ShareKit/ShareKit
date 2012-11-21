@@ -25,7 +25,7 @@ RES_FOLDER =  "#{SRC_FOLDER}/resources"
 
 # Exclude any paths that we don't need
 # EXCLUDE_PATTERNS = /(Reachability\.[hm]|Evernote|Pinboard|Tumblr|Instapaper|Delicious|Google Reader|SBJSON|Vkontakte|LinkedIn|FoursquareV2|Flickr|Read It Later|SHKMail|SHKCopy|SHKPrint|SHKTextMessage|SHKPhotoAlbum|SHKSafari)/i
-EXCLUDE_PATTERNS = /(SBJSON)/i
+EXCLUDE_PATTERNS = /([^B]SBJSON)/i
 
 ALL_PATTERN = '**/*.[hmc]'
 # Get list of all source files we need 
@@ -39,6 +39,7 @@ base_source_dirs = [  "Classes/ShareKit/UI/"                + ALL_PATTERN,
                       "Classes/ShareKit/Sharers/Services/Weibo/"  + ALL_PATTERN,
                       "Classes/ShareKit/Sharers/Services/Sina Weibo/"  + ALL_PATTERN,
                       "Submodules/facebook-ios-sdk/src/*.[hmc]",
+                      "Submodules/facebook-ios-sdk/src/JSON/*.[hmc]",
                       "Submodules/JSONKit/"                 + ALL_PATTERN,
                       "Submodules/sskeychain/"              + 'SSKeychain.[hm]']
 
