@@ -80,6 +80,7 @@
 - (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSNumber*)forcePreSinaWeiboAccess;
 - (NSString*)sinaWeiboConsumerKey;
 - (NSString*)sinaWeiboConsumerSecret;
 - (NSString*)sinaWeiboCallbackUrl;
