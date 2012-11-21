@@ -103,6 +103,14 @@
 	return [NSNumber numberWithBool:false];
 }
 
+/*
+ With Facebook SDK3 they got rid of the Feed Dialog, but they talk about how to continue using it, so I'm not sure if/when it will completely go away.
+ https://developers.facebook.com/docs/howtos/feed-dialog-using-ios-sdk/
+ */
+- (NSNumber*)useDepricatedFeedDialog {
+	return [NSNumber numberWithBool:false];
+}
+
 
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {

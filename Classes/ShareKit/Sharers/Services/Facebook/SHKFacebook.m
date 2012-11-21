@@ -28,7 +28,6 @@
 
 #import "SHKiOSFacebook.h"
 #import "SHKFacebook.h"
-#import <FacebookSDK.h>
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
@@ -66,6 +65,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 @implementation SHKFacebook
 
 @synthesize pendingConnections;
+@synthesize facebook;
 
 - (id)init
 {
@@ -81,6 +81,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 {
 	[self cancelPendingRequests];
 	[FBSession.activeSession close];	// unhooks this instance from the sessionStateChanged callback
+	self.facebook = nil;
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
 	}
@@ -216,6 +217,18 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                   otherButtonTitles:nil];
         [alertView show];
     }
+	if ([SHKCONFIG(useDepricatedFeedDialog) boolValue] && FBSession.activeSession.isOpen && !facebook) {
+		// Initiate a Facebook instance and properties
+		self.facebook = [[Facebook alloc]
+						 initWithAppId:FBSession.activeSession.appID
+						 andDelegate:nil];
+
+        // Store the Facebook session information
+		self.facebook.accessToken = FBSession.activeSession.accessToken;
+		self.facebook.expirationDate = FBSession.activeSession.expirationDate;
+    } else {
+		self.facebook = nil;
+	}
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
 		[self release];
@@ -489,13 +502,17 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		NSString *description = self.item.facebookURLShareDescription;
 		if (description)
 			[params setObject:description forKey:@"description"];
-		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
-																parameters:params
-																HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-																	[self FBRequestHandlerCallback:connection result:result error:error];
-																}];
-		[self.pendingConnections addObject:con];
 		
+		if ([SHKCONFIG(useDepricatedFeedDialog) boolValue]) {
+			[self.facebook dialog:@"feed" andParams:params andDelegate:self];
+		} else {
+			FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
+																	parameters:params
+																	HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+																		[self FBRequestHandlerCallback:connection result:result error:error];
+																	}];
+			[self.pendingConnections addObject:con];
+		}
 	}
 	else if (item.shareType == SHKShareTypeText && item.text)
 	{
@@ -710,6 +727,43 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     }    
     
  	[self tryToSend];
-}  
+}
+
+#pragma mark FBDialogDelegate
+
+- (void)dialogCompleteWithUrl:(NSURL *)url
+{
+	// error_code=190: user changed password or revoked access to the application,
+	// so spin the user back over to authentication :
+	// TODO: verify that this indeed works.
+	NSRange errorRange = [[url absoluteString] rangeOfString:@"error_code=190"];
+	if (errorRange.location != NSNotFound)
+	{
+		[FBSession.activeSession closeAndClearTokenInformation];
+		[self shouldReloginWithPendingAction:SHKPendingSend];
+		return;
+	}
+	else if (![url query]) // url will be fbconnect://success even if canceled, but at the query will be null.
+	{
+		[self sendDidCancel];
+	}
+	else
+	{
+		[self sendDidFinish];
+	}
+	[FBSession.activeSession close];
+}
+
+
+- (void)dialog:(FBDialog *)dialog didFailWithError:(NSError *)error
+{
+	if (error.code != NSURLErrorCancelled) [self sendDidFailWithError:error];
+	[FBSession.activeSession close];
+}
+
+- (BOOL)dialog:(FBDialog*)dialog shouldOpenURLInExternalBrowser:(NSURL*)url
+{
+    return NO;
+}
 
 @end
