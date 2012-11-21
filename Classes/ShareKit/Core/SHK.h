@@ -41,13 +41,6 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 @class SHKActionSheet;
 
 @interface SHK : NSObject 
-{
-	UIViewController *currentView;
-	UIViewController *pendingView;
-	BOOL isDismissingView;
-	
-	NSOperationQueue *offlineQueue;
-}
 
 @property (nonatomic, retain) UIViewController *currentView;
 @property (nonatomic, retain) UIViewController *pendingView;
@@ -55,23 +48,24 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @property (nonatomic, retain) NSOperationQueue *offlineQueue;
 
-
-
 #pragma mark -
 
 + (SHK *)currentHelper;
 
 + (NSDictionary *)sharersDictionary;
 
-
 #pragma mark -
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc;
 
-//returns current topViewController for classes, which do not use SHK to present their UI
-- (UIViewController *)rootViewForCustomUIDisplay;
+/* original show method, wraps the view to UINavigationViewController prior presenting, if not already a UINavigationViewController */
 - (void)showViewController:(UIViewController *)vc;
+/* displays sharers with custom UI - without wrapping */
+- (void)showStandaloneViewController:(UIViewController *)vc;
+/* returns current top view controller to display UI from */
+- (UIViewController *)rootViewForUIDisplay;
+
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;
 
