@@ -276,22 +276,6 @@ BOOL SHKinit;
 	return UIModalPresentationCurrentContext;
 }
 
-+ (UIModalPresentationStyle)modalPresentationStyleForController:(id)controller
-{
-	NSString *styleString = SHKCONFIG_WITH_ARGUMENT(modalPresentationStyleForController:, controller);
-	
-	if ([styleString isEqualToString:@"UIModalPresentationFullScreen"])
-		return UIModalPresentationFullScreen;
-	
-	else if ([styleString isEqualToString:@"UIModalPresentationPageSheet"])
-		return UIModalPresentationPageSheet;
-	
-	else if ([styleString isEqualToString:@"UIModalPresentationFormSheet"])
-		return UIModalPresentationFormSheet;
-	
-	return UIModalPresentationCurrentContext;
-}
-
 + (UIModalTransitionStyle)modalTransitionStyle
 {
 	if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])

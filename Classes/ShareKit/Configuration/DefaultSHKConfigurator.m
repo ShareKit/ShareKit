@@ -298,12 +298,6 @@
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 }
 
-// Add ability to change presentation style for different sharers
-- (NSString *)modalPresentationStyleForController:(id)controller
-{
-	return [self modalPresentationStyle];
-}
-
 - (NSString*)modalTransitionStyle {
 	return @"UIModalTransitionStyleCoverVertical";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 }
