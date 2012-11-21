@@ -73,8 +73,10 @@
 {
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+        // Remove the SHK view wrapper from the window
+        [[SHK currentHelper] viewWasDismissed];
+    }
 }
 
 

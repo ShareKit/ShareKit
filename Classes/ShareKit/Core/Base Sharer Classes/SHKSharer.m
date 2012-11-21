@@ -579,19 +579,33 @@
 
 #pragma mark -
 
--(NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString {
+- (NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString tagSuffix:(NSString *)suffixString {
     
     NSMutableArray *cleanedTags = [NSMutableArray arrayWithCapacity:[self.item.tags count]];
+    NSCharacterSet *removeSet = [charset invertedSet];
     
     for (NSString *tag in self.item.tags) {
-        NSCharacterSet *removeSet = [charset invertedSet];
-        NSString *strippedTag = [[tag componentsSeparatedByCharactersInSet:removeSet]
-                                 componentsJoinedByString:@"" ];
+        
+        NSString *strippedTag;
+        if (removeSet) {
+            strippedTag = [[tag componentsSeparatedByCharactersInSet:removeSet] componentsJoinedByString:@""];
+        } else {
+            strippedTag = tag;
+        }
+                                 
         if ([strippedTag length] < 1) continue;
         strippedTag = [strippedTag stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if ([strippedTag length] < 1) continue;
-        if ([prefixString length] > 0) [cleanedTags addObject:[NSString stringWithFormat:@"%@%@", prefixString, strippedTag]];
-            else [cleanedTags addObject:strippedTag];
+        
+        if ([prefixString length] > 0) {
+            strippedTag = [prefixString stringByAppendingString:strippedTag];
+        }
+        
+        if ([suffixString length] > 0) {
+            strippedTag = [strippedTag stringByAppendingString:suffixString];
+        }
+        
+        [cleanedTags addObject:strippedTag];
     }
     
     if ([cleanedTags count] < 1) return @"";
@@ -731,8 +745,10 @@
 {
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+        // Remove the SHK view wrapper from the window
+        [[SHK currentHelper] viewWasDismissed];
+    }
 }
 
 

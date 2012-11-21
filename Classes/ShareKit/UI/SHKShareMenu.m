@@ -56,7 +56,6 @@
     [super dealloc];
 }
 
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
 	if (self = [super initWithStyle:style])
@@ -92,9 +91,12 @@
 {
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
-	if(self.limboSharer != nil)
+	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+        // Remove the SHK view wrapper from the window
+        [[SHK currentHelper] viewWasDismissed];
+    }
+	
+    if(self.limboSharer != nil)
 		[self.limboSharer share];
 }
 

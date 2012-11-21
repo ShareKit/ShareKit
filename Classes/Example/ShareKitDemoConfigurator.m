@@ -58,12 +58,17 @@
 // 
 //    Your CFBundleURLSchemes entry: fb555lite
 - (NSString*)facebookAppId {
-	return @"232705466797125";
+	return @"281987678567988";
 }
 
 - (NSString*)facebookLocalAppId {
 	return @"";
 }
+
+- (NSNumber*)forcePreIOS6FacebookPosting {
+	return [NSNumber numberWithBool:false];
+}
+
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"45aT6Vfvg66eWNebybd680gu13pdba3d";

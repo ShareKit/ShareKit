@@ -70,7 +70,7 @@
 
 - (void)promptAuthorization {
     EvernoteSession *session = [EvernoteSession sharedSession];
-    [session authenticateWithViewController:[SHK currentHelper].rootViewForCustomUIDisplay completionHandler:^(NSError *error) {
+    [session authenticateWithViewController:[SHK currentHelper].rootViewForUIDisplay completionHandler:^(NSError *error) {
         BOOL success = (error == nil) && session.isAuthenticated;
         [self authDidFinish:success];
         if (error) {

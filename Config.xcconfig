@@ -1,1 +1,1 @@
-OTHER_LDFLAGS = $(OTHER_LDFLAGS)  -framework Security
+OTHER_LDFLAGS = $(OTHER_LDFLAGS)  -framework Security -weak_framework Social -weak_framework Accounts -weak_framework Twitter -weak_framework AdSupport
