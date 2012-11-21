@@ -38,7 +38,7 @@ base_source_dirs = [  "Classes/ShareKit/UI/"                + ALL_PATTERN,
                       "Classes/ShareKit/Sharers/Services/Facebook/"  + ALL_PATTERN,
                       "Classes/ShareKit/Sharers/Services/Weibo/"  + ALL_PATTERN,
                       "Classes/ShareKit/Sharers/Services/Sina Weibo/"  + ALL_PATTERN,
-                      "Submodules/facebook-ios-sdk/src/"    + ALL_PATTERN,
+                      "Submodules/facebook-ios-sdk/src/*.[hmc]",
                       "Submodules/JSONKit/"                 + ALL_PATTERN,
                       "Submodules/sskeychain/"              + 'SSKeychain.[hm]']
 
