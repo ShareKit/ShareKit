@@ -28,7 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKCustomFormControllerLargeTextField.h"
 #import "SinaWeibo.h"
 #import "SinaWeiboRequest.h"
 
