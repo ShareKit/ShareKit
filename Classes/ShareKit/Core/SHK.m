@@ -183,7 +183,12 @@ BOOL SHKinit;
 - (void)presentVC:(UIViewController *)vc {
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
-    [topViewController presentModalViewController:vc animated:YES];
+    
+    if ([UIView instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
+        [topViewController presentViewController:vc animated:YES completion:nil];
+    } else {
+        [topViewController presentModalViewController:vc animated:YES];
+    }
     
     self.currentView = vc;
 	self.pendingView = nil;

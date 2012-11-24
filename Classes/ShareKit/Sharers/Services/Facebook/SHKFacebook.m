@@ -215,6 +215,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
+        [alertView release];
     }
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
@@ -439,6 +440,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 
 															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
 															 [self tryPendingAction];
@@ -657,6 +659,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 															 
 															 [self sendDidCancel];
 														 }else{
