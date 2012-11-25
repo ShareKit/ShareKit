@@ -200,6 +200,23 @@
 }
 
 /*
+ *  Dropbox - https://www.dropbox.com/developers/apps
+ *  1. ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY
+ *  2. Root Folder: kDBRootAppFolder (==  @"sandbox") or kDBRootDropbox (== @"dropbox")
+ *  3. In additional you should setup App folder name  https://www.dropbox.com/developers/apps
+ *
+ */
+- (NSString *) dropboxAppKey {
+    return @"n18olaziz6f8752";
+}
+- (NSString *) dropboxAppSecret {
+    return @"6cjsemxx6i2qdvc";
+}
+- (NSString *) dropboxRootFolder {
+    return @"dropbox";
+}
+
+/*
  UI Configuration : Basic
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.

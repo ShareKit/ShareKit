@@ -241,6 +241,24 @@
 }
 
 /*
+ *  Dropbox - https://www.dropbox.com/developers/apps
+ *  1. ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY
+ *  2. Root Folder: kDBRootAppFolder (==  @"sandbox") or kDBRootDropbox (== @"dropbox")
+ *  3. In additional you should setup App folder name  https://www.dropbox.com/developers/apps
+ *
+ */
+
+- (NSString *) dropboxAppKey {
+    return @"";
+}
+- (NSString *) dropboxAppSecret {
+    return @"";
+}
+- (NSString *) dropboxRootFolder {
+    return @"sandbox";
+}
+
+/*
  UI Configuration : Basic
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
@@ -421,6 +439,13 @@
 -(NSString*) popOverSourceRect;
  {
   return NSStringFromCGRect(CGRectZero);
+}
+
+/*  SHKDropbox  */
+//  Should SHKDropbox overwrite existed remote file or not
+//  If FALSE - SHKDropbox present dialog to ask user a file name
+- (BOOL) dropboxShouldOverwriteExistedFile {
+    return YES;
 }
 
 @end
