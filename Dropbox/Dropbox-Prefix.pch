@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'Dropbox' target in the 'Dropbox' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif

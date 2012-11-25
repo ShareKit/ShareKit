@@ -80,6 +80,9 @@
 - (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSString *)dropboxAppKey;
+- (NSString *)dropboxAppSecret;
+- (NSString *)dropboxRootFolder;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
@@ -114,4 +117,6 @@
 - (NSArray *)textMessageToRecipients;
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
+//SHKDropbox
+- (BOOL) dropboxShouldOverwriteExistedFile;
 @end
