@@ -97,8 +97,11 @@
 	
 	//If user really cancelled share. Sometimes sharers have more stages (e.g Foursquare) and user only returned to previous stage - back on navigation stack.
 	if (self.shareIsCancelled) {
-        // Remove the SHK view wrapper from the window
-        [[SHK currentHelper] viewWasDismissed];
+        
+        if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
+            // Remove the SHK view wrapper from the window
+            [[SHK currentHelper] viewWasDismissed];
+        }
     }
 }
 

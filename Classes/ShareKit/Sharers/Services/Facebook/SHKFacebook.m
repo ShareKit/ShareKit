@@ -26,10 +26,12 @@
 //
 //
 
+#import "SHKiOSFacebook.h"
 #import "SHKFacebook.h"
 #import <FacebookSDK.h>
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import <Social/Social.h>
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
@@ -213,6 +215,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
+        [alertView release];
     }
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
@@ -361,6 +364,37 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 #pragma mark -
 #pragma mark Share API Methods
+
+- (void)share {
+    
+    if ([self socialFrameworkAvailable]) {
+        
+        SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
+        iosSharer.quiet = self.quiet;
+        iosSharer.delegate = self.delegate;
+        [SHKFacebook logout];
+        
+    } else {
+        
+        [super share];
+    }   
+}
+
+- (BOOL)socialFrameworkAvailable {
+    
+    if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
+    {
+        return NO;
+    }
+    
+	if (NSClassFromString(@"SLComposeViewController"))
+    {
+		return YES;
+	}
+	
+	return NO;
+}
+
 -(void) sendDidCancel
 {
 	[super sendDidCancel];
@@ -406,6 +440,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 
 															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
 															 [self tryPendingAction];
@@ -552,7 +587,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark - UI Implementation
 - (void) doNativeShow
 {
-	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForCustomUIDisplay]
+	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForUIDisplay]
 																	initialText:item.text ? item.text : item.title
 																		  image:item.image
 																			url:item.URL
@@ -624,6 +659,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 															 
 															 [self sendDidCancel];
 														 }else{

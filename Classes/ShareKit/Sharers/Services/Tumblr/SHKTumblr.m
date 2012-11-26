@@ -195,7 +195,7 @@ static NSString * const kStoredAuthPasswordKeyName = @"password";
             [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
             [allowedCharacters addCharactersInString:@" "];
             [allowedCharacters removeCharactersInString:@","];
-            NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil];
+            NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
             if(tags){
                 [params appendFormat:@"&tags=%@",SHKEncode(tags)];
             }
