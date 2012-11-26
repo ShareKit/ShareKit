@@ -360,6 +360,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	[SHKFacebook clearSavedItem];
 	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
 	[FBSession.activeSession closeAndClearTokenInformation];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookUserInfo];
 }
 
 #pragma mark -
@@ -416,7 +417,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
-		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services
+		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
         if (item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
@@ -467,7 +468,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	// Warning to modifiers of SEND, be sure that if send becomes more than a single FBRequestConnection
 	// you properly deal with closing the session. For the moment we can close the session when these complete
 	// and get un-retained by the session state callback.
-	[self sendDidStart];
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
 						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
@@ -528,13 +528,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
-	{	// sharekit doesn't use this, I don't know who does
+	{	// sharekit demo app doesn't use this, handy if you need to show user info, such as user name for OAuth services in your app, see https://github.com/ShareKit/ShareKit/wiki/FAQ
 		[self setQuiet:YES];
 		FBRequestConnection* con = [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 			[self FBUserInfoRequestHandlerCallback:connection result:result error:error];
 		}];
 		[self.pendingConnections addObject:con];
 	}
+    [self sendDidStart];
 }
 
 -(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
