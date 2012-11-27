@@ -480,7 +480,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[params setObject:item.title == nil ? url : item.title
 				   forKey:@"name"];
 		
-		//message parameter is invalid since 2011. Next two lines are useless.
+		//message parameter is invalid in fbdialog since 2011. Next two lines are effective only when sending to graph API.
 		if (item.text)
 			[params setObject:item.text forKey:@"message"];
 		
@@ -624,7 +624,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL)
     {
         [self showFacebookForm];
     }
@@ -689,7 +689,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             break;
         case SHKShareTypeImage:
             rootView.image = item.image;
-            rootView.text = item.title;            
+            rootView.text = item.title;
+            break;
+        case SHKShareTypeURL:
+            rootView.hasLink = YES;
+            break;
         default:
             break;
     }    
@@ -708,7 +712,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             self.item.text = form.textView.text;
             break;
         case SHKShareTypeImage:
-            self.item.title = form.textView.text;
+        case SHKShareTypeURL:
+            self.item.text = form.textView.text;
+            break;
         default:
             break;
     }    
