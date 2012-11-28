@@ -27,6 +27,7 @@
 @synthesize counter, hasLink, image, imageTextLength;
 @synthesize text;
 @synthesize shareIsCancelled;
+@synthesize allowSendingEmptyMessage;
 
 - (void)dealloc 
 {
@@ -46,6 +47,7 @@
 		imageTextLength = 0;
 		hasLink = NO;
 		maxTextLength = 0;
+        allowSendingEmptyMessage = NO;
 	}
 	return self;
 }
@@ -222,7 +224,7 @@
 
 - (void)ifNoTextDisableSendButton {
 	
-	if (self.textView.text.length) {
+	if (self.textView.text.length || self.allowSendingEmptyMessage) {
 		self.navigationItem.rightBarButtonItem.enabled = YES; 
 	} else {
 		self.navigationItem.rightBarButtonItem.enabled = NO;
