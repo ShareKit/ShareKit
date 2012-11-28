@@ -692,6 +692,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             rootView.text = item.title;
             break;
         case SHKShareTypeURL:
+            rootView.text = item.text;
             rootView.hasLink = YES;
             rootView.allowSendingEmptyMessage = YES;
             break;
