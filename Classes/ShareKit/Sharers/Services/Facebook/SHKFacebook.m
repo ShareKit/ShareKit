@@ -36,6 +36,7 @@
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
+static NSString *const kSHKFacebookGraphPayload =@"kSHKFacebookGraphPayload";
 
 // these are ways of getting back to the instance that made the request through statics
 // there are two so that the logic of their lifetimes is understandable.
@@ -535,6 +536,20 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		}];
 		[self.pendingConnections addObject:con];
 	}
+    else if (item.shareType == SHKShareTypeUndefined)
+    {
+        [self setQuiet:YES];
+        
+        NSString *graphPath = [item customValueForKey:@"graphPath"];
+        
+        FBRequestConnection* con = [FBRequestConnection startWithGraphPath:graphPath
+                                                                parameters:params
+                                                                HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                    [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                }];
+		[self.pendingConnections addObject:con];
+    }
+
     [self sendDidStart];
 }
 

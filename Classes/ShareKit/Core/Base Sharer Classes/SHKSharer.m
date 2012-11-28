@@ -664,7 +664,9 @@
         {    
             BOOL result = [[self class] canGetUserInfo];
             return result; 
-        }   
+        }
+        case SHKShareTypeUndefined:
+            return YES;
 		default:
 			break;
 	}
