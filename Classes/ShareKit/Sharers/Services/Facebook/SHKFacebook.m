@@ -372,7 +372,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         
         SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
         iosSharer.quiet = self.quiet;
-        iosSharer.delegate = self.delegate;
+        iosSharer.shareDelegate = self.shareDelegate;
         [SHKFacebook logout];
         
     } else {
