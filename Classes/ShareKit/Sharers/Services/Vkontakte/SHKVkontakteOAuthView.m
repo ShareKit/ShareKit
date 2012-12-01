@@ -107,7 +107,7 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
 
 	if ([vkWebView.request.URL.absoluteString rangeOfString:@"access_token"].location != NSNotFound) {
-		NSString *accessToken = [self stringBetweenString:@"access_token=" 
+		NSString *accessToken = [SHKVkontakteOAuthView stringBetweenString:@"access_token="
 																						andString:@"&" 
 																					innerString:[[[webView request] URL] absoluteString]];
 		
@@ -143,7 +143,7 @@
 
 #pragma mark - Methods
 
-- (NSString*)stringBetweenString:(NSString*)start 
++ (NSString*)stringBetweenString:(NSString*)start
                        andString:(NSString*)end 
                      innerString:(NSString*)str 
 {

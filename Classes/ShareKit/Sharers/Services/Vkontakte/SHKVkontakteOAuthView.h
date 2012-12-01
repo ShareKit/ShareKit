@@ -37,7 +37,7 @@
 @property (nonatomic, retain) UIWebView *vkWebView;
 @property (nonatomic, retain) NSString *appID;
 
-- (NSString*)stringBetweenString:(NSString*)start 
++ (NSString*)stringBetweenString:(NSString*)start
                        andString:(NSString*)end 
                      innerString:(NSString*)str;
 
