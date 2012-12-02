@@ -175,11 +175,35 @@
     {
         NSString *appID = SHKCONFIG(vkontakteAppId);
         NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", appID];
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                 params:nil
+                                               delegate:self
+                                     isFinishedSelector:@selector(accessCodeReceived:)
+                                                 method:@"GET"
+                                              autostart:YES] autorelease];
+    } else
+    {
+        [self authDidFinish: NO];
+    }
+}
 
-        NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl]
-                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                            timeoutInterval:60.0];
-        [NSURLConnection connectionWithRequest:requestM delegate:self];
+- (void)accessCodeReceived:(SHKRequest *)aRequest
+{
+	if (aRequest.success)
+	{
+        NSString *accessCode = [SHKVkontakteOAuthView stringBetweenString:@"code="
+                                                                andString:@"&"
+                                                              innerString:aRequest.response.URL.absoluteString];
+        
+        if(accessCode)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:accessCode forKey:kSHKVkontakteAccessCodeKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self authDidFinish: YES];
+        } else
+        {
+            [self authDidFinish: NO];
+        }
     } else
     {
         [self authDidFinish: NO];
@@ -192,51 +216,39 @@
     if ([self isAuthorized])
     {
         NSString *reqURl = [NSString stringWithFormat:@"https://api.vk.com/method/users.get?uids=%@&fields=uid,first_name,last_name,nickname,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,photo_rec&access_token=%@", self.accessUserId,self.accessToken];
-        
-        NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl]
-                                                                cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                            timeoutInterval:60.0];
-        [NSURLConnection connectionWithRequest:requestM delegate:self];
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                 params:nil
+                                               delegate:self
+                                     isFinishedSelector:@selector(userInfoReceived:)
+                                                 method:@"GET"
+                                              autostart:YES] autorelease];
     } else
     {
         [self sendDidFailWithError:nil];
     }
 }
 
-
-
-#pragma mark - NSURLConnectionData Delegate -
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+- (void)userInfoReceived:(SHKRequest *)aRequest
 {
-    NSString *accessCode = [SHKVkontakteOAuthView stringBetweenString:@"code="
-                                                            andString:@"&"
-                                                          innerString:response.URL.absoluteString];
-    
-    if(accessCode)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:accessCode forKey:kSHKVkontakteAccessCodeKey];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-	    [self authDidFinish: YES];
-    }
-}
+	if (aRequest.success)
+	{
+        // convert to JSON
+        NSDictionary *res = [aRequest.data objectFromJSONData];
+        NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
+        NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
+        
+        if (userInfo)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
+            [self sendDidFinish];
+        } else
+        {
+            [self sendDidFailWithError:nil];
+        }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    // convert to JSON
-    NSError *myError = nil;
-    NSDictionary *res = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&myError];
-    NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
-    NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
-
-    if (userInfo && !myError)
+    } else
     {
-        [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
-		[self sendDidFinish];
-    }
-    else
-    {
-        [self sendDidFailWithError:myError];
+        [self sendDidFailWithError:nil];
     }
 }
 

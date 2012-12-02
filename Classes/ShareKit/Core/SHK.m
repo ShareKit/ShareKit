@@ -44,6 +44,7 @@ NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFi
 @interface SHK ()
 
 @property (nonatomic, assign) UIViewController *rootViewController;
+@property SEL showMethod;
 
 @end
 
@@ -147,19 +148,36 @@ BOOL SHKinit;
 }
 
 - (void)showViewController:(UIViewController *)vc
-{	
-    // Wrap the view in a nav controller if not already. Used for system views, such as share menu and share forms
+{
+    self.showMethod = @selector(showViewController:);
+    
+    BOOL isHidingPreviousView = [self hidePreviousView:vc];
+    if (isHidingPreviousView) return;
+
+    // Wrap the view in a nav controller if not already. Used for system views, such as share menu and share forms. BEWARE: this has to be called AFTER hiding previous. Sometimes hiding and presenting view is the same sharer, but with different SHKFormController on top (auth vs edit)
+    NSAssert(vc.parentViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
+    NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios4 and older
 	if (![vc isKindOfClass:[UINavigationController class]]) vc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     
     [(UINavigationController *)vc navigationBar].barStyle = [SHK barStyle];
     [(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
     [(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
     
-    [self showStandaloneViewController:vc];
+    [self presentVC:vc];
 }
 
 /* method for sharers with custom UI, e.g. all social.framework sharers, print etc */
 - (void)showStandaloneViewController:(UIViewController *)vc {
+    
+    self.showMethod = @selector(presentVC:);
+    
+    BOOL isHidingPreviousView = [self hidePreviousView:vc];
+    if (isHidingPreviousView) return;    
+        
+    [self presentVC:vc];    
+}
+
+- (void)presentVC:(UIViewController *)vc {
     
     BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:@selector(setInitialText:)];
 
@@ -169,22 +187,9 @@ BOOL SHKinit;
     if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
         vc.modalTransitionStyle = [SHK modalTransitionStyle];
     
-    // If a view is already being shown, hide it, and then try again
-	if (currentView != nil)
-	{
-		self.pendingView = vc;
-		[self hideCurrentViewControllerAnimated:YES];
-        return;
-	}
-    
-    [self presentVC:vc];    
-}
-
-- (void)presentVC:(UIViewController *)vc {
-    
     UIViewController *topViewController = [self rootViewForUIDisplay];
     
-    if ([UIView instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
+    if ([UIViewController instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
         [topViewController presentViewController:vc animated:YES completion:nil];
     } else {
         [topViewController presentModalViewController:vc animated:YES];
@@ -192,6 +197,19 @@ BOOL SHKinit;
     
     self.currentView = vc;
 	self.pendingView = nil;
+}
+
+- (BOOL)hidePreviousView:(UIViewController *)VCToShow {
+    
+    // If a view is already being shown, hide it, and then try again
+	if (currentView != nil) {
+        
+		self.pendingView = VCToShow;
+		[self hideCurrentViewControllerAnimated:YES];
+        return YES;
+	
+    }
+    return NO;
 }
 
 - (void)hideCurrentViewController
@@ -232,8 +250,8 @@ BOOL SHKinit;
 
 - (void)showPendingView
 {
-    if (pendingView)
-        [self presentVC:self.pendingView];
+    if (self.pendingView)
+        [self performSelector:self.showMethod withObject:self.pendingView];
 }
 
 - (void)viewWasDismissed
