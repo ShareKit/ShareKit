@@ -155,8 +155,13 @@ BOOL SHKinit;
     if (isHidingPreviousView) return;
 
     // Wrap the view in a nav controller if not already. Used for system views, such as share menu and share forms. BEWARE: this has to be called AFTER hiding previous. Sometimes hiding and presenting view is the same sharer, but with different SHKFormController on top (auth vs edit)
-    NSAssert(vc.parentViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
-    NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios4 and older
+
+    NSAssert(vc.parentViewController == nil, @"vc must not be in the view hierarchy now"); //ios4 and older
+
+    if ([UIViewController instancesRespondToSelector:@selector(presentingViewController)]) {
+        NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
+    }
+    
 	if (![vc isKindOfClass:[UINavigationController class]]) vc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
     
     [(UINavigationController *)vc navigationBar].barStyle = [SHK barStyle];
