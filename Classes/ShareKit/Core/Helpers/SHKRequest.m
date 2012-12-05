@@ -32,7 +32,7 @@
 
 @implementation SHKRequest
 
-@synthesize url, params, method, headerFields;
+@synthesize url, params, paramsData, method, headerFields;
 @synthesize delegate, isFinishedSelector;
 @synthesize data, result, headers, response, connection;
 @synthesize success;
@@ -42,6 +42,7 @@
 	[delegate release];
     [url release];
 	[params release];
+    [paramsData release];
 	[method release];
 	[headerFields release];
 	[connection release];
@@ -70,6 +71,25 @@
 	return self;
 }
 
+- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart
+{
+	if (self = [super init])
+	{
+		self.url = u;
+		self.paramsData = pD;
+		self.method = m;
+		
+		self.delegate = d;
+		self.isFinishedSelector = s;
+		
+		if (autostart)
+			[self start];
+	}
+	
+	return self;
+}
+
+
 #pragma mark -
 
 - (void)start
@@ -87,13 +107,19 @@
 		[request setAllHTTPHeaderFields:headerFields];	
 	
 	// Setup Request Data/Params
-	if (params != nil)
+	if (paramsData != nil)
 	{
-		NSData *paramsData = [ NSData dataWithBytes:[params UTF8String] length:[params length] ];
-		
 		// Fill Request
 		[request setHTTPMethod:method];
 		[request setHTTPBody:paramsData];
+    } else
+	if (params != nil)
+	{
+		NSData *requestParamsData = [ NSData dataWithBytes:[params UTF8String] length:[params length] ];
+		
+		// Fill Request
+		[request setHTTPMethod:method];
+		[request setHTTPBody:requestParamsData];
 	}
 	
 	// Start Connection

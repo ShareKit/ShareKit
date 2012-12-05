@@ -32,6 +32,7 @@
 {
 	NSURL *url;
 	NSString *params;
+    NSData *paramsData;
 	NSString *method;
 	NSDictionary *headerFields;
 	
@@ -50,6 +51,7 @@
 
 @property (retain) NSURL *url;
 @property (retain) NSString *params;
+@property (retain) NSData *paramsData;
 @property (retain) NSString *method;
 @property (retain) NSDictionary *headerFields;
 
@@ -66,6 +68,7 @@
 @property (nonatomic) BOOL success;
 
 - (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;
+- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;
 
 - (void)start;
 - (void)finish;
