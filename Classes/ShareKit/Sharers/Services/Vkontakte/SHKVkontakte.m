@@ -237,7 +237,7 @@
         NSDictionary *res = [aRequest.data objectFromJSONData];
         NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
         NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
-        
+
         if (userInfo)
         {
             [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
@@ -527,7 +527,7 @@
     {
         // convert to JSON
         NSDictionary *res = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
-        
+
         if (res)
         {
             NSString *errorMsg = [[res objectForKey:@"error"] objectForKey:@"error_msg"];
