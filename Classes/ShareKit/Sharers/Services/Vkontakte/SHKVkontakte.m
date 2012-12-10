@@ -32,6 +32,7 @@
 
 @interface SHKVkontakte()
 
+- (void)getUserInfo;
 - (void)showVkontakteForm;
 - (void)getCaptcha;
 - (NSDictionary *)sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha;
@@ -55,7 +56,42 @@
   [defaults removeObjectForKey:kSHKVkonakteUserId];
   [defaults removeObjectForKey:kSHKVkontakteAccessTokenKey];
   [defaults removeObjectForKey:kSHKVkontakteExpiryDateKey];
+  [defaults removeObjectForKey:kSHKVkontakteAccessCodeKey];
+    [defaults removeObjectForKey:kSHKVkonakteUserInfo];
   [defaults synchronize];
+}
+
+
+#pragma mark - Properties -
+
+-(NSString*)accessToken
+{
+    if (!accessToken)
+    {
+        accessToken=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkontakteAccessTokenKey];
+        [accessToken retain];
+    }
+    return accessToken;
+}
+
+-(NSString*)accessUserId
+{
+    if (!accessUserId)
+    {
+        accessUserId=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkonakteUserId];
+        [accessUserId retain];
+    }
+    return accessUserId;
+}
+
+-(NSString*)expirationDate
+{
+    if (!expirationDate)
+    {
+        expirationDate=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkontakteExpiryDateKey];
+        [expirationDate retain];
+    }
+    return expirationDate;
 }
 
 #pragma mark -
@@ -88,7 +124,7 @@
 
 + (BOOL)canGetUserInfo
 {
-	return NO;
+	return YES;
 }
 
 #pragma mark -
@@ -115,7 +151,7 @@
 }
 
 - (void)promptAuthorization
-{	
+{
 	SHKVkontakteOAuthView *rootView = [[SHKVkontakteOAuthView alloc] init];
 	rootView.appID = SHKCONFIG(vkontakteAppId);
 	rootView.delegate = self;
@@ -131,10 +167,101 @@
 	[[SHK currentHelper] showViewController:self];
 }
 
+
+- (void)getAccessCode
+{
+    //we can request AccessCode only if we already authorized
+    if ([self isAuthorized])
+    {
+        NSString *appID = SHKCONFIG(vkontakteAppId);
+        NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", appID];
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                 params:nil
+                                               delegate:self
+                                     isFinishedSelector:@selector(accessCodeReceived:)
+                                                 method:@"GET"
+                                              autostart:YES] autorelease];
+    } else
+    {
+        [self authDidFinish: NO];
+    }
+}
+
+- (void)accessCodeReceived:(SHKRequest *)aRequest
+{
+	if (aRequest.success)
+	{
+        NSString *accessCode = [SHKVkontakteOAuthView stringBetweenString:@"code="
+                                                                andString:@"&"
+                                                              innerString:aRequest.response.URL.absoluteString];
+        
+        if(accessCode)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:accessCode forKey:kSHKVkontakteAccessCodeKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self authDidFinish: YES];
+        } else
+        {
+            [self authDidFinish: NO];
+        }
+    } else
+    {
+        [self authDidFinish: NO];
+    }
+}
+
+
+- (void)getUserInfo
+{
+    if ([self isAuthorized])
+    {
+        NSString *reqURl = [NSString stringWithFormat:@"https://api.vk.com/method/users.get?uids=%@&fields=uid,first_name,last_name,nickname,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,photo_rec&access_token=%@", self.accessUserId,self.accessToken];
+        self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                 params:nil
+                                               delegate:self
+                                     isFinishedSelector:@selector(userInfoReceived:)
+                                                 method:@"GET"
+                                              autostart:YES] autorelease];
+    } else
+    {
+        [self sendDidFailWithError:nil];
+    }
+}
+
+- (void)userInfoReceived:(SHKRequest *)aRequest
+{
+	if (aRequest.success)
+	{
+        // convert to JSON
+        NSDictionary *res = [aRequest.data objectFromJSONData];
+        NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
+        NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
+        
+        if (userInfo)
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
+            [self sendDidFinish];
+        } else
+        {
+            [self sendDidFailWithError:nil];
+        }
+
+    } else
+    {
+        [self sendDidFailWithError:nil];
+    }
+}
+
+
+
+
+#pragma mark -
+
 - (void) authComplete 
 {
-    [self authDidFinish: YES];
+    [self getAccessCode];
     
+    //[self authDidFinish: YES];
 	if (self.item) 
 		[self share];
 }
@@ -164,7 +291,7 @@
  	if (![self validateItem])
 		return NO;
 	
-	[self setQuiet:NO];
+	//[self setQuiet:NO];
 	
 	if (item.shareType == SHKShareTypeURL && item.URL)
 	{
@@ -183,10 +310,8 @@
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
 	{
-		/*[self setQuiet:YES];
-		[[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
-		return YES;*/
-		return NO;
+        [self getUserInfo];
+		return YES;
 	} 
 	else 
 		return NO;
@@ -310,9 +435,7 @@
 - (BOOL) sendText 
 {		
 	NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", self.accessUserId, self.accessToken, [self URLEncodedString:item.text]];
-	
 	NSDictionary *result = [self sendRequest:sendTextMessage withCaptcha:NO];
-
 	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
 	if(errorMsg) 
 	{
@@ -354,14 +477,11 @@
 		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self URLEncodedString: captcha_user]];
 	}
 	NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
-																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
+																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 																										 timeoutInterval:60.0]; 
-	
 	NSData *responseData = [NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:nil];
-	
 	if(responseData){
 		NSDictionary *dict = [[JSONDecoder decoder] parseJSONData:responseData];
-		
 		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
 		
 		if([errorMsg isEqualToString:@"Captcha needed"])
@@ -384,7 +504,8 @@
 	return nil;
 }
 
-- (NSDictionary *) sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData 
+
+- (NSDictionary *) sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData
 {
 	NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
 																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 

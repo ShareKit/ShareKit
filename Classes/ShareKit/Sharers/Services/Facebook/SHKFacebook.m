@@ -215,6 +215,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
+        [alertView release];
     }
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
@@ -359,6 +360,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	[SHKFacebook clearSavedItem];
 	[FBSession setDefaultAppID:SHKCONFIG(facebookAppId)];
 	[FBSession.activeSession closeAndClearTokenInformation];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookUserInfo];
 }
 
 #pragma mark -
@@ -370,7 +372,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         
         SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
         iosSharer.quiet = self.quiet;
-        iosSharer.delegate = self.delegate;
+        iosSharer.shareDelegate = self.shareDelegate;
         [SHKFacebook logout];
         
     } else {
@@ -415,7 +417,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
-		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services
+		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
         if (item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
@@ -439,6 +441,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 
 															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
 															 [self tryPendingAction];
@@ -465,7 +468,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	// Warning to modifiers of SEND, be sure that if send becomes more than a single FBRequestConnection
 	// you properly deal with closing the session. For the moment we can close the session when these complete
 	// and get un-retained by the session state callback.
-	[self sendDidStart];
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
 						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
@@ -478,7 +480,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[params setObject:item.title == nil ? url : item.title
 				   forKey:@"name"];
 		
-		//message parameter is invalid since 2011. Next two lines are useless.
+		//message parameter is invalid in fbdialog since 2011. Next two lines are effective only when sending to graph API.
 		if (item.text)
 			[params setObject:item.text forKey:@"message"];
 		
@@ -526,13 +528,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
-	{	// sharekit doesn't use this, I don't know who does
+	{	// sharekit demo app doesn't use this, handy if you need to show user info, such as user name for OAuth services in your app, see https://github.com/ShareKit/ShareKit/wiki/FAQ
 		[self setQuiet:YES];
 		FBRequestConnection* con = [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 			[self FBUserInfoRequestHandlerCallback:connection result:result error:error];
 		}];
 		[self.pendingConnections addObject:con];
 	}
+    [self sendDidStart];
 }
 
 -(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
@@ -621,7 +624,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL)
     {
         [self showFacebookForm];
     }
@@ -657,6 +660,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
+                                                             [alertView release];
 															 
 															 [self sendDidCancel];
 														 }else{
@@ -685,7 +689,13 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             break;
         case SHKShareTypeImage:
             rootView.image = item.image;
-            rootView.text = item.title;            
+            rootView.text = item.title;
+            break;
+        case SHKShareTypeURL:
+            rootView.text = item.text;
+            rootView.hasLink = YES;
+            rootView.allowSendingEmptyMessage = YES;
+            break;
         default:
             break;
     }    
@@ -704,7 +714,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             self.item.text = form.textView.text;
             break;
         case SHKShareTypeImage:
-            self.item.title = form.textView.text;
+        case SHKShareTypeURL:
+            self.item.text = form.textView.text;
+            break;
         default:
             break;
     }    

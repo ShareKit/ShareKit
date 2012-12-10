@@ -27,6 +27,7 @@
 @synthesize counter, hasLink, image, imageTextLength;
 @synthesize text;
 @synthesize shareIsCancelled;
+@synthesize allowSendingEmptyMessage;
 
 - (void)dealloc 
 {
@@ -46,6 +47,7 @@
 		imageTextLength = 0;
 		hasLink = NO;
 		maxTextLength = 0;
+        allowSendingEmptyMessage = NO;
 	}
 	return self;
 }
@@ -199,7 +201,14 @@
     } else {
         count = @"";
     }
-    counter.text = [NSString stringWithFormat:@"%@%@", self.image ? [NSString stringWithFormat:@"Image %@ ",countNumber>0?@"+":@""]:@"", count];
+    
+    if (self.image) {
+        counter.text = [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:@"Image %@ ",countNumber>0?@"+":@""], count];
+    } else if (self.hasLink) {
+        counter.text = [NSString stringWithFormat:@"%@%@", [NSString stringWithFormat:@"Link %@ ",countNumber>0?@"+":@""], count];
+    } else {
+        counter.text = count;
+    }
  	
 	if (countNumber >= 0) {
 		
@@ -215,7 +224,7 @@
 
 - (void)ifNoTextDisableSendButton {
 	
-	if (self.textView.text.length) {
+	if (self.textView.text.length || self.allowSendingEmptyMessage) {
 		self.navigationItem.rightBarButtonItem.enabled = YES; 
 	} else {
 		self.navigationItem.rightBarButtonItem.enabled = NO;
