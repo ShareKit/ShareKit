@@ -138,7 +138,8 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)showSHKTextForm
 {
-	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+    SHKComposeAbstractViewController *rootView = [SHKComposeAbstractViewController controllerForSharerClass:[self class]];
+    rootView.delegate = self;
 	
     if (item.shareType == SHKShareTypeURL) {
         rootView.text = item.title;
@@ -152,7 +153,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-    [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
@@ -175,12 +175,12 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark -
 #pragma mark SHKCustomFormControllerLargeTextField delegate
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {	
     if (item.shareType == SHKShareTypeURL) {
-        item.title = form.textView.text;
+        item.title = form.text;
     } else {
-        item.text = form.textView.text;
+        item.text = form.text;
     }
 	[self tryToSend];
 }

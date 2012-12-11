@@ -1,9 +1,9 @@
 //
-//  SHKCustomFormControllerLargeTextField.h
+//  SHKComposeViewControllerDelegate.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/28/10.
-
+//  Created by Euan Lau on 12/11/12.
+//
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,10 +26,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHKFormControllerLargeTextField.h"
+@class SHKComposeAbstractViewController;
 
-@interface SHKCustomFormControllerLargeTextField : SHKFormControllerLargeTextField {
-
-}
+@protocol SHKComposeViewControllerDelegate <NSObject>
+@required
+- (void)sendForm:(SHKComposeAbstractViewController *)form;
++ (NSString *)sharerTitle;
+- (void)sendDidCancel;
 
 @end

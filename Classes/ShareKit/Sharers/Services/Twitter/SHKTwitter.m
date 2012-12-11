@@ -330,7 +330,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)showTwitterForm
 {
-	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+ 	SHKComposeAbstractViewController *rootView = [SHKComposeAbstractViewController controllerForSharerClass:[self class]];
+  rootView.delegate = self;
 	
 	rootView.text = [item customValueForKey:@"status"];
 	rootView.maxTextLength = 140;
@@ -340,14 +341,13 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-	[rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {	
-	[item setCustomValue:form.textView.text forKey:@"status"];
+	[item setCustomValue:form.text forKey:@"status"];
 	[self tryToSend];
 }
 

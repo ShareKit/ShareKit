@@ -681,8 +681,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void)showFacebookForm
 {
- 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
- 	
+ 	SHKComposeAbstractViewController *rootView = [SHKComposeAbstractViewController controllerForSharerClass:[self class]];
+  rootView.delegate = self;
+  
     switch (self.item.shareType) {
         case SHKShareTypeText:
             rootView.text = item.text;
@@ -702,20 +703,19 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
-    [rootView release];
     
     [[SHK currentHelper] showViewController:self];  
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {  
  	switch (self.item.shareType) {
         case SHKShareTypeText:
-            self.item.text = form.textView.text;
+            self.item.text = form.text;
             break;
         case SHKShareTypeImage:
         case SHKShareTypeURL:
-            self.item.text = form.textView.text;
+            self.item.text = form.text;
             break;
         default:
             break;

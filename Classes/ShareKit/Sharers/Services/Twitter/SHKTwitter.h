@@ -27,9 +27,9 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKTwitter : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKTwitter : SHKOAuthSharer <SHKComposeViewControllerDelegate>
 {	
 	BOOL xAuth;		
 }

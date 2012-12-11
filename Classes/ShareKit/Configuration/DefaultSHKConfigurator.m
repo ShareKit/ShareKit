@@ -26,6 +26,7 @@
 //
 
 #import "DefaultSHKConfigurator.h"
+#import "SHKFoursquareV2.h"
 
 @implementation DefaultSHKConfigurator
 
@@ -337,6 +338,12 @@
     return NSClassFromString(@"SHKFormController");
 }
 
+- (Class)SHKComposeControllerForSharerClass:(Class)sharerClass {
+  if ([sharerClass isSubclassOfClass:[SHKFoursquareV2 class]])
+    return NSClassFromString(@"SHKFoursquareV2CheckInForm");
+  else
+    return NSClassFromString(@"SHKFormControllerLargeTextField");
+}
 /*
  Advanced Configuration
  ----------------------
