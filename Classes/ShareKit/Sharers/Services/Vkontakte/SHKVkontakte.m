@@ -28,6 +28,7 @@
 #import "SHKVkontakte.h"
 #import "SHKConfiguration.h"
 #import "SHKVkontakteOAuthView.h"
+#import "SHKVKontakteRequest.h"
 #import "JSONKit.h"
 
 @interface SHKVkontakte()
@@ -617,7 +618,7 @@
 	[body appendData:imageData];
 	[body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
 
-    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+    self.request = [[[SHKVKontakteRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
                                              paramsData:[NSData dataWithData:body]
                                            delegate:self
                                  isFinishedSelector:@selector(didFinishPOSTRequest:)
