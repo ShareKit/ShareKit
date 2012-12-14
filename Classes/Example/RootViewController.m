@@ -12,6 +12,13 @@
 #import "ExampleShareText.h"
 #import "ExampleShareFile.h"
 #import "SHK.h"
+#import "SHKFacebook.h"
+
+@interface RootViewController ()
+
+@property (nonatomic, retain) SHKFacebook *shkFacebook;
+
+@end
 
 @implementation RootViewController
 
@@ -21,8 +28,37 @@
 	
 	self.toolbarItems = [NSArray arrayWithObjects:
 						 [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease],
+                         [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)] autorelease],
 						 nil
 						 ];	
+}
+
+- (void)viewDidLoad
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authDidFinish:)
+                                                 name:@"SHKAuthDidFinish"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidCancel:)
+                                                 name:@"SHKSendDidCancel"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidStart:)
+                                                 name:@"SHKSendDidStartNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidFinish:)
+                                                 name:@"SHKSendDidFinish"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidFailWithError:)
+                                                 name:@"SHKSendDidFailWithError"
+                                               object:nil];
 }
 
 #pragma mark -
@@ -115,6 +151,14 @@
     return YES;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [_shkFacebook release];
+    
+    [super dealloc];
+}
 
 #pragma mark -
 
@@ -134,6 +178,47 @@
 		[SHK logoutOfAll];
 }
 
+- (void)facebookConnect
+{
+    if (nil == self.shkFacebook) {
+        self.shkFacebook = [[[SHKFacebook alloc] init] autorelease];
+    }
+    
+    [self.shkFacebook authorize];
+}
+
+- (void)authDidFinish:(NSNotification*)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *success = [userInfo objectForKey:@"success"];
+    
+    if (NO == [success boolValue]) {
+        NSLog(@"authDidFinish: NO");
+    } else {
+        NSLog(@"authDidFinish: YES");
+    }
+    
+}
+
+- (void)sendDidCancel:(NSNotification*)notification
+{
+    NSLog(@"sendDidCancel:");
+}
+
+- (void)sendDidStart:(NSNotification*)notification
+{
+    NSLog(@"sendDidStart:");
+}
+
+- (void)sendDidFinish:(NSNotification*)notification
+{
+    NSLog(@"sendDidFinish:");
+}
+
+- (void)sendDidFailWithError:(NSNotification*)notification
+{
+    NSLog(@"sendDidFailWithError:");
+}
 
 @end
 
