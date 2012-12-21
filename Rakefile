@@ -41,7 +41,7 @@ base_source_dirs = [  "Classes/ShareKit/UI/"                + ALL_PATTERN,
                       "Submodules/facebook-ios-sdk/src/*.[hmc]",
                       "Submodules/facebook-ios-sdk/src/JSON/*.[hmc]",
                       "Submodules/JSONKit/"                 + ALL_PATTERN,
-                      "Submodules/sinaweibo-ios-sdk/src/sinaweibo/*.[hmc]",
+                      "Submodules/sinaweibo-ios-sdk/sinaweibo_ios_sdk&demo/sinaweibo_ios_sdk/SinaWeibo/*.[hmc]",
                       "Submodules/sskeychain/"              + 'SSKeychain.[hm]']
 
 combined_sources = base_source_dirs.map {|d| FileList[d] }.flatten
