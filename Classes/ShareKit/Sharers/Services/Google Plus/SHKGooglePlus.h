@@ -6,8 +6,13 @@
 //
 //
 
-#import "SHKiOSSharer.h"
+#import "SHKSharer.h"
+#import "GPPShare.h"
 
-@interface SHKGooglePlus : SHKiOSSharer
+@interface SHKGooglePlus : SHKSharer <GPPShareDelegate> {
+    GPPShare *mGooglePlusShare;
+}
+
+@property (nonatomic, retain) GPPShare *mGooglePlusShare;
 
 @end

@@ -7,13 +7,15 @@
 //
 
 #import "SHKGooglePlus.h"
-#import "SHKiOSSharer_Protected.h"
+#import "SHKConfiguration.h"
 
 @interface SHKGooglePlus ()
 
 @end
 
 @implementation SHKGooglePlus
+
+@synthesize mGooglePlusShare;
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -23,45 +25,70 @@
 	return @"Google Plus";
 }
 
-+ (NSString *)sharerId
-{
-	return @"SHKGooglePlus";
-}
-
 + (BOOL)canShareURL
 {
-    return YES;
-}
-
-+ (BOOL)canShareImage
-{
-    return YES;
+	return YES;
 }
 
 + (BOOL)canShareText
 {
-    return YES;
+	return YES;
 }
 
-+ (BOOL)canShare
++ (BOOL)canShareImage
 {
-    return YES;
+	return NO;
 }
 
-- (NSUInteger)maxTextLength {
-    
-    return 280;
++ (BOOL)canShareOffline
+{
+	return NO;
 }
+
++ (BOOL)canGetUserInfo
+{
+    return NO;
+}
+
+#pragma mark -
+#pragma mark Share API Methods
 
 - (void)share {
+    id<GPPShareBuilder> shareBuilder = [self.mGooglePlusShare shareDialog];
     
-    
+    shareBuilder = [shareBuilder setURLToShare:self.item.URL];
+    shareBuilder = [shareBuilder setPrefillText:self.item.title];
+
+    if (![shareBuilder open])
+        [super share];
 }
 
-- (NSString *)joinedTags {
+#pragma mark -
+#pragma mark Life Cycles
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
+        self.mGooglePlusShare.delegate = self;
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    self.mGooglePlusShare.delegate = nil;
+    self.mGooglePlusShare = nil;
+	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark GPPShareDelegate
+
+// Reports the status of the share action, |shared| is |YES| if user has
+// successfully shared her post, |NO| otherwise, e.g. user canceled the post.
+- (void)finishedSharing:(BOOL)shared {
     
-    NSString *result = [self tagStringJoinedBy:@" " allowedCharacters:nil tagPrefix:@"#" tagSuffix:@"#"];
-    return result;
 }
 
 @end

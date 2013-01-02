@@ -3903,6 +3903,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
+					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -3927,6 +3928,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
+					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
 				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
