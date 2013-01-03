@@ -109,10 +109,8 @@
  client ID as "Installed application" with the type "iOS", and
  register the bundle ID of your application.
  */
-// DO NOT USE THIS CLIENT ID. IT WILL NOT WORK FOR YOUR APP.
-// Please use the client ID created for you by Google.
 - (NSString*)googlePlusClientId {
-    return @"122385832599-2mcvobo565un3ab7d6d06m6fjemocto9.apps.googleusercontent.com";
+    return @"";
 }
 
 // Read It Later - http://readitlaterlist.com/api/signup/

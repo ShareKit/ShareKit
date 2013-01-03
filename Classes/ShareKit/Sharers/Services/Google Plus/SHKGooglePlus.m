@@ -56,8 +56,15 @@
 - (void)share {
     id<GPPShareBuilder> shareBuilder = [self.mGooglePlusShare shareDialog];
     
-    shareBuilder = [shareBuilder setURLToShare:self.item.URL];
-    shareBuilder = [shareBuilder setPrefillText:self.item.title];
+    switch ([self.item shareType]) {
+        case SHKShareTypeURL:
+            shareBuilder = [shareBuilder setURLToShare:self.item.URL];
+            break;
+        default:
+        case SHKShareTypeText:
+            shareBuilder = [shareBuilder setPrefillText:self.item.text];
+            break;
+    }
 
     if (![shareBuilder open])
         [super share];
