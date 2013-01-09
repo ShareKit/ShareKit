@@ -133,7 +133,7 @@
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
-		self.dic.UTI = @"com.instagram.photo";
+		self.dic.UTI = @"com.instagram.exclusivegram";
 		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
 		self.dic.annotation = @{@"InstagramCaption" : captionString};
 		self.dic.delegate = self;
