@@ -65,7 +65,7 @@
 	for(NSString *sharerId in favoriteSharers)
 	{
 		class = NSClassFromString(sharerId);
-		if ([class canShare] && [class canShareType:type])
+		if ([class canShare])
 		{
 			[as addButtonWithTitle: [class sharerTitle] ];
 			[as.sharers addObject:sharerId];
