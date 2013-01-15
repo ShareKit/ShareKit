@@ -57,8 +57,7 @@
 
 + (BOOL)canShareImage
 {
-    NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
-	return 	[[UIApplication sharedApplication] canOpenURL:instagramURL];
+    return YES;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -79,6 +78,12 @@
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
+
++ (BOOL)canShare
+{
+	NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
+	return [[UIApplication sharedApplication] canOpenURL:instagramURL];
+}
 
 + (BOOL)canAutoShare
 {
