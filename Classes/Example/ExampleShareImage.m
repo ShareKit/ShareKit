@@ -35,8 +35,6 @@
 
 - (void)dealloc
 {
-	[imageView release];
-	[super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,9 +42,9 @@
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
 	{
 		self.toolbarItems = [NSArray arrayWithObjects:
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
 							 nil
 							 ];
 	}
@@ -58,7 +56,7 @@
 {
 	[super loadView];
 	
-	self.imageView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sanFran.jpg"]] autorelease];
+	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sanFran.jpg"]];
 	
 	imageView.frame = CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
 	

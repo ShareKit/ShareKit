@@ -27,8 +27,8 @@
 	[super loadView];
 	
 	self.toolbarItems = [NSArray arrayWithObjects:
-						 [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease],
-                         [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)] autorelease],
+						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)],
+                         [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)],
 						 nil
 						 ];	
 }
@@ -85,7 +85,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	switch (indexPath.row) 
@@ -123,20 +123,20 @@
 	switch (indexPath.row) 
 	{
 		case 0:
-			[self.navigationController pushViewController:[[[ExampleShareLink alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareLink alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 1:
 			
-			[self.navigationController pushViewController:[[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 2:
-			[self.navigationController pushViewController:[[[ExampleShareText alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareText alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 3:
-			[self.navigationController pushViewController:[[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		//case 4:
@@ -154,21 +154,17 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    
-    [_shkFacebook release];
-    
-    [super dealloc];
 }
 
 #pragma mark -
 
 - (void)logout
 {
-	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
-								 message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
-								delegate:self
-					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
-					   otherButtonTitles:SHKLocalizedString(@"Logout"),nil] autorelease] show];
+	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
+                                message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
+                               delegate:self
+                      cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                      otherButtonTitles:SHKLocalizedString(@"Logout"),nil] show];
 	
 }
 
@@ -181,7 +177,7 @@
 - (void)facebookConnect
 {
     if (nil == self.shkFacebook) {
-        self.shkFacebook = [[[SHKFacebook alloc] init] autorelease];
+        self.shkFacebook = [[SHKFacebook alloc] init];
     }
     
     [self.shkFacebook authorize];
