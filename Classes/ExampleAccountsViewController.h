@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExampleAccountsViewController : UIViewController <UITableViewDataSource>
+@interface ExampleAccountsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
