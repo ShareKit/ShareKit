@@ -158,10 +158,14 @@
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
     
-    [self presentViewController:navigationController
-                       animated:YES
-                     completion:^{
-                     }];
+    if ([self respondsToSelector:@selector(presentViewController:animated:completion:)]) {
+        [self presentViewController:navigationController
+                           animated:YES
+                         completion:^{
+                         }];
+    } else {
+        [self presentModalViewController:navigationController animated:YES];
+    }
 }
 /*
 - (void)logout
