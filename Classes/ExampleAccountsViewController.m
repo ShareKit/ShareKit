@@ -8,6 +8,7 @@
 
 #import "ExampleAccountsViewController.h"
 #import "SHK.h"
+#import "SHKSharer.h"
 
 @interface ExampleAccountsViewController ()
 
@@ -92,7 +93,11 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    
+    NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
+    SHKSharer *sharer = [[NSClassFromString(sharerId) alloc] init];
+    if (YES == [sharer isAuthorized]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
 }
 
 #pragma mark -
