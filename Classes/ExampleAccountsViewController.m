@@ -94,8 +94,7 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
 {
     NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
-    SHKSharer *sharer = [[NSClassFromString(sharerId) alloc] init];
-    if (YES == [sharer isAuthorized]) {
+    if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
 }
@@ -105,6 +104,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
+    if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
+        [NSClassFromString(sharerId) logout];
+        [tableView reloadData];
+    }
 }
 
 @end
