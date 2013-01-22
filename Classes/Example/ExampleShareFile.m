@@ -29,7 +29,7 @@
 #import "SHK.h"
 #import "SHKActionSheet.h"
 
-@interface ExampleShareFile ()
+@interface ExampleShareFile () <UIWebViewDelegate>
 
 @property (nonatomic, retain) UIWebView *webView;
 

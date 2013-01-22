@@ -28,6 +28,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ExampleShareFile : UIViewController <UIWebViewDelegate> 
+@interface ExampleShareFile : UIViewController 
 
 @end
