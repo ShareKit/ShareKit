@@ -28,6 +28,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ExampleShareLink : UIViewController <UIWebViewDelegate>
+@interface ExampleShareLink : UIViewController
 
 @end

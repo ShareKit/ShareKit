@@ -28,7 +28,7 @@
 #import "ExampleShareLink.h"
 #import "SHK.h"
 
-@interface ExampleShareLink ()
+@interface ExampleShareLink () <UIWebViewDelegate>
 
 @property (nonatomic, retain) UIWebView *webView;
 
