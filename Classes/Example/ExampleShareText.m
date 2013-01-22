@@ -27,14 +27,16 @@
 #import "SHKItem.h"
 #import "SHKActionSheet.h"
 
-@implementation ExampleShareText
+@interface ExampleShareText ()
 
-@synthesize textView;
+@property (nonatomic, retain) UITextView *textView;
+
+@end
+
+@implementation ExampleShareText
 
 - (void)dealloc
 {
-	[textView release];
-	[super dealloc];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -42,9 +44,9 @@
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
 	{
 		self.toolbarItems = [NSArray arrayWithObjects:
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
 							 nil
 							 ];
 	}
@@ -56,22 +58,22 @@
 {
 	[super loadView];
 	
-	self.textView = [[[UITextView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height)] autorelease];
-	[self.view addSubview:textView];
+	self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height)];
+	[self.view addSubview:self.textView];
 	
-	textView.text = @"This is a chunk of text.  If you highlight it, you'll be able to share the selection.  If you tap the share button below, it will share all of it.";
-	textView.editable = NO;
+	self.textView.text = @"This is a chunk of text.  If you highlight it, you'll be able to share the selection.  If you tap the share button below, it will share all of it.";
+	self.textView.editable = NO;
 }
 
 - (void)share
 {	
 	NSString *text;
 	
-	if (textView.selectedRange.length > 0)
-		text = [textView.text substringWithRange:textView.selectedRange];
+	if (self.textView.selectedRange.length > 0)
+		text = [self.textView.text substringWithRange:self.textView.selectedRange];
 	
 	else
-		text = textView.text;
+		text = self.textView.text;
 
 	
 	SHKItem *item = [SHKItem text:text];

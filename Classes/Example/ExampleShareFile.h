@@ -28,11 +28,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ExampleShareFile : UIViewController <UIWebViewDelegate> 
-{
-	UIWebView *webView;
-}
-
-@property (nonatomic, retain) UIWebView *webView;
+@interface ExampleShareFile : UIViewController 
 
 @end

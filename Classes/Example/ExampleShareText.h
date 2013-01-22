@@ -29,10 +29,5 @@
 
 
 @interface ExampleShareText : UIViewController 
-{
-	UITextView *textView;
-}
-
-@property (nonatomic, retain) UITextView *textView;
 
 @end
