@@ -13,6 +13,7 @@
 #import "ExampleShareFile.h"
 #import "SHK.h"
 #import "SHKFacebook.h"
+#import "ExampleAccountsViewController.h"
 
 @interface RootViewController ()
 
@@ -27,7 +28,7 @@
 	[super loadView];
 	
 	self.toolbarItems = [NSArray arrayWithObjects:
-						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)],
+						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts") style:UIBarButtonItemStyleBordered target:self action:@selector(accounts)],
                          [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)],
 						 nil
 						 ];	
@@ -158,6 +159,18 @@
 
 #pragma mark -
 
+- (void)accounts
+{
+    ExampleAccountsViewController *accountsViewController = [[ExampleAccountsViewController alloc] init];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
+    
+    [self presentViewController:navigationController
+                       animated:YES
+                     completion:^{
+                     }];
+}
+/*
 - (void)logout
 {
 	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
@@ -173,7 +186,7 @@
 	if (buttonIndex == alertView.firstOtherButtonIndex)
 		[SHK logoutOfAll];
 }
-
+*/
 - (void)facebookConnect
 {
     if (nil == self.shkFacebook) {
