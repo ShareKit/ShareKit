@@ -29,10 +29,5 @@
 
 
 @interface ExampleShareFile : UIViewController <UIWebViewDelegate> 
-{
-	UIWebView *webView;
-}
-
-@property (nonatomic, retain) UIWebView *webView;
 
 @end

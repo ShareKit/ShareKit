@@ -29,12 +29,17 @@
 #import "SHK.h"
 #import "SHKActionSheet.h"
 
-@implementation ExampleShareFile
+@interface ExampleShareFile ()
 
-@synthesize webView;
+@property (nonatomic, retain) UIWebView *webView;
+
+@end
+
+@implementation ExampleShareFile
 
 - (void)dealloc
 {
+    _webView.delegate = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,11 +60,11 @@
 - (void)loadView 
 { 
 	self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-	webView.delegate = self;
-	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
+	self.webView.delegate = self;
+	self.webView.scalesPageToFit = YES;
+	[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
 	
-	self.view = webView;
+	self.view = self.webView;
 }
 
 - (void)share

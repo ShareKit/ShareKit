@@ -29,9 +29,13 @@
 #import "SHKItem.h"
 #import "SHKActionSheet.h"
 
-@implementation ExampleShareImage
+@interface ExampleShareImage ()
 
-@synthesize imageView;
+@property (nonatomic, retain) UIImageView *imageView;
+
+@end
+
+@implementation ExampleShareImage
 
 - (void)dealloc
 {
@@ -58,14 +62,14 @@
 	
 	self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sanFran.jpg"]];
 	
-	imageView.frame = CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
+	self.imageView.frame = CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height);
 	
-	[self.view addSubview:imageView];
+	[self.view addSubview:self.imageView];
 }
 
 - (void)share
 {
-	SHKItem *item = [SHKItem image:imageView.image title:@"San Francisco"];
+	SHKItem *item = [SHKItem image:self.imageView.image title:@"San Francisco"];
     
     /* optional examples
     item.tags = [NSArray arrayWithObjects:@"bay bridge", @"architecture", @"california", nil];
