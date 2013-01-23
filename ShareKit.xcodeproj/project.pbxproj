@@ -122,7 +122,6 @@
 		3D97DFCC161185DD003945BE /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
 		3D97DFCD161185DD003945BE /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
 		3D97DFCE161185DD003945BE /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		3D97DFCF161185DD003945BE /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		3D97DFD0161185DD003945BE /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
 		3D97DFD1161185DD003945BE /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
 		3D97DFD2161185DD003945BE /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
@@ -713,6 +712,8 @@
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ACA93FD156D192100E7006E /* FBFrictionlessRequestSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACA93FB156D192100E7006E /* FBFrictionlessRequestSettings.h */; };
 		7ACA93FE156D192100E7006E /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA93FC156D192100E7006E /* FBFrictionlessRequestSettings.m */; };
+		8C494C3D16AFB60100D34630 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
+		8C494C3E16AFB60100D34630 /* Base64Transcoder.h in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B4156CD8A70011E15F /* Base64Transcoder.h */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
@@ -2361,6 +2362,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C494C3D16AFB60100D34630 /* Base64Transcoder.c in Sources */,
+				8C494C3E16AFB60100D34630 /* Base64Transcoder.h in Sources */,
 				3D97E00016118690003945BE /* SHKEvernote.md in Sources */,
 				3D97DFC5161185DD003945BE /* GCOAuth.m in Sources */,
 				3D97DFC6161185DD003945BE /* NSData+Base64.m in Sources */,
@@ -2372,7 +2375,6 @@
 				3D97DFCC161185DD003945BE /* THTTPClient.m in Sources */,
 				3D97DFCD161185DD003945BE /* TMemoryBuffer.m in Sources */,
 				3D97DFCE161185DD003945BE /* TTransportException.m in Sources */,
-				3D97DFCF161185DD003945BE /* TSharedProcessorFactory.m in Sources */,
 				3D97DFD0161185DD003945BE /* EDAMErrors.m in Sources */,
 				3D97DFD1161185DD003945BE /* EDAMLimits.m in Sources */,
 				3D97DFD2161185DD003945BE /* EDAMNoteStore.m in Sources */,
@@ -2912,10 +2914,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2950,10 +2948,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					"$(ARCHS_STANDARD_32_BIT)",
-					armv6,
-				);
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -3220,10 +3214,6 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
@@ -3238,10 +3228,6 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					armv6,
-					armv7,
-				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
