@@ -273,7 +273,6 @@
 		3D97E0CA1612A4E3003945BE /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
 		3D97E0CB1612A4E3003945BE /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
 		3D97E0CC1612A4E3003945BE /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
-		3D97E0CD1612A4E3003945BE /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		3D97E0CE1612A4E3003945BE /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
 		3D97E0CF1612A4E3003945BE /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
 		3D97E0D01612A4E3003945BE /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA93FC156D192100E7006E /* FBFrictionlessRequestSettings.m */; };
@@ -2555,7 +2554,6 @@
 				3D97E0CA1612A4E3003945BE /* LFHTTPRequest.m in Sources */,
 				3D97E0CB1612A4E3003945BE /* LFSiteReachability.m in Sources */,
 				3D97E0CC1612A4E3003945BE /* NSData+LFHTTPFormExtensions.m in Sources */,
-				3D97E0CD1612A4E3003945BE /* Base64Transcoder.c in Sources */,
 				3D97E0CE1612A4E3003945BE /* hmac.c in Sources */,
 				3D97E0CF1612A4E3003945BE /* sha1.c in Sources */,
 				3D97E0D01612A4E3003945BE /* FBFrictionlessRequestSettings.m in Sources */,
