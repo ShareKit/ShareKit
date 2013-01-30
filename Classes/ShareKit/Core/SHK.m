@@ -113,7 +113,7 @@ BOOL SHKinit;
 
 - (UIViewController *)getCurrentRootViewController {
     
-    UIViewController *result;
+    UIViewController *result = nil;
     
     if (rootViewController) // If developer provieded a root view controler, use it
     {

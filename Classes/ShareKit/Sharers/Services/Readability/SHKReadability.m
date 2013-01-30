@@ -297,11 +297,11 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	{
 		if ([key isEqualToString:@"favorite"])
 		{
-			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
+			[[NSUserDefaults standardUserDefaults] setBool:[[formValues objectForKey:key] isEqualToString:SHKFormFieldSwitchOn] forKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
 		}
     if ([key isEqualToString:@"archive"])
 		{
-			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
+			[[NSUserDefaults standardUserDefaults] setBool:[[formValues objectForKey:key] isEqualToString:SHKFormFieldSwitchOn] forKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
 		}
 	}
 }
