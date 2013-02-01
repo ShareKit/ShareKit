@@ -47,7 +47,7 @@
     
     char base64Result[32];
     size_t theResultLength = 32;
-    Base64EncodeData(result, 20, base64Result, &theResultLength);
+    ILSBase64EncodeData(result, 20, base64Result, &theResultLength);
     NSData *theData = [NSData dataWithBytes:base64Result length:theResultLength];
     
     NSString *base64EncodedResult = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
