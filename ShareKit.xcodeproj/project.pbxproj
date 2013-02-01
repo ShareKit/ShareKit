@@ -108,6 +108,8 @@
 		7A28825E15540175007DC379 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB5342E1552AADD00171BCE /* libShareKit.a */; };
 		7A2B025614A342D800E68A4C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2B025514A342D800E68A4C /* CFNetwork.framework */; };
 		7A3C61EE147520B700C47D14 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3C61ED147520B700C47D14 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7A49DBBD16BC193E004B7E78 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
+		7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A49DBC316BC193E004B7E78 /* libReadability.a */; };
 		7A4BC544165A09CB00460B01 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDC161292A100036C82 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7A4BC545165A09DD00460B01 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DE41612938F00036C82 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7A4BC546165A0A2000460B01 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA3B1DDD161292A100036C82 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -182,7 +184,6 @@
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
-		AAE40AA2161A1C2900DAA832 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
 		E153775616AF070A0015726B /* ExampleAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E153775516AF07090015726B /* ExampleAccountsViewController.m */; };
 		E153775B16AF0A760015726B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E153775A16AF0A760015726B /* Default-568h@2x.png */; };
@@ -202,6 +203,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
+		};
+		7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A49DBBB16BC193E004B7E78;
+			remoteInfo = Readability;
 		};
 		7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -300,13 +308,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBED00162F0858009D46E4;
 			remoteInfo = Delicious;
-		};
-		7AC28EE7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7AEE037D160E1B4000FEC06E;
-			remoteInfo = Readability;
 		};
 		7AC28EE9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -662,6 +663,7 @@
 		7A36F42514B2021100372747 /* SHKSharerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharerDelegate.h; sourceTree = "<group>"; };
 		7A36F42614B2021100372747 /* SHKSharerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSharerDelegate.m; sourceTree = "<group>"; };
 		7A3C61ED147520B700C47D14 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		7A49DBC316BC193E004B7E78 /* libReadability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
 		7A56BFC01659173D00134F04 /* SHKiOSSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOSSharer.m; sourceTree = "<group>"; };
@@ -856,10 +858,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A49DBBE16BC193E004B7E78 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB5342B1552AADD00171BCE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */,
 				7AC28F0B165A21C2006D7441 /* libCopy.a in Frameworks */,
 				7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */,
 				7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */,
@@ -902,13 +912,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AC2A39316597F4C0089ABE8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0380160E1B4000FEC06E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1112,6 +1115,7 @@
 				AABBED7D162F0C33009D46E4 /* libRead It Later.a */,
 				AABBED86162F0C4D009D46E4 /* libTumblr.a */,
 				7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */,
+				7A49DBC316BC193E004B7E78 /* libReadability.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1969,6 +1973,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A49DBBF16BC193E004B7E78 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB5342C1552AADD00171BCE /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1978,13 +1989,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AC2A39416597F4C0089ABE8 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE0381160E1B4000FEC06E /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2313,6 +2317,23 @@
 			productReference = 7A1AFD3A160E14340086B98A /* libTwitter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7A49DBBB16BC193E004B7E78 /* Readability */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A49DBC016BC193E004B7E78 /* Build configuration list for PBXNativeTarget "Readability" */;
+			buildPhases = (
+				7A49DBBC16BC193E004B7E78 /* Sources */,
+				7A49DBBE16BC193E004B7E78 /* Frameworks */,
+				7A49DBBF16BC193E004B7E78 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Readability;
+			productName = ShareKitLibrary;
+			productReference = 7A49DBC316BC193E004B7E78 /* libReadability.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7AB5342D1552AADD00171BCE /* Static Library */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */;
@@ -2324,6 +2345,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A49DBC616BC199F004B7E78 /* PBXTargetDependency */,
 				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ECE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */,
@@ -2338,7 +2360,6 @@
 				7AC28EE2165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EE4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EE6165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28EE8165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EEA165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EEC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */,
@@ -2394,22 +2415,6 @@
 			name = "Sina Weibo";
 			productName = ShareKitLibrary;
 			productReference = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7AEE037D160E1B4000FEC06E /* Readability */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7AEE0389160E1B4000FEC06E /* Build configuration list for PBXNativeTarget "Readability" */;
-			buildPhases = (
-				7AEE037E160E1B4000FEC06E /* Sources */,
-				7AEE0380160E1B4000FEC06E /* Frameworks */,
-				7AEE0381160E1B4000FEC06E /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Readability;
-			productName = ShareKitLibrary;
 			productType = "com.apple.product-type.library.static";
 		};
 		AABBECB6162F063F009D46E4 /* Print */ = {
@@ -2824,7 +2829,6 @@
 				AABBECEE162F080F009D46E4 /* Text Message */,
 				AABBECF7162F0835009D46E4 /* Kippt */,
 				AABBED00162F0858009D46E4 /* Delicious */,
-				7AEE037D160E1B4000FEC06E /* Readability */,
 				AABBED09162F087F009D46E4 /* Diigo */,
 				AABBED12162F08A3009D46E4 /* VKontakte */,
 				AABBED1C162F08E6009D46E4 /* Evernote */,
@@ -2842,6 +2846,7 @@
 				AABBED7E162F0C4D009D46E4 /* Tumbl */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
 				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
+				7A49DBBB16BC193E004B7E78 /* Readability */,
 			);
 		};
 /* End PBXProject section */
@@ -3051,6 +3056,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A49DBBC16BC193E004B7E78 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A49DBBD16BC193E004B7E78 /* SHKReadability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB5342A1552AADD00171BCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3071,14 +3084,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7AEE037E160E1B4000FEC06E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AAE40AA2161A1C2900DAA832 /* SHKReadability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3271,6 +3276,11 @@
 			target = 7AB5360E1552E26800171BCE /* Resource Bundle */;
 			targetProxy = 7A28825B1553FF9A007DC379 /* PBXContainerItemProxy */;
 		};
+		7A49DBC616BC199F004B7E78 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A49DBBB16BC193E004B7E78 /* Readability */;
+			targetProxy = 7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */;
+		};
 		7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7A0F91D1156BA2A0009CB40A /* Static Library Core */;
@@ -3340,11 +3350,6 @@
 			isa = PBXTargetDependency;
 			target = AABBED00162F0858009D46E4 /* Delicious */;
 			targetProxy = 7AC28EE5165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28EE8165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7AEE037D160E1B4000FEC06E /* Readability */;
-			targetProxy = 7AC28EE7165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28EEA165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4034,6 +4039,66 @@
 			};
 			name = Release;
 		};
+		7A49DBC116BC193E004B7E78 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Readability;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A49DBC216BC193E004B7E78 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					"$(ARCHS_STANDARD_32_BIT)",
+				);
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Readability;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		7AB534371552AADD00171BCE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4212,66 +4277,6 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Sina Weibo";
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		7AEE038A160E1B4000FEC06E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Readability;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7AEE038B160E1B4000FEC06E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = (
-					armv6,
-					"$(ARCHS_STANDARD_32_BIT)",
-				);
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = Readability;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -5683,6 +5688,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		7A49DBC016BC193E004B7E78 /* Build configuration list for PBXNativeTarget "Readability" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A49DBC116BC193E004B7E78 /* Debug */,
+				7A49DBC216BC193E004B7E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -5706,15 +5720,6 @@
 			buildConfigurations = (
 				7AC2A39E16597F4C0089ABE8 /* Debug */,
 				7AC2A39F16597F4C0089ABE8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7AEE0389160E1B4000FEC06E /* Build configuration list for PBXNativeTarget "Readability" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7AEE038A160E1B4000FEC06E /* Debug */,
-				7AEE038B160E1B4000FEC06E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
