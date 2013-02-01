@@ -153,7 +153,6 @@
 		3D97DFED16118687003945BE /* TMemoryBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC782156CFBF400E3303E /* TMemoryBuffer.h */; };
 		3D97DFEE16118687003945BE /* TTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78A156CFBF400E3303E /* TTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97DFEF16118687003945BE /* TTransportException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78B156CFBF400E3303E /* TTransportException.h */; };
-		3D97DFF016118687003945BE /* TSharedProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */; };
 		3D97DFF116118687003945BE /* EDAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC790156CFBF400E3303E /* EDAM.h */; };
 		3D97DFF216118687003945BE /* EDAMErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC791156CFBF400E3303E /* EDAMErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97DFF316118687003945BE /* EDAMLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC793156CFBF400E3303E /* EDAMLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -362,7 +361,6 @@
 		3D97E1391612A5A5003945BE /* TMemoryBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC782156CFBF400E3303E /* TMemoryBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E13A1612A5A5003945BE /* TTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78A156CFBF400E3303E /* TTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E13B1612A5A5003945BE /* TTransportException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78B156CFBF400E3303E /* TTransportException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3D97E13C1612A5A5003945BE /* TSharedProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E13D1612A5A5003945BE /* EDAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC790156CFBF400E3303E /* EDAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E13E1612A5A5003945BE /* EDAMErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC791156CFBF400E3303E /* EDAMErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D97E13F1612A5A5003945BE /* EDAMLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC793156CFBF400E3303E /* EDAMLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -425,6 +423,7 @@
 		3D98FAB016BBA0140076E1B4 /* SHKFormFieldCellOptionPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3D98FAB116BBA1A00076E1B4 /* evernote-sdk-ios-Prefix.pch in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79B156CFBF400E3303E /* evernote-sdk-ios-Prefix.pch */; };
 		3D98FAB516BBA64A0076E1B4 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
+		3D98FAC116BBC2470076E1B4 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		3D9958DD15E641ED00211890 /* SHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */; };
 		3D9958DE15E641ED00211890 /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
 		3D9958DF15E641ED00211890 /* SHKFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F311DBE3B9004A1712 /* SHKFormController.m */; };
@@ -506,7 +505,6 @@
 		3DC1D7E116BB7D9900CE7A6D /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
 		3DC1D7E216BB7D9900CE7A6D /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
 		3DC1D7E316BB7D9900CE7A6D /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		3DC1D7E416BB7D9900CE7A6D /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		3DC1D7E516BB7D9900CE7A6D /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
 		3DC1D7E616BB7D9900CE7A6D /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
 		3DC1D7E716BB7D9900CE7A6D /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
@@ -577,7 +575,6 @@
 		3DC1D82A16BB7EAE00CE7A6D /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		3DC1D82B16BB7EAE00CE7A6D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		3DC1D82C16BB7EAE00CE7A6D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB535EF1552E12100171BCE /* CoreFoundation.framework */; };
-		3DC1D82D16BB8BFB00CE7A6D /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		3DC1D82E16BB8EDB00CE7A6D /* SHKCustomFormFieldCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536B011DBE3B9004A1712 /* SHKCustomFormFieldCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D82F16BB8EDB00CE7A6D /* SHKCustomFormControllerLargeTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D83016BB8EDB00CE7A6D /* SHK.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A536A611DBE3B9004A1712 /* SHK.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -643,7 +640,6 @@
 		3DC1D86C16BB8EDB00CE7A6D /* TMemoryBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC782156CFBF400E3303E /* TMemoryBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D86D16BB8EDB00CE7A6D /* TTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78A156CFBF400E3303E /* TTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D86E16BB8EDB00CE7A6D /* TTransportException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78B156CFBF400E3303E /* TTransportException.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3DC1D86F16BB8EDB00CE7A6D /* TSharedProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D87016BB8EDB00CE7A6D /* EDAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC790156CFBF400E3303E /* EDAM.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D87116BB8EDB00CE7A6D /* EDAMErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC791156CFBF400E3303E /* EDAMErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D87216BB8EDB00CE7A6D /* EDAMLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC793156CFBF400E3303E /* EDAMLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -753,7 +749,6 @@
 		3DC1D8EA16BB900000CE7A6D /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
 		3DC1D8EB16BB900000CE7A6D /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
 		3DC1D8EC16BB900000CE7A6D /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		3DC1D8ED16BB900000CE7A6D /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */; };
 		3DC1D8EE16BB900000CE7A6D /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
 		3DC1D8EF16BB900000CE7A6D /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
 		3DC1D8F016BB900000CE7A6D /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
@@ -854,7 +849,6 @@
 		3DC1D97316BB900000CE7A6D /* TMemoryBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC782156CFBF400E3303E /* TMemoryBuffer.h */; settings = {ATTRIBUTES = (); }; };
 		3DC1D97416BB900000CE7A6D /* TTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78A156CFBF400E3303E /* TTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D97516BB900000CE7A6D /* TTransportException.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78B156CFBF400E3303E /* TTransportException.h */; settings = {ATTRIBUTES = (); }; };
-		3DC1D97616BB900000CE7A6D /* TSharedProcessorFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */; settings = {ATTRIBUTES = (); }; };
 		3DC1D97716BB900000CE7A6D /* EDAM.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC790156CFBF400E3303E /* EDAM.h */; settings = {ATTRIBUTES = (); }; };
 		3DC1D97816BB900000CE7A6D /* EDAMErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC791156CFBF400E3303E /* EDAMErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DC1D97916BB900000CE7A6D /* EDAMLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 42EDC793156CFBF400E3303E /* EDAMLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1244,8 +1238,6 @@
 		42EDC78A156CFBF400E3303E /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
 		42EDC78B156CFBF400E3303E /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
 		42EDC78C156CFBF400E3303E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
-		42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TSharedProcessorFactory.h; sourceTree = "<group>"; };
-		42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TSharedProcessorFactory.m; sourceTree = "<group>"; };
 		42EDC790156CFBF400E3303E /* EDAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAM.h; sourceTree = "<group>"; };
 		42EDC791156CFBF400E3303E /* EDAMErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMErrors.h; sourceTree = "<group>"; };
 		42EDC792156CFBF400E3303E /* EDAMErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMErrors.m; sourceTree = "<group>"; };
@@ -1778,8 +1770,6 @@
 				42EDC77D156CFBF400E3303E /* TProcessor.h */,
 				42EDC77E156CFBF400E3303E /* TProcessorFactory.h */,
 				42EDC77F156CFBF400E3303E /* transport */,
-				42EDC78D156CFBF400E3303E /* TSharedProcessorFactory.h */,
-				42EDC78E156CFBF400E3303E /* TSharedProcessorFactory.m */,
 			);
 			path = Thrift;
 			sourceTree = "<group>";
@@ -2527,7 +2517,6 @@
 				3D97DFEC16118687003945BE /* THTTPClient.h in Headers */,
 				3D97DFED16118687003945BE /* TMemoryBuffer.h in Headers */,
 				3D97DFEF16118687003945BE /* TTransportException.h in Headers */,
-				3D97DFF016118687003945BE /* TSharedProcessorFactory.h in Headers */,
 				3D97DFF116118687003945BE /* EDAM.h in Headers */,
 				3D97DFF716118687003945BE /* EvernoteNoteStore.h in Headers */,
 				3D97DFF816118687003945BE /* EvernoteSDK.h in Headers */,
@@ -2618,7 +2607,6 @@
 				3D97E1391612A5A5003945BE /* TMemoryBuffer.h in Headers */,
 				3D97E13A1612A5A5003945BE /* TTransport.h in Headers */,
 				3D97E13B1612A5A5003945BE /* TTransportException.h in Headers */,
-				3D97E13C1612A5A5003945BE /* TSharedProcessorFactory.h in Headers */,
 				3D97E13D1612A5A5003945BE /* EDAM.h in Headers */,
 				3D97E13E1612A5A5003945BE /* EDAMErrors.h in Headers */,
 				3D97E13F1612A5A5003945BE /* EDAMLimits.h in Headers */,
@@ -2754,7 +2742,6 @@
 				3DC1D86C16BB8EDB00CE7A6D /* TMemoryBuffer.h in Headers */,
 				3DC1D86D16BB8EDB00CE7A6D /* TTransport.h in Headers */,
 				3DC1D86E16BB8EDB00CE7A6D /* TTransportException.h in Headers */,
-				3DC1D86F16BB8EDB00CE7A6D /* TSharedProcessorFactory.h in Headers */,
 				3DC1D87016BB8EDB00CE7A6D /* EDAM.h in Headers */,
 				3DC1D87116BB8EDB00CE7A6D /* EDAMErrors.h in Headers */,
 				3DC1D87216BB8EDB00CE7A6D /* EDAMLimits.h in Headers */,
@@ -2901,7 +2888,6 @@
 				3DC1D97F16BB900000CE7A6D /* EvernoteSession.h in Headers */,
 				3DC1D98016BB900000CE7A6D /* EvernoteUserStore.h in Headers */,
 				3DC1D97716BB900000CE7A6D /* EDAM.h in Headers */,
-				3DC1D97616BB900000CE7A6D /* TSharedProcessorFactory.h in Headers */,
 				3DC1D97516BB900000CE7A6D /* TTransportException.h in Headers */,
 				3DC1D97316BB900000CE7A6D /* TMemoryBuffer.h in Headers */,
 				3DC1D97216BB900000CE7A6D /* THTTPClient.h in Headers */,
@@ -3426,7 +3412,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DC1D82D16BB8BFB00CE7A6D /* TSharedProcessorFactory.m in Sources */,
 				3D97E0681612A4E3003945BE /* SHKKippt.m in Sources */,
 				3D97E0691612A4E3003945BE /* SHKCustomFormFieldCell.m in Sources */,
 				3D97E06A1612A4E3003945BE /* SHKCustomFormControllerLargeTextField.m in Sources */,
@@ -3609,7 +3594,6 @@
 				3DC1D7E116BB7D9900CE7A6D /* THTTPClient.m in Sources */,
 				3DC1D7E216BB7D9900CE7A6D /* TMemoryBuffer.m in Sources */,
 				3DC1D7E316BB7D9900CE7A6D /* TTransportException.m in Sources */,
-				3DC1D7E416BB7D9900CE7A6D /* TSharedProcessorFactory.m in Sources */,
 				3DC1D7E516BB7D9900CE7A6D /* EDAMErrors.m in Sources */,
 				3DC1D7E616BB7D9900CE7A6D /* EDAMLimits.m in Sources */,
 				3DC1D7E716BB7D9900CE7A6D /* EDAMNoteStore.m in Sources */,
@@ -3686,6 +3670,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D98FAC116BBC2470076E1B4 /* Base64Transcoder.c in Sources */,
 				3D98FAB116BBA1A00076E1B4 /* evernote-sdk-ios-Prefix.pch in Sources */,
 				3DC1D8F716BB900000CE7A6D /* ENAPI.m in Sources */,
 				3D98FAAF16BB9E650076E1B4 /* SHKEvernote.md in Sources */,
@@ -3732,7 +3717,6 @@
 				3DC1D8EA16BB900000CE7A6D /* THTTPClient.m in Sources */,
 				3DC1D8EB16BB900000CE7A6D /* TMemoryBuffer.m in Sources */,
 				3DC1D8EC16BB900000CE7A6D /* TTransportException.m in Sources */,
-				3DC1D8ED16BB900000CE7A6D /* TSharedProcessorFactory.m in Sources */,
 				3DC1D8EE16BB900000CE7A6D /* EDAMErrors.m in Sources */,
 				3DC1D8EF16BB900000CE7A6D /* EDAMLimits.m in Sources */,
 				3DC1D8F016BB900000CE7A6D /* EDAMNoteStore.m in Sources */,
