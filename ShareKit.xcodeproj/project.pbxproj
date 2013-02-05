@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		085DF49D16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h in Headers */ = {isa = PBXBuildFile; fileRef = 085DF49B16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h */; };
+		085DF49E16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h in Headers */ = {isa = PBXBuildFile; fileRef = 085DF49B16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h */; };
+		085DF49F16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 085DF49C16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m */; };
+		085DF4A016C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 085DF49C16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m */; };
+		085DF4A116C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */ = {isa = PBXBuildFile; fileRef = 085DF49C16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -1183,6 +1188,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		085DF49B16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHKEvernote+ILSShareHtml.h"; sourceTree = "<group>"; };
+		085DF49C16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SHKEvernote+ILSShareHtml.m"; sourceTree = "<group>"; };
 		1A52EDF415CB032B00A737D8 /* SHKKippt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKKippt.h; sourceTree = "<group>"; };
 		1A52EDF515CB032B00A737D8 /* SHKKippt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKKippt.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1881,6 +1888,8 @@
 				42EDC75A156CFBF400E3303E /* Evernote-SDK */,
 				4379F2B01291AC9700D2A41E /* SHKEvernote.h */,
 				4379F2B11291AC9700D2A41E /* SHKEvernote.m */,
+				085DF49B16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h */,
+				085DF49C16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m */,
 				4379F2B21291AC9700D2A41E /* SHKEvernote.md */,
 			);
 			path = Evernote;
@@ -2534,6 +2543,7 @@
 				3D8C9FD715E63FD000AF5919 /* SHKFormFieldCellSwitch.h in Headers */,
 				3D8C9FD515E63FD000AF5919 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
 				3D8C9F6715E62DC900AF5919 /* FBFrictionlessRequestSettings.h in Headers */,
+				085DF49E16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2937,6 +2947,7 @@
 				7ABCDBA91577528B003BBFFD /* SHKFormFieldCellSwitch.h in Headers */,
 				7ABCDBB0157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h in Headers */,
 				7A4CAA171577BEFA0010E6B3 /* SHKFormFieldCell_PrivateProperties.h in Headers */,
+				085DF49D16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3311,6 +3322,7 @@
 				43A5383A11DBE493004A1712 /* RootViewController.m in Sources */,
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
+				085DF49F16C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3405,6 +3417,7 @@
 				3D8C9F4015E62DC900AF5919 /* sha1.c in Sources */,
 				3D8C9F4115E62DC900AF5919 /* FBFrictionlessRequestSettings.m in Sources */,
 				3D8C9F5D15E62DC900AF5919 /* GTMNSString+HTML.m in Sources */,
+				085DF4A116C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3991,6 +4004,7 @@
 				7AB8050E15AC7A9D004FB430 /* ENCredentialStore.m in Sources */,
 				7AB8050F15AC7AAF004FB430 /* ENOAuthViewController.m in Sources */,
 				7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */,
+				085DF4A016C0F1D50041C668 /* SHKEvernote+ILSShareHtml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
