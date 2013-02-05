@@ -260,6 +260,20 @@
 	return [controller autorelease];
 }
 
++ (id)shareText:(NSString *)text title:(NSString *)title
+{
+    // Create controller and set share options
+    SHKSharer *controller = [[self alloc]init];
+    controller.item.shareType = SHKShareTypeText;
+    controller.item.text = text;
+    controller.item.title = title;
+    
+    // share and/or show UI
+	[controller share];
+	
+	return [controller autorelease];
+}
+
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
 	// Create controller and set share options
