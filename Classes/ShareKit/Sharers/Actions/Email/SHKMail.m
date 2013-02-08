@@ -131,13 +131,28 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = item.text;
+    // allow a custom body to override the item.text
+    // you might have a short text for normal sharing (e.g. Twitter), but a more elaborated template for emails
+    
+	NSString *body = [item customValueForKey:@"body"];
+    
+    if (![body length])
+    {
+        body = item.text;
+    }
+    
 	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
     
 	if (body == nil)
 	{
-		body = @"";
+        // check if there is a custom email text
+        body = [item customValueForKey:@"body"];
+        
+        if (!body)
+        {
+            body = @"";
+        }
 		
 		if (item.URL != nil)
 		{
