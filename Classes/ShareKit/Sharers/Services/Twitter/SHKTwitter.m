@@ -318,8 +318,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 - (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"status"];
+{
+    NSString *customValue = form.textView.text;
+    if(item.URL)
+        customValue = [NSString stringWithFormat:@"%@ %@",customValue,[item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+	[item setCustomValue:customValue forKey:@"status"];
 	[self tryToSend];
 }
 
@@ -506,7 +509,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
 																								value:[item customValueForKey:@"status"]];
-	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
+
+	NSArray *params = [NSArray arrayWithObjects:statusParam,nil];
 	[oRequest setParameters:params];
 	[statusParam release];
 	

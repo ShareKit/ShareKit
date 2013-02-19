@@ -2973,9 +2973,9 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* ShareKitDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3D8C9ED715E62DC900AF5919 /* ILSShareKitFT_a */ = {
+		3D8C9ED715E62DC900AF5919 /* ILSShareKitFT */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT_a" */;
+			buildConfigurationList = 3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */;
 			buildPhases = (
 				3D8C9ED815E62DC900AF5919 /* Sources */,
 				3D8C9F5E15E62DC900AF5919 /* Frameworks */,
@@ -2985,7 +2985,7 @@
 			);
 			dependencies = (
 			);
-			name = ILSShareKitFT_a;
+			name = ILSShareKitFT;
 			productName = ShareKitLibrary;
 			productReference = 3D8C9F6F15E62DC900AF5919 /* libILSShareKitFT.a */;
 			productType = "com.apple.product-type.library.static";
@@ -3048,9 +3048,9 @@
 			productReference = 3DC1D79316BB79F400CE7A6D /* ILSShareKitTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
-		3DC1D8B216BB900000CE7A6D /* ILSShareKitFT */ = {
+		3DC1D8B216BB900000CE7A6D /* ILSShareKitFT_F */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3DC1D9BF16BB900000CE7A6D /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */;
+			buildConfigurationList = 3DC1D9BF16BB900000CE7A6D /* Build configuration list for PBXNativeTarget "ILSShareKitFT_F" */;
 			buildPhases = (
 				3DC1D8B316BB900000CE7A6D /* ShellScript */,
 				3DC1D8B416BB900000CE7A6D /* Sources */,
@@ -3064,7 +3064,7 @@
 			);
 			dependencies = (
 			);
-			name = ILSShareKitFT;
+			name = ILSShareKitFT_F;
 			productName = ILSShareKit;
 			productReference = 3DC1D9C216BB900000CE7A6D /* ILSShareKitFT.framework */;
 			productType = "com.apple.product-type.framework.static";
@@ -3155,11 +3155,11 @@
 				7AB5342D1552AADD00171BCE /* Static Library */,
 				7AB5360E1552E26800171BCE /* Resource Bundle */,
 				7A0F91D1156BA2A0009CB40A /* Static Library No Submodules */,
-				3D8C9ED715E62DC900AF5919 /* ILSShareKitFT_a */,
+				3D8C9ED715E62DC900AF5919 /* ILSShareKitFT */,
 				3D97E0661612A4E3003945BE /* ILSShareKit_a */,
 				3DC1D78416BB79F400CE7A6D /* ILSShareKit */,
 				3DC1D79216BB79F400CE7A6D /* ILSShareKitTests */,
-				3DC1D8B216BB900000CE7A6D /* ILSShareKitFT */,
+				3DC1D8B216BB900000CE7A6D /* ILSShareKitFT_F */,
 			);
 		};
 /* End PBXProject section */
@@ -4656,7 +4656,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT_a" */ = {
+		3D8C9F6C15E62DC900AF5919 /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3D8C9F6D15E62DC900AF5919 /* Debug */,
@@ -4692,7 +4692,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3DC1D9BF16BB900000CE7A6D /* Build configuration list for PBXNativeTarget "ILSShareKitFT" */ = {
+		3DC1D9BF16BB900000CE7A6D /* Build configuration list for PBXNativeTarget "ILSShareKitFT_F" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3DC1D9C016BB900000CE7A6D /* Debug */,
