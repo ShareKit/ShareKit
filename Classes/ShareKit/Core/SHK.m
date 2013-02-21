@@ -190,7 +190,7 @@ BOOL SHKinit;
         vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
     
     if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
-        vc.modalTransitionStyle = [SHK modalTransitionStyle];
+        vc.modalTransitionStyle = [SHK modalTransitionStyleForController:vc];
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
     
@@ -306,15 +306,17 @@ BOOL SHKinit;
 	return UIModalPresentationCurrentContext;
 }
 
-+ (UIModalTransitionStyle)modalTransitionStyle
++ (UIModalTransitionStyle)modalTransitionStyleForController:(UIViewController *)controller
 {
-	if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
+    NSString *transitionString = SHKCONFIG_WITH_ARGUMENT(modalTransitionStyleForController:, controller);
+    
+	if ([transitionString isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
 		return UIModalTransitionStyleFlipHorizontal;
 	
-	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
+	else if ([transitionString isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
 		return UIModalTransitionStyleCrossDissolve;
 	
-	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStylePartialCurl"])
+	else if ([transitionString isEqualToString:@"UIModalTransitionStylePartialCurl"])
 		return UIModalTransitionStylePartialCurl;
 	
 	return UIModalTransitionStyleCoverVertical;

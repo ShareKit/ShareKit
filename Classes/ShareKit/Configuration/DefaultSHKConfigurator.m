@@ -269,7 +269,7 @@
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 }
 
-- (NSString*)modalTransitionStyle {
+- (NSString*)modalTransitionStyleForController:(UIViewController *)controller {
 	return @"UIModalTransitionStyleCoverVertical";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 }
 // ShareMenu Ordering
