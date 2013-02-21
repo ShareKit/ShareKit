@@ -87,6 +87,7 @@
 - (UIColor*)formBackgroundColor;
 - (NSString*)modalPresentationStyleForController:(UIViewController *)controller;
 - (NSString*)modalTransitionStyle;
+- (NSNumber *)isUsingCocoaPods;
 - (NSNumber*)maxFavCount;
 - (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;
