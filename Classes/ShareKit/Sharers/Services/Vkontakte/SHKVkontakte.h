@@ -27,7 +27,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
 static NSString *const kSHKVkonakteUserId=@"kSHKVkontakteUserId";
 static NSString *const kSHKVkontakteAccessTokenKey=@"kSHKVkontakteAccessToken";
@@ -35,7 +35,7 @@ static NSString *const kSHKVkontakteExpiryDateKey=@"kSHKVkontakteExpiryDate";
 static NSString *const kSHKVkontakteAccessCodeKey=@"kSHKVkontakteAccessCode";
 static NSString *const kSHKVkonakteUserInfo=@"kSHKVkontakteUserInfo";
 
-@interface SHKVkontakte : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKVkontakte : SHKSharer <SHKComposeViewControllerDelegate>
 {
 	BOOL isCaptcha;
 }

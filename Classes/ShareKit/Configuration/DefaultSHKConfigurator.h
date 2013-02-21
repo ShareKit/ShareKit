@@ -100,6 +100,7 @@
 - (Class)SHKShareMenuSubclass;
 - (Class)SHKShareMenuCellSubclass;
 - (Class)SHKFormControllerSubclass;
+- (Class)SHKComposeControllerForSharerClass:(Class)sharerClass;
 
 //SHKPrint
 - (NSNumber*)printOutputType;

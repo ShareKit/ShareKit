@@ -25,10 +25,10 @@
 //
 
 #import "SHKOAuthSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
 extern NSString *SHKLinkedInVisibilityCodeKey;
 
-@interface SHKLinkedIn : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKLinkedIn : SHKOAuthSharer <SHKComposeViewControllerDelegate>
 
 @end

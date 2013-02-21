@@ -38,9 +38,9 @@
 
 #import "SHKFoursquareV2Request.h"
 #import "SHKFoursquareV2Venue.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKFoursquareV2 : SHKSharer <SHKFormControllerLargeTextFieldDelegate> {
+@interface SHKFoursquareV2 : SHKSharer <SHKComposeViewControllerDelegate> {
     NSString *_clientId;
     NSURL *_authorizeCallbackURL;
     

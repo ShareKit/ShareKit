@@ -219,18 +219,18 @@ static NSString *accessTokenKey = @"accessToken";
 
 - (void)showFoursquareV2CheckInForm;
 {
-    SHKFoursquareV2CheckInForm *checkInForm = [[SHKFoursquareV2CheckInForm alloc] initWithNibName:nil bundle:nil delegate:self];	
-    checkInForm.text = item.text;       
+    SHKComposeAbstractViewController *checkInForm = [SHKComposeAbstractViewController controllerForSharerClass:[self class]];
+    checkInForm.delegate = self;
+    checkInForm.text = item.text;
     checkInForm.maxTextLength = 140;  
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:checkInForm animated:YES];	
-    [checkInForm release];
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
 {  
- 	self.item.text = form.textView.text;
+ 	self.item.text = form.text;
  	[self startCheckInRequest];
 }
 

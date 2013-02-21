@@ -1,9 +1,9 @@
 //
-//  SHKCustomFormControllerLargeTextField.m
+//  SHKComposeAbstractViewController.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/28/10.
-
+//  Created by Euan Lau on 12/11/12.
+//
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,11 +25,23 @@
 //
 //
 
-#import "SHKCustomFormControllerLargeTextField.h"
+#import <UIKit/UIKit.h>
 
+@protocol SHKComposeViewControllerDelegate;
 
-@implementation SHKCustomFormControllerLargeTextField
+@interface SHKComposeAbstractViewController : UIViewController <UITextViewDelegate>
 
-// See http://getsharekit.com/customize/ for additional information on customizing
+@property (nonatomic, assign) id <SHKComposeViewControllerDelegate> delegate;
+
+// these properties are used for counter text display only.
+// Counter shows, only if they are set by your sharer.
+@property NSUInteger maxTextLength;
+@property (nonatomic, retain) UIImage *image;//ready for showing up image, like ios5 twitter
+@property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
+@property BOOL hasLink; //only if the link is not part of the text in a text view
+@property BOOL allowSendingEmptyMessage;
+@property (nonatomic, retain) NSString *text;
+
++ (SHKComposeAbstractViewController *)controllerForSharerClass:(Class)sharerClass;
 
 @end

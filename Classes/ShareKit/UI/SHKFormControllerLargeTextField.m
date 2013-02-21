@@ -9,6 +9,8 @@
 @interface SHKFormControllerLargeTextField ()
 
 @property (nonatomic, retain) UILabel *counter;
+@property (nonatomic, retain) UITextView *textView;
+
 @property BOOL shareIsCancelled;
 
 - (void)layoutCounter;
@@ -23,33 +25,16 @@
 
 @implementation SHKFormControllerLargeTextField
 
-@synthesize delegate, textView, maxTextLength;
-@synthesize counter, hasLink, image, imageTextLength;
-@synthesize text;
+@synthesize textView;
+@synthesize counter;
 @synthesize shareIsCancelled;
-@synthesize allowSendingEmptyMessage;
 
 - (void)dealloc 
 {
 	[textView release];
 	[counter release];
-	[text release];
-	[image release];
 	
 	[super dealloc];
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
-{
-	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) 
-	{		
-		delegate = aDelegate;
-		imageTextLength = 0;
-		hasLink = NO;
-		maxTextLength = 0;
-        allowSendingEmptyMessage = NO;
-	}
-	return self;
 }
 
 - (void)loadView 
@@ -74,7 +59,7 @@
 	[super viewWillAppear:animated];
 	
 	// save to set the text now
-	textView.text = text;
+	textView.text = self.text;
 	
 	[self setupBarButtonItems];
 }
@@ -247,6 +232,10 @@
 	if (self.maxTextLength || self.image || self.hasLink) return YES;
 	
 	return NO;
+}
+
+- (NSString *)text {
+  return self.textView.text;
 }
 
 #pragma mark UITextView delegate

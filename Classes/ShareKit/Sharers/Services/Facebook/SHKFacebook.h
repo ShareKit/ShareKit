@@ -28,9 +28,9 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKFacebook : SHKSharer <SHKFormControllerLargeTextFieldDelegate>{
+@interface SHKFacebook : SHKSharer <SHKComposeViewControllerDelegate>{
 	NSMutableSet* pendingConnections;	// use a set so that connections can only be added once
 }
 @property (readonly,retain) NSMutableSet* pendingConnections; // sub classes can use the set
