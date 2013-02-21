@@ -72,10 +72,10 @@ BOOL SHKinit;
 	
 	if (!SHKinit)
 	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
+		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));
 		
 		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
-			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));
 		
 		SHKinit = YES;
 	}
@@ -95,32 +95,32 @@ BOOL SHKinit;
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc
-{	
+{
 	SHK *helper = [self currentHelper];
-	[helper setRootViewController:vc];	
+	[helper setRootViewController:vc];
 }
 
 - (UIViewController *)rootViewForUIDisplay {
-    
-    UIViewController *result = [self getCurrentRootViewController];
-    
-    // Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
+  
+  UIViewController *result = [self getCurrentRootViewController];
+  
+  // Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
 	while (result.modalViewController != nil) result = result.modalViewController;
-    
-    NSAssert(result, @"ShareKit: There is no view controller to display from");
-	return result;  
+  
+  NSAssert(result, @"ShareKit: There is no view controller to display from");
+	return result;
 }
 
 - (UIViewController *)getCurrentRootViewController {
+  
+  UIViewController *result = nil;
+  
+  if (rootViewController) // If developer provieded a root view controler, use it
+  {
     
-    UIViewController *result = nil;
-    
-    if (rootViewController) // If developer provieded a root view controler, use it
-    {
-        
-        result = rootViewController;
-    }
-    else // Try to find the root view controller programmically
+    result = rootViewController;
+  }
+  else // Try to find the root view controller programmically
 	{
 		// Find the top window (that is not an alert view or other window)
 		UIWindow *topWindow = [[UIApplication sharedApplication] keyWindow];
@@ -140,81 +140,81 @@ BOOL SHKinit;
 		if ([nextResponder isKindOfClass:[UIViewController class]])
 			result = nextResponder;
 		else if ([topWindow respondsToSelector:@selector(rootViewController)] && topWindow.rootViewController != nil)
-            result = topWindow.rootViewController;
+      result = topWindow.rootViewController;
 		else
 			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
 	}
-    return result;
+  return result;
 }
 
 - (void)showViewController:(UIViewController *)vc
 {
-    self.showMethod = @selector(showViewController:);
-    
-    BOOL isHidingPreviousView = [self hidePreviousView:vc];
-    if (isHidingPreviousView) return;
-
-    // Wrap the view in a nav controller if not already. Used for system views, such as share menu and share forms. BEWARE: this has to be called AFTER hiding previous. Sometimes hiding and presenting view is the same sharer, but with different SHKFormController on top (auth vs edit)
-
-    NSAssert(vc.parentViewController == nil, @"vc must not be in the view hierarchy now"); //ios4 and older
-
-    if ([UIViewController instancesRespondToSelector:@selector(presentingViewController)]) {
-        NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
-    }
-    
+  self.showMethod = @selector(showViewController:);
+  
+  BOOL isHidingPreviousView = [self hidePreviousView:vc];
+  if (isHidingPreviousView) return;
+  
+  // Wrap the view in a nav controller if not already. Used for system views, such as share menu and share forms. BEWARE: this has to be called AFTER hiding previous. Sometimes hiding and presenting view is the same sharer, but with different SHKFormController on top (auth vs edit)
+  
+  NSAssert(vc.parentViewController == nil, @"vc must not be in the view hierarchy now"); //ios4 and older
+  
+  if ([UIViewController instancesRespondToSelector:@selector(presentingViewController)]) {
+    NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
+  }
+  
 	if (![vc isKindOfClass:[UINavigationController class]]) vc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-    
-    [(UINavigationController *)vc navigationBar].barStyle = [SHK barStyle];
-    [(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
-    [(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
-    
-    [self presentVC:vc];
+  
+  [(UINavigationController *)vc navigationBar].barStyle = [SHK barStyle];
+  [(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+  [(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
+  
+  [self presentVC:vc];
 }
 
 /* method for sharers with custom UI, e.g. all social.framework sharers, print etc */
 - (void)showStandaloneViewController:(UIViewController *)vc {
-    
-    self.showMethod = @selector(presentVC:);
-    
-    BOOL isHidingPreviousView = [self hidePreviousView:vc];
-    if (isHidingPreviousView) return;    
-        
-    [self presentVC:vc];    
+  
+  self.showMethod = @selector(presentVC:);
+  
+  BOOL isHidingPreviousView = [self hidePreviousView:vc];
+  if (isHidingPreviousView) return;
+  
+  [self presentVC:vc];
 }
 
 - (void)presentVC:(UIViewController *)vc {
-    
-    BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:@selector(setInitialText:)];
-
-    if ([vc respondsToSelector:@selector(modalPresentationStyle)] && !isSocialOrTwitterComposeVc)
-        vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
-    
-    if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
-        vc.modalTransitionStyle = [SHK modalTransitionStyle];
-    
-    UIViewController *topViewController = [self rootViewForUIDisplay];
-    
-    if ([UIViewController instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
-        [topViewController presentViewController:vc animated:YES completion:nil];
-    } else {
-        [topViewController presentModalViewController:vc animated:YES];
-    }
-    
-    self.currentView = vc;
+  
+  BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:@selector(setInitialText:)];
+  
+  if ([vc respondsToSelector:@selector(modalPresentationStyle)] && !isSocialOrTwitterComposeVc)
+    vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
+  
+  if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
+    vc.modalTransitionStyle = [SHK modalTransitionStyle];
+  
+  UIViewController *topViewController = [self rootViewForUIDisplay];
+  
+  if ([UIViewController instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
+    [topViewController presentViewController:vc animated:YES completion:nil];
+  } else {
+    [topViewController presentModalViewController:vc animated:YES];
+  }
+  
+  self.currentView = vc;
 	self.pendingView = nil;
 }
 
 - (BOOL)hidePreviousView:(UIViewController *)VCToShow {
-    
-    // If a view is already being shown, hide it, and then try again
+  
+  // If a view is already being shown, hide it, and then try again
 	if (currentView != nil) {
-        
+    
 		self.pendingView = VCToShow;
 		[self hideCurrentViewControllerAnimated:YES];
-        return YES;
-	
-    }
-    return NO;
+    return YES;
+    
+  }
+  return NO;
 }
 
 - (void)hideCurrentViewController
@@ -239,14 +239,14 @@ BOOL SHKinit;
 		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
 		        [currentView presentingViewController])
 		{
-			self.isDismissingView = YES;            
-            [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self viewWasDismissed];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
-                }];
-            }];
-        }
+			self.isDismissingView = YES;
+      [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+          [self viewWasDismissed];
+          [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
+        }];
+      }];
+    }
 		
 		else
 			self.currentView = nil;
@@ -255,8 +255,8 @@ BOOL SHKinit;
 
 - (void)showPendingView
 {
-    if (self.pendingView)
-        [self performSelector:self.showMethod withObject:self.pendingView];
+  if (self.pendingView)
+    [self performSelector:self.showMethod withObject:self.pendingView];
 }
 
 - (void)viewWasDismissed
@@ -275,7 +275,7 @@ BOOL SHKinit;
 		return;
 	}
 }
-										   		
+
 + (UIBarStyle)barStyle
 {
 	if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlack"])
@@ -326,13 +326,13 @@ BOOL SHKinit;
 
 
 + (NSArray *)favoriteSharersForType:(SHKShareType)type
-{	
+{
 	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
-		
+  
 	// set defaults
 	if (favoriteSharers == nil)
 	{
-		switch (type) 
+		switch (type)
 		{
 			case SHKShareTypeURL:
 				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
@@ -349,7 +349,7 @@ BOOL SHKinit;
 			case SHKShareTypeFile:
 				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
 				break;
-			
+        
 			default:
 				favoriteSharers = [NSArray array];
 		}
@@ -357,31 +357,31 @@ BOOL SHKinit;
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
 	}
-    
-    // Remove all sharers which are not part of the SHKSharers.plist
-    NSDictionary *sharersDict = [self sharersDictionary];
-    NSArray *keys = [sharersDict allKeys];
-    NSMutableSet *allAvailableSharers = [NSMutableSet set];
-    for (NSString *key in keys) {
-        NSArray *sharers = [sharersDict objectForKey:key];
-        [allAvailableSharers addObjectsFromArray:sharers];
-    }
-    NSMutableSet *favoriteSharersSet = [NSMutableSet setWithArray:favoriteSharers];
-    [favoriteSharersSet minusSet:allAvailableSharers];
-    if ([favoriteSharersSet count] > 0)
-    {
-        NSMutableArray *newFavs = [favoriteSharers mutableCopy];
+  
+  // Remove all sharers which are not part of the SHKSharers.plist
+  NSDictionary *sharersDict = [self sharersDictionary];
+  NSArray *keys = [sharersDict allKeys];
+  NSMutableSet *allAvailableSharers = [NSMutableSet set];
+  for (NSString *key in keys) {
+    NSArray *sharers = [sharersDict objectForKey:key];
+    [allAvailableSharers addObjectsFromArray:sharers];
+  }
+  NSMutableSet *favoriteSharersSet = [NSMutableSet setWithArray:favoriteSharers];
+  [favoriteSharersSet minusSet:allAvailableSharers];
+  if ([favoriteSharersSet count] > 0)
+  {
+    NSMutableArray *newFavs = [favoriteSharers mutableCopy];
 		for(NSString *sharerId in favoriteSharersSet)
 		{
 			[newFavs removeObject:sharerId];
 		}
-        
-        // Update
+    
+    // Update
 		favoriteSharers = [NSArray arrayWithArray:newFavs];
 		[self setFavorites:favoriteSharers forType:type];
 		
 		[newFavs release];
-    }
+  }
 	
 	// Make sure the favorites are not using any exclusions, remove them if they are.
 	NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
@@ -405,17 +405,17 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
-    if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
-    
-    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
-    if (exclusions != nil)
+  if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
+  
+  NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+  if (exclusions != nil)
 	{
 		for(NSString *sharerId in exclusions)
 		{
 			if([className isEqualToString:sharerId]) return;
 		}
 	}
-    
+  
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];
@@ -447,9 +447,9 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	return [SSKeychain passwordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-								  account:key 
-									error:nil ];
+	return [SSKeychain passwordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId]
+                                account:key
+                                  error:nil ];
 #endif
 }
 
@@ -461,10 +461,10 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SSKeychain setPassword:value 
-				 forService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-					account:key 
-					  error:nil];
+	[SSKeychain setPassword:value
+               forService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId]
+                  account:key
+                    error:nil];
 #endif
 }
 
@@ -476,9 +476,9 @@ BOOL SHKinit;
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SSKeychain deletePasswordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-								 account:key 
-								   error:nil];
+	[SSKeychain deletePasswordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId]
+                               account:key
+                                 error:nil];
 #endif
 }
 
@@ -490,8 +490,8 @@ BOOL SHKinit;
 }
 
 + (void)logoutOfService:(NSString *)sharerId
-{	
-	[NSClassFromString(sharerId) logout];	
+{
+	[NSClassFromString(sharerId) logout];
 }
 
 
@@ -501,11 +501,11 @@ static NSString *shareKitLibraryBundlePath = nil;
 
 + (NSString *)shareKitLibraryBundlePath
 {
-    if (shareKitLibraryBundlePath == nil) {
-        
-        shareKitLibraryBundlePath = [[[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
-    }
-    return shareKitLibraryBundlePath;
+  if (shareKitLibraryBundlePath == nil) {
+    
+    shareKitLibraryBundlePath = [[[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
+  }
+  return shareKitLibraryBundlePath;
 }
 
 static NSDictionary *sharersDictionary = nil;
@@ -513,23 +513,23 @@ static NSDictionary *sharersDictionary = nil;
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-    {        
+  {
 		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
-    }
-    
-    //if user sets his own sharers plist - name only
-    if (sharersDictionary == nil) 
-    {
-        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
-    }
-    
-    //if user sets his own sharers plist - complete path
-    if (sharersDictionary == nil) {
-        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistName)] retain];
-    }
-    
-    NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
-    
+  }
+  
+  //if user sets his own sharers plist - name only
+  if (sharersDictionary == nil)
+  {
+    sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+  }
+  
+  //if user sets his own sharers plist - complete path
+  if (sharersDictionary == nil) {
+    sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistName)] retain];
+  }
+  
+  NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
+  
 	
 	return sharersDictionary;
 }
@@ -548,8 +548,8 @@ static NSDictionary *sharersDictionary = nil;
 	// Check if the path exists, otherwise create it
 	if (![fileManager fileExistsAtPath:SHKPath]) {
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
-                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:SHKPath]];
-    }
+    [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:SHKPath]];
+  }
 	
 	return SHKPath;
 }
@@ -557,8 +557,8 @@ static NSDictionary *sharersDictionary = nil;
 + (NSString *)offlineQueueListPath
 {
 	NSString *offlinePathString = [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
-        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:offlinePathString]];
-        return offlinePathString;
+  [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:offlinePathString]];
+  return offlinePathString;
 }
 
 + (NSMutableArray *)getOfflineQueueList
@@ -568,7 +568,7 @@ static NSDictionary *sharersDictionary = nil;
 
 + (void)saveOfflineQueueList:(NSMutableArray *)queueList
 {
-	[queueList writeToFile:[self offlineQueueListPath] atomically:YES]; // TODO - should do this off of the main thread	
+	[queueList writeToFile:[self offlineQueueListPath] atomically:YES]; // TODO - should do this off of the main thread
 }
 
 + (BOOL)addToOfflineQueue:(SHKItem *)item forSharer:(NSString *)sharerId
@@ -596,10 +596,10 @@ static NSDictionary *sharersDictionary = nil;
 	
 	// Add to queue list
 	[queueList addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						  [item dictionaryRepresentation],@"item",
-						  sharerId,@"sharer",
-						  uid,@"uid",
-						  nil]];
+                        [item dictionaryRepresentation],@"item",
+                        sharerId,@"sharer",
+                        uid,@"uid",
+                        nil]];
 	
 	[self saveOfflineQueueList:queueList];
 	
@@ -625,11 +625,11 @@ static NSDictionary *sharersDictionary = nil;
 		SHK *helper = [self currentHelper];
 		
 		if (helper.offlineQueue == nil) {
-            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
-			helper.offlineQueue = aQueue;	
-            [aQueue release];
-        }
-	
+      NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;
+      [aQueue release];
+    }
+    
 		SHKItem *item;
 		NSString *sharerId, *uid;
 		
@@ -645,7 +645,7 @@ static NSDictionary *sharersDictionary = nil;
 		
 		// Remove offline queue - TODO: only do this if everything was successful?
 		[[NSFileManager defaultManager] removeItemAtPath:[self offlineQueueListPath] error:nil];
-
+    
 	}
 }
 
@@ -654,9 +654,9 @@ static NSDictionary *sharersDictionary = nil;
 + (NSError *)error:(NSString *)description, ...
 {
 	va_list args;
-    va_start(args, description);
-    NSString *string = [[[NSString alloc] initWithFormat:description arguments:args] autorelease];
-    va_end(args);
+  va_start(args, description);
+  NSString *string = [[[NSString alloc] initWithFormat:description arguments:args] autorelease];
+  va_end(args);
 	
 	return [NSError errorWithDomain:@"sharekit" code:1 userInfo:[NSDictionary dictionaryWithObject:string forKey:NSLocalizedDescriptionKey]];
 }
@@ -664,11 +664,11 @@ static NSDictionary *sharersDictionary = nil;
 #pragma mark -
 #pragma mark Network
 
-+ (BOOL)connected 
++ (BOOL)connected
 {
 	//return NO; // force for offline testing
-	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
-	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
+	Reachability *hostReach = [Reachability reachabilityForInternetConnection];
+	NetworkStatus netStatus = [hostReach currentReachabilityStatus];
 	return !(netStatus == NotReachable);
 }
 
@@ -676,33 +676,33 @@ static NSDictionary *sharersDictionary = nil;
 #pragma mark Singleton System Overrides
 
 + (id)allocWithZone:(NSZone *)zone
-{	
-    return [[self currentHelper] retain];	
+{
+  return [[self currentHelper] retain];
 }
 
 - (id)copyWithZone:(NSZone *)zone
-{	
-    return self;	
+{
+  return self;
 }
 
 - (id)retain
-{	
-    return self;	
+{
+  return self;
 }
 
 - (NSUInteger)retainCount
-{	
-    return NSUIntegerMax;  //denotes an object that cannot be released	
+{
+  return NSUIntegerMax;  //denotes an object that cannot be released
 }
 
 - (oneway void)release
-{	
-    //do nothing	
+{
+  //do nothing
 }
 
 - (id)autorelease
-{	
-    return self;	
+{
+  return self;
 }
 
 @end
@@ -723,12 +723,12 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-    string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
-    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
-    string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
-    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
+  string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+  string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
+  string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+  string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
 	
-	return string;	
+	return string;
 }
 
 NSString * SHKEncodeURL(NSURL * value)
@@ -737,44 +737,44 @@ NSString * SHKEncodeURL(NSURL * value)
 		return @"";
 	
 	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                           (CFStringRef)value.absoluteString,
-                                                                           NULL,
-																		   CFSTR("!*'();:@&=+$,/?%#[]"),
-                                                                           kCFStringEncodingUTF8);
-    [result autorelease];
+                                                                         (CFStringRef)value.absoluteString,
+                                                                         NULL,
+                                                                         CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                                         kCFStringEncodingUTF8);
+  [result autorelease];
 	return result;
 }
 
 NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
 {
-    // Modified from http://rudis.net/content/2009/01/21/flatten-html-content-ie-strip-tags-cocoaobjective-c
-    NSScanner *scanner;
-    NSString *text = nil;
+  // Modified from http://rudis.net/content/2009/01/21/flatten-html-content-ie-strip-tags-cocoaobjective-c
+  NSScanner *scanner;
+  NSString *text = nil;
+  
+  scanner = [NSScanner scannerWithString:value];
+  
+  while ([scanner isAtEnd] == NO)
+  {
+    [scanner scanUpToString:@"<" intoString:NULL];
+    [scanner scanUpToString:@">" intoString:&text];
     
-    scanner = [NSScanner scannerWithString:value];
+    value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@" "];
     
-    while ([scanner isAtEnd] == NO) 
-    {
-        [scanner scanUpToString:@"<" intoString:NULL]; 
-        [scanner scanUpToString:@">" intoString:&text];
-        
-        value = [value stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"%@>", text] withString:@" "];
-        
-    }
-    
-    if (preserveLineBreaks == NO)
-    {
-        value = [value stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    }
-    
-    return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
+  }
+  
+  if (preserveLineBreaks == NO)
+  {
+    value = [value stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+  }
+  
+  return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 }
 
 void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 {
-    Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, newClassName);
-    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
+  Method origMethod = class_getInstanceMethod(c, orig);
+  Method newMethod = class_getInstanceMethod(c, newClassName);
+  if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
 		class_replaceMethod(c, newClassName, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
 	else
 		method_exchangeImplementations(origMethod, newMethod);
@@ -783,24 +783,35 @@ void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 NSString* SHKLocalizedStringFormat(NSString* key)
 {
   static NSBundle* bundle = nil;
-  if (nil == bundle) {
+  
+  if (nil == bundle)
+  {
     NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
-    bundle = [[NSBundle bundleWithPath:path] retain];
+  
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path] == YES)
+    {
+      bundle = [[NSBundle bundleWithPath:path] retain];
+    }
+    else if ([[NSFileManager defaultManager] fileExistsAtPath:[SHK shareKitLibraryBundlePath]] == YES)
+    {
+      bundle = [[NSBundle bundleWithPath:[SHK shareKitLibraryBundlePath]] retain];
+    }
     
     NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
   }
+  
   return [bundle localizedStringForKey:key value:key table:nil];
 }
 
-NSString* SHKLocalizedString(NSString* key, ...) 
+NSString* SHKLocalizedString(NSString* key, ...)
 {
 	// Localize the format
 	NSString *localizedStringFormat = SHKLocalizedStringFormat(key);
 	
 	va_list args;
-    va_start(args, key);
-    NSString *string = [[[NSString alloc] initWithFormat:localizedStringFormat arguments:args] autorelease];
-    va_end(args);
+  va_start(args, key);
+  NSString *string = [[[NSString alloc] initWithFormat:localizedStringFormat arguments:args] autorelease];
+  va_end(args);
 	
 	return string;
 }
@@ -809,28 +820,28 @@ NSString* SHKLocalizedString(NSString* key, ...)
 
 - (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
 {
-    const char* filePath = [[URL path] fileSystemRepresentation];
-    const char* attrName = "com.apple.MobileBackup";
-    if (&NSURLIsExcludedFromBackupKey == nil) {
-        // iOS 5.0.1 and lower
-        u_int8_t attrValue = 1;
-        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
-        return result == 0;
+  const char* filePath = [[URL path] fileSystemRepresentation];
+  const char* attrName = "com.apple.MobileBackup";
+  if (&NSURLIsExcludedFromBackupKey == nil) {
+    // iOS 5.0.1 and lower
+    u_int8_t attrValue = 1;
+    int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
+    return result == 0;
+  }
+  else {
+    // First try and remove the extended attribute if it is present
+    int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
+    if (result != -1) {
+      // The attribute exists, we need to remove it
+      int removeResult = removexattr(filePath, attrName, 0);
+      if (removeResult == 0) {
+        NSLog(@"Removed extended attribute on file %@", URL);
+      }
     }
-    else {
-        // First try and remove the extended attribute if it is present
-        int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
-        if (result != -1) {
-            // The attribute exists, we need to remove it
-            int removeResult = removexattr(filePath, attrName, 0);
-            if (removeResult == 0) {
-                NSLog(@"Removed extended attribute on file %@", URL);
-            }
-        }
-        
-        // Set the new key
-        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
-    }
+    
+    // Set the new key
+    return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
+  }
 }
 
 @end
