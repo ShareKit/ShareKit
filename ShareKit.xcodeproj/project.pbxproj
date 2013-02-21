@@ -185,6 +185,7 @@
 		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		AABBED80162F0C4D009D46E4 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 43C91DF411EBAE4800F31FAE /* SHKTumblr.m */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
+		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		E153775616AF070A0015726B /* ExampleAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E153775516AF07090015726B /* ExampleAccountsViewController.m */; };
 		E153775B16AF0A760015726B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E153775A16AF0A760015726B /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
@@ -758,6 +759,8 @@
 		C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedIn.h; sourceTree = "<group>"; };
 		C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLinkedIn.m; sourceTree = "<group>"; };
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
+		CE857E3816771D78005003DA /* SHKVKontakteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVKontakteRequest.m; sourceTree = "<group>"; };
 		E153775416AF07090015726B /* ExampleAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAccountsViewController.h; sourceTree = "<group>"; };
 		E153775516AF07090015726B /* ExampleAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAccountsViewController.m; sourceTree = "<group>"; };
 		E153775A16AF0A760015726B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -1894,6 +1897,8 @@
 				FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */,
 				FA5AA3BA149625460064DB24 /* SHKVkontakte.m */,
 				FA5AA3BB149625460064DB24 /* SHKVkontakte.h */,
+				CE857E3716771D78005003DA /* SHKVKontakteRequest.h */,
+				CE857E3816771D78005003DA /* SHKVKontakteRequest.m */,
 			);
 			path = Vkontakte;
 			sourceTree = "<group>";
@@ -3171,6 +3176,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */,
 				AABBED14162F08A3009D46E4 /* SHKVkontakteOAuthView.m in Sources */,
 				AABBED15162F08A3009D46E4 /* SHKVkontakte.m in Sources */,
 			);
