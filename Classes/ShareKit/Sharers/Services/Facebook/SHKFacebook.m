@@ -310,7 +310,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 {
 	return YES;
 }
-
++ (BOOL)canShareVideo
+{
+	return YES;
+}
 + (BOOL)canShareOffline
 {
 	return NO; // TODO - would love to make this work
@@ -367,6 +370,15 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark -
 #pragma mark Share API Methods
 
+- (BOOL)validateItem
+{
+	if (item.shareType == SHKShareTypeVideo)
+	{
+			return [[NSFileManager defaultManager]  fileExistsAtPath:item.srcVideoPath];
+  }
+  return [super validateItem];
+}
+
 - (void)share {
     
     if ([self socialFrameworkAvailable]) {
@@ -418,6 +430,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
+    (item.shareType == SHKShareTypeVideo && item.srcVideoPath)||
 		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
@@ -526,6 +539,30 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 																	 [self FBRequestHandlerCallback:connection result:result error:error];
 																 }];
+		[self.pendingConnections addObject:con];
+	}
+  else if (item.shareType == SHKShareTypeVideo && item.srcVideoPath)
+	{
+		if (item.title)
+			[params setObject:item.title forKey:@"caption"];
+		if (item.text)
+			[params setObject:item.text forKey:@"message"];
+    NSError* error = nil;
+    NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
+                                          options:NSDataReadingMappedAlways error:&error];
+    if (error) {
+      [[SHKActivityIndicator currentIndicator] hide];
+      [self sendDidFailWithError:error];
+      [self sendDidFinish];
+      return;
+    }
+    [params setObject:data forKey:[item.srcVideoPath lastPathComponent]];
+    [params setObject:@"video/quicktime" forKey:@"contentType"];
+		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
+                                                            parameters:params
+                                                            HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                              [self FBRequestHandlerCallback:connection result:result error:error];
+                                                            }];
 		[self.pendingConnections addObject:con];
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
