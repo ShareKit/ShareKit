@@ -190,7 +190,7 @@ BOOL SHKinit;
         vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];
     
     if ([vc respondsToSelector:@selector(modalTransitionStyle)] && !isSocialOrTwitterComposeVc)
-        vc.modalTransitionStyle = [SHK modalTransitionStyle];
+        vc.modalTransitionStyle = [SHK modalTransitionStyleForController:vc];
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
     
@@ -306,15 +306,17 @@ BOOL SHKinit;
 	return UIModalPresentationCurrentContext;
 }
 
-+ (UIModalTransitionStyle)modalTransitionStyle
++ (UIModalTransitionStyle)modalTransitionStyleForController:(UIViewController *)controller
 {
-	if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
+    NSString *transitionString = SHKCONFIG_WITH_ARGUMENT(modalTransitionStyleForController:, controller);
+    
+	if ([transitionString isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
 		return UIModalTransitionStyleFlipHorizontal;
 	
-	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
+	else if ([transitionString isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
 		return UIModalTransitionStyleCrossDissolve;
 	
-	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStylePartialCurl"])
+	else if ([transitionString isEqualToString:@"UIModalTransitionStylePartialCurl"])
 		return UIModalTransitionStylePartialCurl;
 	
 	return UIModalTransitionStyleCoverVertical;
@@ -784,10 +786,16 @@ NSString* SHKLocalizedStringFormat(NSString* key)
 {
   static NSBundle* bundle = nil;
   if (nil == bundle) {
-    NSString* path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
-    bundle = [[NSBundle bundleWithPath:path] retain];
-    
-    NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards");
+      
+      NSString *path = nil;
+      if (SHKCONFIG(isUsingCocoaPods)) {
+          path = [SHK shareKitLibraryBundlePath];
+      } else {
+          path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
+      }
+      
+      bundle = [[NSBundle bundleWithPath:path] retain];
+      NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards. In case you use CocoaPods override - (NSNumber *)isUsingCocoaPods; method in your configurator subclass and return [NSNumber numberWithBool:YES]");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
 }
