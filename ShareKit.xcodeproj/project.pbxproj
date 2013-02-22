@@ -3456,7 +3456,6 @@
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3477,7 +3476,6 @@
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3508,7 +3506,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3530,7 +3527,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3560,7 +3556,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3582,7 +3577,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3612,7 +3606,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3634,7 +3627,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3664,7 +3656,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3686,7 +3677,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3716,7 +3706,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3738,7 +3727,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3768,7 +3756,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3790,7 +3777,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3820,7 +3806,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3842,7 +3827,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3872,7 +3856,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3894,7 +3877,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3924,7 +3906,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3946,7 +3927,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3976,7 +3956,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -3998,7 +3977,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4029,7 +4007,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4053,7 +4030,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4087,7 +4063,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "ShareKitLibraryResources/ShareKitLibraryResources-Info.plist";
 				INSTALL_PATH = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = ShareKit;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -4109,7 +4084,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				INFOPLIST_FILE = "ShareKitLibraryResources/ShareKitLibraryResources-Info.plist";
 				INSTALL_PATH = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = ShareKit;
 				WRAPPER_EXTENSION = bundle;
 			};
@@ -4134,7 +4108,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4156,7 +4129,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4186,7 +4158,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4208,7 +4179,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4238,7 +4208,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4260,7 +4229,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4290,7 +4258,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4312,7 +4279,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4342,7 +4308,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4364,7 +4329,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4394,7 +4358,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4416,7 +4379,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4446,7 +4408,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4468,7 +4429,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4498,7 +4458,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4520,7 +4479,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4550,7 +4508,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4572,7 +4529,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4602,7 +4558,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4624,7 +4579,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4654,7 +4608,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4676,7 +4629,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4706,7 +4658,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4728,7 +4679,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4758,7 +4708,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4780,7 +4729,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4811,7 +4759,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4835,7 +4782,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4866,7 +4812,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4888,7 +4833,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4918,7 +4862,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4940,7 +4883,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4970,7 +4912,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4992,7 +4933,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5022,7 +4962,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5044,7 +4983,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5074,7 +5012,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5096,7 +5033,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5127,7 +5063,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5150,7 +5085,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5185,7 +5119,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5212,7 +5145,6 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5242,7 +5174,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -5264,7 +5195,6 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
