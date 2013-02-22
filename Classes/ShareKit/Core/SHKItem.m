@@ -42,7 +42,7 @@
 @implementation SHKItem
 
 @synthesize shareType;
-@synthesize URL, URLContentType, image, title, text, tags, data, mimeType, filename;
+@synthesize URL, URLContentType, image, title, text, tags, data, mimeType, filename, srcVideoPath;
 @synthesize custom;
 @synthesize printOutputType;
 @synthesize mailToRecipients, mailJPGQuality, isMailHTML, mailShareWithAppSignature, popOverSourceRect;
@@ -62,6 +62,8 @@
 	[data release];
 	[mimeType release];
 	[filename release];
+  
+  [srcVideoPath release];
 	
 	[custom release];
 
@@ -159,6 +161,16 @@
 	return [item autorelease];
 }
 
++ (id)videoPath:(NSString *)path title:(NSString *)title
+{
+	SHKItem *item = [[self alloc] init];
+	item.shareType = 	SHKShareTypeVideo;
+  item.srcVideoPath = path;
+	item.title = title;
+	
+	return [item autorelease];
+}
+
 #pragma mark -
 
 - (void)setCustomValue:(NSString *)value forKey:(NSString *)key
@@ -199,6 +211,7 @@
 	item.title = [dictionary objectForKey:@"title"];
 	item.text = [dictionary objectForKey:@"text"];
 	item.tags = [dictionary objectForKey:@"tags"];
+  item.srcVideoPath = [dictionary objectForKey:@"srcVideoPath"];
 	
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
@@ -272,6 +285,10 @@
 	
 	if (data != nil)
 		[dictionary setObject:data forKey:@"data"];
+  
+  if (srcVideoPath != nil)
+		[dictionary setObject:srcVideoPath forKey:@"srcVideoPath"];
+
 	
 	if (image != nil)
 		[dictionary setObject:UIImagePNGRepresentation(image) forKey:@"image"];
@@ -366,6 +383,9 @@
         case SHKShareTypeFile:
             result = @"SHKShareTypeFile";
             break;
+        case SHKShareTypeVideo:
+          result = @"SHKShareTypeVideo";
+          break;
         default:
             [NSException raise:NSGenericException format:@"Unexpected FormatType."];
     }

@@ -13,6 +13,9 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28F335F11007B36200424DE2 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F335F01007B36200424DE2 /* RootViewController.xib */; };
+		403F28B316D7774900CAEBA7 /* ExampleShareVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 403F28B216D7774900CAEBA7 /* ExampleShareVideo.m */; };
+		403F28B616D778A000CAEBA7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 403F28B516D778A000CAEBA7 /* MediaPlayer.framework */; };
+		403F28B816D77F6C00CAEBA7 /* demo_video_share.mov in Resources */ = {isa = PBXBuildFile; fileRef = 403F28B716D77F6C00CAEBA7 /* demo_video_share.mov */; };
 		4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4312CF7B11CB33E200E61D7A /* MessageUI.framework */; };
 		43A5382811DBE480004A1712 /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382611DBE480004A1712 /* example.pdf */; };
 		43A5382911DBE480004A1712 /* sanFran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 43A5382711DBE480004A1712 /* sanFran.jpg */; };
@@ -465,6 +468,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
+		403F28B116D7774900CAEBA7 /* ExampleShareVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleShareVideo.h; sourceTree = "<group>"; };
+		403F28B216D7774900CAEBA7 /* ExampleShareVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleShareVideo.m; sourceTree = "<group>"; };
+		403F28B516D778A000CAEBA7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		403F28B716D77F6C00CAEBA7 /* demo_video_share.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = demo_video_share.mov; sourceTree = "<group>"; };
 		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
 		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
 		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
@@ -781,6 +788,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				403F28B616D778A000CAEBA7 /* MediaPlayer.framework in Frameworks */,
 				7AF9AAD9165B6C0400F92215 /* libsqlite3.0.dylib in Frameworks */,
 				7A4BC546165A0A2000460B01 /* AdSupport.framework in Frameworks */,
 				7A4BC545165A09DD00460B01 /* Social.framework in Frameworks */,
@@ -1160,6 +1168,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				403F28B716D77F6C00CAEBA7 /* demo_video_share.mov */,
 				43A5382611DBE480004A1712 /* example.pdf */,
 				43A5382711DBE480004A1712 /* sanFran.jpg */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
@@ -1172,6 +1181,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				403F28B516D778A000CAEBA7 /* MediaPlayer.framework */,
 				AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */,
 				AA3B1DE41612938F00036C82 /* Social.framework */,
 				AA3B1DDC161292A100036C82 /* Accounts.framework */,
@@ -1345,6 +1355,8 @@
 				7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */,
 				E153775416AF07090015726B /* ExampleAccountsViewController.h */,
 				E153775516AF07090015726B /* ExampleAccountsViewController.m */,
+				403F28B116D7774900CAEBA7 /* ExampleShareVideo.h */,
+				403F28B216D7774900CAEBA7 /* ExampleShareVideo.m */,
 			);
 			name = "Example Project";
 			sourceTree = "<group>";
@@ -2885,6 +2897,7 @@
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
 				E153775B16AF0A760015726B /* Default-568h@2x.png in Resources */,
+				403F28B816D77F6C00CAEBA7 /* demo_video_share.mov in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2914,6 +2927,7 @@
 				43A5383B11DBE493004A1712 /* ShareKitAppDelegate.m in Sources */,
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
 				E153775616AF070A0015726B /* ExampleAccountsViewController.m in Sources */,
+				403F28B316D7774900CAEBA7 /* ExampleShareVideo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
