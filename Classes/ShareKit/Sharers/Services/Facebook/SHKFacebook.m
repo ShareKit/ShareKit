@@ -444,8 +444,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 															 [alertView show];
                                                              [alertView release];
 
-															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
-															 [self tryPendingAction];
+                                                             [self sendDidCancel];
 														 }else{
 															 // If permissions granted, publish the story
 															 [self doSend];
