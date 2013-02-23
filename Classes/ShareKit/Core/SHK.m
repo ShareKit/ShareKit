@@ -655,12 +655,18 @@ static NSDictionary *sharersDictionary = nil;
 
 + (NSError *)error:(NSString *)description, ...
 {
-	va_list args;
-    va_start(args, description);
-    NSString *string = [[[NSString alloc] initWithFormat:description arguments:args] autorelease];
-    va_end(args);
-	
-	return [NSError errorWithDomain:@"sharekit" code:1 userInfo:[NSDictionary dictionaryWithObject:string forKey:NSLocalizedDescriptionKey]];
+	NSDictionary *userInfo = nil;
+
+	if (description) {
+		va_list args;
+		va_start(args, description);
+		NSString *string = [[[NSString alloc] initWithFormat:description arguments:args] autorelease];
+		va_end(args);
+
+		userInfo = [NSDictionary dictionaryWithObject:string forKey:NSLocalizedDescriptionKey];
+	}
+
+	return [NSError errorWithDomain:@"sharekit" code:1 userInfo:userInfo];
 }
 
 #pragma mark -
