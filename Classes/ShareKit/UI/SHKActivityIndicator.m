@@ -43,6 +43,13 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	if (_currentIndicator == nil)
 	{
 		UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];		
+		
+		if (keyWindow == nil) {
+			// this means the app is trying to do a ShareKit operation prior to having a UIWindow ready
+			// we don't want the singleton instance to have a messed up frame, so return a nil indicator for now...
+			return nil;
+		}
+		
 		CGFloat width = 160;
 		CGFloat height = 160;
 		CGRect centeredFrame = CGRectMake(round(keyWindow.bounds.size.width/2 - width/2),
