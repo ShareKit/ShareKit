@@ -19,4 +19,4 @@ Documentation
 
 The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki).
 
-!!! Updated new service creation guidelines for contributors are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
+!!! Updated new service creation guidelines for contributors + updated service templates are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
