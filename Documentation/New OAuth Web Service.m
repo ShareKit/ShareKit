@@ -1,5 +1,22 @@
 //  Created by «FULLUSERNAME» on «DATE».
 
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 /*
 
@@ -9,6 +26,7 @@
 
 
 «OPTIONALHEADERIMPORTLINE»
+#import "SHKConfiguration.h"
 
 @implementation «FILEBASENAMEASIDENTIFIER»
 
@@ -57,6 +75,13 @@
 }
 */
 
+// You should implement this to allow get logged in user info. It is handy if someone needs to show logged-in username (or other info) somewhere in the app. The user info should be saved in a dictionary in user defaults, see SHKFacebook or SHKTwitter. If implemented, uncomment this section. Do not forget override also + (void)logout and delete saved user info from defaults
+/*
+ + (BOOL)canGetUserInfo
+ {
+ return YES;
+ }
+*/
 
 // Does the service require a login?  If for some reason it does NOT, uncomment this section:
 /*
@@ -70,31 +95,27 @@
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-// Subclass if you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)
+// Do you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)? If YES, uncomment this section. Vast majority of services does not need this.
+/*
 + (BOOL)canShare
 {
 	return YES;
 }
-
-
+*/
 
 #pragma mark -
 #pragma mark Authentication
 
-// These defines should be renamed (to match your service name).
-// They will eventually be moved to SHKConfig so the user can modify them.
-
-#define SHKYourServiceNameConsumerKey @""	// The consumer key
-#define SHKYourServiceNameSecretKey @""		// The secret key
-#define SHKYourServiceNameCallbackUrl @""	// The user defined callback url
-
 - (id)init
 {
-	if (self = [super init])
-	{		
-		self.consumerKey = SHKYourServiceNameConsumerKey;		
-		self.secretKey = SHKYourServiceNameSecretKey;
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKYourServiceNameCallbackUrl];
+    self = [super init];
+    
+	if (self)
+	{
+        // These config items should be renamed (to match your service name). You have to create corresponding (empty) config methods in DefaultSHKConfigurator. Additionally, make sure, that you also enter valid demo credentials for the demo app in ShareKitDemoConfigurator.m - this greatly simplifies code maintenance and debugging.
+		self.consumerKey = SHKCONFIG(yourServiceNameConsumerKey);SHKYourServiceNameConsumerKey;
+		self.secretKey = SHKCONFIG(yourServiceNameSecret);SHKYourServiceNameSecretKey;
+ 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(yourServiceCallbackUrl)];
 		
 		
 		// -- //
@@ -211,6 +232,7 @@
 	// -if sharing an image : item.image != nil
 	// -if sharing text		: item.text != nil
 	// -if sharing a file	: item.data != nil
+    // -if requesting user info : return YES
  
 	return [super validateItem];
 }
@@ -307,7 +329,7 @@
 		
 		// If the error was the result of the user no longer being authenticated, you can reprompt
 		// for the login information with:
-		[self shouldReloginWithPendingAction:SHKPendingSend]
+		[self shouldReloginWithPendingAction:SHKPendingSend];
 		
 		// Otherwise, all other errors should end with:
 		[self sendShowSimpleErrorAlert];
