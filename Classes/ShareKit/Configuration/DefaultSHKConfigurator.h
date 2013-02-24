@@ -80,6 +80,9 @@
 - (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSString*)tumblrConsumerKey;
+- (NSString*)tumblrSecret;
+- (NSString*)tumblrCallbackUrl;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;

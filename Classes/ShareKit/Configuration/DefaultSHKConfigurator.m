@@ -231,6 +231,7 @@
 - (NSNumber*)readabilityUseXAuth {
 	return [NSNumber numberWithInt:1];
 }
+
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";
@@ -238,6 +239,20 @@
 
 - (NSString*)foursquareV2RedirectURI {
     return @"";
+}
+
+// Tumblr - http://www.tumblr.com/docs/en/api/v2
+- (NSString*)tumblrConsumerKey {
+	return @"";
+}
+
+- (NSString*)tumblrSecret {
+	return @"";
+}
+
+//you can put whatever here. It must be the same you entered in tumblr app registration, eg tumblr.sharekit.com
+- (NSString*)tumblrCallbackUrl {
+	return @"";
 }
 
 /*
