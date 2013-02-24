@@ -82,6 +82,14 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTumblrUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+	[super logout];
+}
+
+
 #pragma mark -
 #pragma mark Share Form
 
@@ -91,11 +99,17 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         return nil;
     }
     
+    NSArray *userBlogURLs = [self userBlogURLs];
+    NSString *defaultBlogURL = nil;
+    if ([userBlogURLs count] > 0) {
+        defaultBlogURL = userBlogURLs[0];
+    }
+    
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
                                                          key:@"blog"
                                                         type:SHKFormFieldTypeOptionPicker
-                                                       start:nil
+                                                       start:defaultBlogURL
                                             optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
                                                               @"curIndexes":@"-1",
                                                               @"itemsList":[@[] autorelease],
@@ -217,19 +231,18 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 #pragma mark -
 #pragma mark Implementation
 
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-/*
+
 - (BOOL)validateItem
-{ 
-	// The super class will verify that:
-	// -if sharing a url	: item.url != nil
-	// -if sharing an image : item.image != nil
-	// -if sharing text		: item.text != nil
-	// -if sharing a file	: item.data != nil
- 
-	return [super validateItem];
+{
+    if (self.item.shareType == SHKShareTypeUserInfo) return [super validateItem];
+	
+    NSString *blog = [self.item customValueForKey:@"blog"];
+    BOOL isBlogFilled = ![blog isEqualToString:@""] && ![blog isEqualToString:@"-1"];
+    BOOL itemValid = isBlogFilled && [super validateItem];
+    
+	return itemValid;
 }
-*/
+
 
 // Send the share item to the server
 - (BOOL)send
@@ -367,31 +380,41 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *notification) {
                                                       
-                                                      NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKTumblrUserInfo];
-                                                      NSArray *usersBlogs = [[[userInfo objectForKey:@"response"] objectForKey:@"user"] objectForKey:@"blogs"];
-                                                      NSMutableArray *usersBlogNames = [[@[] mutableCopy] autorelease];
-                                                      for (NSDictionary *blog in usersBlogs) {
-                                                          [usersBlogNames addObject:[blog objectForKey:@"name"]];
-                                                      }
-                                                      [weakSelf blogsEnumerated:usersBlogNames];
+                                                      NSArray *userBlogURLs = [self userBlogURLs];
+                                                      [weakSelf blogsEnumerated:userBlogURLs];
+                                                      
                                                       [[NSNotificationCenter defaultCenter] removeObserver:weakSelf.getUserBlogsObserver];
                                                       weakSelf.getUserBlogsObserver = nil;
                                                   }];
 }
 
--(void)blogsEnumerated:(NSArray *)blogs{
+- (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
+    self.getUserBlogsObserver = nil;
+    NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
+	curOptionController = nil;
+}
+
+#pragma mark - 
+
+- (void)blogsEnumerated:(NSArray *)blogs{
     
 	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
 	[curOptionController optionsEnumerated:blogs];
 	curOptionController = nil;
 }
 
--(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
-{
-	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
-    self.getUserBlogsObserver = nil;
-    NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
-	curOptionController = nil;
+- (NSArray *)userBlogURLs {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKTumblrUserInfo];
+    NSArray *usersBlogs = [[[userInfo objectForKey:@"response"] objectForKey:@"user"] objectForKey:@"blogs"];
+    NSMutableArray *result = [[@[] mutableCopy] autorelease];
+    for (NSDictionary *blog in usersBlogs) {
+        NSURL *blogURL = [NSURL URLWithString:[blog objectForKey:@"url"]];
+        [result addObject:blogURL.host];
+    }
+    return result;
 }
 
 @end
