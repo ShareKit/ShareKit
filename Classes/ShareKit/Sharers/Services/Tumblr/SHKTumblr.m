@@ -38,7 +38,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 //+ (BOOL)canShareURL { return YES; }
 //+ (BOOL)canShareImage { return YES; }
-//+ (BOOL)canShareText { return YES; }
++ (BOOL)canShareText { return YES; }
 + (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -
@@ -61,36 +61,72 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	return self;
 }
 
-// If you need to add additional headers or parameters to the request_token request, uncomment this section:
-/*
-- (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
-{
-	// Here is an example that adds the user's callback to the request headers
-	[oRequest setOAuthParameterName:@"oauth_callback" withValue:authorizeCallbackURL.absoluteString];
-}
-*/
-
-// If you need to add additional headers or parameters to the access_token request, uncomment this section:
-
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-	// Here is an example that adds the oauth_verifier value received from the authorize call.
-	// authorizeResponseQueryVars is a dictionary that contains the variables sent to the callback url
 	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
-
-
 
 #pragma mark -
 #pragma mark Share Form
 
-// If your action has options or additional information it needs to get from the user,
-// use this to create the form that is presented to user upon sharing.
-/*
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	// See http://getsharekit.com/docs/#forms for documentation on creating forms
 	
+    NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
+                                                         key:@"title"
+                                                        type:SHKFormFieldTypeText
+                                                       start:self.item.title],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Body")
+                                                         key:@"text"
+                                                        type:SHKFormFieldTypeText
+                                                       start:self.item.text],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
+                                                         key:@"tags"
+                                                        type:SHKFormFieldTypeText
+                                                       start:[self.item.tags componentsJoinedByString:@", "]],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
+                                                         key:@"publish"
+                                                        type:SHKFormFieldTypeOptionPicker
+                                                       start:nil
+                                            optionPickerInfo:[@{@"title":SHKLocalizedString(@"Publish type"),
+                                                              @"curIndexes":@"-1",
+                                                              @"itemsList":@[@"Publish now", @"Draft", @"Add to queue", @"Private"],
+                                                              @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
+                                                              @"static":[NSNumber numberWithBool:YES],
+                                                              @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy]
+                                    optionDetailLabelDefault:SHKLocalizedString(@"Select publish type")], nil];
+    return baseArray;
+}
+                                 /*
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
+                                                         key:@"is_public"
+                                                        type:SHKFormFieldTypeSwitch
+                                                       start:SHKFormFieldSwitchOn],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Friend")
+                                                         key:@"is_friend"
+                                                        type:SHKFormFieldTypeSwitch
+                                                       start:SHKFormFieldSwitchOn],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Family")
+                                                         key:@"is_family"
+                                                        type:SHKFormFieldTypeSwitch
+                                                       start:SHKFormFieldSwitchOn],
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
+                                                         key:@"postgroup"
+                                                        type:SHKFormFieldTypeOptionPicker
+                                                       start:nil
+                                            optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Flickr Groups"), @"title",
+                                                              @"-1", @"curIndexes",
+                                                              [NSArray array],@"itemsList",
+                                                              [NSNumber numberWithBool:NO], @"static",
+                                                              [NSNumber numberWithBool:YES], @"allowMultiple",
+                                                              self, @"SHKFormOptionControllerOptionProvider",
+                                                              nil]
+                                    optionDetailLabelDefault:SHKLocalizedString(@"Select Group")],
+                                 nil
+                                 ];
+
+    
 	if (type == SHKShareTypeURL)
 	{
 		// An example form that has a single text field to let the user edit the share item's title
@@ -171,30 +207,15 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	if (![self validateItem])
 		return NO;
 	
-	/*
-	 Enter the necessary logic to share the item here.
-	 
-	 The shared item and relevant data is in self.item
-	 // See http://getsharekit.com/docs/#sending
-	 
-	 --
-	 
-	 A common implementation looks like:
-	 	 
-	 -  Send a request to the server
-	 -  call [self sendDidStart] after you start your action
-	 -  after the action completes, handle the response in didFinishSelector: or didFailSelector: methods.	 */ 
-	
-	// Here is an example.  
-	// This example is for a service that can share a URL
-	 
-	// Determine which type of share to do
-    
     OAMutableURLRequest *oRequest = nil;
+    NSMutableArray *params = [@[] mutableCopy];
+    
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:@","] invertedSet];
+	NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
     
     switch (item.shareType) {
+            
         case SHKShareTypeUserInfo:
-        {
             oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
                                                                             consumer:consumer // this is a consumer object already made available to us
                                                                                token:accessToken // this is our accessToken already made available to us
@@ -202,11 +223,38 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                    signatureProvider:signatureProvider];
             [oRequest setHTTPMethod:@"GET"];
             break;
+            
+        case SHKShareTypeText:
+        {
+            NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", @"cocoaminers.tumblr.com"];
+            oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
+                                                       consumer:consumer // this is a consumer object already made available to us
+                                                          token:accessToken // this is our accessToken already made available to us
+                                                          realm:nil
+                                              signatureProvider:signatureProvider];
+            [urlString release];
+            
+            [oRequest setHTTPMethod:@"POST"];
+            
+            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"text"];
+            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
+            OARequestParameter *bodyParam = [[OARequestParameter alloc] initWithName:@"body" value:item.text];
+            [params addObjectsFromArray:@[typeParam, titleParam, bodyParam]];
+            [typeParam release];
+            [titleParam release];
+            [bodyParam release];
+            //OARequestParameter *tweetParam = [[OARequestParameter alloc] initWithName:@"tweet" value:shouldTweet];
+            //[tweetParam release];
         }
         default:
             break;
     }
-    
+    OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags" value:tags];
+    OARequestParameter *publishParam = [[OARequestParameter alloc] initWithName:@"state" value:[self.item customValueForKey:@"publish"]];
+    [params addObjectsFromArray:@[tagsParam, publishParam]];
+    [tagsParam release];
+    [publishParam release];
+    [oRequest setParameters:params];
     // Start the request
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -221,61 +269,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     return YES;
 }
-
-    /*
-	if (item.shareType == SHKShareTypeURL) // sharing a URL
-	{
-		// For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
-		
-		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"api.tumblr.com/v2/user/info"]
-																		consumer:consumer // this is a consumer object already made available to us
-																		   token:accessToken // this is our accessToken already made available to us
-																		   realm:nil
-															   signatureProvider:signatureProvider];
-		
-		// Set the http method (POST or GET)
-		[oRequest setHTTPMethod:@"POST"];
-		
-		
-		// Create our parameters
-		OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url"
-																		  value:SHKEncodeURL(item.URL)];
-		
-		OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title"
-																		   value:SHKEncode(item.title)];
-		
-		// Add the params to the request
-		[oRequest setParameters:[NSArray arrayWithObjects:titleParam, urlParam, nil]];
-		[urlParam release];
-		[titleParam release];
-		
-		// Start the request
-		OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																							  delegate:self
-																					 didFinishSelector:@selector(sendTicket:didFinishWithData:)
-																					   didFailSelector:@selector(sendTicket:didFailWithError:)];	
-		
-		[fetcher start];
-		[oRequest release];
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-*/
-
-/* This is a continuation of the example provided in 'send' above.  These methods handle the OAAsynchronousDataFetcher response and should be implemented - your duty is to check the response and decide, if send finished OK, or what kind of error there is. Depending on the result, you should call one of these methods:
-
- [self sendDidFinish]; (if successful)   
- [self shouldReloginWithPendingAction:SHKPendingSend]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and silently share after successful login)
- [self shouldReloginWithPendingAction:SHKPendingShare]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and present share UI dialogue after successful login. This can happen if the service always requires to check credentials prior send request).
- [self sendShowSimpleErrorAlert]; (in case of other error)
- [self sendDidCancel];(in case of user cancelled - you might need this if the service presents its own UI for sharing))
-*/
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {	
