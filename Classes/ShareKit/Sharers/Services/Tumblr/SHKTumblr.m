@@ -29,7 +29,23 @@
 
 NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
+@interface SHKTumblr ()
+
+@property (nonatomic, retain) id getUserBlogsObserver;
+
+@end
+
 @implementation SHKTumblr
+
+@synthesize getUserBlogsObserver;
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:getUserBlogsObserver];
+    [getUserBlogsObserver release];
+    
+    [super dealloc];
+}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -71,8 +87,22 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	
+    if (type == SHKShareTypeUserInfo) {
+        return nil;
+    }
+    
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
+                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
+                                                         key:@"blog"
+                                                        type:SHKFormFieldTypeOptionPicker
+                                                       start:nil
+                                            optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
+                                                              @"curIndexes":@"-1",
+                                                              @"itemsList":[@[] autorelease],
+                                                              @"static":[NSNumber numberWithBool:NO],
+                                                              @"allowMultiple":[NSNumber numberWithBool:NO],
+                                                              @"SHKFormOptionControllerOptionProvider":self} mutableCopy] autorelease]
+                                    optionDetailLabelDefault:SHKLocalizedString(@"Select blog")],
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
                                                          key:@"title"
                                                         type:SHKFormFieldTypeText
@@ -89,12 +119,12 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                          key:@"publish"
                                                         type:SHKFormFieldTypeOptionPicker
                                                        start:nil
-                                            optionPickerInfo:[@{@"title":SHKLocalizedString(@"Publish type"),
+                                            optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Publish type"),
                                                               @"curIndexes":@"-1",
                                                               @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
                                                               @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
                                                               @"static":[NSNumber numberWithBool:YES],
-                                                              @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy]
+                                                              @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy] autorelease]
                                     optionDetailLabelDefault:SHKLocalizedString(@"Select publish type")], nil];
     return baseArray;
 }
@@ -216,17 +246,17 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     switch (item.shareType) {
             
         case SHKShareTypeUserInfo:
+            [self setQuiet:YES];
             oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
-                                                                            consumer:consumer // this is a consumer object already made available to us
-                                                                               token:accessToken // this is our accessToken already made available to us
-                                                                               realm:nil
-                                                                   signatureProvider:signatureProvider];
+                                                                          consumer:consumer // this is a consumer object already made available to us
+                                                                             token:accessToken // this is our accessToken already made available to us
+                                                                             realm:nil
+                                                                 signatureProvider:signatureProvider];
             [oRequest setHTTPMethod:@"GET"];
             break;
-            
         case SHKShareTypeText:
         {
-            NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", @"cocoaminers.tumblr.com"];
+            NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
             oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
                                                        consumer:consumer // this is a consumer object already made available to us
                                                           token:accessToken // this is our accessToken already made available to us
@@ -303,7 +333,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 		
 	} else {
 		
-		
         if (ticket.response.statusCode == 401) {
             
             //user revoked acces, ask access again
@@ -321,6 +350,48 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 {
 	SHKLog(@"Tumblr send failed with error:%@", [error description]);
     [self sendShowSimpleErrorAlert];
+}
+
+#pragma mark - SHKFormOptionControllerOptionProvider delegate methods
+
+- (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
+    
+    NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
+	curOptionController = optionController;
+    
+    SHKTumblr *infoSharer = [SHKTumblr getUserInfo];
+    
+    __block SHKTumblr *weakSelf = self;
+    self.getUserBlogsObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SHKSendDidFinishNotification
+                                                      object:infoSharer
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *notification) {
+                                                      
+                                                      NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKTumblrUserInfo];
+                                                      NSArray *usersBlogs = [[[userInfo objectForKey:@"response"] objectForKey:@"user"] objectForKey:@"blogs"];
+                                                      NSMutableArray *usersBlogNames = [[@[] mutableCopy] autorelease];
+                                                      for (NSDictionary *blog in usersBlogs) {
+                                                          [usersBlogNames addObject:[blog objectForKey:@"name"]];
+                                                      }
+                                                      [weakSelf blogsEnumerated:usersBlogNames];
+                                                      [[NSNotificationCenter defaultCenter] removeObserver:weakSelf.getUserBlogsObserver];
+                                                      weakSelf.getUserBlogsObserver = nil;
+                                                  }];
+}
+
+-(void)blogsEnumerated:(NSArray *)blogs{
+    
+	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[curOptionController optionsEnumerated:blogs];
+	curOptionController = nil;
+}
+
+-(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
+    self.getUserBlogsObserver = nil;
+    NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
+	curOptionController = nil;
 }
 
 @end

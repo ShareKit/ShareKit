@@ -28,6 +28,6 @@
 
 extern NSString * const kSHKTumblrUserInfo;
 
-@interface SHKTumblr : SHKOAuthSharer
+@interface SHKTumblr : SHKOAuthSharer <SHKFormOptionControllerOptionProvider>
 
 @end
