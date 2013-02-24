@@ -205,3 +205,14 @@
 
 "Select Group" = "Select Group";
 "Flickr Groups" = "Flickr Groups";
+
+//Demo app
+"Accounts" = "Accounts";
+
+//Tumblr V2
+"Publish type" = "Publish type";
+"Publish now" = "Publish now";
+"Draft" = "Draft";
+"Add to queue" = "Add to queue";
+"Select publish type" = "Select publish type";
+"Publish" = "Publish";

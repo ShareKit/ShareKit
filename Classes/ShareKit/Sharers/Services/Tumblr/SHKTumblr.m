@@ -91,7 +91,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                        start:nil
                                             optionPickerInfo:[@{@"title":SHKLocalizedString(@"Publish type"),
                                                               @"curIndexes":@"-1",
-                                                              @"itemsList":@[@"Publish now", @"Draft", @"Add to queue", @"Private"],
+                                                              @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
                                                               @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
                                                               @"static":[NSNumber numberWithBool:YES],
                                                               @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy]

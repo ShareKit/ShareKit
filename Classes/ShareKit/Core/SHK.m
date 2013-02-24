@@ -794,7 +794,7 @@ NSString* SHKLocalizedStringFormat(NSString* key)
   if (nil == bundle) {
       
       NSString *path = nil;
-      if (SHKCONFIG(isUsingCocoaPods)) {
+      if ([SHKCONFIG(isUsingCocoaPods) boolValue]) {
           path = [SHK shareKitLibraryBundlePath];
       } else {
           path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
