@@ -27,17 +27,16 @@
 
 #import "SHKFormFieldSettings.h"
 
-
 @implementation SHKFormFieldSettings
 
-@synthesize label, key, type, start, value, optionPickerInfo, optionDetailLabelDefault;
+@synthesize label, key, type, start, displayValue, optionPickerInfo, optionDetailLabelDefault;
 
 - (void)dealloc
 {
 	[label release];
 	[key release];
 	[start release];
-    [value release];
+    [displayValue release];
     [optionPickerInfo release];
     [optionDetailLabelDefault release];
 	
@@ -56,13 +55,13 @@
 	settings.key = k;
 	settings.type = t;	
 	settings.start = s;
-    settings.value = s;
+    settings.displayValue = s;
 	settings.optionPickerInfo = oi;
     settings.optionDetailLabelDefault = od;
 	return [settings autorelease];
 }
 
-- (NSString*) optionPickerValueForIndexes:(NSString*)indexes
+- (NSString*) optionPickerDisplayValueForIndexes:(NSString*)indexes
 {
 	NSString* resultVal = nil;
 	if(![indexes isEqualToString:@"-1"]){
@@ -72,8 +71,53 @@
 			int indexVal = [index intValue];
 			resultVal = resultVal == nil ?  [values objectAtIndex:indexVal] : [NSString stringWithFormat:@"%@,%@", resultVal,[values objectAtIndex:indexVal]];
 		}
-	}	
+	}
 	return resultVal == nil ? @"-1" : resultVal;
+}
+
+- (NSString *)optionPickerSaveValueForIndexes:(NSString*)indexes
+{
+	NSString* resultVal = nil;
+    
+	if (![indexes isEqualToString:@"-1"]) {
+        
+		NSArray* curIndexes = [indexes componentsSeparatedByString:@","];
+		NSArray* displayValues = [self.optionPickerInfo objectForKey:@"itemsList"];
+        NSArray* saveValues = [self.optionPickerInfo objectForKey:@"itemsValues"];
+        BOOL hasDifferentSaveVersusDisplayValues = [saveValues count] > 0;
+        if (hasDifferentSaveVersusDisplayValues) {
+            NSAssert([saveValues count] == [[self.optionPickerInfo objectForKey:@"itemsList"] count], @"ShareKit option picker itemsList and itemsValues counts must match!");
+        }
+        
+		for (NSString* index in curIndexes) {
+            
+			int indexVal = [index intValue];
+            
+            NSString *saveValue;
+            if (hasDifferentSaveVersusDisplayValues) {
+                saveValue = [saveValues objectAtIndex:indexVal];
+            } else {
+                saveValue = [displayValues objectAtIndex:indexVal];
+            }
+            
+			resultVal = resultVal == nil ?  saveValue : [NSString stringWithFormat:@"%@,%@", resultVal, saveValue];
+		}
+	}
+	return resultVal == nil ? @"-1" : resultVal;
+}
+
+- (NSString *)valueToSave {
+    
+    NSString *result = nil;
+    switch (self.type) {
+        case SHKFormFieldTypeOptionPicker:
+            result = [self optionPickerSaveValueForIndexes:[self.optionPickerInfo objectForKey:@"curIndexes"]];
+            break;
+        default:
+            result = self.displayValue;
+            break;
+    }
+    return result;
 }
 
 @end

@@ -45,7 +45,7 @@
 
 - (void)setupWithSettings:(SHKFormFieldSettings *)settings {
     
-    self.textField.text = settings.value;
+    self.textField.text = settings.displayValue;
     self.textField.placeholder = settings.label;
     
     if (settings.type == SHKFormFieldTypePassword) {

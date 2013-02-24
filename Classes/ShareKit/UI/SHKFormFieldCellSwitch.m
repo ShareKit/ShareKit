@@ -33,7 +33,7 @@
     
     self.textLabel.text = settings.label;
     
-    if ([settings.value isEqualToString:SHKFormFieldSwitchOn]) {
+    if ([settings.displayValue isEqualToString:SHKFormFieldSwitchOn]) {
         self.mySwitch.on = YES;        
     } else {        
         self.mySwitch.on = NO;
