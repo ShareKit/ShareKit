@@ -36,6 +36,12 @@
 #import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
+extern NSString * const SHKSendDidStartNotification;
+extern NSString * const SHKSendDidFinishNotification;
+extern NSString * const SHKSendDidFailWithErrorNotification;
+extern NSString * const SHKSendDidCancelNotification;
+extern NSString * const SHKAuthDidFinishNotification;
+
 extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @class SHKActionSheet;

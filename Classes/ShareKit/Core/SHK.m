@@ -38,8 +38,15 @@
 #import <MessageUI/MessageUI.h>
 #include <sys/xattr.h>
 
-NSString * SHKLocalizedStringFormat(NSString* key);
+NSString * const SHKSendDidStartNotification = @"SHKSendDidStartNotification";
+NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
+NSString * const SHKSendDidFailWithErrorNotification = @"SHKSendDidFailWithError";
+NSString * const SHKSendDidCancelNotification = @"SHKSendDidCancel";
+NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
+
 NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
+
+NSString * SHKLocalizedStringFormat(NSString* key);
 
 @interface SHK ()
 
