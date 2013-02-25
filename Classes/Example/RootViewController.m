@@ -14,6 +14,7 @@
 #import "SHK.h"
 #import "SHKFacebook.h"
 #import "ExampleAccountsViewController.h"
+#import "ExampleShareVideo.h"
 
 @interface RootViewController ()
 
@@ -76,7 +77,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;
+    return 5;
 }
 
 
@@ -107,6 +108,11 @@
 		case 3:
 			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
 			break;
+      
+    case 4:
+			cell.textLabel.text = SHKLocalizedString(@"Sharing a Video");
+			break;
+
 	}
 
     return cell;
@@ -135,7 +141,10 @@
 			
 		case 3:
 			[self.navigationController pushViewController:[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] animated:YES];
-			break;		
+			break;
+    case 4:
+			[self.navigationController pushViewController:[[ExampleShareVideo alloc] initWithNibName:nil bundle:nil] animated:YES];
+			break;
 			
 	}
 }
