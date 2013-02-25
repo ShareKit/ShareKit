@@ -101,8 +101,12 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     NSArray *userBlogURLs = [self userBlogURLs];
     NSString *defaultBlogURL = nil;
+    NSString *defaultPickedIndex = @"-1";
+    NSMutableArray *defaultItemsList = [NSMutableArray arrayWithCapacity:0];
     if ([userBlogURLs count] > 0) {
         defaultBlogURL = userBlogURLs[0];
+        defaultPickedIndex = @"0";
+        [defaultItemsList addObject:defaultBlogURL];
     }
     
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
@@ -111,8 +115,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                         type:SHKFormFieldTypeOptionPicker
                                                        start:defaultBlogURL
                                             optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
-                                                              @"curIndexes":@"-1",
-                                                              @"itemsList":[@[] autorelease],
+                                                              @"curIndexes":defaultPickedIndex,
+                                                              @"itemsList":defaultItemsList,
                                                               @"static":[NSNumber numberWithBool:NO],
                                                               @"allowMultiple":[NSNumber numberWithBool:NO],
                                                               @"SHKFormOptionControllerOptionProvider":self} mutableCopy] autorelease]
@@ -132,14 +136,14 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                  [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
                                                          key:@"publish"
                                                         type:SHKFormFieldTypeOptionPicker
-                                                       start:nil
+                                                       start:SHKLocalizedString(@"Publish now")
                                             optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Publish type"),
-                                                              @"curIndexes":@"-1",
+                                                              @"curIndexes":@"0",
                                                               @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
                                                               @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
                                                               @"static":[NSNumber numberWithBool:YES],
                                                               @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy] autorelease]
-                                    optionDetailLabelDefault:SHKLocalizedString(@"Select publish type")], nil];
+                                    optionDetailLabelDefault:nil], nil];
     return baseArray;
 }
                                  /*
