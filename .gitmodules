@@ -13,3 +13,6 @@
 [submodule "Submodules/evernote-ios-sdk"]
 	path = Submodules/evernote-ios-sdk
 	url = https://github.com/evernote/evernote-sdk-ios.git
+[submodule "Submodules/google-api-objectivec"]
+	path = Submodules/google-api-objectivec
+	url = git://github.com/jakemdunn/google-api-objectivec-client.git
