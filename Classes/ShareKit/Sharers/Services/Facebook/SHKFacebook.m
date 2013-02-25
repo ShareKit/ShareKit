@@ -310,10 +310,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 {
 	return YES;
 }
+
 + (BOOL)canShareVideo
 {
 	return YES;
 }
+
 + (BOOL)canShareOffline
 {
 	return NO; // TODO - would love to make this work
@@ -370,13 +372,20 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem
+- (BOOL)validateVideo
 {
-	if (item.shareType == SHKShareTypeVideo)
-	{
-			return [[NSFileManager defaultManager]  fileExistsAtPath:item.srcVideoPath];
-  }
-  return [super validateItem];
+    // Validate our video for valid types and sizes
+    NSArray *validTypes = @[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
+                            @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"];
+    BOOL isValid = YES;
+    
+    if(![validTypes containsObject:item.srcVideoPath.pathExtension]) isValid = NO;
+    // TODO: Validate against video size restrictions
+//    FBRequestConnection *con = [FBRequestConnection startWithGraphPath:@"me?fields=video_upload_limits" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {}];
+    
+    [validTypes dealloc];
+    
+    return isValid;
 }
 
 - (void)share {
@@ -396,15 +405,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)socialFrameworkAvailable {
     
+    if (item.shareType == SHKShareTypeVideo)
+        return NO; // iOS6 sharing can't handle video
+    
     if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
-    {
         return NO;
-    }
     
 	if (NSClassFromString(@"SLComposeViewController"))
-    {
 		return YES;
-	}
 	
 	return NO;
 }
@@ -430,7 +438,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
-    (item.shareType == SHKShareTypeVideo && item.srcVideoPath)||
+        (item.shareType == SHKShareTypeVideo && item.srcVideoPath)||
 		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
@@ -547,17 +555,17 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			[params setObject:item.title forKey:@"caption"];
 		if (item.text)
 			[params setObject:item.text forKey:@"message"];
-    NSError* error = nil;
-    NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
-                                          options:NSDataReadingMappedAlways error:&error];
-    if (error) {
-      [[SHKActivityIndicator currentIndicator] hide];
-      [self sendDidFailWithError:error];
-      [self sendDidFinish];
-      return;
-    }
-    [params setObject:data forKey:[item.srcVideoPath lastPathComponent]];
-    [params setObject:@"video/quicktime" forKey:@"contentType"];
+        NSError* error = nil;
+        NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
+                                              options:NSDataReadingMappedAlways error:&error];
+        if (error) {
+          [[SHKActivityIndicator currentIndicator] hide];
+          [self sendDidFailWithError:error];
+          [self sendDidFinish];
+          return;
+        }
+        [params setObject:data forKey:item.filename];
+        [params setObject:item.mimeType forKey:@"contentType"];
 		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
                                                             parameters:params
                                                             HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {

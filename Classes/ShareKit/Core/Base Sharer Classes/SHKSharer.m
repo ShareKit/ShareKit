@@ -661,6 +661,11 @@
 			
 		case SHKShareTypeImage:
 			return (item.image != nil);
+            
+        case SHKShareTypeVideo:
+            if ((item.srcVideoPath == nil) || ![[NSFileManager defaultManager]  fileExistsAtPath:item.srcVideoPath])
+                return NO;
+            return [self validateVideo];
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
@@ -669,15 +674,19 @@
 			return (item.data != nil);
             
         case SHKShareTypeUserInfo:
-        {    
-            BOOL result = [[self class] canGetUserInfo];
-            return result; 
-        }   
+            return [[self class] canGetUserInfo];
 		default:
 			break;
 	}
 	
 	return NO;
+}
+
+- (BOOL)validateVideo
+{
+    // You need to do per service video validation, related to size or video type.
+    // Don't return an error after upload failure, if possible
+    return NO;
 }
 
 - (BOOL)tryToSend

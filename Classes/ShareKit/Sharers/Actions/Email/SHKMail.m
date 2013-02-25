@@ -74,6 +74,11 @@
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+    return YES;
+}
+
 + (BOOL)canShareFile
 {
 	return YES;
@@ -108,6 +113,22 @@
 #pragma mark -
 #pragma mark Share API Methods
 
+- (BOOL)validateVideo
+{
+    /*
+     * Limiting to 10MB, based on common max attachment sizes listed here:
+     * http://en.wikipedia.org/wiki/Email_attachment
+     * http://help.sizablesend.com/what-are-the-attachment-size-limits-of-major-email-providers/
+     */
+    long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:item.srcVideoPath error:nil][NSFileSize] longLongValue];
+    
+    if (fileSize <= 10 * 1024 * 1024) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (BOOL)send
 {
 	self.quiet = YES;
@@ -134,6 +155,18 @@
 	NSString *body = item.text;
 	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
+    
+    // Get the video data, if that's what we're sharing
+    if (item.shareType == SHKShareTypeVideo && item.srcVideoPath){
+        NSError* error = nil;
+        item.data = [NSData dataWithContentsOfFile:item.srcVideoPath options:NSDataReadingMappedAlways error:&error];
+        if (error) {
+            [[SHKActivityIndicator currentIndicator] hide];
+            [self sendDidFailWithError:error];
+            [self sendDidFinish];
+            return NO;
+        }
+    }
     
 	if (body == nil)
 	{

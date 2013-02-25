@@ -164,8 +164,10 @@
 + (id)videoPath:(NSString *)path title:(NSString *)title
 {
 	SHKItem *item = [[self alloc] init];
-	item.shareType = 	SHKShareTypeVideo;
-  item.srcVideoPath = path;
+	item.shareType = SHKShareTypeVideo;
+    item.srcVideoPath = path;
+    item.filename = [item.srcVideoPath lastPathComponent];
+    item.mimeType = @"video/quicktime";
 	item.title = title;
 	
 	return [item autorelease];

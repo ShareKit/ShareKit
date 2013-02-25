@@ -62,11 +62,9 @@
 {
   [super viewDidLoad];
   if (!self.moviePlayer) {
-//    NSString *videoPath   =   [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
-    
-    NSString *videoPath   =   [[NSBundle mainBundle] pathForResource:@"My First Project" ofType:@"m4v"];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
 
-    NSURL    *videoURL    =   [NSURL fileURLWithPath:videoPath];
+    NSURL *videoURL = [NSURL fileURLWithPath:videoPath];
     self.moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
     [self.moviePlayer prepareToPlay];
     [self.moviePlayer.view setFrame:CGRectMake(0.0, 50.0, 320.0, 320.0)];
@@ -77,21 +75,12 @@
 
 - (void)share
 {
-  if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue]) {
-    NSString *videoPath   =   [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+    NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
     SHKItem *item = [SHKItem videoPath:videoPath  title:@"My Awesome Video"];
     item.text = @"test";
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
     [actionSheet showFromToolbar:self.navigationController.toolbar];
-  }else{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Video sharing configuration"
-                                                    message:@"Video sharing needs forcePreIOS6FacebookPosting = YES"
-                                                   delegate:nil
-                                          cancelButtonTitle:@"Ok"
-                                          otherButtonTitles:nil];
-    [alert show];
-  }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

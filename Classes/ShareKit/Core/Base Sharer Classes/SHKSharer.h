@@ -164,6 +164,7 @@ typedef enum
 - (NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString tagSuffix:(NSString *)suffixString;
 
 - (BOOL)validateItem;
+- (BOOL)validateVideo;
 - (BOOL)tryToSend;
 - (BOOL)send;
 
