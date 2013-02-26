@@ -32,10 +32,12 @@
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
+#import <MediaPlayer/MediaPlayer.h>
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
+static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";
 
 // these are ways of getting back to the instance that made the request through statics
 // there are two so that the logic of their lifetimes is understandable.
@@ -380,10 +382,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     BOOL isValid = YES;
     
     if(![validTypes containsObject:item.srcVideoPath.pathExtension]) isValid = NO;
-    // TODO: Validate against video size restrictions
-//    FBRequestConnection *con = [FBRequestConnection startWithGraphPath:@"me?fields=video_upload_limits" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {}];
-    
-    [validTypes dealloc];
     
     return isValid;
 }
@@ -549,29 +547,39 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																 }];
 		[self.pendingConnections addObject:con];
 	}
-  else if (item.shareType == SHKShareTypeVideo && item.srcVideoPath)
+    else if (item.shareType == SHKShareTypeVideo && item.srcVideoPath)
 	{
-		if (item.title)
-			[params setObject:item.title forKey:@"caption"];
-		if (item.text)
-			[params setObject:item.text forKey:@"message"];
-        NSError* error = nil;
-        NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
-                                              options:NSDataReadingMappedAlways error:&error];
-        if (error) {
-          [[SHKActivityIndicator currentIndicator] hide];
-          [self sendDidFailWithError:error];
-          [self sendDidFinish];
-          return;
-        }
-        [params setObject:data forKey:item.filename];
-        [params setObject:item.mimeType forKey:@"contentType"];
-		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
-                                                            parameters:params
-                                                            HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                              [self FBRequestHandlerCallback:connection result:result error:error];
-                                                            }];
-		[self.pendingConnections addObject:con];
+        [self validateVideoLimits:^(NSError *error){
+            
+            if (error){
+                [[SHKActivityIndicator currentIndicator] hide];
+                [self sendDidFailWithError:error];
+                [self sendDidFinish];
+                return;
+            }
+            
+            if (item.title)
+                [params setObject:item.title forKey:@"caption"];
+            if (item.text)
+                [params setObject:item.text forKey:@"message"];
+            
+            NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
+                                                  options:NSDataReadingMappedAlways error:&error];
+            if (error) {
+                [[SHKActivityIndicator currentIndicator] hide];
+                [self sendDidFailWithError:error];
+                [self sendDidFinish];
+                return;
+            }
+            [params setObject:data forKey:item.filename];
+            [params setObject:item.mimeType forKey:@"contentType"];
+            FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
+                                                                    parameters:params
+                                                                    HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                        [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                    }];
+            [self.pendingConnections addObject:con];
+        }];
 	}
 	else if (item.shareType == SHKShareTypeUserInfo)
 	{	// sharekit demo app doesn't use this, handy if you need to show user info, such as user name for OAuth services in your app, see https://github.com/ShareKit/ShareKit/wiki/FAQ
@@ -582,6 +590,90 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 	}
     [self sendDidStart];
+}
+
+-(void)validateVideoLimits:(void (^)(NSError *error))completionBlock
+{
+    // Validate against video size restrictions
+    
+    // Pull our constraints directly from facebook
+    FBRequestConnection *con = [FBRequestConnection startWithGraphPath:@"me?fields=video_upload_limits" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if(![self.pendingConnections containsObject:connection]){
+            NSLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
+        }
+        [self.pendingConnections removeObject:connection];
+        
+        if(error){
+            [[SHKActivityIndicator currentIndicator] hide];
+            [self sendDidFailWithError:error];
+            
+            return;
+        }else{
+            // Parse and store - for possible future reference
+            [result convertNSNullsToEmptyStrings];
+            [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookVideoUploadLimits];
+            
+            // Get video size
+            long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:item.srcVideoPath error:nil][NSFileSize] longLongValue];
+            
+            // File too large
+            if(fileSize > (int)result[@"video_upload_limits"][@"size"]){
+                completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                               NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}]);
+                return;
+            }
+            
+            // Get video length
+            MPMoviePlayerController *player = [[[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:item.srcVideoPath]] autorelease];
+            
+            // Our observers
+            __block id stateObserver;
+            __block id endedObserver;
+            
+            // Our block for event handling
+            void (^observerBlock)(NSNotification *note) = ^(NSNotification *note){
+                
+                // Playback failed
+                if(player.loadState == MPMovieFinishReasonPlaybackError){
+                    [[NSNotificationCenter defaultCenter] removeObserver:stateObserver];
+                    [[NSNotificationCenter defaultCenter] removeObserver:endedObserver];
+                    
+                    completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video failed to load.")}]);
+                    
+                }
+                
+                // Waiting to load, still
+                if(player.loadState == MPMovieLoadStateUnknown) return;
+                
+                [[NSNotificationCenter defaultCenter] removeObserver:stateObserver];
+                [[NSNotificationCenter defaultCenter] removeObserver:endedObserver];
+                
+                // Does our duration fall under limits?
+                if(player.duration > (int)result[@"video_upload_limits"][@"length"]){
+                    completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}]);
+                    return;
+                }
+                
+                // Success!
+                completionBlock(nil);
+            };
+            
+            // We need to wait for the video to load to get the duration
+            stateObserver = [[NSNotificationCenter defaultCenter] addObserverForName:MPMoviePlayerLoadStateDidChangeNotification
+                                                                              object:nil
+                                                                               queue:[NSOperationQueue mainQueue]
+                                                                          usingBlock:observerBlock];
+            // Error handling
+            endedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:MPMoviePlayerPlaybackDidFinishNotification
+                                                                              object:nil
+                                                                               queue:[NSOperationQueue mainQueue]
+                                                                          usingBlock:observerBlock];
+            [player prepareToPlay];
+        }
+    }];
+    [self.pendingConnections addObject:con];
 }
 
 -(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
@@ -670,7 +762,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL || item.shareType == SHKShareTypeVideo)
     {
         [self showFacebookForm];
     }
@@ -742,9 +834,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             rootView.hasLink = YES;
             rootView.allowSendingEmptyMessage = YES;
             break;
+        case SHKShareTypeVideo:
+            rootView.text = item.title;
         default:
             break;
-    }    
+    }
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
@@ -759,6 +853,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         case SHKShareTypeText:
             self.item.text = form.textView.text;
             break;
+        case SHKShareTypeVideo:
         case SHKShareTypeImage:
         case SHKShareTypeURL:
             self.item.text = form.textView.text;
