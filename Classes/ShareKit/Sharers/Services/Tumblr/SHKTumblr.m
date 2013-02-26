@@ -52,7 +52,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 + (NSString *)sharerTitle { return @"Tumblr"; }
 
-//+ (BOOL)canShareURL { return YES; }
+ + (BOOL)canShareURL { return YES; }
 //+ (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText { return YES; }
 + (BOOL)canGetUserInfo { return YES; }
@@ -95,10 +95,9 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-    if (type == SHKShareTypeUserInfo) {
-        return nil;
-    }
+    if (type == SHKShareTypeUserInfo) return nil;
     
+    //if there is user info saved already in defaults, show the first blog as default option, otherwise user must choose one.
     NSArray *userBlogURLs = [self userBlogURLs];
     NSString *defaultBlogURL = nil;
     NSString *defaultPickedIndex = @"-1";
@@ -109,101 +108,66 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         [defaultItemsList addObject:defaultBlogURL];
     }
     
-    NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
-                                                         key:@"blog"
-                                                        type:SHKFormFieldTypeOptionPicker
-                                                       start:defaultBlogURL
-                                            optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
-                                                              @"curIndexes":defaultPickedIndex,
-                                                              @"itemsList":defaultItemsList,
-                                                              @"static":[NSNumber numberWithBool:NO],
-                                                              @"allowMultiple":[NSNumber numberWithBool:NO],
-                                                              @"SHKFormOptionControllerOptionProvider":self} mutableCopy] autorelease]
-                                    optionDetailLabelDefault:SHKLocalizedString(@"Select blog")],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
-                                                         key:@"title"
-                                                        type:SHKFormFieldTypeText
-                                                       start:self.item.title],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Body")
-                                                         key:@"text"
-                                                        type:SHKFormFieldTypeText
-                                                       start:self.item.text],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
-                                                         key:@"tags"
-                                                        type:SHKFormFieldTypeText
-                                                       start:[self.item.tags componentsJoinedByString:@", "]],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
-                                                         key:@"publish"
-                                                        type:SHKFormFieldTypeOptionPicker
-                                                       start:SHKLocalizedString(@"Publish now")
-                                            optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Publish type"),
-                                                              @"curIndexes":@"0",
-                                                              @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
-                                                              @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
-                                                              @"static":[NSNumber numberWithBool:YES],
-                                                              @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy] autorelease]
-                                    optionDetailLabelDefault:nil], nil];
-    return baseArray;
-}
-                                 /*
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
-                                                         key:@"is_public"
-                                                        type:SHKFormFieldTypeSwitch
-                                                       start:SHKFormFieldSwitchOn],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Friend")
-                                                         key:@"is_friend"
-                                                        type:SHKFormFieldTypeSwitch
-                                                       start:SHKFormFieldSwitchOn],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Family")
-                                                         key:@"is_family"
-                                                        type:SHKFormFieldTypeSwitch
-                                                       start:SHKFormFieldSwitchOn],
-                                 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
-                                                         key:@"postgroup"
-                                                        type:SHKFormFieldTypeOptionPicker
-                                                       start:nil
-                                            optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Flickr Groups"), @"title",
-                                                              @"-1", @"curIndexes",
-                                                              [NSArray array],@"itemsList",
-                                                              [NSNumber numberWithBool:NO], @"static",
-                                                              [NSNumber numberWithBool:YES], @"allowMultiple",
-                                                              self, @"SHKFormOptionControllerOptionProvider",
-                                                              nil]
-                                    optionDetailLabelDefault:SHKLocalizedString(@"Select Group")],
-                                 nil
-                                 ];
-
+    SHKFormFieldSettings *blogField = [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
+                                                              key:@"blog"
+                                                             type:SHKFormFieldTypeOptionPicker
+                                                            start:defaultBlogURL
+                                                 optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
+                                                                    @"curIndexes":defaultPickedIndex,
+                                                                    @"itemsList":defaultItemsList,
+                                                                    @"static":[NSNumber numberWithBool:NO],
+                                                                    @"allowMultiple":[NSNumber numberWithBool:NO],
+                                                                    @"SHKFormOptionControllerOptionProvider":self} mutableCopy] autorelease]
+                                         optionDetailLabelDefault:SHKLocalizedString(@"Select blog")];
     
-	if (type == SHKShareTypeURL)
-	{
-		// An example form that has a single text field to let the user edit the share item's title
-		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:@"Title" key:@"title" type:SHKFormFieldTypeText start:item.title],
-				nil];
-	}
-	
-	else if (type == SHKShareTypeImage)
-	{
-		// return a form if required when sharing an image
-		return nil;		
-	}
-	
-	else if (type == SHKShareTypeText)
-	{
-		// return a form if required when sharing text
-		return nil;		
-	}
-	
-	else if (type == SHKShareTypeFile)
-	{
-		// return a form if required when sharing a file
-		return nil;		
-	}
-	
-	return nil;
+    SHKFormFieldSettings *tagsField = [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
+                                                              key:@"tags"
+                                                             type:SHKFormFieldTypeText
+                                                            start:[self.item.tags componentsJoinedByString:@", "]];
+    
+    SHKFormFieldSettings *publishField = [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
+                                                                 key:@"publish"
+                                                                type:SHKFormFieldTypeOptionPicker
+                                                               start:SHKLocalizedString(@"Publish now")
+                                                    optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Publish type"),
+                                                                       @"curIndexes":@"0",
+                                                                       @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
+                                                                       @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
+                                                                       @"static":[NSNumber numberWithBool:YES],
+                                                                       @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy] autorelease]
+                                            optionDetailLabelDefault:nil];
+
+    NSMutableArray *result = nil;
+    switch (type) {
+        case SHKShareTypeText:
+        {
+            SHKFormFieldSettings *bodyField = [SHKFormFieldSettings label:SHKLocalizedString(@"Body")
+                                                                      key:@"text"
+                                                                     type:SHKFormFieldTypeText
+                                                                    start:self.item.text];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleField], bodyField, tagsField, publishField, nil];
+            break;
+        }
+        case SHKShareTypeURL:
+        {
+            SHKFormFieldSettings *descriptionField = [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
+                                                                             key:@"text"
+                                                                            type:SHKFormFieldTypeText
+                                                                           start:self.item.text];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleField], descriptionField, tagsField, publishField, nil];
+            break;
+        }
+        default:
+            break;
+    }
+    return result;
 }
-*/
+
+- (SHKFormFieldSettings *)titleField {
+    
+    return [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
+}
+
 
 // If you have a share form the user will have the option to skip it in the future.
 // If your form has required information and should never be skipped, uncomment this section.
@@ -247,7 +211,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	return itemValid;
 }
 
-
 // Send the share item to the server
 - (BOOL)send
 {	
@@ -263,6 +226,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     switch (item.shareType) {
             
         case SHKShareTypeUserInfo:
+        {
             [self setQuiet:YES];
             oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
                                                                           consumer:consumer // this is a consumer object already made available to us
@@ -271,17 +235,10 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                  signatureProvider:signatureProvider];
             [oRequest setHTTPMethod:@"GET"];
             break;
+        }
         case SHKShareTypeText:
         {
-            NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
-            oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
-                                                       consumer:consumer // this is a consumer object already made available to us
-                                                          token:accessToken // this is our accessToken already made available to us
-                                                          realm:nil
-                                              signatureProvider:signatureProvider];
-            [urlString release];
-            
-            [oRequest setHTTPMethod:@"POST"];
+            oRequest = [self setupPostRequest];
             
             OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"text"];
             OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
@@ -290,18 +247,38 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             [typeParam release];
             [titleParam release];
             [bodyParam release];
-            //OARequestParameter *tweetParam = [[OARequestParameter alloc] initWithName:@"tweet" value:shouldTweet];
-            //[tweetParam release];
+            break;
+        }
+        case SHKShareTypeURL:
+        {
+            oRequest = [self setupPostRequest];
+            
+            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"link"];
+            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
+            OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[item.URL absoluteString]];
+            [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+            [typeParam release];
+            [titleParam release];
+            [urlParam release];
+            
+            if (item.text) {
+                OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:item.text];
+                [params addObject:descriptionParam];
+                [descriptionParam release];
+            }
+            break;
         }
         default:
             break;
     }
+    
     OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags" value:tags];
     OARequestParameter *publishParam = [[OARequestParameter alloc] initWithName:@"state" value:[self.item customValueForKey:@"publish"]];
     [params addObjectsFromArray:@[tagsParam, publishParam]];
     [tagsParam release];
     [publishParam release];
     [oRequest setParameters:params];
+    
     // Start the request
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -315,6 +292,19 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     [self sendDidStart];
     
     return YES;
+}
+
+- (OAMutableURLRequest *)setupPostRequest {
+    
+    NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
+    OAMutableURLRequest *result = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
+                                               consumer:consumer // this is a consumer object already made available to us
+                                                  token:accessToken // this is our accessToken already made available to us
+                                                  realm:nil
+                                      signatureProvider:signatureProvider];
+    [urlString release];
+    [result setHTTPMethod:@"POST"];
+    return result;
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
