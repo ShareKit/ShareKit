@@ -35,7 +35,7 @@
 
 @end
 
-static SHKConfiguration *sharedInstance = nil;
+static SHKConfiguration *sharedSHKConfiguration = nil;
 
 @implementation SHKConfiguration
 
@@ -76,31 +76,31 @@ static SHKConfiguration *sharedInstance = nil;
 {
     @synchronized(self)
     {
-        if (sharedInstance == nil) {
+        if (sharedSHKConfiguration == nil) {
             [NSException raise:@"IllegalStateException" format:@"ShareKit must be configured before use. Use your subclass of DefaultSHKConfigurator, for more info see https://github.com/ShareKit/ShareKit/wiki/Configuration. Example: ShareKitDemoConfigurator in the demo app"];
         }
     }
-    return sharedInstance;
+    return sharedSHKConfiguration;
 }
 
 + (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config
 {
     @synchronized(self)
     {
-		if (sharedInstance != nil) {
+		if (sharedSHKConfiguration != nil) {
 			[NSException raise:@"IllegalStateException" format:@"SHKConfiguration has already been configured with a delegate."];
 		}
-		sharedInstance = [[SHKConfiguration alloc] initWithConfigurator:config];
+		sharedSHKConfiguration = [[SHKConfiguration alloc] initWithConfigurator:config];
     }
-    return sharedInstance;
+    return sharedSHKConfiguration;
 }
 
 
 + (id)allocWithZone:(NSZone *)zone {
     @synchronized(self) {
-        if (sharedInstance == nil) {
-            sharedInstance = [super allocWithZone:zone];
-            return sharedInstance;  // assignment and return on first allocation
+        if (sharedSHKConfiguration == nil) {
+            sharedSHKConfiguration = [super allocWithZone:zone];
+            return sharedSHKConfiguration;  // assignment and return on first allocation
         }
     }
     return nil; // on subsequent allocation attempts return nil
