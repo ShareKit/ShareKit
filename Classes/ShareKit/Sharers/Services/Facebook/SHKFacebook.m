@@ -618,8 +618,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             
             // File too large
             if(fileSize > (int)result[@"video_upload_limits"][@"size"]){
-                completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                               NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}]);
+                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                               NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}] autorelease]);
                 return;
             }
             
@@ -638,8 +638,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                     [[NSNotificationCenter defaultCenter] removeObserver:stateObserver];
                     [[NSNotificationCenter defaultCenter] removeObserver:endedObserver];
                     
-                    completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video failed to load.")}]);
+                    completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video failed to load.")}] autorelease]);
                     
                 }
                 
@@ -651,8 +651,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                 
                 // Does our duration fall under limits?
                 if(player.duration > (int)result[@"video_upload_limits"][@"length"]){
-                    completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}]);
+                    completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}] autorelease]);
                     return;
                 }
                 
