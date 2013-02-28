@@ -96,21 +96,29 @@ static SHKGooglePlus *sharedInstance = nil;
 }
 
 - (BOOL)send {
-    BOOL returnValue = [self.mShareBuilder open];
-    [self sendDidStart];
-    return returnValue;
+    if ([self validateItem]) {
+        [self sendDidStart];
+        return [self.mShareBuilder open];
+    }
+    return NO;
 }
 
 #pragma mark -
 #pragma mark Life Cycles
 
 - (id)init {
-    self = [super init];
-    if (self) {
-        self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
-        self.mGooglePlusShare.delegate = self;
+    if (!sharedInstance) {
+        self = [super init];
+        if (self) {
+            self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
+            self.mGooglePlusShare.delegate = self;
+            sharedInstance = [self retain];
+        }
+        return self;
     }
-    return self;
+    else {
+        return [sharedInstance retain];
+    }
 }
 
 - (void)dealloc {
@@ -126,6 +134,7 @@ static SHKGooglePlus *sharedInstance = nil;
 // Reports the status of the share action, |shared| is |YES| if user has
 // successfully shared her post, |NO| otherwise, e.g. user canceled the post.
 - (void)finishedSharing:(BOOL)shared {
+    [[SHKActivityIndicator currentIndicator] hide];
     if (shared)
         [self sendDidFinish];
     else

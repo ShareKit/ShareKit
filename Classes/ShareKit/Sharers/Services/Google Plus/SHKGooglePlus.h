@@ -22,7 +22,7 @@
 //    type to be handled by your application. Make the URL scheme the same as
 //    the bundle ID of your application.
 //
-// 4. In your application delegate, import SHKGooglePlus.h and implement
+// 4. In your application delegate, #import "SHKGooglePlus.h" and implement
 //    - (BOOL)application:(NSString*)application
 //                openURL:(NSURL *)url
 //      sourceApplication:(NSString*)sourceApplication
