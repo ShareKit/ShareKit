@@ -122,6 +122,7 @@ static char const* const ListURIKey = "ListURIKey";
     
     NSDictionary *headers = [[NSDictionary alloc] initWithObjectsAndKeys:authValue, @"Authorization", nil];
     self.request.headerFields = headers;
+    [headers release];
     [self.request start];
 }
 

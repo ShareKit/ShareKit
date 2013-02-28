@@ -30,7 +30,6 @@
     //Here you load ShareKit submodule with app specific configuration
     DefaultSHKConfigurator *configurator = [[ShareKitDemoConfigurator alloc] init];
     [SHKConfiguration sharedInstanceWithConfigurator:configurator];
-    [configurator release];
     
     window.rootViewController = navigationController;
     [window makeKeyAndVisible];
@@ -88,9 +87,6 @@
 #pragma mark Memory management
 
 - (void)dealloc {
-	[navigationController release];
-	[window release];
-	[super dealloc];
 }
 
 

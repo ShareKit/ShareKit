@@ -28,11 +28,6 @@
 #import <UIKit/UIKit.h>
 
 
-@interface ExampleShareLink : UIViewController <UIWebViewDelegate>
-{
-	UIWebView *webView;
-}
-
-@property (nonatomic, retain) UIWebView *webView;
+@interface ExampleShareLink : UIViewController
 
 @end
