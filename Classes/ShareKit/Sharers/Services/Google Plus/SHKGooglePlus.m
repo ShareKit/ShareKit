@@ -15,7 +15,7 @@
 
 @implementation SHKGooglePlus
 
-@synthesize mGooglePlusShare;
+@synthesize mGooglePlusShare,mShareBuilder;
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -50,24 +50,44 @@
     return NO;
 }
 
++ (BOOL)canAutoShare
+{
+	return NO;
+}
+
+#pragma mark -
+#pragma mark Authorization
+
++ (BOOL)requiresAuthentication {
+	return NO;
+}
+
++ (void)logout {
+	[super logout];
+}
+
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)share {
-    id<GPPShareBuilder> shareBuilder = [self.mGooglePlusShare shareDialog];
+- (void)show {
+    self.mShareBuilder = [self.mGooglePlusShare shareDialog];
     
     switch ([self.item shareType]) {
         case SHKShareTypeURL:
-            shareBuilder = [shareBuilder setURLToShare:self.item.URL];
+            [self.mShareBuilder setURLToShare:self.item.URL];
+            [self.mShareBuilder setPrefillText:self.item.text];
             break;
         default:
         case SHKShareTypeText:
-            shareBuilder = [shareBuilder setPrefillText:self.item.text];
+            [self.mShareBuilder setPrefillText:self.item.text];
             break;
     }
+    [self tryToSend];
+}
 
-    if (![shareBuilder open])
-        [super share];
+- (BOOL)send {
+    BOOL returnValue = [self.mShareBuilder open];
+    return returnValue;
 }
 
 #pragma mark -
@@ -82,20 +102,11 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     self.mGooglePlusShare.delegate = nil;
     self.mGooglePlusShare = nil;
+    self.mShareBuilder = nil;
 	[super dealloc];
-}
-
-#pragma mark -
-#pragma mark GPPShareDelegate
-
-// Reports the status of the share action, |shared| is |YES| if user has
-// successfully shared her post, |NO| otherwise, e.g. user canceled the post.
-- (void)finishedSharing:(BOOL)shared {
-    
 }
 
 @end

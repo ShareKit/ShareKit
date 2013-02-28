@@ -11,8 +11,10 @@
 
 @interface SHKGooglePlus : SHKSharer <GPPShareDelegate> {
     GPPShare *mGooglePlusShare;
+    id<GPPShareBuilder> mShareBuilder;
 }
 
 @property (nonatomic, retain) GPPShare *mGooglePlusShare;
+@property (nonatomic, retain) id<GPPShareBuilder> mShareBuilder;
 
 @end
