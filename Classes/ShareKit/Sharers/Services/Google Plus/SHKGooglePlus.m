@@ -17,6 +17,16 @@
 
 @synthesize mGooglePlusShare,mShareBuilder;
 
+static SHKGooglePlus *sharedInstance = nil;
+
++ (SHKGooglePlus *)shared {
+	@synchronized(self) {
+		if (!sharedInstance)
+			sharedInstance = [SHKGooglePlus new];
+	}
+	return sharedInstance;
+}
+
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -87,6 +97,7 @@
 
 - (BOOL)send {
     BOOL returnValue = [self.mShareBuilder open];
+    [self sendDidStart];
     return returnValue;
 }
 
@@ -107,6 +118,18 @@
     self.mGooglePlusShare = nil;
     self.mShareBuilder = nil;
 	[super dealloc];
+}
+
+#pragma mark -
+#pragma mark GPPShareDelegate
+
+// Reports the status of the share action, |shared| is |YES| if user has
+// successfully shared her post, |NO| otherwise, e.g. user canceled the post.
+- (void)finishedSharing:(BOOL)shared {
+    if (shared)
+        [self sendDidFinish];
+    else
+        [self sendDidCancel];
 }
 
 @end
