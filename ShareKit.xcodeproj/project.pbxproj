@@ -28,6 +28,9 @@
 		43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43C91D1C11EB963600F31FAE /* MainWindow-iPad.xib */; };
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
+		6F2F731116DFF59000710D81 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2F731016DFF59000710D81 /* MobileCoreServices.framework */; };
+		6F2F731B16E013E000710D81 /* SHKSharer+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2F731A16E013E000710D81 /* SHKSharer+Video.m */; };
+		6F2F731C16E114BF00710D81 /* GTMOAuth2ViewTouch.xib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBB633916D8167500B782A6 /* GTMOAuth2ViewTouch.xib */; };
 		6FBB629516D8150000B782A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		6FBB633A16D8167500B782A6 /* GTLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB630916D8167500B782A6 /* GTLObject.m */; };
 		6FBB633B16D8167500B782A6 /* GTLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB630B16D8167500B782A6 /* GTLQuery.m */; };
@@ -107,6 +110,7 @@
 		6FBB63F416D8169600B782A6 /* GTLYouTubeVideoStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB63BD16D8169600B782A6 /* GTLYouTubeVideoStatus.m */; };
 		6FBB63F516D8169600B782A6 /* GTLYouTubeVideoTopicDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB63BF16D8169600B782A6 /* GTLYouTubeVideoTopicDetails.m */; };
 		6FBB63F616D816AF00B782A6 /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FBB629416D8150000B782A6 /* libYouTube.a */; };
+		6FCB2FD816DD645C0045D07A /* SHKYouTube.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB2FD616DD640E0045D07A /* SHKYouTube.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -548,6 +552,7 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				6F2F731C16E114BF00710D81 /* GTMOAuth2ViewTouch.xib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +737,9 @@
 		43C91DF411EBAE4800F31FAE /* SHKTumblr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTumblr.m; sourceTree = "<group>"; };
 		43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		6F2F731016DFF59000710D81 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		6F2F731916E013E000710D81 /* SHKSharer+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SHKSharer+Video.h"; path = "Video/SHKSharer+Video.h"; sourceTree = "<group>"; };
+		6F2F731A16E013E000710D81 /* SHKSharer+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SHKSharer+Video.m"; path = "Video/SHKSharer+Video.m"; sourceTree = "<group>"; };
 		6FBB629416D8150000B782A6 /* libYouTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYouTube.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBB630716D8167500B782A6 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDefines.h; path = "Submodules/google-api-objectivec/Source/GTLDefines.h"; sourceTree = SOURCE_ROOT; };
 		6FBB630816D8167500B782A6 /* GTLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLObject.h; path = "Submodules/google-api-objectivec/Source/Objects/GTLObject.h"; sourceTree = SOURCE_ROOT; };
@@ -893,6 +901,8 @@
 		6FBB63BF16D8169600B782A6 /* GTLYouTubeVideoTopicDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLYouTubeVideoTopicDetails.m; sourceTree = "<group>"; };
 		6FCB2FD016DD43170045D07A /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6FCB2FD316DD432C0045D07A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		6FCB2FD516DD640E0045D07A /* SHKYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKYouTube.h; path = YouTube/SHKYouTube.h; sourceTree = "<group>"; };
+		6FCB2FD616DD640E0045D07A /* SHKYouTube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKYouTube.m; path = YouTube/SHKYouTube.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
 		7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKDelicious.m; path = Delicious/SHKDelicious.m; sourceTree = "<group>"; };
 		7A0F9246156BA2A0009CB40A /* libShareKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1047,6 +1057,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F2F731116DFF59000710D81 /* MobileCoreServices.framework in Frameworks */,
 				403F28B616D778A000CAEBA7 /* MediaPlayer.framework in Frameworks */,
 				7AF9AAD9165B6C0400F92215 /* libsqlite3.0.dylib in Frameworks */,
 				7A4BC546165A0A2000460B01 /* AdSupport.framework in Frameworks */,
@@ -1412,6 +1423,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				6F2F731016DFF59000710D81 /* MobileCoreServices.framework */,
 				6FCB2FD316DD432C0045D07A /* CoreMedia.framework */,
 				6FCB2FD016DD43170045D07A /* AVFoundation.framework */,
 				E153775A16AF0A760015726B /* Default-568h@2x.png */,
@@ -1718,6 +1730,7 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				6F2F731816E0138C00710D81 /* Video */,
 				F92EF477148E8F1A0070F913 /* JSONKit */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
@@ -1987,10 +2000,21 @@
 			path = Tumblr;
 			sourceTree = "<group>";
 		};
+		6F2F731816E0138C00710D81 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				6F2F731916E013E000710D81 /* SHKSharer+Video.h */,
+				6F2F731A16E013E000710D81 /* SHKSharer+Video.m */,
+			);
+			name = Video;
+			sourceTree = "<group>";
+		};
 		6FBB630416D8162D00B782A6 /* YouTube */ = {
 			isa = PBXGroup;
 			children = (
 				6FBB630516D8163A00B782A6 /* YouTubeSDK */,
+				6FCB2FD516DD640E0045D07A /* SHKYouTube.h */,
+				6FCB2FD616DD640E0045D07A /* SHKYouTube.m */,
 			);
 			name = YouTube;
 			sourceTree = "<group>";
@@ -3417,6 +3441,7 @@
 				7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */,
 				E153775616AF070A0015726B /* ExampleAccountsViewController.m in Sources */,
 				403F28B316D7774900CAEBA7 /* ExampleShareVideo.m in Sources */,
+				6F2F731B16E013E000710D81 /* SHKSharer+Video.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3424,6 +3449,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FCB2FD816DD645C0045D07A /* SHKYouTube.m in Sources */,
 				6FBB633A16D8167500B782A6 /* GTLObject.m in Sources */,
 				6FBB633B16D8167500B782A6 /* GTLQuery.m in Sources */,
 				6FBB633C16D8167500B782A6 /* GTLBatchQuery.m in Sources */,

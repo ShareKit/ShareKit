@@ -199,6 +199,16 @@
     return @"app://foursquare";
 }
 
+-(NSString *)youTubeConsumerKey
+{
+    return @"210716542944.apps.googleusercontent.com";
+}
+
+-(NSString *)youTubeSecret
+{
+    return @"aaHCtV3LhzFE6XSFcKobb7HU";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

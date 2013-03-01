@@ -43,6 +43,7 @@
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
 }
 

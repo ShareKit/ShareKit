@@ -28,6 +28,7 @@
 #import "SHKItem.h"
 #import "SHK.h"
 #import "SHKConfiguration.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 
 @interface SHKItem()
@@ -167,7 +168,7 @@
 	item.shareType = SHKShareTypeVideo;
     item.srcVideoPath = path;
     item.filename = [item.srcVideoPath lastPathComponent];
-    item.mimeType = @"video/quicktime";
+    item.mimeType = [item MIMETypeForPath:path defaultMIMEType:@"video/quicktime"];
 	item.title = title;
 	
 	return [item autorelease];
@@ -394,5 +395,20 @@
     
     return result;
 }
+
+- (NSString *)MIMETypeForPath:(NSString *)path defaultMIMEType:(NSString *)defaultType {
+    NSString *result = defaultType;
+    NSString *extension = [path pathExtension];
+    CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL);
+    if (uti) {
+        CFStringRef cfMIMEType = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType);
+        if (cfMIMEType) {
+            result = CFBridgingRelease(cfMIMEType);
+        }
+        CFRelease(uti);
+    }
+    return result;
+}
+
 
 @end

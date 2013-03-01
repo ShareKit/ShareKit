@@ -295,7 +295,6 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (id)retain
 {
-	
     return self;	
 }
 

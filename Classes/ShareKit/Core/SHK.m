@@ -343,6 +343,10 @@ BOOL SHKinit;
 			case SHKShareTypeImage:
 				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
 				break;
+            
+            case SHKShareTypeVideo:
+                favoriteSharers = SHKCONFIG(defaultFavoriteVideoSharers);
+                break;
 				
 			case SHKShareTypeText:
 				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);

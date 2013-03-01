@@ -108,11 +108,10 @@
 		case 3:
 			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
 			break;
-      
-    case 4:
+            
+        case 4:
 			cell.textLabel.text = SHKLocalizedString(@"Sharing a Video");
 			break;
-
 	}
 
     return cell;
@@ -131,7 +130,6 @@
 			break;
 			
 		case 1:
-			
 			[self.navigationController pushViewController:[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
@@ -142,10 +140,10 @@
 		case 3:
 			[self.navigationController pushViewController:[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
-    case 4:
+            
+        case 4:
 			[self.navigationController pushViewController:[[ExampleShareVideo alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
-			
 	}
 }
 

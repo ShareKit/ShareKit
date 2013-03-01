@@ -92,6 +92,7 @@ typedef enum
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
++ (BOOL)canShareVideo;
 + (BOOL)canShareFile;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
@@ -164,7 +165,6 @@ typedef enum
 - (NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString tagSuffix:(NSString *)suffixString;
 
 - (BOOL)validateItem;
-- (BOOL)validateVideo;
 - (BOOL)tryToSend;
 - (BOOL)send;
 

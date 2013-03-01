@@ -240,6 +240,15 @@
     return @"";
 }
 
+// YouTube - https://developers.google.com/youtube/v3/guides/authentication#OAuth2_Register
+- (NSString*)youTubeConsumerKey {
+	return @"";
+}
+
+- (NSString*)youTubeSecret {
+	return @"";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
@@ -301,6 +310,9 @@
 }
 - (NSArray*)defaultFavoriteImageSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy", nil];
+}
+- (NSArray*)defaultFavoriteVideoSharers {
+    return @[@"SHKMail",@"SHKFacebook",@"SHKYouTube"];
 }
 - (NSArray*)defaultFavoriteTextSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];

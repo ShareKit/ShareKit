@@ -113,6 +113,14 @@
 #pragma mark -
 #pragma mark Share API Methods
 
+- (BOOL)validateItem
+{
+    if ([super validateItem] == NO)
+        return NO;
+    
+    return [self validateVideo];
+}
+
 - (BOOL)validateVideo
 {
     /*
