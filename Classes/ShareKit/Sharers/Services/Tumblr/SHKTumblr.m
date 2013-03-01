@@ -52,8 +52,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 + (NSString *)sharerTitle { return @"Tumblr"; }
 
- + (BOOL)canShareURL { return YES; }
-//+ (BOOL)canShareImage { return YES; }
++ (BOOL)canShareURL { return YES; }
++ (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText { return YES; }
 + (BOOL)canGetUserInfo { return YES; }
 
@@ -145,7 +145,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                       key:@"text"
                                                                      type:SHKFormFieldTypeText
                                                                     start:self.item.text];
-            result = [NSMutableArray arrayWithObjects:blogField, [self titleField], bodyField, tagsField, publishField, nil];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Title")], bodyField, tagsField, publishField, nil];
             break;
         }
         case SHKShareTypeURL:
@@ -154,8 +154,12 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                              key:@"text"
                                                                             type:SHKFormFieldTypeText
                                                                            start:self.item.text];
-            result = [NSMutableArray arrayWithObjects:blogField, [self titleField], descriptionField, tagsField, publishField, nil];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Title")], descriptionField, tagsField, publishField, nil];
             break;
+        }
+        case SHKShareTypeImage:
+        {
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Caption")], tagsField, publishField, nil];
         }
         default:
             break;
@@ -163,9 +167,9 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     return result;
 }
 
-- (SHKFormFieldSettings *)titleField {
+- (SHKFormFieldSettings *)titleFieldWithLabel:(NSString *)label {
     
-    return [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
+    return [SHKFormFieldSettings label:label key:@"title" type:SHKFormFieldTypeText start:self.item.title];
 }
 
 
@@ -220,9 +224,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     OAMutableURLRequest *oRequest = nil;
     NSMutableArray *params = [@[] mutableCopy];
     
-    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:@","] invertedSet];
-	NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
-    
     switch (item.shareType) {
             
         case SHKShareTypeUserInfo:
@@ -272,6 +273,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             break;
     }
     
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:@","] invertedSet];
+	NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
     OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags" value:tags];
     OARequestParameter *publishParam = [[OARequestParameter alloc] initWithName:@"state" value:[self.item customValueForKey:@"publish"]];
     [params addObjectsFromArray:@[tagsParam, publishParam]];
