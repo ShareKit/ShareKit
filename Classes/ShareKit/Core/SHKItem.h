@@ -45,43 +45,23 @@ typedef enum
     SHKURLContentTypeVideo,
 } SHKURLContentType;
 
+typedef enum {
+    SHKShareContentUndefined,
+    SHKShareContentImage,
+    SHKShareContentAudio,
+    SHKShareContentVideo,
+    SHKShareContentWebpage,
+} SHKShareContent;
 
 @interface SHKItem : NSObject
-{	
-	SHKShareType shareType;
-	
-	NSURL *URL;
-	
-	UIImage *image;
-	
-	NSString *title;
-	NSString *text;
-	NSArray *tags;
-	
-	NSData *data;
-	NSString *mimeType;
-	NSString *filename;
-  
-    NSArray *mailToRecipients;
-    BOOL isMailHTML;
-    CGFloat mailJPGQuality;
-    BOOL mailShareWithAppSignature;
-    
-    NSString *facebookURLSharePictureURI;
-    NSString *facebookURLShareDescription;
-    
-    NSArray *textMessageToRecipients;
-	
-	CGRect popOverSourceRect;
-  
-@private
-	NSMutableDictionary *custom;
-}
 
-@property (nonatomic)			SHKShareType shareType;
+@property (nonatomic) SHKShareType shareType;
+
+/* when you share using ambigous type (SHKShareTypeURL or SHKShareTypeFile) this holds information on what kind of content it is. Some sharers pass this info to a service, so that the content is displayed properly. */
+@property (nonatomic, readonly) SHKShareContent shareContentType;
 
 @property (nonatomic, retain)	NSURL *URL;
-@property (nonatomic) SHKURLContentType URLContentType;
+@property (nonatomic) SHKURLContentType URLContentType __attribute__((deprecated ("use more general shareContentType instead"))); //
 
 @property (nonatomic, retain)	UIImage *image;
 
@@ -101,14 +81,13 @@ typedef enum
 
 //Some sharers might present audio and video urls in enhanced way - e.g with media player (see Tumblr sharer). Other sharers share same way they used to, regardless of what type is specified.
 + (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type;
-
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
 /*** custom value methods ***/
 
-/* these are for custom properties injection. Use them only if you are adding some custom functionality to your sharer subclass. */
+/* these are for custom properties injection. Use them only if you are subclassing a sharer and need more properties. If you are creating a new sharer and builtin properties are insufficient, create sharer specific extension instead */
 
 - (void)setCustomValue:(NSString *)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
