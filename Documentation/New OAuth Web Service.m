@@ -261,49 +261,68 @@
 	// Here is an example.  
 	// This example is for a service that can share a URL
 	 
-	// Determine which type of share to do
-	if (item.shareType == SHKShareTypeURL) // sharing a URL
-	{
-		// For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
-		
-		OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.example.com/share"]
-																		consumer:consumer // this is a consumer object already made available to us
-																		   token:accessToken // this is our accessToken already made available to us
-																		   realm:nil
-															   signatureProvider:signatureProvider];
-		
-		// Set the http method (POST or GET)
-		[oRequest setHTTPMethod:@"POST"];
-		
-		
-		// Create our parameters
-		OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url"
-																		  value:SHKEncodeURL(item.URL)];
-		
-		OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title"
-																		   value:SHKEncode(item.title)];
-		
-		// Add the params to the request
-		[oRequest setParameters:[NSArray arrayWithObjects:titleParam, urlParam, nil]];
-		[urlParam release];
-		[titleParam release];
-		
-		// Start the request
-		OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																							  delegate:self
-																					 didFinishSelector:@selector(sendTicket:didFinishWithData:)
-																					   didFailSelector:@selector(sendTicket:didFailWithError:)];	
-		
-		[fetcher start];
-		[oRequest release];
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
+    // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.example.com/share"]
+                                                                    consumer:consumer // this is a consumer object already made available to us
+                                                                       token:accessToken // this is our accessToken already made available to us
+                                                                       realm:nil
+                                                           signatureProvider:signatureProvider];
+    
+    // Set the http method (POST or GET)
+    [oRequest setHTTPMethod:@"POST"];
+    
+    
+    // Determine which type of share to do
+    switch (item.shareType) {
+        case SHKShareTypeURL:
+        {
+            // Create our parameters
+            OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:SHKEncodeURL(item.URL)];
+            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:SHKEncode(item.title)];
+            
+            // Add the params to the request
+            [oRequest setParameters:[NSArray arrayWithObjects:titleParam, urlParam, nil]];
+            [urlParam release];
+            [titleParam release];
+        }
+        case SHKShareTypeFile
+        {
+            if (self.item.URLContentType == SHKShareContentImage) {
+                
+                // Create our parameters
+                OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"photo"];
+                OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                
+                //Setup the request...
+                [params addObjectsFromArray:@[typeParam, captionParam]];
+                [typeParam release];
+                [captionParam release];
+                
+                /* bellow lines might help you upload binary data */
+                
+                //make OAuth signature prior appending the multipart/form-data
+                [oRequest prepare];
+                
+                //create multipart
+                [oRequest attachFileWithParameterName:@"data" filename:self.item.filename contentType:self.item.mimeType data:self.item.data];
+            }
+        }
+        default:
+            return NO;
+            break;
+    }
+    // Start the request
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];	
+    [fetcher start];
+    [oRequest release];
+    
+    // Notify delegate
+    [self sendDidStart];
+        
+    return YES;
 }
 
 /* This is a continuation of the example provided in 'send' above.  These methods handle the OAAsynchronousDataFetcher response and should be implemented - your duty is to check the response and decide, if send finished OK, or what kind of error there is. Depending on the result, you should call one of these methods:

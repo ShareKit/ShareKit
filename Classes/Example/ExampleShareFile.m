@@ -69,10 +69,17 @@
 
 - (void)share
 {
-	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
-	NSData *file = [NSData dataWithContentsOfFile:filePath];
-	
+    NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
+    NSData *file = [NSData dataWithContentsOfFile:filePath];
 	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+    
+    /*
+     //examle of how to share image (photos) as data.
+     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
+     NSData *file = [NSData dataWithContentsOfFile:filePath];
+     SHKItem *item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
+     */
+
     item.tags = [NSArray arrayWithObjects:[[NSDate date] description], @"pdf document", @"sharekit", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];

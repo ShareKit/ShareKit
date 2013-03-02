@@ -25,6 +25,7 @@
 
 #import "NSMutableURLRequest+Parameters.h"
 
+static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBouNDaRy";
 
 @implementation NSMutableURLRequest (OAParameterAdditions)
 
@@ -92,6 +93,31 @@
         [self setValue:[NSString stringWithFormat:@"%d", [postData length]] forHTTPHeaderField:@"Content-Length"];
         [self setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     }
+}
+
+//taken from https://github.com/jdg/oauthconsumer/
+- (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data {
+    
+	NSArray *parameters = [self parameters];
+	[self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
+    
+	NSMutableData *bodyData = [NSMutableData new];
+	for (OARequestParameter *parameter in parameters) {
+		NSString *param = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n",
+						   Boundary, [parameter URLEncodedName], [parameter value]];
+        
+		[bodyData appendData:[param dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+    
+	NSString *filePrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n",
+                            Boundary, name, filename, contentType];
+	[bodyData appendData:[filePrefix dataUsingEncoding:NSUTF8StringEncoding]];
+	[bodyData appendData:data];
+    
+	[bodyData appendData:[[[@"\r\n--" stringByAppendingString:Boundary] stringByAppendingString:@"--"] dataUsingEncoding:NSUTF8StringEncoding]];
+	[self setValue:[NSString stringWithFormat:@"%d", [bodyData length]] forHTTPHeaderField:@"Content-Length"];
+	[self setHTTPBody:bodyData];
+	[bodyData release];
 }
 
 @end

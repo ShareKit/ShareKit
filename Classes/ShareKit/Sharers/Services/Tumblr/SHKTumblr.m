@@ -55,6 +55,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 + (BOOL)canShareURL { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText { return YES; }
++ (BOOL)canShareFile { return YES; }
 + (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -
@@ -158,6 +159,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             break;
         }
         case SHKShareTypeImage:
+        case SHKShareTypeFile:
         {
             result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Caption")], tagsField, publishField, nil];
         }
@@ -171,17 +173,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     return [SHKFormFieldSettings label:label key:@"title" type:SHKFormFieldTypeText start:self.item.title];
 }
-
-
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
-
-/*
-+ (BOOL)canAutoShare
-{
-	return NO;
-}
- */
 
 // Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
 /*
@@ -199,10 +190,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
  }
  */
 
-
 #pragma mark -
 #pragma mark Implementation
-
 
 - (BOOL)validateItem
 {
@@ -222,19 +211,24 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 		return NO;
 	
     OAMutableURLRequest *oRequest = nil;
-    NSMutableArray *params = [@[] mutableCopy];
+    NSMutableArray *params = [[@[] mutableCopy] autorelease];
+    
+    BOOL isFileWithImageContent = ((self.item.shareType == SHKShareTypeFile) && (self.item.shareContentType == SHKShareContentImage));
+    BOOL isUIImage = self.item.shareType == SHKShareTypeImage;
     
     switch (item.shareType) {
             
         case SHKShareTypeUserInfo:
         {
             [self setQuiet:YES];
-            oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
+            oRequest = [[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
                                                                           consumer:consumer // this is a consumer object already made available to us
                                                                              token:accessToken // this is our accessToken already made available to us
                                                                              realm:nil
-                                                                 signatureProvider:signatureProvider];
+                                                                 signatureProvider:signatureProvider] autorelease];
             [oRequest setHTTPMethod:@"GET"];
+            [self sendRequest:oRequest];
+            return YES;
             break;
         }
         case SHKShareTypeText:
@@ -269,7 +263,27 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             }
             break;
         }
+        case SHKShareTypeImage:
+        case SHKShareTypeFile:
+        {
+            oRequest = [self setupPostRequest];
+            
+            NSString *typeValue = nil;
+            if (isFileWithImageContent ||isUIImage) {
+                    typeValue = @"photo";
+            }
+            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:typeValue];
+            OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+            
+            //Setup the request...
+            [params addObjectsFromArray:@[typeParam, captionParam]];
+            [typeParam release];
+            [captionParam release];
+            
+            break;
+        }
         default:
+            return NO;
             break;
     }
     
@@ -282,14 +296,23 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     [publishParam release];
     [oRequest setParameters:params];
     
-    // Start the request
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    if (isUIImage || isFileWithImageContent) {
+        
+        //images have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
+        [oRequest prepare];
+        
+        NSData *imageData = nil;
+        if (isUIImage) {
+            imageData = UIImageJPEGRepresentation(self.item.image, 0.9);
+        } else if (isFileWithImageContent) {
+            imageData = self.item.data;
+        }
+        
+        //append multipart/form-data
+        [oRequest attachFileWithParameterName:@"data" filename:self.item.filename contentType:self.item.mimeType data:imageData];
+    }
     
-    [fetcher start];
-    [oRequest release];
+    [self sendRequest:oRequest];
     
     // Notify delegate
     [self sendDidStart];
@@ -300,14 +323,25 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 - (OAMutableURLRequest *)setupPostRequest {
     
     NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
-    OAMutableURLRequest *result = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
+    OAMutableURLRequest *result = [[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
                                                consumer:consumer // this is a consumer object already made available to us
                                                   token:accessToken // this is our accessToken already made available to us
                                                   realm:nil
-                                      signatureProvider:signatureProvider];
+                                      signatureProvider:signatureProvider] autorelease];
     [urlString release];
     [result setHTTPMethod:@"POST"];
     return result;
+}
+
+- (void)sendRequest:(OAMutableURLRequest *)finalizedRequest {
+    
+    // Start the request
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:finalizedRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
