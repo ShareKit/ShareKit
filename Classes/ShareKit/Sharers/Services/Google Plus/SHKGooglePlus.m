@@ -32,7 +32,7 @@ static SHKGooglePlus *sharedInstance = nil;
 
 + (NSString *)sharerTitle
 {
-	return @"Google Plus";
+	return @"Google+";
 }
 
 + (BOOL)canShareURL
