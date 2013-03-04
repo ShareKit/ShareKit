@@ -111,6 +111,7 @@
 		6FBB63F516D8169600B782A6 /* GTLYouTubeVideoTopicDetails.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB63BF16D8169600B782A6 /* GTLYouTubeVideoTopicDetails.m */; };
 		6FBB63F616D816AF00B782A6 /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FBB629416D8150000B782A6 /* libYouTube.a */; };
 		6FCB2FD816DD645C0045D07A /* SHKYouTube.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB2FD616DD640E0045D07A /* SHKYouTube.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6FF3BC2516E5142E008D722E /* SHKSharer+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2F731A16E013E000710D81 /* SHKSharer+Video.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -3534,6 +3535,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FF3BC2516E5142E008D722E /* SHKSharer+Video.m in Sources */,
 				7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */,
 				7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,

@@ -27,6 +27,7 @@
 
 #import "SHKConfiguration.h"
 #import "SHKMail.h"
+#import "SHKSharer+Video.h"
 
 
 @implementation MFMailComposeViewController (SHK)
@@ -128,13 +129,7 @@
      * http://en.wikipedia.org/wiki/Email_attachment
      * http://help.sizablesend.com/what-are-the-attachment-size-limits-of-major-email-providers/
      */
-    long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:item.srcVideoPath error:nil][NSFileSize] longLongValue];
-    
-    if (fileSize <= 10 * 1024 * 1024) {
-        return YES;
-    }
-    
-    return NO;
+    return [self isUnderSize:10 * 1024 * 1024];
 }
 
 - (BOOL)send

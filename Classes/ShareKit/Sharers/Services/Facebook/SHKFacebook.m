@@ -33,6 +33,7 @@
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
 #import <MediaPlayer/MediaPlayer.h>
+#import "SHKSharer+Video.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
@@ -341,7 +342,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)isAuthorized
 {	  
-	return NO;
+	return FBSession.activeSession.isOpen;
 }
 
 - (void)promptAuthorization
@@ -384,14 +385,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)validateVideo
 {
-    // Validate our video for valid types and sizes
-    NSArray *validTypes = @[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
-                            @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"];
-    BOOL isValid = YES;
-    
-    if(![validTypes containsObject:item.srcVideoPath.pathExtension]) isValid = NO;
-    
-    return isValid;
+    // Validate our video for valid types. We take care of validating size and duration later
+    return [self isOfValidTypes:@[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
+                                  @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"]];
 }
 
 - (void)share {
@@ -621,64 +617,22 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             [result convertNSNullsToEmptyStrings];
             [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookVideoUploadLimits];
             
-            // Get video size
-            long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:item.srcVideoPath error:nil][NSFileSize] longLongValue];
-            
-            // File too large
-            if(fileSize > (int)result[@"video_upload_limits"][@"size"]){
+            // Check video size
+            if(![self isUnderSize:result[@"video_upload_limits"][@"size"]]){
                 completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                               NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}] autorelease]);
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}] autorelease]);
                 return;
             }
             
-            // Get video length
-            MPMoviePlayerController *player = [[[MPMoviePlayerController alloc] initWithContentURL:[NSURL fileURLWithPath:item.srcVideoPath]] autorelease];
+            // Check video duration
+            if(![self isUnderDuration:(int)result[@"video_upload_limits"][@"length"]]){
+                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}] autorelease]);
+                return;
+            }
             
-            // Our observers
-            __block id stateObserver;
-            __block id endedObserver;
-            
-            // Our block for event handling
-            void (^observerBlock)(NSNotification *note) = ^(NSNotification *note){
-                
-                // Playback failed
-                if(player.loadState == MPMovieFinishReasonPlaybackError){
-                    [[NSNotificationCenter defaultCenter] removeObserver:stateObserver];
-                    [[NSNotificationCenter defaultCenter] removeObserver:endedObserver];
-                    
-                    completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video failed to load.")}] autorelease]);
-                    
-                }
-                
-                // Waiting to load, still
-                if(player.loadState == MPMovieLoadStateUnknown) return;
-                
-                [[NSNotificationCenter defaultCenter] removeObserver:stateObserver];
-                [[NSNotificationCenter defaultCenter] removeObserver:endedObserver];
-                
-                // Does our duration fall under limits?
-                if(player.duration > (int)result[@"video_upload_limits"][@"length"]){
-                    completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                   NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}] autorelease]);
-                    return;
-                }
-                
-                // Success!
-                completionBlock(nil);
-            };
-            
-            // We need to wait for the video to load to get the duration
-            stateObserver = [[NSNotificationCenter defaultCenter] addObserverForName:MPMoviePlayerLoadStateDidChangeNotification
-                                                                              object:nil
-                                                                               queue:[NSOperationQueue mainQueue]
-                                                                          usingBlock:observerBlock];
-            // Error handling
-            endedObserver = [[NSNotificationCenter defaultCenter] addObserverForName:MPMoviePlayerPlaybackDidFinishNotification
-                                                                              object:nil
-                                                                               queue:[NSOperationQueue mainQueue]
-                                                                          usingBlock:observerBlock];
-            [player prepareToPlay];
+            // Success!
+            completionBlock(nil);
         }
     }];
     [self.pendingConnections addObject:con];

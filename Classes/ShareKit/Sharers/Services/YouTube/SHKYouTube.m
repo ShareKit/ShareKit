@@ -271,7 +271,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     self.uploadTicket.uploadProgressBlock = uploadProgress;
     ((GTMHTTPUploadFetcher *)self.uploadTicket.objectFetcher).locationChangeBlock = locationChangeBlock;
     
-    // TODO: Monitor application going to background/foreground to pause and resume uploads
+    // TODO: Monitor application going to background/foreground to pause and resume uploads. Possibly tie into offline upload, as we may go offline mid upload
 }
 
 
