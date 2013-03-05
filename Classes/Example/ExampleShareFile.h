@@ -28,6 +28,6 @@
 #import <Foundation/Foundation.h>
 
 
-@interface ExampleShareFile : UIViewController 
+@interface ExampleShareFile : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

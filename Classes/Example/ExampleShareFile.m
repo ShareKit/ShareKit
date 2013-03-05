@@ -31,7 +31,8 @@
 
 @interface ExampleShareFile () <UIWebViewDelegate>
 
-@property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *fileTypes;
 
 @end
 
@@ -39,19 +40,14 @@
 
 - (void)dealloc
 {
-    _webView.delegate = nil;
+    _tableView.delegate = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
 	{
-		self.toolbarItems = [NSArray arrayWithObjects:
-							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)],
-							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-							 nil
-							 ];
+        _fileTypes = @[@"PDF", @"Video", @"Audio", @"Image"];
 	}
 	
 	return self;
@@ -59,43 +55,56 @@
 
 - (void)loadView 
 { 
-	self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-	self.webView.delegate = self;
-	self.webView.scalesPageToFit = YES;
-	[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
-	
-	self.view = self.webView;
+	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+	self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+	self.view = self.tableView;
 }
 
-- (void)share
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
-    /*
-     //examle of how to share pdf file.
-     NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
-     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-     SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
-     */
+    return YES;
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    /*
-     //examle of how to share image file.
-     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
-     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-     SHKItem *item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
-     */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    //example of how to share video file
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+    SHKItem *item = nil;
     NSError *error = nil;
-    NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-    SHKItem *item = [SHKItem file:file filename:@"demo_video_share.mov" mimeType:@"video/quicktime" title:@"Impressionism - blue ball"];
     
-    /*
-     //example of how to share audio file
-     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
-     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-     SHKItem *item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
-     */
-    
+    switch (indexPath.row) {
+        case 0:
+        {
+            NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+            break;
+        }
+        case 1:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"demo_video_share.mov" mimeType:@"video/quicktime" title:@"Impressionism - blue ball"];
+            break;
+        }
+        case 2:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
+        }
+        case 3:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
+        }
+        default:
+            break;
+    }
     
     item.tags = [NSArray arrayWithObjects:@"file share", @"sharekit", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
@@ -103,9 +112,22 @@
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
-{
-    return YES;
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.fileTypes count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *reuseIdentifier = @"fileTypeToShare";
+    UITableViewCell *result = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    
+    if (!result) {
+        result = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
+    result.textLabel.text = self.fileTypes[indexPath.row];
+    return result;
 }
 
 @end
