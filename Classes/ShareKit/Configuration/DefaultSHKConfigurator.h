@@ -49,7 +49,8 @@
 - (NSArray*)defaultFavoriteURLSharers;
 - (NSArray*)defaultFavoriteImageSharers;
 - (NSArray*)defaultFavoriteTextSharers;
-- (NSArray*)defaultFavoriteFileSharers;
+- (NSArray*)defaultFavoriteFileSharers __attribute__((deprecated("use defaultFavoriteSharersForMimeType: instead")));
+- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;

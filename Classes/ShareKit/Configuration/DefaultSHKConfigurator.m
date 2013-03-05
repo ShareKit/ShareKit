@@ -320,8 +320,19 @@
 - (NSArray*)defaultFavoriteTextSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 }
-- (NSArray*)defaultFavoriteFileSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+
+//ShareKit will remember last used sharers for each particular mime type.
+- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType {
+    
+    NSMutableArray *result = [NSMutableArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+    if ([mimeType hasPrefix:@"video/"] || [mimeType hasPrefix:@"audio/"] || [mimeType hasPrefix:@"image/"]) {
+        [result addObject:@"SHKTumblr"];
+    }
+    return result;
+}
+
+- (NSArray *)defaultFavoriteFileSharers {
+    return [self defaultFavoriteSharersForMimeType:nil];
 }
 
 //by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.

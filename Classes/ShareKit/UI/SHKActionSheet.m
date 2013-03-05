@@ -61,8 +61,9 @@
 	id class;
 	for(NSString *sharerId in favoriteSharers)
 	{
-		class = NSClassFromString(sharerId);
-		if ([class canShare])
+		//Do not add buttons for sharers, which are not able to share item
+        class = NSClassFromString(sharerId);
+		if ([class canShare] && [class canShareItem:item])
 		{
 			[as addButtonWithTitle: [class sharerTitle] ];
 			[as.sharers addObject:sharerId];

@@ -333,10 +333,10 @@ BOOL SHKinit;
 #pragma mark -
 #pragma mark Favorites
 
-//TODO:
 + (NSArray *)favoriteSharersForItem:(SHKItem *)item;
 {	
-	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType]];
+	
+    NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[self favoritesKeyForItem:item]];
 		
 	// set defaults
 	if (favoriteSharers == nil)
@@ -356,7 +356,7 @@ BOOL SHKinit;
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
+				favoriteSharers = SHKCONFIG_WITH_ARGUMENT(defaultFavoriteSharersForMimeType:,item.mimeType);
 				break;
 			
 			default:
@@ -411,7 +411,7 @@ BOOL SHKinit;
 	
 	return favoriteSharers;
 }
-//TODO:
+
 + (void)pushOnFavorites:(NSString *)className forItem:(SHKItem *)item
 {
     if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
@@ -437,10 +437,21 @@ BOOL SHKinit;
 	
 	[favs release];
 }
-//TODO:
+
 + (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item
 {
-	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType]];
+    [[NSUserDefaults standardUserDefaults] setObject:favs forKey:[self favoritesKeyForItem:item]];
+}
+
++ (NSString *)favoritesKeyForItem:(SHKItem *)item {
+    
+    NSString *result = nil;
+    if (item.shareType == SHKShareTypeFile) {
+        result = [NSString stringWithFormat:@"%@%@", SHKCONFIG(favsPrefixKey), item.mimeType];
+    } else {
+        result = [NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType];
+    }
+    return result;
 }
 
 #pragma mark -
