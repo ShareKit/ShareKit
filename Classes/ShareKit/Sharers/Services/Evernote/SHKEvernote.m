@@ -51,7 +51,7 @@
 + (BOOL)canShareURL   { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText  { return YES; }
-+ (BOOL)canShareFile  { return YES; }
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size { return YES; }
 + (BOOL)requiresAuthentication { return YES; }
 
 

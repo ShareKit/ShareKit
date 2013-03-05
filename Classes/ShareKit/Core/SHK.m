@@ -333,15 +333,15 @@ BOOL SHKinit;
 #pragma mark -
 #pragma mark Favorites
 
-
-+ (NSArray *)favoriteSharersForType:(SHKShareType)type
+//TODO:
++ (NSArray *)favoriteSharersForItem:(SHKItem *)item;
 {	
-	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
+	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType]];
 		
 	// set defaults
 	if (favoriteSharers == nil)
 	{
-		switch (type) 
+		switch (item.shareType)
 		{
 			case SHKShareTypeURL:
 				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
@@ -364,7 +364,7 @@ BOOL SHKinit;
 		}
 		
 		// Save defaults to prefs
-		[self setFavorites:favoriteSharers forType:type];
+		[self setFavorites:favoriteSharers forItem:item];
 	}
     
     // Remove all sharers which are not part of the SHKSharers.plist
@@ -387,7 +387,7 @@ BOOL SHKinit;
         
         // Update
 		favoriteSharers = [NSArray arrayWithArray:newFavs];
-		[self setFavorites:favoriteSharers forType:type];
+		[self setFavorites:favoriteSharers forItem:item];
 		
 		[newFavs release];
     }
@@ -404,15 +404,15 @@ BOOL SHKinit;
 		
 		// Update
 		favoriteSharers = [NSArray arrayWithArray:newFavs];
-		[self setFavorites:favoriteSharers forType:type];
+		[self setFavorites:favoriteSharers forItem:item];
 		
 		[newFavs release];
 	}
 	
 	return favoriteSharers;
 }
-
-+ (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
+//TODO:
++ (void)pushOnFavorites:(NSString *)className forItem:(SHKItem *)item
 {
     if(![SHKCONFIG(autoOrderFavoriteSharers) boolValue]) return;
     
@@ -425,7 +425,7 @@ BOOL SHKinit;
 		}
 	}
     
-	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
+	NSMutableArray *favs = [[self favoriteSharersForItem:item] mutableCopy];
 	
 	[favs removeObject:className];
 	[favs insertObject:className atIndex:0];
@@ -433,14 +433,14 @@ BOOL SHKinit;
 	while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
 		[favs removeLastObject];
 	
-	[self setFavorites:favs forType:type];
+	[self setFavorites:favs forItem:item];
 	
 	[favs release];
 }
-
-+ (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type
+//TODO:
++ (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item
 {
-	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
+	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType]];
 }
 
 #pragma mark -

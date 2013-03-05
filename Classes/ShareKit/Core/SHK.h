@@ -82,9 +82,9 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 #pragma mark -
 #pragma mark Favorites
 
-+ (NSArray *)favoriteSharersForType:(SHKShareType)type;
-+ (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
-+ (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;
++ (NSArray *)favoriteSharersForItem:(SHKItem *)item;
++ (void)pushOnFavorites:(NSString *)className forItem:(SHKItem *)item;
++ (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item;
 
 #pragma mark -
 #pragma mark Credentials

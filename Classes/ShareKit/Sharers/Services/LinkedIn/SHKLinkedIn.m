@@ -53,38 +53,11 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     return YES;
 }
 
-// If the action can handle images, uncomment this section
-/*
- + (BOOL)canShareImage
- {
- return YES;
- }
- */
-
 // If the action can handle text, uncomment this section
 + (BOOL)canShareText
 {
     return YES;
 }
-
-
-// If the action can handle files, uncomment this section
-/*
- + (BOOL)canShareFile
- {
- return YES;
- }
- */
-
-
-// Does the service require a login?  If for some reason it does NOT, uncomment this section:
-/*
- + (BOOL)requiresAuthentication
- {
- return NO;
- }
- */ 
-
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable

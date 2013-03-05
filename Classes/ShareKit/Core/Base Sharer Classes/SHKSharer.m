@@ -96,7 +96,7 @@
 	return NO;
 }
 
-+ (BOOL)canShareFile
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size
 {
 	return NO;
 }
@@ -121,9 +121,9 @@
 	return YES;
 }
 
-+ (BOOL)canShareType:(SHKShareType)type
++ (BOOL)canShareItem:(SHKItem *)item
 {
-	switch (type) 
+	switch (item.shareType)
 	{
 		case SHKShareTypeURL:
 			return [self canShareURL];
@@ -135,7 +135,7 @@
 			return [self canShareText];
 			
 		case SHKShareTypeFile:
-			return [self canShareFile];
+			return [self canShareFileOfMimeType:item.mimeType size:[item.data length]];
             
         case SHKShareTypeUserInfo:
 			return [self canGetUserInfo];
@@ -194,7 +194,7 @@
 
 + (id)shareItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
+	[SHK pushOnFavorites:[self sharerId] forItem:i];
 	
 	// Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
@@ -208,7 +208,7 @@
 
 - (void)loadItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
+	[SHK pushOnFavorites:[self sharerId] forItem:i];
 	
 	// Create controller set share options
 	self.item = i;

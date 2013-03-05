@@ -27,6 +27,10 @@
 #import "JSONKit.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
+#define MAX_SIZE_MB_PHOTO 10
+#define MAX_SIZE_MB_AUDIO 10
+#define MAX_SIZE_MB_VIDEO 100
+
 NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 @interface SHKTumblr ()
@@ -55,7 +59,20 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 + (BOOL)canShareURL { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText { return YES; }
-+ (BOOL)canShareFile { return YES; }
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {
+    
+    NSUInteger sizeInMB = size/1024/1024;
+    
+    BOOL result = NO;
+    if ([mimeType hasPrefix:@"image/"]) {
+        result = sizeInMB < MAX_SIZE_MB_PHOTO;
+    } else if ([mimeType hasPrefix:@"audio/"]) {
+        result = sizeInMB < MAX_SIZE_MB_AUDIO;
+    } else if ([mimeType hasPrefix:@"video/"]) {
+        result = sizeInMB < MAX_SIZE_MB_VIDEO;
+    }
+    return result;
+}
 + (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -

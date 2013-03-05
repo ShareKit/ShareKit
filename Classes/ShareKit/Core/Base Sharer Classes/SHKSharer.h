@@ -83,7 +83,7 @@ typedef enum
 
 
 #pragma mark -
-#pragma mark Configuration : Service Defination
+#pragma mark Configuration : Service Definition
 
 + (NSString *)sharerTitle;
 - (NSString *)sharerTitle;
@@ -92,12 +92,12 @@ typedef enum
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
-+ (BOOL)canShareFile;
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
 + (BOOL)requiresAuthentication;
-+ (BOOL)canShareType:(SHKShareType)type;
++ (BOOL)canShareItem:(SHKItem *)item;
 + (BOOL)canAutoShare;
 
 

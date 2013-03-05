@@ -74,7 +74,7 @@
 	return YES;
 }
 
-+ (BOOL)canShareFile
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size
 {
 	return YES;
 }
