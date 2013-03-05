@@ -45,23 +45,12 @@ typedef enum
     SHKURLContentTypeVideo,
 } SHKURLContentType;
 
-typedef enum {
-    SHKShareContentUndefined,
-    SHKShareContentImage,
-    SHKShareContentAudio,
-    SHKShareContentVideo,
-    SHKShareContentWebpage,
-} SHKShareContent;
-
 @interface SHKItem : NSObject
 
 @property (nonatomic) SHKShareType shareType;
 
-/* when you share using ambigous type (SHKShareTypeURL or SHKShareTypeFile) this holds information on what kind of content it is. Some sharers pass this info to a service, so that the content is displayed properly. */
-@property (nonatomic, readonly) SHKShareContent shareContentType;
-
 @property (nonatomic, retain)	NSURL *URL;
-@property (nonatomic) SHKURLContentType URLContentType __attribute__((deprecated ("use more general shareContentType instead"))); //
+@property (nonatomic) SHKURLContentType URLContentType;
 
 @property (nonatomic, retain)	UIImage *image;
 
@@ -77,7 +66,7 @@ typedef enum {
 
 /* always use these for SHKItem object creation, as they implicitly set appropriate SHKShareType. Items without SHKShareType will not be shared! */
 
-+ (id)URL:(NSURL *)url title:(NSString *)title __attribute__((deprecated));//use the method with content type instead
++ (id)URL:(NSURL *)url title:(NSString *)title __attribute__((deprecated ("use URL:title:contentType: instead")));//
 
 //Some sharers might present audio and video urls in enhanced way - e.g with media player (see Tumblr sharer). Other sharers share same way they used to, regardless of what type is specified.
 + (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type;

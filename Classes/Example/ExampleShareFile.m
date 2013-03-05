@@ -69,18 +69,35 @@
 
 - (void)share
 {
-    NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
-    NSData *file = [NSData dataWithContentsOfFile:filePath];
-	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+    /*
+     //examle of how to share pdf file.
+     NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
+     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+     SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+     */
     
     /*
-     //examle of how to share image (photos) as data.
+     //examle of how to share image file.
      NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
-     NSData *file = [NSData dataWithContentsOfFile:filePath];
+     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
      SHKItem *item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
      */
-
-    item.tags = [NSArray arrayWithObjects:[[NSDate date] description], @"pdf document", @"sharekit", nil];
+    
+    //example of how to share video file
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+    NSError *error = nil;
+    NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+    SHKItem *item = [SHKItem file:file filename:@"demo_video_share.mov" mimeType:@"video/quicktime" title:@"Impressionism - blue ball"];
+    
+    /*
+     //example of how to share audio file
+     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
+     NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+     SHKItem *item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
+     */
+    
+    
+    item.tags = [NSArray arrayWithObjects:@"file share", @"sharekit", nil];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];

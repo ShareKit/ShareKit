@@ -29,12 +29,9 @@
 #import "SHK.h"
 #import "SHKConfiguration.h"
 
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 @interface SHKItem()
 
 @property (nonatomic, retain) NSMutableDictionary *custom;
-@property (nonatomic) SHKShareContent shareContentType;
 
 - (NSString *)shareTypeToString:(SHKShareType)shareType;
 
@@ -147,23 +144,9 @@
 	item.data = data;
 	item.filename = filename;
 	item.mimeType = mimeType;
-    [item setupShareContent];
 	item.title = title;
 	
 	return [item autorelease];
-}
-
-- (void)setupShareContent {
-    
-    NSAssert(self.mimeType, @"missing mimeType, can not setup share content type");
-    
-    if ([self.mimeType hasPrefix:@"image/"]) {
-        self.shareContentType = SHKShareContentImage;
-    } else if ([self.mimeType hasPrefix:@"video/"]) {
-        self.shareContentType = SHKShareContentVideo;
-    } else if ([self.mimeType hasPrefix:@"audio/"]) {
-        self.shareContentType = SHKShareContentAudio;
-    }   
 }
 
 #pragma mark -

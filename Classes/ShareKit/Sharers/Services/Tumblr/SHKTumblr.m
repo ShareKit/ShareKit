@@ -213,9 +213,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     OAMutableURLRequest *oRequest = nil;
     NSMutableArray *params = [[@[] mutableCopy] autorelease];
     
-    BOOL isFileWithImageContent = ((self.item.shareType == SHKShareTypeFile) && (self.item.shareContentType == SHKShareContentImage));
-    BOOL isUIImage = self.item.shareType == SHKShareTypeImage;
-    
     switch (item.shareType) {
             
         case SHKShareTypeUserInfo:
@@ -269,8 +266,12 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             oRequest = [self setupPostRequest];
             
             NSString *typeValue = nil;
-            if (isFileWithImageContent ||isUIImage) {
-                    typeValue = @"photo";
+            if (self.item.image||[self.item.mimeType hasPrefix:@"image/"]) {
+                typeValue = @"photo";
+            } else if ([self.item.mimeType hasPrefix:@"video/"]) {
+                typeValue = @"video";
+            } else if ([self.item.mimeType hasPrefix:@"audio/"]) {
+                typeValue = @"audio";
             }
             OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:typeValue];
             OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
@@ -296,15 +297,16 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     [publishParam release];
     [oRequest setParameters:params];
     
-    if (isUIImage || isFileWithImageContent) {
+    BOOL hasDataContent = self.item.image || self.item.data;
+    if (hasDataContent) {
         
-        //images have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
+        //media have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
         [oRequest prepare];
         
         NSData *imageData = nil;
-        if (isUIImage) {
+        if (self.item.image) {
             imageData = UIImageJPEGRepresentation(self.item.image, 0.9);
-        } else if (isFileWithImageContent) {
+        } else {
             imageData = self.item.data;
         }
         
