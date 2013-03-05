@@ -43,6 +43,7 @@ typedef enum
     SHKURLContentTypeWebpage,
     SHKURLContentTypeAudio,
     SHKURLContentTypeVideo,
+    SHKURLContentTypeImage,
 } SHKURLContentType;
 
 @interface SHKItem : NSObject

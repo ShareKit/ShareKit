@@ -22,6 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
+/*
+ Optional SHKItem properties accepted by SHKTumblr beyond default for each sharer:
+ 
+ all share types: tags
+ 
+ SHKShareTypeText:title (as Title)
+ 
+ SHKShareTypeURL:text (as Description)). You can use SHKURLContentTypeAudio, Video, Image, Webpage, all will be displayed correctly (embedded video player etc).
+ 
+ SHKShareTypeImage:
+ 
+ SHKShareTypeFile: accepted mimeTypes are image/ video/ audio/. Each is shared so that Tumblr displays it properly - video in player etc. If you share photo as a file, exif info is preserved. Unfortunately files are loaded to memory in the moment of sharing, so be careful with large files.
+ */
+
 #import <Foundation/Foundation.h>
 #import "SHK.h"
 #import "SHKOAuthSharer.h"

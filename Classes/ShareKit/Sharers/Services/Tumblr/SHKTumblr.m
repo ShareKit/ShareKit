@@ -191,22 +191,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     return [SHKFormFieldSettings label:label key:@"title" type:SHKFormFieldTypeText start:self.item.title];
 }
 
-// Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
-/*
- - (void)shareFormValidate:(SHKCustomFormController *)form
- {
- You can get a dictionary of the field values from [form formValues]
- 
- You should perform one of the following actions:
- 
- 1.	Save the form - If everything is correct call
- 
- [form saveForm]
- 
- 2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
- }
- */
-
 #pragma mark -
 #pragma mark Implementation
 
@@ -262,18 +246,57 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         {
             oRequest = [self setupPostRequest];
             
-            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"link"];
-            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
-            OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[item.URL absoluteString]];
-            [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
-            [typeParam release];
-            [titleParam release];
-            [urlParam release];
-            
-            if (item.text) {
-                OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:item.text];
-                [params addObject:descriptionParam];
-                [descriptionParam release];
+            switch (self.item.URLContentType) {
+                case SHKURLContentTypeVideo:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"video"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"embed" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                case SHKURLContentTypeAudio:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"audio"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"external_url" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                case SHKURLContentTypeImage:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"photo"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"source" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                default:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"link"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    
+                    if (item.text) {
+                        OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:item.text];
+                        [params addObject:descriptionParam];
+                        [descriptionParam release];
+                    }
+                    break;
+                }
             }
             break;
         }
