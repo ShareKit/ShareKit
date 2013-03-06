@@ -9,6 +9,7 @@
 #import "ShareKitAppDelegate.h"
 #import "RootViewController.h"
 
+#import "SHKGooglePlus.h"
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
@@ -66,11 +67,14 @@
 }
 
 - (BOOL)application:(UIApplication *)application 
-            openURL:(NSURL *)url 
-  sourceApplication:(NSString *)sourceApplication 
-         annotation:(id)annotation 
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
-  return [self handleOpenURL:url];
+    if ([[[SHKGooglePlus shared] mGooglePlusShare] handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
+        return YES;
+    }
+    return [self handleOpenURL:url];
 }
 
 - (BOOL)application:(UIApplication *)application 

@@ -60,6 +60,7 @@
 - (NSString*)readItLaterKey;
 - (NSString*)diigoKey;
 - (NSNumber*)forcePreIOS5TwitterAccess;
+- (NSString*)googlePlusClientId;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
 - (NSString*)twitterCallbackUrl;

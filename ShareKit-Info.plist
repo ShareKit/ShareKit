@@ -25,6 +25,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Google Plus</string>
+			<key>CFBundleURLName</key>
+			<string>com.yourcompany.ShareKitDemo</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.yourcompany.ShareKitDemo</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Filckr</string>
 			<key>CFBundleURLName</key>
 			<string></string>
 			<key>CFBundleURLSchemes</key>

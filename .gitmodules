@@ -13,3 +13,6 @@
 [submodule "Submodules/evernote-ios-sdk"]
 	path = Submodules/evernote-ios-sdk
 	url = https://github.com/evernote/evernote-sdk-ios.git
+[submodule "Submodules/googleplus-ios-sdk"]
+	path = Submodules/googleplus-ios-sdk
+	url = git://github.com/adamotte/googleplus-ios-sdk.git
