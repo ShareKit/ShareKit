@@ -112,6 +112,8 @@
 		6FBB63F616D816AF00B782A6 /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FBB629416D8150000B782A6 /* libYouTube.a */; };
 		6FCB2FD816DD645C0045D07A /* SHKYouTube.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCB2FD616DD640E0045D07A /* SHKYouTube.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		6FF3BC2516E5142E008D722E /* SHKSharer+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2F731A16E013E000710D81 /* SHKSharer+Video.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		6FF3BC4D16E6813C008D722E /* SHKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3BC4C16E6813C008D722E /* SHKFile.m */; };
+		6FFC18CE16E7A056007DCAEB /* SHKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF3BC4C16E6813C008D722E /* SHKFile.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B111DBE3B9004A1712 /* SHKCustomFormFieldCell.m */; };
 		7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -904,6 +906,8 @@
 		6FCB2FD316DD432C0045D07A /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		6FCB2FD516DD640E0045D07A /* SHKYouTube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKYouTube.h; path = YouTube/SHKYouTube.h; sourceTree = "<group>"; };
 		6FCB2FD616DD640E0045D07A /* SHKYouTube.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKYouTube.m; path = YouTube/SHKYouTube.m; sourceTree = "<group>"; };
+		6FF3BC4B16E6813C008D722E /* SHKFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFile.h; sourceTree = "<group>"; };
+		6FF3BC4C16E6813C008D722E /* SHKFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFile.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
 		7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKDelicious.m; path = Delicious/SHKDelicious.m; sourceTree = "<group>"; };
 		7A0F9246156BA2A0009CB40A /* libShareKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1739,6 +1743,8 @@
 				43A536A511DBE3B9004A1712 /* SHKRequest.m */,
 				7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */,
 				7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */,
+				6FF3BC4B16E6813C008D722E /* SHKFile.h */,
+				6FF3BC4C16E6813C008D722E /* SHKFile.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3443,6 +3449,7 @@
 				E153775616AF070A0015726B /* ExampleAccountsViewController.m in Sources */,
 				403F28B316D7774900CAEBA7 /* ExampleShareVideo.m in Sources */,
 				6F2F731B16E013E000710D81 /* SHKSharer+Video.m in Sources */,
+				6FF3BC4D16E6813C008D722E /* SHKFile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3535,6 +3542,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FFC18CE16E7A056007DCAEB /* SHKFile.m in Sources */,
 				6FF3BC2516E5142E008D722E /* SHKSharer+Video.m in Sources */,
 				7A0F91D5156BA2A0009CB40A /* SHKCustomFormFieldCell.m in Sources */,
 				7A0F91D6156BA2A0009CB40A /* SHKCustomFormControllerLargeTextField.m in Sources */,

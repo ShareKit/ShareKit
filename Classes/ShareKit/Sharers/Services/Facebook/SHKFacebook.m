@@ -111,16 +111,20 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)restoreItem{
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
+	NSData *storedItem = [defaults objectForKey:kSHKStoredItemKey];
 	if (storedItem)
 	{
-		self.item = [SHKItem itemFromDictionary:storedItem];
-		self.pendingAction = [[storedItem objectForKey:kSHKStoredActionKey] intValue];
-		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
+        self.item = [NSKeyedUnarchiver unarchiveObjectWithData:storedItem];
+		self.pendingAction = [[item customValueForKey:kSHKStoredActionKey] intValue];
+        
+		NSString *imagePath = [item customValueForKey:@"imagePath"];
 		if (imagePath) {
 			self.item.image = [SHKFacebook storedImage:imagePath];
 		}
 		[SHKFacebook clearSavedItem];
+        
+        [item setCustomValue:nil forKey:@"imagePath"];
+        [item setCustomValue:nil forKey:kSHKStoredActionKey];
 	}
 	[defaults synchronize];
 
@@ -128,12 +132,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 }
 
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction{
-	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
 	if (item.image)
-	{
-		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
-	}
-	[itemRep setObject:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
+        [item setCustomValue:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
+    [item setCustomValue:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
+    
+    NSData *itemRep = [NSKeyedArchiver archivedDataWithRootObject:self.item];
 	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
 }
 
@@ -407,7 +410,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)socialFrameworkAvailable {
     
-    if (item.shareType == SHKShareTypeVideo)
+    if (item.shareType == SHKShareTypeFile)
         return NO; // iOS6 sharing can't handle video
     
     if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
@@ -440,7 +443,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if ((item.shareType == SHKShareTypeURL && item.URL)||
 		(item.shareType == SHKShareTypeText && item.text)||
 		(item.shareType == SHKShareTypeImage && item.image)||
-        (item.shareType == SHKShareTypeVideo && item.srcVideoPath)||
+        (item.shareType == SHKShareTypeFile && item.file)||
 		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
@@ -551,7 +554,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																 }];
 		[self.pendingConnections addObject:con];
 	}
-    else if (item.shareType == SHKShareTypeVideo && item.srcVideoPath)
+    else if (item.shareType == SHKShareTypeFile && item.file)
 	{
         [self validateVideoLimits:^(NSError *error){
             
@@ -567,16 +570,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             if (item.text)
                 [params setObject:item.text forKey:@"message"];
             
-            NSData* data = [NSData dataWithContentsOfFile:item.srcVideoPath
-                                                  options:NSDataReadingMappedAlways error:&error];
             if (error) {
                 [[SHKActivityIndicator currentIndicator] hide];
                 [self sendDidFailWithError:error];
                 [self sendDidFinish];
                 return;
             }
-            [params setObject:data forKey:item.filename];
-            [params setObject:item.mimeType forKey:@"contentType"];
+            [params setObject:item.file.data forKey:item.file.filename];
+            [params setObject:item.file.mimeType forKey:@"contentType"];
             FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
                                                                     parameters:params
                                                                     HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -724,7 +725,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL || item.shareType == SHKShareTypeVideo)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL || item.shareType == SHKShareTypeFile)
     {
         [self showFacebookForm];
     }
@@ -796,7 +797,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             rootView.hasLink = YES;
             rootView.allowSendingEmptyMessage = YES;
             break;
-        case SHKShareTypeVideo:
+        case SHKShareTypeFile:
             rootView.text = item.title;
         default:
             break;
@@ -815,7 +816,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         case SHKShareTypeText:
             self.item.text = form.textView.text;
             break;
-        case SHKShareTypeVideo:
+        case SHKShareTypeFile:
         case SHKShareTypeImage:
         case SHKShareTypeURL:
             self.item.text = form.textView.text;

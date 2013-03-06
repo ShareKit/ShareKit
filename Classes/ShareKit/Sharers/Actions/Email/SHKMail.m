@@ -159,18 +159,6 @@
 	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
     
-    // Get the video data, if that's what we're sharing
-    if (item.shareType == SHKShareTypeVideo && item.srcVideoPath){
-        NSError* error = nil;
-        item.data = [NSData dataWithContentsOfFile:item.srcVideoPath options:NSDataReadingMappedAlways error:&error];
-        if (error) {
-            [[SHKActivityIndicator currentIndicator] hide];
-            [self sendDidFailWithError:error];
-            [self sendDidFinish];
-            return NO;
-        }
-    }
-    
 	if (body == nil)
 	{
 		body = @"";
@@ -185,9 +173,9 @@
 				body = urlStr;
 		}
 		
-		if (item.data)
+		if (item.file)
 		{
-			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
+			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.file.filename);
 			
 			if (isHTML)
 				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
@@ -207,8 +195,8 @@
 		}
 	}
 	
-	if (item.data)		
-		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
+	if (item.file)
+		[mailController addAttachmentData:item.file.data mimeType:item.file.mimeType fileName:item.file.filename];
 	
 	NSArray *toRecipients = self.item.mailToRecipients;
     if (toRecipients)

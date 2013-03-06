@@ -343,10 +343,6 @@ BOOL SHKinit;
 			case SHKShareTypeImage:
 				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
 				break;
-            
-            case SHKShareTypeVideo:
-                favoriteSharers = SHKCONFIG(defaultFavoriteVideoSharers);
-                break;
 				
 			case SHKShareTypeText:
 				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);
@@ -569,12 +565,12 @@ static NSDictionary *sharersDictionary = nil;
 
 + (NSMutableArray *)getOfflineQueueList
 {
-	return [[[NSArray arrayWithContentsOfFile:[self offlineQueueListPath]] mutableCopy] autorelease];
+    return [[NSKeyedUnarchiver unarchiveObjectWithFile:[self offlineQueueListPath]] autorelease];
 }
 
 + (void)saveOfflineQueueList:(NSMutableArray *)queueList
 {
-	[queueList writeToFile:[self offlineQueueListPath] atomically:YES]; // TODO - should do this off of the main thread	
+    [NSKeyedArchiver archiveRootObject:queueList toFile:[self offlineQueueListPath]];// TODO - should do this off of the main thread	
 }
 
 + (BOOL)addToOfflineQueue:(SHKItem *)item forSharer:(NSString *)sharerId
@@ -593,7 +589,7 @@ static NSDictionary *sharersDictionary = nil;
 	
 	// store file in cache
 	else if (item.shareType == SHKShareTypeFile)
-		[item.data writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
+		[item.file.data writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
 	
 	// Open queue list
 	NSMutableArray *queueList = [self getOfflineQueueList];
@@ -602,7 +598,7 @@ static NSDictionary *sharersDictionary = nil;
 	
 	// Add to queue list
 	[queueList addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						  [item dictionaryRepresentation],@"item",
+						  item,@"item",
 						  sharerId,@"sharer",
 						  uid,@"uid",
 						  nil]];
@@ -641,7 +637,7 @@ static NSDictionary *sharersDictionary = nil;
 		
 		for (NSDictionary *entry in queueList)
 		{
-			item = [SHKItem itemFromDictionary:[entry objectForKey:@"item"]];
+			item = [entry objectForKey:@"item"];
 			sharerId = [entry objectForKey:@"sharer"];
 			uid = [entry objectForKey:@"uid"];
 			

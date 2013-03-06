@@ -101,10 +101,15 @@
 	}
 	
 	// reload file from disk and remove the file
-	else if (item.shareType == SHKShareTypeFile)						
+	else if (item.shareType == SHKShareTypeFile)
 	{
 		path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:uid];
-		sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueuePath] stringByAppendingPathComponent:uid]];
+        
+        if(!item.file.hasPath){
+            sharer.item.file = [[SHKFile alloc] initWithFile:[NSData dataWithContentsOfFile:path]
+                                                    filename:sharer.item.file.filename];
+        }
+        
 		[[NSFileManager defaultManager] removeItemAtPath:path error:nil]; 
 
 	}

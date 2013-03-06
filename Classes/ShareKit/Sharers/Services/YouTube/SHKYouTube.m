@@ -12,6 +12,7 @@
 
 #import "SHKConfiguration.h"
 #import "SHKYouTube.h"
+#import "SHKSharer+Video.h"
 
 #import "GTLYouTube.h"
 #import "GTLUtilities.h"
@@ -151,6 +152,20 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 #pragma mark -
 #pragma mark Share API Methods
 
+- (BOOL)validateItem
+{
+    if ([super validateItem] == NO)
+        return NO;
+    
+    return [self validateVideo];
+}
+
+- (BOOL)validateVideo
+{
+    // Validate our video for valid types. We take care of validating size and duration later
+    return [self isOfValidTypes:@[@"mov",@"m4v",@"mpeg4",@"mp4",@"avi",@"wmv",@"mpegps",@"flv",@"3gpp",@"webm"]];
+}
+
 - (BOOL)send
 {
 	if (![self validateItem]) return NO;
@@ -159,7 +174,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
         case SHKShareTypeUserInfo:
             [self populateUserInfo];
             return YES;
-        case SHKShareTypeVideo:
+        case SHKShareTypeFile:
             [self uploadVideoFile];
             return YES;
         default: return NO;
@@ -224,7 +239,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 - (void)uploadVideoWithVideoObject:(GTLYouTubeVideo *)video resumeUploadLocationURL:(NSURL *)locationURL {
     
     // Get a file handle for the upload data.
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:item.srcVideoPath];
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:item.file.path];
     
     // Could not read file data.
     if (fileHandle == nil) {
@@ -260,7 +275,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     };
     
     // Parameters
-    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithFileHandle:fileHandle MIMEType:item.mimeType];
+    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithFileHandle:fileHandle MIMEType:item.file.mimeType];
     uploadParameters.uploadLocationURL = locationURL;
     
     // Setup the upload
@@ -280,7 +295,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	if (type == SHKShareTypeVideo)
+	if (type == SHKShareTypeFile)
 		return @[
            [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
            [SHKFormFieldSettings label:SHKLocalizedString(@"Text") key:@"text" type:SHKFormFieldTypeText start:item.text],

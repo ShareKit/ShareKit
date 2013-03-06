@@ -17,33 +17,29 @@
 
 -(BOOL)isOfValidTypes:(NSArray *)validTypes
 {
-    if (item.srcVideoPath == nil) return YES;
-    if(![validTypes containsObject:item.srcVideoPath.pathExtension]) return NO;
+    if (item.file == nil) return YES;
+    if(![validTypes containsObject:item.file.filename.pathExtension]) return NO;
     return YES;
 }
 
 -(BOOL)isUnderDuration:(NSInteger)maxDuration
 {
-    if (item.srcVideoPath == nil) return YES;
+    if (item.file == nil) return YES;
     
-    //Create an AVAsset from the given URL
-    NSDictionary *asset_options = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
-    AVAsset *avAsset = [[AVURLAsset alloc] initWithURL:[NSURL fileURLWithPath:item.srcVideoPath] options:asset_options];
-    float duration = CMTimeGetSeconds(avAsset.duration);
+    NSUInteger duration = item.file.duration;
     
-    SHKLog(@"checking file duration [%f] < [%i]",duration,maxDuration);
+    SHKLog(@"checking file duration [%lu] < [%i]",(unsigned long)duration,maxDuration);
     
     return (duration <= maxDuration && duration > 0);
 }
 
 -(BOOL)isUnderSize:(NSInteger)maxSize
 {
-    if (item.srcVideoPath == nil) return YES;
+    if (item.file == nil) return YES;
     
-    // Get video size
-    long long fileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:item.srcVideoPath error:nil][NSFileSize] longLongValue];
+    NSUInteger fileSize = item.file.size;
     
-    SHKLog(@"checking file size [%lld] < [%i]",fileSize,maxSize);
+    SHKLog(@"checking file size [%lu] < [%i]",(unsigned long)fileSize,maxSize);
     
     return (fileSize <= maxSize);
 }

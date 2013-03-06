@@ -145,9 +145,6 @@
     case SHKShareTypeUserInfo:
 			return [self canGetUserInfo];
       
-    case SHKShareTypeVideo:
-			return [self canShareVideo];
-      
 		default: 
 			break;
 	}
@@ -273,9 +270,7 @@
 	// Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
 	controller.item.shareType = SHKShareTypeFile;
-	controller.item.data = file;
-	controller.item.filename = filename;
-	controller.item.mimeType = mimeType;
+	controller.item.file = [[[SHKFile alloc] initWithFile:file filename:filename] autorelease];
 	controller.item.title = title;
 	
 	// share and/or show UI
@@ -661,15 +656,12 @@
 			
 		case SHKShareTypeImage:
 			return (item.image != nil);
-            
-        case SHKShareTypeVideo:
-            return (item.srcVideoPath != nil && [[NSFileManager defaultManager]  fileExistsAtPath:item.srcVideoPath]);
 			
 		case SHKShareTypeText:
 			return (item.text != nil);
 			
 		case SHKShareTypeFile:
-			return (item.data != nil);
+			return (item.file != nil);
             
         case SHKShareTypeUserInfo:
             return [[self class] canGetUserInfo];

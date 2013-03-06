@@ -26,6 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SHKFile.h"
 
 typedef enum 
 {
@@ -34,7 +35,6 @@ typedef enum
 	SHKShareTypeText,
 	SHKShareTypeImage,
 	SHKShareTypeFile,
-    SHKShareTypeVideo,
     SHKShareTypeUserInfo
 } SHKShareType;
 
@@ -47,21 +47,17 @@ typedef enum
 } SHKURLContentType;
 
 
-@interface SHKItem : NSObject
+@interface SHKItem : NSObject <NSCoding>
 {	
 	SHKShareType shareType;
-	
-	NSURL *URL;
-	
-	UIImage *image;
 	
 	NSString *title;
 	NSString *text;
 	NSArray *tags;
 	
-	NSData *data;
-	NSString *mimeType;
-	NSString *filename;
+	NSURL *URL;
+	UIImage *image;
+	SHKFile *file;
   
     NSArray *mailToRecipients;
     BOOL isMailHTML;
@@ -81,19 +77,14 @@ typedef enum
 
 @property (nonatomic)			SHKShareType shareType;
 
-@property (nonatomic, retain)	NSURL *URL;
-@property (nonatomic) SHKURLContentType URLContentType;
-
-@property (nonatomic, retain)	UIImage *image;
-
 @property (nonatomic, retain)	NSString *title;
 @property (nonatomic, retain)	NSString *text;
 @property (nonatomic, retain)	NSArray *tags;
 
-@property (nonatomic, retain)	NSData *data;
-@property (nonatomic, retain)	NSString *mimeType;
-@property (nonatomic, retain)	NSString *filename;
-@property (nonatomic, copy)	NSString *srcVideoPath;
+@property (nonatomic, retain)	NSURL *URL;
+@property (nonatomic) SHKURLContentType URLContentType;
+@property (nonatomic, retain)	UIImage *image;
+@property (nonatomic, retain)	SHKFile *file;
 
 
 /*** creation methods ***/
@@ -107,23 +98,19 @@ typedef enum
 
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
+
+//preferred method
++ (id)file:(NSString *)path title:(NSString *)title;
+//use only if user needs to share in-memory data. Temporary files may be created
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
-+ (id)videoPath:(NSString *)path title:(NSString *)title;
 
 /*** custom value methods ***/
 
 /* these are for custom properties injection. Use them only if you are adding some custom functionality to your sharer subclass. */
 
-- (void)setCustomValue:(NSString *)value forKey:(NSString *)key;
+- (void)setCustomValue:(id)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
 - (BOOL)customBoolForSwitchKey:(NSString *)key;
-
-/*** archive methods ***/
-
-/* used when ShareKit needs to save SHKItem to persistent storage. (e.g. offline queue or during facebook's SSO trip to different app  */
-
-- (NSDictionary *)dictionaryRepresentation;
-+ (id)itemFromDictionary:(NSDictionary *)dictionary;
 
 /*** sharer specific extension properties ***/
 
