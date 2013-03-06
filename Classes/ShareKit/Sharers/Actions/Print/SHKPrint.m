@@ -23,11 +23,6 @@
 	return YES;
 }
 
-+ (BOOL)canShareFile
-{
-	return NO;
-}
-
 + (BOOL)shareRequiresInternetConnection
 {
 	return NO;

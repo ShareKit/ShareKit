@@ -2,421 +2,492 @@
 //  SHKTumblr.m
 //  ShareKit
 //
-//  Created by Jamie Pinkham on 7/10/10.
-//  Copyright 2010 Mobelux. All rights reserved.
+//  Created by Vilem Kurz on 24. 2. 2013
+
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 #import "SHKTumblr.h"
 #import "SHKConfiguration.h"
+#import "JSONKit.h"
+#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
-static NSString * const kTumblrAuthenticationURL = @"https://www.tumblr.com/api/authenticate";
-static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
+#define MAX_SIZE_MB_PHOTO 10
+#define MAX_SIZE_MB_AUDIO 10
+#define MAX_SIZE_MB_VIDEO 100
 
-static NSString * const kStoredAuthEmailKeyName = @"email";
-static NSString * const kStoredAuthPasswordKeyName = @"password";
+NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
-@interface SHKTumblr()
-- (void)finish;
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
+@interface SHKTumblr ()
+
+@property (nonatomic, retain) id getUserBlogsObserver;
+
 @end
 
 @implementation SHKTumblr
 
-#pragma mark -
-#pragma mark Memory management
-- (void)dealloc{
-    [data release];
-    [response release];
+@synthesize getUserBlogsObserver;
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:getUserBlogsObserver];
+    [getUserBlogsObserver release];
+    
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle{
-    return @"Tumblr";
-}
++ (NSString *)sharerTitle { return @"Tumblr"; }
 
-+ (BOOL)canShareURL{
-	return YES;
++ (BOOL)canShareURL { return YES; }
++ (BOOL)canShareImage { return YES; }
++ (BOOL)canShareText { return YES; }
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {
+    
+    NSUInteger sizeInMB = size/1024/1024;
+    
+    BOOL result = NO;
+    if ([mimeType hasPrefix:@"image/"]) {
+        result = sizeInMB < MAX_SIZE_MB_PHOTO;
+    } else if ([mimeType hasPrefix:@"audio/"]) {
+        result = sizeInMB < MAX_SIZE_MB_AUDIO;
+    } else if ([mimeType hasPrefix:@"video/"]) {
+        result = sizeInMB < MAX_SIZE_MB_VIDEO;
+    }
+    return result;
 }
-
-+ (BOOL)canShareText{
-    return YES;
-}
-
-+ (BOOL)canShareImage{
-    return YES;
-}
++ (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -
-#pragma mark Configuration : Dynamic Enable
+#pragma mark Authentication
 
-+ (BOOL)canShare{
-	return YES;
+- (id)init
+{
+	if (self = [super init])
+	{		
+		self.consumerKey = SHKCONFIG(tumblrConsumerKey);;		
+		self.secretKey = SHKCONFIG(tumblrSecret);
+ 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tumblrCallbackUrl)];
+		
+	    self.requestURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/request_token"];
+	    self.authorizeURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/authorize"];
+	    self.accessURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/access_token"];
+		
+		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
+	}	
+	return self;
 }
 
-+ (BOOL)canAutoShare{
-	return NO;
+- (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
+{
+	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
-#pragma mark -
-#pragma mark Authorization
-
-- (NSString *)authorizationFormCaption{
-	return SHKLocalizedString(@"Create a free account at %@", @"Tumblr.com");
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTumblrUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+	[super logout];
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form{
-	// Display an activity indicator
-	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@",
-                        SHKEncode([formValues objectForKey:kStoredAuthEmailKeyName]),
-                        SHKEncode([formValues objectForKey:kStoredAuthPasswordKeyName])
-                        ];
-	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrAuthenticationURL]
-                                             params:params
-                                           delegate:self
-                                 isFinishedSelector:@selector(authFinished:)
-                                             method:@"POST"
-                                          autostart:YES] autorelease];
-	
-	self.pendingForm = form;
-}
-
-- (void)authFinished:(SHKRequest *)aRequest{		
-	[[SHKActivityIndicator currentIndicator] hide];
-	if (aRequest.success)
-		[pendingForm saveForm];
-	
-	else {
-        NSString *errorMessage = nil;
-        if (aRequest.response.statusCode == 403)
-            errorMessage = SHKLocalizedString(@"Invalid email or password.");
-        else
-            errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
-        
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                     message:errorMessage
-                                    delegate:nil
-                           cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
-	}
-	[self authDidFinish:aRequest.success];
-}
-
-#pragma mark -
-#pragma mark Authorize form
-+ (NSArray *)authorizationFormFields{
-	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Email")
-                                    key:kStoredAuthEmailKeyName
-                                   type:SHKFormFieldTypeTextNoCorrect
-                                  start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Password")
-                                    key:kStoredAuthPasswordKeyName
-                                   type:SHKFormFieldTypePassword
-                                  start:nil],			
-			nil];
-}
 
 #pragma mark -
 #pragma mark Share Form
 
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type{
-    NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
-                                    key:@"tags"
-                                   type:SHKFormFieldTypeText
-                                  start:[item.tags componentsJoinedByString:@", "]],
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Slug")
-                                    key:@"slug"
-                                   type:SHKFormFieldTypeText
-                                  start:nil],
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Private")
-                                    key:@"private"
-                                   type:SHKFormFieldTypeSwitch
-                                  start:SHKFormFieldSwitchOff],
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Send to Twitter")
-                                    key:@"twitter"
-                                   type:SHKFormFieldTypeSwitch
-                                  start:SHKFormFieldSwitchOff],
-            nil
-     ];
-    if([item shareType] == SHKShareTypeImage){
-        [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Caption")
-                                                        key:@"caption"
-                                                       type:SHKFormFieldTypeText
-                                                      start:item.title] 
-                        atIndex:0];
-    }else{
-        [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title")
-                                                        key:@"title"
-                                                       type:SHKFormFieldTypeText
-                                                      start:item.title]
-                        atIndex:0];
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
+{
+    if (type == SHKShareTypeUserInfo) return nil;
+    
+    //if there is user info saved already in defaults, show the first blog as default option, otherwise user must choose one.
+    NSArray *userBlogURLs = [self userBlogURLs];
+    NSString *defaultBlogURL = nil;
+    NSString *defaultPickedIndex = @"-1";
+    NSMutableArray *defaultItemsList = [NSMutableArray arrayWithCapacity:0];
+    if ([userBlogURLs count] > 0) {
+        defaultBlogURL = userBlogURLs[0];
+        defaultPickedIndex = @"0";
+        [defaultItemsList addObject:defaultBlogURL];
     }
-    return baseArray;
+    
+    SHKFormFieldSettings *blogField = [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
+                                                              key:@"blog"
+                                                             type:SHKFormFieldTypeOptionPicker
+                                                            start:defaultBlogURL
+                                                 optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Choose blog"),
+                                                                    @"curIndexes":defaultPickedIndex,
+                                                                    @"itemsList":defaultItemsList,
+                                                                    @"static":[NSNumber numberWithBool:NO],
+                                                                    @"allowMultiple":[NSNumber numberWithBool:NO],
+                                                                    @"SHKFormOptionControllerOptionProvider":self} mutableCopy] autorelease]
+                                         optionDetailLabelDefault:SHKLocalizedString(@"Select blog")];
+    
+    SHKFormFieldSettings *tagsField = [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
+                                                              key:@"tags"
+                                                             type:SHKFormFieldTypeText
+                                                            start:[self.item.tags componentsJoinedByString:@", "]];
+    
+    SHKFormFieldSettings *publishField = [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
+                                                                 key:@"publish"
+                                                                type:SHKFormFieldTypeOptionPicker
+                                                               start:SHKLocalizedString(@"Publish now")
+                                                    optionPickerInfo:[[@{@"title":SHKLocalizedString(@"Publish type"),
+                                                                       @"curIndexes":@"0",
+                                                                       @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
+                                                                       @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
+                                                                       @"static":[NSNumber numberWithBool:YES],
+                                                                       @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy] autorelease]
+                                            optionDetailLabelDefault:nil];
+
+    NSMutableArray *result = nil;
+    switch (type) {
+        case SHKShareTypeText:
+        {
+            SHKFormFieldSettings *bodyField = [SHKFormFieldSettings label:SHKLocalizedString(@"Body")
+                                                                      key:@"text"
+                                                                     type:SHKFormFieldTypeText
+                                                                    start:self.item.text];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Title")], bodyField, tagsField, publishField, nil];
+            break;
+        }
+        case SHKShareTypeURL:
+        {
+            SHKFormFieldSettings *descriptionField = [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
+                                                                             key:@"text"
+                                                                            type:SHKFormFieldTypeText
+                                                                           start:self.item.text];
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Title")], descriptionField, tagsField, publishField, nil];
+            break;
+        }
+        case SHKShareTypeImage:
+        case SHKShareTypeFile:
+        {
+            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Caption")], tagsField, publishField, nil];
+        }
+        default:
+            break;
+    }
+    return result;
+}
+
+- (SHKFormFieldSettings *)titleFieldWithLabel:(NSString *)label {
+    
+    return [SHKFormFieldSettings label:label key:@"title" type:SHKFormFieldTypeText start:self.item.title];
 }
 
 #pragma mark -
-#pragma mark Share API Methods
+#pragma mark Implementation
 
-- (BOOL)send{		
-	if ([self validateItem]) {
-        if([item shareType] == SHKShareTypeText || [item shareType] == SHKShareTypeURL){
-            NSMutableString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@", 
-                                       SHKEncode([self getAuthValueForKey:kStoredAuthEmailKeyName]),
-                                       SHKEncode([self getAuthValueForKey:kStoredAuthPasswordKeyName])];
-            
-            //set generator param
-            NSString *generator = SHKCONFIG(appName);
-            if(generator){
-                [params appendFormat:@"&generator=%@", generator];
-            }
-            
-            //set send to twitter param
-            if([item customBoolForSwitchKey:@"twitter"]){
-                [params appendFormat:@"&send-to-twitter=auto"];
-            }else{
-                [params appendFormat:@"&send-to-twitter=no"];
-            }
-            
-            //set tags param
-            NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
-            [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-            [allowedCharacters addCharactersInString:@" "];
-            [allowedCharacters removeCharactersInString:@","];
-            NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
-            if(tags){
-                [params appendFormat:@"&tags=%@",SHKEncode(tags)];
-            }
-            
-            //set slug param
-            NSString *slug = [item customValueForKey:@"slug"];
-            if(slug){
-                [params appendFormat:@"&slug=%@", slug];
-            }
-            
-            //set private param
-            if([item customBoolForSwitchKey:@"private"]){
-                [params appendFormat:@"&private=1"];
-            }else{
-                [params appendFormat:@"&private=0"];
-            }
-            
-            //set type param
-            if ([item shareType] == SHKShareTypeURL){
-                
-                switch (item.URLContentType) {
-                        
-                    case SHKURLContentTypeVideo:
-                        [params appendString:@"&type=video"];
-                        [params appendFormat:@"&embed=%@", SHKEncodeURL([item URL])];
-                        if([item title]){
-                            [params appendFormat:@"&caption=%@", SHKEncode([item title])];
-                        }
-                        break;
-                    case SHKURLContentTypeAudio:
-                        [params appendString:@"&type=audio"];
-                        [params appendFormat:@"&externally-hosted-url=%@", SHKEncodeURL([item URL])];
-                        if([item title]){
-                            [params appendFormat:@"&caption=%@", SHKEncode([item title])];
-                        }
-                        break;
-                    case SHKURLContentTypeWebpage:
-                    default:
-                        [params appendString:@"&type=link"];
-                        [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
-                        if([item title]){
-                            [params appendFormat:@"&name=%@", SHKEncode([item title])];
-                        }
-                        break;
-                }
-                
-            }else{
-                [params appendString:@"&type=regular"];
-                if([item title]){
-                    [params appendFormat:@"&title=%@", SHKEncode([item title])];
-                }
-                [params appendFormat:@"&body=%@", SHKEncode([item text])];
-            }
-            self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrWriteURL]
-                                                     params:params
-                                                   delegate:self
-                                         isFinishedSelector:@selector(sendFinished:)
-                                                     method:@"POST"
-                                                  autostart:YES] autorelease];
-        }
-        else if([item shareType] == SHKShareTypeImage){
-            
-			NSData *imageData = [self generateImageData];
-            NSMutableURLRequest *aRequest = [[[NSMutableURLRequest alloc] init] autorelease];
-            [aRequest setURL:[NSURL URLWithString:kTumblrWriteURL]];
-            [aRequest setHTTPMethod:@"POST"];
-            NSString *boundary = @"0xKhTmLbOuNdArY";
-            //NSString *boundary = [NSString stringWithString:@"---------------------------14737809831466499882746641449"];
-            NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-            [aRequest addValue:contentType forHTTPHeaderField: @"Content-Type"];
-            
-            /*
-             now lets create the body of the post
-             */
-            NSMutableData *body = [NSMutableData data];
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                              dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Disposition: form-data; name=\"email\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:kStoredAuthEmailKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                              dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Disposition: form-data; name=\"password\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:kStoredAuthPasswordKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                              dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Disposition: form-data; name=\"type\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"photo" dataUsingEncoding:NSUTF8StringEncoding]];
-
-			//set generator param
-            NSString *generator = SHKCONFIG(appName);
-            if(generator){
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                                  dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"Content-Disposition: form-data; name=\"generator\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[generator dataUsingEncoding:NSUTF8StringEncoding]];
-            }
-
-            if([item tags]){
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                                  dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"Content-Disposition: form-data; name=\"tags\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[[[item tags] componentsJoinedByString:@","] dataUsingEncoding:NSUTF8StringEncoding]];
-            }
-            if([item customValueForKey:@"caption"]){
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                                  dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"Content-Disposition: form-data; name=\"caption\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[[item customValueForKey:@"caption"] dataUsingEncoding:NSUTF8StringEncoding]];
-
-            }
-            if([item customValueForKey:@"slug"]){
-                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                                  dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"Content-Disposition: form-data; name=\"slug\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[[item customValueForKey:@"slug"] dataUsingEncoding:NSUTF8StringEncoding]];
-            }
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                              dataUsingEncoding:NSUTF8StringEncoding]];
-            if([item customBoolForSwitchKey:@"private"]){
-                [body appendData:[@"Content-Disposition: form-data; name=\"private\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"1" dataUsingEncoding:NSUTF8StringEncoding]];
-            }else{
-                [body appendData:[@"Content-Disposition: form-data; name=\"private\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"0" dataUsingEncoding:NSUTF8StringEncoding]];
-            }
-            
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
-                              dataUsingEncoding:NSUTF8StringEncoding]];
-            if([item customBoolForSwitchKey:@"twitter"]){
-                [body appendData:[@"Content-Disposition: form-data; name=\"twitter\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"auto" dataUsingEncoding:NSUTF8StringEncoding]];
-            }else{
-                [body appendData:[@"Content-Disposition: form-data; name=\"twitter\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-                [body appendData:[@"no" dataUsingEncoding:NSUTF8StringEncoding]];
-            }
-            
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Disposition: form-data; name=\"data\"; filename=\"upload.jpg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[@"Content-Transfer-Encoding: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:imageData];
-            [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-            
-            // setting the body of the post to the reqeust
-            [aRequest setHTTPBody:body];
-            [NSURLConnection connectionWithRequest:aRequest delegate:self];
-        }
-                
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
+- (BOOL)validateItem
+{
+    if (self.item.shareType == SHKShareTypeUserInfo) return [super validateItem];
 	
-	return NO;
+    NSString *blog = [self.item customValueForKey:@"blog"];
+    BOOL isBlogFilled = ![blog isEqualToString:@""] && ![blog isEqualToString:@"-1"];
+    BOOL itemValid = isBlogFilled && [super validateItem];
+    
+	return itemValid;
 }
 
-- (void)sendFinished:(SHKRequest *)aRequest{
-	if (!aRequest.success) {
-		if (aRequest.response.statusCode == 403) {
-            [self shouldReloginWithPendingAction:SHKPendingSend];
-			return;
-		}
-        else if (aRequest.response.statusCode == 500) {
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
-            SHKLog(@"error response: %@", [aRequest description]);
-            return;
+// Send the share item to the server
+- (BOOL)send
+{	
+	if (![self validateItem])
+		return NO;
+	
+    OAMutableURLRequest *oRequest = nil;
+    NSMutableArray *params = [[@[] mutableCopy] autorelease];
+    
+    switch (item.shareType) {
+            
+        case SHKShareTypeUserInfo:
+        {
+            [self setQuiet:YES];
+            oRequest = [[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
+                                                                          consumer:consumer // this is a consumer object already made available to us
+                                                                             token:accessToken // this is our accessToken already made available to us
+                                                                             realm:nil
+                                                                 signatureProvider:signatureProvider] autorelease];
+            [oRequest setHTTPMethod:@"GET"];
+            [self sendRequest:oRequest];
+            return YES;
+            break;
+        }
+        case SHKShareTypeText:
+        {
+            oRequest = [self setupPostRequest];
+            
+            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"text"];
+            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
+            OARequestParameter *bodyParam = [[OARequestParameter alloc] initWithName:@"body" value:item.text];
+            [params addObjectsFromArray:@[typeParam, titleParam, bodyParam]];
+            [typeParam release];
+            [titleParam release];
+            [bodyParam release];
+            break;
+        }
+        case SHKShareTypeURL:
+        {
+            oRequest = [self setupPostRequest];
+            
+            switch (self.item.URLContentType) {
+                case SHKURLContentTypeVideo:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"video"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"embed" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                case SHKURLContentTypeAudio:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"audio"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"external_url" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                case SHKURLContentTypeImage:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"photo"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"source" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    break;
+                }
+                default:
+                {
+                    OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"link"];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[item.URL absoluteString]];
+                    [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
+                    [typeParam release];
+                    [titleParam release];
+                    [urlParam release];
+                    
+                    if (item.text) {
+                        OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:item.text];
+                        [params addObject:descriptionParam];
+                        [descriptionParam release];
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+        case SHKShareTypeImage:
+        case SHKShareTypeFile:
+        {
+            oRequest = [self setupPostRequest];
+            
+            NSString *typeValue = nil;
+            if (self.item.image||[self.item.mimeType hasPrefix:@"image/"]) {
+                typeValue = @"photo";
+            } else if ([self.item.mimeType hasPrefix:@"video/"]) {
+                typeValue = @"video";
+            } else if ([self.item.mimeType hasPrefix:@"audio/"]) {
+                typeValue = @"audio";
+            }
+            OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:typeValue];
+            OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+            
+            //Setup the request...
+            [params addObjectsFromArray:@[typeParam, captionParam]];
+            [typeParam release];
+            [captionParam release];
+            
+            break;
+        }
+        default:
+            return NO;
+            break;
+    }
+    
+    NSCharacterSet *allowedCharacters = [[NSCharacterSet characterSetWithCharactersInString:@","] invertedSet];
+	NSString *tags = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
+    OARequestParameter *tagsParam = [[OARequestParameter alloc] initWithName:@"tags" value:tags];
+    OARequestParameter *publishParam = [[OARequestParameter alloc] initWithName:@"state" value:[self.item customValueForKey:@"publish"]];
+    [params addObjectsFromArray:@[tagsParam, publishParam]];
+    [tagsParam release];
+    [publishParam release];
+    [oRequest setParameters:params];
+    
+    BOOL hasDataContent = self.item.image || self.item.data;
+    if (hasDataContent) {
+        
+        //media have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
+        [oRequest prepare];
+        
+        NSData *imageData = nil;
+        if (self.item.image) {
+            imageData = UIImageJPEGRepresentation(self.item.image, 0.9);
+        } else {
+            imageData = self.item.data;
         }
         
-		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error sending your post to Tumblr.")]];
-        SHKLog(@"error response: %@", [aRequest description]);
-		return;
-	}
-    
-	[self sendDidFinish];
-}
-
-- (NSData*) generateImageData
-{
-	return UIImageJPEGRepresentation(item.image, .9);
-}
-
-#pragma mark -
-#pragma mark NSURLConnection delegate methods for image posts
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)theResponse {
-    [response release];
-	response = [theResponse retain];
-	
-	[data setLength:0];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)d {
-	[data appendData:d];
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [self finish];
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    
-	[self finish];
-}
-
-- (void)finish{
-    if(response.statusCode == 200 || response.statusCode == 201){
-        [self sendDidFinish];
-    }else{
-        if(response.statusCode == 403) {
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
-            return;
-        }
-        else if (response.statusCode == 500) {
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
-            return;
-        }
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error sending your post to Tumblr.")]];
+        //append multipart/form-data
+        [oRequest attachFileWithParameterName:@"data" filename:self.item.filename contentType:self.item.mimeType data:imageData];
     }
     
+    [self sendRequest:oRequest];
+    
+    // Notify delegate
+    [self sendDidStart];
+    
+    return YES;
+}
+
+- (OAMutableURLRequest *)setupPostRequest {
+    
+    NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
+    OAMutableURLRequest *result = [[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
+                                               consumer:consumer // this is a consumer object already made available to us
+                                                  token:accessToken // this is our accessToken already made available to us
+                                                  realm:nil
+                                      signatureProvider:signatureProvider] autorelease];
+    [urlString release];
+    [result setHTTPMethod:@"POST"];
+    return result;
+}
+
+- (void)sendRequest:(OAMutableURLRequest *)finalizedRequest {
+    
+    // Start the request
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:finalizedRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
+}
+
+- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
+{	
+	if (ticket.didSucceed) {
+		
+		switch (self.item.shareType) {
+            case SHKShareTypeUserInfo:
+            {
+                NSError *error = nil;
+                NSMutableDictionary *userInfo;
+                Class serializator = NSClassFromString(@"NSJSONSerialization");
+                if (serializator) {
+                    userInfo = [serializator JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+                } else {
+                    userInfo = [[JSONDecoder decoder] mutableObjectWithData:data error:&error];
+                }
+                
+                if (error) {
+                    SHKLog(@"Error when parsing json user info request:%@", [error description]);
+                }
+                
+                [userInfo convertNSNullsToEmptyStrings];
+                [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKTumblrUserInfo];
+            
+                break;
+            }
+            default:
+                break;
+        }
+        
+		[self sendDidFinish];
+		
+	} else {
+		
+        if (ticket.response.statusCode == 401) {
+            
+            //user revoked acces, ask access again
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+            
+        } else {
+            
+            SHKLog(@"Tumblr send finished with error:%@", [[[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding] autorelease]);
+            [self sendShowSimpleErrorAlert];
+        }
+
+	}
+}
+- (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	SHKLog(@"Tumblr send failed with error:%@", [error description]);
+    [self sendShowSimpleErrorAlert];
+}
+
+#pragma mark - SHKFormOptionControllerOptionProvider delegate methods
+
+- (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
+    
+    NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
+	curOptionController = optionController;
+    
+    SHKTumblr *infoSharer = [SHKTumblr getUserInfo];
+    
+    __block SHKTumblr *weakSelf = self;
+    self.getUserBlogsObserver = [[NSNotificationCenter defaultCenter] addObserverForName:SHKSendDidFinishNotification
+                                                      object:infoSharer
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *notification) {
+                                                      
+                                                      NSArray *userBlogURLs = [self userBlogURLs];
+                                                      [weakSelf blogsEnumerated:userBlogURLs];
+                                                      
+                                                      [[NSNotificationCenter defaultCenter] removeObserver:weakSelf.getUserBlogsObserver];
+                                                      weakSelf.getUserBlogsObserver = nil;
+                                                  }];
+}
+
+- (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController
+{
+	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
+    self.getUserBlogsObserver = nil;
+    NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
+	curOptionController = nil;
+}
+
+#pragma mark - 
+
+- (void)blogsEnumerated:(NSArray *)blogs{
+    
+	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[curOptionController optionsEnumerated:blogs];
+	curOptionController = nil;
+}
+
+- (NSArray *)userBlogURLs {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKTumblrUserInfo];
+    NSArray *usersBlogs = [[[userInfo objectForKey:@"response"] objectForKey:@"user"] objectForKey:@"blogs"];
+    NSMutableArray *result = [[@[] mutableCopy] autorelease];
+    for (NSDictionary *blog in usersBlogs) {
+        NSURL *blogURL = [NSURL URLWithString:[blog objectForKey:@"url"]];
+        [result addObject:blogURL.host];
+    }
+    return result;
 }
 
 @end

@@ -28,14 +28,17 @@
 #import "ExampleShareLink.h"
 #import "SHK.h"
 
-@implementation ExampleShareLink
+@interface ExampleShareLink () <UIWebViewDelegate>
 
-@synthesize webView;
+@property (nonatomic, retain) UIWebView *webView;
+
+@end
+
+@implementation ExampleShareLink
 
 - (void)dealloc
 {
-	[webView release];
-	[super dealloc];
+    _webView.delegate = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -43,9 +46,9 @@
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
 	{
 		self.toolbarItems = [NSArray arrayWithObjects:
-								[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)] autorelease],
-								[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
+								[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+							 [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)],
+								[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
 								nil
 							];
 	}
@@ -55,7 +58,7 @@
 
 - (void)share
 {
-	SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle] contentType:(SHKURLContentTypeWebpage)];
+	SHKItem *item = [SHKItem URL:self.webView.request.URL title:[self.webView pageTitle] contentType:(SHKURLContentTypeWebpage)];
 
     /* bellow are examples how to preload SHKItem with some custom sharer specific settings. You can prefill them ad hoc during each particular SHKItem createion, or set them globally in your configurator, so that every SHKItem is prefilled with the same values. More info in SHKItem.h or DefaultSHKConfigurator.m.    
     
@@ -74,12 +77,12 @@
 
 - (void)loadView 
 { 
-	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
-	webView.delegate = self;
-	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://apple.com"]]];
+	self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+	self.webView.delegate = self;
+	self.webView.scalesPageToFit = YES;
+	[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://apple.com"]]];
 		
-	self.view = webView;
+	self.view = self.webView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 

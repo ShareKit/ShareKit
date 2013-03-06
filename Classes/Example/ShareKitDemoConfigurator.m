@@ -209,6 +209,19 @@
     return @"app://foursquare";
 }
 
+// Tumblr - http://www.tumblr.com/docs/en/api/v2
+- (NSString*)tumblrConsumerKey {
+	return @"vT0GPbmG5pwWOLTyrFo6uG0UJQEfX4RgrnXY7ZTzkAJyCrHNPF";
+}
+
+- (NSString*)tumblrSecret {
+	return @"XsYJPUNJDwCAw6B1PcmFjXuCLtgBp8chRrNuZhpLzn8gFBDg42";
+}
+
+- (NSString*)tumblrCallbackUrl {
+	return @"tumblr.sharekit.com";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

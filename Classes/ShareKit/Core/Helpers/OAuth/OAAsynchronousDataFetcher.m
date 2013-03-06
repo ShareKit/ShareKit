@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 
 #import "OAAsynchronousDataFetcher.h"
-
+#import "DefaultSHKConfigurator.h"
 #import "OAServiceTicket.h"
 
 @implementation OAAsynchronousDataFetcher
@@ -48,6 +48,7 @@
 - (void)start
 {    
     [request prepare];
+    SHKLog(@"starting request:%@", request.URL);
 	
 	if (connection)
 		[connection release];
@@ -118,6 +119,7 @@
 	[delegate performSelector:didFailSelector
 				   withObject:ticket
 				   withObject:error];
+    SHKLog(@"connection did fail with error:%@", [error description]);
     [delegate release];
     delegate = nil;
 	
@@ -132,6 +134,7 @@
 	[delegate performSelector:didFinishSelector
 				   withObject:ticket
 				   withObject:responseData];
+    SHKLog(@"connection finished with response:%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
     [delegate release];
     delegate = nil;
 	

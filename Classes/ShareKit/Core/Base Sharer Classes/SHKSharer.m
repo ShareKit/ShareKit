@@ -30,6 +30,10 @@
 #import "SHKConfiguration.h"
 #import "SHKSharerDelegate.h"
 
+static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
+static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
+static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
+
 @interface SHKSharer ()
 
 - (void)updateItemWithForm:(SHKFormController *)form;
@@ -96,7 +100,7 @@
 	return NO;
 }
 
-+ (BOOL)canShareFile
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size
 {
 	return NO;
 }
@@ -121,9 +125,9 @@
 	return YES;
 }
 
-+ (BOOL)canShareType:(SHKShareType)type
++ (BOOL)canShareItem:(SHKItem *)item
 {
-	switch (type) 
+	switch (item.shareType)
 	{
 		case SHKShareTypeURL:
 			return [self canShareURL];
@@ -135,7 +139,7 @@
 			return [self canShareText];
 			
 		case SHKShareTypeFile:
-			return [self canShareFile];
+			return [self canShareFileOfMimeType:item.mimeType size:[item.data length]];
             
         case SHKShareTypeUserInfo:
 			return [self canGetUserInfo];
@@ -183,7 +187,7 @@
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
 		
 		if ([self respondsToSelector:@selector(modalTransitionStyle)])
-			self.modalTransitionStyle = [SHK modalTransitionStyle];
+			self.modalTransitionStyle = [SHK modalTransitionStyleForController:self];
 	}
 	return self;
 }
@@ -194,7 +198,7 @@
 
 + (id)shareItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
+	[SHK pushOnFavorites:[self sharerId] forItem:i];
 	
 	// Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
@@ -208,7 +212,7 @@
 
 - (void)loadItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forType:i.shareType];
+	[SHK pushOnFavorites:[self sharerId] forItem:i];
 	
 	// Create controller set share options
 	self.item = i;
@@ -286,6 +290,40 @@
 	[controller share];
     
     return [controller autorelease];
+}
+
+#pragma mark - Share Item temporary save
+
+- (BOOL)restoreItem{
+    
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *storedShareInfo = [defaults objectForKey:kSHKStoredShareInfoKey];
+    
+	if (storedShareInfo)
+	{
+		self.item = [SHKItem itemFromDictionary:[storedShareInfo objectForKey:kSHKStoredItemKey]];
+		self.pendingAction = [[storedShareInfo objectForKey:kSHKStoredActionKey] intValue];
+        [[self class] clearSavedItem];
+    }
+	return storedShareInfo != nil;
+}
+
++ (void)clearSavedItem {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kSHKStoredShareInfoKey];
+    [defaults synchronize];
+}
+
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction {
+    
+	NSDictionary *itemRep = [self.item dictionaryRepresentation];
+    NSDictionary *shareInfo = @{kSHKStoredItemKey: itemRep,
+                               kSHKStoredActionKey : [NSNumber numberWithInt:inPendingAction]};
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:shareInfo forKey:kSHKStoredShareInfoKey];
+    [defaults synchronize];
 }
 
 #pragma mark -
@@ -494,7 +532,7 @@
 																		 title:nil
 															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
-		[rootView addSection:[self shareFormFieldsForType:item.shareType] header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
+		[rootView addSection:shareFormFields header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
 		
 		if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
 		{
@@ -757,7 +795,7 @@
 
 - (void)sendDidStart
 {		
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidStartNotification" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidStartNotification object:self];
     
 	if ([self.shareDelegate respondsToSelector:@selector(sharerStartedSending:)])
 		[self.shareDelegate performSelector:@selector(sharerStartedSending:) withObject:self];	
@@ -765,7 +803,7 @@
 
 - (void)sendDidFinish
 {	
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFinish" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFinishNotification object:self];
 
     if ([self.shareDelegate respondsToSelector:@selector(sharerFinishedSending:)])
 		[self.shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
@@ -798,7 +836,7 @@
 	self.lastError = error;
 	SHKLog(@"%@", [self.request description]);
     
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidFailWithError" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFailWithErrorNotification object:self];
     
 	if ([self.shareDelegate respondsToSelector:@selector(sharer:failedWithError:shouldRelogin:)])
 		[self.shareDelegate sharer:self failedWithError:error shouldRelogin:shouldRelogin];
@@ -806,7 +844,7 @@
 
 - (void)sendDidCancel
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKSendDidCancel" object:self];
+	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidCancelNotification object:self];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerCancelledSending:)])
 		[self.shareDelegate performSelector:@selector(sharerCancelledSending:) withObject:self];	
@@ -814,7 +852,7 @@
 
 - (void)authDidFinish:(BOOL)success	
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];  
+	[[NSNotificationCenter defaultCenter] postNotificationName:SHKAuthDidFinishNotification object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];

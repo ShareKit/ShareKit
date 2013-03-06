@@ -14,8 +14,6 @@
 
 "Cancel" = "Cancel";
 
-"Slug" = "Slug";
-
 "Private" = "Private";
 
 "Public" = "Public";
@@ -205,3 +203,13 @@
 
 "Select Group" = "Select Group";
 "Flickr Groups" = "Flickr Groups";
+
+//Demo app
+"Accounts" = "Accounts";
+
+//Tumblr V2
+"Publish type" = "Publish type";
+"Publish now" = "Publish now";
+"Draft" = "Draft";
+"Add to queue" = "Add to queue";
+"Publish" = "Publish";

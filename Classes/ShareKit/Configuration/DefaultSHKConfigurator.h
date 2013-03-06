@@ -49,7 +49,8 @@
 - (NSArray*)defaultFavoriteURLSharers;
 - (NSArray*)defaultFavoriteImageSharers;
 - (NSArray*)defaultFavoriteTextSharers;
-- (NSArray*)defaultFavoriteFileSharers;
+- (NSArray*)defaultFavoriteFileSharers __attribute__((deprecated("use defaultFavoriteSharersForMimeType: instead")));
+- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
@@ -81,13 +82,17 @@
 - (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSString*)tumblrConsumerKey;
+- (NSString*)tumblrSecret;
+- (NSString*)tumblrCallbackUrl;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
 - (UIColor*)formFontColor;
 - (UIColor*)formBackgroundColor;
 - (NSString*)modalPresentationStyleForController:(UIViewController *)controller;
-- (NSString*)modalTransitionStyle;
+- (NSString*)modalTransitionStyleForController:(UIViewController *)controller;
+- (NSNumber *)isUsingCocoaPods;
 - (NSNumber*)maxFavCount;
 - (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;

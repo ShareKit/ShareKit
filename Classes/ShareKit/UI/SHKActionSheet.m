@@ -36,17 +36,15 @@
 
 @implementation SHKActionSheet
 
-@synthesize item, sharers, shareDelegate;
-
 - (void)dealloc
 {
-	[item release];
-	[sharers release];
-	[shareDelegate release];
+	[_item release];
+	[_sharers release];
+	[_shareDelegate release];
 	[super dealloc];
 }
 
-+ (SHKActionSheet *)actionSheetForType:(SHKShareType)type
++ (SHKActionSheet *)actionSheetForItem:(SHKItem *)item
 {
 	SHKActionSheet *as = [[SHKCONFIG(SHKActionSheetSubclass) alloc] initWithTitle:SHKLocalizedString(@"Share")
 													  delegate:nil
@@ -54,18 +52,18 @@
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
 	as.delegate = as;
-	as.item = [[[SHKItem alloc] init] autorelease];
-	as.item.shareType = type;
+	as.item = item;
 	
 	as.sharers = [NSMutableArray arrayWithCapacity:0];
-	NSArray *favoriteSharers = [SHK favoriteSharersForType:type];
+	NSArray *favoriteSharers = [SHK favoriteSharersForItem:item];
 		
 	// Add buttons for each favorite sharer
 	id class;
 	for(NSString *sharerId in favoriteSharers)
 	{
-		class = NSClassFromString(sharerId);
-		if ([class canShare])
+		//Do not add buttons for sharers, which are not able to share item
+        class = NSClassFromString(sharerId);
+		if ([class canShare] && [class canShareItem:item])
 		{
 			[as addButtonWithTitle: [class sharerTitle] ];
 			[as.sharers addObject:sharerId];
@@ -85,26 +83,19 @@
 	return [as autorelease];
 }
 
-+ (SHKActionSheet *)actionSheetForItem:(SHKItem *)i
-{
-	SHKActionSheet *as = [self actionSheetForType:i.shareType];
-	as.item = i;
-	return as;
-}
-
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
-    NSInteger numberOfSharers = (NSInteger) [sharers count];
+    NSInteger numberOfSharers = (NSInteger) [_sharers count];
 
 	// Sharers
 	if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
 	{
 		bool doShare = YES;
-		SHKSharer* sharer = [[[NSClassFromString([sharers objectAtIndex:buttonIndex]) alloc] init] autorelease];
-		[sharer loadItem:item];
-		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
+		SHKSharer* sharer = [[[NSClassFromString([self.sharers objectAtIndex:buttonIndex]) alloc] init] autorelease];
+		[sharer loadItem:self.item];
+		if (self.shareDelegate != nil && [self.shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
 		{
-			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
+			doShare = [self.shareDelegate aboutToShareItem:self.item withSharer:sharer];
 		}
 		if(doShare)
 			[sharer share];
@@ -114,8 +105,8 @@
 	else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
 	{
 		SHKShareMenu *shareMenu = [[SHKCONFIG(SHKShareMenuSubclass) alloc] initWithStyle:UITableViewStyleGrouped];
-		shareMenu.shareDelegate = shareDelegate;
-		shareMenu.item = item;
+		shareMenu.shareDelegate = self.shareDelegate;
+		shareMenu.item = self.item;
 		[[SHK currentHelper] showViewController:shareMenu];
 		[shareMenu release];
 	}

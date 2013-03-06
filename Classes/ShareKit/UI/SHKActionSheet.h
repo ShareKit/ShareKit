@@ -31,17 +31,11 @@
 @protocol SHKShareItemDelegate;
 
 @interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
-{		
-	NSMutableArray *sharers;
-	SHKItem *item;
-	id<SHKShareItemDelegate> shareDelegate;
-}
 
 @property (retain) NSMutableArray *sharers;
 @property (retain) SHKItem *item;
 @property (retain) id<SHKShareItemDelegate> shareDelegate;
 
-+ (SHKActionSheet *)actionSheetForType:(SHKShareType)type;
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;
 
 @end

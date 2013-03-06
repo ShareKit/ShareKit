@@ -29,26 +29,25 @@
 #import "SHK.h"
 #import "SHKActionSheet.h"
 
-@implementation ExampleShareFile
+@interface ExampleShareFile () <UIWebViewDelegate>
 
-@synthesize webView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSArray *fileTypes;
+
+@end
+
+@implementation ExampleShareFile
 
 - (void)dealloc
 {
-	[webView release];
-	[super dealloc];
+    _tableView.delegate = nil;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
 	{
-		self.toolbarItems = [NSArray arrayWithObjects:
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(share)] autorelease],
-							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
-							 nil
-							 ];
+        _fileTypes = @[@"PDF", @"Video", @"Audio", @"Image"];
 	}
 	
 	return self;
@@ -56,29 +55,81 @@
 
 - (void)loadView 
 { 
-	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
-	webView.delegate = self;
-	webView.scalesPageToFit = YES;
-	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"]]]];
-	
-	self.view = webView;
-}
-
-- (void)share
-{
-	NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
-	NSData *file = [NSData dataWithContentsOfFile:filePath];
-	
-	SHKItem *item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
-    item.tags = [NSArray arrayWithObjects:[[NSDate date] description], @"pdf document", @"sharekit", nil];
-	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-    [SHK setRootViewController:self];
-	[actionSheet showFromToolbar:self.navigationController.toolbar];
+	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+	self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+	self.view = self.tableView;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
 {
     return YES;
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SHKItem *item = nil;
+    NSError *error = nil;
+    
+    switch (indexPath.row) {
+        case 0:
+        {
+            NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+            break;
+        }
+        case 1:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"demo_video_share.mov" mimeType:@"video/quicktime" title:@"Impressionism - blue ball"];
+            break;
+        }
+        case 2:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
+            break;
+        }
+        case 3:
+        {
+            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
+            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+            item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
+            break;
+        }
+        default:
+            break;
+    }
+    
+    item.tags = [NSArray arrayWithObjects:@"file share", @"sharekit", nil];
+	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    [SHK setRootViewController:self];
+	[actionSheet showFromToolbar:self.navigationController.toolbar];
+}
+
+#pragma mark UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.fileTypes count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *reuseIdentifier = @"fileTypeToShare";
+    UITableViewCell *result = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    
+    if (!result) {
+        result = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+    }
+    result.textLabel.text = self.fileTypes[indexPath.row];
+    return result;
 }
 
 @end

@@ -36,6 +36,12 @@
 #import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
+extern NSString * const SHKSendDidStartNotification;
+extern NSString * const SHKSendDidFinishNotification;
+extern NSString * const SHKSendDidFailWithErrorNotification;
+extern NSString * const SHKSendDidCancelNotification;
+extern NSString * const SHKAuthDidFinishNotification;
+
 extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @class SHKActionSheet;
@@ -71,14 +77,14 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 + (UIBarStyle)barStyle;
 + (UIModalPresentationStyle)modalPresentationStyleForController:(UIViewController *)controller;
-+ (UIModalTransitionStyle)modalTransitionStyle;
++ (UIModalTransitionStyle)modalTransitionStyleForController:(UIViewController *)controller;
 
 #pragma mark -
 #pragma mark Favorites
 
-+ (NSArray *)favoriteSharersForType:(SHKShareType)type;
-+ (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
-+ (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;
++ (NSArray *)favoriteSharersForItem:(SHKItem *)item;
++ (void)pushOnFavorites:(NSString *)className forItem:(SHKItem *)item;
++ (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item;
 
 #pragma mark -
 #pragma mark Credentials
@@ -117,9 +123,3 @@ NSString * SHKEncodeURL(NSURL * value);
 NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks);
 NSString * SHKLocalizedString(NSString* key, ...);
 void SHKSwizzle(Class c, SEL orig, SEL newClassName);
-
-@interface NSFileManager (DoNotBackup)
-
-- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL;
-
-@end

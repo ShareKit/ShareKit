@@ -29,10 +29,5 @@
 
 
 @interface ExampleShareImage : UIViewController 
-{
-	UIImageView *imageView;
-}
-
-@property (nonatomic, retain) UIImageView *imageView;
 
 @end

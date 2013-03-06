@@ -39,9 +39,6 @@
 + (void)handleDidBecomeActive;
 + (void)handleWillTerminate;
 
-// useful for handling custom posting error states
-+ (void)clearSavedItem;
-
 // override point for subclasses that want to do something interesting while sending non-nativly
 - (void)doSend;
 // keep in mind of you add requests as a subclass, you need to cancel them yourself and remove

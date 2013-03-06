@@ -22,7 +22,7 @@
   
     self.textLabel.text = settings.label;    
     
-    self.detailTextLabel.text = settings.value ? settings.value : settings.optionDetailLabelDefault;
+    self.detailTextLabel.text = settings.displayValue ? settings.displayValue : settings.optionDetailLabelDefault;
     
     [super setupWithSettings:settings];  
 }

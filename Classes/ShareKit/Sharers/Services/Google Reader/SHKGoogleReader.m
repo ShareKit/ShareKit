@@ -350,7 +350,7 @@ Google Reader API is unoffical, this was hobbled together from:
 	{
 		if ([key isEqualToString:@"share"])
 		{
-			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_isPublic", [self sharerId]]];
+			[[NSUserDefaults standardUserDefaults] setBool:[[formValues objectForKey:key] isEqualToString:SHKFormFieldSwitchOn] forKey:[NSString stringWithFormat:@"%@_isPublic", [self sharerId]]];
 			break;
 		}
 	}

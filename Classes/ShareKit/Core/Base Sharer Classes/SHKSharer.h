@@ -83,7 +83,7 @@ typedef enum
 
 
 #pragma mark -
-#pragma mark Configuration : Service Defination
+#pragma mark Configuration : Service Definition
 
 + (NSString *)sharerTitle;
 - (NSString *)sharerTitle;
@@ -92,12 +92,12 @@ typedef enum
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
-+ (BOOL)canShareFile;
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
 + (BOOL)requiresAuthentication;
-+ (BOOL)canShareType:(SHKShareType)type;
++ (BOOL)canShareItem:(SHKItem *)item;
 + (BOOL)canAutoShare;
 
 
@@ -131,6 +131,15 @@ typedef enum
 
 //only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
 + (id)getUserInfo;
+
+#pragma mark - Share Item Save Methods
+
+/* used by subclasses when user has to quit the app during share process - e.g. during Facebook SSO trip to facebook app or browser. These methods save item temporarily to defaults and read it back. Data attachments (filedata, image) are stored as separate files in cache dir */
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
+- (BOOL)restoreItem;
+
+// useful for handling custom posting error states
++ (void)clearSavedItem;
 
 #pragma mark -
 #pragma mark Commit Share

@@ -69,11 +69,6 @@
 	return NO;
 }
 
-+ (BOOL)canShareFile
-{
-	return NO;
-}
-
 + (BOOL)shareRequiresInternetConnection
 {
 	return NO;

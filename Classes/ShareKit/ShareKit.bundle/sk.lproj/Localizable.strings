@@ -14,8 +14,6 @@
 
 "Cancel" = "Zrušiť";
 
-"Slug" = "Slug";
-
 "Private" = "Súkromné";
 
 "Public" = "Verejné";
@@ -211,3 +209,12 @@
 "Select Group" = "Vybrať skupinu";
 "Flickr Groups" = "Flickr skupiny";
 
+//Demo app
+"Accounts" = "Kontá";
+
+//Tumblr V2
+"Publish type" = "Spôsob publikácie";
+"Publish now" = "Zverejniť ihneď";
+"Draft" = "Koncept";
+"Add to queue" = "Pridať do fronty";
+"Publish" = "Publikovať";

@@ -12,6 +12,14 @@
 #import "ExampleShareText.h"
 #import "ExampleShareFile.h"
 #import "SHK.h"
+#import "SHKFacebook.h"
+#import "ExampleAccountsViewController.h"
+
+@interface RootViewController ()
+
+@property (nonatomic, retain) SHKFacebook *shkFacebook;
+
+@end
 
 @implementation RootViewController
 
@@ -20,9 +28,39 @@
 	[super loadView];
 	
 	self.toolbarItems = [NSArray arrayWithObjects:
-						 [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Logout") style:UIBarButtonItemStyleBordered target:self action:@selector(logout)] autorelease],
+						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts") style:UIBarButtonItemStyleBordered target:self action:@selector(accounts)],
+                         /*
+                         [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)],*/
 						 nil
 						 ];	
+}
+
+- (void)viewDidLoad
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(authDidFinish:)
+                                                 name:@"SHKAuthDidFinish"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidCancel:)
+                                                 name:@"SHKSendDidCancel"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidStart:)
+                                                 name:@"SHKSendDidStartNotification"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidFinish:)
+                                                 name:@"SHKSendDidFinish"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sendDidFailWithError:)
+                                                 name:@"SHKSendDidFailWithError"
+                                               object:nil];
 }
 
 #pragma mark -
@@ -38,7 +76,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;//5;
+    return 4;
 }
 
 
@@ -49,7 +87,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	switch (indexPath.row) 
@@ -69,10 +107,6 @@
 		case 3:
 			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
 			break;
-			
-		//case 4:
-		//	cell.textLabel.text = @"Logout of All Services";
-		//	break;
 	}
 
     return cell;
@@ -87,25 +121,21 @@
 	switch (indexPath.row) 
 	{
 		case 0:
-			[self.navigationController pushViewController:[[[ExampleShareLink alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareLink alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 1:
 			
-			[self.navigationController pushViewController:[[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 2:
-			[self.navigationController pushViewController:[[[ExampleShareText alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
+			[self.navigationController pushViewController:[[ExampleShareText alloc] initWithNibName:nil bundle:nil] animated:YES];
 			break;
 			
 		case 3:
-			[self.navigationController pushViewController:[[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
-			break;
-			
-		//case 4:
-		//	[SHK logoutOfAll];
-		//	break;			
+			[self.navigationController pushViewController:[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] animated:YES];
+			break;		
 			
 	}
 }
@@ -115,16 +145,36 @@
     return YES;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark -
 
+- (void)accounts
+{
+    ExampleAccountsViewController *accountsViewController = [[ExampleAccountsViewController alloc] init];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
+    
+    if ([self respondsToSelector:@selector(presentViewController:animated:completion:)]) {
+        [self presentViewController:navigationController
+                           animated:YES
+                         completion:^{
+                         }];
+    } else {
+        [self presentModalViewController:navigationController animated:YES];
+    }
+}
+/*
 - (void)logout
 {
-	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
-								 message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
-								delegate:self
-					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
-					   otherButtonTitles:SHKLocalizedString(@"Logout"),nil] autorelease] show];
+	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
+                                message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
+                               delegate:self
+                      cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                      otherButtonTitles:SHKLocalizedString(@"Logout"),nil] show];
 	
 }
 
@@ -133,7 +183,48 @@
 	if (buttonIndex == alertView.firstOtherButtonIndex)
 		[SHK logoutOfAll];
 }
+*/
+- (void)facebookConnect
+{
+    if (nil == self.shkFacebook) {
+        self.shkFacebook = [[SHKFacebook alloc] init];
+    }
+    
+    [self.shkFacebook authorize];
+}
 
+- (void)authDidFinish:(NSNotification*)notification
+{
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *success = [userInfo objectForKey:@"success"];
+    
+    if (NO == [success boolValue]) {
+        NSLog(@"authDidFinish: NO");
+    } else {
+        NSLog(@"authDidFinish: YES");
+    }
+    
+}
+
+- (void)sendDidCancel:(NSNotification*)notification
+{
+    NSLog(@"sendDidCancel:");
+}
+
+- (void)sendDidStart:(NSNotification*)notification
+{
+    NSLog(@"sendDidStart:");
+}
+
+- (void)sendDidFinish:(NSNotification*)notification
+{
+    NSLog(@"sendDidFinish:");
+}
+
+- (void)sendDidFailWithError:(NSNotification*)notification
+{
+    NSLog(@"sendDidFailWithError:");
+}
 
 @end
 

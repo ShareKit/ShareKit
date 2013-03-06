@@ -105,14 +105,14 @@
 
 - (IBAction)done:(id)sender {
 	
-    NSString *pickedValues = [settings optionPickerValueForIndexes:[settings.optionPickerInfo objectForKey:@"curIndexes"]];
+    NSString *pickedValues = [settings optionPickerDisplayValueForIndexes:[settings.optionPickerInfo objectForKey:@"curIndexes"]];
     
     BOOL pickedNone = [pickedValues isEqualToString:@"-1"];    
     if(pickedNone) {        
         pickedValues = nil;        
     }
     
-    self.settings.value = pickedValues;
+    self.settings.displayValue = pickedValues;
     [client SHKFormOptionControllerDidFinish:self];
 }
 

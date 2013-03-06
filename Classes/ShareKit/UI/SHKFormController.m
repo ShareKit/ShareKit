@@ -286,8 +286,9 @@
 	
     for(SHKFormFieldSettings *settings in allFieldSettings)
 	{		
-        if (settings.value) {
-            [formValues setObject:settings.value forKey:settings.key];	
+        NSString *valueToSave = [settings valueToSave];
+        if (valueToSave) {
+            [formValues setObject:valueToSave forKey:settings.key];
         }        		
     }
 		
