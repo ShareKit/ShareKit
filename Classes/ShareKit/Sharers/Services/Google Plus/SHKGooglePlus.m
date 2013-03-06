@@ -15,14 +15,24 @@
 
 @implementation SHKGooglePlus
 
-@synthesize mGooglePlusShare;
+@synthesize mGooglePlusShare,mShareBuilder;
+
+static SHKGooglePlus *sharedInstance = nil;
+
++ (SHKGooglePlus *)shared {
+	@synchronized(self) {
+		if (!sharedInstance)
+			sharedInstance = [SHKGooglePlus new];
+	}
+	return sharedInstance;
+}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
 + (NSString *)sharerTitle
 {
-	return @"Google Plus";
+	return @"Google+";
 }
 
 + (BOOL)canShareURL
@@ -50,42 +60,71 @@
     return NO;
 }
 
++ (BOOL)canAutoShare
+{
+	return NO;
+}
+
+#pragma mark -
+#pragma mark Authorization
+
++ (BOOL)requiresAuthentication {
+	return NO;
+}
+
++ (void)logout {
+	[super logout];
+}
+
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)share {
-    id<GPPShareBuilder> shareBuilder = [self.mGooglePlusShare shareDialog];
+- (void)show {
+    self.mShareBuilder = [self.mGooglePlusShare shareDialog];
     
     switch ([self.item shareType]) {
         case SHKShareTypeURL:
-            shareBuilder = [shareBuilder setURLToShare:self.item.URL];
+            [self.mShareBuilder setURLToShare:self.item.URL];
+            [self.mShareBuilder setPrefillText:self.item.text];
             break;
         default:
         case SHKShareTypeText:
-            shareBuilder = [shareBuilder setPrefillText:self.item.text];
+            [self.mShareBuilder setPrefillText:self.item.text];
             break;
     }
+    [self tryToSend];
+}
 
-    if (![shareBuilder open])
-        [super share];
+- (BOOL)send {
+    if ([self validateItem]) {
+        [self sendDidStart];
+        return [self.mShareBuilder open];
+    }
+    return NO;
 }
 
 #pragma mark -
 #pragma mark Life Cycles
 
 - (id)init {
-    self = [super init];
-    if (self) {
-        self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
-        self.mGooglePlusShare.delegate = self;
+    if (!sharedInstance) {
+        self = [super init];
+        if (self) {
+            self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
+            self.mGooglePlusShare.delegate = self;
+            sharedInstance = [self retain];
+        }
+        return self;
     }
-    return self;
+    else {
+        return [sharedInstance retain];
+    }
 }
 
-- (void)dealloc
-{
+- (void)dealloc {
     self.mGooglePlusShare.delegate = nil;
     self.mGooglePlusShare = nil;
+    self.mShareBuilder = nil;
 	[super dealloc];
 }
 
@@ -95,7 +134,11 @@
 // Reports the status of the share action, |shared| is |YES| if user has
 // successfully shared her post, |NO| otherwise, e.g. user canceled the post.
 - (void)finishedSharing:(BOOL)shared {
-    
+    [[SHKActivityIndicator currentIndicator] hide];
+    if (shared)
+        [self sendDidFinish];
+    else
+        [self sendDidCancel];
 }
 
 @end

@@ -3922,6 +3922,7 @@
 				PRODUCT_NAME = ShareKitDemo;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "Submodules/** Classes/ShareKit/**";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
