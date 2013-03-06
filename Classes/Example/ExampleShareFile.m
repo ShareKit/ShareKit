@@ -95,12 +95,14 @@
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
             item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
+            break;
         }
         case 3:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
             item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
+            break;
         }
         default:
             break;

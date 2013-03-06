@@ -28,6 +28,9 @@
 #import "SHKItem.h"
 #import "SHK.h"
 #import "SHKConfiguration.h"
+#import "NSData+SaveItemAttachment.h"
+
+NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 
 @interface SHKItem()
 
@@ -189,6 +192,13 @@
 	item.text = [dictionary objectForKey:@"text"];
 	item.tags = [dictionary objectForKey:@"tags"];
 	
+    if ([dictionary objectForKey:@"image"] != nil) {
+        NSData *bookmark = [dictionary objectForKey:@"image"];
+        NSData *imageData = [bookmark restoreDataFromAttachmentBookmark];
+        UIImage *image = [UIImage imageWithData:imageData];
+        item.image = image;
+    }
+    
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
 	
@@ -197,9 +207,12 @@
     
 	if ([dictionary objectForKey:@"filename"] != nil)
 		item.filename = [dictionary objectForKey:@"filename"];
-    
-	if ([dictionary objectForKey:@"image"] != nil)
-		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
+
+    if ([dictionary objectForKey:@"data"] != nil) {
+        NSData *bookmark = [dictionary objectForKey:@"data"];
+        NSData *data = [bookmark restoreDataFromAttachmentBookmark];
+        item.data = data;
+    }
     
     if ([dictionary objectForKey:@"printOutputType"] != nil)
 		item.printOutputType = [[dictionary objectForKey:@"printOutputType"] intValue];
@@ -259,12 +272,17 @@
 	
 	if (self.filename != nil)
 		[dictionary setObject:self.filename forKey:@"filename"];
+
+	if (self.data != nil) {
+        NSData *savedFileBookmark = [self.data saveAttachmentData];
+		[dictionary setObject:savedFileBookmark forKey:@"data"];
+    }
 	
-	if (self.data != nil)
-		[dictionary setObject:self.data forKey:@"data"];
-	
-	if (self.image != nil)
-		[dictionary setObject:UIImagePNGRepresentation(self.image) forKey:@"image"];
+	if (self.image != nil) {
+        NSData *imageData = UIImagePNGRepresentation(self.image);
+        NSData *savedFileBookmark = [imageData saveAttachmentData];
+        [dictionary setObject:savedFileBookmark forKey:@"image"];
+    }
     
     [dictionary setObject:[NSNumber numberWithInt:self.printOutputType] forKey:@"printOutputType"];
     

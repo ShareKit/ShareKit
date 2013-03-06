@@ -27,6 +27,8 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const SHKAttachmentSaveDir;
+
 typedef enum 
 {
 	SHKShareTypeUndefined,

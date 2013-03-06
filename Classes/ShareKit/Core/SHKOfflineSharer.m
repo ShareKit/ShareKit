@@ -30,18 +30,13 @@
 
 @implementation SHKOfflineSharer
 
-@synthesize item, sharerId, uid;
-@synthesize readyToFinish;
-@synthesize runLoopThread;
-@synthesize sharer;
-
 - (void)dealloc
 {
-	[item release];
-	[sharerId release];
-	[uid release];
-	[runLoopThread release];
-	[sharer release];
+	[_item release];
+	[_sharerId release];
+	[_uid release];
+	[_runLoopThread release];
+	[_sharer release];
 	[super dealloc];
 }
 
@@ -49,9 +44,25 @@
 {
 	if (self = [super init])
 	{
-		self.item = i;
-		self.sharerId = s;
-		self.uid = u;
+		_item = [i retain];
+		_sharerId = [s retain];
+		_uid = [u retain];
+	}
+	return self;
+}
+
+- (id)initWithDictionary:(NSDictionary *)dictionary {
+    
+    self = [super init];
+    
+    if (self)
+	{
+        SHKItem *item = [SHKItem itemFromDictionary:[dictionary objectForKey:@"item"]];
+        NSString *sharerID = [dictionary objectForKey:@"sharer"];
+        NSString *uid = [dictionary objectForKey:@"uid"];
+		_item = [item retain];
+		_sharerId = [sharerID retain];
+		_uid = [uid retain];
 	}
 	return self;
 }
@@ -62,6 +73,11 @@
 	if (![self shouldRun])
 		return;	
 	
+    //make sure that input data are complete
+    if (!self.item || !self.sharerId) {
+        return;
+    }
+    
 	// Save the thread so we can spin up the run loop later
 	self.runLoopThread = [NSThread currentThread];
 	
@@ -77,50 +93,54 @@
 - (void)share
 {	
 	// create sharer
-	SHKSharer *aSharer = [[NSClassFromString(sharerId) alloc] init];
+	SHKSharer *aSharer = [[NSClassFromString(self.sharerId) alloc] init];
+	aSharer.item = self.item;
+	aSharer.quiet = YES;
+	aSharer.shareDelegate = self;
+    
     self.sharer = aSharer;
     [aSharer release];
-	sharer.item = item;
-	sharer.quiet = YES;
-	sharer.shareDelegate = self;
 	
-	if (![sharer isAuthorized])		
+	if (![self.sharer isAuthorized])
 	{
 		[self finish];
 		return;
 	}
+    
+    //if the item was saved using old method, reconstruct attachments
+    if (self.uid) {
+        
+        // reload image from disk and remove the file
+        NSString *path;
+        if (self.item.shareType == SHKShareTypeImage)
+        {
+            path = [[SHK offlineQueuePath] stringByAppendingPathComponent:self.uid];
+            self.sharer.item.image = [UIImage imageWithContentsOfFile:path];
+            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+            
+        }
+        
+        // reload file from disk and remove the file
+        else if (self.item.shareType == SHKShareTypeFile)
+        {
+            path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:self.uid];
+            self.sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueuePath] stringByAppendingPathComponent:self.uid]];
+            [[NSFileManager defaultManager] removeItemAtPath:path error:nil]; 
+        }
+    }
 	
-	// reload image from disk and remove the file
-	NSString *path;
-	if (item.shareType == SHKShareTypeImage)
-	{
-		path = [[SHK offlineQueuePath] stringByAppendingPathComponent:uid];
-		sharer.item.image = [UIImage imageWithContentsOfFile:path];
-		[[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-		
-	}
-	
-	// reload file from disk and remove the file
-	else if (item.shareType == SHKShareTypeFile)						
-	{
-		path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:uid];
-		sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueuePath] stringByAppendingPathComponent:uid]];
-		[[NSFileManager defaultManager] removeItemAtPath:path error:nil]; 
-
-	}
-	
-	[sharer tryToSend];	
+	[self.sharer tryToSend];
 }
 
 - (BOOL)shouldRun
 {
-	return ![self isCancelled] && ![self isFinished] && !readyToFinish;
+	return ![self isCancelled] && ![self isFinished] && !self.readyToFinish;
 }
 
 - (void)finish
 {	
 	self.readyToFinish = YES;
-	[self performSelector:@selector(lastSpin) onThread:runLoopThread withObject:nil waitUntilDone:NO];
+	[self performSelector:@selector(lastSpin) onThread:self.runLoopThread withObject:nil waitUntilDone:NO];
 }
 
 - (void)lastSpin
@@ -138,19 +158,19 @@
 
 - (void)sharerFinishedSending:(SHKSharer *)aSharer
 {	
-	sharer.shareDelegate = nil;
+	self.sharer.shareDelegate = nil;
 	[self finish];
 }
 
 - (void)sharer:(SHKSharer *)aSharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
-	sharer.shareDelegate = nil;
+	self.sharer.shareDelegate = nil;
 	[self finish];
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)aSharer
 {
-	sharer.shareDelegate = nil;
+	self.sharer.shareDelegate = nil;
 	[self finish];
 }
 

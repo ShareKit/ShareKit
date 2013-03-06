@@ -557,6 +557,7 @@ static NSDictionary *sharersDictionary = nil;
 #pragma mark -
 #pragma mark Offline Support
 
+//TODO change to URL bookmarks
 + (NSString *)offlineQueuePath
 {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -594,18 +595,6 @@ static NSDictionary *sharersDictionary = nil;
 		return NO;
 	}
 	
-	// Generate a unique id for the share to use when saving associated files
-	NSString *uid = [NSString stringWithFormat:@"%@-%i-%f-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
-	
-	
-	// store image in cache
-	if (item.shareType == SHKShareTypeImage && item.image)
-		[UIImageJPEGRepresentation(item.image, 1) writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
-	
-	// store file in cache
-	else if (item.shareType == SHKShareTypeFile)
-		[item.data writeToFile:[[self offlineQueuePath] stringByAppendingPathComponent:uid] atomically:YES];
-	
 	// Open queue list
 	NSMutableArray *queueList = [self getOfflineQueueList];
 	if (queueList == nil)
@@ -615,7 +604,6 @@ static NSDictionary *sharersDictionary = nil;
 	[queueList addObject:[NSDictionary dictionaryWithObjectsAndKeys:
 						  [item dictionaryRepresentation],@"item",
 						  sharerId,@"sharer",
-						  uid,@"uid",
 						  nil]];
 	
 	[self saveOfflineQueueList:queueList];
@@ -646,18 +634,10 @@ static NSDictionary *sharersDictionary = nil;
 			helper.offlineQueue = aQueue;	
             [aQueue release];
         }
-	
-		SHKItem *item;
-		NSString *sharerId, *uid;
-		
+			
 		for (NSDictionary *entry in queueList)
 		{
-			item = [SHKItem itemFromDictionary:[entry objectForKey:@"item"]];
-			sharerId = [entry objectForKey:@"sharer"];
-			uid = [entry objectForKey:@"uid"];
-			
-			if (item != nil && sharerId != nil)
-				[helper.offlineQueue addOperation:[[[SHKOfflineSharer alloc] initWithItem:item forSharer:sharerId uid:uid] autorelease]];
+            [helper.offlineQueue addOperation:[[[SHKOfflineSharer alloc] initWithDictionary:entry] autorelease]];
 		}
 		
 		// Remove offline queue - TODO: only do this if everything was successful?
