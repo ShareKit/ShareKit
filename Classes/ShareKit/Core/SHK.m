@@ -36,7 +36,6 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
-#include <sys/xattr.h>
 
 NSString * const SHKSendDidStartNotification = @"SHKSendDidStartNotification";
 NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
@@ -568,7 +567,6 @@ static NSDictionary *sharersDictionary = nil;
 	// Check if the path exists, otherwise create it
 	if (![fileManager fileExistsAtPath:SHKPath]) {
 		[fileManager createDirectoryAtPath:SHKPath withIntermediateDirectories:YES attributes:nil error:nil];
-                [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:SHKPath]];
     }
 	
 	return SHKPath;
@@ -577,8 +575,7 @@ static NSDictionary *sharersDictionary = nil;
 + (NSString *)offlineQueueListPath
 {
 	NSString *offlinePathString = [[self offlineQueuePath] stringByAppendingPathComponent:@"SHKOfflineQueue.plist"];
-        [[NSFileManager defaultManager] addSkipBackupAttributeToItemAtURL:[NSURL fileURLWithPath:offlinePathString]];
-        return offlinePathString;
+    return offlinePathString;
 }
 
 + (NSMutableArray *)getOfflineQueueList
@@ -836,33 +833,3 @@ NSString* SHKLocalizedString(NSString* key, ...)
 	
 	return string;
 }
-
-@implementation NSFileManager (DoNotBackup)
-
-- (BOOL)addSkipBackupAttributeToItemAtURL:(NSURL *)URL
-{
-    const char* filePath = [[URL path] fileSystemRepresentation];
-    const char* attrName = "com.apple.MobileBackup";
-    if (&NSURLIsExcludedFromBackupKey == nil) {
-        // iOS 5.0.1 and lower
-        u_int8_t attrValue = 1;
-        int result = setxattr(filePath, attrName, &attrValue, sizeof(attrValue), 0, 0);
-        return result == 0;
-    }
-    else {
-        // First try and remove the extended attribute if it is present
-        int result = getxattr(filePath, attrName, NULL, sizeof(u_int8_t), 0, 0);
-        if (result != -1) {
-            // The attribute exists, we need to remove it
-            int removeResult = removexattr(filePath, attrName, 0);
-            if (removeResult == 0) {
-                NSLog(@"Removed extended attribute on file %@", URL);
-            }
-        }
-        
-        // Set the new key
-        return [URL setResourceValue:[NSNumber numberWithBool:YES] forKey:NSURLIsExcludedFromBackupKey error:nil];
-    }
-}
-
-@end
