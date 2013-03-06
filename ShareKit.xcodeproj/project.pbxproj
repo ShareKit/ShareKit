@@ -714,16 +714,7 @@
 		456BAD0C16910707005B3077 /* GPPShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPShare.h; sourceTree = "<group>"; };
 		456BAD0D16910707005B3077 /* GPPSignIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPSignIn.h; sourceTree = "<group>"; };
 		456BAD0E16910707005B3077 /* GPPSignInButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPPSignInButton.h; sourceTree = "<group>"; };
-		456BAD0F16910707005B3077 /* libGooglePlus.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGooglePlus.a; sourceTree = "<group>"; };
 		456BAD1016910707005B3077 /* libGooglePlusUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGooglePlusUniversal.a; sourceTree = "<group>"; };
-		456BAD1516910707005B3077 /* google_plus_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_plus_share.png; sourceTree = "<group>"; };
-		456BAD1616910707005B3077 /* google_plus_share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google_plus_share@2x.png"; sourceTree = "<group>"; };
-		456BAD1716910707005B3077 /* google_plus_share_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_plus_share_large.png; sourceTree = "<group>"; };
-		456BAD1816910707005B3077 /* google_plus_share_large@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google_plus_share_large@2x.png"; sourceTree = "<group>"; };
-		456BAD1916910707005B3077 /* google_plus_sign_in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_plus_sign_in.png; sourceTree = "<group>"; };
-		456BAD1A16910707005B3077 /* google_plus_sign_in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google_plus_sign_in@2x.png"; sourceTree = "<group>"; };
-		456BAD1B16910707005B3077 /* google_plus_sign_in_wide.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = google_plus_sign_in_wide.png; sourceTree = "<group>"; };
-		456BAD1C16910707005B3077 /* google_plus_sign_in_wide@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "google_plus_sign_in_wide@2x.png"; sourceTree = "<group>"; };
 		456BAD2516910761005B3077 /* GTLBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBase64.h; sourceTree = "<group>"; };
 		456BAD2616910761005B3077 /* GTLBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLBase64.m; sourceTree = "<group>"; };
 		456BAD2716910761005B3077 /* GTLBatchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLBatchQuery.h; sourceTree = "<group>"; };
@@ -1894,7 +1885,6 @@
 			children = (
 				456BAD0A16910707005B3077 /* lib */,
 				456BAD2316910761005B3077 /* OpenSource */,
-				456BAD1416910707005B3077 /* Resources */,
 				456BADA9169107D1005B3077 /* SHKGooglePlus.h */,
 				456BADAA169107D1005B3077 /* SHKGooglePlus.m */,
 			);
@@ -1908,27 +1898,10 @@
 				456BAD0C16910707005B3077 /* GPPShare.h */,
 				456BAD0D16910707005B3077 /* GPPSignIn.h */,
 				456BAD0E16910707005B3077 /* GPPSignInButton.h */,
-				456BAD0F16910707005B3077 /* libGooglePlus.a */,
 				456BAD1016910707005B3077 /* libGooglePlusUniversal.a */,
 			);
 			name = lib;
 			path = "Submodules/googleplus-ios-sdk/lib";
-			sourceTree = SOURCE_ROOT;
-		};
-		456BAD1416910707005B3077 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				456BAD1516910707005B3077 /* google_plus_share.png */,
-				456BAD1616910707005B3077 /* google_plus_share@2x.png */,
-				456BAD1716910707005B3077 /* google_plus_share_large.png */,
-				456BAD1816910707005B3077 /* google_plus_share_large@2x.png */,
-				456BAD1916910707005B3077 /* google_plus_sign_in.png */,
-				456BAD1A16910707005B3077 /* google_plus_sign_in@2x.png */,
-				456BAD1B16910707005B3077 /* google_plus_sign_in_wide.png */,
-				456BAD1C16910707005B3077 /* google_plus_sign_in_wide@2x.png */,
-			);
-			name = Resources;
-			path = "Submodules/googleplus-ios-sdk/Resources";
 			sourceTree = SOURCE_ROOT;
 		};
 		456BAD2316910761005B3077 /* OpenSource */ = {
@@ -3232,7 +3205,6 @@
 				AABBED63162F0C03009D46E4 /* LinkedIn */,
 				AABBED6C162F0C1A009D46E4 /* Pinboard */,
 				AABBED75162F0C33009D46E4 /* Read It Later */,
-				7AEE037D160E1B4000FEC06E /* Readability */,
 				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
 				AABBED7E162F0C4D009D46E4 /* Tumbl */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
