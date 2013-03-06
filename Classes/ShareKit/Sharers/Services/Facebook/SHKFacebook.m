@@ -33,8 +33,6 @@
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
 
-static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
-static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 // these are ways of getting back to the instance that made the request through statics
@@ -44,17 +42,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 @interface SHKFacebook()
 
-+ (NSString *)storedImagePath:(UIImage*)image;
-+ (UIImage*)storedImage:(NSString*)imagePath;
 - (void)showFacebookForm;
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLog;
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
                       error:(NSError *)error;
-
-- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
-- (BOOL)restoreItem;
 
 - (void) doSend;
 - (void) doNativeShow;
@@ -104,36 +97,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	[self.pendingConnections removeAllObjects];
 }
-
-
-- (BOOL)restoreItem{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDictionary *storedItem = [defaults objectForKey:kSHKStoredItemKey];
-	if (storedItem)
-	{
-		self.item = [SHKItem itemFromDictionary:storedItem];
-		self.pendingAction = [[storedItem objectForKey:kSHKStoredActionKey] intValue];
-		NSString *imagePath = [storedItem objectForKey:@"imagePath"];
-		if (imagePath) {
-			self.item.image = [SHKFacebook storedImage:imagePath];
-		}
-		[SHKFacebook clearSavedItem];
-	}
-	[defaults synchronize];
-
-	return storedItem != nil;
-}
-
-- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction{
-	NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
-	if (item.image)
-	{
-		[itemRep setObject:[SHKFacebook storedImagePath:item.image] forKey:@"imagePath"];
-	}
-	[itemRep setObject:[NSNumber numberWithInt:inPendingAction] forKey:kSHKStoredActionKey];
-	[[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKStoredItemKey];
-}
-
 
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI {
 	// because this routine is used both for checking if we are authed and
@@ -222,37 +185,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		authingSHKFacebook = nil;
 		[self release];
 	}
-}
-
-+ (NSString *)storedImagePath:(UIImage*)image
-{
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
-	NSString *cache = [paths objectAtIndex:0];
-	NSString *imagePath = [cache stringByAppendingPathComponent:@"SHKImage"];
-	
-	// Check if the path exists, otherwise create it
-	if (![fileManager fileExistsAtPath:imagePath])
-		[fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:nil];
-	
-	NSString *uid = [NSString stringWithFormat:@"img-%f-%i", [[NSDate date] timeIntervalSince1970], arc4random()];
-	// store image in cache
-	NSData *imageData = UIImagePNGRepresentation(image);
-	imagePath = [imagePath stringByAppendingPathComponent:uid];
-	[imageData writeToFile:imagePath atomically:YES];
-	
-	return imagePath;
-}
-
-+ (UIImage*)storedImage:(NSString*)imagePath {
-	NSData *imageData = [NSData dataWithContentsOfFile:imagePath];
-	UIImage *image = nil;
-	if (imageData) {
-		image = [UIImage imageWithData:imageData];
-	}
-	// Unlink the stored file:
-	[[NSFileManager defaultManager] removeItemAtPath:imagePath error:nil];
-	return image;
 }
 
 + (BOOL)handleOpenURL:(NSURL*)url
@@ -346,14 +278,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	[self retain];
 	
 	[self openSessionWithAllowLoginUI:YES];
-}
-
-+ (void)clearSavedItem{
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-	[defaults removeObjectForKey:kSHKStoredItemKey];
-	[defaults removeObjectForKey:kSHKStoredActionKey];
-	[defaults synchronize];
 }
 
 + (void)logout

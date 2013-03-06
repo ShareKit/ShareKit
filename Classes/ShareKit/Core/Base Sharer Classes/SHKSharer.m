@@ -30,6 +30,10 @@
 #import "SHKConfiguration.h"
 #import "SHKSharerDelegate.h"
 
+static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
+static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
+static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
+
 @interface SHKSharer ()
 
 - (void)updateItemWithForm:(SHKFormController *)form;
@@ -286,6 +290,40 @@
 	[controller share];
     
     return [controller autorelease];
+}
+
+#pragma mark - Share Item temporary save
+
+- (BOOL)restoreItem{
+    
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDictionary *storedShareInfo = [defaults objectForKey:kSHKStoredShareInfoKey];
+    
+	if (storedShareInfo)
+	{
+		self.item = [SHKItem itemFromDictionary:[storedShareInfo objectForKey:kSHKStoredItemKey]];
+		self.pendingAction = [[storedShareInfo objectForKey:kSHKStoredActionKey] intValue];
+        [[self class] clearSavedItem];
+    }
+	return storedShareInfo != nil;
+}
+
++ (void)clearSavedItem {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:kSHKStoredShareInfoKey];
+    [defaults synchronize];
+}
+
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction {
+    
+	NSDictionary *itemRep = [self.item dictionaryRepresentation];
+    NSDictionary *shareInfo = @{kSHKStoredItemKey: itemRep,
+                               kSHKStoredActionKey : [NSNumber numberWithInt:inPendingAction]};
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:shareInfo forKey:kSHKStoredShareInfoKey];
+    [defaults synchronize];
 }
 
 #pragma mark -
