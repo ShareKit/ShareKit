@@ -23,10 +23,8 @@
 //
 //
 
-
 #import "SHKConfiguration.h"
 #import "SHKReadability.h"
-#import "JSONKit.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
@@ -270,7 +268,9 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 		[self shouldReloginWithPendingAction:SHKPendingSend];
         return;
 	}
-	NSDictionary *errorDict = [errorMessage objectFromJSONString];
+    
+    NSError *error = nil;
+    NSDictionary *errorDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
 
 	if ([[errorDict objectForKey:@"success"] intValue] == 0)
 	{

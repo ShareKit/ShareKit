@@ -140,7 +140,6 @@
 		7A16F38D161341570019645D /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
 		7A16F38E161341570019645D /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
 		7A16F3C316134AA10019645D /* SHKInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A16F3AF16134A790019645D /* SHKInstagram.m */; };
-		7A1AFCB0160E11F50086B98A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF2523714F0499E00CE8709 /* JSONKit.m */; };
 		7A1AFCC1160E12330086B98A /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
 		7A1AFCD2160E12720086B98A /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
 		7A1AFCE3160E13080086B98A /* GCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC75E156CFBF400E3303E /* GCOAuth.m */; };
@@ -210,7 +209,6 @@
 		7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */; };
 		7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A16F3C216134A890019645D /* libInstagram.a */; };
 		7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED62162F0BE8009D46E4 /* libInstapaper.a */; };
-		7AC28F18165A21C2006D7441 /* libJSONKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCAE160E11810086B98A /* libJSONKit.a */; };
 		7AC28F19165A21C2006D7441 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED6B162F0C03009D46E4 /* libLinkedIn.a */; };
 		7AC28F1B165A21C2006D7441 /* libLogout.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECC9162F0719009D46E4 /* libLogout.a */; };
@@ -303,13 +301,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A0F91D1156BA2A0009CB40A;
 			remoteInfo = "Static Library Core";
-		};
-		7AC28ECD165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1AFC47160E11810086B98A;
-			remoteInfo = JSONKit;
 		};
 		7AC28ECF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -800,7 +791,6 @@
 		7A16F3AE16134A790019645D /* SHKInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKInstagram.h; path = Instagram/SHKInstagram.h; sourceTree = "<group>"; };
 		7A16F3AF16134A790019645D /* SHKInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKInstagram.m; path = Instagram/SHKInstagram.m; sourceTree = "<group>"; };
 		7A16F3C216134A890019645D /* libInstagram.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstagram.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFCAE160E11810086B98A /* libJSONKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libJSONKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSSKeyChain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCD1160E123C0086B98A /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libEvernote SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -856,8 +846,6 @@
 		7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SaveItemAttachment.m"; sourceTree = "<group>"; };
 		7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyLibFile.h; path = ShareKitLibrary/DummyLibFile.h; sourceTree = "<group>"; };
 		7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyLibFile.m; path = ShareKitLibrary/DummyLibFile.m; sourceTree = "<group>"; };
-		7AF2523614F0499E00CE8709 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		7AF2523714F0499E00CE8709 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7AF78BB114B71FD8008ACA5D /* SHKFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -991,13 +979,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFCA2160E11810086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFCB4160E11F90086B98A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1059,7 +1040,6 @@
 				7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */,
 				7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */,
 				7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */,
-				7AC28F18165A21C2006D7441 /* libJSONKit.a in Frameworks */,
 				7AC28F19165A21C2006D7441 /* libKippt.a in Frameworks */,
 				7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */,
 				7AC28F1B165A21C2006D7441 /* libLogout.a in Frameworks */,
@@ -1261,7 +1241,6 @@
 				7AB5342E1552AADD00171BCE /* libShareKit.a */,
 				7AB5360F1552E26800171BCE /* ShareKit.bundle */,
 				7A0F9246156BA2A0009CB40A /* libShareKitCore.a */,
-				7A1AFCAE160E11810086B98A /* libJSONKit.a */,
 				7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */,
 				7A1AFCD1160E123C0086B98A /* libReachability.a */,
 				7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */,
@@ -1613,7 +1592,6 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				F92EF477148E8F1A0070F913 /* JSONKit */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
 				43A536A411DBE3B9004A1712 /* SHKRequest.h */,
@@ -2174,16 +2152,6 @@
 			path = "Logout of All Services";
 			sourceTree = "<group>";
 		};
-		F92EF477148E8F1A0070F913 /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				7AF2523614F0499E00CE8709 /* JSONKit.h */,
-				7AF2523714F0499E00CE8709 /* JSONKit.m */,
-			);
-			name = JSONKit;
-			path = ../../../../Submodules/JSONKit;
-			sourceTree = "<group>";
-		};
 		FA5AA3B4149625010064DB24 /* Vkontakte */ = {
 			isa = PBXGroup;
 			children = (
@@ -2273,13 +2241,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7A16F3B716134A890019645D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFCA3160E11810086B98A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2580,23 +2541,6 @@
 			productReference = 7A16F3C216134A890019645D /* libInstagram.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7A1AFC47160E11810086B98A /* JSONKit */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFCAB160E11810086B98A /* Build configuration list for PBXNativeTarget "JSONKit" */;
-			buildPhases = (
-				7A1AFC48160E11810086B98A /* Sources */,
-				7A1AFCA2160E11810086B98A /* Frameworks */,
-				7A1AFCA3160E11810086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = JSONKit;
-			productName = ShareKitLibrary;
-			productReference = 7A1AFCAE160E11810086B98A /* libJSONKit.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		7A1AFCB1160E11F90086B98A /* SSKeyChain */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A1AFCBD160E11F90086B98A /* Build configuration list for PBXNativeTarget "SSKeyChain" */;
@@ -2712,7 +2656,6 @@
 			dependencies = (
 				7A49DBC616BC199F004B7E78 /* PBXTargetDependency */,
 				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28ECE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED2165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED4165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3182,7 +3125,6 @@
 				7AB5342D1552AADD00171BCE /* Static Library */,
 				7AB5360E1552E26800171BCE /* Resource Bundle */,
 				7A0F91D1156BA2A0009CB40A /* Static Library Core */,
-				7A1AFC47160E11810086B98A /* JSONKit */,
 				7A1AFCB1160E11F90086B98A /* SSKeyChain */,
 				7A16F36F161340DD0019645D /* OAuth */,
 				7A1AFCC2160E123C0086B98A /* Reachability */,
@@ -3385,14 +3327,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A16F3C316134AA10019645D /* SHKInstagram.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFC48160E11810086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFCB0160E11F50086B98A /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3700,11 +3634,6 @@
 			isa = PBXTargetDependency;
 			target = 7A0F91D1156BA2A0009CB40A /* Static Library Core */;
 			targetProxy = 7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28ECE165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1AFC47160E11810086B98A /* JSONKit */;
-			targetProxy = 7AC28ECD165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4096,53 +4025,6 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Instagram;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7A1AFCAC160E11810086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = JSONKit;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFCAD160E11810086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = JSONKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -5655,15 +5537,6 @@
 			buildConfigurations = (
 				7A16F3C016134A890019645D /* Debug */,
 				7A16F3C116134A890019645D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A1AFCAB160E11810086B98A /* Build configuration list for PBXNativeTarget "JSONKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFCAC160E11810086B98A /* Debug */,
-				7A1AFCAD160E11810086B98A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

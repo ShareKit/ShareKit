@@ -24,7 +24,6 @@
 
 #import "SHKTumblr.h"
 #import "SHKConfiguration.h"
-#import "JSONKit.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 #define MAX_SIZE_MB_PHOTO 10
@@ -394,13 +393,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             case SHKShareTypeUserInfo:
             {
                 NSError *error = nil;
-                NSMutableDictionary *userInfo;
-                Class serializator = NSClassFromString(@"NSJSONSerialization");
-                if (serializator) {
-                    userInfo = [serializator JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-                } else {
-                    userInfo = [[JSONDecoder decoder] mutableObjectWithData:data error:&error];
-                }
+                NSMutableDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
                 
                 if (error) {
                     SHKLog(@"Error when parsing json user info request:%@", [error description]);

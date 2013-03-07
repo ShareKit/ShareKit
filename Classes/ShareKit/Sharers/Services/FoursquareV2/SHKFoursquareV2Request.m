@@ -26,15 +26,10 @@
 //
 
 #import "SHKFoursquareV2Request.h"
-
 #import "NSString+URLEncoding.h"
-
-#import "JSONKit.h"
-
 
 static NSString *apiURL = @"https://api.foursquare.com/v2";
 static NSString *apiDateVerified = @"20110927";
-
 
 @implementation SHKFoursquareV2Request
 
@@ -49,7 +44,9 @@ static NSString *apiDateVerified = @"20110927";
 - (NSDictionary*)getFoursquareResult
 {
     if (_foursquareResult == nil) {
-        id jsonResult = [self.result objectFromJSONString];
+        
+        NSError *error = nil;
+        id jsonResult = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:&error];
         
         _foursquareResult = [([jsonResult isKindOfClass:[NSDictionary class]] ? jsonResult : nil) retain];
     }

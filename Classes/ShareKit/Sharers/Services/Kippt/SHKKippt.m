@@ -25,7 +25,6 @@
 
 
 #import "SHKKippt.h"
-#import "JSONKit.h"
 #import <objc/runtime.h>
 
 // -- Constants --
@@ -254,7 +253,8 @@ static char const* const ListURIKey = "ListURIKey";
         [curOptionController optionsEnumerationFailedWithError:err];
         curOptionController = nil;
     } else {
-        NSDictionary *result = [aRequest.result objectFromJSONString];
+        NSError *error = nil;
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSMutableArray *lists = [[NSMutableArray alloc] init];
         for (NSDictionary *l in [result objectForKey:@"objects"]) {
             NSString *s = [l objectForKey:@"title"];
@@ -285,7 +285,10 @@ static char const* const ListURIKey = "ListURIKey";
                               notes, @"notes",
                               nil];
         
-        [self sendRequest:kNewClipURL params:[clip JSONString] isFinishedSelector:@selector(sendFinished:) method:@"POST"];
+        NSError *error = nil;
+        NSData *clipData = [NSJSONSerialization dataWithJSONObject:clip options:NSJSONWritingPrettyPrinted error:&error];
+        NSString *clipString = [[NSString alloc] initWithData:clipData encoding:NSUTF8StringEncoding];
+        [self sendRequest:kNewClipURL params:clipString isFinishedSelector:@selector(sendFinished:) method:@"POST"];
 		
 		// Notify delegate
 		[self sendDidStart];

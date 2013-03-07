@@ -29,7 +29,6 @@
 #import "SHKConfiguration.h"
 #import "SHKVkontakteOAuthView.h"
 #import "SHKVKontakteRequest.h"
-#import "JSONKit.h"
 
 @interface SHKVkontakte()
 
@@ -235,7 +234,8 @@
 	if (aRequest.success)
 	{
         // convert to JSON
-        NSDictionary *res = [aRequest.data objectFromJSONData];
+        NSError *error = nil;
+        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
         NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
 
@@ -383,7 +383,8 @@
     if ([self isRequestFinishedWithoutError:aRequest])
     {
         // convert to JSON
-        NSDictionary *responseDict = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
+        NSError *error = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
         if (upload_url)
         {
@@ -404,7 +405,8 @@
     if ([self isRequestFinishedWithoutError:aRequest])
     {
         // convert to JSON
-        NSDictionary *responseDict = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
+        NSError *error = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSDictionary *photoDict = [[responseDict objectForKey:@"response"] lastObject];
         NSString *photoId = [photoDict objectForKey:@"id"];
         if (photoDict && photoId)
@@ -527,7 +529,8 @@
     if (aRequest.success)
     {
         // convert to JSON
-        NSDictionary *res = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
+        NSError *error = nil;
+        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
 
         if (res)
         {
@@ -562,7 +565,8 @@
 {
     if ([self isRequestFinishedWithoutError:aRequest])
     {
-        NSDictionary *res = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
+        NSError *error = nil;
+        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSString *errorMsg = [[res objectForKey:@"error"] objectForKey:@"error_msg"];
         
         if([errorMsg isEqualToString:@"Captcha needed"])
@@ -643,7 +647,8 @@
     if ([self isRequestFinishedWithoutError:aRequest])
     {
         // convert to JSON
-        NSDictionary *responseDict = [aRequest.data objectFromJSONData] ? [aRequest.data objectFromJSONData] : nil;
+        NSError *error = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
         NSString *hash = [responseDict objectForKey:@"hash"];
         NSString *photo = [responseDict objectForKey:@"photo"];
         NSString *server = [responseDict objectForKey:@"server"];
