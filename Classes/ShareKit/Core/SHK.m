@@ -514,7 +514,7 @@ static NSString *shareKitLibraryBundlePath = nil;
 {
     if (shareKitLibraryBundlePath == nil) {
         
-        shareKitLibraryBundlePath = [[[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
+        shareKitLibraryBundlePath = [[[NSBundle bundleForClass:[SHK class]] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
     }
     return shareKitLibraryBundlePath;
 }
