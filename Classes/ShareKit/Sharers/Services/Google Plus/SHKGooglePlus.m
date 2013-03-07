@@ -11,21 +11,11 @@
 
 @interface SHKGooglePlus ()
 
+@property (nonatomic, strong) GPPShare *mGooglePlusShare;
+
 @end
 
 @implementation SHKGooglePlus
-
-@synthesize mGooglePlusShare,mShareBuilder;
-
-static SHKGooglePlus *sharedInstance = nil;
-
-+ (SHKGooglePlus *)shared {
-	@synchronized(self) {
-		if (!sharedInstance)
-			sharedInstance = [SHKGooglePlus new];
-	}
-	return sharedInstance;
-}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -45,19 +35,9 @@ static SHKGooglePlus *sharedInstance = nil;
 	return YES;
 }
 
-+ (BOOL)canShareImage
-{
-	return NO;
-}
-
 + (BOOL)canShareOffline
 {
 	return NO;
-}
-
-+ (BOOL)canGetUserInfo
-{
-    return NO;
 }
 
 + (BOOL)canAutoShare
@@ -72,73 +52,72 @@ static SHKGooglePlus *sharedInstance = nil;
 	return NO;
 }
 
-+ (void)logout {
-	[super logout];
-}
-
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)show {
-    self.mShareBuilder = [self.mGooglePlusShare shareDialog];
+- (BOOL)send {
+    
+    //item validation is not needed, as GPPShareBuilder can be empty.
+    
+    id<GPPShareBuilder> mShareBuilder = [self.mGooglePlusShare shareDialog];
     
     switch ([self.item shareType]) {
         case SHKShareTypeURL:
-            [self.mShareBuilder setURLToShare:self.item.URL];
-            [self.mShareBuilder setPrefillText:self.item.text];
+            [mShareBuilder setURLToShare:self.item.URL];
+            [mShareBuilder setPrefillText:self.item.text];
             break;
         default:
         case SHKShareTypeText:
-            [self.mShareBuilder setPrefillText:self.item.text];
+            [mShareBuilder setPrefillText:self.item.text];
             break;
     }
-    [self tryToSend];
-}
-
-- (BOOL)send {
-    if ([self validateItem]) {
-        [self sendDidStart];
-        return [self.mShareBuilder open];
-    }
-    return NO;
+    
+    self.quiet = YES; //if user cancels, on return blinks activity indicator. This disables it, as we share in safari and it is hidden anyway
+    [self sendDidStart];
+    return [mShareBuilder open];
 }
 
 #pragma mark -
 #pragma mark Life Cycles
 
 - (id)init {
-    if (!sharedInstance) {
+
         self = [super init];
         if (self) {
-            self.mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
-            self.mGooglePlusShare.delegate = self;
-            sharedInstance = [self retain];
+            _mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
+            _mGooglePlusShare.delegate = self;
         }
         return self;
-    }
-    else {
-        return [sharedInstance retain];
-    }
 }
 
 - (void)dealloc {
-    self.mGooglePlusShare.delegate = nil;
-    self.mGooglePlusShare = nil;
-    self.mShareBuilder = nil;
+
+    [_mGooglePlusShare release];
 	[super dealloc];
 }
 
 #pragma mark -
 #pragma mark GPPShareDelegate
 
++ (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    SHKGooglePlus *gPlusSharer = [[SHKGooglePlus alloc] init];
+    BOOL result = [gPlusSharer.mGooglePlusShare handleURL:url sourceApplication:sourceApplication annotation:annotation];
+    [gPlusSharer release];
+    return result;
+}
+
 // Reports the status of the share action, |shared| is |YES| if user has
 // successfully shared her post, |NO| otherwise, e.g. user canceled the post.
 - (void)finishedSharing:(BOOL)shared {
-    [[SHKActivityIndicator currentIndicator] hide];
-    if (shared)
+    
+    //[[SHKActivityIndicator currentIndicator] hide];
+    if (shared) { 
+        self.quiet = NO;
         [self sendDidFinish];
-    else
+    } else {
         [self sendDidCancel];
+    }
 }
 
 @end

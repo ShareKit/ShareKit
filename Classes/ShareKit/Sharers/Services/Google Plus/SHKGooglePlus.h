@@ -36,14 +36,8 @@
 #import "SHKSharer.h"
 #import "GPPShare.h"
 
-@interface SHKGooglePlus : SHKSharer <GPPShareDelegate> {
-    GPPShare *mGooglePlusShare;
-    id<GPPShareBuilder> mShareBuilder;
-}
+@interface SHKGooglePlus : SHKSharer <GPPShareDelegate>
 
-@property (nonatomic, retain) GPPShare *mGooglePlusShare;
-@property (nonatomic, retain) id<GPPShareBuilder> mShareBuilder;
-
-+ (SHKGooglePlus *)shared;
++ (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
 @end

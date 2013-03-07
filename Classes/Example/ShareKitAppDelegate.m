@@ -58,29 +58,20 @@
 	[SHKFacebook handleWillTerminate];
 }
 
-- (BOOL)handleOpenURL:(NSURL*)url
-{
-	NSString* scheme = [url scheme];
-  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-    return [SHKFacebook handleOpenURL:url];
-  return YES;
-}
-
 - (BOOL)application:(UIApplication *)application 
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    if ([[[SHKGooglePlus shared] mGooglePlusShare] handleURL:url sourceApplication:sourceApplication annotation:annotation]) {
-        return YES;
+    NSString* scheme = [url scheme];
+    
+    if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]]) {
+        return [SHKFacebook handleOpenURL:url];
+    } else if ([scheme isEqualToString:@"com.yourcompany.sharekitdemo"]) {
+        return [SHKGooglePlus handleURL:url sourceApplication:sourceApplication annotation:annotation];
     }
-    return [self handleOpenURL:url];
-}
-
-- (BOOL)application:(UIApplication *)application 
-      handleOpenURL:(NSURL *)url 
-{
-  return [self handleOpenURL:url];  
+    
+    return YES;
 }
 
 #pragma mark -
@@ -88,7 +79,6 @@
 
 - (void)dealloc {
 }
-
 
 @end
 

@@ -26,9 +26,15 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
+			<string>Facebook</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb281987678567988</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
 			<string>Google Plus</string>
-			<key>CFBundleURLName</key>
-			<string>com.yourcompany.ShareKitDemo</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.yourcompany.ShareKitDemo</string>
@@ -36,12 +42,9 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Filckr</string>
-			<key>CFBundleURLName</key>
-			<string></string>
+			<string>Flickr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb281987678567988</string>
 				<string>app://flickr</string>
 			</array>
 		</dict>
