@@ -36,6 +36,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
+#import "Singleton.h"
 
 NSString * const SHKSendDidStartNotification = @"SHKSendDidStartNotification";
 NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
@@ -56,20 +57,13 @@ NSString * SHKLocalizedStringFormat(NSString* key);
 
 @implementation SHK
 
-@synthesize currentView, pendingView, isDismissingView;
-@synthesize rootViewController;
-@synthesize offlineQueue;
-
-static SHK *_currentHelper = nil;
 BOOL SHKinit;
 
-
-+ (SHK *)currentHelper
-{
-	if (_currentHelper == nil)
-		_currentHelper = [[super allocWithZone:NULL] init];
-	
-	return _currentHelper;
++ (SHK *)currentHelper {
+    
+    DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
+        return [[self alloc] init];
+    });
 }
 
 + (void)initialize
@@ -89,13 +83,11 @@ BOOL SHKinit;
 
 - (void)dealloc
 {
-	[currentView release];
-	[pendingView release];
-	[offlineQueue release];
+	[_currentView release];
+	[_pendingView release];
+	[_offlineQueue release];
 	[super dealloc];
 }
-
-
 
 #pragma mark -
 #pragma mark View Management
@@ -121,10 +113,10 @@ BOOL SHKinit;
     
     UIViewController *result = nil;
     
-    if (rootViewController) // If developer provieded a root view controler, use it
+    if (self.rootViewController) // If developer provieded a root view controler, use it
     {
         
-        result = rootViewController;
+        result = self.rootViewController;
     }
     else // Try to find the root view controller programmically
 	{
@@ -213,7 +205,7 @@ BOOL SHKinit;
 - (BOOL)hidePreviousView:(UIViewController *)VCToShow {
     
     // If a view is already being shown, hide it, and then try again
-	if (currentView != nil) {
+	if (self.currentView != nil) {
         
 		self.pendingView = VCToShow;
 		[self hideCurrentViewControllerAnimated:YES];
@@ -230,23 +222,23 @@ BOOL SHKinit;
 
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated
 {
-	if (isDismissingView)
+	if (self.isDismissingView)
 		return;
 	
-	if (currentView != nil)
+	if (self.currentView != nil)
 	{
 		// Dismiss the modal view
-		if ([currentView parentViewController] != nil)
+		if ([self.currentView parentViewController] != nil)
 		{
 			self.isDismissingView = YES;
-			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+			[[self.currentView parentViewController] dismissModalViewControllerAnimated:animated];
 		}
 		// for iOS5
-		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
-		        [currentView presentingViewController])
+		else if([self.currentView respondsToSelector:@selector(presentingViewController)] &&
+		        [self.currentView presentingViewController])
 		{
 			self.isDismissingView = YES;            
-            [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
+            [[self.currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self viewWasDismissed];
                     [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
@@ -269,10 +261,10 @@ BOOL SHKinit;
 {
 	self.isDismissingView = NO;
 	
-	if (currentView != nil)
+	if (self.currentView != nil)
 		self.currentView = nil;
 	
-	if (pendingView)
+	if (self.pendingView)
 	{
 		// This is an ugly way to do it, but it works.
 		// There seems to be an issue chaining modal views otherwise
@@ -675,41 +667,7 @@ static NSDictionary *sharersDictionary = nil;
 	return !(netStatus == NotReachable);
 }
 
-#pragma mark -
-#pragma mark Singleton System Overrides
-
-+ (id)allocWithZone:(NSZone *)zone
-{	
-    return [[self currentHelper] retain];	
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{	
-    return self;	
-}
-
-- (id)retain
-{	
-    return self;	
-}
-
-- (NSUInteger)retainCount
-{	
-    return NSUIntegerMax;  //denotes an object that cannot be released	
-}
-
-- (oneway void)release
-{	
-    //do nothing	
-}
-
-- (id)autorelease
-{	
-    return self;	
-}
-
 @end
-
 
 NSString * SHKStringOrBlank(NSString * value)
 {
