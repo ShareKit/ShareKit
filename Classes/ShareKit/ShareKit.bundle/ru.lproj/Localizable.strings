@@ -51,7 +51,6 @@
 
 "Invalid email or password." = "Неверный email или пароль.";
 "The service encountered an error. Please try again later." = "У сервиса произошла ошибка. Попробуйте, пожалуйста, позже.";
-"There was a sending your post to Tumblr." = "Произошла ошибка при oтправке на Tumblr.";
 
 "There was an error saving to Pinboard" = "Произошла ошибка при oтправке на Pinboard";
 

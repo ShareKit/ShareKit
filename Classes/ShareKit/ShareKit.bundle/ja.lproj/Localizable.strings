@@ -47,7 +47,6 @@
 
 "Invalid email or password." = "メールアドレスかパスワードが間違えています";
 "The service encountered an error. Please try again later." = "只今サービスが利用できません。しばらくして再試行してください";
-"There was an error sending your post to Tumblr." = "Tumblrに未送信の投稿があります";
 
 "There was an error saving to Pinboard" = "Pinboardの保存にエラーが起きました";
 

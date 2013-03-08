@@ -47,7 +47,6 @@
 
 "Invalid email or password." = "Väärä sähköposti tai salasana.";
 "The service encountered an error. Please try again later." = "Tapahtui virhe. Yritä myöhemmin uudelleen.";
-"There was a sending your post to Tumblr." = "Virhe lähetettäessä Tumblriin.";
 
 "There was an error saving to Pinboard" = "Virhe tallennettaessa Pinboard";
 

@@ -49,7 +49,6 @@
 
 "Invalid email or password." = "Ugyldig e-post eller passord.";
 "The service encountered an error. Please try again later." = "Det har oppstått en feil med denne tjenesten. Vennligst prøv igjen senere.";
-"There was a sending your post to Tumblr." = "Det oppstod en feil ved sending av ditt innlegg til Tumblr.";
 
 "There was an error saving to Pinboard" = "Det oppstod en feil ved lagring til Pinboard.";
 
