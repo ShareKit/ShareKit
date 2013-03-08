@@ -30,6 +30,6 @@ Personal note by Vilém Kurz
 ---------------------------------------
 ShareKit is a specific project in way that it must communicate with many services. Their API's are ever-changing and it is time consuming to even review all pull requests to allow only the best quality to go in. I love this project, and I devote a lot of my time to it. 
 
-If you feel ShareKit helped you and is on the right way, you can say thank you via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YWPTW5E5ACJ2L) . 
+If you feel ShareKit helped you and is on the right way, you can say thank you via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YWPTW5E5ACJ2L), or pick some nice book from my [Amazon wish list](http://www.amazon.co.uk/registry/wishlist/10ILCUM9J9AV7).
 
 Many thanks! This will help me to give even more time to the project, to bring alive all the the todo's in the list, and more.
