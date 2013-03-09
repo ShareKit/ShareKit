@@ -278,6 +278,19 @@
     return @"write_public,read_public";
 }
 
+// Plurk - http://www.plurk.com/API
+- (NSString *)plurkAppKey {
+  return @"";
+}
+
+- (NSString *)plurkAppSecret {
+  return @"";
+}
+
+- (NSString *)plurkCallbackURL {
+  return @"";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

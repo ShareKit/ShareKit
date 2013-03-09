@@ -213,6 +213,10 @@
 - (NSString*)tumblrConsumerKey {
 	return @"vT0GPbmG5pwWOLTyrFo6uG0UJQEfX4RgrnXY7ZTzkAJyCrHNPF";
 }
+// Plurk - http://www.plurk.com/API
+- (NSString *)plurkAppKey {
+  return @"orexUORVkR2C";
+}
 
 - (NSString*)tumblrSecret {
 	return @"XsYJPUNJDwCAw6B1PcmFjXuCLtgBp8chRrNuZhpLzn8gFBDg42";
@@ -229,6 +233,14 @@
 
 - (NSString*)hatenaSecret {
 	return @"gFtqGv4/toRYlX/PT160+9fcrAU=";
+}
+
+- (NSString *)plurkAppSecret {
+  return @"YYQUAeAPY9YMcCP5ol0dB6epaaMFT10C";
+}
+
+- (NSString *)plurkCallbackURL {
+  return @"https://github.com/ShareKit/ShareKit";
 }
 
 /*

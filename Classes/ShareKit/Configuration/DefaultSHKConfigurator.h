@@ -88,6 +88,9 @@
 - (NSString*)hatenaConsumerKey;
 - (NSString*)hatenaSecret;
 - (NSString*)hatenaScope;
+- (NSString *)plurkAppKey;
+- (NSString *)plurkAppSecret;
+- (NSString *)plurkCallbackURL;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;
