@@ -125,7 +125,7 @@
 	// force view to load so we can set textView text
 	[rootView view];
 	
-	rootView.textView.text = [item customValueForKey:@"status"];
+	rootView.text = [item customValueForKey:@"status"];
   rootView.maxTextLength = 140;
 	rootView.image = item.image;
   rootView.imageTextLength = 25;
