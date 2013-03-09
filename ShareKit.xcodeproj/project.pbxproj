@@ -193,6 +193,8 @@
 		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
 		7AA40570146F1D6400685C81 /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */; };
+		7AAE8CA616EB961700429C51 /* SHKPlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE8C9C16EB950800429C51 /* SHKPlurk.m */; };
+		7AAE8CA916EB965200429C51 /* libPlurk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE8CA516EB960500429C51 /* libPlurk.a */; };
 		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
 		7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
@@ -303,6 +305,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A49DBBB16BC193E004B7E78;
 			remoteInfo = Readability;
+		};
+		7AAE8CA716EB964900429C51 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AAE8C9D16EB960500429C51;
+			remoteInfo = Plurk;
 		};
 		7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -837,6 +846,9 @@
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
+		7AAE8C9B16EB950800429C51 /* SHKPlurk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SHKPlurk.h; path = Plurk/SHKPlurk.h; sourceTree = "<group>"; };
+		7AAE8C9C16EB950800429C51 /* SHKPlurk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SHKPlurk.m; path = Plurk/SHKPlurk.m; sourceTree = "<group>"; };
+		7AAE8CA516EB960500429C51 /* libPlurk.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPlurk.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB5342E1552AADD00171BCE /* libShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB535EF1552E12100171BCE /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		7AB5360F1552E26800171BCE /* ShareKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1040,10 +1052,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AAE8CA016EB960500429C51 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB5342B1552AADD00171BCE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AAE8CA916EB965200429C51 /* libPlurk.a in Frameworks */,
 				7A203D0C16EB7E2300421995 /* libHatena.a in Frameworks */,
 				456BADAD1691095B005B3077 /* libGoogle Plus.a in Frameworks */,
 				7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */,
@@ -1293,6 +1313,7 @@
 				4503EBC0169104470057294C /* libGoogle Plus.a */,
 				7A49DBC316BC193E004B7E78 /* libReadability.a */,
 				7A203D0A16EB7DA200421995 /* libHatena.a */,
+				7AAE8CA516EB960500429C51 /* libPlurk.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1747,6 +1768,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7AAE8C9916EB94F200429C51 /* Plurk */,
 				7A203CFE16EB775400421995 /* Hatena */,
 				7A0F91CB156B9FCE009CB40A /* Delicious */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
@@ -2061,6 +2083,15 @@
 			name = ShareKitLibrary;
 			sourceTree = "<group>";
 		};
+		7AAE8C9916EB94F200429C51 /* Plurk */ = {
+			isa = PBXGroup;
+			children = (
+				7AAE8C9B16EB950800429C51 /* SHKPlurk.h */,
+				7AAE8C9C16EB950800429C51 /* SHKPlurk.m */,
+			);
+			name = Plurk;
+			sourceTree = "<group>";
+		};
 		7AB536111552E26800171BCE /* ShareKitLibraryResources */ = {
 			isa = PBXGroup;
 			children = (
@@ -2321,6 +2352,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7A49DBBF16BC193E004B7E78 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7AAE8CA116EB960500429C51 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2698,6 +2736,23 @@
 			productReference = 7A49DBC316BC193E004B7E78 /* libReadability.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7AAE8C9D16EB960500429C51 /* Plurk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7AAE8CA216EB960500429C51 /* Build configuration list for PBXNativeTarget "Plurk" */;
+			buildPhases = (
+				7AAE8C9E16EB960500429C51 /* Sources */,
+				7AAE8CA016EB960500429C51 /* Frameworks */,
+				7AAE8CA116EB960500429C51 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Plurk;
+			productName = ShareKitLibrary;
+			productReference = 7AAE8CA516EB960500429C51 /* libPlurk.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7AB5342D1552AADD00171BCE /* Static Library */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */;
@@ -2709,6 +2764,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7AAE8CA816EB964900429C51 /* PBXTargetDependency */,
 				7A203D0E16EB7F5100421995 /* PBXTargetDependency */,
 				7A49DBC616BC199F004B7E78 /* PBXTargetDependency */,
 				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3214,6 +3270,7 @@
 				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
 				7A49DBBB16BC193E004B7E78 /* Readability */,
 				7A203D0216EB7DA200421995 /* Hatena */,
+				7AAE8C9D16EB960500429C51 /* Plurk */,
 			);
 		};
 /* End PBXProject section */
@@ -3472,6 +3529,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7AAE8C9E16EB960500429C51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AAE8CA616EB961700429C51 /* SHKPlurk.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AB5342A1552AADD00171BCE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3699,6 +3764,11 @@
 			isa = PBXTargetDependency;
 			target = 7A49DBBB16BC193E004B7E78 /* Readability */;
 			targetProxy = 7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */;
+		};
+		7AAE8CA816EB964900429C51 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7AAE8C9D16EB960500429C51 /* Plurk */;
+			targetProxy = 7AAE8CA716EB964900429C51 /* PBXContainerItemProxy */;
 		};
 		7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4425,6 +4495,54 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Readability;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7AAE8CA316EB960500429C51 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Plurk;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7AAE8CA416EB960500429C51 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Plurk;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -5718,6 +5836,15 @@
 			buildConfigurations = (
 				7A49DBC116BC193E004B7E78 /* Debug */,
 				7A49DBC216BC193E004B7E78 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7AAE8CA216EB960500429C51 /* Build configuration list for PBXNativeTarget "Plurk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7AAE8CA316EB960500429C51 /* Debug */,
+				7AAE8CA416EB960500429C51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

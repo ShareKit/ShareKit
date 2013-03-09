@@ -26,7 +26,6 @@
 
 #import "SHKPlurk.h"
 #import "SHKConfiguration.h"
-#import "NSString+SBJSON.h"
 
 @implementation SHKPlurk
 
@@ -40,13 +39,12 @@
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(plurkCallbackURL)];// HOW-TO: In your Plurk application settings, use the "Callback URL" field.  If you do not have this field in the settings, set your application type to 'Browser'.
     
 		// You do not need to edit these, they are the same for everyone
-    self.authorizeURL = [NSURL URLWithString:@"http://www.plurk.com/m/authorize"];
-    self.requestURL = [NSURL URLWithString:@"http://www.plurk.com/OAuth/request_token"];
-    self.accessURL = [NSURL URLWithString:@"http://www.plurk.com/OAuth/access_token"];
+        self.authorizeURL = [NSURL URLWithString:@"http://www.plurk.com/m/authorize"];
+        self.requestURL = [NSURL URLWithString:@"http://www.plurk.com/OAuth/request_token"];
+        self.accessURL = [NSURL URLWithString:@"http://www.plurk.com/OAuth/access_token"];
 	}
 	return self;
 }
-
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -71,7 +69,6 @@
 	return YES;
 }
 
-
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -79,7 +76,6 @@
 {
 	return NO;
 }
-
 
 #pragma mark -
 #pragma mark Authorization
@@ -270,8 +266,8 @@
   
 	if (ticket.didSucceed) {
 		// Finished uploading Image, now need to posh the message and url in twitter
-		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-		NSDictionary *response = [dataString JSONValue];
+        NSError *error = nil;
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     
 		if ([response objectForKey:@"full"]) {
 			NSString *urlString = [response objectForKey:@"full"];
@@ -365,22 +361,23 @@
   
 	else
 	{
-    NSString *string = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        NSError *error = nil;
+        NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
     
 		if (SHKDebugShowLogs)
 			SHKLog(@"Plurk Send Status Error: %@", string);
     
 		// in case our makeshift parsing does not yield an error message
-		NSString *errorMessage = [[string JSONValue] objectForKey:@"error_text"];
+		NSString *errorMessage = [response objectForKey:@"error_text"];
     
 		// this is the error message for revoked access
 		if ([errorMessage isEqualToString:@"40106:invalid access token"])
 		{
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 		}
 		else
 		{
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error while sharing")]];
+			[self sendShowSimpleErrorAlert];
 		}
 	}
 }
