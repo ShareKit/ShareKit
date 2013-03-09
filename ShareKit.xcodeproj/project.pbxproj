@@ -173,6 +173,8 @@
 		7A1AFD2A160E13AB0086B98A /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
 		7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOSTwitter.m */; };
 		7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
+		7A203D0B16EB7E0100421995 /* SHKHatena.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A203D0116EB776D00421995 /* SHKHatena.m */; };
+		7A203D0C16EB7E2300421995 /* libHatena.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A203D0A16EB7DA200421995 /* libHatena.a */; };
 		7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A536AC11DBE3B9004A1712 /* SHKSharers.plist */; };
 		7A2882581553FEE6007DC379 /* SHKEvernote.md in Resources */ = {isa = PBXBuildFile; fileRef = 4379F2B21291AC9700D2A41E /* SHKEvernote.md */; };
@@ -273,6 +275,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4503EBB8169104470057294C;
 			remoteInfo = "Google Plus";
+		};
+		7A203D0D16EB7F5100421995 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A203D0216EB7DA200421995;
+			remoteInfo = Hatena;
 		};
 		7A2882591553FF96007DC379 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -796,6 +805,9 @@
 		7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libEvernote SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD24160E13740086B98A /* libFlickr SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFlickr SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD3A160E14340086B98A /* libTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A203D0016EB776D00421995 /* SHKHatena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SHKHatena.h; path = Hatena/SHKHatena.h; sourceTree = "<group>"; };
+		7A203D0116EB776D00421995 /* SHKHatena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SHKHatena.m; path = Hatena/SHKHatena.m; sourceTree = "<group>"; };
+		7A203D0A16EB7DA200421995 /* libHatena.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libHatena.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+NSNullsToEmptyStrings.h"; sourceTree = "<group>"; };
 		7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableDictionary+NSNullsToEmptyStrings.m"; sourceTree = "<group>"; };
 		7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
@@ -1014,6 +1026,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A203D0516EB7DA200421995 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A49DBBE16BC193E004B7E78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1025,6 +1044,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A203D0C16EB7E2300421995 /* libHatena.a in Frameworks */,
 				456BADAD1691095B005B3077 /* libGoogle Plus.a in Frameworks */,
 				7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */,
 				7AC28F0B165A21C2006D7441 /* libCopy.a in Frameworks */,
@@ -1272,6 +1292,7 @@
 				7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */,
 				4503EBC0169104470057294C /* libGoogle Plus.a */,
 				7A49DBC316BC193E004B7E78 /* libReadability.a */,
+				7A203D0A16EB7DA200421995 /* libHatena.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1726,6 +1747,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7A203CFE16EB775400421995 /* Hatena */,
 				7A0F91CB156B9FCE009CB40A /* Delicious */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
 				4379F2891291AC9700D2A41E /* Evernote */,
@@ -2007,6 +2029,15 @@
 			name = Instagram;
 			sourceTree = "<group>";
 		};
+		7A203CFE16EB775400421995 /* Hatena */ = {
+			isa = PBXGroup;
+			children = (
+				7A203D0016EB776D00421995 /* SHKHatena.h */,
+				7A203D0116EB776D00421995 /* SHKHatena.m */,
+			);
+			name = Hatena;
+			sourceTree = "<group>";
+		};
 		7A26E5B2156CD8A70011E15F /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
@@ -2276,6 +2307,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7A1AFD2F160E14340086B98A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A203D0616EB7DA200421995 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2626,6 +2664,23 @@
 			productReference = 7A1AFD3A160E14340086B98A /* libTwitter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7A203D0216EB7DA200421995 /* Hatena */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A203D0716EB7DA200421995 /* Build configuration list for PBXNativeTarget "Hatena" */;
+			buildPhases = (
+				7A203D0316EB7DA200421995 /* Sources */,
+				7A203D0516EB7DA200421995 /* Frameworks */,
+				7A203D0616EB7DA200421995 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Hatena;
+			productName = ShareKitLibrary;
+			productReference = 7A203D0A16EB7DA200421995 /* libHatena.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7A49DBBB16BC193E004B7E78 /* Readability */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A49DBC016BC193E004B7E78 /* Build configuration list for PBXNativeTarget "Readability" */;
@@ -2654,6 +2709,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A203D0E16EB7F5100421995 /* PBXTargetDependency */,
 				7A49DBC616BC199F004B7E78 /* PBXTargetDependency */,
 				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3157,6 +3213,7 @@
 				AABBED12162F08A3009D46E4 /* VKontakte */,
 				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
 				7A49DBBB16BC193E004B7E78 /* Readability */,
+				7A203D0216EB7DA200421995 /* Hatena */,
 			);
 		};
 /* End PBXProject section */
@@ -3399,6 +3456,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A203D0316EB7DA200421995 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A203D0B16EB7E0100421995 /* SHKHatena.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A49DBBC16BC193E004B7E78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3614,6 +3679,11 @@
 			isa = PBXTargetDependency;
 			target = 4503EBB8169104470057294C /* Google Plus */;
 			targetProxy = 456BADAE16910966005B3077 /* PBXContainerItemProxy */;
+		};
+		7A203D0E16EB7F5100421995 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A203D0216EB7DA200421995 /* Hatena */;
+			targetProxy = 7A203D0D16EB7F5100421995 /* PBXContainerItemProxy */;
 		};
 		7A28825A1553FF96007DC379 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4261,6 +4331,54 @@
 				);
 				PRODUCT_NAME = Twitter;
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7A203D0816EB7DA200421995 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Hatena;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A203D0916EB7DA200421995 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Hatena;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -5582,6 +5700,15 @@
 			buildConfigurations = (
 				7A1AFD38160E14340086B98A /* Debug */,
 				7A1AFD39160E14340086B98A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A203D0716EB7DA200421995 /* Build configuration list for PBXNativeTarget "Hatena" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A203D0816EB7DA200421995 /* Debug */,
+				7A203D0916EB7DA200421995 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

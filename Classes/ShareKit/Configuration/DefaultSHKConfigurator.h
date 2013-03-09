@@ -85,6 +85,9 @@
 - (NSString*)tumblrConsumerKey;
 - (NSString*)tumblrSecret;
 - (NSString*)tumblrCallbackUrl;
+- (NSString*)hatenaConsumerKey;
+- (NSString*)hatenaSecret;
+- (NSString*)hatenaScope;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;

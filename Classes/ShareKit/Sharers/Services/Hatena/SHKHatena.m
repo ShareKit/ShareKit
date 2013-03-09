@@ -8,10 +8,7 @@
 
 #import "SHKHatena.h"
 #import "SHKXMLResponseParser.h"
-
-#define SHKHatenaConsumerKey @""
-#define SHKHatenaSecretKey @""
-#define SHKHatenaCallbackUrl @"http://www.example.com/"
+#import "SHKConfiguration.h"
 
 @interface SHKHatena ()
 
@@ -24,9 +21,9 @@
 	if (self = [super init])
 	{
 		// OAUTH
-		self.consumerKey = SHKHatenaConsumerKey;
-		self.secretKey = SHKHatenaSecretKey;
- 		self.authorizeCallbackURL = [NSURL URLWithString:SHKHatenaCallbackUrl];
+		self.consumerKey = SHKCONFIG(hatenaConsumerKey);
+		self.secretKey = SHKCONFIG(hatenaSecret);
+ 		self.authorizeCallbackURL = [NSURL URLWithString:@"http://www.example.com/"];
 		
 		
 		// -- //
@@ -34,7 +31,7 @@
 		
 		// You do not need to edit these, they are the same for everyone
         self.requestURL = [NSURL URLWithString:@"https://www.hatena.com/oauth/initiate"];
-        self.authorizeURL = [NSURL URLWithString:@"https://www.hatena.ne.jp/touch/oauth/authorize"];
+        self.authorizeURL = [NSURL URLWithString:@"https://www.hatena.com/touch/oauth/authorize"];
         self.accessURL = [NSURL URLWithString:@"https://www.hatena.com/oauth/token"];
 	}
 	return self;
@@ -54,8 +51,8 @@
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"oauth_callback" withValue:SHKHatenaCallbackUrl];
-    oRequest.parameters = @[[OARequestParameter requestParameterWithName:@"scope" value:@"write_public,write_private"]];
+    [oRequest setOAuthParameterName:@"oauth_callback" withValue:self.authorizeCallbackURL];
+    oRequest.parameters = @[[OARequestParameter requestParameterWithName:@"scope" value:SHKCONFIG(hatenaScope)]];
 }
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest

@@ -222,6 +222,15 @@
 	return @"tumblr.sharekit.com";
 }
 
+// Hatena - https://www.hatena.com/yours12345/config/auth/develop
+- (NSString*)hatenaConsumerKey {
+	return @"rtu/vY4jfiA3DQ==";
+}
+
+- (NSString*)hatenaSecret {
+	return @"gFtqGv4/toRYlX/PT160+9fcrAU=";
+}
+
 /*
  UI Configuration : Basic
  ------------------------

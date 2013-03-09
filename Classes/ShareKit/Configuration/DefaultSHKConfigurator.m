@@ -264,6 +264,20 @@
 	return @"";
 }
 
+// Hatena - https://www.hatena.com/yours12345/config/auth/develop
+- (NSString*)hatenaConsumerKey {
+	return @"";
+}
+
+- (NSString*)hatenaSecret {
+	return @"";
+}
+
+//required permissions. You do not need change these - but it must correspond with what you set during app registration on Hatena.
+- (NSString *)hatenaScope {
+    return @"write_public,read_public";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
