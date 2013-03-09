@@ -28,27 +28,6 @@
 #import "SHKConfiguration.h"
 #import "SHKMail.h"
 
-
-@implementation MFMailComposeViewController (SHK)
-
-- (void)SHKviewDidDisappear:(BOOL)animated
-{	
-	[super viewDidDisappear:animated];
-	
-	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
-	if (self.modalViewController == nil) {
-		
-        if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-            // Remove the SHK view wrapper from the window
-            [[SHK currentHelper] viewWasDismissed];
-        }
-    }
-}
-
-@end
-
-
-
 @implementation SHKMail
 
 #pragma mark -

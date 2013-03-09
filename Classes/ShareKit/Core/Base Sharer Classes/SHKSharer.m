@@ -779,17 +779,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     return YES;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-	
-	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        // Remove the SHK view wrapper from the window
-        [[SHK currentHelper] viewWasDismissed];
-    }
-}
-
-
 #pragma mark -
 #pragma mark Delegate Notifications
 

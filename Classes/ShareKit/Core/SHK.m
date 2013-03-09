@@ -66,21 +66,6 @@ BOOL SHKinit;
     });
 }
 
-+ (void)initialize
-{
-	[super initialize];
-	
-	if (!SHKinit)
-	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
-		
-		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
-			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
-		
-		SHKinit = YES;
-	}
-}
-
 - (void)dealloc
 {
 	[_currentView release];
@@ -228,14 +213,7 @@ BOOL SHKinit;
 	if (self.currentView != nil)
 	{
 		// Dismiss the modal view
-		if ([self.currentView parentViewController] != nil)
-		{
-			self.isDismissingView = YES;
-			[[self.currentView parentViewController] dismissModalViewControllerAnimated:animated];
-		}
-		// for iOS5
-		else if([self.currentView respondsToSelector:@selector(presentingViewController)] &&
-		        [self.currentView presentingViewController])
+		if ([self.currentView presentingViewController])
 		{
 			self.isDismissingView = YES;            
             [[self.currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{
@@ -245,9 +223,10 @@ BOOL SHKinit;
                 }];
             }];
         }
-		
 		else
+        {
 			self.currentView = nil;
+        }
 	}
 }
 
@@ -729,16 +708,6 @@ NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
     }
     
     return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
-}
-
-void SHKSwizzle(Class c, SEL orig, SEL newClassName)
-{
-    Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, newClassName);
-    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-		class_replaceMethod(c, newClassName, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-	else
-		method_exchangeImplementations(origMethod, newMethod);
 }
 
 NSString* SHKLocalizedStringFormat(NSString* key)
