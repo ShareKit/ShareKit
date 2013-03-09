@@ -44,8 +44,6 @@ NSString * const SHKSendDidFailWithErrorNotification = @"SHKSendDidFailWithError
 NSString * const SHKSendDidCancelNotification = @"SHKSendDidCancel";
 NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
 
-NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
-
 NSString * SHKLocalizedStringFormat(NSString* key);
 
 @interface SHK ()
@@ -219,7 +217,6 @@ BOOL SHKinit;
             [[self.currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self viewWasDismissed];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
                 }];
             }];
         }

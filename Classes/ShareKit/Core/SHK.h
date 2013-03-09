@@ -42,8 +42,6 @@ extern NSString * const SHKSendDidFailWithErrorNotification;
 extern NSString * const SHKSendDidCancelNotification;
 extern NSString * const SHKAuthDidFinishNotification;
 
-extern NSString * const SHKHideCurrentViewFinishedNotification;
-
 @class SHKActionSheet;
 
 @interface SHK : NSObject 
@@ -122,4 +120,3 @@ NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
 NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks);
 NSString * SHKLocalizedString(NSString* key, ...);
-void SHKSwizzle(Class c, SEL orig, SEL newClassName);
