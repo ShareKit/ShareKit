@@ -31,7 +31,7 @@
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"
-#import "Reachability.h"
+#import "SHKReachability.h"
 #import "SHKMail.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -662,7 +662,7 @@ static NSDictionary *sharersDictionary = nil;
 + (BOOL)connected 
 {
 	//return NO; // force for offline testing
-	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
+	SHKReachability *hostReach = [SHKReachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);
 }
