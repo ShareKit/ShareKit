@@ -127,7 +127,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 {	
 	if (xAuth)
 	{
-		NSDictionary *formValues = [pendingForm formValues];
+		NSDictionary *formValues = [self.pendingForm formValues];
 		
 		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
 																								 value:[formValues objectForKey:@"username"]] autorelease];
@@ -148,7 +148,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	{
 		if (ticket.didSucceed)
 		{
-			[pendingForm close];
+			[self.pendingForm close];
 		}
 		
 		else
@@ -185,7 +185,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
 - (BOOL)send
 {	
-	switch (item.shareType) {
+	switch (self.item.shareType) {
 			
 		case SHKShareTypeURL:            
 			[self sendBookmark];
@@ -216,7 +216,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
   BOOL shouldArchive = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
   
 	OARequestParameter *bookmarkParam = [[OARequestParameter alloc] initWithName:@"url"
-																								value:[item.URL absoluteString]];
+																								value:[self.item.URL absoluteString]];
   OARequestParameter *favoriteParam = [[OARequestParameter alloc] initWithName:@"favorite"
                                                                          value:isFavorite?@"1":@"0"];
   OARequestParameter *archiveParam = [[OARequestParameter alloc] initWithName:@"archive"

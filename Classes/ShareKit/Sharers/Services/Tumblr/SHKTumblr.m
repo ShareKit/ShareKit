@@ -213,7 +213,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     OAMutableURLRequest *oRequest = nil;
     NSMutableArray *params = [[@[] mutableCopy] autorelease];
     
-    switch (item.shareType) {
+    switch (self.item.shareType) {
             
         case SHKShareTypeUserInfo:
         {
@@ -233,8 +233,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             oRequest = [self setupPostRequest];
             
             OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"text"];
-            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
-            OARequestParameter *bodyParam = [[OARequestParameter alloc] initWithName:@"body" value:item.text];
+            OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:self.item.title];
+            OARequestParameter *bodyParam = [[OARequestParameter alloc] initWithName:@"body" value:self.item.text];
             [params addObjectsFromArray:@[typeParam, titleParam, bodyParam]];
             [typeParam release];
             [titleParam release];
@@ -249,8 +249,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 case SHKURLContentTypeVideo:
                 {
                     OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"video"];
-                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
-                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"embed" value:[item.URL absoluteString]];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:self.item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"embed" value:[self.item.URL absoluteString]];
                     [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
                     [typeParam release];
                     [titleParam release];
@@ -260,8 +260,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 case SHKURLContentTypeAudio:
                 {
                     OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"audio"];
-                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
-                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"external_url" value:[item.URL absoluteString]];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:self.item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"external_url" value:[self.item.URL absoluteString]];
                     [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
                     [typeParam release];
                     [titleParam release];
@@ -271,8 +271,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 case SHKURLContentTypeImage:
                 {
                     OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"photo"];
-                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
-                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"source" value:[item.URL absoluteString]];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"caption" value:self.item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"source" value:[self.item.URL absoluteString]];
                     [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
                     [typeParam release];
                     [titleParam release];
@@ -282,15 +282,15 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 default:
                 {
                     OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:@"link"];
-                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:item.title];
-                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[item.URL absoluteString]];
+                    OARequestParameter *titleParam = [[OARequestParameter alloc] initWithName:@"title" value:self.item.title];
+                    OARequestParameter *urlParam = [[OARequestParameter alloc] initWithName:@"url" value:[self.item.URL absoluteString]];
                     [params addObjectsFromArray:@[typeParam, titleParam, urlParam]];
                     [typeParam release];
                     [titleParam release];
                     [urlParam release];
                     
-                    if (item.text) {
-                        OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:item.text];
+                    if (self.item.text) {
+                        OARequestParameter *descriptionParam = [[OARequestParameter alloc] initWithName:@"description" value:self.item.text];
                         [params addObject:descriptionParam];
                         [descriptionParam release];
                     }
@@ -313,7 +313,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 typeValue = @"audio";
             }
             OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:typeValue];
-            OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:item.title];
+            OARequestParameter *captionParam = [[OARequestParameter alloc] initWithName:@"caption" value:self.item.title];
             
             //Setup the request...
             [params addObjectsFromArray:@[typeParam, captionParam]];
@@ -435,8 +435,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
     
-    NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
-	curOptionController = optionController;
+    NSAssert(self.curOptionController == nil, @"there should never be more than one picker open.");
+	self.curOptionController = optionController;
     
     SHKTumblr *infoSharer = [SHKTumblr getUserInfo];
     
@@ -458,17 +458,17 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
     self.getUserBlogsObserver = nil;
-    NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
-	curOptionController = nil;
+    NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
+	self.curOptionController = nil;
 }
 
 #pragma mark - 
 
 - (void)blogsEnumerated:(NSArray *)blogs{
     
-	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[curOptionController optionsEnumerated:blogs];
-	curOptionController = nil;
+	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[self.curOptionController optionsEnumerated:blogs];
+	self.curOptionController = nil;
 }
 
 - (NSArray *)userBlogURLs {

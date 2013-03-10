@@ -51,7 +51,7 @@
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"oauth_callback" withValue:self.authorizeCallbackURL];
+    [oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
     oRequest.parameters = @[[OARequestParameter requestParameterWithName:@"scope" value:SHKCONFIG(hatenaScope)]];
 }
 
@@ -65,7 +65,7 @@
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
 	if (type == SHKShareTypeURL) {
-		return @[[SHKFormFieldSettings label:SHKLocalizedString(@"Comment") key:@"text" type:SHKFormFieldTypeText start:item.text]];
+		return @[[SHKFormFieldSettings label:SHKLocalizedString(@"Comment") key:@"text" type:SHKFormFieldTypeText start:self.item.text]];
 	}
 	return nil;
 }
@@ -74,7 +74,7 @@
 
 - (BOOL)send
 {
-    if ([self validateItem] && item.shareType == SHKShareTypeURL) {
+    if ([self validateItem] && self.item.shareType == SHKShareTypeURL) {
         OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://b.hatena.ne.jp/atom/post"]
                                                                         consumer:consumer
                                                                            token:accessToken
@@ -87,7 +87,7 @@
                           @"<entry xmlns=\"http://purl.org/atom/ns#\">"
                           @"<link rel=\"related\" type=\"text/html\" href=\"%@\" />"
                           @"<summary type=\"text/plain\">%@</summary>"
-                          @"</entry>", item.URL, item.text ?: @""];
+                          @"</entry>", self.item.URL, self.item.text ?: @""];
         [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
         [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         

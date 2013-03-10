@@ -36,7 +36,7 @@
     [sharerUIController addImage:self.item.image];
     [sharerUIController addURL:self.item.URL];
     
-    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? item.text : item.title)];
+    NSString *tweetBody = [NSString stringWithString:(self.item.shareType == SHKShareTypeText ? self.item.text : self.item.title)];
     
     NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil];
     if ([tagString length] > 0) tweetBody = [tweetBody stringByAppendingFormat:@" %@",tagString];

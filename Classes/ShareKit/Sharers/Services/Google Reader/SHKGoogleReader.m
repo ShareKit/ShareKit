@@ -94,7 +94,7 @@ Google Reader API is unoffical, this was hobbled together from:
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
-	if (!quiet)
+	if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
@@ -121,7 +121,7 @@ Google Reader API is unoffical, this was hobbled together from:
 								isFinishedSelector:@selector(authFinished:)
 											method:@"POST"
 										 autostart:YES] autorelease];
-    if (!quiet)
+    if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 }
 
@@ -135,7 +135,7 @@ Google Reader API is unoffical, this was hobbled together from:
 	
 	// Parse Result
 	self.session = [NSMutableDictionary dictionaryWithCapacity:0];
-	NSString *result = [request getResult];
+	NSString *result = [aRequest getResult];
 	NSArray *parts;
 	
 	if (result != nil)
@@ -152,8 +152,8 @@ Google Reader API is unoffical, this was hobbled together from:
 	if (session != nil && [session objectForKey:@"Auth"])
 	{
         //if we have new credentials to store (1st run, relogin)
-        if (pendingForm) {
-            [pendingForm saveForm];//will call [self tryPendingAction] after save
+        if (self.pendingForm) {
+            [self.pendingForm saveForm];//will call [self tryPendingAction] after save
         } else {
             [self tryPendingAction];
         }
@@ -200,7 +200,7 @@ Google Reader API is unoffical, this was hobbled together from:
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Note") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Note") key:@"text" type:SHKFormFieldTypeText start:self.item.text],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Public") key:@"share" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
@@ -262,8 +262,8 @@ Google Reader API is unoffical, this was hobbled together from:
 													   isFinishedSelector:@selector(tokenFinished:)
 																   method:@"GET"
 																autostart:NO] autorelease];
-			[self signRequest:request];
-			[request start];	
+			[self signRequest:self.request];
+			[self.request start];
             [self sendDidStart];
 		}			
 					
@@ -277,7 +277,7 @@ Google Reader API is unoffical, this was hobbled together from:
 {	
 	if (aRequest.success) {
         
-		[self sendWithToken:[request getResult]];
+		[self sendWithToken:[aRequest getResult]];
     
     } else {
   
@@ -287,7 +287,7 @@ Google Reader API is unoffical, this was hobbled together from:
         } 
         else
         {
-            NSString *errorMessage = [request.headers objectForKey:@"X-Error"];
+            NSString *errorMessage = [aRequest.headers objectForKey:@"X-Error"];
             [self sendDidFailWithError:[SHK error:errorMessage?errorMessage:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
         }
     }    
@@ -296,18 +296,18 @@ Google Reader API is unoffical, this was hobbled together from:
 - (void)sendWithToken:(NSString *)token
 {
 	// If autosharing is turned on, use the value their, otherwise, default to the setting from the form.
-	BOOL publicShare = [item customBoolForSwitchKey:@"share"];
+	BOOL publicShare = [self.item customBoolForSwitchKey:@"share"];
 	if([self shouldAutoShare]) {
 		 publicShare = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_isPublic", [self sharerId]]];
 	}
 
 	NSString *params = [NSMutableString stringWithFormat:@"T=%@&linkify=false&snippet=%@&srcTitle=%@&srcUrl=%@&title=%@&url=%@&share=%@",
 						token,
-						SHKEncode(item.text),
+						SHKEncode(self.item.text),
 						SHKEncode(SHKCONFIG(appName)),
 						SHKEncode(SHKCONFIG(appURL)),		
-						SHKEncode(item.title),					
-						SHKEncodeURL(item.URL),
+						SHKEncode(self.item.title),					
+						SHKEncodeURL(self.item.URL),
 						publicShare?@"true":@""
 						];
 	
@@ -318,8 +318,8 @@ Google Reader API is unoffical, this was hobbled together from:
 								 method:@"POST"
 							  autostart:NO] autorelease];
 	
-	[self signRequest:request];	
-	[request start];
+	[self signRequest:self.request];
+	[self.request start];
 }
 
 - (void)sendFinished:(SHKRequest *)aRequest
@@ -335,7 +335,7 @@ Google Reader API is unoffical, this was hobbled together from:
         } 
         else
         {
-            [self sendDidFailWithError:[SHK error:[request.headers objectForKey:@"X-Error"]]];
+            [self sendDidFailWithError:[SHK error:[aRequest.headers objectForKey:@"X-Error"]]];
         }
     }
 }

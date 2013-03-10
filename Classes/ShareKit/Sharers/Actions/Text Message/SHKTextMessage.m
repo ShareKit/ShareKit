@@ -96,13 +96,13 @@
 	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
 	composeView.messageComposeDelegate = self;
   
-	NSString *body = item.text;
+	NSString *body = self.item.text;
 	
 	if (!body) {
 		
-		if (item.URL != nil)
+		if (self.item.URL != nil)
 		{	
-			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
 				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];

@@ -110,7 +110,7 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = item.text;
+	NSString *body = self.item.text;
 	BOOL isHTML = self.item.isMailHTML;
 	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
     
@@ -118,9 +118,9 @@
 	{
 		body = @"";
 		
-		if (item.URL != nil)
+		if (self.item.URL != nil)
 		{
-			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (isHTML)
 				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
@@ -128,9 +128,9 @@
 				body = urlStr;
 		}
 		
-		if (item.data)
+		if (self.item.data)
 		{
-			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", item.title ? item.title : item.filename);
+			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", self.item.title ? self.item.title : self.item.filename);
 			
 			if (isHTML)
 				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
@@ -150,20 +150,20 @@
 		}
 	}
 	
-	if (item.data)		
-		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
+	if (self.item.data)		
+		[mailController addAttachmentData:self.item.data mimeType:self.item.mimeType fileName:self.item.filename];
 	
 	NSArray *toRecipients = self.item.mailToRecipients;
     if (toRecipients)
 		[mailController setToRecipients:toRecipients];
     
-	if (item.image){
+	if (self.item.image){
         
         CGFloat jpgQuality = self.item.mailJPGQuality;
-        [mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+        [mailController addAttachmentData:UIImageJPEGRepresentation(self.item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
 	}
 	
-	[mailController setSubject:item.title];
+	[mailController setSubject:self.item.title];
 	[mailController setMessageBody:body isHTML:isHTML];
 			
 	[[SHK currentHelper] showViewController:mailController];
