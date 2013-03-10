@@ -59,6 +59,11 @@
 	return YES;
 }
 
+- (BOOL)requiresShortenedURL {
+    
+    return YES;
+}
+
 + (BOOL)canShareText
 {
 	return YES;
@@ -99,21 +104,23 @@
 #pragma mark -
 #pragma mark UI Implementation
 
+//TODO change form to normal form controller and add type of plurk (is, shares, etc) option controller. This should be done after shkformcontroller can have type large text field.
 - (void)show
 {
-	if (item.shareType == SHKShareTypeURL)
+	if (self.item.shareType == SHKShareTypeURL)
 	{
-		[self shortenURL];
+        [self.item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], self.item.title] forKey:@"status"];
+        [self showPlurkForm];
 	}
   
-	else if (item.shareType == SHKShareTypeImage)
+	else if (self.item.shareType == SHKShareTypeImage)
 	{
 		[self uploadImage];
 	}
   
-	else if (item.shareType == SHKShareTypeText)
+	else if (self.item.shareType == SHKShareTypeText)
 	{
-		[item setCustomValue:item.text forKey:@"status"];
+		[self.item setCustomValue:self.item.text forKey:@"status"];
 		[self showPlurkForm];
 	}
 }
@@ -125,10 +132,9 @@
 	// force view to load so we can set textView text
 	[rootView view];
 	
-	rootView.text = [item customValueForKey:@"status"];
-  rootView.maxTextLength = 140;
-	rootView.image = item.image;
-  rootView.imageTextLength = 25;
+	rootView.text = [self.item customValueForKey:@"status"];
+  rootView.maxTextLength = 210;
+	rootView.image = self.item.image;
   
   self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
@@ -140,72 +146,15 @@
 
 - (void)sendForm:(SHKFormControllerLargeTextField *)form
 {
-	[item setCustomValue:form.textView.text forKey:@"status"];
+	[self.item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
 }
-
-
-#pragma mark -
-
-- (void)shortenURL
-{
-	if (![SHK connected]) {
-		[item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], item.title] forKey:@"status"];
-		[self showPlurkForm];
-		return;
-	}
-  
-	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
-  
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-                                                                        SHKCONFIG(bitLyLogin),
-                                                                        SHKCONFIG(bitLyKey),
-                                                                        SHKEncodeURL(item.URL)
-                                                                        ]]
-                                           params:nil
-                                         delegate:self
-                               isFinishedSelector:@selector(shortenURLFinished:)
-                                           method:@"GET"
-                                        autostart:YES] autorelease];
-}
-
-- (void)shortenURLFinished:(SHKRequest *)aRequest
-{
-	[[SHKActivityIndicator currentIndicator] hide];
-  
-	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-  
-	if (result == nil || [NSURL URLWithString:result] == nil)
-	{
-		// TODO - better error message
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
-                                 message:SHKLocalizedString(@"We could not shorten the URL.")
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Continue")
-                       otherButtonTitles:nil] autorelease] show];
-    
-    [item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], item.text ? item.text : item.title] forKey:@"status"];
-	}
-  
-	else
-	{
-		///if already a bitly login, use url instead
-		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
-			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    [item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", result, item.text ? item.text : item.title] forKey:@"status"];
-	}
-  
-	[self showPlurkForm];
-}
-
 
 #pragma mark -
 
 - (void)uploadImage
 {
-	if (!quiet)
+	if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Uploading Image...")];
   
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.plurk.com/APP/Timeline/uploadPicture"]
@@ -215,42 +164,14 @@
                                                          signatureProvider:nil];
 	[oRequest setHTTPMethod:@"POST"];
   
-	CGFloat compression = 0.6f;
-	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
-  
-	// TODO
-	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
-	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
-	// to an appropriate size (max of img.ly) and then start trying to compress.
-  
-	while ([imageData length] > 700000 && compression > 0.1) {
-		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
-		compression -= 0.1;
-		imageData = UIImageJPEGRepresentation([item image], compression);
-	}
-  
-	NSString *boundary = @"0XkHtMlBoUnDaRy";
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-	[oRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
-  
-	NSMutableData *body = [NSMutableData data];
-  
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Disposition: form-data; name=\"image\"; filename=\"shk.jpg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Type: application/octet-stream\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:imageData];
-	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-  
-	// setting the body of the post to the reqeust
-	[oRequest setHTTPBody:body];
+	NSData *imageData = UIImageJPEGRepresentation(self.item.image, 1);
+    [oRequest attachFileWithParameterName:@"image" filename:@"shk.jpg" contentType:@"image/jpeg" data:imageData];
   
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                         delegate:self
                                                                                didFinishSelector:@selector(uploadImageTicket:didFinishWithData:)
-                                                                                 didFailSelector:@selector(uploadImageTicket:didFailWithError:)];	
-  
+                                                                                 didFailSelector:@selector(uploadImageTicket:didFailWithError:)];
 	[fetcher start];
 	[oRequest release];
 }
@@ -271,7 +192,7 @@
     
 		if ([response objectForKey:@"full"]) {
 			NSString *urlString = [response objectForKey:@"full"];
-			[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, urlString] forKey:@"status"];
+			[self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", self.item.title, urlString] forKey:@"status"];
 			[self showPlurkForm];
 		} else {
 			[self alertUploadImageWithError:nil];
@@ -304,8 +225,8 @@
 
 - (BOOL)validate
 {
-	NSString *status = [item customValueForKey:@"status"];
-	return status != nil && status.length > 0 && status.length <= 140;
+	NSString *status = [self.item customValueForKey:@"status"];
+	return status != nil && status.length > 0 && status.length <= 210;
 }
 
 - (BOOL)send
@@ -339,7 +260,7 @@
 	OARequestParameter *qualifierParam = [[OARequestParameter alloc] initWithName:@"qualifier"
                                                                           value:@"shares"];
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"content"
-                                                                       value:[item customValueForKey:@"status"]];
+                                                                       value:[self.item customValueForKey:@"status"]];
 	NSArray *params = [NSArray arrayWithObjects:qualifierParam, statusParam, nil];
 	[oRequest setParameters:params];
   [qualifierParam release];

@@ -73,6 +73,7 @@ typedef enum
 - (NSString *)sharerId;
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
+- (BOOL)requiresShortenedURL;
 + (BOOL)canShareImage;
 + (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size;
 + (BOOL)canGetUserInfo;

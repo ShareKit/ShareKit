@@ -90,6 +90,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	return NO;
 }
 
+- (BOOL)requiresShortenedURL
+{
+    return NO;
+}
+
 + (BOOL)canShareImage
 {
 	return NO;
@@ -321,6 +326,55 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     [defaults synchronize];
 }
 
+#pragma mark - Share Item URL Shortening
+
+- (void)shortenURL
+{
+	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
+	NSString *bitLyKey = SHKCONFIG(bitLyKey);
+	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
+	
+	if (bitLyConfigured == NO || ![SHK connected]) {
+        SHKLog(@"URL was not shortened! Make sure you have bit.ly credentials");
+        [self show];
+        return;
+    }
+	
+	if (!self.quiet) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																		  bitLyLogin,
+																		  bitLyKey,
+																		  SHKEncodeURL(self.item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+}
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (!aRequest.success || result == nil || [NSURL URLWithString:result] == nil)
+	{
+		SHKLog(@"URL was not shortened! Error response:%@", result);
+	}
+	else
+	{
+        //if really shortened, set new URL
+		if (![result isEqualToString:@"ALREADY_A_BITLY_LINK"]) {
+            NSURL *newURL = [NSURL URLWithString:result];
+            self.item.URL = newURL;
+        }
+	}
+    [self show];
+}
+
 #pragma mark -
 #pragma mark Commit Share
 
@@ -333,12 +387,19 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// A. First check if auto share is set and isn't nobbled off	
 	// B. If it is, try to send
 	// If either A or B fail, display the UI
+    
+    //TODO make this more readable and fix tryToSend failback
 	else if ([SHKCONFIG(allowAutoShare) boolValue] == FALSE ||	// this calls show and would skip try to send... but for sharers with no UI, try to send gets called in show
 			 ![self shouldAutoShare] || 
-			 ![self tryToSend])
-		[self show];
+			 ![self tryToSend]) {
+        
+        if (self.item.URL && [self requiresShortenedURL]) {
+            [self shortenURL];
+        } else {
+            [self show];
+        }        
+    }
 }
-
 
 #pragma mark -
 #pragma mark Authentication

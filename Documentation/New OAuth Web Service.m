@@ -51,6 +51,14 @@
 }
 */
 
+// Does the service need to shorten URL before sharing? If YES, uncomment this section. Do not forget to setup bit.ly credentials in your configurator, otherwise the URL simply will not be shortened
+/*
+ - (BOOL)requiresShortenedURL {
+ 
+ return YES;
+ }
+ */
+
 // If the action can handle images, uncomment this section
 /*
 + (BOOL)canShareImage
@@ -89,7 +97,7 @@
 {
 	return NO;
 }
-*/ 
+*/
 
 
 #pragma mark -

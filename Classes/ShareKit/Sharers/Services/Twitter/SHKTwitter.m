@@ -40,10 +40,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 @interface SHKTwitter ()
 
-- (BOOL)prepareItem;
-- (BOOL)shortenURL;
-- (void)shortenURLFinished:(SHKRequest *)aRequest;
-- (BOOL)validateItemAfterUserEdit;
 - (void)handleUnsuccessfulTicket:(NSData *)data;
 - (BOOL)twitterFrameworkAvailable;
 
@@ -77,7 +73,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return self;
 }
 
-
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -96,7 +91,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return YES;
 }
 
-// TODO use img.ly to support this
 + (BOOL)canShareImage
 {
 	return YES;
@@ -105,6 +99,11 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 + (BOOL)canGetUserInfo
 {
 	return YES;
+}
+
+- (BOOL)requiresShortenedURL
+{
+    return YES;
 }
 
 #pragma mark -
@@ -131,12 +130,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 	else
 	{
-		BOOL itemPrepared = [self prepareItem];
-		// the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
-		if (itemPrepared)
-		{
-			[super share];
-		}
+        [super share];
 	}
 }
 
@@ -177,15 +171,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return NO;
 }
 
-- (BOOL)prepareItem {
-	
-	BOOL result = YES;
-	
-	if (self.item.shareType == SHKShareTypeURL)
-	{
-		BOOL isURLAlreadyShortened = [self shortenURL];
-		result = isURLAlreadyShortened;
-	}
+- (void)prepareItem {
 
 	NSString *status = [self.item customValueForKey:@"status"];
 	if (!status)
@@ -199,10 +185,14 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		status = [NSString stringWithFormat:@"%@ %@", status, hashtags];
 	}
-
+    
+    if (self.item.URL)
+    {
+        NSString *URLstring = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        status = [NSString stringWithFormat:@"%@ %@", status, URLstring];
+    }
+    
 	[self.item setCustomValue:status forKey:@"status"];
-
-	return result;
 }
 
 #pragma mark -
@@ -305,32 +295,22 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[super tokenAccessTicket:ticket didFinishWithData:data];		
 }
 
-
 #pragma mark -
 #pragma mark UI Implementation
 
 - (void)show
 {
-	if (self.item.shareType == SHKShareTypeURL)
-	{
-		[self showTwitterForm];
-	}
-	
-	else if (self.item.shareType == SHKShareTypeImage)
-	{
-		[self showTwitterForm];
-	}
-	
-	else if (self.item.shareType == SHKShareTypeText)
-	{
-		[self showTwitterForm];
-	}
-	
-	else if (self.item.shareType == SHKShareTypeUserInfo)
+	[self prepareItem];
+    
+    if (self.item.shareType == SHKShareTypeUserInfo)
 	{
 		[self setQuiet:YES];
 		[self tryToSend];
 	}
+    else
+    {
+        [self showTwitterForm];
+    }
 }
 
 - (void)showTwitterForm
@@ -357,93 +337,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 #pragma mark -
-
-- (BOOL)shortenURL
-{	
-	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
-	NSString *bitLyKey = SHKCONFIG(bitLyKey);
-	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
-	
-	if (bitLyConfigured == NO || ![SHK connected])
-	{
-		NSString *url = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title ? item.title : item.text, url] forKey:@"status"];
-		return YES;
-	}
-	
-	if (!quiet)
-	{
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
-	}
-	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-																		  bitLyLogin,
-																		  bitLyKey,																		  
-																		  SHKEncodeURL(item.URL)
-																		  ]]
-											 params:nil
-										   delegate:self
-								 isFinishedSelector:@selector(shortenURLFinished:)
-											 method:@"GET"
-										  autostart:YES] autorelease];
-    return NO;
-}
-
-- (void)shortenURLFinished:(SHKRequest *)aRequest
-{
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-	
-	if (!aRequest.success || result == nil || [NSURL URLWithString:result] == nil)
-	{
-		// TODO - better error message
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
-											  message:SHKLocalizedString(@"We could not shorten the URL.")
-											 delegate:nil
-								 cancelButtonTitle:SHKLocalizedString(@"Continue")
-								 otherButtonTitles:nil] autorelease] show];
-        
-        NSString *currentStatus = [item customValueForKey:@"status"];
-        
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", currentStatus, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
-	}
-	
-	else
-	{		
-		///if already a bitly login, use url instead
-		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
-			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSString *currentStatus = [item customValueForKey:@"status"];
-		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", currentStatus, result] forKey:@"status"];
-	}
-	
-	[super share];
-}
-
-#pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem
-{
-	if (self.item.shareType == SHKShareTypeUserInfo) {
-		return YES;
-	}
-	
-	NSString *status = [self.item customValueForKey:@"status"];
-	return status != nil;
-}
-
-- (BOOL)validateItemAfterUserEdit {
+- (BOOL)validateItem {
 	
 	BOOL result = NO;
 	
-	BOOL isValid = [self validateItem];    
+	BOOL isValid = [super validateItem];
 	NSString *status = [self.item customValueForKey:@"status"];
 	
-	if (isValid && status.length <= 140) {
+	if (isValid && status.length <= 140 && status.length > 0) {
 		result = YES;
 	}
 	
@@ -456,7 +359,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	if (xAuth && [self.item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
-	if (![self validateItemAfterUserEdit])
+	if (![self validateItem])
 		return NO;
 	
 	switch (self.item.shareType) {

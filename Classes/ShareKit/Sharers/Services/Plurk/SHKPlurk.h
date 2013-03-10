@@ -37,9 +37,6 @@
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)shortenURL;
-- (void)shortenURLFinished:(SHKRequest *)aRequest;
-
 - (void)uploadImage;
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
