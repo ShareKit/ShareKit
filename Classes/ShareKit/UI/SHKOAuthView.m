@@ -69,17 +69,6 @@
 	self.view = webView;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-	
-	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        // Remove the SHK view wrapper from the window
-        [[SHK currentHelper] viewWasDismissed];
-    }
-}
-
-
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
 	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)

@@ -339,13 +339,13 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
  	if (![self validateItem])
 		return NO;
 	
-	if ((item.shareType == SHKShareTypeURL && item.URL)||
-		(item.shareType == SHKShareTypeText && item.text)||
-		(item.shareType == SHKShareTypeImage && item.image)||
-		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
+	if ((self.item.shareType == SHKShareTypeURL && self.item.URL)||
+		(self.item.shareType == SHKShareTypeText && self.item.text)||
+		(self.item.shareType == SHKShareTypeImage && self.item.image)||
+		self.item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
-        if (item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
+        if (self.item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
 			// No permissions found in session, ask for it
 			[self saveItemForLater:SHKPendingSend];
 			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
@@ -398,16 +398,16 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
 	[params setObject:actions forKey:@"actions"];
 	
-	if (item.shareType == SHKShareTypeURL && item.URL)
+	if (self.item.shareType == SHKShareTypeURL && self.item.URL)
 	{
-		NSString *url = [item.URL absoluteString];
+		NSString *url = [self.item.URL absoluteString];
 		[params setObject:url forKey:@"link"];
-		[params setObject:item.title == nil ? url : item.title
+		[params setObject:self.item.title == nil ? url : self.item.title
 				   forKey:@"name"];
 		
 		//message parameter is invalid in fbdialog since 2011. Next two lines are effective only when sending to graph API.
-		if (item.text)
-			[params setObject:item.text forKey:@"message"];
+		if (self.item.text)
+			[params setObject:self.item.text forKey:@"message"];
 		
 		NSString *pictureURI = self.item.facebookURLSharePictureURI;
 		if (pictureURI)
@@ -424,9 +424,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 		
 	}
-	else if (item.shareType == SHKShareTypeText && item.text)
+	else if (self.item.shareType == SHKShareTypeText && self.item.text)
 	{
-		[params setObject:item.text forKey:@"message"];
+		[params setObject:self.item.text forKey:@"message"];
 		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
 																 parameters:params
 																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
@@ -436,13 +436,13 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 
 	}
-	else if (item.shareType == SHKShareTypeImage && item.image)
+	else if (self.item.shareType == SHKShareTypeImage && self.item.image)
 	{
-		if (item.title)
-			[params setObject:item.title forKey:@"caption"];
-		if (item.text)
-			[params setObject:item.text forKey:@"message"];
-		[params setObject:item.image forKey:@"picture"];
+		if (self.item.title)
+			[params setObject:self.item.title forKey:@"caption"];
+		if (self.item.text)
+			[params setObject:self.item.text forKey:@"message"];
+		[params setObject:self.item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo
 		// via the dialog option:
 		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/photos"
@@ -452,7 +452,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																 }];
 		[self.pendingConnections addObject:con];
 	}
-	else if (item.shareType == SHKShareTypeUserInfo)
+	else if (self.item.shareType == SHKShareTypeUserInfo)
 	{	// sharekit demo app doesn't use this, handy if you need to show user info, such as user name for OAuth services in your app, see https://github.com/ShareKit/ShareKit/wiki/FAQ
 		[self setQuiet:YES];
 		FBRequestConnection* con = [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -514,9 +514,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 - (void) doNativeShow
 {
 	BOOL displayedNativeDialog = [FBNativeDialogs presentShareDialogModallyFrom:[[SHK currentHelper] rootViewForUIDisplay]
-																	initialText:item.text ? item.text : item.title
-																		  image:item.image
-																			url:item.URL
+																	initialText:self.item.text ? self.item.text : self.item.title
+																		  image:self.item.image
+																			url:self.item.URL
 																		handler:^(FBNativeDialogResult result, NSError *error) {
 																			if (error) {
 																				/* handle failure */
@@ -549,7 +549,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL)
+    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeImage || self.item.shareType == SHKShareTypeURL)
     {
         [self showFacebookForm];
     }
@@ -610,14 +610,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
  	
     switch (self.item.shareType) {
         case SHKShareTypeText:
-            rootView.text = item.text;
+            rootView.text = self.item.text;
             break;
         case SHKShareTypeImage:
-            rootView.image = item.image;
-            rootView.text = item.title;
+            rootView.image = self.item.image;
+            rootView.text = self.item.title;
             break;
         case SHKShareTypeURL:
-            rootView.text = item.text;
+            rootView.text = self.item.text;
             rootView.hasLink = YES;
             rootView.allowSendingEmptyMessage = YES;
             break;

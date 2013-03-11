@@ -27,23 +27,6 @@
 
 #import "SHKTextMessage.h"
 
-
-@implementation MFMessageComposeViewController (SHK)
-
-- (void)SHKviewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-	
-	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
-	if (self.modalViewController == nil) {
-        if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-            [[SHK currentHelper] viewWasDismissed];
-        }
-    }
-}
-
-@end
-
 @implementation SHKTextMessage
 
 #pragma mark -
@@ -113,13 +96,13 @@
 	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
 	composeView.messageComposeDelegate = self;
   
-	NSString *body = item.text;
+	NSString *body = self.item.text;
 	
 	if (!body) {
 		
-		if (item.URL != nil)
+		if (self.item.URL != nil)
 		{	
-			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
 				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];

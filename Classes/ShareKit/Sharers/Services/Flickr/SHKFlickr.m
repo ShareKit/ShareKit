@@ -171,7 +171,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (BOOL)send
 {	
-	if([item customValueForKey:@"is_public"] == nil)	// make sure we have all the data from the form.
+	if([self.item customValueForKey:@"is_public"] == nil)	// make sure we have all the data from the form.
 		return NO;
 	
 	if (self.flickrUserName != nil) {
@@ -190,7 +190,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 - (NSData*) generateImageData
 {
-	return UIImageJPEGRepresentation(item.image, .9);
+	return UIImageJPEGRepresentation(self.item.image, .9);
 }
 
 - (void)sendPhoto {
@@ -201,17 +201,17 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
     
     NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil tagSuffix:nil];
     
-	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
-	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";
+	NSString* descript = [self.item customValueForKey:@"description"] != nil ? [self.item customValueForKey:@"description"] : @"";
+	NSString* titleVal = self.item.title != nil && ![self.item.title isEqualToString:@""] ? self.item.title : @"photo";
 	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
 						  titleVal, @"title",
 						  descript, @"description",
-						  item.tags == nil ? @"" : tagString, @"tags",
-						  [item customValueForKey:@"is_public"], @"is_public",
-						  [item customValueForKey:@"is_friend"], @"is_friend",
-						  [item customValueForKey:@"is_family"], @"is_family",
+						  self.item.tags == nil ? @"" : tagString, @"tags",
+						  [self.item customValueForKey:@"is_public"], @"is_public",
+						  [self.item customValueForKey:@"is_friend"], @"is_friend",
+						  [self.item customValueForKey:@"is_family"], @"is_family",
 						  nil];
-	[self.flickrRequest uploadImageStream:[NSInputStream inputStreamWithData:JPEGData] suggestedFilename:item.title MIMEType:@"image/jpeg" arguments:args];	
+	[self.flickrRequest uploadImageStream:[NSInputStream inputStreamWithData:JPEGData] suggestedFilename:self.item.title MIMEType:@"image/jpeg" arguments:args];	
 }
 
 - (NSURL *)authorizeCallbackURL {
@@ -341,8 +341,8 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 -(void) postToNextGroup
 {
 	bool finished = true;
-	if(self.fullOptionsData != nil && [item customValueForKey:@"postgroup"] != nil){
-		NSString *postGroups = [item customValueForKey:@"postgroup"];
+	if(self.fullOptionsData != nil && [self.item customValueForKey:@"postgroup"] != nil){
+		NSString *postGroups = [self.item customValueForKey:@"postgroup"];
 		NSArray* indexes = [postGroups componentsSeparatedByString:@","];
 		if(postGroupCurIndex < [indexes count]){
 			NSString* postGroup = [indexes objectAtIndex:postGroupCurIndex++];
@@ -376,27 +376,27 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 }
 
 -(void) optionsEnumerated:(NSArray*)options{
-	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[curOptionController optionsEnumerated:options];
-	curOptionController = nil;
+	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[self.curOptionController optionsEnumerated:options];
+	self.curOptionController = nil;
 }
 -(void) optionsEnumerationFailed:(NSError*)error{
-	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[curOptionController optionsEnumerationFailedWithError:error];
-	curOptionController = nil;
+	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
+	[self.curOptionController optionsEnumerationFailedWithError:error];
+	self.curOptionController = nil;
 }
 
 -(void) SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController*) optionController
 {
-	NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
-	curOptionController = optionController;
+	NSAssert(self.curOptionController == nil, @"there should never be more than one picker open.");
+	self.curOptionController = optionController;
 	self.flickrRequest.sessionInfo = kGetGroupsStep;
 	[flickrRequest callAPIMethodWithGET:@"flickr.groups.pools.getGroups" arguments:[NSDictionary dictionary]];        		        
 }
 -(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
 {
-	NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
-	curOptionController = nil;
+	NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
+	self.curOptionController = nil;
 	NSAssert(self.flickrRequest.sessionInfo == kGetGroupsStep, @"The active request should be kGetGroupsStep");
 	[self.flickrRequest cancel];
 }

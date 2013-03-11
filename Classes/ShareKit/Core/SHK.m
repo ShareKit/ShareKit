@@ -31,7 +31,7 @@
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"
-#import "Reachability.h"
+#import "SHKReachability.h"
 #import "SHKMail.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
@@ -43,8 +43,6 @@ NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
 NSString * const SHKSendDidFailWithErrorNotification = @"SHKSendDidFailWithError";
 NSString * const SHKSendDidCancelNotification = @"SHKSendDidCancel";
 NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
-
-NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
 
 NSString * SHKLocalizedStringFormat(NSString* key);
 
@@ -64,21 +62,6 @@ BOOL SHKinit;
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         return [[self alloc] init];
     });
-}
-
-+ (void)initialize
-{
-	[super initialize];
-	
-	if (!SHKinit)
-	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
-		
-		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
-			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
-		
-		SHKinit = YES;
-	}
 }
 
 - (void)dealloc
@@ -228,26 +211,19 @@ BOOL SHKinit;
 	if (self.currentView != nil)
 	{
 		// Dismiss the modal view
-		if ([self.currentView parentViewController] != nil)
-		{
-			self.isDismissingView = YES;
-			[[self.currentView parentViewController] dismissModalViewControllerAnimated:animated];
-		}
-		// for iOS5
-		else if([self.currentView respondsToSelector:@selector(presentingViewController)] &&
-		        [self.currentView presentingViewController])
+		if ([self.currentView presentingViewController])
 		{
 			self.isDismissingView = YES;            
             [[self.currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                     [self viewWasDismissed];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
                 }];
             }];
         }
-		
 		else
+        {
 			self.currentView = nil;
+        }
 	}
 }
 
@@ -662,7 +638,7 @@ static NSDictionary *sharersDictionary = nil;
 + (BOOL)connected 
 {
 	//return NO; // force for offline testing
-	Reachability *hostReach = [Reachability reachabilityForInternetConnection];	
+	SHKReachability *hostReach = [SHKReachability reachabilityForInternetConnection];	
 	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
 	return !(netStatus == NotReachable);
 }
@@ -729,16 +705,6 @@ NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks)
     }
     
     return [value stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];	
-}
-
-void SHKSwizzle(Class c, SEL orig, SEL newClassName)
-{
-    Method origMethod = class_getInstanceMethod(c, orig);
-    Method newMethod = class_getInstanceMethod(c, newClassName);
-    if(class_addMethod(c, orig, method_getImplementation(newMethod), method_getTypeEncoding(newMethod)))
-		class_replaceMethod(c, newClassName, method_getImplementation(origMethod), method_getTypeEncoding(origMethod));
-	else
-		method_exchangeImplementations(origMethod, newMethod);
 }
 
 NSString* SHKLocalizedStringFormat(NSString* key)

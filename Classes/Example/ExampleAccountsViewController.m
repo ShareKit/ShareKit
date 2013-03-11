@@ -54,13 +54,9 @@
 
 - (void)done:(id)sender
 {
-    if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        [self dismissViewControllerAnimated:YES completion:^{
-            //
-        }];
-    } else {
-        [self dismissModalViewControllerAnimated:YES];
-    }
+    [self dismissViewControllerAnimated:YES completion:^{
+        //
+    }];
 }
 
 #pragma mark -

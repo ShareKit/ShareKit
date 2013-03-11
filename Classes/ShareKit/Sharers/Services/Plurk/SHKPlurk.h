@@ -1,9 +1,8 @@
 //
-//  SHKSafari.m
+//  SHKPlurk.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/20/10.
-
+//  Created by Polydice on 2/12/12.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -25,59 +24,28 @@
 //
 //
 
-#import "SHKSafari.h"
+#import "SHKOAuthSharer.h"
+#import "SHKFormControllerLargeTextField.h"
 
-
-@implementation SHKSafari
-
-
+@interface SHKPlurk : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
 
 #pragma mark -
-#pragma mark Configuration : Service Defination
+#pragma mark UI Implementation
 
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"Open in Safari");
-}
-
-+ (BOOL)canShareURL
-{
-	return YES;
-}
-
-+ (BOOL)shareRequiresInternetConnection
-{
-	return NO;
-}
-
-+ (BOOL)requiresAuthentication
-{
-	return NO;
-}
-
-
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare
-{
-	return YES;
-}
-
+- (void)showPlurkForm;
 
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)send
-{	
-	self.quiet = YES;
-	
-	[[UIApplication sharedApplication] openURL:self.item.URL];
-	
-	[self sendDidFinish];
-	
-	return YES;
-}
+- (void)uploadImage;
+- (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)uploadImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
+- (void)alertUploadImageWithError:(NSError *)error;
+
+- (void)sendForm:(SHKFormControllerLargeTextField *)form;
+
+- (void)sendStatus;
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
 
 @end

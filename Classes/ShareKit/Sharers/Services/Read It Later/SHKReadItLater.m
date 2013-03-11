@@ -78,7 +78,7 @@
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
-	if (!quiet)
+	if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
@@ -107,12 +107,12 @@
 	[[SHKActivityIndicator currentIndicator] hide];
 	
 	if (aRequest.success)
-		[pendingForm saveForm];
+		[self.pendingForm saveForm];
 	
 	else
 	{
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-									 message:[request.headers objectForKey:@"X-Error"]
+									 message:[aRequest.headers objectForKey:@"X-Error"]
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
@@ -129,8 +129,8 @@
 {	
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@", "]],
 				nil];
     
 	return nil;
@@ -146,8 +146,8 @@
 	{	
 		// SHKEncode() does not encode quotes but Read It Later requires it, so we do it here.
 		NSString *new = [NSString stringWithFormat:@"&new={\"0\":{\"url\":\"%@\",\"title\":\"%@\"}}",
-						 SHKEncodeURL(item.URL),
-						 SHKEncode([item.title stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"])];
+						 SHKEncodeURL(self.item.URL),
+						 SHKEncode([self.item.title stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"])];
 		
         NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
         [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
@@ -156,7 +156,7 @@
         NSString *tagString = [self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil];
 		NSString *formattedTagString = [tagString length] < 1 ? @"" :
 		[NSString stringWithFormat:@"&update_tags={\"0\":{\"url\":\"%@\",\"tags\":\"%@\"}}",
-						  SHKEncodeURL(item.URL), SHKEncode(tagString)];
+						  SHKEncodeURL(self.item.URL), SHKEncode(tagString)];
 		
 		NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@%@%@",
 									SHKCONFIG(readItLaterKey),
@@ -192,7 +192,7 @@
 			return;
 		}
 		
-		[self sendDidFailWithError:[SHK error:[request.headers objectForKey:@"X-Error"]]];
+		[self sendDidFailWithError:[SHK error:[aRequest.headers objectForKey:@"X-Error"]]];
 		return;
 	}
 

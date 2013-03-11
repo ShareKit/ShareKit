@@ -42,18 +42,13 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 @implementation SHKSharer
 
-@synthesize shareDelegate;
-@synthesize item, pendingForm, request;
-@synthesize lastError;
-@synthesize quiet, pendingAction;
-
 - (void)dealloc
 {
-	[item release];
-    [shareDelegate release];
-	[pendingForm release];
-	[request release];
-	[lastError release];
+	[_item release];
+    [_shareDelegate release];
+	[_pendingForm release];
+	[_request release];
+	[_lastError release];
 	
 	[super dealloc];
 }
@@ -93,6 +88,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 + (BOOL)canShareURL
 {
 	return NO;
+}
+
+- (BOOL)requiresShortenedURL
+{
+    return NO;
 }
 
 + (BOOL)canShareImage
@@ -326,6 +326,55 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     [defaults synchronize];
 }
 
+#pragma mark - Share Item URL Shortening
+
+- (void)shortenURL
+{
+	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
+	NSString *bitLyKey = SHKCONFIG(bitLyKey);
+	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
+	
+	if (bitLyConfigured == NO || ![SHK connected]) {
+        SHKLog(@"URL was not shortened! Make sure you have bit.ly credentials");
+        [self show];
+        return;
+    }
+	
+	if (!self.quiet) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																		  bitLyLogin,
+																		  bitLyKey,
+																		  SHKEncodeURL(self.item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+}
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (!aRequest.success || result == nil || [NSURL URLWithString:result] == nil)
+	{
+		SHKLog(@"URL was not shortened! Error response:%@", result);
+	}
+	else
+	{
+        //if really shortened, set new URL
+		if (![result isEqualToString:@"ALREADY_A_BITLY_LINK"]) {
+            NSURL *newURL = [NSURL URLWithString:result];
+            self.item.URL = newURL;
+        }
+	}
+    [self show];
+}
+
 #pragma mark -
 #pragma mark Commit Share
 
@@ -338,12 +387,19 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// A. First check if auto share is set and isn't nobbled off	
 	// B. If it is, try to send
 	// If either A or B fail, display the UI
+    
+    //TODO make this more readable and fix tryToSend failback
 	else if ([SHKCONFIG(allowAutoShare) boolValue] == FALSE ||	// this calls show and would skip try to send... but for sharers with no UI, try to send gets called in show
 			 ![self shouldAutoShare] || 
-			 ![self tryToSend])
-		[self show];
+			 ![self tryToSend]) {
+        
+        if (self.item.URL && [self requiresShortenedURL]) {
+            [self shortenURL];
+        } else {
+            [self show];
+        }        
+    }
 }
-
 
 #pragma mark -
 #pragma mark Authentication
@@ -382,7 +438,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {
 	if ([[self class] shareRequiresInternetConnection] && ![SHK connected])
 	{
-		if (!quiet)
+		if (!self.quiet)
 		{
 			[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
 										 message:SHKLocalizedString(@"You must be online to login to %@", [self sharerTitle])
@@ -521,7 +577,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)show
 {
-	NSArray *shareFormFields = [self shareFormFieldsForType:item.shareType];
+	NSArray *shareFormFields = [self shareFormFieldsForType:self.item.shareType];
 	
 	if (shareFormFields == nil)
 		[self tryToSend];
@@ -532,7 +588,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 																		 title:nil
 															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
-		[rootView addSection:shareFormFields header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
+		[rootView addSection:shareFormFields header:nil footer:self.item.URL!=nil?self.item.URL.absoluteString:nil];
 		
 		if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
 		{
@@ -563,7 +619,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
 				nil];
 	
 	return nil;
@@ -659,10 +715,10 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	for(NSString *key in formValues)
 	{
 		if ([key isEqualToString:@"title"])
-			item.title = [formValues objectForKey:key];
+			self.item.title = [formValues objectForKey:key];
 		
 		else if ([key isEqualToString:@"text"])
-			item.text = [formValues objectForKey:key];
+			self.item.text = [formValues objectForKey:key];
 		
 		else if ([key isEqualToString:@"tags"]) {
             NSString *unparsedTags = [formValues objectForKey:key];
@@ -671,11 +727,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
             for (NSString *a_tag in tmpValues) {
                 [values addObject:[a_tag stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
             }
-			item.tags = values;
+			self.item.tags = values;
         }
 		
 		else
-			[item setCustomValue:[formValues objectForKey:key] forKey:key];
+			[self.item setCustomValue:[formValues objectForKey:key] forKey:key];
 	}
 }
 
@@ -684,19 +740,19 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (BOOL)validateItem
 {
-	switch (item.shareType) 
+	switch (self.item.shareType)
 	{
 		case SHKShareTypeURL:
-			return (item.URL != nil);
+			return (self.item.URL != nil);
 			
 		case SHKShareTypeImage:
-			return (item.image != nil);
+			return (self.item.image != nil);
 			
 		case SHKShareTypeText:
-			return (item.text != nil);
+			return (self.item.text != nil);
 			
 		case SHKShareTypeFile:
-			return (item.data != nil);
+			return (self.item.data != nil);
             
         case SHKShareTypeUserInfo:
         {    
@@ -716,9 +772,9 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 		return [self send];
 	
 	else if ([SHKCONFIG(allowOffline) boolValue] == TRUE && [[self class] canShareOffline])
-		return [SHK addToOfflineQueue:item forSharer:[self sharerId]];
+		return [SHK addToOfflineQueue:self.item forSharer:[self sharerId]];
 	
-	else if (!quiet)
+	else if (!self.quiet)
 	{
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
 									 message:SHKLocalizedString(@"You must be online in order to share with %@", [self sharerTitle])
@@ -748,7 +804,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)tryPendingAction
 {
-	switch (pendingAction) 
+	switch (self.pendingAction)
 	{
 		case SHKPendingRefreshToken:
         case SHKPendingSend:    
@@ -779,17 +835,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     return YES;
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-	
-	if (![UIViewController instancesRespondToSelector:@selector(dismissViewControllerAnimated:completion:)]) {
-        // Remove the SHK view wrapper from the window
-        [[SHK currentHelper] viewWasDismissed];
-    }
-}
-
-
 #pragma mark -
 #pragma mark Delegate Notifications
 
@@ -814,9 +859,9 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     
     if (action == SHKPendingShare) {
         
-        if (curOptionController) {
+        if (self.curOptionController) {
             [self popViewControllerAnimated:NO];//dismiss option controller
-            curOptionController = nil;
+            self.curOptionController = nil;
             NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
             [self updateItemWithForm:(SHKFormController *)self.topViewController];
         }        

@@ -68,7 +68,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator
-	if (!quiet)
+	if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
@@ -87,7 +87,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                                            method:@"POST"
                                         autostart:YES] autorelease];
 	
-	self.pendingForm = form;
+	self.self.pendingForm = form;
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -95,7 +95,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	[[SHKActivityIndicator currentIndicator] hide];
 	
 	if (aRequest.success)
-		[pendingForm saveForm];
+		[self.pendingForm saveForm];
 	
 	else {
         

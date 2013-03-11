@@ -113,12 +113,12 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 {
 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
 	
-    if (item.shareType == SHKShareTypeURL) {
-        rootView.text = item.title;
+    if (self.item.shareType == SHKShareTypeURL) {
+        rootView.text = self.item.title;
         rootView.hasLink = YES;
         
     } else {
-        rootView.text = item.text;
+        rootView.text = self.item.text;
     }
     
     rootView.maxTextLength = 700;  
@@ -132,7 +132,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)show
 {
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL)
+    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL)
 	{
 		[self showSHKTextForm];
 	}
@@ -150,10 +150,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
 {	
-    if (item.shareType == SHKShareTypeURL) {
-        item.title = form.textView.text;
+    if (self.item.shareType == SHKShareTypeURL) {
+        self.item.title = form.textView.text;
     } else {
-        item.text = form.textView.text;
+       self.item.text = form.textView.text;
     }
 	[self tryToSend];
 }
@@ -168,7 +168,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         return NO;
     }
     
-    if (item.shareType == SHKShareTypeURL && item.title == nil) {
+    if (self.item.shareType == SHKShareTypeURL && self.item.title == nil) {
         return NO;
     };
     
@@ -182,7 +182,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 		return NO;
 	
     // Determine which type of share to do
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL) // sharing a Text or URL
+    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL) // sharing a Text or URL
     {
         // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
         
@@ -198,20 +198,20 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         // TODO use more robust method to escape         
         NSString *comment;
-        if (item.shareType == SHKShareTypeURL) {
-            comment =[[[[item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+        if (self.item.shareType == SHKShareTypeURL) {
+            comment =[[[[self.item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
         } else {
-            comment =[[[[item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+            comment =[[[[self.item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
         }
         
-        NSString *visibility = [item customValueForKey:SHKLinkedInVisibilityCodeKey];
+        NSString *visibility = [self.item customValueForKey:SHKLinkedInVisibilityCodeKey];
         if (visibility == nil) {
             visibility = @"anyone";
         }
         
         NSString *submittedUrl;
-        if (item.shareType == SHKShareTypeURL) {
-            NSString *urlString = [[[[item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
+        if (self.item.shareType == SHKShareTypeURL) {
+            NSString *urlString = [[[[self.item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
             submittedUrl = [NSString stringWithFormat:@"<content><submitted-url>%@</submitted-url></content>", urlString];
         } else {
             submittedUrl = @"";

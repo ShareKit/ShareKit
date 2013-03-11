@@ -66,7 +66,7 @@
     info.outputType = self.item.printOutputType;
     printer.printInfo = info;
 	printer.showsPageRange = NO;
-	printer.printingItem = item.image;
+	printer.printingItem = self.item.image;
 	UIPrintInteractionCompletionHandler completionHandler = ^(UIPrintInteractionController *printer,
 															  BOOL completed, NSError *error) {
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];

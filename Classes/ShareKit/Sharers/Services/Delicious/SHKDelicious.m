@@ -65,7 +65,7 @@
 - (void)authorizationFormValidate:(SHKFormController *)form
 {
 	// Display an activity indicator	
-	if (!quiet)
+	if (!self.quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
 	
 	
@@ -94,7 +94,7 @@
 	
 	if (aRequest.success)
 	{
-		[pendingForm saveForm];
+		[self.pendingForm saveForm];
 	}
     else
     {    
@@ -118,9 +118,9 @@
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@", "]],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:self.item.text],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Shared") key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
@@ -143,11 +143,11 @@
         NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password,
-                        SHKEncodeURL(item.URL),
-                        SHKEncode(item.title),
+                        SHKEncodeURL(self.item.URL),
+                        SHKEncode(self.item.title),
                         SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),
-                        SHKEncode(item.text),
-                        [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
+                        SHKEncode(self.item.text),
+                        [self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];
     
 		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
