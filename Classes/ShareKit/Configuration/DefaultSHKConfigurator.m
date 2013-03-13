@@ -240,6 +240,18 @@
     return @"";
 }
 
+// Instagram
+
+// Instagram crops images by default
+- (NSNumber*)instagramLetterBoxImages {
+    return [NSNumber numberWithBool:YES];
+}
+
+- (UIColor *)instagramLetterBoxColor
+{
+    return [UIColor whiteColor];
+}
+
 // YouTube - https://developers.google.com/youtube/v3/guides/authentication#OAuth2_Register
 - (NSString*)youTubeConsumerKey {
 	return @"";

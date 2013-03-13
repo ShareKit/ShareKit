@@ -81,6 +81,8 @@
 - (NSNumber*)readabilityUseXAuth;
 - (NSString*)foursquareV2ClientId;
 - (NSString*)foursquareV2RedirectURI;
+- (NSNumber*)instagramLetterBoxImages;
+- (UIColor*)instagramLetterBoxColor;
 - (NSString*)youTubeConsumerKey;
 - (NSString*)youTubeSecret;
 - (NSNumber*)shareMenuAlphabeticalOrder;
