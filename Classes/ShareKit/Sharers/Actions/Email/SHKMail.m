@@ -109,8 +109,6 @@
 	return YES;
 }
 
-
-
 #pragma mark -
 #pragma mark Share API Methods
 
