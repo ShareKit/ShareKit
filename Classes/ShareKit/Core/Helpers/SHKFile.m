@@ -14,8 +14,6 @@
 
 @property (nonatomic,strong) NSString *path;
 @property (nonatomic,strong) NSData *data;
-@property (nonatomic,strong) NSString *filename;
-@property (nonatomic,strong) NSString *mimeType;
 @property (nonatomic) NSUInteger size;
 @property (nonatomic) NSUInteger duration;
 
@@ -26,7 +24,7 @@ static NSString *tempDirectory;
 @implementation SHKFile
 
 #pragma mark ---
-#pragma mark Initiation
+#pragma mark initialization
 
 +(void)initialize
 {
@@ -57,6 +55,18 @@ static NSString *tempDirectory;
         self.data = data;
         self.filename = filename;
         self.mimeType = [self MIMETypeForPath:self.filename];
+        self.size = 0;
+        self.duration = 0;
+    }
+    return self;
+}
+
+-(id)initWithCoder:(NSCoder *)decoder
+{
+    if(self = [super init]){
+        self.path = [decoder decodeObjectForKey:kSHKFilePath];
+        self.filename = [decoder decodeObjectForKey:kSHKFileName];
+        self.mimeType = [decoder decodeObjectForKey:kSHKMimeType];
         self.size = 0;
         self.duration = 0;
     }
@@ -189,23 +199,13 @@ static NSString *tempDirectory;
 
 static NSString *kSHKFilePath = @"kSHKFilePath";
 static NSString *kSHKFileName = @"kSHKFileName";
-static NSString *kSHKFileMime = @"kSHKFileMime";
-
--(id)initWithCoder:(NSCoder *)decoder
-{
-    if(self = [super init]){
-        _path = [decoder decodeObjectForKey:kSHKFilePath];
-        _filename = [decoder decodeObjectForKey:kSHKFileName];
-        _mimeType = [decoder decodeObjectForKey:kSHKFileMime];
-    }
-    return self;
-}
+static NSString *kSHKMimeType = @"kSHKMimeType";
 
 -(void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeObject:_path forKey:kSHKFilePath];
     [encoder encodeObject:_filename forKey:kSHKFileName];
-    [encoder encodeObject:_mimeType forKey:kSHKFileMime];
+    [encoder encodeObject:_mimeType forKey:kSHKMimeType];
 }
 
 @end

@@ -31,10 +31,10 @@
 
 
 /*
- * Our properties
+ * Our properties. You can override filename and mimeType, if you desire.
  */
-@property (nonatomic,readonly) NSString *filename;
-@property (nonatomic,readonly) NSString *mimeType;
+@property (nonatomic,strong) NSString *filename;
+@property (nonatomic,strong) NSString *mimeType;
 @property (nonatomic,readonly) NSUInteger size;
 
 // This requires a path. Avoid if you don't need it.
