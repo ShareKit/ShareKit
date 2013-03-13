@@ -30,7 +30,7 @@
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		6F2F731116DFF59000710D81 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F2F731016DFF59000710D81 /* MobileCoreServices.framework */; };
 		6F2F731B16E013E000710D81 /* SHKSharer+Video.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2F731A16E013E000710D81 /* SHKSharer+Video.m */; };
-		6F2F731C16E114BF00710D81 /* GTMOAuth2ViewTouch.xib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 6FBB633916D8167500B782A6 /* GTMOAuth2ViewTouch.xib */; };
+		6F60133C16F0E1490033E57C /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FBB633916D8167500B782A6 /* GTMOAuth2ViewTouch.xib */; };
 		6FBB629516D8150000B782A6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		6FBB633A16D8167500B782A6 /* GTLObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB630916D8167500B782A6 /* GTLObject.m */; };
 		6FBB633B16D8167500B782A6 /* GTLQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBB630B16D8167500B782A6 /* GTLQuery.m */; };
@@ -555,7 +555,6 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
-				6F2F731C16E114BF00710D81 /* GTMOAuth2ViewTouch.xib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -743,6 +742,7 @@
 		6F2F731016DFF59000710D81 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		6F2F731916E013E000710D81 /* SHKSharer+Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "SHKSharer+Video.h"; path = "Video/SHKSharer+Video.h"; sourceTree = "<group>"; };
 		6F2F731A16E013E000710D81 /* SHKSharer+Video.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "SHKSharer+Video.m"; path = "Video/SHKSharer+Video.m"; sourceTree = "<group>"; };
+		6F6D690616EE5A470070EEB8 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "../../../../../google-api-objectivec-client/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		6FBB629416D8150000B782A6 /* libYouTube.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libYouTube.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBB630716D8167500B782A6 /* GTLDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLDefines.h; path = "Submodules/google-api-objectivec/Source/GTLDefines.h"; sourceTree = SOURCE_ROOT; };
 		6FBB630816D8167500B782A6 /* GTLObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLObject.h; path = "Submodules/google-api-objectivec/Source/Objects/GTLObject.h"; sourceTree = SOURCE_ROOT; };
@@ -1428,9 +1428,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				6F2F731016DFF59000710D81 /* MobileCoreServices.framework */,
-				6FCB2FD316DD432C0045D07A /* CoreMedia.framework */,
-				6FCB2FD016DD43170045D07A /* AVFoundation.framework */,
 				E153775A16AF0A760015726B /* Default-568h@2x.png */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1469,21 +1466,24 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				403F28B516D778A000CAEBA7 /* MediaPlayer.framework */,
-				AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */,
-				AA3B1DE41612938F00036C82 /* Social.framework */,
 				AA3B1DDC161292A100036C82 /* Accounts.framework */,
 				AA3B1DDD161292A100036C82 /* AdSupport.framework */,
+				6FCB2FD016DD43170045D07A /* AVFoundation.framework */,
 				7A2B025514A342D800E68A4C /* CFNetwork.framework */,
-				7A3C61ED147520B700C47D14 /* Twitter.framework */,
-				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
-				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
-				4312CF7B11CB33E200E61D7A /* MessageUI.framework */,
-				43EF406D11D3FFF800B1F700 /* Security.framework */,
-				43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */,
 				7AB535EF1552E12100171BCE /* CoreFoundation.framework */,
+				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
+				C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */,
+				6FCB2FD316DD432C0045D07A /* CoreMedia.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */,
+				403F28B516D778A000CAEBA7 /* MediaPlayer.framework */,
+				4312CF7B11CB33E200E61D7A /* MessageUI.framework */,
+				6F2F731016DFF59000710D81 /* MobileCoreServices.framework */,
+				43EF406D11D3FFF800B1F700 /* Security.framework */,
+				AA3B1DE41612938F00036C82 /* Social.framework */,
+				43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */,
+				7A3C61ED147520B700C47D14 /* Twitter.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2038,6 +2038,7 @@
 		6FBB630616D8165400B782A6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				6F6D690616EE5A470070EEB8 /* GTMOAuth2ViewTouch.xib */,
 				6FBB630716D8167500B782A6 /* GTLDefines.h */,
 				6FBB630816D8167500B782A6 /* GTLObject.h */,
 				6FBB630916D8167500B782A6 /* GTLObject.m */,
@@ -3410,6 +3411,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F60133C16F0E1490033E57C /* GTMOAuth2ViewTouch.xib in Resources */,
 				7A28825D1553FFB4007DC379 /* ShareKit.bundle in Resources */,
 				28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */,
 				28F335F11007B36200424DE2 /* RootViewController.xib in Resources */,
