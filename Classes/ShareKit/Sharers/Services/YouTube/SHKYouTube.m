@@ -47,7 +47,8 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 // state information such as cookies set by the server in response
 // to queries.
 
-- (GTLServiceYouTube *)youTubeService {
++ (GTLServiceYouTube *)youTubeService
+{
     static GTLServiceYouTube *service;
     
     static dispatch_once_t onceToken;
@@ -56,6 +57,10 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
         service.retryEnabled = YES;
     });
     return service;
+}
+
+- (GTLServiceYouTube *)youTubeService {
+    return [SHKYouTube youTubeService];
 }
 
 #pragma mark -
@@ -105,6 +110,16 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     return ((GTMOAuth2Authentication*)self.youTubeService.authorizer).canAuthorize;
 }
 
++(void)logout
+{
+    [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:kKeychainItemName];
+    
+    if([SHKYouTube youTubeService].authorizer != nil){
+        [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:[SHKYouTube youTubeService].authorizer];
+        [SHKYouTube youTubeService].authorizer = nil;
+    }
+}
+
 #pragma mark -
 #pragma mark Authorization Form
 
@@ -118,7 +133,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
             self.youTubeService.authorizer = auth;
             [self tryPendingAction]; // Try to share again
         } else {
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")] shouldRelogin:NO];
+            [self sendDidFailWithError:error shouldRelogin:NO];
         }
     };
     
@@ -133,7 +148,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     
     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Cancel")
                                                                                    style:UIBarButtonItemStyleBordered
-                                                                                  target:self
+                                                                                   target:self
                                                                                   action:@selector(authorizationCanceled:)];
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
@@ -144,7 +159,9 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 
 - (void)authorizationCanceled:(id)sender
 {
-    [self popViewControllerAnimated:YES];
+    GTMOAuth2ViewControllerTouch *controller = self.viewControllers[0];
+    [controller cancelSigningIn];
+    
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	[self sendDidCancel];
 }
@@ -262,11 +279,17 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     };
     
     // Progress
+    [[SHKActivityIndicator currentIndicator] showProgress];
     void (^uploadProgress)(GTLServiceTicket *ticket, unsigned long long numberOfBytesRead, unsigned long long dataLength) =
     ^(GTLServiceTicket *ticket, unsigned long long numberOfBytesRead, unsigned long long dataLength){
-        // TODO: Indicate progress
-//        [progressIndicator setMaxValue:(double)dataLength];
-//        [progressIndicator setDoubleValue:(double)numberOfBytesRead];
+        float progress = (double)numberOfBytesRead / (double)dataLength;
+        if(progress < 1)
+            [SHKActivityIndicator currentIndicator].progress.progress = progress;
+        else{
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Processing Video...")];
+            [[SHKActivityIndicator currentIndicator] hideProgress];
+        }
+        
     };
     
     // URL Change - allows for upload resume
