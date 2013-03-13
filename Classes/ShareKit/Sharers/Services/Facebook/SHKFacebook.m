@@ -566,9 +566,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             }
             
             if (item.title)
-                [params setObject:item.title forKey:@"caption"];
+                [params setObject:item.title forKey:@"name"];
             if (item.text)
-                [params setObject:item.text forKey:@"message"];
+                [params setObject:item.text forKey:@"description"];
             
             if (error) {
                 [[SHKActivityIndicator currentIndicator] hide];
