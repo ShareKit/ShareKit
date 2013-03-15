@@ -126,4 +126,9 @@
 - (NSArray *)textMessageToRecipients;
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
+//SHKDropbox
+-(NSString *)dropboxAppKey;
+-(NSString *)dropboxAppSecret;
+-(NSString *)dropboxRootFolder;
+-(BOOL)dropboxShouldOverwriteExistedFile;
 @end

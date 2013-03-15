@@ -243,6 +243,15 @@
   return @"https://github.com/ShareKit/ShareKit";
 }
 
+- (NSString *) dropboxAppKey {
+    return @"n18olaziz6f8752";
+}
+- (NSString *) dropboxAppSecret {
+    return @"6cjsemxx6i2qdvc";
+}
+- (NSString *) dropboxRootFolder {
+    return @"dropbox";
+}
 /*
  UI Configuration : Basic
  ------------------------
