@@ -211,3 +211,27 @@
 "Draft" = "مسودة";
 "Add to queue" = "أضف إلى الطابور";
 "Publish" = "انشر";
+
+/* Sharers' titles */
+"SMS" = "رسالة نصيّة";
+"Delicious" = "ديليشيوس";
+"Diigo" = "Diigo";
+"Evernote" = "ايفرنوت";
+"Facebook" = "فيسبوك";
+"Flickr" = "فليكر";
+"Foursquare" = "فورسكوير";
+"Google+" = "جوجل+";
+"Google Reader" = "قارئ جوجل";
+"Hatena" = "Hatena";
+"Instapaper" = "Instapaper";
+"Kippt" = "Kippt";
+"LinkedIn" = "لينكد إن";
+"Pinboard" = "بن بورد";
+"Plurk" = "Plurk";
+"Pocket" = "بوكت";
+"Readability" = "Readability";
+"Sina Weibo" = "Sina Weibo";
+"Tumblr" = "تمبلر";
+"Twitter" = "تويتر";
+"Vkontakte" = "Vkontakte";
+"Instagram" = "إنستقرام";
