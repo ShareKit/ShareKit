@@ -130,7 +130,7 @@ static char const* const ListURIKey = "ListURIKey";
 
 + (NSString *)sharerTitle
 {
-	return @"Kippt";
+	return SHKLocalizedString(@"Kippt");
 }
 
 + (BOOL)canShareURL

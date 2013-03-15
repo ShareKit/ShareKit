@@ -47,7 +47,7 @@
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle { return @"Evernote"; }
++ (NSString *)sharerTitle { return SHKLocalizedString(@"Evernote"); }
 + (BOOL)canShareURL   { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText  { return YES; }

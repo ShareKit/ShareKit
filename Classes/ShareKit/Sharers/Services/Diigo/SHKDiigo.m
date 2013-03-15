@@ -44,7 +44,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Diigo";
+	return SHKLocalizedString(@"Diigo");
 }
 
 + (BOOL)canShareURL

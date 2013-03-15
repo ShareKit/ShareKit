@@ -69,7 +69,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
 + (NSString *)sharerTitle
 {
-	return @"Readability";
+	return SHKLocalizedString(@"Readability");
 }
 
 + (BOOL)canShareURL

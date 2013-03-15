@@ -51,7 +51,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Plurk";
+	return SHKLocalizedString(@"Plurk");
 }
 
 + (BOOL)canShareURL
