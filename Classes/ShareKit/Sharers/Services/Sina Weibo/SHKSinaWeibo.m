@@ -20,7 +20,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Sina Weibo";
+	return SHKLocalizedString(@"Sina Weibo");
 }
 
 + (NSString *)sharerId

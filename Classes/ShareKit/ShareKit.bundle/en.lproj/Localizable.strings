@@ -211,3 +211,27 @@
 "Draft" = "Draft";
 "Add to queue" = "Add to queue";
 "Publish" = "Publish";
+
+/* Sharers' titles */
+"SMS" = "SMS";
+"Delicious" = "Delicious";
+"Diigo" = "Diigo";
+"Evernote" = "Evernote";
+"Facebook" = "Facebook";
+"Flickr" = "Flickr";
+"Foursquare" = "Foursquare";
+"Google+" = "Google+";
+"Google Reader" = "Google Reader";
+"Hatena" = "Hatena";
+"Instapaper" = "Instapaper";
+"Kippt" = "Kippt";
+"LinkedIn" = "LinkedIn";
+"Pinboard" = "Pinboard";
+"Plurk" = "Plurk";
+"Pocket" = "Pocket";
+"Readability" = "Readability";
+"Sina Weibo" = "Sina Weibo";
+"Tumblr" = "Tumblr";
+"Twitter" = "Twitter";
+"Vkontakte" = "Vkontakte";
+"Instagram" = "Instagram";

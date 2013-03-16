@@ -41,7 +41,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 
 + (NSString *)sharerTitle
 {
-	return @"Instapaper";
+	return SHKLocalizedString(@"Instapaper");
 }
 
 + (BOOL)canShareURL

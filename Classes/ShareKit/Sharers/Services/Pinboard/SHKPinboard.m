@@ -44,7 +44,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Pinboard";
+	return SHKLocalizedString(@"Pinboard");
 }
 
 + (BOOL)canShareURL

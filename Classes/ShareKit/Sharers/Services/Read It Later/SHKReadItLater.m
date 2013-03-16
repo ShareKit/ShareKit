@@ -47,7 +47,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Pocket";
+	return SHKLocalizedString(@"Pocket");
 }
 
 + (BOOL)canShareURL

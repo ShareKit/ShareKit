@@ -65,7 +65,7 @@ Google Reader API is unoffical, this was hobbled together from:
 
 + (NSString *)sharerTitle
 {
-	return @"Google Reader";
+	return SHKLocalizedString(@"Google Reader");
 }
 
 + (BOOL)canShareURL

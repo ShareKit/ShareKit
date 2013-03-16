@@ -53,7 +53,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle { return @"Tumblr"; }
++ (NSString *)sharerTitle { return SHKLocalizedString(@"Tumblr"); }
 
 + (BOOL)canShareURL { return YES; }
 + (BOOL)canShareImage { return YES; }
