@@ -41,7 +41,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 // Enter the name of the service
 + (NSString *)sharerTitle
 {
-	return @"LinkedIn";
+	return SHKLocalizedString(@"LinkedIn");
 }
 
 

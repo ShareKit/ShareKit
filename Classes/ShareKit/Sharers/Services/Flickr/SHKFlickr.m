@@ -57,7 +57,7 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 
 + (NSString *)sharerTitle
 {
-	return @"Flickr";
+	return SHKLocalizedString(@"Flickr");
 }
 
 + (BOOL)canShareImage

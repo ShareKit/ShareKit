@@ -17,7 +17,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Twitter";
+	return SHKLocalizedString(@"Twitter");
 }
 
 + (NSString *)sharerId

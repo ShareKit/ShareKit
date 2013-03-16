@@ -13,7 +13,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Facebook";
+	return SHKLocalizedString(@"Facebook");
 }
 
 + (NSString *)sharerId

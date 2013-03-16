@@ -39,7 +39,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Hatena";
+	return SHKLocalizedString(@"Hatena");
 }
 
 + (BOOL)canShareURL

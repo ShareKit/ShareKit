@@ -22,7 +22,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Google+";
+	return SHKLocalizedString(@"Google+");
 }
 
 + (BOOL)canShareURL

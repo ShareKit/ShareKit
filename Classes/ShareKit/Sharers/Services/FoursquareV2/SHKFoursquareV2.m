@@ -81,7 +81,7 @@ static NSString *accessTokenKey = @"accessToken";
 
 + (NSString *)sharerTitle
 {
-	return @"Foursquare";
+	return SHKLocalizedString(@"Foursquare");
 }
 
 + (BOOL)canShare

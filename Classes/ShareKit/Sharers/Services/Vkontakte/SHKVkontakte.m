@@ -100,7 +100,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Vkontakte";
+	return SHKLocalizedString(@"Vkontakte");
 }
 
 + (BOOL)canShareText
