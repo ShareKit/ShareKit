@@ -17,7 +17,7 @@
 // Enter the name of the action
 + (NSString *)sharerTitle
 {
-	return @"Name of Action";
+	return SHKLocalizedString(@"Name of Action");
 }
 
 

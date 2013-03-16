@@ -37,7 +37,7 @@
 // Enter the name of the service
 + (NSString *)sharerTitle
 {
-	return @"Name of Web Service";
+	return SHKLocalizedString(@"Name of Web Service");
 }
 
 
