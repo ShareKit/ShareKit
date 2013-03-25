@@ -5264,7 +5264,6 @@
 		AABBED35162F0B65009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5279,21 +5278,19 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 			};
 			name = Debug;
 		};
 		AABBED36162F0B65009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5301,14 +5298,13 @@
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 			};
 			name = Release;
 		};
