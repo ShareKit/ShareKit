@@ -51,10 +51,10 @@
 #import <netinet/in.h>
 
 typedef enum {
-	NotReachable = 0,
-	ReachableViaWiFi,
-	ReachableViaWWAN
-} NetworkStatus;
+	SHKReachabilityNotReachable = 0,
+	SHKReachabilityReachableViaWiFi,
+	SHKReachabilityReachableViaWWAN
+} SHKReachabilityNetworkStatus;
 #define kReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
 @interface SHKReachability: NSObject
