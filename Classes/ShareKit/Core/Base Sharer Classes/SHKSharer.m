@@ -172,7 +172,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	return [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldAutoShare", [self sharerId]]];
 }
 
-
 #pragma mark -
 #pragma mark Initialization
 
@@ -181,7 +180,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
 		self.shareDelegate = [[[SHKSharerDelegate alloc] init] autorelease];
-		self.item = [[[SHKItem alloc] init] autorelease];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
@@ -225,11 +223,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareURL:(NSURL *)url title:(NSString *)title
 {
-	// Create controller and set share options
+    SHKItem *item = [SHKItem URL:url title:title contentType:SHKURLContentTypeWebpage];
+    
+    // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
-	controller.item.shareType = SHKShareTypeURL;
-	controller.item.URL = url;
-	controller.item.title = title;
+    [controller loadItem:item];
 
 	// share and/or show UI
 	[controller share];
@@ -239,11 +237,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareImage:(UIImage *)image title:(NSString *)title
 {
-	// Create controller and set share options
+    SHKItem *item = [SHKItem image:image title:title];
+	
+    // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
-	controller.item.shareType = SHKShareTypeImage;
-	controller.item.image = image;
-	controller.item.title = title;
+    [controller loadItem:item];
 	
 	// share and/or show UI
 	[controller share];
@@ -253,10 +251,10 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareText:(NSString *)text
 {
-	// Create controller and set share options
+	SHKItem *item = [SHKItem text:text];
+    // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
-	controller.item.shareType = SHKShareTypeText;
-	controller.item.text = text;
+    [controller loadItem:item];
 	
 	// share and/or show UI
 	[controller share];
@@ -266,13 +264,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
-	// Create controller and set share options
+	SHKItem *item = [SHKItem file:file filename:filename mimeType:mimeType title:title];
+    
+    // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
-	controller.item.shareType = SHKShareTypeFile;
-	controller.item.data = file;
-	controller.item.filename = filename;
-	controller.item.mimeType = mimeType;
-	controller.item.title = title;
+    [controller loadItem:item];
 	
 	// share and/or show UI
 	[controller share];
@@ -282,9 +278,13 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)getUserInfo
 {
+    SHKItem *item = [[SHKItem alloc] init];
+    item.shareType = SHKShareTypeUserInfo;
+    
     // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
-	controller.item.shareType = SHKShareTypeUserInfo;
+	controller.item = item;
+    [item release];
     
 	// share and/or show UI
 	[controller share];
