@@ -341,16 +341,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)validateItem {
 	
-	BOOL result = NO;
-	
+	if (self.item.shareType == SHKShareTypeUserInfo) return YES;
+    
 	BOOL isValid = [super validateItem];
 	NSString *status = [self.item customValueForKey:@"status"];
 	
-	if (isValid && status.length <= 140 && status.length > 0) {
-		result = YES;
-	}
-	
-	return result;
+	if (isValid && 0 < status.length && status.length <= 140) {
+		return YES;
+	} else {
+        return NO;
+    }
 }
 
 - (BOOL)send
