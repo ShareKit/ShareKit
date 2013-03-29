@@ -128,6 +128,11 @@
 	return YES;
 }
 
++ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {    
+    return YES;
+}
+
+
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -314,8 +319,13 @@
 	{
         [self getUserInfo];
 		return YES;
-	} 
-	else 
+	}
+    else if (self.item.shareType == SHKShareTypeFile)
+    {
+        [self sendFileAction];
+        return YES;
+    }
+	else
 		return NO;
     
     [self sendText];
@@ -374,7 +384,11 @@
     [self sendRequest:getWallUploadServer withCaptcha:NO isFinishedSelector:@selector(didReceiveUploadUrl:)];
 }
 
-
+- (void)sendFileAction
+{
+	NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/docs.getUploadServer?owner_id=%@&access_token=%@", self.accessUserId, self.accessToken];
+    [self sendRequest:getWallUploadServer withCaptcha:NO isFinishedSelector:@selector(didReceiveDocumentUploadUrl:)];    
+}
 
 //Receivers
 
@@ -397,8 +411,21 @@
     }
 }
 
-
-
+- (void)didReceiveDocumentUploadUrl:(SHKRequest *)aRequest
+{
+    if ([self isRequestFinishedWithoutError:aRequest])
+    {
+        // convert to JSON
+        NSError *error = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
+        NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
+        if (upload_url)
+        {
+            [self sendPOSTRequest:upload_url withFileData:self.item.data fileName:self.item.filename mime:self.item.mimeType];
+            return;
+        }
+    }
+}
 
 - (void)didFinishSaveWallPhotoRequest:(SHKRequest *)aRequest
 {
@@ -420,6 +447,29 @@
     }
 }
 
+- (void)didFinishSaveDocumentRequest:(SHKRequest *)aRequest
+{
+    if ([self isRequestFinishedWithoutError:aRequest])
+    {
+        // convert to JSON
+        NSError *error = nil;
+        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
+        NSDictionary *documentDict = [[responseDict objectForKey:@"response"] lastObject];
+        NSString *ownerId = [documentDict objectForKey:@"owner_id"];
+        NSString *documentId = [documentDict objectForKey:@"did"];
+        if (documentDict && ownerId && documentId)
+        {
+            NSString *attachment = [NSString stringWithFormat:@"doc%@_%@", ownerId, documentId];
+            if (self.item.URL)
+                attachment = [attachment stringByAppendingFormat:@",%@", [self URLEncodedString:[self.item.URL absoluteString]]];
+            NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:self.item.title], attachment];
+            
+            //processing to next request
+            [self sendRequest:postToWallLink withCaptcha:NO];
+            return;
+        }
+    }
+}
 
 
 
@@ -597,7 +647,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 //
-#pragma mark - Post Request With ImageData - 
+#pragma mark - Post Request With ImageData or FileData - 
 //
 ///////////////////////////////////////////////////////////////////////////
 
@@ -639,7 +689,40 @@
 }
 
 
-
+- (void) sendPOSTRequest:(NSString *)reqURl withFileData:(NSData *)fileData fileName:(NSString*)filename mime:(NSString*)mime
+{
+    //creating headers
+	CFUUIDRef uuid = CFUUIDCreate(nil);
+	NSString *uuidString = [(NSString*)CFUUIDCreateString(nil, uuid) autorelease];
+	CFRelease(uuid);
+    
+	NSString *stringBoundary = [NSString stringWithFormat:@"0xKhTmLbOuNdArY-%@",uuidString];
+	NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
+	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;  boundary=%@", stringBoundary];
+    
+    //creating body
+	NSMutableData *body = [NSMutableData data];
+	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mime] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:fileData];
+	[body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    self.request = [[[SHKVKontakteRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                  paramsData:[NSData dataWithData:body]
+                                                    delegate:self
+                                          isFinishedSelector:@selector(didFinishPOSTRequest:)
+                                                      method:@"POST"
+                                                   autostart:NO] autorelease];
+    
+    //setting headers
+    self.request.headerFields=[NSDictionary dictionaryWithObjectsAndKeys:
+                               @"8bit",         @"Content-Transfer-Encoding",
+                               contentType,     @"Content-Type",
+                               nil];
+    
+    [self.request start];
+}
 
 
 - (void)didFinishPOSTRequest:(SHKRequest *)aRequest
@@ -652,12 +735,18 @@
         NSString *hash = [responseDict objectForKey:@"hash"];
         NSString *photo = [responseDict objectForKey:@"photo"];
         NSString *server = [responseDict objectForKey:@"server"];
+        NSString *file = [responseDict objectForKey:@"file"];
         
         if (hash && photo && server)
         {
             //processing to next request
             NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, [self URLEncodedString:photo], hash];
             [self sendRequest:saveWallPhoto withCaptcha:NO isFinishedSelector:@selector(didFinishSaveWallPhotoRequest:)];
+        }
+        else if (file)
+        {
+            NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/docs.save?owner_id=%@&access_token=%@&file=%@", self.accessUserId, self.accessToken, [self URLEncodedString:file]];
+            [self sendRequest:saveWallPhoto withCaptcha:NO isFinishedSelector:@selector(didFinishSaveDocumentRequest:)];
         }
     }
 }
