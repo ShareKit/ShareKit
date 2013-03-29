@@ -359,17 +359,27 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 														 [[SHKActivityIndicator currentIndicator] hide];
 														 requestingPermisSHKFacebook = nil;
 														 if (error) {
-															 UIAlertView *alertView = [[UIAlertView alloc]
-																					   initWithTitle:@"Error"
-																					   message:error.localizedDescription
-																					   delegate:nil
-																					   cancelButtonTitle:@"OK"
-																					   otherButtonTitles:nil];
-															 [alertView show];
-                                                             [alertView release];
-
-															 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
-															 [self tryPendingAction];
+                                                             
+                                                             NSString *errorReason = [error.userInfo objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"];
+                                                             if ([errorReason isEqualToString:@"com.facebook.sdk:ErrorReauthorizeFailedReasonUserCancelled"]) {
+                                                                 [self sendDidCancel];
+                                                                 return;
+                                                             
+                                                             } else {
+                                                                 
+                                                                 UIAlertView *alertView = [[UIAlertView alloc]
+                                                                                           initWithTitle:@"Error"
+                                                                                           message:error.localizedDescription
+                                                                                           delegate:nil
+                                                                                           cancelButtonTitle:@"OK"
+                                                                                           otherButtonTitles:nil];
+                                                                 [alertView show];
+                                                                 [alertView release];
+                                                                 
+                                                                 self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
+                                                                 [self tryPendingAction];
+                                                             }
+                                                             
 														 }else{
 															 // If permissions granted, publish the story
 															 [self doSend];
@@ -487,16 +497,18 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 						  error:(NSError *)error
 {
 	if(![self.pendingConnections containsObject:connection]){
-		NSLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
+		SHKLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
 	}
 	[self.pendingConnections removeObject:connection];
 	if(error){
 		[[SHKActivityIndicator currentIndicator] hide];
 		//check if user revoked app permissions
 		NSDictionary *response = [error.userInfo valueForKey:FBErrorParsedJSONResponseKey];
+        
+        NSInteger code = [[response objectForKey:@"code"] intValue];
+        NSInteger bodyCode = [[[[response objectForKey:@"body"] objectForKey:@"error"] objectForKey:@"code"] intValue];
 		
-		if ([error.domain isEqualToString:FacebookSDKDomain] &&
-			[[[[response objectForKey:@"body"] objectForKey:@"error"] objectForKey:@"code"] intValue] == 190) {
+		if (bodyCode == 190 || code == 403) {
 			[FBSession.activeSession closeAndClearTokenInformation];
 			[self shouldReloginWithPendingAction:SHKPendingSend];
 		} else {
