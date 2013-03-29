@@ -284,9 +284,9 @@
 	{
         NSError *error = nil;
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    
+        
 		if (SHKDebugShowLogs)
-			SHKLog(@"Plurk Send Status Error: %@", string);
+			SHKLog(@"Plurk Send Status Error: %@", [response description]);
     
 		// in case our makeshift parsing does not yield an error message
 		NSString *errorMessage = [response objectForKey:@"error_text"];
