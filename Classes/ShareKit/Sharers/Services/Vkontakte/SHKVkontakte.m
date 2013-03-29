@@ -299,39 +299,30 @@
 		return NO;
 	
 	//[self setQuiet:NO];
-	
-	if (self.item.shareType == SHKShareTypeURL && self.item.URL)
-	{
-		[self sendTextAndLink];
-		return YES;
-	}
-	else if (self.item.shareType == SHKShareTypeText && self.item.text)
-	{
-		[self sendText];
-		return YES;
-	}	
-	else if (self.item.shareType == SHKShareTypeImage && self.item.image)
-	{	
-		[self sendImageAction];
-		return YES;
-	}
-	else if (self.item.shareType == SHKShareTypeUserInfo)
-	{
-        [self getUserInfo];
-		return YES;
-	}
-    else if (self.item.shareType == SHKShareTypeFile)
-    {
-        [self sendFileAction];
-        return YES;
-    }
-	else
-		return NO;
     
-    [self sendText];
+    switch (self.item.shareType) {
+        case SHKShareTypeURL:
+            [self sendTextAndLink];
+            break;
+        case SHKShareTypeText:
+            [self sendText];
+            break;
+        case SHKShareTypeImage:
+            [self sendImageAction];
+            break;
+        case SHKShareTypeUserInfo:
+            [self getUserInfo];
+            break;
+        case SHKShareTypeFile:
+            [self sendFileAction];
+            break;
+        default:
+            return NO;
+    }
+    
+    [self sendDidStart];
     return YES;
 }
-
 
 #pragma mark -	
 #pragma mark UI Implementation
