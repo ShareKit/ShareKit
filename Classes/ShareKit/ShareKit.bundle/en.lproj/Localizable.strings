@@ -234,7 +234,8 @@
 "Tumblr" = "Tumblr";
 "Twitter" = "Twitter";
 "Vkontakte" = "Vkontakte";
-"Instagram" = "Instagram";"Publish" = "Publish";
+"Instagram" = "Instagram";
+"Dropbox" = "Dropbox";
 /*  SHKDropbox  */
 /*
  *  user can rename file with new name while file is uploading to Dropbox

@@ -300,7 +300,7 @@ typedef enum {
 
 + (NSString *)sharerTitle
 {
-	return @"Dropbox";
+	return SHKLocalizedString(@"Dropbox");
 }
 + (BOOL)canShare {
     return YES;
