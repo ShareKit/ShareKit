@@ -63,7 +63,7 @@
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		return;
 	}
-	NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos,friends,offline&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID];
+	NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos,friends,offline,docs&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID];
 	NSURL *url = [NSURL URLWithString:authLink];
 	
 	[vkWebView loadRequest:[NSURLRequest requestWithURL:url]];
