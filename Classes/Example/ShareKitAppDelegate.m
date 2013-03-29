@@ -13,6 +13,7 @@
 #import "SHKGooglePlus.h"
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
+#import "EvernoteSDK.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
@@ -51,6 +52,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 	[SHKFacebook handleDidBecomeActive];
+    [[EvernoteSession sharedSession] handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application 
@@ -72,6 +74,8 @@
         return [SHKGooglePlus handleURL:url sourceApplication:sourceApplication annotation:annotation];
     } else if ([scheme hasPrefix:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]]) {
         return [SHKDropbox handleOpenURL:url];
+    } else if ([[NSString stringWithFormat:@"en-%@", [[EvernoteSession sharedSession] consumerKey]] isEqualToString:[url scheme]]) {
+        return [[EvernoteSession sharedSession] canHandleOpenURL:url];
     }
     
     return YES;

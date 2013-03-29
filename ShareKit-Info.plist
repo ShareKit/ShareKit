@@ -26,6 +26,14 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
+			<string>Evernote</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>en-hansmeyer0711-4037</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
 			<string>Facebook</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
