@@ -194,6 +194,7 @@
 		7AA83BF31705E355009C483A /* GTMOAuth2ViewControllerTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD6316910761005B3077 /* GTMOAuth2ViewControllerTouch.h */; };
 		7AA83BF41705E355009C483A /* GTMObjC2Runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD6616910761005B3077 /* GTMObjC2Runtime.h */; };
 		7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */; };
+		7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		7AAE8CA616EB961700429C51 /* SHKPlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE8C9C16EB950800429C51 /* SHKPlurk.m */; };
 		7AAE8CA916EB965200429C51 /* libPlurk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE8CA516EB960500429C51 /* libPlurk.a */; };
 		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
@@ -237,7 +238,6 @@
 		7AD9861E16E78D730052A5B8 /* NSData+SaveItemAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */; };
 		7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */; };
 		7AE8DC7D165B549B004D99D2 /* DummyLibFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */; };
-		7AE8DC80165B5730004D99D2 /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		7AF9AAD9165B6C0400F92215 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */; };
 		AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
@@ -353,6 +353,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AA83BAA1705E355009C483A;
 			remoteInfo = "Google Plus SDK";
+		};
+		7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
 		};
 		7AAE8CA716EB964900429C51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -570,13 +577,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AC2A38E16597F4C0089ABE8;
 			remoteInfo = "Sina Weibo";
-		};
-		7AE8DC7E165B5725004D99D2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1241,6 +1241,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */,
 				7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */,
 				DE4D0CA716F34D2B0056AAE7 /* libDropbox SDK.a in Frameworks */,
 				DE334C2E16F333A800FF692B /* libDropbox.a in Frameworks */,
@@ -1383,7 +1384,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AE8DC80165B5730004D99D2 /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3108,6 +3108,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7AA83C1E1705E8FC009C483A /* PBXTargetDependency */,
 				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
 				DE4D0CA616F34D220056AAE7 /* PBXTargetDependency */,
 				DE334C3016F333B000FF692B /* PBXTargetDependency */,
@@ -3400,7 +3401,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7AE8DC7F165B5725004D99D2 /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -4211,6 +4211,11 @@
 			target = 7AA83BAA1705E355009C483A /* Google Plus SDK */;
 			targetProxy = 7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */;
 		};
+		7AA83C1E1705E8FC009C483A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = 7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */;
+		};
 		7AAE8CA816EB964900429C51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7AAE8C9D16EB960500429C51 /* Plurk */;
@@ -4365,11 +4370,6 @@
 			isa = PBXTargetDependency;
 			target = 7AC2A38E16597F4C0089ABE8 /* Sina Weibo */;
 			targetProxy = 7AC28F09165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AE8DC7F165B5725004D99D2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = 7AE8DC7E165B5725004D99D2 /* PBXContainerItemProxy */;
 		};
 		DE334C3016F333B000FF692B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
