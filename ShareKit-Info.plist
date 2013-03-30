@@ -50,14 +50,6 @@
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Flickr</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>app://flickr</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
 			<string>Dropbox</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
