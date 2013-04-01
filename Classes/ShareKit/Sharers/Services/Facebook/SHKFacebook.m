@@ -392,7 +392,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			if(requestingPermisSHKFacebook == nil){
 				requestingPermisSHKFacebook = self;
 			}
-			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
+			[FBSession.activeSession requestNewPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
 														 [self restoreItem];
@@ -610,7 +610,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			if(requestingPermisSHKFacebook == nil){
 				requestingPermisSHKFacebook = self;
 			}
-			[FBSession.activeSession reauthorizeWithPublishPermissions:SHKCONFIG(facebookWritePermissions)
+			[FBSession.activeSession requestNewPublishPermissions:SHKCONFIG(facebookWritePermissions)
 													   defaultAudience:FBSessionDefaultAudienceFriends
 													 completionHandler:^(FBSession *session, NSError *error) {
 														 [self restoreItem];
