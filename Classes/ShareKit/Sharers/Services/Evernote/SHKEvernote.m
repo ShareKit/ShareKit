@@ -176,12 +176,12 @@
             [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:self.item.image.size.width height:self.item.image.size.height]]];
         }
         
-        if(self.item.data) {
+        if(item.file) {
             EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
-            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:self.item.data size:[self.item.data length] body:self.item.data] autorelease];
+            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.file.data size:[item.file.data length] body:item.file.data] autorelease];
             [file setData:filed];
             [file setRecognition:filed];
-            [file setMime:self.item.mimeType];
+            [file setMime:item.file.mimeType];
             [resources addObject:file];
             [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:file width:0 height:0]]];
         }

@@ -16,3 +16,6 @@
 [submodule "Submodules/dropbox-sdk-ios"]
 	path = Submodules/dropbox-sdk-ios
 	url = https://github.com/dropbox-sdk-mirror/dropbox-sdk-ios.git
+[submodule "Submodules/google-api-objectivec"]
+	path = Submodules/google-api-objectivec
+	url = git://github.com/jakemdunn/google-api-objectivec-client.git

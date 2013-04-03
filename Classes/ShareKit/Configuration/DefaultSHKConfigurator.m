@@ -291,6 +291,27 @@
   return @"";
 }
 
+// Instagram
+
+// Instagram crops images by default
+- (NSNumber*)instagramLetterBoxImages {
+    return [NSNumber numberWithBool:YES];
+}
+
+- (UIColor *)instagramLetterBoxColor
+{
+    return [UIColor whiteColor];
+}
+
+// YouTube - https://developers.google.com/youtube/v3/guides/authentication#OAuth2_Register
+- (NSString*)youTubeConsumerKey {
+	return @"";
+}
+
+- (NSString*)youTubeSecret {
+	return @"";
+}
+
 /*
  *  Dropbox - https://www.dropbox.com/developers/apps
  *  1. ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY

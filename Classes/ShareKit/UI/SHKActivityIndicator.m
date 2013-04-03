@@ -33,7 +33,7 @@
 @implementation SHKActivityIndicator
 
 @synthesize centerMessageLabel, subMessageLabel;
-@synthesize spinner;
+@synthesize spinner, progress;
 
 static SHKActivityIndicator *_currentIndicator = nil;
 
@@ -247,6 +247,35 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	[spinner removeFromSuperview];
 }
 
+- (void)showProgress
+{
+	if (progress == nil)
+	{
+        self.progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+        
+		progress.frame = CGRectMake(15.0f,
+                                   15.0f,
+                                   self.bounds.size.width - 30.0f,
+                                   progress.frame.size.height);
+		
+	}
+	
+	[self addSubview:progress];
+    progress.progress = 0;
+}
+
+- (void)hideProgress
+{
+    if(progress.alpha < 1 || progress.superview == nil) return;
+    
+    [UIView animateWithDuration:0.35f animations:^{
+        progress.alpha = 0;
+    } completion:^(BOOL finished) {
+        [progress removeFromSuperview];
+        progress.alpha = 1;
+    }];
+}
+
 #pragma mark -
 #pragma mark Rotation
 
@@ -297,7 +326,6 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (id)retain
 {
-	
     return self;	
 }
 

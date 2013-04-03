@@ -107,32 +107,13 @@
 	//clear it out and make it fresh
 	[[NSFileManager defaultManager] removeItemAtPath:docPath error:nil];
 	if ([[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-		UIImage* tmpImg = self.item.image;
-		float tmpCGWidth = CGImageGetWidth(tmpImg.CGImage);
-		float tmpCGHeight = CGImageGetHeight(tmpImg.CGImage);
-		float smaller = tmpCGWidth < tmpCGHeight ? tmpCGWidth : tmpCGHeight;
-		float larger = tmpCGWidth > tmpCGHeight ? tmpCGWidth : tmpCGHeight;
-		bool isWide = tmpCGWidth > tmpCGHeight;
-		
-		// make a draw rect based on the 612 square, scaling up if need be
-		smaller = smaller/larger*612;
-		larger = 612;
-		
-		// if we're not passed a proper image, letter box it with white
-		if (tmpImg.size.width != 612 || tmpImg.size.height != 612) {
-			UIGraphicsBeginImageContext(CGSizeMake(612, 612));
-			CGContextRef ctx = UIGraphicsGetCurrentContext();
-			[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] set];
-			CGContextFillRect(ctx, CGRectMake(0, 0, 612,612));
-			CGRect drawRect = CGRectMake(isWide ? 0 :(612 - smaller)/2,
-										 isWide ? (612 - smaller)/2 : 0,
-										 isWide ? larger : smaller,
-										 isWide ? smaller : larger);
-			[tmpImg drawInRect:drawRect];
-			tmpImg = UIGraphicsGetImageFromCurrentImageContext();
-			UIGraphicsEndImageContext();
-			
-		}
+		UIImage* tmpImg = item.image;
+        
+        if(tmpImg.size.width != tmpImg.size.height && [SHKCONFIG(instagramLetterBoxImages) boolValue]){
+            float size = tmpImg.size.width > tmpImg.size.height ? tmpImg.size.width : tmpImg.size.height;
+            if(size > 1936.0f) size = 1936.0f;
+            tmpImg = [self imageByScalingImage:tmpImg proportionallyToSize:CGSizeMake(size,size)];
+        }
 		
 		NSData* imgData = [self generateImageData:tmpImg];
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
@@ -161,7 +142,70 @@
 	return NO;
 }
 
-- (NSData*) generateImageData:(UIImage*)image
+- (UIImage *)imageByScalingImage:(UIImage*)image proportionallyToSize:(CGSize)targetSize {
+    
+    UIImage *sourceImage = image;
+    UIImage *newImage = nil;
+    
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
+        
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (widthFactor < heightFactor)
+            scaleFactor = widthFactor;
+        else
+            scaleFactor = heightFactor;
+        
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        
+        if (widthFactor < heightFactor) {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        } else if (widthFactor > heightFactor) {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    
+    
+    // this is actually the interesting part:
+    
+    UIGraphicsBeginImageContext(targetSize);
+    
+    [(UIColor*)SHKCONFIG(instagramLetterBoxColor) set];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0,0,targetSize.width,targetSize.height));
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    if(newImage == nil) NSLog(@"could not scale image");
+    
+    return newImage ;
+}
+
+- (NSData*)generateImageData:(UIImage*)image
 {
 	return UIImageJPEGRepresentation(image,1.0);
 }

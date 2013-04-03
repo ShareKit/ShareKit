@@ -32,8 +32,11 @@
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "SHKSharer+Video.h"
 
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
+static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";
 
 // these are ways of getting back to the instance that made the request through statics
 // there are two so that the logic of their lifetimes is understandable.
@@ -243,6 +246,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	return YES;
 }
 
++ (BOOL)canShareVideo
+{
+	return YES;
+}
+
 + (BOOL)canShareOffline
 {
 	return NO; // TODO - would love to make this work
@@ -291,6 +299,21 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark -
 #pragma mark Share API Methods
 
+- (BOOL)validateItem
+{
+    if ([super validateItem] == NO)
+        return NO;
+    
+    return [self validateVideo];
+}
+
+- (BOOL)validateVideo
+{
+    // Validate our video for valid types. We take care of validating size and duration later
+    return [self isOfValidTypes:@[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
+                                  @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"]];
+}
+
 - (void)share {
     
     if ([self socialFrameworkAvailable]) {
@@ -308,15 +331,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (BOOL)socialFrameworkAvailable {
     
+    if (item.shareType == SHKShareTypeFile)
+        return NO; // iOS6 sharing can't handle video
+    
     if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
-    {
         return NO;
-    }
     
 	if (NSClassFromString(@"SLComposeViewController"))
-    {
 		return YES;
-	}
 	
 	return NO;
 }
@@ -339,10 +361,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
  	if (![self validateItem])
 		return NO;
 	
-	if ((self.item.shareType == SHKShareTypeURL && self.item.URL)||
-		(self.item.shareType == SHKShareTypeText && self.item.text)||
-		(self.item.shareType == SHKShareTypeImage && self.item.image)||
-		self.item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
+	if ((item.shareType == SHKShareTypeURL && item.URL)||
+		(item.shareType == SHKShareTypeText && item.text)||
+		(item.shareType == SHKShareTypeImage && item.image)||
+        (item.shareType == SHKShareTypeFile && item.file)||
+		item.shareType == SHKShareTypeUserInfo)	{ //demo app doesn't use this, handy if you wish to get logged in user info (e.g. username) from oauth services, for more info see https://github.com/ShareKit/ShareKit/wiki/FAQ
         
 		// Ask for publish_actions permissions in context
         if (self.item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
@@ -462,7 +485,39 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																 }];
 		[self.pendingConnections addObject:con];
 	}
-	else if (self.item.shareType == SHKShareTypeUserInfo)
+    else if (item.shareType == SHKShareTypeFile && item.file)
+	{
+        [self validateVideoLimits:^(NSError *error){
+            
+            if (error){
+                [[SHKActivityIndicator currentIndicator] hide];
+                [self sendDidFailWithError:error];
+                [self sendDidFinish];
+                return;
+            }
+            
+            if (item.title)
+                [params setObject:item.title forKey:@"name"];
+            if (item.text)
+                [params setObject:item.text forKey:@"description"];
+            
+            if (error) {
+                [[SHKActivityIndicator currentIndicator] hide];
+                [self sendDidFailWithError:error];
+                [self sendDidFinish];
+                return;
+            }
+            [params setObject:item.file.data forKey:item.file.filename];
+            [params setObject:item.file.mimeType forKey:@"contentType"];
+            FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/videos"
+                                                                    parameters:params
+                                                                    HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                        [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                    }];
+            [self.pendingConnections addObject:con];
+        }];
+	}
+	else if (item.shareType == SHKShareTypeUserInfo)
 	{	// sharekit demo app doesn't use this, handy if you need to show user info, such as user name for OAuth services in your app, see https://github.com/ShareKit/ShareKit/wiki/FAQ
 		[self setQuiet:YES];
 		FBRequestConnection* con = [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -471,6 +526,48 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 		[self.pendingConnections addObject:con];
 	}
     [self sendDidStart];
+}
+
+-(void)validateVideoLimits:(void (^)(NSError *error))completionBlock
+{
+    // Validate against video size restrictions
+    
+    // Pull our constraints directly from facebook
+    FBRequestConnection *con = [FBRequestConnection startWithGraphPath:@"me?fields=video_upload_limits" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if(![self.pendingConnections containsObject:connection]){
+            NSLog(@"SHKFacebook - received a callback for a connection not in the pending requests.");
+        }
+        [self.pendingConnections removeObject:connection];
+        
+        if(error){
+            [[SHKActivityIndicator currentIndicator] hide];
+            [self sendDidFailWithError:error];
+            
+            return;
+        }else{
+            // Parse and store - for possible future reference
+            [result convertNSNullsToEmptyStrings];
+            [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookVideoUploadLimits];
+            
+            // Check video size
+            if(![self isUnderSize:result[@"video_upload_limits"][@"size"]]){
+                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}] autorelease]);
+                return;
+            }
+            
+            // Check video duration
+            if(![self isUnderDuration:(int)result[@"video_upload_limits"][@"length"]]){
+                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}] autorelease]);
+                return;
+            }
+            
+            // Success!
+            completionBlock(nil);
+        }
+    }];
+    [self.pendingConnections addObject:con];
 }
 
 -(void)FBUserInfoRequestHandlerCallback:(FBRequestConnection *)connection
@@ -561,7 +658,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 - (void) doSHKShow
 {
-    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeImage || self.item.shareType == SHKShareTypeURL)
+    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeImage || item.shareType == SHKShareTypeURL || item.shareType == SHKShareTypeFile)
     {
         [self showFacebookForm];
     }
@@ -633,9 +730,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             rootView.hasLink = YES;
             rootView.allowSendingEmptyMessage = YES;
             break;
+        case SHKShareTypeFile:
+            rootView.text = item.title;
         default:
             break;
-    }    
+    }
     
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
@@ -650,6 +749,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         case SHKShareTypeText:
             self.item.text = form.textView.text;
             break;
+        case SHKShareTypeFile:
         case SHKShareTypeImage:
         case SHKShareTypeURL:
             self.item.text = form.textView.text;

@@ -26,6 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SHKFile.h"
 
 extern NSString * const SHKAttachmentSaveDir;
 
@@ -48,14 +49,36 @@ typedef enum
     SHKURLContentTypeImage,
 } SHKURLContentType;
 
-@interface SHKItem : NSObject
+
+@interface SHKItem : NSObject <NSCoding>
+{	
+	SHKShareType shareType;
+	
+	NSString *title;
+	NSString *text;
+	NSArray *tags;
+	
+	NSURL *URL;
+	UIImage *image;
+	SHKFile *file;
+  
+    NSArray *mailToRecipients;
+    BOOL isMailHTML;
+    CGFloat mailJPGQuality;
+    BOOL mailShareWithAppSignature;
+    
+    NSString *facebookURLSharePictureURI;
+    NSString *facebookURLShareDescription;
+    
+    NSArray *textMessageToRecipients;
+	
+	CGRect popOverSourceRect;
+  
+@private
+	NSMutableDictionary *custom;
+}
 
 @property (nonatomic) SHKShareType shareType;
-
-@property (nonatomic, retain)	NSURL *URL;
-@property (nonatomic) SHKURLContentType URLContentType;
-
-@property (nonatomic, retain)	UIImage *image;
 
 @property (nonatomic, retain)	NSString *title;
 @property (nonatomic, retain)	NSString *text;
@@ -64,6 +87,10 @@ typedef enum
 @property (nonatomic, retain)	NSData *data;
 @property (nonatomic, retain)	NSString *mimeType;
 @property (nonatomic, retain)	NSString *filename;
+@property (nonatomic, retain)	NSURL *URL;
+@property (nonatomic) SHKURLContentType URLContentType;
+@property (nonatomic, retain)	UIImage *image;
+@property (nonatomic, retain)	SHKFile *file;
 
 /*** creation methods ***/
 
@@ -75,13 +102,17 @@ typedef enum
 + (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type;
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
+
+//preferred method
++ (id)file:(NSString *)path title:(NSString *)title;
+//use only if user needs to share in-memory data. Temporary files may be created
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
 /*** custom value methods ***/
 
-/* these are for custom properties injection. Use them only if you are subclassing a sharer and need more properties. If you are creating a new sharer and builtin properties are insufficient, create sharer specific extension instead */
+/* these are for custom properties injection. Use them only if you are adding some custom functionality to your sharer subclass. */
 
-- (void)setCustomValue:(NSString *)value forKey:(NSString *)key;
+- (void)setCustomValue:(id)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
 - (BOOL)customBoolForSwitchKey:(NSString *)key;
 

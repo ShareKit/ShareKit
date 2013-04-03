@@ -30,7 +30,7 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-//#define _SHKDebugShowLogs
+#define _SHKDebugShowLogs
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
@@ -91,6 +91,10 @@
 - (NSString *)plurkAppKey;
 - (NSString *)plurkAppSecret;
 - (NSString *)plurkCallbackURL;
+- (NSNumber*)instagramLetterBoxImages;
+- (UIColor*)instagramLetterBoxColor;
+- (NSString*)youTubeConsumerKey;
+- (NSString*)youTubeSecret;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;

@@ -29,6 +29,7 @@
 #import "SHK.h"
 #import "SHKConfiguration.h"
 #import "NSData+SaveItemAttachment.h"
+#import <MobileCoreServices/MobileCoreServices.h>
 
 NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 
@@ -55,6 +56,7 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 	[_data release];
 	[_mimeType release];
 	[_filename release];
+    [file release];
 	
 	[_custom release];
 
@@ -140,13 +142,23 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 	return [item autorelease];
 }
 
-+ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
++ (id)file:(NSString *)path title:(NSString *)title;
 {
+    SHKFile *file = [[[SHKFile alloc] initWithFile:path] autorelease];
 	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeFile;
-	item.data = data;
-	item.filename = filename;
-	item.mimeType = mimeType;
+    item.file = file;
+	item.title = title;
+	
+	return [item autorelease];
+}
+
++ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
+{
+    SHKFile *file = [[[SHKFile alloc] initWithFile:data filename:filename] autorelease];
+	SHKItem *item = [[self alloc] init];
+	item.shareType = SHKShareTypeFile;
+    item.file = file;
 	item.title = title;
 	
 	return [item autorelease];
@@ -154,7 +166,7 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 
 #pragma mark -
 
-- (void)setCustomValue:(NSString *)value forKey:(NSString *)key
+- (void)setCustomValue:(id)value forKey:(NSString *)key
 {
 	if (self.custom == nil)
 		self.custom = [NSMutableDictionary dictionaryWithCapacity:0];

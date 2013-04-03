@@ -752,13 +752,10 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 			return (self.item.text != nil);
 			
 		case SHKShareTypeFile:
-			return (self.item.data != nil);
+			return (item.file != nil);
             
         case SHKShareTypeUserInfo:
-        {    
-            BOOL result = [[self class] canGetUserInfo];
-            return result; 
-        }   
+            return [[self class] canGetUserInfo];
 		default:
 			break;
 	}
