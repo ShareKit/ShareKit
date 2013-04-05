@@ -268,7 +268,16 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 																							value:@"client_auth"] autorelease];
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
-	}
+	} else {
+        if (self.pendingAction == SHKPendingRefreshToken)
+        {
+            if (accessToken.sessionHandle != nil)
+                [oRequest setOAuthParameterName:@"oauth_session_handle" withValue:accessToken.sessionHandle];
+        }
+		
+        else
+            [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    }
 }
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
