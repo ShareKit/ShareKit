@@ -51,32 +51,6 @@ typedef enum
 
 
 @interface SHKItem : NSObject <NSCoding>
-{	
-	SHKShareType shareType;
-	
-	NSString *title;
-	NSString *text;
-	NSArray *tags;
-	
-	NSURL *URL;
-	UIImage *image;
-	SHKFile *file;
-  
-    NSArray *mailToRecipients;
-    BOOL isMailHTML;
-    CGFloat mailJPGQuality;
-    BOOL mailShareWithAppSignature;
-    
-    NSString *facebookURLSharePictureURI;
-    NSString *facebookURLShareDescription;
-    
-    NSArray *textMessageToRecipients;
-	
-	CGRect popOverSourceRect;
-  
-@private
-	NSMutableDictionary *custom;
-}
 
 @property (nonatomic) SHKShareType shareType;
 
@@ -84,13 +58,11 @@ typedef enum
 @property (nonatomic, retain)	NSString *text;
 @property (nonatomic, retain)	NSArray *tags;
 
-@property (nonatomic, retain)	NSData *data;
-@property (nonatomic, retain)	NSString *mimeType;
-@property (nonatomic, retain)	NSString *filename;
 @property (nonatomic, retain)	NSURL *URL;
 @property (nonatomic) SHKURLContentType URLContentType;
 @property (nonatomic, retain)	UIImage *image;
-@property (nonatomic, retain)	SHKFile *file;
+
+@property (nonatomic, retain) SHKFile *file;
 
 /*** creation methods ***/
 
@@ -103,10 +75,12 @@ typedef enum
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
 
-//preferred method
-+ (id)file:(NSString *)path title:(NSString *)title;
-//use only if user needs to share in-memory data. Temporary files may be created
-+ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
+//use this method if you share file from the disk.
++ (id)filePath:(NSString *)path title:(NSString *)title;
+
+//use only if user needs to share in-memory data. Temporary files may be created. Make sure you pass filename with correct extension, as mimetype is derived from the extension.
++ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title __attribute__((deprecated ("use new filePath:title or in case you share in-memory data fileData:filename:title. Mimetype is derived from filename, regardless of what you set")));
++ (id)fileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title;
 
 /*** custom value methods ***/
 
@@ -115,13 +89,6 @@ typedef enum
 - (void)setCustomValue:(id)value forKey:(NSString *)key;
 - (NSString *)customValueForKey:(NSString *)key;
 - (BOOL)customBoolForSwitchKey:(NSString *)key;
-
-/*** archive methods ***/
-
-/* used when ShareKit needs to save SHKItem to persistent storage. (e.g. offline queue or during facebook's SSO trip to different app  */
-
-- (NSDictionary *)dictionaryRepresentation;
-+ (id)itemFromDictionary:(NSDictionary *)dictionary;
 
 /*** sharer specific extension properties ***/
 

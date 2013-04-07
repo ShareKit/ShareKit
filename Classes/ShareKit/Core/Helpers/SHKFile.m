@@ -14,6 +14,7 @@
 
 @property (nonatomic,strong) NSString *path;
 @property (nonatomic,strong) NSData *data;
+@property (nonatomic, strong) NSString *filename;
 @property (nonatomic) NSUInteger size;
 @property (nonatomic) NSUInteger duration;
 
@@ -26,6 +27,8 @@ static NSString *tempDirectory;
 #pragma mark ---
 #pragma mark initialization
 
+//TODO: change to URL, avoid static
+
 +(void)initialize
 {
     // Create our temp directory, if it doesn't exist
@@ -37,50 +40,80 @@ static NSString *tempDirectory;
     }
 }
 
--(id)initWithFile:(NSString *)path
-{
-    if(self = [super init]){
-        self.path = path;
-        self.filename = path.lastPathComponent;
-        self.mimeType = [self MIMETypeForPath:self.filename];
-        self.size = 0;
-        self.duration = 0;
-    }
-    return self;
-}
-
--(id)initWithFile:(NSData *)data filename:(NSString *)filename
-{
-    if(self = [super init]){
-        self.data = data;
-        self.filename = filename;
-        self.mimeType = [self MIMETypeForPath:self.filename];
-        self.size = 0;
-        self.duration = 0;
-    }
-    return self;
-}
-
--(id)initWithCoder:(NSCoder *)decoder
-{
-    if(self = [super init]){
-        self.path = [decoder decodeObjectForKey:kSHKFilePath];
-        self.filename = [decoder decodeObjectForKey:kSHKFileName];
-        self.mimeType = [decoder decodeObjectForKey:kSHKMimeType];
-        self.size = 0;
-        self.duration = 0;
-    }
-    return self;
-}
-
 -(void)dealloc
 {
     [self removeTempFile];
+}
+
+- (id)initWithFile:(NSString *)path {
     
-    self.path = nil;
-    self.data = nil;
-    self.filename = nil;
-    self.mimeType = nil;
+    self = [super init];
+    
+    if (self) {
+        
+        _path = path;
+        _filename = path.lastPathComponent;
+        _mimeType = [self MIMETypeForPath:self.filename];
+    }
+    return self;
+}
+
+- (id)initWithFile:(NSData *)data filename:(NSString *)filename {
+    
+    self = [super init];
+    
+    if (self) {
+        
+        _data = data;
+        
+        if (!filename) filename = [NSString stringWithFormat:@"ShareKit_file_%li", random() % 100];
+        
+        _filename = filename;
+        _mimeType = [self MIMETypeForPath:self.filename];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+
+    self = [super init];
+    
+    if (self) {
+        
+        _path = [decoder decodeObjectForKey:kSHKFilePath];
+        
+        if (_path) {
+            
+            _filename = _path.lastPathComponent;
+            _mimeType = [self MIMETypeForPath:_filename];
+        
+        } else {
+            
+            _data = [decoder decodeObjectForKey:kSHKFilePath];
+            _filename = [decoder decodeObjectForKey:kSHKFileName];
+            _mimeType = [self MIMETypeForPath:_filename];
+        }
+    }
+    return self;
+}
+
+#pragma mark ---
+#pragma mark NSCoding
+
+static NSString *kSHKFilePath = @"kSHKFilePath";
+static NSString *kSHKFileName = @"kSHKFileName";
+static NSString *kSHKMimeType = @"kSHKMimeType";
+static NSString *kSHKFileData = @"kSHKFileData";
+
+-(void)encodeWithCoder:(NSCoder *)encoder
+{
+    if ([self hasPath]) {
+        [encoder encodeObject:self.path forKey:kSHKFilePath];
+    } else {
+        [encoder encodeObject:self.filename forKey:kSHKFileName];
+        [encoder encodeObject:self.mimeType forKey:kSHKMimeType];
+        [encoder encodeObject:self.data forKey:kSHKFileData];
+    }
 }
 
 #pragma mark ---
@@ -192,20 +225,6 @@ static NSString *tempDirectory;
         CFRelease(uti);
     }
     return result;
-}
-
-#pragma mark ---
-#pragma mark NSCoding
-
-static NSString *kSHKFilePath = @"kSHKFilePath";
-static NSString *kSHKFileName = @"kSHKFileName";
-static NSString *kSHKMimeType = @"kSHKMimeType";
-
--(void)encodeWithCoder:(NSCoder *)encoder
-{
-    [encoder encodeObject:_path forKey:kSHKFilePath];
-    [encoder encodeObject:_filename forKey:kSHKFileName];
-    [encoder encodeObject:_mimeType forKey:kSHKMimeType];
 }
 
 @end

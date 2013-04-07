@@ -51,7 +51,7 @@
 + (BOOL)canShareURL   { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText  { return YES; }
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size { return YES; }
++ (BOOL)canShareFile:(SHKFile *)file { return YES; }
 + (BOOL)requiresAuthentication { return YES; }
 
 
@@ -176,12 +176,12 @@
             [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:self.item.image.size.width height:self.item.image.size.height]]];
         }
         
-        if(item.file) {
+        if(self.item.file) {
             EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
-            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.file.data size:[item.file.data length] body:item.file.data] autorelease];
+            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:self.item.file.data size:[self.item.file.data length] body:self.item.file.data] autorelease];
             [file setData:filed];
             [file setRecognition:filed];
-            [file setMime:item.file.mimeType];
+            [file setMime:self.item.file.mimeType];
             [resources addObject:file];
             [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:file width:0 height:0]]];
         }

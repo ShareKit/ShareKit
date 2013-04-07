@@ -28,13 +28,12 @@
  */
 @property (nonatomic,readonly) NSString *path;
 @property (nonatomic,readonly) NSData *data;
+@property (nonatomic,readonly) NSString *filename;
 
+//Derived from filename. Used by services to check, if they can handle the file. Also favorites are different for each mime type.
+@property (nonatomic,readonly) NSString *mimeType;
 
-/*
- * Our properties. You can override filename and mimeType, if you desire.
- */
-@property (nonatomic,strong) NSString *filename;
-@property (nonatomic,strong) NSString *mimeType;
+//size in bytes
 @property (nonatomic,readonly) NSUInteger size;
 
 // This requires a path. Avoid if you don't need it.
@@ -52,7 +51,6 @@
  *
  * @param data File data
  * @param filename Filename
- * @param mimetype File MymeType
  */
 - (id)initWithFile:(NSData *)data filename:(NSString *)filename;
 

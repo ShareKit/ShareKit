@@ -42,6 +42,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SHKFile;
+
 @interface DefaultSHKConfigurator : NSObject 
 
 - (NSString*)appName;
@@ -49,8 +51,9 @@
 - (NSArray*)defaultFavoriteURLSharers;
 - (NSArray*)defaultFavoriteImageSharers;
 - (NSArray*)defaultFavoriteTextSharers;
-- (NSArray*)defaultFavoriteFileSharers __attribute__((deprecated("use defaultFavoriteSharersForMimeType: instead")));
-- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType;
+- (NSArray*)defaultFavoriteFileSharers __attribute__((deprecated("use defaultFavoriteSharersForFile: instead")));
+- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType __attribute__((deprecated("use defaultFavoriteSharersForFile: instead")));
+- (NSArray*)defaultFavoriteSharersForFile:(SHKFile *)file;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;

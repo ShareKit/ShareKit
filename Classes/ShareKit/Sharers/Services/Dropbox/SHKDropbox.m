@@ -17,10 +17,8 @@
 #define kDropboxDomain @"www.dropbox.com"
 #define kDropboxResourseDomain  @"dl.dropbox.com"
 
-static NSString *const kSHKDropboxStoredItem=@"SHKDropboxStoredItem";
 static NSString *const kSHKDropboxUserInfo =@"SHKDropboxUserInfo";
 static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
-static NSString *const kSHKDropboxStoredFilePath =@"SHKDropboxFilePath";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 static NSString *const kSHKDropboxImagePathExtention =@"png";
 
@@ -41,11 +39,6 @@ typedef enum {
 @property (nonatomic, retain) DBRestClient *restClient;
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
-+ (NSString *)storedItemPath:(id)fileData;
-+ (id) dataStoredForPath:(NSString *) filePath;
-+ (NSInteger) fileSizeForImage:(UIImage *) image;
-+ (long long) fileSizeForStoredFile:(NSString *) filePath;
-+ (void) removeCachedFile:(NSString *)filePath;
 - (void) showDropboxForm;
 - (void) editFormValidate:(SHKFormController *) form;
 - (void) editFormSave:(SHKFormController *) form;
@@ -145,82 +138,6 @@ typedef enum {
     return _restClient;
 }
 
-#pragma mark - Temporary file storage (file or image)
-+ (NSString *)storedItemPath:(id)fileData
-{
-    NSData *dataToSave = nil;
-    if ([fileData isKindOfClass:[UIImage class]]) {
-        dataToSave = UIImagePNGRepresentation((UIImage *) fileData);
-    } else if ([fileData isKindOfClass:[NSData class]]) {
-        dataToSave = fileData;
-    } else {
-        return nil;
-    }
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (!fileManager) {
-        return nil;
-    }
-	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSCachesDirectory, NSUserDomainMask, YES);
-	NSString *cache = [paths objectAtIndex:0];
-	NSString *localFilePath = [cache stringByAppendingPathComponent:@"Dropbox"];
-	
-	if (![fileManager fileExistsAtPath:localFilePath])
-		[fileManager createDirectoryAtPath:localFilePath withIntermediateDirectories:YES attributes:nil error:nil];
-	
-    NSString *uid = [NSString stringWithFormat:@"file-%.0f-%i", [[NSDate date] timeIntervalSince1970], arc4random()];
-    if ([fileData isKindOfClass:[UIImage class]]) {
-        uid = [uid stringByAppendingPathExtension:kSHKDropboxImagePathExtention];
-    }
-    localFilePath = [localFilePath stringByAppendingPathComponent:uid];
-    [dataToSave writeToFile:localFilePath atomically:YES];
-	return localFilePath;
-}
-+ (id) dataStoredForPath:(NSString *) filePath {
-
-    if ([[filePath pathExtension] isEqualToString:kSHKDropboxImagePathExtention]) {
-        return [UIImage imageWithContentsOfFile:filePath];
-    } else {
-        return [NSData dataWithContentsOfFile:filePath];
-    }
-}
-+ (NSInteger) fileSizeForImage:(UIImage *) image {
-    if (!image) {
-        return -1;
-    }
-    return [UIImagePNGRepresentation(image) length];
-}
-+ (long long) fileSizeForStoredFile:(NSString *) filePath {
-    if (filePath.length < 1) {
-        return -1;
-    }
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (!fileManager) {
-        return -1;
-    }
-
-	if (![fileManager fileExistsAtPath:filePath]) {
-        return -1;
-    } else {
-        NSError *error = nil;
-        NSDictionary *attributes = [fileManager attributesOfItemAtPath:filePath error:&error];
-        if ([attributes count] > 0 && !error) {
-            return [[attributes objectForKey:NSFileSize] longLongValue];
-        } else {
-            return -1;
-        }
-    }
-}
-+ (void) removeCachedFile:(NSString *)filePath {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (!fileManager || filePath.length < 1) {
-        return;
-    }
-    NSError *error = nil;
-	if (![fileManager removeItemAtPath:filePath error:&error] || error) {
-        SHKLog(@"<%@ : %p> Error remove file <%@> from cache. User info: %@, description %@", [self class], self, filePath, [error userInfo], [error localizedDescription]);
-        return;
-    }
-}
 #pragma mark - Handle URL
 
 + (BOOL) handleOpenURL:(NSURL *)url {
@@ -258,7 +175,6 @@ typedef enum {
         // re-authenticate the user.
         else if ([[url absoluteString] rangeOfString:[NSString stringWithFormat:@"%@ error", kDropboxErrorDomain]].location != NSNotFound)
         {
-            [self saveItem];
             [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
             [[DBSession sharedSession] unlinkAll];
             [self performSelector:@selector(authorize) withObject:nil afterDelay:0.1]; //Avoid exception with animation conflicts between SDK and SHK UIs
@@ -267,22 +183,8 @@ typedef enum {
         else
         {
             //start upload logic for pending share
-            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-            NSDictionary *storedItem = [defaults objectForKey:kSHKDropboxStoredItem];
-            if (storedItem)
-            {
-                self.item = [SHKItem itemFromDictionary:storedItem];
-                NSString *storedPath = [self.item customValueForKey:kSHKDropboxStoredFilePath];
-                if (storedPath.length > 0) {
-                    if ([[storedPath pathExtension] isEqualToString:kSHKDropboxImagePathExtention]) {
-                        self.item.image = [SHKDropbox dataStoredForPath:storedPath];
-                    } else {
-                        self.item.data = [SHKDropbox dataStoredForPath:storedPath];
-                    }
-                }
-                [defaults removeObjectForKey:kSHKDropboxStoredItem];
-            }
-            [defaults synchronize];
+            
+            [self restoreItem];
             self.pendingAction = SHKPendingSend;
             
             [self authDidFinish:TRUE];
@@ -319,7 +221,7 @@ typedef enum {
 {
     return FALSE;
 }
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {
++ (BOOL)canShareFile:(SHKFile *)file {
     return YES;
 }
 + (BOOL)canGetUserInfo
@@ -351,7 +253,7 @@ typedef enum {
 
         [DBRequest setNetworkRequestDelegate:self];
 
-        [self saveItem];
+        [self saveItemForLater:self.pendingAction];
         
         [self retain]; // DBSession doesn't retain delegates
         [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
@@ -359,67 +261,8 @@ typedef enum {
 }
 + (void)logout
 {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKDropboxStoredItem];
     [[SHKDropbox dropbox] unlinkAll];
 }
-
-
-#pragma mark - Save SHKItem 
-//item should be saved before any link/unlink actions
-- (void) saveItem {
-    
-    if (![self.item customValueForKey:kSHKDropboxDestinationDir] && ![self.item customValueForKey:kSHKDropboxStoredFilePath]) {
-        NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
-        if (destinationDir.length < 1) {
-            
-            if (![[DBSession sharedSession].root isEqualToDropboxPath:@"sandbox"]) {
-                destinationDir = [[NSString stringWithFormat:@"/%@/", SHKCONFIG(appName)] normalizedDropboxPath];
-            } else {
-                destinationDir = [NSString stringWithFormat:@"/"];
-            }
-            if (self.item.image) {
-                destinationDir = [destinationDir stringByAppendingFormat:@"Photos/"];
-            }
-        }
-
-        NSString *filename = nil;
-        if (self.item.filename.length > 0) {
-            filename = self.item.filename;
-        } else if (self.item.title.length > 0){
-            filename = self.item.title;
-        } else {
-            filename = [NSString stringWithFormat:@"ShareKit_Dropbox_file_%li", random() % 100];
-        }
-        
-        NSString *filePath = nil;
-        NSInteger fileSize = 0;
-        if (self.item.image)
-        {
-            filePath = [SHKDropbox storedItemPath:self.item.image];
-            fileSize = [SHKDropbox fileSizeForImage:self.item.image];
-            if ([filename pathExtension].length < 1 ) {
-                filename = [filename stringByAppendingPathExtension:kSHKDropboxImagePathExtention];
-            }
-        } else if (self.item.data) {
-            filePath = [SHKDropbox storedItemPath:self.item.data];
-            fileSize = self.item.data.length;
-        }
-        if (fileSize > kDropboxMaxFileSize) {
-            [self SHKDropboxDidFailWithError:[SHK error:SHKLocalizedString(@"File size exceed %@ limits", [self sharerTitle])]];
-            return;
-        }
-        
-        [self.item setCustomValue:filePath forKey:kSHKDropboxStoredFilePath];
-        [self.item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDir];
-        [self.item setCustomValue:filename forKey:kSHKDropboxStoredFileName];
-        
-        
-        NSMutableDictionary *itemRep = [NSMutableDictionary dictionaryWithDictionary:[self.item dictionaryRepresentation]];
-        [[NSUserDefaults standardUserDefaults] setObject:itemRep forKey:kSHKDropboxStoredItem];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-}
-
 
 #pragma mark - Send
 
@@ -429,15 +272,13 @@ typedef enum {
 		return NO;
     _startSending = FALSE;
     
-    if ((self.item.shareType == SHKShareTypeFile && self.item.data)  || (self.item.shareType == SHKShareTypeImage && self.item.image))
+    if ((self.item.shareType == SHKShareTypeFile && self.item.file)  || (self.item.shareType == SHKShareTypeImage && self.item.image))
     {
-        [self saveItem];
-        NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
-
-        NSString *filename = [self.item customValueForKey:kSHKDropboxStoredFileName];
-
         metadataStatus = _isNotChecked;
-        NSString *remoteFilePath = [destinationDir stringByAppendingPathComponent:filename];
+
+        NSString *destinationDir = [self destinationDir];
+        [self.item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDir];
+        NSString *remoteFilePath = [destinationDir stringByAppendingString:self.item.file.filename];
         [self performSelectorOnMainThread:@selector(startLoadDropboxMetadata:) withObject:remoteFilePath waitUntilDone:FALSE];
         
         [self retain];
@@ -445,6 +286,25 @@ typedef enum {
     }
 	
 	return NO;
+}
+
+- (NSString *)destinationDir {
+    
+    //TODO: ask user where to download by traversing his file structure on dropbox  - using optionsController (?)
+    NSString *result = [self.item customValueForKey:kSHKDropboxDestinationDir];
+    if (result.length < 1) {
+        
+        if (![[DBSession sharedSession].root isEqualToDropboxPath:@"sandbox"]) {
+            result = [[NSString stringWithFormat:@"/%@/", SHKCONFIG(appName)] normalizedDropboxPath];
+        } else {
+            result = [NSString stringWithFormat:@"/"];
+        }
+        //TODO: check if the data is not of type image
+        if (self.item.image) {
+            result = [result stringByAppendingFormat:@"Photos/"];
+        }
+    }
+    return result;
 }
 
 //remote path could be directory or file
@@ -480,7 +340,7 @@ typedef enum {
     [restClient setDelegate:self];
     [DBRequest setNetworkRequestDelegate:self];
 
-    NSString *localPath = [self.item customValueForKey:kSHKDropboxStoredFilePath];
+    NSString *localPath = self.item.file.path;
     if (localPath.length < 1) {
         return;
     }
@@ -496,7 +356,7 @@ typedef enum {
         return;
     }
 
-    NSInteger fileSize = [SHKDropbox fileSizeForStoredFile:localPath];
+    NSInteger fileSize = self.item.file.size;
     if (fileSize < 0) {
         [self SHKDropboxDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error while sharing")]];
     }
@@ -557,7 +417,6 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath from:(NSString*)srcPath
           metadata:(DBMetadata*)metadata {
 //    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath, srcPath, [metadata description]);
-    [SHKDropbox removeCachedFile:srcPath];
     [self SHKDropboxGetSharableLink:destPath];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
 }
@@ -567,8 +426,7 @@ static int outstandingRequests = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
 }
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
-    NSString *srcPath = [[error userInfo] objectForKey:@"sourcePath"];
-    [SHKDropbox removeCachedFile:srcPath];
+    
     [self performSelector:@selector(SHKDropboxDidFailWithError:) withObject:error afterDelay:0.01];
 }
 - (void)restClient:(DBRestClient *)client uploadedFileChunk:(NSString *)uploadId newOffset:(unsigned long long)offset
@@ -577,7 +435,7 @@ static int outstandingRequests = 0;
     if (__fileOffset < __fileSize) {
         [client uploadFileChunk:uploadId offset:__fileOffset fromPath:localPath];
     } else {
-        NSString *fileName = [self.item customValueForKey:kSHKDropboxStoredFileName];
+        NSString *fileName = self.item.file.path;
         if (fileName.length < 1) {
             fileName = [NSString stringWithFormat:@"ShareKit-file-%lu", random() % 200];
         }
@@ -593,20 +451,17 @@ static int outstandingRequests = 0;
     }
 }
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error {
-    NSString *srcPath = [[error userInfo] objectForKey:@"sourcePath"];
-    [SHKDropbox removeCachedFile:srcPath];    
+   
     [self SHKDropboxDidFailWithError:error];
 }
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
           metadata:(DBMetadata *)metadata {
-    NSString *srcPath = [self.item customValueForKey:uploadId];
-    [SHKDropbox removeCachedFile:srcPath];
+
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
     [self SHKDropboxGetSharableLink:destPath];
 }
 - (void)restClient:(DBRestClient *)client uploadFromUploadIdFailedWithError:(NSError *)error {
-    NSString *srcPath = [[error userInfo] objectForKey:@"sourcePath"];
-    [SHKDropbox removeCachedFile:srcPath];
+
     [self performSelector:@selector(SHKDropboxDidFailWithError:) withObject:error afterDelay:0.01];
 }
 
@@ -616,7 +471,7 @@ static int outstandingRequests = 0;
         [[SHKActivityIndicator currentIndicator] hide];
     }
     if (metadata && metadata.path.length > 0) {
-        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:[self.item customValueForKey:kSHKDropboxStoredFileName]]) {
+        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:self.item.file.filename]) {
             if (![self shouldOverwrite]) {
                 [self.item setCustomValue:metadata.rev forKey:kSHKDropboxParentRevision];
                 [self showDropboxForm];
@@ -664,7 +519,8 @@ static int outstandingRequests = 0;
     //  revoked or expired an access token.
     NSInteger dbErrorCode = error.code;
     if ([error.domain isEqual: kDropboxErrorDomain] == YES && (dbErrorCode == 401 || dbErrorCode == 403)) {
-        [self saveItem];
+        
+        [self saveItemForLater:self.pendingAction];
         [[SHKDropbox dropbox] unlinkAll];
         [[[[UIAlertView alloc] initWithTitle:[self sharerTitle]
                                      message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
@@ -746,7 +602,7 @@ static int outstandingRequests = 0;
                         [SHKFormFieldSettings label:SHKLocalizedString(@"File name")
                                                 key:@"fileName"
                                                type:SHKFormFieldTypeTextNoCorrect
-                                              start:[self.item customValueForKey:kSHKDropboxStoredFileName]],
+                                              start:[[self.item customValueForKey:kSHKDropboxDestinationDir] stringByAppendingString:self.item.file.filename]],
                         nil];
 	[form addSection:fileSecton header:SHKLocalizedString(@"Do you want to overwrite existing file in %@?", [self sharerTitle]) footer:@"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name"];
 	form.delegate = self;
@@ -780,11 +636,12 @@ static int outstandingRequests = 0;
     NSString *formPath = [[form formValues] objectForKey:@"fileName"];
     NSString *dir = [formPath stringByDeletingLastPathComponent];
     NSString *fileName = [formPath lastPathComponent];
-    if (fileName.length > 0 && [self.item customValueForKey:kSHKDropboxStoredFileName]) {
-        if (![fileName isEqualToString:[self.item customValueForKey:kSHKDropboxStoredFileName]]) {
+    if (fileName.length > 0) {
+        if (![fileName isEqualToString:self.item.file.filename]) {
             [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
             [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
         } else if (dir.length > 0) {
+            [self.item setCustomValue:self.item.file.filename forKey:kSHKDropboxStoredFileName];
             [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
         }
         

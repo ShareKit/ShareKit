@@ -28,27 +28,18 @@
 #import "SHKOfflineSharer.h"
 #import "SHKSharer.h"
 
+@interface SHKOfflineSharer ()
+
+@property (retain) NSDictionary *savedShareDictionary;
+
+@end
+
 @implementation SHKOfflineSharer
 
 - (void)dealloc
 {
-	[_item release];
-	[_sharerId release];
-	[_uid release];
-	[_runLoopThread release];
-	[_sharer release];
+	[_savedShareDictionary release];
 	[super dealloc];
-}
-
-- (id)initWithItem:(SHKItem *)i forSharer:(NSString *)s uid:(NSString *)u
-{
-	if (self = [super init])
-	{
-		_item = [i retain];
-		_sharerId = [s retain];
-		_uid = [u retain];
-	}
-	return self;
 }
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
@@ -57,12 +48,7 @@
     
     if (self)
 	{
-        SHKItem *item = [SHKItem itemFromDictionary:[dictionary objectForKey:@"item"]];
-        NSString *sharerID = [dictionary objectForKey:@"sharer"];
-        NSString *uid = [dictionary objectForKey:@"uid"];
-		_item = [item retain];
-		_sharerId = [sharerID retain];
-		_uid = [uid retain];
+        _savedShareDictionary = dictionary;
 	}
 	return self;
 }
@@ -70,82 +56,32 @@
 - (void)main
 {
 	// Make sure it hasn't been cancelled
-	if (![self shouldRun])
-		return;	
+	if ([self isCancelled]) return;
+    
+    id itemData = self.savedShareDictionary[@"item"];
+    
+    //graceful exit for previous offline sharer version. Used to be NSDictonary. If we encounter old version of saved item, it is simply discarded.
+    if (![itemData isKindOfClass:[NSData class]]) return;
+    
+    SHKItem *item = [NSKeyedUnarchiver unarchiveObjectWithData:itemData];
+    NSString *sharerID = self.savedShareDictionary[@"sharer"];
 	
     //make sure that input data are complete
-    if (!self.item || !self.sharerId) {
-        return;
-    }
+    if (!item || !sharerID) return;
     
-	// Save the thread so we can spin up the run loop later
-	self.runLoopThread = [NSThread currentThread];
-	
-	// Run actual sharing on the main thread to avoid thread issues
-	[self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:YES];
-	
-	// Keep the operation alive while we perform the send async
-	// This way only one will run at a time
-	while([self shouldRun]) 
-		[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
-}
-
-- (void)share
-{	
-	// create sharer
-	SHKSharer *aSharer = [[NSClassFromString(self.sharerId) alloc] init];
-	aSharer.item = self.item;
-	aSharer.quiet = YES;
-	aSharer.shareDelegate = self;
+    //why do we share on main thread?
+    //self is retained by sharer and we retain a sharer. Can this make a leak?
     
-    self.sharer = aSharer;
-    [aSharer release];
-	
-	if (![self.sharer isAuthorized])
-	{
-		[self finish];
-		return;
-	}
     
-    //if the item was saved using old method, reconstruct attachments
-    if (self.uid) {
-        
-        // reload image from disk and remove the file
-        NSString *path;
-        if (self.item.shareType == SHKShareTypeImage)
-        {
-            path = [[SHK offlineQueuePath] stringByAppendingPathComponent:self.uid];
-            self.sharer.item.image = [UIImage imageWithContentsOfFile:path];
-            [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-            
-        }
-        
-        // reload file from disk and remove the file
-        else if (self.item.shareType == SHKShareTypeFile)
-        {
-            path = [[SHK offlineQueueListPath] stringByAppendingPathComponent:self.uid];
-            self.sharer.item.data = [NSData dataWithContentsOfFile:[[SHK offlineQueuePath] stringByAppendingPathComponent:self.uid]];
-            [[NSFileManager defaultManager] removeItemAtPath:path error:nil]; 
-        }
-    }
+    // create sharer
+	SHKSharer *sharer = [[NSClassFromString(sharerID) alloc] init];
+	sharer.item = item;
+	sharer.quiet = YES;
+	sharer.shareDelegate = self;
 	
-	[self.sharer tryToSend];
-}
-
-- (BOOL)shouldRun
-{
-	return ![self isCancelled] && ![self isFinished] && !self.readyToFinish;
-}
-
-- (void)finish
-{	
-	self.readyToFinish = YES;
-	[self performSelector:@selector(lastSpin) onThread:self.runLoopThread withObject:nil waitUntilDone:NO];
-}
-
-- (void)lastSpin
-{
-	// Just used to make the run loop spin
+	if (![sharer isAuthorized]) return;
+    
+    [sharer tryToSend];
 }
 
 #pragma mark -
@@ -158,20 +94,17 @@
 
 - (void)sharerFinishedSending:(SHKSharer *)aSharer
 {	
-	self.sharer.shareDelegate = nil;
-	[self finish];
+
 }
 
 - (void)sharer:(SHKSharer *)aSharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
-	self.sharer.shareDelegate = nil;
-	[self finish];
+
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)aSharer
 {
-	self.sharer.shareDelegate = nil;
-	[self finish];
+
 }
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success

@@ -128,7 +128,7 @@
 	return YES;
 }
 
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {    
++ (BOOL)canShareFile:(SHKFile *)file {
     return YES;
 }
 
@@ -412,7 +412,7 @@
         NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
         if (upload_url)
         {
-            [self sendPOSTRequest:upload_url withFileData:self.item.data fileName:self.item.filename mime:self.item.mimeType];
+            [self sendPOSTRequest:upload_url withFileData:self.item.file.data fileName:self.item.file.filename mime:self.item.file.mimeType];
             return;
         }
     }

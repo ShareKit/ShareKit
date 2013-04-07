@@ -80,28 +80,28 @@
         {
             NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem file:file filename:@"Awesome.pdf" mimeType:@"application/pdf" title:@"My Awesome PDF"];
+            item = [SHKItem fileData:file filename:@"Awesome.pdf" title:@"My Awesome PDF"];
             break;
         }
         case 1:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem file:file filename:@"demo_video_share.mov" mimeType:@"video/quicktime" title:@"Impressionism - blue ball"];
+            item = [SHKItem fileData:file filename:@"demo_video_share.mov" title:@"Impressionism - blue ball"];
             break;
         }
         case 2:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem file:file filename:@"demo_audio_share.mp3" mimeType:@"audio/mpeg" title:@"Demo audio beat"];
+            item = [SHKItem fileData:file filename:@"demo_audio_share.mp3" title:@"Demo audio beat"];
             break;
         }
         case 3:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
             NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem file:file filename:@"sanFran.jpg" mimeType:@"image/jpeg" title:@"San Francisco"];
+            item = [SHKItem fileData:file filename:@"sanFran.jpg" title:@"San Francisco"];
             break;
         }
         default:

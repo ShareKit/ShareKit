@@ -25,6 +25,9 @@
 #import "SHKInstagram.h"
 #import "SHKConfiguration.h"
 
+#define MAX_RESOLUTION_IPHONE_3GS 1536.0f
+#define MAX_RESOLUTION_IPHONE_4 1936.0f
+
 @interface SHKInstagram()
 
 @property (nonatomic, retain) UIDocumentInteractionController* dic;
@@ -107,11 +110,12 @@
 	//clear it out and make it fresh
 	[[NSFileManager defaultManager] removeItemAtPath:docPath error:nil];
 	if ([[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-		UIImage* tmpImg = item.image;
+		UIImage* tmpImg = self.item.image;
         
         if(tmpImg.size.width != tmpImg.size.height && [SHKCONFIG(instagramLetterBoxImages) boolValue]){
             float size = tmpImg.size.width > tmpImg.size.height ? tmpImg.size.width : tmpImg.size.height;
-            if(size > 1936.0f) size = 1936.0f;
+            CGFloat maxPhotoSize = [self maxPhotoSize];
+            if(size > maxPhotoSize) size = maxPhotoSize;
             tmpImg = [self imageByScalingImage:tmpImg proportionallyToSize:CGSizeMake(size,size)];
         }
 		
@@ -140,6 +144,16 @@
 		return YES;
 	}
 	return NO;
+}
+
+- (CGFloat)maxPhotoSize {
+    
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    if (scale == 1.0f) {
+        return MAX_RESOLUTION_IPHONE_3GS;
+    } else {
+        return MAX_RESOLUTION_IPHONE_4;
+    }
 }
 
 - (UIImage *)imageByScalingImage:(UIImage*)image proportionallyToSize:(CGSize)targetSize {

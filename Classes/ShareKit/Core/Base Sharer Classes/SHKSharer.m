@@ -100,7 +100,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	return NO;
 }
 
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size
++ (BOOL)canShareFile:(SHKFile *)file;
 {
 	return NO;
 }
@@ -139,7 +139,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 			return [self canShareText];
 			
 		case SHKShareTypeFile:
-			return [self canShareFileOfMimeType:item.mimeType size:[item.data length]];
+			return [self canShareFile:item.file];
             
         case SHKShareTypeUserInfo:
 			return [self canGetUserInfo];
@@ -264,7 +264,26 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
-	SHKItem *item = [SHKItem file:file filename:filename mimeType:mimeType title:title];
+    return [[self class] shareFileData:file filename:filename title:title];
+}
+
++ (id)shareFileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title
+{
+    SHKItem *item = [SHKItem fileData:data filename:filename title:title];
+    
+    // Create controller and set share options
+	SHKSharer *controller = [[self alloc] init];
+    [controller loadItem:item];
+	
+	// share and/or show UI
+	[controller share];
+	
+	return [controller autorelease];
+}
+
++ (id)shareFilePath:(NSString *)path title:(NSString *)title
+{
+    SHKItem *item = [SHKItem filePath:path title:title];
     
     // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
@@ -301,7 +320,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     
 	if (storedShareInfo)
 	{
-		self.item = [SHKItem itemFromDictionary:[storedShareInfo objectForKey:kSHKStoredItemKey]];
+        self.item = [NSKeyedUnarchiver unarchiveObjectWithData:[storedShareInfo objectForKey:kSHKStoredItemKey]];
 		self.pendingAction = [[storedShareInfo objectForKey:kSHKStoredActionKey] intValue];
         [[self class] clearSavedItem];
     }
@@ -317,8 +336,8 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction {
     
-	NSDictionary *itemRep = [self.item dictionaryRepresentation];
-    NSDictionary *shareInfo = @{kSHKStoredItemKey: itemRep,
+    NSData *itemData = [NSKeyedArchiver archivedDataWithRootObject:self.item];
+    NSDictionary *shareInfo = @{kSHKStoredItemKey: itemData,
                                kSHKStoredActionKey : [NSNumber numberWithInt:inPendingAction]};
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -752,7 +771,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 			return (self.item.text != nil);
 			
 		case SHKShareTypeFile:
-			return (item.file != nil);
+			return (self.item.file != nil);
             
         case SHKShareTypeUserInfo:
             return [[self class] canGetUserInfo];

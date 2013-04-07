@@ -323,7 +323,7 @@ BOOL SHKinit;
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = SHKCONFIG_WITH_ARGUMENT(defaultFavoriteSharersForMimeType:,item.mimeType);
+				favoriteSharers = SHKCONFIG_WITH_ARGUMENT(defaultFavoriteSharersForMimeType:,item.file.mimeType);
 				break;
 			
 			default:
@@ -414,7 +414,7 @@ BOOL SHKinit;
     
     NSString *result = nil;
     if (item.shareType == SHKShareTypeFile) {
-        result = [NSString stringWithFormat:@"%@%@", SHKCONFIG(favsPrefixKey), item.mimeType];
+        result = [NSString stringWithFormat:@"%@%@", SHKCONFIG(favsPrefixKey), item.file.mimeType];
     } else {
         result = [NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), item.shareType];
     }
@@ -549,7 +549,8 @@ static NSDictionary *sharersDictionary = nil;
 
 + (NSMutableArray *)getOfflineQueueList
 {
-	return [[[NSArray arrayWithContentsOfFile:[self offlineQueueListPath]] mutableCopy] autorelease];
+	//TODO:should do this off the main thread
+    return [[[NSArray arrayWithContentsOfFile:[self offlineQueueListPath]] mutableCopy] autorelease];
 }
 
 + (void)saveOfflineQueueList:(NSMutableArray *)queueList
@@ -569,10 +570,7 @@ static NSDictionary *sharersDictionary = nil;
 		queueList = [NSMutableArray arrayWithCapacity:0];
 	
 	// Add to queue list
-	[queueList addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-						  [item dictionaryRepresentation],@"item",
-						  sharerId,@"sharer",
-						  nil]];
+	[queueList addObject:@{@"item": [NSKeyedArchiver archivedDataWithRootObject:item], @"sharer": sharerId}];
 	
 	[self saveOfflineQueueList:queueList];
 	

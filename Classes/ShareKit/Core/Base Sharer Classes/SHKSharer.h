@@ -59,7 +59,7 @@ typedef enum
 @property (retain) SHKItem *item;
 @property (retain) SHKFormController *pendingForm;
 @property (assign) SHKFormOptionController *curOptionController; //TODO in ARC should be weak, remove all nilling
-@property (retain) SHKRequest *request;
+@property (retain) SHKRequest *request; //TODO: sharer retains request, but request retains sharer too. Memory leak?
 @property (nonatomic, retain) NSError *lastError;
 @property BOOL quiet;
 @property SHKSharerPendingAction pendingAction;
@@ -75,7 +75,7 @@ typedef enum
 + (BOOL)canShareURL;
 - (BOOL)requiresShortenedURL;
 + (BOOL)canShareImage;
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size;
++ (BOOL)canShareFile:(SHKFile *)file;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
@@ -108,7 +108,13 @@ typedef enum
 
 + (id)shareText:(NSString *)text;
 
-+ (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
++ (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title __attribute__((deprecated("use shareFileData:filename:title or shareFilePath:title instead. Mimetype is derived from filename")));
+
+// use if you share in-memory data.
++ (id)shareFileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title;
+
+//use if you share file from disk.
++ (id)shareFilePath:(NSString *)path title:(NSString *)title;
 
 //only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
 + (id)getUserInfo;

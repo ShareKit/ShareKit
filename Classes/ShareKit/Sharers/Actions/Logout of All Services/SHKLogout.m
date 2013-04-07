@@ -55,7 +55,7 @@
 	return YES;
 }
 
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size
++ (BOOL)canShareFile:(SHKFile *)file
 {
 	return YES;
 }

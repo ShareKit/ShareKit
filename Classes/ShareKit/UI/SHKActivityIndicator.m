@@ -27,22 +27,17 @@
 
 #import "SHKActivityIndicator.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Singleton.h"
 
 #define SHKdegreesToRadians(x) (M_PI * x / 180.0)
 
 @implementation SHKActivityIndicator
 
-@synthesize centerMessageLabel, subMessageLabel;
-@synthesize spinner, progress;
-
-static SHKActivityIndicator *_currentIndicator = nil;
-
-
 + (SHKActivityIndicator *)currentIndicator
 {
-	if (_currentIndicator == nil)
-	{
-		UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+	DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
+        
+        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
         NSAssert(keyWindow != nil, @"this means the app is trying to do a ShareKit operation prior to having a UIWindow ready, we don't want the singleton instance to have a messed up frame");
         
 		CGFloat width = 160;
@@ -52,24 +47,24 @@ static SHKActivityIndicator *_currentIndicator = nil;
 										  width,
 										  height);
 		
-		_currentIndicator = [[super allocWithZone:NULL] initWithFrame:centeredFrame];
+		SHKActivityIndicator *result = [[super allocWithZone:NULL] initWithFrame:centeredFrame];
 		
-		_currentIndicator.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-		_currentIndicator.opaque = NO;
-		_currentIndicator.alpha = 0;		
-		_currentIndicator.layer.cornerRadius = 10;		
-		_currentIndicator.userInteractionEnabled = NO;
-		_currentIndicator.autoresizesSubviews = YES;
-		_currentIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |  UIViewAutoresizingFlexibleTopMargin |  UIViewAutoresizingFlexibleBottomMargin;		
-		[_currentIndicator setProperRotation:NO];
+		result.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+		result.opaque = NO;
+		result.alpha = 0;
+		result.layer.cornerRadius = 10;
+		result.userInteractionEnabled = NO;
+		result.autoresizesSubviews = YES;
+		result.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |  UIViewAutoresizingFlexibleTopMargin |  UIViewAutoresizingFlexibleBottomMargin;
+		[result setProperRotation:NO];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:_currentIndicator
+		[[NSNotificationCenter defaultCenter] addObserver:result
 												 selector:@selector(setProperRotation)
 													 name:UIDeviceOrientationDidChangeNotification
 												   object:nil];
-	}
-	
-	return _currentIndicator;
+
+        return result;
+    });
 }
 
 #pragma mark -
@@ -78,9 +73,9 @@ static SHKActivityIndicator *_currentIndicator = nil;
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	
-	[centerMessageLabel release];
-	[subMessageLabel release];
-	[spinner release];
+	[_centerMessageLabel release];
+	[_subMessageLabel release];
+	[_spinner release];
 	
 	[super dealloc];
 }
@@ -134,10 +129,10 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (void)hidden
 {
-	if (_currentIndicator.alpha > 0)
+	if (self.alpha > 0)
 		return;
 	
-	[_currentIndicator removeFromSuperview];
+	[self removeFromSuperview];
 }
 
 - (void)displayActivity:(NSString *)m
@@ -145,7 +140,7 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	[self setSubMessage:m];
 	[self showSpinner];	
 	
-	[centerMessageLabel removeFromSuperview];
+	[self.centerMessageLabel removeFromSuperview];
 	self.centerMessageLabel = nil;
 	
 	if ([self superview] == nil)
@@ -159,7 +154,7 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	[self setCenterMessage:@"✓"];
 	[self setSubMessage:m];
 	
-	[spinner removeFromSuperview];
+	[self.spinner removeFromSuperview];
 	self.spinner = nil;
 	
 	if ([self superview] == nil)
@@ -172,107 +167,107 @@ static SHKActivityIndicator *_currentIndicator = nil;
 
 - (void)setCenterMessage:(NSString *)message
 {	
-	if (message == nil && centerMessageLabel != nil)
+	if (message == nil && self.centerMessageLabel != nil)
 		self.centerMessageLabel = nil;
 
 	else if (message != nil)
 	{
-		if (centerMessageLabel == nil)
+		if (self.centerMessageLabel == nil)
 		{
 			self.centerMessageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(12,round(self.bounds.size.height/2-50/2),self.bounds.size.width-24,50)] autorelease];
-			centerMessageLabel.backgroundColor = [UIColor clearColor];
-			centerMessageLabel.opaque = NO;
-			centerMessageLabel.textColor = [UIColor whiteColor];
-			centerMessageLabel.font = [UIFont boldSystemFontOfSize:40];
-			centerMessageLabel.textAlignment = UITextAlignmentCenter;
-			centerMessageLabel.shadowColor = [UIColor darkGrayColor];
-			centerMessageLabel.shadowOffset = CGSizeMake(1,1);
-			centerMessageLabel.adjustsFontSizeToFitWidth = YES;
+			self.centerMessageLabel.backgroundColor = [UIColor clearColor];
+			self.centerMessageLabel.opaque = NO;
+			self.centerMessageLabel.textColor = [UIColor whiteColor];
+			self.centerMessageLabel.font = [UIFont boldSystemFontOfSize:40];
+			self.centerMessageLabel.textAlignment = UITextAlignmentCenter;
+			self.centerMessageLabel.shadowColor = [UIColor darkGrayColor];
+			self.centerMessageLabel.shadowOffset = CGSizeMake(1,1);
+			self.centerMessageLabel.adjustsFontSizeToFitWidth = YES;
 			
-			[self addSubview:centerMessageLabel];
+			[self addSubview:self.centerMessageLabel];
 		}
 		
-		centerMessageLabel.text = message;
+		self.centerMessageLabel.text = message;
 		[self hideSpinner];
 	}
 }
 
 - (void)setSubMessage:(NSString *)message
 {	
-	if (message == nil && subMessageLabel != nil)
+	if (message == nil && self.subMessageLabel != nil)
 		self.subMessageLabel = nil;
 	
 	else if (message != nil)
 	{
-		if (subMessageLabel == nil)
+		if (self.subMessageLabel == nil)
 		{
 			self.subMessageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(12,self.bounds.size.height-45,self.bounds.size.width-24,30)] autorelease];
-			subMessageLabel.backgroundColor = [UIColor clearColor];
-			subMessageLabel.opaque = NO;
-			subMessageLabel.textColor = [UIColor whiteColor];
-			subMessageLabel.font = [UIFont boldSystemFontOfSize:17];
-			subMessageLabel.textAlignment = UITextAlignmentCenter;
-			subMessageLabel.shadowColor = [UIColor darkGrayColor];
-			subMessageLabel.shadowOffset = CGSizeMake(1,1);
-			subMessageLabel.adjustsFontSizeToFitWidth = YES;
+			self.subMessageLabel.backgroundColor = [UIColor clearColor];
+			self.subMessageLabel.opaque = NO;
+			self.subMessageLabel.textColor = [UIColor whiteColor];
+			self.subMessageLabel.font = [UIFont boldSystemFontOfSize:17];
+			self.subMessageLabel.textAlignment = UITextAlignmentCenter;
+			self.subMessageLabel.shadowColor = [UIColor darkGrayColor];
+			self.subMessageLabel.shadowOffset = CGSizeMake(1,1);
+			self.subMessageLabel.adjustsFontSizeToFitWidth = YES;
 			
-			[self addSubview:subMessageLabel];
+			[self addSubview:self.subMessageLabel];
 		}
 		
-		subMessageLabel.text = message;
+		self.subMessageLabel.text = message;
 	}
 }
 	 
 - (void)showSpinner
 {	
-	if (spinner == nil)
+	if (self.spinner == nil)
 	{
 		UIActivityIndicatorView *aSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         self.spinner = aSpinner;
         [aSpinner release];
 
-		spinner.frame = CGRectMake(round(self.bounds.size.width/2 - spinner.frame.size.width/2),
-								round(self.bounds.size.height/2 - spinner.frame.size.height/2),
-								spinner.frame.size.width,
-								spinner.frame.size.height);		
+		self.spinner.frame = CGRectMake(round(self.bounds.size.width/2 - self.spinner.frame.size.width/2),
+								round(self.bounds.size.height/2 - self.spinner.frame.size.height/2),
+								self.spinner.frame.size.width,
+								self.spinner.frame.size.height);		
 		
 	}
 	
-	[self addSubview:spinner];
-	[spinner startAnimating];
+	[self addSubview:self.spinner];
+	[self.spinner startAnimating];
 }
 
 - (void)hideSpinner
 {
-	[spinner removeFromSuperview];
+	[self.spinner removeFromSuperview];
 }
 
 - (void)showProgress
 {
-	if (progress == nil)
+	if (self.progress == nil)
 	{
         self.progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
         
-		progress.frame = CGRectMake(15.0f,
+		self.progress.frame = CGRectMake(15.0f,
                                    15.0f,
                                    self.bounds.size.width - 30.0f,
-                                   progress.frame.size.height);
+                                   self.progress.frame.size.height);
 		
 	}
 	
-	[self addSubview:progress];
-    progress.progress = 0;
+	[self addSubview:self.progress];
+    self.progress.progress = 0;
 }
 
 - (void)hideProgress
 {
-    if(progress.alpha < 1 || progress.superview == nil) return;
+    if(self.progress.alpha < 1 || self.progress.superview == nil) return;
     
     [UIView animateWithDuration:0.35f animations:^{
-        progress.alpha = 0;
+        self.progress.alpha = 0;
     } completion:^(BOOL finished) {
-        [progress removeFromSuperview];
-        progress.alpha = 1;
+        [self.progress removeFromSuperview];
+        self.progress.alpha = 1;
     }];
 }
 
@@ -308,41 +303,6 @@ static SHKActivityIndicator *_currentIndicator = nil;
 	
 	if (animated)
 		[UIView commitAnimations];
-}
-
-#pragma mark -
-#pragma mark Singleton System Overrides
-
-+ (id)allocWithZone:(NSZone *)zone{
-	
-    return [[self currentIndicator] retain];	
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-	
-    return self;	
-}
-
-- (id)retain
-{
-    return self;	
-}
-
-- (NSUInteger)retainCount
-{
-	
-    return NSUIntegerMax;  //denotes an object that cannot be released	
-}
-
-- (oneway void)release
-{	
-    //do nothing	
-}
-
-- (id)autorelease
-{	
-    return self;	
 }
 
 @end

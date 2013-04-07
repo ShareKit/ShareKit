@@ -58,16 +58,16 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 + (BOOL)canShareURL { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText { return YES; }
-+ (BOOL)canShareFileOfMimeType:(NSString *)mimeType size:(NSUInteger)size {
++ (BOOL)canShareFile:(SHKFile *)file {
     
-    NSUInteger sizeInMB = size/1024/1024;
+    NSUInteger sizeInMB = file.size/1024/1024;
     
     BOOL result = NO;
-    if ([mimeType hasPrefix:@"image/"]) {
+    if ([file.mimeType hasPrefix:@"image/"]) {
         result = sizeInMB < MAX_SIZE_MB_PHOTO;
-    } else if ([mimeType hasPrefix:@"audio/"]) {
+    } else if ([file.mimeType hasPrefix:@"audio/"]) {
         result = sizeInMB < MAX_SIZE_MB_AUDIO;
-    } else if ([mimeType hasPrefix:@"video/"]) {
+    } else if ([file.mimeType hasPrefix:@"video/"]) {
         result = sizeInMB < MAX_SIZE_MB_VIDEO;
     }
     return result;
@@ -305,11 +305,11 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             oRequest = [self setupPostRequest];
             
             NSString *typeValue = nil;
-            if (self.item.image||[self.item.mimeType hasPrefix:@"image/"]) {
+            if (self.item.image||[self.item.file.mimeType hasPrefix:@"image/"]) {
                 typeValue = @"photo";
-            } else if ([self.item.mimeType hasPrefix:@"video/"]) {
+            } else if ([self.item.file.mimeType hasPrefix:@"video/"]) {
                 typeValue = @"video";
-            } else if ([self.item.mimeType hasPrefix:@"audio/"]) {
+            } else if ([self.item.file.mimeType hasPrefix:@"audio/"]) {
                 typeValue = @"audio";
             }
             OARequestParameter *typeParam = [[OARequestParameter alloc] initWithName:@"type" value:typeValue];
@@ -336,7 +336,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     [publishParam release];
     [oRequest setParameters:params];
     
-    BOOL hasDataContent = self.item.image || self.item.data;
+    BOOL hasDataContent = self.item.image || self.item.file.data;
     if (hasDataContent) {
         
         //media have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
@@ -346,11 +346,11 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         if (self.item.image) {
             imageData = UIImageJPEGRepresentation(self.item.image, 0.9);
         } else {
-            imageData = self.item.data;
+            imageData = self.item.file.data;
         }
         
         //append multipart/form-data
-        [oRequest attachFileWithParameterName:@"data" filename:self.item.filename contentType:self.item.mimeType data:imageData];
+        [oRequest attachFileWithParameterName:@"data" filename:self.item.file.filename contentType:self.item.file.mimeType data:imageData];
     }
     
     [self sendRequest:oRequest];
