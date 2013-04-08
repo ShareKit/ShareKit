@@ -76,7 +76,7 @@
 - (void)share
 {
     NSString *videoPath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
-    SHKItem *item = [SHKItem videoPath:videoPath  title:@"My Awesome Video"];
+    SHKItem *item = [SHKItem file:videoPath  title:@"My Awesome Video"];
     item.text = @"test";
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
