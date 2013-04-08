@@ -336,6 +336,8 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction {
     
+    if (!self.item) return;
+    
     NSData *itemData = [NSKeyedArchiver archivedDataWithRootObject:self.item];
     NSDictionary *shareInfo = @{kSHKStoredItemKey: itemData,
                                kSHKStoredActionKey : [NSNumber numberWithInt:inPendingAction]};

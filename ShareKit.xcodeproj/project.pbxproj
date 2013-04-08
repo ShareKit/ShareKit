@@ -3182,8 +3182,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7AA83C1E1705E8FC009C483A /* PBXTargetDependency */,
-				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
 				DE4D0CA616F34D220056AAE7 /* PBXTargetDependency */,
 				DE334C3016F333B000FF692B /* PBXTargetDependency */,
 				7AAE8CA816EB964900429C51 /* PBXTargetDependency */,
@@ -3207,10 +3205,12 @@
 				7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */,
+				7AA83C1E1705E8FC009C483A /* PBXTargetDependency */,
 				7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
 				456BADAF16910966005B3077 /* PBXTargetDependency */,
+				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
 				7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EFE165A1EE7006D7441 /* PBXTargetDependency */,
