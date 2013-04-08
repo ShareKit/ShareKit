@@ -70,7 +70,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     return @"YouTube";
 }
 
-+ (BOOL)canShareVideo
++ (BOOL)canShareFile
 {
     return YES;
 }

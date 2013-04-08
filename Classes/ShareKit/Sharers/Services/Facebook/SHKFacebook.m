@@ -317,7 +317,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	return YES;
 }
 
-+ (BOOL)canShareVideo
++ (BOOL)canShareFile
 {
 	return YES;
 }

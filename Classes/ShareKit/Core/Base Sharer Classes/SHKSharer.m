@@ -96,10 +96,7 @@
 	return NO;
 }
 
-+ (BOOL)canShareVideo
-{
-	return NO;
-}
+
 
 + (BOOL)canShareFile
 {
