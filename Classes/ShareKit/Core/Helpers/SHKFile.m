@@ -12,8 +12,8 @@
 
 @interface SHKFile()
 
-@property (nonatomic,strong) NSString *path;
-@property (nonatomic,strong) NSData *data;
+@property (nonatomic, strong) NSString *path;
+@property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic) NSUInteger size;
 @property (nonatomic) NSUInteger duration;
@@ -89,7 +89,7 @@ static NSString *tempDirectory;
         
         } else {
             
-            _data = [decoder decodeObjectForKey:kSHKFilePath];
+            _data = [decoder decodeObjectForKey:kSHKFileData];
             _filename = [decoder decodeObjectForKey:kSHKFileName];
             _mimeType = [self MIMETypeForPath:_filename];
         }
@@ -102,7 +102,6 @@ static NSString *tempDirectory;
 
 static NSString *kSHKFilePath = @"kSHKFilePath";
 static NSString *kSHKFileName = @"kSHKFileName";
-static NSString *kSHKMimeType = @"kSHKMimeType";
 static NSString *kSHKFileData = @"kSHKFileData";
 
 -(void)encodeWithCoder:(NSCoder *)encoder
@@ -111,7 +110,6 @@ static NSString *kSHKFileData = @"kSHKFileData";
         [encoder encodeObject:self.path forKey:kSHKFilePath];
     } else {
         [encoder encodeObject:self.filename forKey:kSHKFileName];
-        [encoder encodeObject:self.mimeType forKey:kSHKMimeType];
         [encoder encodeObject:self.data forKey:kSHKFileData];
     }
 }
