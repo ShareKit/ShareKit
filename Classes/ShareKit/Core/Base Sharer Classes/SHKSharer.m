@@ -318,12 +318,15 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction {
     
 	NSDictionary *itemRep = [self.item dictionaryRepresentation];
-    NSDictionary *shareInfo = @{kSHKStoredItemKey: itemRep,
+	if (itemRep != nil){ // check for nil item because will crash if will use sharekit for read fql itempRep will be nil
+		NSDictionary *shareInfo = @{kSHKStoredItemKey: itemRep,
                                kSHKStoredActionKey : [NSNumber numberWithInt:inPendingAction]};
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:shareInfo forKey:kSHKStoredShareInfoKey];
-    [defaults synchronize];
+    		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		[defaults setObject:shareInfo forKey:kSHKStoredShareInfoKey];
+    		[defaults synchronize];	
+	}
+    
 }
 
 #pragma mark - Share Item URL Shortening
