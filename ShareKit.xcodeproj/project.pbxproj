@@ -70,35 +70,7 @@
 		7A16F38D161341570019645D /* OAServiceTicket.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5369F11DBE3B9004A1712 /* OAServiceTicket.m */; };
 		7A16F38E161341570019645D /* OAToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A211DBE3B9004A1712 /* OAToken.m */; };
 		7A16F3C316134AA10019645D /* SHKInstagram.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A16F3AF16134A790019645D /* SHKInstagram.m */; };
-		7A1AFCC1160E12330086B98A /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B314BA0748003FC744 /* SSKeychain.m */; };
 		7A1AFCD2160E12720086B98A /* SHKReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* SHKReachability.m */; };
-		7A1AFCE5160E13080086B98A /* TBinaryProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */; };
-		7A1AFCE6160E13080086B98A /* TProtocolException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC771156CFBF400E3303E /* TProtocolException.m */; };
-		7A1AFCE7160E13080086B98A /* TProtocolUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC774156CFBF400E3303E /* TProtocolUtil.m */; };
-		7A1AFCE8160E13080086B98A /* TApplicationException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC779156CFBF400E3303E /* TApplicationException.m */; };
-		7A1AFCE9160E13080086B98A /* TException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC77B156CFBF400E3303E /* TException.m */; };
-		7A1AFCEA160E13080086B98A /* THTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC781156CFBF400E3303E /* THTTPClient.m */; };
-		7A1AFCEB160E13080086B98A /* TMemoryBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC783156CFBF400E3303E /* TMemoryBuffer.m */; };
-		7A1AFCEC160E13080086B98A /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC78C156CFBF400E3303E /* TTransportException.m */; };
-		7A1AFCED160E13080086B98A /* EDAMErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC792156CFBF400E3303E /* EDAMErrors.m */; };
-		7A1AFCEE160E13080086B98A /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC794156CFBF400E3303E /* EDAMLimits.m */; };
-		7A1AFCEF160E13080086B98A /* EDAMNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC796156CFBF400E3303E /* EDAMNoteStore.m */; };
-		7A1AFCF0160E13080086B98A /* EDAMTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC798156CFBF400E3303E /* EDAMTypes.m */; };
-		7A1AFCF1160E13080086B98A /* EDAMUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79A156CFBF400E3303E /* EDAMUserStore.m */; };
-		7A1AFCF2160E13080086B98A /* EvernoteNoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */; };
-		7A1AFCF3160E13080086B98A /* EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC79F156CFBF400E3303E /* EvernoteSDK.m */; };
-		7A1AFCF4160E13080086B98A /* EvernoteSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A1156CFBF400E3303E /* EvernoteSession.m */; };
-		7A1AFCF5160E13080086B98A /* EvernoteUserStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */; };
-		7A1AFCF6160E13080086B98A /* ENAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A6156CFBF400E3303E /* ENAPI.m */; };
-		7A1AFCF7160E13080086B98A /* ENCredentials.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7A8156CFBF400E3303E /* ENCredentials.m */; };
-		7A1AFCF8160E13080086B98A /* ENCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */; };
-		7A1AFCF9160E13080086B98A /* ENOAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAB21592F7C90024F825 /* ENOAuthViewController.m */; };
-		7A1AFD25160E13AB0086B98A /* LFHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */; };
-		7A1AFD26160E13AB0086B98A /* LFSiteReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */; };
-		7A1AFD27160E13AB0086B98A /* NSData+LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */; };
-		7A1AFD28160E13AB0086B98A /* ObjectiveFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B714BA1900003FC744 /* ObjectiveFlickr.m */; };
-		7A1AFD29160E13AB0086B98A /* OFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772B914BA1900003FC744 /* OFUtilities.m */; };
-		7A1AFD2A160E13AB0086B98A /* OFXMLMapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A57772BB14BA1900003FC744 /* OFXMLMapper.m */; };
 		7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = F92EF488148E915E0070F913 /* SHKiOSTwitter.m */; };
 		7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
 		7A203D0B16EB7E0100421995 /* SHKHatena.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A203D0116EB776D00421995 /* SHKHatena.m */; };
@@ -110,7 +82,7 @@
 		7A2B025614A342D800E68A4C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2B025514A342D800E68A4C /* CFNetwork.framework */; };
 		7A3082B416DA0721005AF769 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3082B216D9E255005AF769 /* SHKTumblr.m */; };
 		7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3A0D81170CBDD300A0B717 /* SHKFile.h */; };
-		7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A0D82170CBDD300A0B717 /* SHKFile.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A0D82170CBDD300A0B717 /* SHKFile.m */; };
 		7A3A0D8B170CC42100A0B717 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3A0D8A170CC42100A0B717 /* MediaPlayer.framework */; };
 		7A3A0D8D170CC58B00A0B717 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3A0D8C170CC58B00A0B717 /* AVFoundation.framework */; };
 		7A3A0D8F170CC70A00A0B717 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */; };
@@ -197,19 +169,6 @@
 		7AA83BF31705E355009C483A /* GTMOAuth2ViewControllerTouch.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD6316910761005B3077 /* GTMOAuth2ViewControllerTouch.h */; };
 		7AA83BF41705E355009C483A /* GTMObjC2Runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD6616910761005B3077 /* GTMObjC2Runtime.h */; };
 		7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */; };
-		7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
-		7AA83C42170637CC009C483A /* ENAFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */; };
-		7AA83C43170637CC009C483A /* ENAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C41170637CC009C483A /* ENAFURLConnectionOperation.m */; };
-		7AA83C4817063828009C483A /* ENGCOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C4417063828009C483A /* ENGCOAuth.h */; };
-		7AA83C4917063828009C483A /* ENGCOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C4517063828009C483A /* ENGCOAuth.m */; };
-		7AA83C4A17063828009C483A /* NSData+ENBase64.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C4617063828009C483A /* NSData+ENBase64.h */; };
-		7AA83C4B17063828009C483A /* NSData+ENBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C4717063828009C483A /* NSData+ENBase64.m */; };
-		7AA83C4E1706386E009C483A /* ENConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C4C1706386D009C483A /* ENConstants.h */; };
-		7AA83C4F1706386E009C483A /* ENConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C4D1706386E009C483A /* ENConstants.m */; };
-		7AA83C53170638EF009C483A /* EDAMNoteStoreClient+Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C51170638EF009C483A /* EDAMNoteStoreClient+Utilities.h */; };
-		7AA83C54170638EF009C483A /* EDAMNoteStoreClient+Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C52170638EF009C483A /* EDAMNoteStoreClient+Utilities.m */; };
-		7AA83C5717063926009C483A /* NSDate+EDAMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C5517063926009C483A /* NSDate+EDAMAdditions.h */; };
-		7AA83C5817063926009C483A /* NSDate+EDAMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C5617063926009C483A /* NSDate+EDAMAdditions.m */; };
 		7AA83C5A17063994009C483A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA83C5917063994009C483A /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		7AAE8CA616EB961700429C51 /* SHKPlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AAE8C9C16EB950800429C51 /* SHKPlurk.m */; };
 		7AAE8CA916EB965200429C51 /* libPlurk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AAE8CA516EB960500429C51 /* libPlurk.a */; };
@@ -222,10 +181,8 @@
 		7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED08162F0858009D46E4 /* libDelicious.a */; };
 		7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED11162F087F009D46E4 /* libDiigo.a */; };
 		7AC28F0E165A21C2006D7441 /* libEmail.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECDB162F0779009D46E4 /* libEmail.a */; };
-		7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */; };
 		7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED24162F08E6009D46E4 /* libEvernote.a */; };
 		7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED37162F0B65009D46E4 /* libFacebook.a */; };
-		7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */; };
 		7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED50162F0BA7009D46E4 /* libFlickr.a */; };
 		7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED46162F0B86009D46E4 /* libFoursquareV2.a */; };
 		7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */; };
@@ -243,7 +200,6 @@
 		7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECED162F07DF009D46E4 /* libSave to Album.a */; };
 		7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0F9246156BA2A0009CB40A /* libShareKitCore.a */; };
 		7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */; };
-		7AC28F25165A21C2006D7441 /* libSSKeyChain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */; };
 		7AC28F26165A21C2006D7441 /* libText Message.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECF6162F080F009D46E4 /* libText Message.a */; };
 		7AC28F27165A21C2006D7441 /* libTumblr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED86162F0C4D009D46E4 /* libTumblr.a */; };
 		7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
@@ -288,43 +244,8 @@
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
 		DE334C2E16F333A800FF692B /* libDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE334C2116F3339300FF692B /* libDropbox.a */; };
 		DE334C4016F334E200FF692B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE334C3E16F334A600FF692B /* QuartzCore.framework */; };
-		DE334CD016F34BDD00FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		DE334CDB16F34C8E00FF692B /* DBAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C8A16F3361200FF692B /* DBAccountInfo.m */; };
-		DE334CDC16F34C8E00FF692B /* DBConnectController.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CC816F33B7200FF692B /* DBConnectController.m */; };
-		DE334CDD16F34C8E00FF692B /* DBKeychain-iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CC216F33B2300FF692B /* DBKeychain-iOS.m */; };
-		DE334CDE16F34C8E00FF692B /* DBLog.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CC616F33B5900FF692B /* DBLog.m */; };
-		DE334CDF16F34C8E00FF692B /* DBSession.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C8E16F3364C00FF692B /* DBSession.m */; };
-		DE334CE016F34C8E00FF692B /* DBSession+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C8F16F3364C00FF692B /* DBSession+iOS.m */; };
-		DE334CE116F34C8E00FF692B /* DBDeltaEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C9316F3367700FF692B /* DBDeltaEntry.m */; };
-		DE334CE216F34C8E00FF692B /* DBRestClient.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C9816F336AF00FF692B /* DBRestClient.m */; };
-		DE334CE316F34C8E00FF692B /* DBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C9C16F336CC00FF692B /* DBRequest.m */; };
-		DE334CE416F34C8E00FF692B /* DBError.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CA016F336EC00FF692B /* DBError.m */; };
-		DE334CE516F34C8E00FF692B /* DBMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CA216F336F700FF692B /* DBMetadata.m */; };
-		DE334CE616F34C8E00FF692B /* DBQuota.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CA616F3371500FF692B /* DBQuota.m */; };
-		DE334CE716F34C8E00FF692B /* NSDictionary+Dropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CA816F3372700FF692B /* NSDictionary+Dropbox.m */; };
-		DE334CE816F34C8E00FF692B /* NSString+Dropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334CA916F3372700FF692B /* NSString+Dropbox.m */; };
-		DE334CE916F34C8E00FF692B /* DBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C7616F335CB00FF692B /* DBJSON.m */; };
-		DE334CEA16F34C8E00FF692B /* DBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C7816F335CB00FF692B /* DBJsonBase.m */; };
-		DE334CEB16F34C8E00FF692B /* DBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C7A16F335CB00FF692B /* DBJsonParser.m */; };
-		DE334CEC16F34C8E00FF692B /* DBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C7C16F335CB00FF692B /* DBJsonWriter.m */; };
-		DE334CED16F34C8E00FF692B /* NSObject+DBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C7F16F335CB00FF692B /* NSObject+DBJSON.m */; };
-		DE334CEE16F34C8E00FF692B /* NSString+DBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C8116F335CB00FF692B /* NSString+DBJSON.m */; };
-		DE334CEF16F34C8E00FF692B /* MPOAuthAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4516F335A200FF692B /* MPOAuthAPI.m */; };
-		DE334CF016F34C8E00FF692B /* MPOAuthAPIRequestLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4616F335A200FF692B /* MPOAuthAPIRequestLoader.m */; };
-		DE334CF116F34C8E00FF692B /* MPOAuthAuthenticationMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4716F335A200FF692B /* MPOAuthAuthenticationMethod.m */; };
-		DE334CF216F34C8E00FF692B /* MPOAuthAuthenticationMethodOAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4816F335A200FF692B /* MPOAuthAuthenticationMethodOAuth.m */; };
-		DE334CF316F34C8E00FF692B /* MPOAuthConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4916F335A200FF692B /* MPOAuthConnection.m */; };
-		DE334CF416F34C8E00FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4B16F335A200FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */; };
-		DE334CF516F34C8E00FF692B /* MPOAuthCredentialConcreteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4C16F335A200FF692B /* MPOAuthCredentialConcreteStore.m */; };
-		DE334CF716F34C8E00FF692B /* MPOAuthURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4E16F335A200FF692B /* MPOAuthURLRequest.m */; };
-		DE334CF816F34C8E00FF692B /* MPOAuthURLResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C4F16F335A200FF692B /* MPOAuthURLResponse.m */; };
-		DE334CF916F34C8E00FF692B /* MPURLRequestParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C5016F335A200FF692B /* MPURLRequestParameter.m */; };
-		DE334CFA16F34C8E00FF692B /* NSString+URLEscapingAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C5116F335A200FF692B /* NSString+URLEscapingAdditions.m */; };
-		DE334CFB16F34C8E00FF692B /* NSURL+MPURLParameterAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C5216F335A200FF692B /* NSURL+MPURLParameterAdditions.m */; };
-		DE334CFC16F34C8E00FF692B /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C5316F335A200FF692B /* NSURLResponse+Encoding.m */; };
-		DE4D0CA716F34D2B0056AAE7 /* libDropbox SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE334CCF16F34BDD00FF692B /* libDropbox SDK.a */; };
-		DE4D0CAA16F34F7C0056AAE7 /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4D0CA916F34F7C0056AAE7 /* MPOAuthSignatureParameter.m */; };
 		E153775B16AF0A760015726B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E153775A16AF0A760015726B /* Default-568h@2x.png */; };
+		EE32DB56BAC64DC9B30F06DA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B99CAF0C1584FE3BE7B11C8 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -370,13 +291,6 @@
 			remoteGlobalIDString = 7AA83BAA1705E355009C483A;
 			remoteInfo = "Google Plus SDK";
 		};
-		7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
 		7AAE8CA716EB964900429C51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -390,13 +304,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A0F91D1156BA2A0009CB40A;
 			remoteInfo = "Static Library Core";
-		};
-		7AC28ECF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1AFCB1160E11F90086B98A;
-			remoteInfo = SSKeyChain;
 		};
 		7AC28ED1165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -496,13 +403,6 @@
 			remoteGlobalIDString = AABBED1C162F08E6009D46E4;
 			remoteInfo = Evernote;
 		};
-		7AC28EEF165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1AFCD3160E127B0086B98A;
-			remoteInfo = "Evernote SDK";
-		};
 		7AC28EF1165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -523,13 +423,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBED47162F0BA7009D46E4;
 			remoteInfo = Flickr;
-		};
-		7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1AFD15160E13740086B98A;
-			remoteInfo = "Flickr SDK";
 		};
 		7AC28EF9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -594,40 +487,12 @@
 			remoteGlobalIDString = 7AC2A38E16597F4C0089ABE8;
 			remoteInfo = "Sina Weibo";
 		};
-		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
-		AA75856F1624AABF001EFCBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B9CBC519152537270036AA71;
-			remoteInfo = FacebookSDKTests;
-		};
 		DE334C2F16F333B000FF692B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DE334C2016F3339300FF692B;
 			remoteInfo = Dropbox;
-		};
-		DE4D0CA316F34D170056AAE7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE334CCE16F34BDD00FF692B;
-			remoteInfo = DropboxSDK;
-		};
-		DE4D0CA516F34D220056AAE7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE334CCE16F34BDD00FF692B;
-			remoteInfo = DropboxSDK;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -641,18 +506,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE334CCD16F34BDD00FF692B /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/${PRODUCT_NAME}";
-			dstSubfolderSpec = 16;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1562C7D7B263492CA75863C3 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		1A52EDF415CB032B00A737D8 /* SHKKippt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKKippt.h; sourceTree = "<group>"; };
 		1A52EDF515CB032B00A737D8 /* SHKKippt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKKippt.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -665,58 +522,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BD2BD52153431390042EB86 /* SHKCustomFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKCustomFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		3BD2BD53153431390042EB86 /* SHKCustomFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKCustomFormControllerLargeTextField.m; sourceTree = "<group>"; };
-		427FBAB11592F7C90024F825 /* ENOAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOAuthViewController.h; sourceTree = "<group>"; };
-		427FBAB21592F7C90024F825 /* ENOAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOAuthViewController.m; sourceTree = "<group>"; };
 		427FBAED15934A0D0024F825 /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
 		427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
-		42EDC76D156CFBF400E3303E /* TBinaryProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBinaryProtocol.h; sourceTree = "<group>"; };
-		42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBinaryProtocol.m; sourceTree = "<group>"; };
-		42EDC76F156CFBF400E3303E /* TProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocol.h; sourceTree = "<group>"; };
-		42EDC770156CFBF400E3303E /* TProtocolException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolException.h; sourceTree = "<group>"; };
-		42EDC771156CFBF400E3303E /* TProtocolException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolException.m; sourceTree = "<group>"; };
-		42EDC772156CFBF400E3303E /* TProtocolFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolFactory.h; sourceTree = "<group>"; };
-		42EDC773156CFBF400E3303E /* TProtocolUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProtocolUtil.h; sourceTree = "<group>"; };
-		42EDC774156CFBF400E3303E /* TProtocolUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TProtocolUtil.m; sourceTree = "<group>"; };
-		42EDC778156CFBF400E3303E /* TApplicationException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TApplicationException.h; sourceTree = "<group>"; };
-		42EDC779156CFBF400E3303E /* TApplicationException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TApplicationException.m; sourceTree = "<group>"; };
-		42EDC77A156CFBF400E3303E /* TException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TException.h; sourceTree = "<group>"; };
-		42EDC77B156CFBF400E3303E /* TException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TException.m; sourceTree = "<group>"; };
-		42EDC77C156CFBF400E3303E /* Thrift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thrift.h; sourceTree = "<group>"; };
-		42EDC77D156CFBF400E3303E /* TProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessor.h; sourceTree = "<group>"; };
-		42EDC77E156CFBF400E3303E /* TProcessorFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TProcessorFactory.h; sourceTree = "<group>"; };
-		42EDC780156CFBF400E3303E /* THTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THTTPClient.h; sourceTree = "<group>"; };
-		42EDC781156CFBF400E3303E /* THTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THTTPClient.m; sourceTree = "<group>"; };
-		42EDC782156CFBF400E3303E /* TMemoryBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMemoryBuffer.h; sourceTree = "<group>"; };
-		42EDC783156CFBF400E3303E /* TMemoryBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMemoryBuffer.m; sourceTree = "<group>"; };
-		42EDC78A156CFBF400E3303E /* TTransport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransport.h; sourceTree = "<group>"; };
-		42EDC78B156CFBF400E3303E /* TTransportException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTransportException.h; sourceTree = "<group>"; };
-		42EDC78C156CFBF400E3303E /* TTransportException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTransportException.m; sourceTree = "<group>"; };
-		42EDC790156CFBF400E3303E /* EDAM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAM.h; sourceTree = "<group>"; };
-		42EDC791156CFBF400E3303E /* EDAMErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMErrors.h; sourceTree = "<group>"; };
-		42EDC792156CFBF400E3303E /* EDAMErrors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMErrors.m; sourceTree = "<group>"; };
-		42EDC793156CFBF400E3303E /* EDAMLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMLimits.h; sourceTree = "<group>"; };
-		42EDC794156CFBF400E3303E /* EDAMLimits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMLimits.m; sourceTree = "<group>"; };
-		42EDC795156CFBF400E3303E /* EDAMNoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMNoteStore.h; sourceTree = "<group>"; };
-		42EDC796156CFBF400E3303E /* EDAMNoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMNoteStore.m; sourceTree = "<group>"; };
-		42EDC797156CFBF400E3303E /* EDAMTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMTypes.h; sourceTree = "<group>"; };
-		42EDC798156CFBF400E3303E /* EDAMTypes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMTypes.m; sourceTree = "<group>"; };
-		42EDC799156CFBF400E3303E /* EDAMUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMUserStore.h; sourceTree = "<group>"; };
-		42EDC79A156CFBF400E3303E /* EDAMUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMUserStore.m; sourceTree = "<group>"; };
-		42EDC79B156CFBF400E3303E /* evernote-sdk-ios-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "evernote-sdk-ios-Prefix.pch"; sourceTree = "<group>"; };
-		42EDC79C156CFBF400E3303E /* EvernoteNoteStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteNoteStore.h; sourceTree = "<group>"; };
-		42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteNoteStore.m; sourceTree = "<group>"; };
-		42EDC79E156CFBF400E3303E /* EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteSDK.h; sourceTree = "<group>"; };
-		42EDC79F156CFBF400E3303E /* EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteSDK.m; sourceTree = "<group>"; };
-		42EDC7A0156CFBF400E3303E /* EvernoteSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteSession.h; sourceTree = "<group>"; };
-		42EDC7A1156CFBF400E3303E /* EvernoteSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteSession.m; sourceTree = "<group>"; };
-		42EDC7A2156CFBF400E3303E /* EvernoteUserStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EvernoteUserStore.h; sourceTree = "<group>"; };
-		42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EvernoteUserStore.m; sourceTree = "<group>"; };
-		42EDC7A5156CFBF400E3303E /* ENAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENAPI.h; sourceTree = "<group>"; };
-		42EDC7A6156CFBF400E3303E /* ENAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENAPI.m; sourceTree = "<group>"; };
-		42EDC7A7156CFBF400E3303E /* ENCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCredentials.h; sourceTree = "<group>"; };
-		42EDC7A8156CFBF400E3303E /* ENCredentials.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCredentials.m; sourceTree = "<group>"; };
-		42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENCredentialStore.h; sourceTree = "<group>"; };
-		42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENCredentialStore.m; sourceTree = "<group>"; };
 		4312CF7B11CB33E200E61D7A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		43150A8B11E78697008C6B68 /* SHKInstapaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKInstapaper.h; sourceTree = "<group>"; };
 		43150A8C11E78697008C6B68 /* SHKInstapaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKInstapaper.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -894,26 +701,17 @@
 		456BAD6716910761005B3077 /* GTMObjC2Runtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMObjC2Runtime.m; sourceTree = "<group>"; };
 		456BADA9169107D1005B3077 /* SHKGooglePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKGooglePlus.h; path = "Google Plus/SHKGooglePlus.h"; sourceTree = "<group>"; };
 		456BADAA169107D1005B3077 /* SHKGooglePlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKGooglePlus.m; path = "Google Plus/SHKGooglePlus.m"; sourceTree = "<group>"; };
+		5B99CAF0C1584FE3BE7B11C8 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
 		7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SHKDelicious.m; path = Delicious/SHKDelicious.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A0F9246156BA2A0009CB40A /* libShareKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFHTTPRequest.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFHTTPRequest.h; sourceTree = SOURCE_ROOT; };
-		7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFHTTPRequest.m; path = Submodules/objectiveflickr/LFWebAPIKit/LFHTTPRequest.m; sourceTree = SOURCE_ROOT; };
-		7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFSiteReachability.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFSiteReachability.h; sourceTree = SOURCE_ROOT; };
-		7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LFSiteReachability.m; path = Submodules/objectiveflickr/LFWebAPIKit/LFSiteReachability.m; sourceTree = SOURCE_ROOT; };
-		7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LFWebAPIKit.h; path = Submodules/objectiveflickr/LFWebAPIKit/LFWebAPIKit.h; sourceTree = SOURCE_ROOT; };
-		7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+LFHTTPFormExtensions.h"; path = "Submodules/objectiveflickr/LFWebAPIKit/NSData+LFHTTPFormExtensions.h"; sourceTree = SOURCE_ROOT; };
-		7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+LFHTTPFormExtensions.m"; path = "Submodules/objectiveflickr/LFWebAPIKit/NSData+LFHTTPFormExtensions.m"; sourceTree = SOURCE_ROOT; };
 		7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellText.h; sourceTree = "<group>"; };
 		7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellText.m; sourceTree = "<group>"; };
 		7A16F37E161340DD0019645D /* libOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A16F3AE16134A790019645D /* SHKInstagram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKInstagram.h; path = Instagram/SHKInstagram.h; sourceTree = "<group>"; };
 		7A16F3AF16134A790019645D /* SHKInstagram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SHKInstagram.m; path = Instagram/SHKInstagram.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A16F3C216134A890019645D /* libInstagram.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstagram.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSSKeyChain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCD1160E123C0086B98A /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libEvernote SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFD24160E13740086B98A /* libFlickr SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFlickr SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD3A160E14340086B98A /* libTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A203D0016EB776D00421995 /* SHKHatena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SHKHatena.h; path = Hatena/SHKHatena.h; sourceTree = "<group>"; };
 		7A203D0116EB776D00421995 /* SHKHatena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SHKHatena.m; path = Hatena/SHKHatena.m; sourceTree = "<group>"; };
@@ -954,19 +752,6 @@
 		7AA4056E146F1D6400685C81 /* ShareKitDemoConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitDemoConfigurator.h; path = Example/ShareKitDemoConfigurator.h; sourceTree = "<group>"; };
 		7AA4056F146F1D6400685C81 /* ShareKitDemoConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareKitDemoConfigurator.m; path = Example/ShareKitDemoConfigurator.m; sourceTree = "<group>"; };
 		7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Plus SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AA83C3D17063786009C483A /* TObjective-C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TObjective-C.h"; sourceTree = "<group>"; };
-		7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENAFURLConnectionOperation.h; path = AFNetworking/ENAFURLConnectionOperation.h; sourceTree = "<group>"; };
-		7AA83C41170637CC009C483A /* ENAFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENAFURLConnectionOperation.m; path = AFNetworking/ENAFURLConnectionOperation.m; sourceTree = "<group>"; };
-		7AA83C4417063828009C483A /* ENGCOAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENGCOAuth.h; sourceTree = "<group>"; };
-		7AA83C4517063828009C483A /* ENGCOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENGCOAuth.m; sourceTree = "<group>"; };
-		7AA83C4617063828009C483A /* NSData+ENBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ENBase64.h"; sourceTree = "<group>"; };
-		7AA83C4717063828009C483A /* NSData+ENBase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ENBase64.m"; sourceTree = "<group>"; };
-		7AA83C4C1706386D009C483A /* ENConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENConstants.h; sourceTree = "<group>"; };
-		7AA83C4D1706386E009C483A /* ENConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENConstants.m; sourceTree = "<group>"; };
-		7AA83C51170638EF009C483A /* EDAMNoteStoreClient+Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EDAMNoteStoreClient+Utilities.h"; sourceTree = "<group>"; };
-		7AA83C52170638EF009C483A /* EDAMNoteStoreClient+Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "EDAMNoteStoreClient+Utilities.m"; sourceTree = "<group>"; };
-		7AA83C5517063926009C483A /* NSDate+EDAMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+EDAMAdditions.h"; path = "Utilities/NSDate+EDAMAdditions.h"; sourceTree = "<group>"; };
-		7AA83C5617063926009C483A /* NSDate+EDAMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDate+EDAMAdditions.m"; path = "Utilities/NSDate+EDAMAdditions.m"; sourceTree = "<group>"; };
 		7AA83C5917063994009C483A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7AAE8C9B16EB950800429C51 /* SHKPlurk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SHKPlurk.h; path = Plurk/SHKPlurk.h; sourceTree = "<group>"; };
 		7AAE8C9C16EB950800429C51 /* SHKPlurk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SHKPlurk.m; path = Plurk/SHKPlurk.m; sourceTree = "<group>"; };
@@ -995,21 +780,13 @@
 		7AF78BB114B71FD8008ACA5D /* SHKFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormControllerLargeTextField.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		8D5D681EA18540FB8B1408CC /* libPods-lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lib.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		90E765A51418F2480026B656 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
-		A57772B214BA0748003FC744 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
-		A57772B314BA0748003FC744 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
-		A57772B614BA1900003FC744 /* ObjectiveFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveFlickr.h; sourceTree = "<group>"; };
-		A57772B714BA1900003FC744 /* ObjectiveFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ObjectiveFlickr.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		A57772B814BA1900003FC744 /* OFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFUtilities.h; sourceTree = "<group>"; };
-		A57772B914BA1900003FC744 /* OFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFUtilities.m; sourceTree = "<group>"; };
-		A57772BA14BA1900003FC744 /* OFXMLMapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFXMLMapper.h; sourceTree = "<group>"; };
-		A57772BB14BA1900003FC744 /* OFXMLMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OFXMLMapper.m; sourceTree = "<group>"; };
 		AA3B1DDC161292A100036C82 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		AA3B1DDD161292A100036C82 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		AA3B1DE41612938F00036C82 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AA511B7E14C893A10022332B /* SHKFormOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormOptionController.h; sourceTree = "<group>"; };
 		AA511B7F14C893A10022332B /* SHKFormOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormOptionController.m; sourceTree = "<group>"; };
-		AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Submodules/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurator.h; sourceTree = "<group>"; };
 		AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSHKConfigurator.m; sourceTree = "<group>"; };
 		AAACE01913CCB1F500A2118F /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
@@ -1065,81 +842,6 @@
 		DE334C0616F3319800FF692B /* SHKDropbox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHKDropbox.m; sourceTree = "<group>"; };
 		DE334C2116F3339300FF692B /* libDropbox.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDropbox.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE334C3E16F334A600FF692B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		DE334C4516F335A200FF692B /* MPOAuthAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPI.m; sourceTree = "<group>"; };
-		DE334C4616F335A200FF692B /* MPOAuthAPIRequestLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAPIRequestLoader.m; sourceTree = "<group>"; };
-		DE334C4716F335A200FF692B /* MPOAuthAuthenticationMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAuthenticationMethod.m; sourceTree = "<group>"; };
-		DE334C4816F335A200FF692B /* MPOAuthAuthenticationMethodOAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthAuthenticationMethodOAuth.m; sourceTree = "<group>"; };
-		DE334C4916F335A200FF692B /* MPOAuthConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthConnection.m; sourceTree = "<group>"; };
-		DE334C4B16F335A200FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m"; sourceTree = "<group>"; };
-		DE334C4C16F335A200FF692B /* MPOAuthCredentialConcreteStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthCredentialConcreteStore.m; sourceTree = "<group>"; };
-		DE334C4E16F335A200FF692B /* MPOAuthURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthURLRequest.m; sourceTree = "<group>"; };
-		DE334C4F16F335A200FF692B /* MPOAuthURLResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthURLResponse.m; sourceTree = "<group>"; };
-		DE334C5016F335A200FF692B /* MPURLRequestParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPURLRequestParameter.m; sourceTree = "<group>"; };
-		DE334C5116F335A200FF692B /* NSString+URLEscapingAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEscapingAdditions.m"; sourceTree = "<group>"; };
-		DE334C5216F335A200FF692B /* NSURL+MPURLParameterAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MPURLParameterAdditions.m"; sourceTree = "<group>"; };
-		DE334C5316F335A200FF692B /* NSURLResponse+Encoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLResponse+Encoding.m"; sourceTree = "<group>"; };
-		DE334C7516F335CB00FF692B /* DBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBJSON.h; sourceTree = "<group>"; };
-		DE334C7616F335CB00FF692B /* DBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBJSON.m; sourceTree = "<group>"; };
-		DE334C7716F335CB00FF692B /* DBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBJsonBase.h; sourceTree = "<group>"; };
-		DE334C7816F335CB00FF692B /* DBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBJsonBase.m; sourceTree = "<group>"; };
-		DE334C7916F335CB00FF692B /* DBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBJsonParser.h; sourceTree = "<group>"; };
-		DE334C7A16F335CB00FF692B /* DBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBJsonParser.m; sourceTree = "<group>"; };
-		DE334C7B16F335CB00FF692B /* DBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBJsonWriter.h; sourceTree = "<group>"; };
-		DE334C7C16F335CB00FF692B /* DBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBJsonWriter.m; sourceTree = "<group>"; };
-		DE334C7D16F335CB00FF692B /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
-		DE334C7E16F335CB00FF692B /* NSObject+DBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+DBJSON.h"; sourceTree = "<group>"; };
-		DE334C7F16F335CB00FF692B /* NSObject+DBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+DBJSON.m"; sourceTree = "<group>"; };
-		DE334C8016F335CB00FF692B /* NSString+DBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DBJSON.h"; sourceTree = "<group>"; };
-		DE334C8116F335CB00FF692B /* NSString+DBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DBJSON.m"; sourceTree = "<group>"; };
-		DE334C8816F335EB00FF692B /* DropboxSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DropboxSDK.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DropboxSDK.h"; sourceTree = SOURCE_ROOT; };
-		DE334C8916F3360800FF692B /* DBAccountInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBAccountInfo.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBAccountInfo.h"; sourceTree = SOURCE_ROOT; };
-		DE334C8A16F3361200FF692B /* DBAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBAccountInfo.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBAccountInfo.m"; sourceTree = SOURCE_ROOT; };
-		DE334C8C16F3363900FF692B /* DBSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBSession.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBSession.h"; sourceTree = SOURCE_ROOT; };
-		DE334C8D16F3363900FF692B /* DBSession+iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DBSession+iOS.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBSession+iOS.h"; sourceTree = SOURCE_ROOT; };
-		DE334C8E16F3364C00FF692B /* DBSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBSession.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBSession.m"; sourceTree = SOURCE_ROOT; };
-		DE334C8F16F3364C00FF692B /* DBSession+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DBSession+iOS.m"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBSession+iOS.m"; sourceTree = SOURCE_ROOT; };
-		DE334C9216F3367700FF692B /* DBDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBDefines.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBDefines.h"; sourceTree = SOURCE_ROOT; };
-		DE334C9316F3367700FF692B /* DBDeltaEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBDeltaEntry.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBDeltaEntry.m"; sourceTree = SOURCE_ROOT; };
-		DE334C9516F3368E00FF692B /* DBDeltaEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBDeltaEntry.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBDeltaEntry.h"; sourceTree = SOURCE_ROOT; };
-		DE334C9616F336A200FF692B /* DBRestClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBRestClient.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBRestClient.h"; sourceTree = SOURCE_ROOT; };
-		DE334C9816F336AF00FF692B /* DBRestClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBRestClient.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBRestClient.m"; sourceTree = SOURCE_ROOT; };
-		DE334C9C16F336CC00FF692B /* DBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBRequest.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBRequest.m"; sourceTree = SOURCE_ROOT; };
-		DE334C9E16F336D500FF692B /* DBRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBRequest.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBRequest.h"; sourceTree = SOURCE_ROOT; };
-		DE334C9F16F336DF00FF692B /* DBError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBError.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBError.h"; sourceTree = SOURCE_ROOT; };
-		DE334CA016F336EC00FF692B /* DBError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBError.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBError.m"; sourceTree = SOURCE_ROOT; };
-		DE334CA216F336F700FF692B /* DBMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBMetadata.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBMetadata.m"; sourceTree = SOURCE_ROOT; };
-		DE334CA416F3370100FF692B /* DBMetadata.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBMetadata.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBMetadata.h"; sourceTree = SOURCE_ROOT; };
-		DE334CA516F3370D00FF692B /* DBQuota.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBQuota.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBQuota.h"; sourceTree = SOURCE_ROOT; };
-		DE334CA616F3371500FF692B /* DBQuota.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBQuota.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBQuota.m"; sourceTree = SOURCE_ROOT; };
-		DE334CA816F3372700FF692B /* NSDictionary+Dropbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Dropbox.m"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/NSDictionary+Dropbox.m"; sourceTree = SOURCE_ROOT; };
-		DE334CA916F3372700FF692B /* NSString+Dropbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Dropbox.m"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/NSString+Dropbox.m"; sourceTree = SOURCE_ROOT; };
-		DE334CAC16F3373800FF692B /* NSDictionary+Dropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Dropbox.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/NSDictionary+Dropbox.h"; sourceTree = SOURCE_ROOT; };
-		DE334CAD16F3373800FF692B /* NSString+Dropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+Dropbox.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/NSString+Dropbox.h"; sourceTree = SOURCE_ROOT; };
-		DE334CAE16F3377E00FF692B /* MPOAuthAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthAPI.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthAPI.h"; sourceTree = SOURCE_ROOT; };
-		DE334CAF16F3378A00FF692B /* MPOAuthAPIRequestLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthAPIRequestLoader.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthAPIRequestLoader.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB016F3379700FF692B /* MPOAuthAuthenticationMethod.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthAuthenticationMethod.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthAuthenticationMethod.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB116F3379F00FF692B /* MPOAuthAuthenticationMethodOAuth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthAuthenticationMethodOAuth.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthAuthenticationMethodOAuth.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB216F337A700FF692B /* MPOAuthConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthConnection.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthConnection.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB316F337BA00FF692B /* MPOAuthCredentialConcreteStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthCredentialConcreteStore.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthCredentialConcreteStore.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB416F337C400FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "MPOAuthCredentialConcreteStore+KeychainAdditions.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthCredentialConcreteStore+KeychainAdditions.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB616F337F200FF692B /* MPOAuthURLRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthURLRequest.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthURLRequest.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB716F337FB00FF692B /* MPOAuthURLResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthURLResponse.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthURLResponse.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB816F3380600FF692B /* MPURLRequestParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPURLRequestParameter.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPURLRequestParameter.h"; sourceTree = SOURCE_ROOT; };
-		DE334CB916F3381000FF692B /* NSString+URLEscapingAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEscapingAdditions.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/NSString+URLEscapingAdditions.h"; sourceTree = SOURCE_ROOT; };
-		DE334CBA16F3381700FF692B /* NSURL+MPURLParameterAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSURL+MPURLParameterAdditions.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/NSURL+MPURLParameterAdditions.h"; sourceTree = SOURCE_ROOT; };
-		DE334CBB16F3381D00FF692B /* NSURLResponse+Encoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSURLResponse+Encoding.h"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/NSURLResponse+Encoding.h"; sourceTree = SOURCE_ROOT; };
-		DE334CBD16F3386A00FF692B /* MPOAuthCredentialStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthCredentialStore.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthCredentialStore.h"; sourceTree = SOURCE_ROOT; };
-		DE334CBE16F3389100FF692B /* MPOAuthParameterFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthParameterFactory.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthParameterFactory.h"; sourceTree = SOURCE_ROOT; };
-		DE334CBF16F338A900FF692B /* MPDebug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPDebug.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPDebug.h"; sourceTree = SOURCE_ROOT; };
-		DE334CC216F33B2300FF692B /* DBKeychain-iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DBKeychain-iOS.m"; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBKeychain-iOS.m"; sourceTree = SOURCE_ROOT; };
-		DE334CC416F33B3300FF692B /* DBKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBKeychain.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBKeychain.h"; sourceTree = SOURCE_ROOT; };
-		DE334CC516F33B5000FF692B /* DBLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBLog.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBLog.h"; sourceTree = SOURCE_ROOT; };
-		DE334CC616F33B5900FF692B /* DBLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBLog.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBLog.m"; sourceTree = SOURCE_ROOT; };
-		DE334CC816F33B7200FF692B /* DBConnectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBConnectController.m; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DBConnectController.m"; sourceTree = SOURCE_ROOT; };
-		DE334CCA16F33B7B00FF692B /* DBConnectController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DBConnectController.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/DBConnectController.h"; sourceTree = SOURCE_ROOT; };
-		DE334CCF16F34BDD00FF692B /* libDropbox SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libDropbox SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE4D0CA916F34F7C0056AAE7 /* MPOAuthSignatureParameter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPOAuthSignatureParameter.m; sourceTree = "<group>"; };
-		DE4D0CAB16F34FA30056AAE7 /* MPOAuthSignatureParameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPOAuthSignatureParameter.h; path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/DropboxSDK/MPOAuthSignatureParameter.h"; sourceTree = SOURCE_ROOT; };
 		E153775A16AF0A760015726B /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLogout.h; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLogout.m; sourceTree = "<group>"; };
@@ -1178,6 +880,7 @@
 				4312CF7C11CB33E200E61D7A /* MessageUI.framework in Frameworks */,
 				43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */,
 				43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */,
+				EE32DB56BAC64DC9B30F06DA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1209,28 +912,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFCB4160E11F90086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFCC5160E123C0086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFCD6160E127B0086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFD18160E13740086B98A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1277,9 +959,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */,
 				7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */,
-				DE4D0CA716F34D2B0056AAE7 /* libDropbox SDK.a in Frameworks */,
 				DE334C2E16F333A800FF692B /* libDropbox.a in Frameworks */,
 				7AAE8CA916EB965200429C51 /* libPlurk.a in Frameworks */,
 				7A203D0C16EB7E2300421995 /* libHatena.a in Frameworks */,
@@ -1289,10 +969,8 @@
 				7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */,
 				7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */,
 				7AC28F0E165A21C2006D7441 /* libEmail.a in Frameworks */,
-				7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */,
 				7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */,
 				7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */,
-				7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */,
 				7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */,
 				7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */,
 				7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */,
@@ -1310,7 +988,6 @@
 				7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */,
 				7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */,
 				7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */,
-				7AC28F25165A21C2006D7441 /* libSSKeyChain.a in Frameworks */,
 				7AC28F26165A21C2006D7441 /* libText Message.a in Frameworks */,
 				7AC28F27165A21C2006D7441 /* libTumblr.a in Frameworks */,
 				7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */,
@@ -1487,14 +1164,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE334CCC16F34BDD00FF692B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE334CD016F34BDD00FF692B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1514,10 +1183,7 @@
 				7AB5342E1552AADD00171BCE /* libShareKit.a */,
 				7AB5360F1552E26800171BCE /* ShareKit.bundle */,
 				7A0F9246156BA2A0009CB40A /* libShareKitCore.a */,
-				7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */,
 				7A1AFCD1160E123C0086B98A /* libReachability.a */,
-				7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */,
-				7A1AFD24160E13740086B98A /* libFlickr SDK.a */,
 				7A1AFD3A160E14340086B98A /* libTwitter.a */,
 				7A16F37E161340DD0019645D /* libOAuth.a */,
 				7A16F3C216134A890019645D /* libInstagram.a */,
@@ -1548,7 +1214,6 @@
 				7A203D0A16EB7DA200421995 /* libHatena.a */,
 				7AAE8CA516EB960500429C51 /* libPlurk.a */,
 				DE334C2116F3339300FF692B /* libDropbox.a */,
-				DE334CCF16F34BDD00FF692B /* libDropbox SDK.a */,
 				7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */,
 			);
 			name = Products;
@@ -1575,6 +1240,7 @@
 				7A288261155409BC007DC379 /* ShareKitLibrary */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				1562C7D7B263492CA75863C3 /* Pods.xcconfig */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -1625,131 +1291,10 @@
 				43EF406D11D3FFF800B1F700 /* Security.framework */,
 				43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */,
 				7AB535EF1552E12100171BCE /* CoreFoundation.framework */,
+				5B99CAF0C1584FE3BE7B11C8 /* libPods.a */,
+				8D5D681EA18540FB8B1408CC /* libPods-lib.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		42EDC75A156CFBF400E3303E /* Evernote-SDK */ = {
-			isa = PBXGroup;
-			children = (
-				42EDC75B156CFBF400E3303E /* 3rdParty */,
-				42EDC78F156CFBF400E3303E /* EDAM */,
-				42EDC79B156CFBF400E3303E /* evernote-sdk-ios-Prefix.pch */,
-				42EDC79C156CFBF400E3303E /* EvernoteNoteStore.h */,
-				42EDC79D156CFBF400E3303E /* EvernoteNoteStore.m */,
-				42EDC79E156CFBF400E3303E /* EvernoteSDK.h */,
-				42EDC79F156CFBF400E3303E /* EvernoteSDK.m */,
-				7AA83C4C1706386D009C483A /* ENConstants.h */,
-				7AA83C4D1706386E009C483A /* ENConstants.m */,
-				42EDC7A0156CFBF400E3303E /* EvernoteSession.h */,
-				42EDC7A1156CFBF400E3303E /* EvernoteSession.m */,
-				42EDC7A2156CFBF400E3303E /* EvernoteUserStore.h */,
-				42EDC7A3156CFBF400E3303E /* EvernoteUserStore.m */,
-				42EDC7A4156CFBF400E3303E /* internal */,
-				7AA83C50170638BD009C483A /* Utilities */,
-			);
-			name = "Evernote-SDK";
-			path = "Submodules/evernote-ios-sdk/evernote-sdk-ios";
-			sourceTree = SOURCE_ROOT;
-		};
-		42EDC75B156CFBF400E3303E /* 3rdParty */ = {
-			isa = PBXGroup;
-			children = (
-				7AA83C3F170637AE009C483A /* AFNetworking */,
-				42EDC75C156CFBF400E3303E /* cocoa-oauth */,
-				42EDC76A156CFBF400E3303E /* Thrift */,
-			);
-			path = 3rdParty;
-			sourceTree = "<group>";
-		};
-		42EDC75C156CFBF400E3303E /* cocoa-oauth */ = {
-			isa = PBXGroup;
-			children = (
-				7AA83C4417063828009C483A /* ENGCOAuth.h */,
-				7AA83C4517063828009C483A /* ENGCOAuth.m */,
-				7AA83C4617063828009C483A /* NSData+ENBase64.h */,
-				7AA83C4717063828009C483A /* NSData+ENBase64.m */,
-			);
-			path = "cocoa-oauth";
-			sourceTree = "<group>";
-		};
-		42EDC76A156CFBF400E3303E /* Thrift */ = {
-			isa = PBXGroup;
-			children = (
-				7AA83C3D17063786009C483A /* TObjective-C.h */,
-				42EDC76C156CFBF400E3303E /* protocol */,
-				42EDC778156CFBF400E3303E /* TApplicationException.h */,
-				42EDC779156CFBF400E3303E /* TApplicationException.m */,
-				42EDC77A156CFBF400E3303E /* TException.h */,
-				42EDC77B156CFBF400E3303E /* TException.m */,
-				42EDC77C156CFBF400E3303E /* Thrift.h */,
-				42EDC77D156CFBF400E3303E /* TProcessor.h */,
-				42EDC77E156CFBF400E3303E /* TProcessorFactory.h */,
-				42EDC77F156CFBF400E3303E /* transport */,
-			);
-			path = Thrift;
-			sourceTree = "<group>";
-		};
-		42EDC76C156CFBF400E3303E /* protocol */ = {
-			isa = PBXGroup;
-			children = (
-				42EDC76D156CFBF400E3303E /* TBinaryProtocol.h */,
-				42EDC76E156CFBF400E3303E /* TBinaryProtocol.m */,
-				42EDC76F156CFBF400E3303E /* TProtocol.h */,
-				42EDC770156CFBF400E3303E /* TProtocolException.h */,
-				42EDC771156CFBF400E3303E /* TProtocolException.m */,
-				42EDC772156CFBF400E3303E /* TProtocolFactory.h */,
-				42EDC773156CFBF400E3303E /* TProtocolUtil.h */,
-				42EDC774156CFBF400E3303E /* TProtocolUtil.m */,
-			);
-			path = protocol;
-			sourceTree = "<group>";
-		};
-		42EDC77F156CFBF400E3303E /* transport */ = {
-			isa = PBXGroup;
-			children = (
-				42EDC780156CFBF400E3303E /* THTTPClient.h */,
-				42EDC781156CFBF400E3303E /* THTTPClient.m */,
-				42EDC782156CFBF400E3303E /* TMemoryBuffer.h */,
-				42EDC783156CFBF400E3303E /* TMemoryBuffer.m */,
-				42EDC78A156CFBF400E3303E /* TTransport.h */,
-				42EDC78B156CFBF400E3303E /* TTransportException.h */,
-				42EDC78C156CFBF400E3303E /* TTransportException.m */,
-			);
-			path = transport;
-			sourceTree = "<group>";
-		};
-		42EDC78F156CFBF400E3303E /* EDAM */ = {
-			isa = PBXGroup;
-			children = (
-				42EDC790156CFBF400E3303E /* EDAM.h */,
-				42EDC791156CFBF400E3303E /* EDAMErrors.h */,
-				42EDC792156CFBF400E3303E /* EDAMErrors.m */,
-				42EDC793156CFBF400E3303E /* EDAMLimits.h */,
-				42EDC794156CFBF400E3303E /* EDAMLimits.m */,
-				42EDC795156CFBF400E3303E /* EDAMNoteStore.h */,
-				42EDC796156CFBF400E3303E /* EDAMNoteStore.m */,
-				42EDC797156CFBF400E3303E /* EDAMTypes.h */,
-				42EDC798156CFBF400E3303E /* EDAMTypes.m */,
-				42EDC799156CFBF400E3303E /* EDAMUserStore.h */,
-				42EDC79A156CFBF400E3303E /* EDAMUserStore.m */,
-			);
-			path = EDAM;
-			sourceTree = "<group>";
-		};
-		42EDC7A4156CFBF400E3303E /* internal */ = {
-			isa = PBXGroup;
-			children = (
-				42EDC7A5156CFBF400E3303E /* ENAPI.h */,
-				42EDC7A6156CFBF400E3303E /* ENAPI.m */,
-				42EDC7A7156CFBF400E3303E /* ENCredentials.h */,
-				42EDC7A8156CFBF400E3303E /* ENCredentials.m */,
-				42EDC7A9156CFBF400E3303E /* ENCredentialStore.h */,
-				42EDC7AA156CFBF400E3303E /* ENCredentialStore.m */,
-				427FBAB11592F7C90024F825 /* ENOAuthViewController.h */,
-				427FBAB21592F7C90024F825 /* ENOAuthViewController.m */,
-			);
-			path = internal;
 			sourceTree = "<group>";
 		};
 		43150A8A11E78697008C6B68 /* Instapaper */ = {
@@ -1796,7 +1341,6 @@
 		4379F2891291AC9700D2A41E /* Evernote */ = {
 			isa = PBXGroup;
 			children = (
-				42EDC75A156CFBF400E3303E /* Evernote-SDK */,
 				4379F2B01291AC9700D2A41E /* SHKEvernote.h */,
 				4379F2B11291AC9700D2A41E /* SHKEvernote.m */,
 			);
@@ -1878,7 +1422,6 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
 				43A536A811DBE3B9004A1712 /* SHKItem.h */,
 				43A536A911DBE3B9004A1712 /* SHKItem.m */,
@@ -1891,16 +1434,6 @@
 				7A74C18616E8A64400CFDFC3 /* Singleton.h */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		43A5367C11DBE3B9004A1712 /* Keychain */ = {
-			isa = PBXGroup;
-			children = (
-				A57772B214BA0748003FC744 /* SSKeychain.h */,
-				A57772B314BA0748003FC744 /* SSKeychain.m */,
-			);
-			name = Keychain;
-			path = ../../../../Submodules/sskeychain;
 			sourceTree = "<group>";
 		};
 		43A5367F11DBE3B9004A1712 /* OAuth */ = {
@@ -2045,7 +1578,6 @@
 		43A536C411DBE3B9004A1712 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */,
 				43A536DC11DBE3B9004A1712 /* SHKFacebook.h */,
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
 				7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */,
@@ -2277,20 +1809,6 @@
 			name = Delicious;
 			sourceTree = "<group>";
 		};
-		7A0F9249156BA5A7009CB40A /* LFWebAPIKit */ = {
-			isa = PBXGroup;
-			children = (
-				7A0F924A156BA5F3009CB40A /* LFHTTPRequest.h */,
-				7A0F924B156BA5F3009CB40A /* LFHTTPRequest.m */,
-				7A0F924C156BA5F3009CB40A /* LFSiteReachability.h */,
-				7A0F924D156BA5F3009CB40A /* LFSiteReachability.m */,
-				7A0F924E156BA5F3009CB40A /* LFWebAPIKit.h */,
-				7A0F924F156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.h */,
-				7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */,
-			);
-			name = LFWebAPIKit;
-			sourceTree = "<group>";
-		};
 		7A16F3AC16134A5D0019645D /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
@@ -2332,26 +1850,6 @@
 			name = ShareKitLibrary;
 			sourceTree = "<group>";
 		};
-		7AA83C3F170637AE009C483A /* AFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */,
-				7AA83C41170637CC009C483A /* ENAFURLConnectionOperation.m */,
-			);
-			name = AFNetworking;
-			sourceTree = "<group>";
-		};
-		7AA83C50170638BD009C483A /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				7AA83C5517063926009C483A /* NSDate+EDAMAdditions.h */,
-				7AA83C5617063926009C483A /* NSDate+EDAMAdditions.m */,
-				7AA83C51170638EF009C483A /* EDAMNoteStoreClient+Utilities.h */,
-				7AA83C52170638EF009C483A /* EDAMNoteStoreClient+Utilities.m */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
 		7AAE8C9916EB94F200429C51 /* Plurk */ = {
 			isa = PBXGroup;
 			children = (
@@ -2379,30 +1877,6 @@
 			path = "Sina Weibo";
 			sourceTree = "<group>";
 		};
-		A57772B514BA1900003FC744 /* ObjectiveFlickr */ = {
-			isa = PBXGroup;
-			children = (
-				7A0F9249156BA5A7009CB40A /* LFWebAPIKit */,
-				A57772B614BA1900003FC744 /* ObjectiveFlickr.h */,
-				A57772B714BA1900003FC744 /* ObjectiveFlickr.m */,
-				A57772B814BA1900003FC744 /* OFUtilities.h */,
-				A57772B914BA1900003FC744 /* OFUtilities.m */,
-				A57772BA14BA1900003FC744 /* OFXMLMapper.h */,
-				A57772BB14BA1900003FC744 /* OFXMLMapper.m */,
-			);
-			name = ObjectiveFlickr;
-			path = ../../../../../Submodules/objectiveflickr/Source;
-			sourceTree = "<group>";
-		};
-		AA6C09EB16122ED90023EE48 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */,
-				AA7585701624AABF001EFCBE /* FacebookSDKTests.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		AAACE01413CCB1F500A2118F /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
@@ -2418,7 +1892,6 @@
 		AAACE05313CCBED400A2118F /* Flickr */ = {
 			isa = PBXGroup;
 			children = (
-				A57772B514BA1900003FC744 /* ObjectiveFlickr */,
 				AAACE06013CCBED400A2118F /* SHKFlickr.h */,
 				AAACE06113CCBED400A2118F /* SHKFlickr.m */,
 			);
@@ -2478,117 +1951,8 @@
 			children = (
 				DE334C0516F3319800FF692B /* SHKDropbox.h */,
 				DE334C0616F3319800FF692B /* SHKDropbox.m */,
-				DE334C1B16F3330200FF692B /* DropboxSDK */,
 			);
 			path = Dropbox;
-			sourceTree = "<group>";
-		};
-		DE334C1B16F3330200FF692B /* DropboxSDK */ = {
-			isa = PBXGroup;
-			children = (
-				DE334C8816F335EB00FF692B /* DropboxSDK.h */,
-				DE334CBF16F338A900FF692B /* MPDebug.h */,
-				DE334C8916F3360800FF692B /* DBAccountInfo.h */,
-				DE334C8A16F3361200FF692B /* DBAccountInfo.m */,
-				DE334CCA16F33B7B00FF692B /* DBConnectController.h */,
-				DE334CC816F33B7200FF692B /* DBConnectController.m */,
-				DE334CC416F33B3300FF692B /* DBKeychain.h */,
-				DE334CC216F33B2300FF692B /* DBKeychain-iOS.m */,
-				DE334CC516F33B5000FF692B /* DBLog.h */,
-				DE334CC616F33B5900FF692B /* DBLog.m */,
-				DE334C8C16F3363900FF692B /* DBSession.h */,
-				DE334C8D16F3363900FF692B /* DBSession+iOS.h */,
-				DE334C8E16F3364C00FF692B /* DBSession.m */,
-				DE334C8F16F3364C00FF692B /* DBSession+iOS.m */,
-				DE334C9216F3367700FF692B /* DBDefines.h */,
-				DE334C9516F3368E00FF692B /* DBDeltaEntry.h */,
-				DE334C9316F3367700FF692B /* DBDeltaEntry.m */,
-				DE334C9616F336A200FF692B /* DBRestClient.h */,
-				DE334C9816F336AF00FF692B /* DBRestClient.m */,
-				DE334C9E16F336D500FF692B /* DBRequest.h */,
-				DE334C9C16F336CC00FF692B /* DBRequest.m */,
-				DE334C9F16F336DF00FF692B /* DBError.h */,
-				DE334CA016F336EC00FF692B /* DBError.m */,
-				DE334CA416F3370100FF692B /* DBMetadata.h */,
-				DE334CA216F336F700FF692B /* DBMetadata.m */,
-				DE334CA516F3370D00FF692B /* DBQuota.h */,
-				DE334CA616F3371500FF692B /* DBQuota.m */,
-				DE334CAC16F3373800FF692B /* NSDictionary+Dropbox.h */,
-				DE334CA816F3372700FF692B /* NSDictionary+Dropbox.m */,
-				DE334CAD16F3373800FF692B /* NSString+Dropbox.h */,
-				DE334CA916F3372700FF692B /* NSString+Dropbox.m */,
-				DE334C7416F335CB00FF692B /* JSON */,
-				DE334C4216F335A200FF692B /* MPOAuth */,
-			);
-			path = DropboxSDK;
-			sourceTree = "<group>";
-		};
-		DE334C4216F335A200FF692B /* MPOAuth */ = {
-			isa = PBXGroup;
-			children = (
-				DE4D0CA816F34F490056AAE7 /* Modified */,
-				DE334CAE16F3377E00FF692B /* MPOAuthAPI.h */,
-				DE334C4516F335A200FF692B /* MPOAuthAPI.m */,
-				DE334CAF16F3378A00FF692B /* MPOAuthAPIRequestLoader.h */,
-				DE334C4616F335A200FF692B /* MPOAuthAPIRequestLoader.m */,
-				DE334CB016F3379700FF692B /* MPOAuthAuthenticationMethod.h */,
-				DE334C4716F335A200FF692B /* MPOAuthAuthenticationMethod.m */,
-				DE334CB116F3379F00FF692B /* MPOAuthAuthenticationMethodOAuth.h */,
-				DE334C4816F335A200FF692B /* MPOAuthAuthenticationMethodOAuth.m */,
-				DE334CB216F337A700FF692B /* MPOAuthConnection.h */,
-				DE334C4916F335A200FF692B /* MPOAuthConnection.m */,
-				DE4D0CAB16F34FA30056AAE7 /* MPOAuthSignatureParameter.h */,
-				DE334CBD16F3386A00FF692B /* MPOAuthCredentialStore.h */,
-				DE334CBE16F3389100FF692B /* MPOAuthParameterFactory.h */,
-				DE334CB416F337C400FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditions.h */,
-				DE334C4B16F335A200FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m */,
-				DE334CB316F337BA00FF692B /* MPOAuthCredentialConcreteStore.h */,
-				DE334C4C16F335A200FF692B /* MPOAuthCredentialConcreteStore.m */,
-				DE334CB616F337F200FF692B /* MPOAuthURLRequest.h */,
-				DE334C4E16F335A200FF692B /* MPOAuthURLRequest.m */,
-				DE334CB716F337FB00FF692B /* MPOAuthURLResponse.h */,
-				DE334C4F16F335A200FF692B /* MPOAuthURLResponse.m */,
-				DE334CB816F3380600FF692B /* MPURLRequestParameter.h */,
-				DE334C5016F335A200FF692B /* MPURLRequestParameter.m */,
-				DE334CB916F3381000FF692B /* NSString+URLEscapingAdditions.h */,
-				DE334C5116F335A200FF692B /* NSString+URLEscapingAdditions.m */,
-				DE334CBA16F3381700FF692B /* NSURL+MPURLParameterAdditions.h */,
-				DE334C5216F335A200FF692B /* NSURL+MPURLParameterAdditions.m */,
-				DE334CBB16F3381D00FF692B /* NSURLResponse+Encoding.h */,
-				DE334C5316F335A200FF692B /* NSURLResponse+Encoding.m */,
-			);
-			name = MPOAuth;
-			path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/MPOAuth";
-			sourceTree = SOURCE_ROOT;
-		};
-		DE334C7416F335CB00FF692B /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				DE334C7516F335CB00FF692B /* DBJSON.h */,
-				DE334C7616F335CB00FF692B /* DBJSON.m */,
-				DE334C7716F335CB00FF692B /* DBJsonBase.h */,
-				DE334C7816F335CB00FF692B /* DBJsonBase.m */,
-				DE334C7916F335CB00FF692B /* DBJsonParser.h */,
-				DE334C7A16F335CB00FF692B /* DBJsonParser.m */,
-				DE334C7B16F335CB00FF692B /* DBJsonWriter.h */,
-				DE334C7C16F335CB00FF692B /* DBJsonWriter.m */,
-				DE334C7D16F335CB00FF692B /* JSON.h */,
-				DE334C7E16F335CB00FF692B /* NSObject+DBJSON.h */,
-				DE334C7F16F335CB00FF692B /* NSObject+DBJSON.m */,
-				DE334C8016F335CB00FF692B /* NSString+DBJSON.h */,
-				DE334C8116F335CB00FF692B /* NSString+DBJSON.m */,
-			);
-			name = JSON;
-			path = "Submodules/dropbox-sdk-ios/DropboxSDK/Classes/JSON";
-			sourceTree = SOURCE_ROOT;
-		};
-		DE4D0CA816F34F490056AAE7 /* Modified */ = {
-			isa = PBXGroup;
-			children = (
-				DE4D0CA916F34F7C0056AAE7 /* MPOAuthSignatureParameter.m */,
-			);
-			name = Modified;
-			path = ../../../../../Classes/ShareKit/Sharers/Services/Dropbox/DropboxSDK/Modified;
 			sourceTree = "<group>";
 		};
 		E68738B6141677C000D8C3DD /* Logout */ = {
@@ -2658,34 +2022,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFCB5160E11F90086B98A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFCC6160E123C0086B98A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFCD7160E127B0086B98A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7AA83C42170637CC009C483A /* ENAFURLConnectionOperation.h in Headers */,
-				7AA83C4817063828009C483A /* ENGCOAuth.h in Headers */,
-				7AA83C4A17063828009C483A /* NSData+ENBase64.h in Headers */,
-				7AA83C4E1706386E009C483A /* ENConstants.h in Headers */,
-				7AA83C53170638EF009C483A /* EDAMNoteStoreClient+Utilities.h in Headers */,
-				7AA83C5717063926009C483A /* NSDate+EDAMAdditions.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFD19160E13740086B98A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2938,6 +2275,7 @@
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				FF999AC289D2476296646E56 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2967,9 +2305,9 @@
 			productReference = 4503EBC0169104470057294C /* libGoogle Plus.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7A0F91D1156BA2A0009CB40A /* Static Library Core */ = {
+		7A0F91D1156BA2A0009CB40A /* ShareKitCore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7A0F9243156BA2A0009CB40A /* Build configuration list for PBXNativeTarget "Static Library Core" */;
+			buildConfigurationList = 7A0F9243156BA2A0009CB40A /* Build configuration list for PBXNativeTarget "ShareKitCore" */;
 			buildPhases = (
 				7A0F91D2156BA2A0009CB40A /* Sources */,
 				7A0F9240156BA2A0009CB40A /* Frameworks */,
@@ -2979,7 +2317,7 @@
 			);
 			dependencies = (
 			);
-			name = "Static Library Core";
+			name = ShareKitCore;
 			productName = ShareKitLibrary;
 			productReference = 7A0F9246156BA2A0009CB40A /* libShareKitCore.a */;
 			productType = "com.apple.product-type.library.static";
@@ -3018,23 +2356,6 @@
 			productReference = 7A16F3C216134A890019645D /* libInstagram.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7A1AFCB1160E11F90086B98A /* SSKeyChain */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFCBD160E11F90086B98A /* Build configuration list for PBXNativeTarget "SSKeyChain" */;
-			buildPhases = (
-				7A1AFCB2160E11F90086B98A /* Sources */,
-				7A1AFCB4160E11F90086B98A /* Frameworks */,
-				7A1AFCB5160E11F90086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SSKeyChain;
-			productName = ShareKitLibrary;
-			productReference = 7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		7A1AFCC2160E123C0086B98A /* Reachability */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A1AFCCE160E123C0086B98A /* Build configuration list for PBXNativeTarget "Reachability" */;
@@ -3050,40 +2371,6 @@
 			name = Reachability;
 			productName = ShareKitLibrary;
 			productReference = 7A1AFCD1160E123C0086B98A /* libReachability.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7A1AFCD3160E127B0086B98A /* Evernote SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFCDF160E127B0086B98A /* Build configuration list for PBXNativeTarget "Evernote SDK" */;
-			buildPhases = (
-				7A1AFCD4160E127B0086B98A /* Sources */,
-				7A1AFCD6160E127B0086B98A /* Frameworks */,
-				7A1AFCD7160E127B0086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Evernote SDK";
-			productName = ShareKitLibrary;
-			productReference = 7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		7A1AFD15160E13740086B98A /* Flickr SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFD21160E13740086B98A /* Build configuration list for PBXNativeTarget "Flickr SDK" */;
-			buildPhases = (
-				7A1AFD16160E13740086B98A /* Sources */,
-				7A1AFD18160E13740086B98A /* Frameworks */,
-				7A1AFD19160E13740086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Flickr SDK";
-			productName = ShareKitLibrary;
-			productReference = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7A1AFD2B160E14340086B98A /* Twitter */ = {
@@ -3171,9 +2458,9 @@
 			productReference = 7AAE8CA516EB960500429C51 /* libPlurk.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7AB5342D1552AADD00171BCE /* Static Library */ = {
+		7AB5342D1552AADD00171BCE /* ShareKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */;
+			buildConfigurationList = 7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "ShareKit" */;
 			buildPhases = (
 				7AB5342A1552AADD00171BCE /* Sources */,
 				7AB5342B1552AADD00171BCE /* Frameworks */,
@@ -3182,13 +2469,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				DE4D0CA616F34D220056AAE7 /* PBXTargetDependency */,
 				DE334C3016F333B000FF692B /* PBXTargetDependency */,
 				7AAE8CA816EB964900429C51 /* PBXTargetDependency */,
 				7A203D0E16EB7F5100421995 /* PBXTargetDependency */,
 				7A49DBC616BC199F004B7E78 /* PBXTargetDependency */,
 				7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED2165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28ED6165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3203,12 +2488,9 @@
 				7AC28EEA165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EEC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */,
-				7AA83C1E1705E8FC009C483A /* PBXTargetDependency */,
 				7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
 				456BADAF16910966005B3077 /* PBXTargetDependency */,
 				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
 				7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3221,7 +2503,7 @@
 				7AC28F08165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F0A165A1EE7006D7441 /* PBXTargetDependency */,
 			);
-			name = "Static Library";
+			name = ShareKit;
 			productName = ShareKitLibrary;
 			productReference = 7AB5342E1552AADD00171BCE /* libShareKit.a */;
 			productType = "com.apple.product-type.library.static";
@@ -3628,28 +2910,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				DE4D0CA416F34D170056AAE7 /* PBXTargetDependency */,
 			);
 			name = Dropbox;
 			productName = Dropbox;
 			productReference = DE334C2116F3339300FF692B /* libDropbox.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		DE334CCE16F34BDD00FF692B /* Dropbox SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE334CD816F34BDE00FF692B /* Build configuration list for PBXNativeTarget "Dropbox SDK" */;
-			buildPhases = (
-				DE334CCB16F34BDD00FF692B /* Sources */,
-				DE334CCC16F34BDD00FF692B /* Frameworks */,
-				DE334CCD16F34BDD00FF692B /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Dropbox SDK";
-			productName = DropboxSDK;
-			productReference = DE334CCF16F34BDD00FF692B /* libDropbox SDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -3681,19 +2945,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = AA6C09EB16122ED90023EE48 /* Products */;
-					ProjectRef = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Demo App */,
-				7AB5342D1552AADD00171BCE /* Static Library */,
+				7AB5342D1552AADD00171BCE /* ShareKit */,
 				7AB5360E1552E26800171BCE /* Resource Bundle */,
-				7A0F91D1156BA2A0009CB40A /* Static Library Core */,
-				7A1AFCB1160E11F90086B98A /* SSKeyChain */,
+				7A0F91D1156BA2A0009CB40A /* ShareKitCore */,
 				7A16F36F161340DD0019645D /* OAuth */,
 				7A1AFCC2160E123C0086B98A /* Reachability */,
 				AABBECCA162F0756009D46E4 /* Copy */,
@@ -3706,11 +2963,9 @@
 				AABBED00162F0858009D46E4 /* Delicious */,
 				AABBED09162F087F009D46E4 /* Diigo */,
 				AABBED1C162F08E6009D46E4 /* Evernote */,
-				7A1AFCD3160E127B0086B98A /* Evernote SDK */,
 				AABBED25162F0B65009D46E4 /* Facebook */,
 				AABBED38162F0B86009D46E4 /* FoursquareV2 */,
 				AABBED47162F0BA7009D46E4 /* Flickr */,
-				7A1AFD15160E13740086B98A /* Flickr SDK */,
 				4503EBB8169104470057294C /* Google Plus */,
 				7AA83BAA1705E355009C483A /* Google Plus SDK */,
 				AABBED51162F0BC5009D46E4 /* Google Reader */,
@@ -3729,27 +2984,9 @@
 				7A203D0216EB7DA200421995 /* Hatena */,
 				7AAE8C9D16EB960500429C51 /* Plurk */,
 				DE334C2016F3339300FF692B /* Dropbox */,
-				DE334CCE16F34BDD00FF692B /* Dropbox SDK */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libfacebook_ios_sdk.a;
-			remoteRef = AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		AA7585701624AABF001EFCBE /* FacebookSDKTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FacebookSDKTests.octest;
-			remoteRef = AA75856F1624AABF001EFCBE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -3778,6 +3015,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FF999AC289D2476296646E56 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -3873,66 +3127,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFCB2160E11F90086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFCC1160E12330086B98A /* SSKeychain.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFCC3160E123C0086B98A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				7A1AFCD2160E12720086B98A /* SHKReachability.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFCD4160E127B0086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFCE5160E13080086B98A /* TBinaryProtocol.m in Sources */,
-				7A1AFCE6160E13080086B98A /* TProtocolException.m in Sources */,
-				7A1AFCE7160E13080086B98A /* TProtocolUtil.m in Sources */,
-				7A1AFCE8160E13080086B98A /* TApplicationException.m in Sources */,
-				7A1AFCE9160E13080086B98A /* TException.m in Sources */,
-				7A1AFCEA160E13080086B98A /* THTTPClient.m in Sources */,
-				7A1AFCEB160E13080086B98A /* TMemoryBuffer.m in Sources */,
-				7A1AFCEC160E13080086B98A /* TTransportException.m in Sources */,
-				7A1AFCED160E13080086B98A /* EDAMErrors.m in Sources */,
-				7A1AFCEE160E13080086B98A /* EDAMLimits.m in Sources */,
-				7A1AFCEF160E13080086B98A /* EDAMNoteStore.m in Sources */,
-				7A1AFCF0160E13080086B98A /* EDAMTypes.m in Sources */,
-				7A1AFCF1160E13080086B98A /* EDAMUserStore.m in Sources */,
-				7A1AFCF2160E13080086B98A /* EvernoteNoteStore.m in Sources */,
-				7A1AFCF3160E13080086B98A /* EvernoteSDK.m in Sources */,
-				7A1AFCF4160E13080086B98A /* EvernoteSession.m in Sources */,
-				7A1AFCF5160E13080086B98A /* EvernoteUserStore.m in Sources */,
-				7A1AFCF6160E13080086B98A /* ENAPI.m in Sources */,
-				7A1AFCF7160E13080086B98A /* ENCredentials.m in Sources */,
-				7A1AFCF8160E13080086B98A /* ENCredentialStore.m in Sources */,
-				7A1AFCF9160E13080086B98A /* ENOAuthViewController.m in Sources */,
-				7AA83C43170637CC009C483A /* ENAFURLConnectionOperation.m in Sources */,
-				7AA83C4917063828009C483A /* ENGCOAuth.m in Sources */,
-				7AA83C4B17063828009C483A /* NSData+ENBase64.m in Sources */,
-				7AA83C4F1706386E009C483A /* ENConstants.m in Sources */,
-				7AA83C54170638EF009C483A /* EDAMNoteStoreClient+Utilities.m in Sources */,
-				7AA83C5817063926009C483A /* NSDate+EDAMAdditions.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFD16160E13740086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7A1AFD25160E13AB0086B98A /* LFHTTPRequest.m in Sources */,
-				7A1AFD26160E13AB0086B98A /* LFSiteReachability.m in Sources */,
-				7A1AFD27160E13AB0086B98A /* NSData+LFHTTPFormExtensions.m in Sources */,
-				7A1AFD28160E13AB0086B98A /* ObjectiveFlickr.m in Sources */,
-				7A1AFD29160E13AB0086B98A /* OFUtilities.m in Sources */,
-				7A1AFD2A160E13AB0086B98A /* OFXMLMapper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4215,47 +3414,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE334CCB16F34BDD00FF692B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE334CDB16F34C8E00FF692B /* DBAccountInfo.m in Sources */,
-				DE334CDC16F34C8E00FF692B /* DBConnectController.m in Sources */,
-				DE334CDD16F34C8E00FF692B /* DBKeychain-iOS.m in Sources */,
-				DE334CDE16F34C8E00FF692B /* DBLog.m in Sources */,
-				DE334CDF16F34C8E00FF692B /* DBSession.m in Sources */,
-				DE334CE016F34C8E00FF692B /* DBSession+iOS.m in Sources */,
-				DE334CE116F34C8E00FF692B /* DBDeltaEntry.m in Sources */,
-				DE334CE216F34C8E00FF692B /* DBRestClient.m in Sources */,
-				DE334CE316F34C8E00FF692B /* DBRequest.m in Sources */,
-				DE334CE416F34C8E00FF692B /* DBError.m in Sources */,
-				DE334CE516F34C8E00FF692B /* DBMetadata.m in Sources */,
-				DE334CE616F34C8E00FF692B /* DBQuota.m in Sources */,
-				DE334CE716F34C8E00FF692B /* NSDictionary+Dropbox.m in Sources */,
-				DE334CE816F34C8E00FF692B /* NSString+Dropbox.m in Sources */,
-				DE334CE916F34C8E00FF692B /* DBJSON.m in Sources */,
-				DE334CEA16F34C8E00FF692B /* DBJsonBase.m in Sources */,
-				DE334CEB16F34C8E00FF692B /* DBJsonParser.m in Sources */,
-				DE334CEC16F34C8E00FF692B /* DBJsonWriter.m in Sources */,
-				DE334CED16F34C8E00FF692B /* NSObject+DBJSON.m in Sources */,
-				DE334CEE16F34C8E00FF692B /* NSString+DBJSON.m in Sources */,
-				DE334CEF16F34C8E00FF692B /* MPOAuthAPI.m in Sources */,
-				DE334CF016F34C8E00FF692B /* MPOAuthAPIRequestLoader.m in Sources */,
-				DE334CF116F34C8E00FF692B /* MPOAuthAuthenticationMethod.m in Sources */,
-				DE334CF216F34C8E00FF692B /* MPOAuthAuthenticationMethodOAuth.m in Sources */,
-				DE334CF316F34C8E00FF692B /* MPOAuthConnection.m in Sources */,
-				DE334CF416F34C8E00FF692B /* MPOAuthCredentialConcreteStore+KeychainAdditionsiPhone.m in Sources */,
-				DE334CF516F34C8E00FF692B /* MPOAuthCredentialConcreteStore.m in Sources */,
-				DE334CF716F34C8E00FF692B /* MPOAuthURLRequest.m in Sources */,
-				DE334CF816F34C8E00FF692B /* MPOAuthURLResponse.m in Sources */,
-				DE334CF916F34C8E00FF692B /* MPURLRequestParameter.m in Sources */,
-				DE334CFA16F34C8E00FF692B /* NSString+URLEscapingAdditions.m in Sources */,
-				DE334CFB16F34C8E00FF692B /* NSURL+MPURLParameterAdditions.m in Sources */,
-				DE334CFC16F34C8E00FF692B /* NSURLResponse+Encoding.m in Sources */,
-				DE4D0CAA16F34F7C0056AAE7 /* MPOAuthSignatureParameter.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -4271,7 +3429,7 @@
 		};
 		7A28825A1553FF96007DC379 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7AB5342D1552AADD00171BCE /* Static Library */;
+			target = 7AB5342D1552AADD00171BCE /* ShareKit */;
 			targetProxy = 7A2882591553FF96007DC379 /* PBXContainerItemProxy */;
 		};
 		7A28825C1553FF9A007DC379 /* PBXTargetDependency */ = {
@@ -4289,11 +3447,6 @@
 			target = 7AA83BAA1705E355009C483A /* Google Plus SDK */;
 			targetProxy = 7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */;
 		};
-		7AA83C1E1705E8FC009C483A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = 7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */;
-		};
 		7AAE8CA816EB964900429C51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7AAE8C9D16EB960500429C51 /* Plurk */;
@@ -4301,13 +3454,8 @@
 		};
 		7AC28ECC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7A0F91D1156BA2A0009CB40A /* Static Library Core */;
+			target = 7A0F91D1156BA2A0009CB40A /* ShareKitCore */;
 			targetProxy = 7AC28ECB165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28ED0165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1AFCB1160E11F90086B98A /* SSKeyChain */;
-			targetProxy = 7AC28ECF165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28ED2165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4379,11 +3527,6 @@
 			target = AABBED1C162F08E6009D46E4 /* Evernote */;
 			targetProxy = 7AC28EED165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
-		7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1AFCD3160E127B0086B98A /* Evernote SDK */;
-			targetProxy = 7AC28EEF165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
 		7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AABBED25162F0B65009D46E4 /* Facebook */;
@@ -4398,11 +3541,6 @@
 			isa = PBXTargetDependency;
 			target = AABBED47162F0BA7009D46E4 /* Flickr */;
 			targetProxy = 7AC28EF5165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1AFD15160E13740086B98A /* Flickr SDK */;
-			targetProxy = 7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4454,23 +3592,13 @@
 			target = DE334C2016F3339300FF692B /* Dropbox */;
 			targetProxy = DE334C2F16F333B000FF692B /* PBXContainerItemProxy */;
 		};
-		DE4D0CA416F34D170056AAE7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE334CCE16F34BDD00FF692B /* Dropbox SDK */;
-			targetProxy = DE4D0CA316F34D170056AAE7 /* PBXContainerItemProxy */;
-		};
-		DE4D0CA616F34D220056AAE7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE334CCE16F34BDD00FF692B /* Dropbox SDK */;
-			targetProxy = DE4D0CA516F34D220056AAE7 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1562C7D7B263492CA75863C3 /* Pods.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -4480,6 +3608,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-all_load",
 				);
@@ -4491,8 +3620,8 @@
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1562C7D7B263492CA75863C3 /* Pods.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4500,6 +3629,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				INFOPLIST_FILE = "ShareKit-Info.plist";
 				OTHER_LDFLAGS = (
+					"$(inherited)",
 					"-ObjC",
 					"-all_load",
 				);
@@ -4513,7 +3643,6 @@
 		4503EBBE169104470057294C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4526,16 +3655,11 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
 				);
 				PRODUCT_NAME = "Google Plus";
 				SKIP_INSTALL = YES;
@@ -4545,22 +3669,16 @@
 		4503EBBF169104470057294C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
 				);
 				PRODUCT_NAME = "Google Plus";
 				SKIP_INSTALL = YES;
@@ -4570,7 +3688,6 @@
 		7A0F9244156BA2A0009CB40A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4583,12 +3700,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = ShareKitCore;
 				SKIP_INSTALL = YES;
 			};
@@ -4597,18 +3709,12 @@
 		7A0F9245156BA2A0009CB40A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = ShareKitCore;
 				SKIP_INSTALL = YES;
 			};
@@ -4617,10 +3723,8 @@
 		7A16F37C161340DD0019645D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4630,12 +3734,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = OAuth;
 				SKIP_INSTALL = YES;
 			};
@@ -4644,18 +3743,11 @@
 		7A16F37D161340DD0019645D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = OAuth;
 				SKIP_INSTALL = YES;
 			};
@@ -4664,7 +3756,6 @@
 		7A16F3C016134A890019645D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4677,12 +3768,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Instagram;
 				SKIP_INSTALL = YES;
 			};
@@ -4691,66 +3777,13 @@
 		7A16F3C116134A890019645D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Instagram;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7A1AFCBE160E11F90086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = SSKeyChain;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFCBF160E11F90086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = SSKeyChain;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -4758,7 +3791,6 @@
 		7A1AFCCF160E123C0086B98A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4771,12 +3803,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Reachability;
 				SKIP_INSTALL = YES;
 			};
@@ -4785,115 +3812,13 @@
 		7A1AFCD0160E123C0086B98A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Reachability;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7A1AFCE0160E127B0086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Evernote SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFCE1160E127B0086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Evernote SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7A1AFD22160E13740086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Flickr SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFD23160E13740086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Flickr SDK";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -4901,7 +3826,6 @@
 		7A1AFD38160E14340086B98A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4914,12 +3838,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Twitter;
 				SKIP_INSTALL = YES;
 			};
@@ -4928,18 +3847,12 @@
 		7A1AFD39160E14340086B98A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Twitter;
 				SKIP_INSTALL = YES;
 			};
@@ -4948,7 +3861,6 @@
 		7A203D0816EB7DA200421995 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4961,12 +3873,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Hatena;
 				SKIP_INSTALL = YES;
 			};
@@ -4975,18 +3882,12 @@
 		7A203D0916EB7DA200421995 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Hatena;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -4996,7 +3897,6 @@
 		7A49DBC116BC193E004B7E78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5009,12 +3909,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Readability;
 				SKIP_INSTALL = YES;
 			};
@@ -5023,18 +3918,12 @@
 		7A49DBC216BC193E004B7E78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Readability;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -5044,7 +3933,6 @@
 		7AA83BF71705E355009C483A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5057,16 +3945,11 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
 				);
 				PRODUCT_NAME = "Google Plus SDK";
 				SKIP_INSTALL = YES;
@@ -5076,22 +3959,16 @@
 		7AA83BF81705E355009C483A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk/lib\"",
 					"\"$(SRCROOT)/Submodules/googleplus-ios-sdk\"",
-				);
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
 				);
 				PRODUCT_NAME = "Google Plus SDK";
 				SKIP_INSTALL = YES;
@@ -5101,7 +3978,6 @@
 		7AAE8CA316EB960500429C51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5114,12 +3990,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Plurk;
 				SKIP_INSTALL = YES;
 			};
@@ -5128,18 +3999,12 @@
 		7AAE8CA416EB960500429C51 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Plurk;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
@@ -5149,7 +4014,6 @@
 		7AB534371552AADD00171BCE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5162,40 +4026,25 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = ShareKit;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		7AB534381552AADD00171BCE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = ShareKit;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -5251,7 +4100,6 @@
 		7AC2A39E16597F4C0089ABE8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5264,12 +4112,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Sina Weibo";
 				SKIP_INSTALL = YES;
 			};
@@ -5278,18 +4121,12 @@
 		7AC2A39F16597F4C0089ABE8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Sina Weibo";
 				SKIP_INSTALL = YES;
 			};
@@ -5298,7 +4135,6 @@
 		AABBECBC162F063F009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5311,12 +4147,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Print;
 				SKIP_INSTALL = YES;
 			};
@@ -5325,18 +4156,12 @@
 		AABBECBD162F063F009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Print;
 				SKIP_INSTALL = YES;
 			};
@@ -5345,7 +4170,6 @@
 		AABBECC7162F0719009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5358,12 +4182,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Logout;
 				SKIP_INSTALL = YES;
 			};
@@ -5372,18 +4191,12 @@
 		AABBECC8162F0719009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Logout;
 				SKIP_INSTALL = YES;
 			};
@@ -5392,7 +4205,6 @@
 		AABBECD0162F0756009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5405,12 +4217,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Copy;
 				SKIP_INSTALL = YES;
 			};
@@ -5419,18 +4226,12 @@
 		AABBECD1162F0756009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Copy;
 				SKIP_INSTALL = YES;
 			};
@@ -5439,7 +4240,6 @@
 		AABBECD9162F0779009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5452,12 +4252,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Email;
 				SKIP_INSTALL = YES;
 			};
@@ -5466,18 +4261,12 @@
 		AABBECDA162F0779009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Email;
 				SKIP_INSTALL = YES;
 			};
@@ -5486,7 +4275,6 @@
 		AABBECE2162F07B4009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5499,12 +4287,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Open in Safari";
 				SKIP_INSTALL = YES;
 			};
@@ -5513,18 +4296,12 @@
 		AABBECE3162F07B4009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Open in Safari";
 				SKIP_INSTALL = YES;
 			};
@@ -5533,7 +4310,6 @@
 		AABBECEB162F07DF009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5546,12 +4322,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Save to Album";
 				SKIP_INSTALL = YES;
 			};
@@ -5560,18 +4331,12 @@
 		AABBECEC162F07DF009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Save to Album";
 				SKIP_INSTALL = YES;
 			};
@@ -5580,7 +4345,6 @@
 		AABBECF4162F080F009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5593,12 +4357,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Text Message";
 				SKIP_INSTALL = YES;
 			};
@@ -5607,18 +4366,12 @@
 		AABBECF5162F080F009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Text Message";
 				SKIP_INSTALL = YES;
 			};
@@ -5627,7 +4380,6 @@
 		AABBECFD162F0835009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5640,12 +4392,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Kippt;
 				SKIP_INSTALL = YES;
 			};
@@ -5654,18 +4401,12 @@
 		AABBECFE162F0835009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Kippt;
 				SKIP_INSTALL = YES;
 			};
@@ -5674,7 +4415,6 @@
 		AABBED06162F0858009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5687,12 +4427,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Delicious;
 				SKIP_INSTALL = YES;
 			};
@@ -5701,18 +4436,12 @@
 		AABBED07162F0858009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Delicious;
 				SKIP_INSTALL = YES;
 			};
@@ -5721,7 +4450,6 @@
 		AABBED0F162F087F009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5734,12 +4462,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Diigo;
 				SKIP_INSTALL = YES;
 			};
@@ -5748,18 +4471,12 @@
 		AABBED10162F087F009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Diigo;
 				SKIP_INSTALL = YES;
 			};
@@ -5768,7 +4485,6 @@
 		AABBED19162F08A3009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5781,12 +4497,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = VKontakte;
 				SKIP_INSTALL = YES;
 			};
@@ -5795,18 +4506,12 @@
 		AABBED1A162F08A3009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = VKontakte;
 				SKIP_INSTALL = YES;
 			};
@@ -5815,7 +4520,6 @@
 		AABBED22162F08E6009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5828,12 +4532,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Evernote;
 				SKIP_INSTALL = YES;
 			};
@@ -5842,18 +4541,12 @@
 		AABBED23162F08E6009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Evernote;
 				SKIP_INSTALL = YES;
 			};
@@ -5874,15 +4567,9 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 			};
 			name = Debug;
 		};
@@ -5894,22 +4581,15 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
 			};
 			name = Release;
 		};
 		AABBED44162F0B86009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5922,12 +4602,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = FoursquareV2;
 				SKIP_INSTALL = YES;
 			};
@@ -5936,18 +4611,12 @@
 		AABBED45162F0B86009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = FoursquareV2;
 				SKIP_INSTALL = YES;
 			};
@@ -5956,7 +4625,6 @@
 		AABBED4E162F0BA7009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5969,12 +4637,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Flickr;
 				SKIP_INSTALL = YES;
 			};
@@ -5983,18 +4646,12 @@
 		AABBED4F162F0BA7009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Flickr;
 				SKIP_INSTALL = YES;
 			};
@@ -6003,7 +4660,6 @@
 		AABBED57162F0BC5009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6016,12 +4672,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Google Reader";
 				SKIP_INSTALL = YES;
 			};
@@ -6030,18 +4681,12 @@
 		AABBED58162F0BC5009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Google Reader";
 				SKIP_INSTALL = YES;
 			};
@@ -6050,7 +4695,6 @@
 		AABBED60162F0BE8009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6063,12 +4707,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Instapaper;
 				SKIP_INSTALL = YES;
 			};
@@ -6077,18 +4716,12 @@
 		AABBED61162F0BE8009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Instapaper;
 				SKIP_INSTALL = YES;
 			};
@@ -6097,7 +4730,6 @@
 		AABBED69162F0C03009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6110,12 +4742,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = LinkedIn;
 				SKIP_INSTALL = YES;
 			};
@@ -6124,18 +4751,12 @@
 		AABBED6A162F0C03009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = LinkedIn;
 				SKIP_INSTALL = YES;
 			};
@@ -6144,7 +4765,6 @@
 		AABBED72162F0C1A009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6157,13 +4777,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Pinboard;
 				SKIP_INSTALL = YES;
 			};
@@ -6172,19 +4786,12 @@
 		AABBED73162F0C1A009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Pinboard;
 				SKIP_INSTALL = YES;
 			};
@@ -6193,13 +4800,8 @@
 		AABBED7B162F0C33009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6210,13 +4812,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Read It Later";
 				SKIP_INSTALL = YES;
 			};
@@ -6225,23 +4821,12 @@
 		AABBED7C162F0C33009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = "Read It Later";
 				SKIP_INSTALL = YES;
 			};
@@ -6250,7 +4835,6 @@
 		AABBED84162F0C4D009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -6263,12 +4847,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Tumblr;
 				SKIP_INSTALL = YES;
 			};
@@ -6277,18 +4856,12 @@
 		AABBED85162F0C4D009D46E4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
 				PRODUCT_NAME = Tumblr;
 				SKIP_INSTALL = YES;
 			};
@@ -6297,12 +4870,12 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PODS_ROOT = "${SRCROOT}/Pods";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -6311,13 +4884,13 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PODS_ROOT = "${SRCROOT}/Pods";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -6326,7 +4899,6 @@
 		DE334C2B16F3339400FF692B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -6347,9 +4919,6 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -6358,7 +4927,6 @@
 		DE334C2C16F3339400FF692B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -6372,68 +4940,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		DE334CD916F34BDE00FF692B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/DropboxSDK.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		DE334CDA16F34BDE00FF692B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/DropboxSDK.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = ShareKit_Prefix.pch;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -6458,7 +4966,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A0F9243156BA2A0009CB40A /* Build configuration list for PBXNativeTarget "Static Library Core" */ = {
+		7A0F9243156BA2A0009CB40A /* Build configuration list for PBXNativeTarget "ShareKitCore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A0F9244156BA2A0009CB40A /* Debug */,
@@ -6485,38 +4993,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7A1AFCBD160E11F90086B98A /* Build configuration list for PBXNativeTarget "SSKeyChain" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFCBE160E11F90086B98A /* Debug */,
-				7A1AFCBF160E11F90086B98A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		7A1AFCCE160E123C0086B98A /* Build configuration list for PBXNativeTarget "Reachability" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7A1AFCCF160E123C0086B98A /* Debug */,
 				7A1AFCD0160E123C0086B98A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A1AFCDF160E127B0086B98A /* Build configuration list for PBXNativeTarget "Evernote SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFCE0160E127B0086B98A /* Debug */,
-				7A1AFCE1160E127B0086B98A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A1AFD21160E13740086B98A /* Build configuration list for PBXNativeTarget "Flickr SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFD22160E13740086B98A /* Debug */,
-				7A1AFD23160E13740086B98A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -6566,7 +5047,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "Static Library" */ = {
+		7AB534361552AADD00171BCE /* Build configuration list for PBXNativeTarget "ShareKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7AB534371552AADD00171BCE /* Debug */,
@@ -6796,15 +5277,6 @@
 			buildConfigurations = (
 				DE334C2B16F3339400FF692B /* Debug */,
 				DE334C2C16F3339400FF692B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DE334CD816F34BDE00FF692B /* Build configuration list for PBXNativeTarget "Dropbox SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DE334CD916F34BDE00FF692B /* Debug */,
-				DE334CDA16F34BDE00FF692B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

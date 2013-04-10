@@ -43,6 +43,11 @@ static NSString *tempDirectory;
 -(void)dealloc
 {
     [self removeTempFile];
+    [_path release];
+    [_data release];
+    [_filename release];
+    [_mimeType release];
+    [super dealloc];
 }
 
 - (id)initWithFile:(NSString *)path {
@@ -51,9 +56,9 @@ static NSString *tempDirectory;
     
     if (self) {
         
-        _path = path;
-        _filename = path.lastPathComponent;
-        _mimeType = [self MIMETypeForPath:self.filename];
+        _path = [path retain];
+        _filename = [path.lastPathComponent retain];
+        _mimeType = [[self MIMETypeForPath:self.filename] retain];
     }
     return self;
 }
@@ -64,12 +69,12 @@ static NSString *tempDirectory;
     
     if (self) {
         
-        _data = data;
+        _data = [data retain];
         
         if (!filename) filename = [NSString stringWithFormat:@"ShareKit_file_%li", random() % 100];
         
-        _filename = filename;
-        _mimeType = [self MIMETypeForPath:self.filename];
+        _filename = [filename retain];
+        _mimeType = [[self MIMETypeForPath:self.filename] retain];
     }
     return self;
 }
@@ -80,18 +85,18 @@ static NSString *tempDirectory;
     
     if (self) {
         
-        _path = [decoder decodeObjectForKey:kSHKFilePath];
+        _path = [[decoder decodeObjectForKey:kSHKFilePath] retain];
         
         if (_path) {
             
-            _filename = _path.lastPathComponent;
-            _mimeType = [self MIMETypeForPath:_filename];
+            _filename = [_path.lastPathComponent retain];
+            _mimeType = [[self MIMETypeForPath:_filename] retain];
         
         } else {
             
-            _data = [decoder decodeObjectForKey:kSHKFileData];
-            _filename = [decoder decodeObjectForKey:kSHKFileName];
-            _mimeType = [self MIMETypeForPath:_filename];
+            _data = [[decoder decodeObjectForKey:kSHKFileData] retain];
+            _filename = [[decoder decodeObjectForKey:kSHKFileName] retain];
+            _mimeType = [[self MIMETypeForPath:_filename] retain];
         }
     }
     return self;
@@ -157,11 +162,11 @@ static NSString *kSHKFileData = @"kSHKFileData";
 
 -(void)createPathFromData
 {
-	// Generate a unique id for the share to use when saving associated files
-	NSString *uid = [tempDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"SHKfile-%f-%i.",[[NSDate date] timeIntervalSince1970], arc4random()]];
+    // Generate a unique id for the share to use when saving associated files
+    NSString *uid = [tempDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"SHKfile-%f-%i.",[[NSDate date] timeIntervalSince1970], arc4random()]];
     
     // Our filename
-    _path = [uid stringByAppendingPathExtension:self.filename];
+    _path = [[uid stringByAppendingPathExtension:self.filename] retain];
     
     // Create our file
     if([[NSFileManager defaultManager] fileExistsAtPath:_path]) {
@@ -175,7 +180,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 -(void)createDataFromPath
 {
     NSError *error;
-    _data = [NSData dataWithContentsOfFile:_path options:NSDataReadingMapped|NSDataReadingUncached error:&error];
+    _data = [[NSData dataWithContentsOfFile:_path options:NSDataReadingMapped|NSDataReadingUncached error:&error] retain];
     
     if(error){
         // TODO: Handle this error
@@ -214,7 +219,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 - (NSString *)MIMETypeForPath:(NSString *)path{
     NSString *result = @"";
     NSString *extension = [path pathExtension];
-    CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
+    CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)extension, NULL);
     if (uti) {
         CFStringRef cfMIMEType = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType);
         if (cfMIMEType) {
