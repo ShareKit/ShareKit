@@ -9,9 +9,9 @@
 #import "SHKEvernote.h"
 #import "NSData+md5.h"
 #import "SHKConfiguration.h"
-#import "EvernoteSDK.h"
 #import "GTMNSString+HTML.h"
 #import "SHKActivityIndicator.h"
+#import <Evernote-SDK-iOS/EvernoteSDK.h>
 
 @implementation SHKEvernoteItem
 @synthesize note;

@@ -30,9 +30,9 @@
 #import "SHKConfiguration.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
-#import "SSKeychain.h"
 #import "SHKReachability.h"
 #import "SHKMail.h"
+#import <SSKeychain/SSKeychain.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
@@ -435,8 +435,7 @@ BOOL SHKinit;
 	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
 	return [SSKeychain passwordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-								  account:key 
-									error:nil ];
+								  account:key];
 #endif
 }
 
@@ -450,8 +449,7 @@ BOOL SHKinit;
 #else
 	[SSKeychain setPassword:value 
 				 forService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-					account:key 
-					  error:nil];
+					account:key];
 #endif
 }
 
@@ -464,8 +462,7 @@ BOOL SHKinit;
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
 	[SSKeychain deletePasswordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
-								 account:key 
-								   error:nil];
+								 account:key];
 #endif
 }
 

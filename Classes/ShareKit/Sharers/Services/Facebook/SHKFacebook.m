@@ -28,7 +28,7 @@
 
 #import "SHKiOSFacebook.h"
 #import "SHKFacebook.h"
-#import <FacebookSDK.h>
+#import <Facebook-iOS-SDK/FacebookSDK/Facebook.h>
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
