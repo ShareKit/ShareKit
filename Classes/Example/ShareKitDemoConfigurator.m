@@ -252,6 +252,10 @@
 - (NSString *) dropboxRootFolder {
     return @"dropbox";
 }
+
+-(BOOL)dropboxShouldOverwriteExistedFile {
+    return NO;
+}
 -(NSString *)youTubeConsumerKey
 {
     return @"210716542944.apps.googleusercontent.com";

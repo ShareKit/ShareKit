@@ -45,7 +45,7 @@ static NSString *tempDirectory;
     [self removeTempFile];
 }
 
-- (id)initWithFile:(NSString *)path {
+- (id)initWithFilePath:(NSString *)path {
     
     self = [super init];
     
@@ -58,7 +58,7 @@ static NSString *tempDirectory;
     return self;
 }
 
-- (id)initWithFile:(NSData *)data filename:(NSString *)filename {
+- (id)initWithFileData:(NSData *)data filename:(NSString *)filename {
     
     self = [super init];
     
@@ -157,20 +157,28 @@ static NSString *kSHKFileData = @"kSHKFileData";
 
 -(void)createPathFromData
 {
-	// Generate a unique id for the share to use when saving associated files
-	NSString *uid = [tempDirectory stringByAppendingPathComponent:[NSString stringWithFormat:@"SHKfile-%f-%i.",[[NSDate date] timeIntervalSince1970], arc4random()]];
+    NSString *sanitizedFileName = [self sanitizeFileNameString:self.filename];
     
     // Our filename
-    _path = [uid stringByAppendingPathExtension:self.filename];
+    _path = [tempDirectory stringByAppendingPathComponent:sanitizedFileName];
     
     // Create our file
     if([[NSFileManager defaultManager] fileExistsAtPath:_path]) {
         // TODO: This file already exists - throw an error
+        NSAssert(NO, @"file already exists?!");
     }
     
     // Read our file into the file system
     [_data writeToFile:_path atomically:YES];
 }
+
+- (NSString *)sanitizeFileNameString:(NSString *)fileName {
+    
+    NSCharacterSet* illegalFileNameCharacters = [NSCharacterSet characterSetWithCharactersInString:@"/\\?%*|\"<>"];
+    NSString *result = [[fileName componentsSeparatedByCharactersInSet:illegalFileNameCharacters] componentsJoinedByString:@""];
+    return result;
+}
+
 
 -(void)createDataFromPath
 {

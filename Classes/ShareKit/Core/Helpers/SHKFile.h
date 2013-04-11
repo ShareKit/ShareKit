@@ -44,7 +44,7 @@
  *
  * @param path Path to the file
  */
-- (id)initWithFile:(NSString *)path;
+- (id)initWithFilePath:(NSString *)path;
 
 /**
  * A fallback for file creation, where we just get the data
@@ -52,6 +52,6 @@
  * @param data File data
  * @param filename Filename
  */
-- (id)initWithFile:(NSData *)data filename:(NSString *)filename;
+- (id)initWithFileData:(NSData *)data filename:(NSString *)filename;
 
 @end

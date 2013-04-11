@@ -144,7 +144,7 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeFile;
     
-    SHKFile *file = [[[SHKFile alloc] initWithFile:path] autorelease];
+    SHKFile *file = [[[SHKFile alloc] initWithFilePath:path] autorelease];
     item.file = file;
 	item.title = title;
 	
@@ -158,7 +158,7 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
     
     if (!filename) filename = title;
     
-    SHKFile *file = [[[SHKFile alloc] initWithFile:data filename:filename] autorelease];
+    SHKFile *file = [[[SHKFile alloc] initWithFileData:data filename:filename] autorelease];
     item.file = file;
 	item.title = title;
 	
@@ -168,6 +168,43 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title {
     
     return [[self class] fileData:data filename:filename title:title];
+}
+
+- (void)convertImageShareToFileShareOfType:(SHKImageConversionType)conversionType quality:(CGFloat)quality {
+    
+    if (!self.image) return;
+    
+    self.shareType = SHKShareTypeFile;
+    
+    NSData *imageData = nil;
+    NSString *extension = nil;
+    
+    switch (conversionType) {
+        case SHKImageConversionTypeJPG:
+            imageData = UIImageJPEGRepresentation(self.image, quality);
+            extension = @"jpg";
+            break;
+        case SHKImageConversionTypePNG:
+            imageData = UIImagePNGRepresentation(self.image);
+            extension = @"png";
+            break;
+        default:
+            break;
+    }
+    
+    NSString *rawFileName = nil;
+    if (self.title.length > 0) {
+        rawFileName = self.title;
+    } else {
+        rawFileName = @"Image";
+    }
+    
+    NSString *filename = [NSString stringWithFormat:@"%@.%@", rawFileName, extension];
+    SHKFile *aFile = [[SHKFile alloc] initWithFileData:imageData filename:filename];
+    self.file = aFile;
+    [aFile release];
+    
+    self.image = nil;
 }
 
 #pragma mark -

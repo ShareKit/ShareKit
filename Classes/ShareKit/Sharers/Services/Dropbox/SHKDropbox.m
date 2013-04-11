@@ -20,7 +20,6 @@
 static NSString *const kSHKDropboxUserInfo =@"SHKDropboxUserInfo";
 static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
-static NSString *const kSHKDropboxImagePathExtention =@"png";
 
 typedef enum {
     _isNotChecked  =   0,
@@ -204,27 +203,13 @@ typedef enum {
 {
 	return SHKLocalizedString(@"Dropbox");
 }
-+ (BOOL)canShare {
-    return YES;
-}
-+ (BOOL)canShareURL
-{
-    return FALSE;
-}
 
 + (BOOL)canShareImage
 {
     return YES;
 }
 
-+ (BOOL)canShareText
-{
-    return FALSE;
-}
-+ (BOOL)canShareFile:(SHKFile *)file {
-    return YES;
-}
-+ (BOOL)canGetUserInfo
++ (BOOL)canShareFile:(SHKFile *)file
 {
     return YES;
 }
@@ -268,17 +253,25 @@ typedef enum {
 
 - (BOOL) send
 {
-	if (![self validateItem])
-		return NO;
-    _startSending = FALSE;
+	if (self.item.shareType == SHKShareTypeImage) {
+        
+        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypePNG quality:0];
+    }
     
-    if ((self.item.shareType == SHKShareTypeFile && self.item.file)  || (self.item.shareType == SHKShareTypeImage && self.item.image))
+    if (![self validateItem]) return NO;
+    
+    _startSending = FALSE;
+
+    if (self.item.shareType == SHKShareTypeFile)
     {
         metadataStatus = _isNotChecked;
 
         NSString *destinationDir = [self destinationDir];
         [self.item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDir];
-        NSString *remoteFilePath = [destinationDir stringByAppendingString:self.item.file.filename];
+        NSString *dropboxFileName = [self.item.file.filename normalizedDropboxPath];
+        [self.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];
+        NSString *remoteFilePath = [destinationDir stringByAppendingString:dropboxFileName];
+        
         [self performSelectorOnMainThread:@selector(startLoadDropboxMetadata:) withObject:remoteFilePath waitUntilDone:FALSE];
         
         [self retain];
@@ -299,8 +292,8 @@ typedef enum {
         } else {
             result = [NSString stringWithFormat:@"/"];
         }
-        //TODO: check if the data is not of type image
-        if (self.item.image) {
+        
+        if ([self.item.file.mimeType hasPrefix:@"image/"]) {
             result = [result stringByAppendingFormat:@"Photos/"];
         }
     }
@@ -471,7 +464,7 @@ static int outstandingRequests = 0;
         [[SHKActivityIndicator currentIndicator] hide];
     }
     if (metadata && metadata.path.length > 0) {
-        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:self.item.file.filename]) {
+        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:[self.item customValueForKey:kSHKDropboxStoredFileName]]) {
             if (![self shouldOverwrite]) {
                 [self.item setCustomValue:metadata.rev forKey:kSHKDropboxParentRevision];
                 [self showDropboxForm];
@@ -602,7 +595,7 @@ static int outstandingRequests = 0;
                         [SHKFormFieldSettings label:SHKLocalizedString(@"File name")
                                                 key:@"fileName"
                                                type:SHKFormFieldTypeTextNoCorrect
-                                              start:[[self.item customValueForKey:kSHKDropboxDestinationDir] stringByAppendingString:self.item.file.filename]],
+                                              start:[[self.item customValueForKey:kSHKDropboxDestinationDir] stringByAppendingString:[self.item customValueForKey:kSHKDropboxStoredFileName]]],
                         nil];
 	[form addSection:fileSecton header:SHKLocalizedString(@"Do you want to overwrite existing file in %@?", [self sharerTitle]) footer:@"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name"];
 	form.delegate = self;
@@ -637,7 +630,7 @@ static int outstandingRequests = 0;
     NSString *dir = [formPath stringByDeletingLastPathComponent];
     NSString *fileName = [formPath lastPathComponent];
     if (fileName.length > 0) {
-        if (![fileName isEqualToString:self.item.file.filename]) {
+        if (![fileName isEqualToString:kSHKDropboxStoredFileName]) {
             [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
             [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
         } else if (dir.length > 0) {

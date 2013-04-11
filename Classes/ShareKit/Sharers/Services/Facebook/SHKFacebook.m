@@ -32,7 +32,6 @@
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import <Social/Social.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";
