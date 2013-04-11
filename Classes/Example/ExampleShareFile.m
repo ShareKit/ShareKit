@@ -29,6 +29,8 @@
 #import "SHK.h"
 #import "SHKActionSheet.h"
 
+#define SHARE_FILE_WITH_PATH 1
+
 @interface ExampleShareFile () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -79,29 +81,50 @@
         case 0:
         {
             NSString *filePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"example.pdf"];
-            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem fileData:file filename:@"Awesome.pdf" title:@"My Awesome PDF"];
+            
+            if (SHARE_FILE_WITH_PATH) {
+                item = [SHKItem filePath:filePath title:@"My Awesome PDF"];
+            } else {
+                NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+                item = [SHKItem fileData:file filename:@"Awesome.pdf" title:@"My Awesome PDF"];
+            }
+
             break;
         }
         case 1:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
-            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem fileData:file filename:@"demo_video_share.mov" title:@"Impressionism - blue ball"];
+            
+            if (SHARE_FILE_WITH_PATH) {
+                item = [SHKItem filePath:filePath title:@"Impressionism - blue ball"];
+            } else {
+                NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+                item = [SHKItem fileData:file filename:@"demo_video_share.mov" title:@"Impressionism - blue ball"];
+            }
             break;
         }
         case 2:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_audio_share" ofType:@"mp3"];
-            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem fileData:file filename:@"demo_audio_share.mp3" title:@"Demo audio beat"];
+            
+            if (SHARE_FILE_WITH_PATH) {
+                item = [SHKItem filePath:filePath title:@"Demo audio beat"];
+            } else {
+                NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+                item = [SHKItem fileData:file filename:@"demo_audio_share.mp3" title:@"Demo audio beat"];
+            }
             break;
         }
         case 3:
         {
             NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
-            NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
-            item = [SHKItem fileData:file filename:@"sanFran.jpg" title:@"San Francisco"];
+            
+            if (SHARE_FILE_WITH_PATH) {
+                item = [SHKItem filePath:filePath title:@"San Francisco"];
+            } else {
+                NSData *file = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMapped error:&error];
+                item = [SHKItem fileData:file filename:@"sanFran.jpg" title:@"San Francisco"];
+            }
             break;
         }
         default:
