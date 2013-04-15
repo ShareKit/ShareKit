@@ -107,14 +107,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 }
 
 #pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare
-{
-	return NO;
-}
-
-#pragma mark -
 #pragma mark Commit Share
 
 - (void)share {
@@ -130,6 +122,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 	else
 	{
+        [self prepareItem];
         [super share];
 	}
 }
@@ -309,8 +302,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)show
 {
-	[self prepareItem];
-    
     if (self.item.shareType == SHKShareTypeUserInfo)
 	{
 		[self setQuiet:YES];

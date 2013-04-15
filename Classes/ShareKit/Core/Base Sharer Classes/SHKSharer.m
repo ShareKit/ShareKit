@@ -393,7 +393,12 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
             self.item.URL = newURL;
         }
 	}
-    [self show];
+    
+    if ([self shouldShareSilently]) {
+        [self tryToSend];
+    } else {
+        [self show];
+    }
 }
 
 #pragma mark -
@@ -402,24 +407,29 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 - (void)share
 {
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
-	if (![self authorize])
-		self.pendingAction = SHKPendingShare;
-
-	// A. First check if auto share is set and isn't nobbled off	
-	// B. If it is, try to send
-	// If either A or B fail, display the UI
-    
-    //TODO make this more readable and fix tryToSend failback
-	else if ([SHKCONFIG(allowAutoShare) boolValue] == FALSE ||	// this calls show and would skip try to send... but for sharers with no UI, try to send gets called in show
-			 ![self shouldAutoShare] || 
-			 ![self tryToSend]) {
+	if (![self authorize]) {
         
-        if (self.item.URL && [self requiresShortenedURL]) {
-            [self shortenURL];
-        } else {
-            [self show];
-        }        
+		self.pendingAction = SHKPendingShare;
+        return;
     }
+    
+    BOOL shouldShortenURL = self.item.URL && [self requiresShortenedURL];
+    if (shouldShortenURL) {
+        [self shortenURL];
+        return;
+    }
+    
+    if ([self shouldShareSilently]) {
+        [self tryToSend];
+    } else {
+        [self show];
+    }
+}
+
+- (BOOL)shouldShareSilently {
+    
+    BOOL result = [SHKCONFIG(allowAutoShare) boolValue] == TRUE && [self shouldAutoShare];
+    return result;
 }
 
 #pragma mark -
