@@ -12,7 +12,6 @@
 
 #import "SHKConfiguration.h"
 #import "SHKYouTube.h"
-#import "SHKSharer+Video.h"
 
 #import "GTLYouTube.h"
 #import "GTLUtilities.h"
@@ -67,17 +66,20 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 #pragma mark Configuration : Service Definition
 
 + (NSString *)sharerTitle{
-    return @"YouTube";
+    return SHKLocalizedString(@"YouTube");
 }
 
-+ (BOOL)canShareVideo
++ (BOOL)canShareFile:(SHKFile *)file
 {
-    return YES;
-}
-
-+ (BOOL)canGetUserInfo
-{
-    return YES;
+    NSArray *youTubeValidTypes = @[@"mov",@"m4v",@"mpeg4",@"mp4",@"avi",@"wmv",@"mpegps",@"flv",@"3gpp",@"webm"];
+    
+    for (NSString *extension in youTubeValidTypes) {
+        if ([file.filename hasSuffix:extension]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 #pragma mark -
@@ -169,40 +171,21 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem
-{
-    if ([super validateItem] == NO)
-        return NO;
-    
-    return [self validateVideo];
-}
-
-- (BOOL)validateVideo
-{
-    // Validate our video for valid types. We take care of validating size and duration later
-    return [self isOfValidTypes:@[@"mov",@"m4v",@"mpeg4",@"mp4",@"avi",@"wmv",@"mpegps",@"flv",@"3gpp",@"webm"]];
-}
-
 - (BOOL)send
 {
 	if (![self validateItem]) return NO;
     
-    switch (item.shareType) {
-        case SHKShareTypeUserInfo:
-            [self populateUserInfo];
-            return YES;
+    switch (self.item.shareType) {
+
         case SHKShareTypeFile:
             [self uploadVideoFile];
             return YES;
-        default: return NO;
+            break;
+        default:
+            break;
     }
     
     return NO;
-}
-
-- (void)populateUserInfo
-{
-    // TODO: Get and save our user information
 }
 
 #pragma mark - Upload
@@ -215,13 +198,13 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     
     // Status.
     GTLYouTubeVideoStatus *status = [GTLYouTubeVideoStatus object];
-    status.privacyStatus = [item customValueForKey:@"privacy"];
+    status.privacyStatus = [self.item customValueForKey:@"privacy"];
     
     // Snippet.
     GTLYouTubeVideoSnippet *snippet = [GTLYouTubeVideoSnippet object];
-    if(item.title != nil) snippet.title = item.title;
-    if(item.text  != nil) snippet.descriptionProperty = item.text;
-    if(item.tags  != nil) snippet.tags = item.tags;
+    if(self.item.title != nil) snippet.title = self.item.title;
+    if(self.item.text  != nil) snippet.descriptionProperty = self.item.text;
+    if(self.item.tags  != nil) snippet.tags = self.item.tags;
     
     // TODO: Categories
 //    if ([_uploadCategoryPopup isEnabled]) {
@@ -256,7 +239,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 - (void)uploadVideoWithVideoObject:(GTLYouTubeVideo *)video resumeUploadLocationURL:(NSURL *)locationURL {
     
     // Get a file handle for the upload data.
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:item.file.path];
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:self.item.file.path];
     
     // Could not read file data.
     if (fileHandle == nil) {
@@ -298,7 +281,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     };
     
     // Parameters
-    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithFileHandle:fileHandle MIMEType:item.file.mimeType];
+    GTLUploadParameters *uploadParameters = [GTLUploadParameters uploadParametersWithFileHandle:fileHandle MIMEType:self.item.file.mimeType];
     uploadParameters.uploadLocationURL = locationURL;
     
     // Setup the upload
@@ -320,9 +303,9 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 {
 	if (type == SHKShareTypeFile)
 		return @[
-           [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-           [SHKFormFieldSettings label:SHKLocalizedString(@"Text") key:@"text" type:SHKFormFieldTypeText start:item.text],
-           [SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@","]],
+           [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+           [SHKFormFieldSettings label:SHKLocalizedString(@"Text") key:@"text" type:SHKFormFieldTypeText start:self.item.text],
+           [SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@","]],
            [SHKFormFieldSettings label:SHKLocalizedString(@"Privacy")
                                    key:@"privacy"
                                   type:SHKFormFieldTypeOptionPicker
