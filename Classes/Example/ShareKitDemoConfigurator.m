@@ -243,16 +243,22 @@
   return @"https://github.com/ShareKit/ShareKit";
 }
 
+// Dropbox - https://www.dropbox.com/developers/apps
 - (NSString *) dropboxAppKey {
     return @"n18olaziz6f8752";
 }
 - (NSString *) dropboxAppSecret {
     return @"6cjsemxx6i2qdvc";
 }
+
+/*
+ This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
+ @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
+ @"dropbox" (set if you chose permission type "Full dropbox" == kDBRootDropbox)
+ */
 - (NSString *) dropboxRootFolder {
     return @"dropbox";
 }
-
 -(BOOL)dropboxShouldOverwriteExistedFile {
     return NO;
 }

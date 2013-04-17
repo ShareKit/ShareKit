@@ -313,22 +313,24 @@
 	return @"";
 }
 
-/*
- *  Dropbox - https://www.dropbox.com/developers/apps
- *  1. ShareKit-info.plist -> URL Types ->URL Schemes -> Item x -> db-APP_KEY
- *  2. Root Folder: kDBRootAppFolder (==  @"sandbox") or kDBRootDropbox (== @"dropbox")
- *  3. In additional you should setup App folder name  https://www.dropbox.com/developers/apps
- *
- */
+// Dropbox - https://www.dropbox.com/developers/apps
 - (NSString *) dropboxAppKey {
     return @"";
 }
 - (NSString *) dropboxAppSecret {
     return @"";
 }
+
+/* 
+ This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
+    @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
+    @"dropbox" (set if you chose permission type "Full dropbox" == kDBRootDropbox)
+*/
 - (NSString *) dropboxRootFolder {
     return @"sandbox";
 }
+
+// if you set NO, a dialogue will appear where user can choose different filename, otherwise the file is silently overwritten.
 -(BOOL)dropboxShouldOverwriteExistedFile {
     return YES;
 }
