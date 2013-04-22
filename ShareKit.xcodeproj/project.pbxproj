@@ -5607,7 +5607,7 @@
 		7AECF320171D5194000722FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
@@ -5629,14 +5629,14 @@
 				);
 				PRODUCT_NAME = YouTube;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Submodules/google-api-objectivec/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
 			};
 			name = Debug;
 		};
 		7AECF321171D5194000722FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
@@ -5651,7 +5651,7 @@
 				);
 				PRODUCT_NAME = YouTube;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "$SRCROOT/Submodules/google-api-objectivec/**";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -5659,7 +5659,7 @@
 		7AECF32A171D51C3000722FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5674,21 +5674,21 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$SRCROOT/Submodules/google-api-objectivec/**";
+				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = "YouTube SDK";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
 			};
 			name = Debug;
 		};
 		7AECF32B171D51C3000722FA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -5696,14 +5696,14 @@
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "$SRCROOT/Submodules/google-api-objectivec/**";
+				HEADER_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = "YouTube SDK";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
