@@ -925,7 +925,7 @@
 		7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		7A3A0D90170CC94B00A0B717 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		7A3C61ED147520B700C47D14 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "../../../../Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
+		7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7A49DBC316BC193E004B7E78 /* libReadability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
@@ -1693,8 +1693,8 @@
 				E153775A16AF0A760015726B /* Default-568h@2x.png */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
-				43C91D1B11EB963600F31FAE /* Resources-iPad */,
+				7A9A255017256E33006B97C0 /* Resources - ShareKit Library */,
+				7A9A254B17256A65006B97C0 /* Resources - Demo */,
 				7AB536111552E26800171BCE /* ShareKitLibraryResources */,
 				7A288261155409BC007DC379 /* ShareKitLibrary */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -2365,6 +2365,23 @@
 			name = ShareKitLibrary;
 			sourceTree = "<group>";
 		};
+		7A9A254B17256A65006B97C0 /* Resources - Demo */ = {
+			isa = PBXGroup;
+			children = (
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				43C91D1B11EB963600F31FAE /* Resources-iPad */,
+			);
+			name = "Resources - Demo";
+			sourceTree = "<group>";
+		};
+		7A9A255017256E33006B97C0 /* Resources - ShareKit Library */ = {
+			isa = PBXGroup;
+			children = (
+				7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */,
+			);
+			name = "Resources - ShareKit Library";
+			sourceTree = "<group>";
+		};
 		7AA83C3F170637AE009C483A /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -2452,7 +2469,6 @@
 			isa = PBXGroup;
 			children = (
 				7AECF2E4171D4679000722FA /* GTL.xcodeproj */,
-				7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */,
 				7AECF313171D5151000722FA /* YouTube */,
 				4503EBB71691020A0057294C /* Google Plus */,
 			);
