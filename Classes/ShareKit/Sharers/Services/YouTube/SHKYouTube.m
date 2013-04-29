@@ -312,7 +312,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
                                  start:@"public"
                       optionPickerInfo:[NSMutableDictionary dictionaryWithDictionary:@{
                                         @"title":@"Privacy",
-                                        @"curIndexes":@"-1",
+                                        @"curIndexes":@"0",
                                         @"allowMultiple":@NO,
                                         @"itemsList":@[@"public",@"private",@"unlisted"],
                                         @"static":@YES
