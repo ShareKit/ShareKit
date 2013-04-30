@@ -185,43 +185,17 @@ BOOL SHKinit;
 	self.pendingView = nil;
 }
 
-- (void)hideCurrentViewControllerAnimated:(BOOL)animated
-{
-	if (self.isDismissingView)
-		return;
+- (BOOL)hidePreviousView:(UIViewController *)VCToShow {
+    
+    // If a view is already being shown, hide it, and then try again
+	if (self.currentView != nil) {
+        
+		self.pendingView = VCToShow;
+		[self hideCurrentViewControllerAnimated:YES];
+        return YES;
 	
-	if (self.currentView != nil)
-	{
-		// Dismiss the modal view
-        
-        UIViewController *presentingViewController  = nil;
-        if ([self.currentView respondsToSelector:@selector(presentingViewController)]){
-            presentingViewController = [self.currentView presentingViewController];
-        }else{
-            presentingViewController =  [self.currentView parentViewController];
-        }
-        
-		if (presentingViewController)
-		{
-			self.isDismissingView = YES;
-            if ([presentingViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]){
-                [presentingViewController dismissViewControllerAnimated:animated completion:^{
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        [self viewWasDismissed];
-                    }];
-                }];
-            }else{
-                [presentingViewController dismissModalViewControllerAnimated:animated];
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self viewWasDismissed];
-                }];
-            }
-        }
-		else
-        {
-			self.currentView = nil;
-        }
-	}
+    }
+    return NO;
 }
 
 - (void)hideCurrentViewController
