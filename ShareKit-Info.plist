@@ -56,6 +56,14 @@
 				<string>db-n18olaziz6f8752</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Buffer</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>bufferCLIENTID</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
