@@ -93,6 +93,8 @@
 		updateText = self.item.text;
     }
     
+    [[BufferAPI sharedAPI] setClientID:SHKCONFIG(bufferClientID) AndClientSecret:SHKCONFIG(bufferClientSecret)];
+    
     // Buffer presents the view using addChildViewController to display transparent modal.
     [BufferAPI presentBufferSheetWithText:updateText completionBlock:^(NSDictionary *response) {
         [self sendDidFinish];
