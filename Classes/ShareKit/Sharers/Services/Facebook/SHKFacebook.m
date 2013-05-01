@@ -442,7 +442,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	else if (self.item.shareType == SHKShareTypeText)
 	{
-		[params setObject:self.item.text forKey:@"message"];
+        NSString *url = [self.item.URL absoluteString];
+        if ( url != nil){
+            [params setObject:url forKey:@"link"];
+        }
+
+        [params setObject:self.item.text forKey:@"message"];
 		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
 																 parameters:params
 																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
@@ -714,7 +719,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             break;
         case SHKShareTypeURL:
             rootView.text = self.item.text;
-            rootView.hasLink = YES;
+            
             rootView.allowSendingEmptyMessage = YES;
             break;
         case SHKShareTypeFile:
@@ -722,7 +727,9 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         default:
             break;
     }
-    
+    if ( self.item.URL != nil){
+        rootView.hasLink = YES;
+    }
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
     [rootView release];
