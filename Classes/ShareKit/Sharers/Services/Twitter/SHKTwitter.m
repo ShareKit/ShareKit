@@ -171,19 +171,23 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	{
 		status = self.item.shareType == SHKShareTypeText ? self.item.text : self.item.title;
 	}
-
-	NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet]
-	                                   tagPrefix:@"#" tagSuffix:nil];
-	if ([hashtags length] > 0)
-	{
-		status = [NSString stringWithFormat:@"%@ %@", status, hashtags];
-	}
+	
+	//Only add the additional tags / URL if user has authorized his account
+	if(self.isAuthorized) {
+		NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet]
+		                                   tagPrefix:@"#" tagSuffix:nil];
+		if ([hashtags length] > 0)
+		{
+			status = [NSString stringWithFormat:@"%@ %@", status, hashtags];
+		}
     
-    if (self.item.URL)
-    {
-        NSString *URLstring = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        status = [NSString stringWithFormat:@"%@ %@", status, URLstring];
-    }
+		if (self.item.URL)
+		{
+			NSString *URLstring = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			status = [NSString stringWithFormat:@"%@ %@", status, URLstring];
+		}	
+	}
+	
     
 	[self.item setCustomValue:status forKey:@"status"];
 }
