@@ -122,33 +122,31 @@
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
-	NSString *body = self.item.text;
+	NSString *body = self.item.text ? self.item.text : @"";
 	BOOL isHTML = self.item.isMailHTML;
-	NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
-    
-	if (body == nil)
-	{
-		body = @"";
+    NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
 		
 		if (self.item.URL != nil)
 		{
 			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
-			if (isHTML)
-				body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
-			else
-				body = urlStr;
+            if ([body length] > 0) {
+                body = [body stringByAppendingFormat:@"%@%@", separator, urlStr];
+            } else {
+                body = [body stringByAppendingFormat:@"%@", urlStr];
+            }
 		}
 		
 		if (self.item.file)
 		{
 			NSString *attachedStr = SHKLocalizedString(@"Attached: %@", self.item.title ? self.item.title : self.item.file.filename);
 			
-			if (isHTML)
-				body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
-			else
-				body = attachedStr;
-		}
+            if ([body length] > 0) {
+                body = [body stringByAppendingFormat:@"%@%@", separator, attachedStr];
+            } else {
+                body = [body stringByAppendingFormat:@"%@", attachedStr];
+            }
+            		}
 		
 		// fallback
 		if (body == nil)
@@ -160,7 +158,6 @@
 			body = [body stringByAppendingString:separator];
 			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
 		}
-	}
 	
 	if (self.item.file)
 		[mailController addAttachmentData:self.item.file.data mimeType:self.item.file.mimeType fileName:self.item.file.filename];
