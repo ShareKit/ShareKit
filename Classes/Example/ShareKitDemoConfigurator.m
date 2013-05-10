@@ -272,6 +272,23 @@
     return @"aaHCtV3LhzFE6XSFcKobb7HU";
 }
 
+// Buffer
+/*
+ 1 - Set up an app at https://bufferapp.com/developers/apps/create
+ 2 - Once the app is set up this requires a URL Scheme to be set up within your apps info.plist. bufferXXXX where XXXX is your client ID, this will enable Buffer authentication.
+ */
+
+- (NSString*)bufferClientID
+{
+	return @"518cdcb0872cad4744000038";
+}
+
+- (NSString*)bufferClientSecret
+{
+	return @"1bf70db9032207624e2ad58fb24b1593";
+}
+
+
 /*
  UI Configuration : Basic
  ------------------------
