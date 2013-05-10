@@ -75,7 +75,7 @@
 
 #pragma mark -
 #pragma mark Show UI Methods
-- (void)show {
+- (BOOL)send {
     
     NSString *updateText = @"";
     
@@ -99,6 +99,8 @@
     [BufferAPI presentBufferSheetWithText:updateText completionBlock:^(NSDictionary *response) {
         [self sendDidFinish];
     }];
+    
+    return YES; 
 }
 
 @end

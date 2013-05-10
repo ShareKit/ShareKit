@@ -648,12 +648,14 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	if (type == SHKShareTypeURL)
-		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
-				nil];
-	
-	return nil;
+	//this is abstract method. Services which do not present their own UI should override this to present SHKFormController e.g like this
+    
+    /*	if (type == SHKShareTypeURL)
+     return [NSArray arrayWithObjects:
+     [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+     nil];*/
+    
+    return nil;
 }
 
 - (void)shareFormValidate:(SHKFormController *)form
