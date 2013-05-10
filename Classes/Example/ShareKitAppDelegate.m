@@ -14,6 +14,7 @@
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
 #import "EvernoteSDK.h"
+#import "SHKBuffer.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
@@ -76,6 +77,8 @@
         return [SHKDropbox handleOpenURL:url];
     } else if ([[NSString stringWithFormat:@"en-%@", [[EvernoteSession sharedSession] consumerKey]] isEqualToString:[url scheme]]) {
         return [[EvernoteSession sharedSession] canHandleOpenURL:url];
+    } else if ([scheme hasPrefix:[NSString stringWithFormat:@"buffer%@", SHKCONFIG(bufferClientID)]]) {
+        return [SHKBuffer handleOpenURL:url];
     }
     
     return YES;

@@ -321,6 +321,23 @@
     return @"";
 }
 
+
+// Buffer
+/*
+ 1 - Set up an app at https://bufferapp.com/developers/apps/create
+ 2 - Once the app is set up this requires a URL Scheme to be set up within your apps info.plist. bufferXXXX where XXXX is your client ID, this will enable Buffer authentication.
+*/
+
+- (NSString*)bufferClientID
+{
+	return @"";
+}
+
+- (NSString*)bufferClientSecret
+{
+	return @"";
+}
+
 /* 
  This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
     @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
