@@ -414,7 +414,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
 	[params setObject:actions forKey:@"actions"];
 	
-	if (self.item.shareType == SHKShareTypeURL)
+	if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeText)
 	{
 		NSString *url = [self.item.URL absoluteString];
 		[params setObject:url forKey:@"link"];
@@ -439,23 +439,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																}];
 		[self.pendingConnections addObject:con];
 		
-	}
-	else if (self.item.shareType == SHKShareTypeText)
-	{
-        NSString *url = [self.item.URL absoluteString];
-        if ( url != nil){
-            [params setObject:url forKey:@"link"];
-        }
-
-        [params setObject:self.item.text forKey:@"message"];
-		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
-																 parameters:params
-																 HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
-									 {
-										 [self FBRequestHandlerCallback:connection result:result error:error];
-									 }];
-		[self.pendingConnections addObject:con];
-
 	}
 	else if (self.item.shareType == SHKShareTypeImage)
 	{
