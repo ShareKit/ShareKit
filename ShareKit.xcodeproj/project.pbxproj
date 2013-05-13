@@ -713,13 +713,6 @@
 			remoteGlobalIDString = 4F1C6E0E1027B3CE00B46459;
 			remoteInfo = GTLTouchStaticLib;
 		};
-		9424F439173139C00046720D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 85A44B9F16A8CE05007BE80E;
-			remoteInfo = FacebookSDKIntegrationTests;
-		};
 		949202C7172A9BC800DF9530 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -946,13 +939,13 @@
 		43A5382611DBE480004A1712 /* example.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = example.pdf; path = Classes/Example/example.pdf; sourceTree = "<group>"; };
 		43A5382711DBE480004A1712 /* sanFran.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = sanFran.jpg; path = Classes/Example/sanFran.jpg; sourceTree = "<group>"; };
 		43A5382A11DBE493004A1712 /* ExampleShareFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleShareFile.h; path = Example/ExampleShareFile.h; sourceTree = "<group>"; };
-		43A5382B11DBE493004A1712 /* ExampleShareFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareFile.m; path = Example/ExampleShareFile.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43A5382B11DBE493004A1712 /* ExampleShareFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareFile.m; path = Example/ExampleShareFile.m; sourceTree = "<group>"; };
 		43A5382C11DBE493004A1712 /* ExampleShareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleShareImage.h; path = Example/ExampleShareImage.h; sourceTree = "<group>"; };
-		43A5382D11DBE493004A1712 /* ExampleShareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareImage.m; path = Example/ExampleShareImage.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43A5382D11DBE493004A1712 /* ExampleShareImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareImage.m; path = Example/ExampleShareImage.m; sourceTree = "<group>"; };
 		43A5382E11DBE493004A1712 /* ExampleShareLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleShareLink.h; path = Example/ExampleShareLink.h; sourceTree = "<group>"; };
-		43A5382F11DBE493004A1712 /* ExampleShareLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareLink.m; path = Example/ExampleShareLink.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43A5382F11DBE493004A1712 /* ExampleShareLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareLink.m; path = Example/ExampleShareLink.m; sourceTree = "<group>"; };
 		43A5383011DBE493004A1712 /* ExampleShareText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleShareText.h; path = Example/ExampleShareText.h; sourceTree = "<group>"; };
-		43A5383111DBE493004A1712 /* ExampleShareText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareText.m; path = Example/ExampleShareText.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43A5383111DBE493004A1712 /* ExampleShareText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ExampleShareText.m; path = Example/ExampleShareText.m; sourceTree = "<group>"; };
 		43A5383211DBE493004A1712 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RootViewController.h; path = Example/RootViewController.h; sourceTree = "<group>"; };
 		43A5383311DBE493004A1712 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RootViewController.m; path = Example/RootViewController.m; sourceTree = "<group>"; };
 		43A5383411DBE493004A1712 /* ShareKitAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareKitAppDelegate.h; path = Example/ShareKitAppDelegate.h; sourceTree = "<group>"; };
@@ -2891,7 +2884,6 @@
 			children = (
 				AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */,
 				AA7585701624AABF001EFCBE /* FacebookSDKTests.octest */,
-				9424F43A173139C00046720D /* FacebookSDKIntegrationTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4361,13 +4353,6 @@
 			fileType = "compiled.mach-o.executable";
 			path = DevelopmentTestTool;
 			remoteRef = 7AECF2F1171D4679000722FA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9424F43A173139C00046720D /* FacebookSDKIntegrationTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FacebookSDKIntegrationTests.octest;
-			remoteRef = 9424F439173139C00046720D /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */ = {
