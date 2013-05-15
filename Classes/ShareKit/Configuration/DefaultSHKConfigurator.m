@@ -114,9 +114,10 @@
     return @"";
 }
 
-// Read It Later - http://readitlaterlist.com/api/signup/
-- (NSString*)readItLaterKey {
-	return @"";
+//Pocket v3 consumer key. http://getpocket.com/developer/apps/. If you have old read it later app, you should obtain new key.
+- (NSString *)pocketConsumerKey {
+    
+    return @"";
 }
 
 // Diigo - http://www.diigo.com/api_keys/new/
@@ -410,7 +411,7 @@
  These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
  */
 - (NSArray*)defaultFavoriteURLSharers {
-    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKReadItLater", nil];
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKPocket", nil];
 }
 - (NSArray*)defaultFavoriteImageSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy", nil];

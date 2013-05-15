@@ -60,7 +60,7 @@
 - (NSArray*)facebookWritePermissions;
 - (NSArray*)facebookReadPermissions;
 - (NSNumber*)forcePreIOS6FacebookPosting;
-- (NSString*)readItLaterKey;
+- (NSString *)pocketConsumerKey;
 - (NSString*)diigoKey;
 - (NSNumber*)forcePreIOS5TwitterAccess;
 - (NSString*)googlePlusClientId;

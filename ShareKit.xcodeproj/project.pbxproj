@@ -96,6 +96,20 @@
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
+		7AA2E9E21743E44500B17434 /* SHKPocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E01743E44500B17434 /* SHKPocket.h */; };
+		7AA2E9E31743E44500B17434 /* SHKPocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E11743E44500B17434 /* SHKPocket.m */; };
+		7AA2E9EF1743E51C00B17434 /* PocketAPI+NSOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */; };
+		7AA2E9F01743E51C00B17434 /* PocketAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E61743E51C00B17434 /* PocketAPI.h */; };
+		7AA2E9F11743E51C00B17434 /* PocketAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E71743E51C00B17434 /* PocketAPI.m */; };
+		7AA2E9F21743E51C00B17434 /* PocketAPILogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E81743E51C00B17434 /* PocketAPILogin.h */; };
+		7AA2E9F31743E51C00B17434 /* PocketAPILogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E91743E51C00B17434 /* PocketAPILogin.m */; };
+		7AA2E9F41743E51C00B17434 /* PocketAPIOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */; };
+		7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */; };
+		7AA2E9F61743E51C00B17434 /* PocketAPITypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */; };
+		7AA2E9F71743E51C00B17434 /* SFHFKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */; };
+		7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */; };
+		7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */; };
+		7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4E465A173E2B2900CCEE80 /* libPocket.a */; };
 		7AA83BCC1705E355009C483A /* libGooglePlusUniversal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456BAD1016910707005B3077 /* libGooglePlusUniversal.a */; };
 		7AA83BCE1705E355009C483A /* GPPDeepLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD0B16910707005B3077 /* GPPDeepLink.h */; };
 		7AA83BCF1705E355009C483A /* GPPShare.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD0C16910707005B3077 /* GPPShare.h */; };
@@ -140,7 +154,6 @@
 		7AC28F1E165A21C2006D7441 /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED74162F0C1A009D46E4 /* libPinboard.a */; };
 		7AC28F1F165A21C2006D7441 /* libPrint.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECBE162F063F009D46E4 /* libPrint.a */; };
 		7AC28F20165A21C2006D7441 /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCD1160E123C0086B98A /* libReachability.a */; };
-		7AC28F21165A21C2006D7441 /* libRead It Later.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED7D162F0C33009D46E4 /* libRead It Later.a */; };
 		7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECED162F07DF009D46E4 /* libSave to Album.a */; };
 		7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0F9246156BA2A0009CB40A /* libShareKitCore.a */; };
 		7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */; };
@@ -251,7 +264,6 @@
 		AABBED5C162F0BE8009D46E4 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
-		AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E611DBE3B9004A1712 /* SHKReadItLater.m */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -315,6 +327,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A49DBBB16BC193E004B7E78;
 			remoteInfo = Readability;
+		};
+		7A4E4664173E2C4F00CCEE80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A4E4652173E2B2900CCEE80;
+			remoteInfo = Pocket;
+		};
+		7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A4E465B173E2C2500CCEE80;
+			remoteInfo = "Pocket SDK";
 		};
 		7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -511,13 +537,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBED6C162F0C1A009D46E4;
 			remoteInfo = Pinboard;
-		};
-		7AC28F03165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AABBED75162F0C33009D46E4;
-			remoteInfo = "Read It Later";
 		};
 		7AC28F05165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -791,8 +810,6 @@
 		43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKGoogleReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536E211DBE3B9004A1712 /* SHKPinboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPinboard.h; sourceTree = "<group>"; };
 		43A536E311DBE3B9004A1712 /* SHKPinboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKPinboard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		43A536E511DBE3B9004A1712 /* SHKReadItLater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadItLater.h; sourceTree = "<group>"; };
-		43A536E611DBE3B9004A1712 /* SHKReadItLater.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKReadItLater.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536E811DBE3B9004A1712 /* SHKTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitter.h; sourceTree = "<group>"; };
 		43A536E911DBE3B9004A1712 /* SHKTwitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKTwitter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKActionSheet.h; sourceTree = "<group>"; };
@@ -868,6 +885,8 @@
 		7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7A49DBC316BC193E004B7E78 /* libReadability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
+		7A4E465A173E2B2900CCEE80 /* libPocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPocket SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
 		7A56BFC01659173D00134F04 /* SHKiOSSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOSSharer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer_Protected.h; sourceTree = "<group>"; };
@@ -876,6 +895,18 @@
 		7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
 		7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOS5Twitter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		7AA2E9E01743E44500B17434 /* SHKPocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKPocket.h; path = Pocket/SHKPocket.h; sourceTree = "<group>"; };
+		7AA2E9E11743E44500B17434 /* SHKPocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKPocket.m; path = Pocket/SHKPocket.m; sourceTree = "<group>"; };
+		7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
+		7AA2E9E61743E51C00B17434 /* PocketAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPI.h; sourceTree = "<group>"; };
+		7AA2E9E71743E51C00B17434 /* PocketAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPI.m; sourceTree = "<group>"; };
+		7AA2E9E81743E51C00B17434 /* PocketAPILogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPILogin.h; sourceTree = "<group>"; };
+		7AA2E9E91743E51C00B17434 /* PocketAPILogin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPILogin.m; sourceTree = "<group>"; };
+		7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPIOperation.h; sourceTree = "<group>"; };
+		7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPIOperation.m; sourceTree = "<group>"; };
+		7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPITypes.h; sourceTree = "<group>"; };
+		7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
+		7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Plus SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AA83C3D17063786009C483A /* TObjective-C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TObjective-C.h"; sourceTree = "<group>"; };
 		7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENAFURLConnectionOperation.h; path = AFNetworking/ENAFURLConnectionOperation.h; sourceTree = "<group>"; };
@@ -1077,7 +1108,6 @@
 		AABBED62162F0BE8009D46E4 /* libInstapaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstapaper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED6B162F0C03009D46E4 /* libLinkedIn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLinkedIn.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED74162F0C1A009D46E4 /* libPinboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPinboard.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AABBED7D162F0C33009D46E4 /* libRead It Later.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libRead It Later.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED86162F0C4D009D46E4 /* libTumblr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTumblr.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAF54548160BB0F200A93975 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
@@ -1273,6 +1303,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A4E4655173E2B2900CCEE80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E465E173E2C2500CCEE80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA83BCB1705E355009C483A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1292,6 +1336,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */,
+				7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */,
 				9492063917302B4C00DF9530 /* libKippt.a in Frameworks */,
 				949202C6172A9BBD00DF9530 /* libBuffer.a in Frameworks */,
 				7AECF412171D55BD000722FA /* libGTLTouchStaticLib.a in Frameworks */,
@@ -1325,7 +1371,6 @@
 				7AC28F1E165A21C2006D7441 /* libPinboard.a in Frameworks */,
 				7AC28F1F165A21C2006D7441 /* libPrint.a in Frameworks */,
 				7AC28F20165A21C2006D7441 /* libReachability.a in Frameworks */,
-				7AC28F21165A21C2006D7441 /* libRead It Later.a in Frameworks */,
 				7AC28F22165A21C2006D7441 /* libSave to Album.a in Frameworks */,
 				7AC28F23165A21C2006D7441 /* libShareKitCore.a in Frameworks */,
 				7AC28F24165A21C2006D7441 /* libSina Weibo.a in Frameworks */,
@@ -1505,13 +1550,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED78162F0C33009D46E4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED81162F0C4D009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1578,7 +1616,6 @@
 				AABBED62162F0BE8009D46E4 /* libInstapaper.a */,
 				AABBED6B162F0C03009D46E4 /* libLinkedIn.a */,
 				AABBED74162F0C1A009D46E4 /* libPinboard.a */,
-				AABBED7D162F0C33009D46E4 /* libRead It Later.a */,
 				AABBED86162F0C4D009D46E4 /* libTumblr.a */,
 				7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */,
 				4503EBC0169104470057294C /* libGoogle Plus.a */,
@@ -1591,6 +1628,8 @@
 				7AECF322171D5194000722FA /* libYouTube.a */,
 				7AECF32C171D51C3000722FA /* libYouTube SDK.a */,
 				949BCB8C172A993000D706D4 /* libBuffer.a */,
+				7A4E465A173E2B2900CCEE80 /* libPocket.a */,
+				7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2019,23 +2058,23 @@
 			isa = PBXGroup;
 			children = (
 				949BCB94172A998A00D706D4 /* Buffer */,
-				7AECF32D171D51EB000722FA /* Google OAuth Services */,
-				DE334C0316F3315D00FF692B /* Dropbox */,
-				7AAE8C9916EB94F200429C51 /* Plurk */,
-				7A203CFE16EB775400421995 /* Hatena */,
 				7A0F91CB156B9FCE009CB40A /* Delicious */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
+				DE334C0316F3315D00FF692B /* Dropbox */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
 				AAACE05313CCBED400A2118F /* Flickr */,
 				C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */,
+				7AECF32D171D51EB000722FA /* Google OAuth Services */,
 				43A536DE11DBE3B9004A1712 /* Google Reader */,
+				7A203CFE16EB775400421995 /* Hatena */,
 				7A16F3AC16134A5D0019645D /* Instagram */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
 				1A52EDF315CB032B00A737D8 /* Kippt */,
 				C0AD00F1142B7B6D000862D9 /* LinkedIn */,
 				43A536E111DBE3B9004A1712 /* Pinboard */,
-				43A536E411DBE3B9004A1712 /* Read It Later */,
+				7AAE8C9916EB94F200429C51 /* Plurk */,
+				7AA2E9DF1743E3B300B17434 /* Pocket */,
 				FDB495A11520349A00505A99 /* Readability */,
 				7AC2A38B16597C680089ABE8 /* Sina Weibo */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
@@ -2073,15 +2112,6 @@
 				43A536E311DBE3B9004A1712 /* SHKPinboard.m */,
 			);
 			path = Pinboard;
-			sourceTree = "<group>";
-		};
-		43A536E411DBE3B9004A1712 /* Read It Later */ = {
-			isa = PBXGroup;
-			children = (
-				43A536E511DBE3B9004A1712 /* SHKReadItLater.h */,
-				43A536E611DBE3B9004A1712 /* SHKReadItLater.m */,
-			);
-			path = "Read It Later";
 			sourceTree = "<group>";
 		};
 		43A536E711DBE3B9004A1712 /* Twitter */ = {
@@ -2252,6 +2282,34 @@
 			);
 			name = "Resources - ShareKit Library";
 			sourceTree = "<group>";
+		};
+		7AA2E9DF1743E3B300B17434 /* Pocket */ = {
+			isa = PBXGroup;
+			children = (
+				7AA2E9E01743E44500B17434 /* SHKPocket.h */,
+				7AA2E9E11743E44500B17434 /* SHKPocket.m */,
+				7AA2E9E41743E51C00B17434 /* SDK */,
+			);
+			name = Pocket;
+			sourceTree = "<group>";
+		};
+		7AA2E9E41743E51C00B17434 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */,
+				7AA2E9E61743E51C00B17434 /* PocketAPI.h */,
+				7AA2E9E71743E51C00B17434 /* PocketAPI.m */,
+				7AA2E9E81743E51C00B17434 /* PocketAPILogin.h */,
+				7AA2E9E91743E51C00B17434 /* PocketAPILogin.m */,
+				7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */,
+				7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */,
+				7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */,
+				7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */,
+				7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */,
+			);
+			name = SDK;
+			path = "Submodules/Pocket-ObjC-SDK/SDK";
+			sourceTree = SOURCE_ROOT;
 		};
 		7AA83C3F170637AE009C483A /* AFNetworking */ = {
 			isa = PBXGroup;
@@ -2804,6 +2862,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A4E4656173E2B2900CCEE80 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AA2E9E21743E44500B17434 /* SHKPocket.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E465F173E2C2500CCEE80 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AA2E9EF1743E51C00B17434 /* PocketAPI+NSOperation.h in Headers */,
+				7AA2E9F01743E51C00B17434 /* PocketAPI.h in Headers */,
+				7AA2E9F21743E51C00B17434 /* PocketAPILogin.h in Headers */,
+				7AA2E9F41743E51C00B17434 /* PocketAPIOperation.h in Headers */,
+				7AA2E9F61743E51C00B17434 /* PocketAPITypes.h in Headers */,
+				7AA2E9F71743E51C00B17434 /* SFHFKeychainUtils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7AA83BCD1705E355009C483A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3050,13 +3129,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED79162F0C33009D46E4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED82162F0C4D009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3254,6 +3326,40 @@
 			productReference = 7A49DBC316BC193E004B7E78 /* libReadability.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7A4E4652173E2B2900CCEE80 /* Pocket */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A4E4657173E2B2900CCEE80 /* Build configuration list for PBXNativeTarget "Pocket" */;
+			buildPhases = (
+				7A4E4653173E2B2900CCEE80 /* Sources */,
+				7A4E4655173E2B2900CCEE80 /* Frameworks */,
+				7A4E4656173E2B2900CCEE80 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pocket;
+			productName = ShareKitLibrary;
+			productReference = 7A4E465A173E2B2900CCEE80 /* libPocket.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7A4E465B173E2C2500CCEE80 /* Pocket SDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A4E4660173E2C2500CCEE80 /* Build configuration list for PBXNativeTarget "Pocket SDK" */;
+			buildPhases = (
+				7A4E465C173E2C2500CCEE80 /* Sources */,
+				7A4E465E173E2C2500CCEE80 /* Frameworks */,
+				7A4E465F173E2C2500CCEE80 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pocket SDK";
+			productName = ShareKitLibrary;
+			productReference = 7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7AA83BAA1705E355009C483A /* Google Plus SDK */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7AA83BF61705E355009C483A /* Build configuration list for PBXNativeTarget "Google Plus SDK" */;
@@ -3299,6 +3405,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */,
+				7A4E4665173E2C4F00CCEE80 /* PBXTargetDependency */,
 				9492063217302B0700DF9530 /* PBXTargetDependency */,
 				949202C8172A9BC800DF9530 /* PBXTargetDependency */,
 				7AECF411171D55B7000722FA /* PBXTargetDependency */,
@@ -3337,7 +3445,6 @@
 				7AC28EFE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F00165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F02165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28F04165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F06165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F08165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F0A165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3755,23 +3862,6 @@
 			productReference = AABBED74162F0C1A009D46E4 /* libPinboard.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		AABBED75162F0C33009D46E4 /* Read It Later */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AABBED7A162F0C33009D46E4 /* Build configuration list for PBXNativeTarget "Read It Later" */;
-			buildPhases = (
-				AABBED76162F0C33009D46E4 /* Sources */,
-				AABBED78162F0C33009D46E4 /* Frameworks */,
-				AABBED79162F0C33009D46E4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Read It Later";
-			productName = ShareKitLibrary;
-			productReference = AABBED7D162F0C33009D46E4 /* libRead It Later.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		AABBED7E162F0C4D009D46E4 /* Tumbl */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABBED83162F0C4D009D46E4 /* Build configuration list for PBXNativeTarget "Tumbl" */;
@@ -3895,7 +3985,6 @@
 				AABBED63162F0C03009D46E4 /* LinkedIn */,
 				AABBED6C162F0C1A009D46E4 /* Pinboard */,
 				949BCB84172A993000D706D4 /* Buffer */,
-				AABBED75162F0C33009D46E4 /* Read It Later */,
 				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
 				AABBED7E162F0C4D009D46E4 /* Tumbl */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
@@ -3908,6 +3997,8 @@
 				DE334CCE16F34BDD00FF692B /* Dropbox SDK */,
 				7AECF31A171D5194000722FA /* YouTube */,
 				7AECF324171D51C3000722FA /* YouTube SDK */,
+				7A4E4652173E2B2900CCEE80 /* Pocket */,
+				7A4E465B173E2C2500CCEE80 /* Pocket SDK */,
 			);
 		};
 /* End PBXProject section */
@@ -4133,6 +4224,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A49DBBD16BC193E004B7E78 /* SHKReadability.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E4653173E2B2900CCEE80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AA2E9E31743E44500B17434 /* SHKPocket.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A4E465C173E2C2500CCEE80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7AA2E9F11743E51C00B17434 /* PocketAPI.m in Sources */,
+				7AA2E9F31743E51C00B17434 /* PocketAPILogin.m in Sources */,
+				7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */,
+				7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4363,14 +4473,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED76162F0C33009D46E4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AABBED77162F0C33009D46E4 /* SHKReadItLater.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED7F162F0C4D009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4445,6 +4547,16 @@
 			isa = PBXTargetDependency;
 			target = 7A49DBBB16BC193E004B7E78 /* Readability */;
 			targetProxy = 7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */;
+		};
+		7A4E4665173E2C4F00CCEE80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A4E4652173E2B2900CCEE80 /* Pocket */;
+			targetProxy = 7A4E4664173E2C4F00CCEE80 /* PBXContainerItemProxy */;
+		};
+		7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A4E465B173E2C2500CCEE80 /* Pocket SDK */;
+			targetProxy = 7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */;
 		};
 		7AA83BFC1705E4FF009C483A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4585,11 +4697,6 @@
 			isa = PBXTargetDependency;
 			target = AABBED6C162F0C1A009D46E4 /* Pinboard */;
 			targetProxy = 7AC28F01165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28F04165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AABBED75162F0C33009D46E4 /* Read It Later */;
-			targetProxy = 7AC28F03165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28F06165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5175,6 +5282,104 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = Readability;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A4E4658173E2B2900CCEE80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Pocket;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A4E4659173E2B2900CCEE80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = Pocket;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A4E4661173E2C2500CCEE80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Pocket SDK";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A4E4662173E2C2500CCEE80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "Pocket SDK";
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6500,63 +6705,6 @@
 			};
 			name = Release;
 		};
-		AABBED7B162F0C33009D46E4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Read It Later";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		AABBED7C162F0C33009D46E4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"",
-				);
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				HEADER_SEARCH_PATHS = "\"$(BUILT_PRODUCTS_DIR)/facebook-ios-sdk/\"";
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Read It Later";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		AABBED84162F0C4D009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -6849,6 +6997,24 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		7A4E4657173E2B2900CCEE80 /* Build configuration list for PBXNativeTarget "Pocket" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A4E4658173E2B2900CCEE80 /* Debug */,
+				7A4E4659173E2B2900CCEE80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A4E4660173E2C2500CCEE80 /* Build configuration list for PBXNativeTarget "Pocket SDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A4E4661173E2C2500CCEE80 /* Debug */,
+				7A4E4662173E2C2500CCEE80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7AA83BF61705E355009C483A /* Build configuration list for PBXNativeTarget "Google Plus SDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -7088,15 +7254,6 @@
 			buildConfigurations = (
 				AABBED72162F0C1A009D46E4 /* Debug */,
 				AABBED73162F0C1A009D46E4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AABBED7A162F0C33009D46E4 /* Build configuration list for PBXNativeTarget "Read It Later" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AABBED7B162F0C33009D46E4 /* Debug */,
-				AABBED7C162F0C33009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

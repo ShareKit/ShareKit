@@ -79,10 +79,16 @@
     return @"651258972991.apps.googleusercontent.com";
 }
 
-// Read It Later - http://readitlaterlist.com/api/signup/ 
-- (NSString*)readItLaterKey {
-	return @"45aT6Vfvg66eWNebybd680gu13pdba3d";
+//Pocket v3 consumer key. http://getpocket.com/developer/apps/. If you have old read it later app, you should obtain new key.
+- (NSString *)pocketConsumerKey {
+    
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return @"14225-bdc4f6b29cd76ce0603638e8";
+    } else {
+        return @"14225-3e2ae99c6fc078de5496577c";
+    }
 }
+
 // Diigo - http://diigo.com/api_dev
 -(NSString*)diigoKey {
   return @"f401ddc3546cdf3c";

@@ -22,3 +22,6 @@
 [submodule "Submodules/buffer-ios-sdk"]
 	path = Submodules/buffer-ios-sdk
 	url = git://github.com/bufferapp/buffer-ios-sdk.git
+[submodule "Submodules/Pocket-ObjC-SDK"]
+	path = Submodules/Pocket-ObjC-SDK
+	url = git://github.com/Pocket/Pocket-ObjC-SDK.git

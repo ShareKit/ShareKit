@@ -1,9 +1,8 @@
 //
-//  SHKReadItLater.h
+//  SHKPocket.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/8/10.
-
+//  Created by Vilém Kurz on 5/11/13.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,14 +21,9 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
-//
-//
 
-#import <UIKit/UIKit.h>
 #import "SHKSharer.h"
 
-@interface SHKReadItLater : SHKSharer 
-{
-}
+@interface SHKPocket : SHKSharer
 
 @end

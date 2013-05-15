@@ -101,13 +101,13 @@
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-// Change if you need to dynamically enable/disable the action.  (For example if it only works with specific hardware)
+// Uncomment and change if you need to dynamically enable/disable the action.  (For example if it only works with specific hardware)
+/*
 + (BOOL)canShare
 {
 	return YES;
 }
-
-
+ */
 
 #pragma mark -
 #pragma mark Authentication
