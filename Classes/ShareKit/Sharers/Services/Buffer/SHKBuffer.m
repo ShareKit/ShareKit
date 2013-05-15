@@ -60,7 +60,7 @@
 
 - (void)promptAuthorization {
     // Buffer SDK handles authrorisation with Buffer, so display sheet even if not logged in.
-    [self show];
+    [self send];
 }
 
 + (BOOL)handleOpenURL:(NSURL*)url {
