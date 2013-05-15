@@ -23,7 +23,11 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(authDidFinish:)
+                                                     name:@"SHKAuthDidFinish"
+                                                   object:nil];
+
     }
     return self;
 }
@@ -41,9 +45,9 @@
                                                                                            action:@selector(done:)];
     
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.frame = self.view.bounds;
     [self.view addSubview:self.tableView];
 }
 
@@ -87,17 +91,16 @@
     }
     
     NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
+    
     cell.textLabel.text = sharerId;
     
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath;
-{
-    NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
     if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
+
+    return cell;
 }
 
 #pragma mark -
@@ -110,8 +113,21 @@
     NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
     if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
         [NSClassFromString(sharerId) logout];
-        [tableView reloadData];
+        [self.tableView reloadData];
+    } else {
+        SHKSharer *sharer = [[NSClassFromString(sharerId) alloc] init];
+        [sharer authorize];
     }
+}
+
+- (void)authDidFinish:(NSNotification*)notification
+{    
+    [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

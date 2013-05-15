@@ -43,5 +43,48 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Evernote</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>en-hansmeyer0711-4037</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Facebook</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb281987678567988</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Google Plus</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.yourcompany.ShareKitDemo</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Dropbox</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-n18olaziz6f8752</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Buffer</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>buffer518cdcb0872cad4744000038</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

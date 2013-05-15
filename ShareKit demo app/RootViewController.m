@@ -28,7 +28,7 @@
 	[super loadView];
 	
 	self.toolbarItems = [NSArray arrayWithObjects:
-						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts") style:UIBarButtonItemStyleBordered target:self action:@selector(accounts)],
+						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts") style:UIBarButtonItemStyleBordered target:self action:@selector(showAccounts)],
                          /*
                          [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)],*/
 						 nil
@@ -152,20 +152,16 @@
 
 #pragma mark -
 
-- (void)accounts
+- (void)showAccounts
 {
     ExampleAccountsViewController *accountsViewController = [[ExampleAccountsViewController alloc] init];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
     
-    if ([self respondsToSelector:@selector(presentViewController:animated:completion:)]) {
-        [self presentViewController:navigationController
-                           animated:YES
-                         completion:^{
-                         }];
-    } else {
-        [self presentModalViewController:navigationController animated:YES];
-    }
+    [self presentViewController:navigationController
+                       animated:YES
+                     completion:^{
+                     }];
 }
 /*
 - (void)logout
