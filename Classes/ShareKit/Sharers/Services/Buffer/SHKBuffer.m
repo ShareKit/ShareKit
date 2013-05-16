@@ -8,7 +8,7 @@
 
 #import "SHKBuffer.h"
 #import "SHKConfiguration.h"
-#import <BufferSDK/BufferSDK.h>
+#import "BufferSDK.h"
 
 @implementation SHKBuffer
 
@@ -55,22 +55,22 @@
 
 - (BOOL)isAuthorized {
     // Buffer SDK handles authrorisation with Buffer.
-	return [BufferAPI isLoggedIn];
+	return [BufferSDK isLoggedIn];
 }
 
 - (void)promptAuthorization {
     // Buffer SDK handles authrorisation with Buffer, so display sheet even if not logged in.
-    [self send];
+    [self show];
 }
 
 + (BOOL)handleOpenURL:(NSURL*)url {
-    [[BufferAPI sharedAPI] handleOpenURL:url];
+    [[BufferSDK sharedAPI] handleOpenURL:url];
     return YES;
 }
 
 +(void)logout {
     // Buffer SDK handles authrorisation with Buffer, call logout method on BufferSDK
-	[BufferAPI logout];
+	[BufferSDK logout];
 }
 
 #pragma mark -
@@ -93,14 +93,19 @@
 		updateText = self.item.text;
     }
     
-    [[BufferAPI sharedAPI] setClientID:SHKCONFIG(bufferClientID) AndClientSecret:SHKCONFIG(bufferClientSecret)];
+    [[BufferSDK sharedAPI] setClientID:SHKCONFIG(bufferClientID) andClientSecret:SHKCONFIG(bufferClientSecret)];
+    
+    // BufferSDKResources.bundle is contained within ShareKit.bundle so pass this to BufferSDK.
+    NSString *bundleRoot = [[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"];
+    bundleRoot = [NSString stringWithFormat:@"%@/BufferSDKResources.bundle", bundleRoot];
+    [[BufferSDK sharedAPI] setResourceBundlePath:bundleRoot];
     
     // Buffer presents the view using addChildViewController to display transparent modal.
-    [BufferAPI presentBufferSheetWithText:updateText completionBlock:^(NSDictionary *response) {
+    [BufferSDK presentBufferSheetWithText:updateText completionBlock:^(NSDictionary *response) {
         [self sendDidFinish];
     }];
     
-    return YES; 
+    return YES;
 }
 
 @end
