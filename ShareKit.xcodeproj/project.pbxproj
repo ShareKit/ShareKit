@@ -238,6 +238,9 @@
 		9492063917302B4C00DF9530 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 949BCB95172A99AF00D706D4 /* SHKBuffer.h */; };
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
+		94CC29011745399400C31CD8 /* BufferSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 94CC28FE1745399400C31CD8 /* BufferSDK.h */; };
+		94CC29021745399400C31CD8 /* libBufferSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC29001745399400C31CD8 /* libBufferSDK.a */; };
+		94CC29071745399800C31CD8 /* BufferSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94CC28FF1745399400C31CD8 /* BufferSDKResources.bundle */; };
 		AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 		AABBECCC162F0756009D46E4 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
@@ -1069,6 +1072,9 @@
 		949BCB8C172A993000D706D4 /* libBuffer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuffer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		949BCB95172A99AF00D706D4 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		949BCB96172A99AF00D706D4 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
+		94CC28FE1745399400C31CD8 /* BufferSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferSDK.h; sourceTree = "<group>"; };
+		94CC28FF1745399400C31CD8 /* BufferSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BufferSDKResources.bundle; sourceTree = "<group>"; };
+		94CC29001745399400C31CD8 /* libBufferSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBufferSDK.a; sourceTree = "<group>"; };
 		A57772B214BA0748003FC744 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		A57772B314BA0748003FC744 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		A57772B614BA1900003FC744 /* ObjectiveFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveFlickr.h; sourceTree = "<group>"; };
@@ -1414,6 +1420,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94CC29021745399400C31CD8 /* libBufferSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2524,8 +2531,19 @@
 			children = (
 				949BCB95172A99AF00D706D4 /* SHKBuffer.h */,
 				949BCB96172A99AF00D706D4 /* SHKBuffer.m */,
+				94AF3EC41745281D00069C17 /* BufferSDK */,
 			);
 			path = Buffer;
+			sourceTree = "<group>";
+		};
+		94AF3EC41745281D00069C17 /* BufferSDK */ = {
+			isa = PBXGroup;
+			children = (
+				94CC28FE1745399400C31CD8 /* BufferSDK.h */,
+				94CC28FF1745399400C31CD8 /* BufferSDKResources.bundle */,
+				94CC29001745399400C31CD8 /* libBufferSDK.a */,
+			);
+			name = BufferSDK;
 			sourceTree = "<group>";
 		};
 		A57772B514BA1900003FC744 /* ObjectiveFlickr */ = {
@@ -2993,6 +3011,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */,
+				94CC29011745399400C31CD8 /* BufferSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4055,6 +4074,7 @@
 			files = (
 				7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */,
 				7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */,
+				94CC29071745399800C31CD8 /* BufferSDKResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5759,11 +5779,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/buffer-ios-sdk/BufferSDK\"",
-					"\"$(SRCROOT)/Submodules/buffer-ios-sdk/BufferSDK/BufferSDK.embeddedframework\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5776,12 +5791,14 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				LIBRARY_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/buffer-ios-sdk\"/**";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = Buffer;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/buffer-ios-sdk\"";
 			};
 			name = Debug;
 		};
@@ -5791,22 +5808,19 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/Submodules/buffer-ios-sdk/BufferSDK\"",
-					"\"$(SRCROOT)/Submodules/buffer-ios-sdk/BufferSDK/BufferSDK.embeddedframework\"",
-				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				LIBRARY_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/buffer-ios-sdk\"/**";
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
 				);
 				PRODUCT_NAME = Buffer;
 				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/buffer-ios-sdk\"";
 			};
 			name = Release;
 		};
