@@ -2544,6 +2544,7 @@
 				94CC29001745399400C31CD8 /* libBufferSDK.a */,
 			);
 			name = BufferSDK;
+			path = "../../../../../Submodules/buffer-ios-sdk/BufferSDK";
 			sourceTree = "<group>";
 		};
 		A57772B514BA1900003FC744 /* ObjectiveFlickr */ = {
