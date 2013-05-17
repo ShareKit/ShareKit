@@ -416,12 +416,15 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	
 	if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeText)
 	{
-		NSString *url = [self.item.URL absoluteString];
-		[params setObject:url forKey:@"link"];
-		[params setObject:self.item.title == nil ? url : self.item.title
-				   forKey:@"name"];
-		
-		//message parameter is invalid in fbdialog since 2011. Next two lines are effective only when sending to graph API.
+        if (self.item.URL) {
+            NSString *url = [self.item.URL absoluteString];
+            [params setObject:url forKey:@"link"];
+        }
+        
+        if (self.item.title) {
+            [params setObject:self.item.title forKey:@"name"];
+        }
+
 		if (self.item.text)
 			[params setObject:self.item.text forKey:@"message"];
 		
