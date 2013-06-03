@@ -49,6 +49,11 @@
 	return NO;
 }
 
+- (BOOL)requiresShortenedURL
+{
+    return YES;
+}
+
 
 #pragma mark -
 #pragma mark Authorization
@@ -62,7 +67,7 @@
     // Buffer SDK handles authrorisation with Buffer, so display sheet even if not logged in.
     
     BOOL shouldShortenURL = self.item.URL;
-    if (shouldShortenURL) {
+    if (shouldShortenURL && [self requiresShortenedURL]) {
         [self bufferShortenURL];
         return;
     }
@@ -153,6 +158,8 @@
     }
     
     [[BufferSDK sharedAPI] setClientID:SHKCONFIG(bufferClientID) andClientSecret:SHKCONFIG(bufferClientSecret)];
+    
+    [[BufferSDK sharedAPI] shouldShortenURLS:SHKCONFIG(bufferShouldShortenURLS)];
     
     // BufferSDKResources.bundle is contained within ShareKit.bundle so pass this to BufferSDK.
     NSString *bundleRoot = [[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"];
