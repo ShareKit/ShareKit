@@ -294,6 +294,10 @@
 	return @"1bf70db9032207624e2ad58fb24b1593";
 }
 
+-(BOOL)bufferShouldShortenURLS {
+    return YES;
+}
+
 
 /*
  UI Configuration : Basic

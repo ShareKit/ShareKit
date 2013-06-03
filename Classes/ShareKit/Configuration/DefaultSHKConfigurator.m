@@ -339,6 +339,10 @@
 	return @"";
 }
 
+-(BOOL)bufferShouldShortenURLS {
+    return YES;
+}
+
 /* 
  This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
     @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
