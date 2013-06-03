@@ -60,6 +60,13 @@
 
 - (void)promptAuthorization {
     // Buffer SDK handles authrorisation with Buffer, so display sheet even if not logged in.
+    
+    BOOL shouldShortenURL = self.item.URL;
+    if (shouldShortenURL) {
+        [self bufferShortenURL];
+        return;
+    }
+    
     [self show];
 }
 
@@ -72,6 +79,58 @@
     // Buffer SDK handles authrorisation with Buffer, call logout method on BufferSDK
 	[BufferSDK logout];
 }
+
+
+#pragma mark - SHK Shorten Links
+
+- (void)bufferShortenURL
+{
+	NSString *bitLyLogin = SHKCONFIG(bitLyLogin);
+	NSString *bitLyKey = SHKCONFIG(bitLyKey);
+	BOOL bitLyConfigured = [bitLyLogin length] > 0 && [bitLyKey length] > 0;
+	
+	if (bitLyConfigured == NO || ![SHK connected]) {
+        SHKLog(@"URL was not shortened! Make sure you have bit.ly credentials");
+        [self show];
+        return;
+    }
+	
+	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																		  bitLyLogin,
+																		  bitLyKey,
+																		  SHKEncodeURL(self.item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(bufferShortenFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+}
+
+- (void)bufferShortenFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (!aRequest.success || result == nil || [NSURL URLWithString:result] == nil)
+	{
+		SHKLog(@"URL was not shortened! Error response:%@", result);
+	}
+	else
+	{
+        //if really shortened, set new URL
+		if (![result isEqualToString:@"ALREADY_A_BITLY_LINK"]) {
+            NSURL *newURL = [NSURL URLWithString:result];
+            self.item.URL = newURL;
+        }
+	}
+    
+    [self show];
+}
+
 
 #pragma mark -
 #pragma mark Show UI Methods
