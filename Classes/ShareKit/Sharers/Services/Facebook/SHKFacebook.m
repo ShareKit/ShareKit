@@ -524,7 +524,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             [[NSUserDefaults standardUserDefaults] setObject:result forKey:kSHKFacebookVideoUploadLimits];
             
             // Check video size
-            NSUInteger maxVideoSize = result[@"video_upload_limits"][@"size"];
+            NSUInteger maxVideoSize = [result[@"video_upload_limits"][@"size"] unsignedIntegerValue];
             BOOL isUnderSize = maxVideoSize >= self.item.file.size;
             if(!isUnderSize){
                 completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
