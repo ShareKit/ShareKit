@@ -129,6 +129,11 @@ typedef enum
 // useful for handling custom posting error states
 + (void)clearSavedItem;
 
+#pragma mark - 
+#pragma mark - Share Item URL Shortening
+
+- (void)shortenURL;
+
 #pragma mark -
 #pragma mark Commit Share
 
