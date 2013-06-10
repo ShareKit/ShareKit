@@ -68,7 +68,7 @@
     
     BOOL shouldShortenURL = self.item.URL;
     if (shouldShortenURL && [self requiresShortenedURL]) {
-        [self performSelector:@selector(shortenURL)];
+        [self shortenURL];
         return;
     }
     
