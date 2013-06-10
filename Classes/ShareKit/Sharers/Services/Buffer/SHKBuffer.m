@@ -51,7 +51,7 @@
 
 - (BOOL)requiresShortenedURL
 {
-    return YES;
+    return !SHKCONFIG(bufferShouldShortenURLS);
 }
 
 
