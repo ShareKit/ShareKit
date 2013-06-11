@@ -1,5 +1,5 @@
 name: sharekit
-version: "2.1.5"
+version: "2.1.6"
 resources-directory: src/resources
 dependencies:
 - reachability: 2.3
