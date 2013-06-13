@@ -937,7 +937,6 @@
 		7AB5342E1552AADD00171BCE /* libShareKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AB535EF1552E12100171BCE /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		7AB5360F1552E26800171BCE /* ShareKit.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShareKit.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AB536131552E26800171BCE /* ShareKitLibraryResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ShareKitLibraryResources-Info.plist"; path = "ShareKitLibraryResources/ShareKitLibraryResources-Info.plist"; sourceTree = SOURCE_ROOT; };
 		7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKXMLResponseParser.h; sourceTree = "<group>"; };
 		7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKXMLResponseParser.m; sourceTree = "<group>"; };
 		7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellSwitch.h; sourceTree = "<group>"; };
@@ -1660,7 +1659,6 @@
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7A9A255017256E33006B97C0 /* Resources - ShareKit Library */,
-				7AB536111552E26800171BCE /* ShareKitLibraryResources */,
 				7A288261155409BC007DC379 /* ShareKitLibrary */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -2340,15 +2338,6 @@
 				7AAE8C9C16EB950800429C51 /* SHKPlurk.m */,
 			);
 			name = Plurk;
-			sourceTree = "<group>";
-		};
-		7AB536111552E26800171BCE /* ShareKitLibraryResources */ = {
-			isa = PBXGroup;
-			children = (
-				7AB536131552E26800171BCE /* ShareKitLibraryResources-Info.plist */,
-			);
-			name = ShareKitLibraryResources;
-			path = ShareKit;
 			sourceTree = "<group>";
 		};
 		7AC2A38B16597C680089ABE8 /* Sina Weibo */ = {
