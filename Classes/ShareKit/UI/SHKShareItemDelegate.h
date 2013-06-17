@@ -29,7 +29,7 @@
 
 @class SHKSharer;
 
-@protocol SHKShareItemDelegate<NSObject>
+@protocol SHKShareItemDelegate <NSObject>
 @required
 /** Called just before shareItem is called with this item on sharer. This gives you 
  a last minute chance to customize the data in the item before the share takes place.
@@ -41,5 +41,5 @@
  @returns YES if the item should be shared by ShareKit, NO is the callee is going
  to handle it. This is useful if generating the image at the appropriate size for
  the service is an async process.*/
--(BOOL) aboutToShareItem:(SHKItem*)item withSharer:(SHKSharer*)sharer;
+- (BOOL)aboutToShareItem:(SHKItem *)item withSharer:(SHKSharer *)sharer;
 @end
