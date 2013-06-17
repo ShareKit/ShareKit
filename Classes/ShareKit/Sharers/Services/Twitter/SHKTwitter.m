@@ -389,7 +389,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)sendUserInfo {
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"]
 																						 consumer:consumer
 																							 token:accessToken
 																							 realm:nil
@@ -432,7 +432,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)sendStatus
 {
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1/statuses/update.json"]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
 																						 consumer:consumer
 																							 token:accessToken
 																							 realm:nil
@@ -477,9 +477,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	NSURL *serviceURL = nil;
 	if([self.item customValueForKey:@"profile_update"]){//update_profile does not work
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/update_profile_image.json"];
+		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/update_profile_image.json"];
 	} else {
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
+		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
 	}
 	
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
@@ -507,7 +507,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 																	 realm:@"https://api.twitter.com/"
 													 signatureProvider:signatureProvider];
 		[oRequest setHTTPMethod:@"POST"];
-		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
+		[oRequest setValue:@"https://api.twitter.com/1.1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
 		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
 	}
 	
@@ -611,7 +611,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	// remove it so in case of other failures this doesn't get hit again
 	[self.item setCustomValue:nil forKey:@"followMe"];
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1/friendships/create/%@.json", SHKCONFIG(twitterUsername)]]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.twitter.com/1.1/friendships/create/%@.json", SHKCONFIG(twitterUsername)]]
 																						 consumer:consumer
 																							 token:accessToken
 																							 realm:nil
