@@ -85,7 +85,7 @@
     return accessUserId;
 }
 
--(NSString*)expirationDate
+-(NSDate*)expirationDate
 {
     if (!expirationDate)
     {
