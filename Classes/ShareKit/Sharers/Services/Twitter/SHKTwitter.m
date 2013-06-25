@@ -270,10 +270,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
         {
             if (accessToken.sessionHandle != nil)
                 [oRequest setOAuthParameterName:@"oauth_session_handle" withValue:accessToken.sessionHandle];
-        }
-		
-        else
+        } else if([authorizeResponseQueryVars objectForKey:@"oauth_verifier"]) {
             [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+        }
     }
 }
 
