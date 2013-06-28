@@ -718,6 +718,12 @@ NSString* SHKLocalizedStringFormat(NSString* key)
       }
       
       bundle = [[NSBundle bundleWithPath:path] retain];
+      
+      if (!bundle) {
+          NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"ShareKit.bundle" withExtension:nil];
+          bundle = [NSBundle bundleWithURL:bundleURL];
+      }
+      
       NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards. In case you use CocoaPods override - (NSNumber *)isUsingCocoaPods; method in your configurator subclass and return [NSNumber numberWithBool:YES]");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
