@@ -144,7 +144,6 @@
 		7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */; };
 		7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED50162F0BA7009D46E4 /* libFlickr.a */; };
 		7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED46162F0B86009D46E4 /* libFoursquareV2.a */; };
-		7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */; };
 		7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A16F3C216134A890019645D /* libInstagram.a */; };
 		7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED62162F0BE8009D46E4 /* libInstapaper.a */; };
 		7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED6B162F0C03009D46E4 /* libLinkedIn.a */; };
@@ -263,7 +262,6 @@
 		AABBED3F162F0B86009D46E4 /* SHKFoursquareV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = C042A6231430B35300DF9AF6 /* SHKFoursquareV2OAuthView.m */; };
 		AABBED40162F0B86009D46E4 /* SHKFoursquareV2Request.m in Sources */ = {isa = PBXBuildFile; fileRef = C05E48081430D9BC008F2366 /* SHKFoursquareV2Request.m */; };
 		AABBED49162F0BA7009D46E4 /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
-		AABBED53162F0BC5009D46E4 /* SHKGoogleReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */; };
 		AABBED5C162F0BE8009D46E4 /* SHKInstapaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 43150A8C11E78697008C6B68 /* SHKInstapaper.m */; };
 		AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */; };
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
@@ -512,13 +510,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A1AFD15160E13740086B98A;
 			remoteInfo = "Flickr SDK";
-		};
-		7AC28EF9165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AABBED51162F0BC5009D46E4;
-			remoteInfo = "Google Reader";
 		};
 		7AC28EFB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -815,8 +806,6 @@
 		43A536BF11DBE3B9004A1712 /* SHKSafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKSafari.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536DC11DBE3B9004A1712 /* SHKFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebook.h; sourceTree = "<group>"; };
 		43A536DD11DBE3B9004A1712 /* SHKFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKFacebook.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		43A536DF11DBE3B9004A1712 /* SHKGoogleReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKGoogleReader.h; sourceTree = "<group>"; };
-		43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKGoogleReader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536E211DBE3B9004A1712 /* SHKPinboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPinboard.h; sourceTree = "<group>"; };
 		43A536E311DBE3B9004A1712 /* SHKPinboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKPinboard.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536E811DBE3B9004A1712 /* SHKTwitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitter.h; sourceTree = "<group>"; };
@@ -1116,7 +1105,6 @@
 		AABBED37162F0B65009D46E4 /* libFacebook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFacebook.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED46162F0B86009D46E4 /* libFoursquareV2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFoursquareV2.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED50162F0BA7009D46E4 /* libFlickr.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFlickr.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Reader.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED62162F0BE8009D46E4 /* libInstapaper.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libInstapaper.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED6B162F0C03009D46E4 /* libLinkedIn.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLinkedIn.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AABBED74162F0C1A009D46E4 /* libPinboard.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPinboard.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1372,7 +1360,6 @@
 				7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */,
 				7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */,
 				7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */,
-				7AC28F15165A21C2006D7441 /* libGoogle Reader.a in Frameworks */,
 				7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */,
 				7AC28F17165A21C2006D7441 /* libInstapaper.a in Frameworks */,
 				7AC28F1A165A21C2006D7441 /* libLinkedIn.a in Frameworks */,
@@ -1534,13 +1521,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED54162F0BC5009D46E4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED5D162F0BE8009D46E4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1624,7 +1604,6 @@
 				AABBED37162F0B65009D46E4 /* libFacebook.a */,
 				AABBED46162F0B86009D46E4 /* libFoursquareV2.a */,
 				AABBED50162F0BA7009D46E4 /* libFlickr.a */,
-				AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */,
 				AABBED62162F0BE8009D46E4 /* libInstapaper.a */,
 				AABBED6B162F0C03009D46E4 /* libLinkedIn.a */,
 				AABBED74162F0C1A009D46E4 /* libPinboard.a */,
@@ -2067,7 +2046,6 @@
 				AAACE05313CCBED400A2118F /* Flickr */,
 				C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */,
 				7AECF32D171D51EB000722FA /* Google OAuth Services */,
-				43A536DE11DBE3B9004A1712 /* Google Reader */,
 				7A203CFE16EB775400421995 /* Hatena */,
 				7A16F3AC16134A5D0019645D /* Instagram */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
@@ -2095,15 +2073,6 @@
 				7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */,
 			);
 			path = Facebook;
-			sourceTree = "<group>";
-		};
-		43A536DE11DBE3B9004A1712 /* Google Reader */ = {
-			isa = PBXGroup;
-			children = (
-				43A536DF11DBE3B9004A1712 /* SHKGoogleReader.h */,
-				43A536E011DBE3B9004A1712 /* SHKGoogleReader.m */,
-			);
-			path = "Google Reader";
 			sourceTree = "<group>";
 		};
 		43A536E111DBE3B9004A1712 /* Pinboard */ = {
@@ -3117,13 +3086,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED55162F0BC5009D46E4 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED5E162F0BE8009D46E4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3456,7 +3418,6 @@
 				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
 				456BADAF16910966005B3077 /* PBXTargetDependency */,
 				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
-				7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EFE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28F00165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3810,23 +3771,6 @@
 			productReference = AABBED50162F0BA7009D46E4 /* libFlickr.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		AABBED51162F0BC5009D46E4 /* Google Reader */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AABBED56162F0BC5009D46E4 /* Build configuration list for PBXNativeTarget "Google Reader" */;
-			buildPhases = (
-				AABBED52162F0BC5009D46E4 /* Sources */,
-				AABBED54162F0BC5009D46E4 /* Frameworks */,
-				AABBED55162F0BC5009D46E4 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Google Reader";
-			productName = ShareKitLibrary;
-			productReference = AABBED59162F0BC5009D46E4 /* libGoogle Reader.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		AABBED5A162F0BE8009D46E4 /* Instapaper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AABBED5F162F0BE8009D46E4 /* Build configuration list for PBXNativeTarget "Instapaper" */;
@@ -3994,7 +3938,6 @@
 				7A1AFD15160E13740086B98A /* Flickr SDK */,
 				4503EBB8169104470057294C /* Google Plus */,
 				7AA83BAA1705E355009C483A /* Google Plus SDK */,
-				AABBED51162F0BC5009D46E4 /* Google Reader */,
 				7A16F3B316134A890019645D /* Instagram */,
 				AABBED5A162F0BE8009D46E4 /* Instapaper */,
 				AABBECF7162F0835009D46E4 /* Kippt */,
@@ -4465,14 +4408,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AABBED52162F0BC5009D46E4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AABBED53162F0BC5009D46E4 /* SHKGoogleReader.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AABBED5B162F0BE8009D46E4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4696,11 +4631,6 @@
 			isa = PBXTargetDependency;
 			target = 7A1AFD15160E13740086B98A /* Flickr SDK */;
 			targetProxy = 7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28EFA165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AABBED51162F0BC5009D46E4 /* Google Reader */;
-			targetProxy = 7AC28EF9165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6523,53 +6453,6 @@
 			};
 			name = Release;
 		};
-		AABBED57162F0BC5009D46E4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Google Reader";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		AABBED58162F0BC5009D46E4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Google Reader";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		AABBED60162F0BE8009D46E4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7226,15 +7109,6 @@
 			buildConfigurations = (
 				AABBED4E162F0BA7009D46E4 /* Debug */,
 				AABBED4F162F0BA7009D46E4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AABBED56162F0BC5009D46E4 /* Build configuration list for PBXNativeTarget "Google Reader" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AABBED57162F0BC5009D46E4 /* Debug */,
-				AABBED58162F0BC5009D46E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
