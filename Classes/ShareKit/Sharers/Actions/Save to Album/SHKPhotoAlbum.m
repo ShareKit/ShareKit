@@ -70,19 +70,29 @@
 {	
 	if (self.item.shareType == SHKShareTypeImage)
 		[self writeImageToAlbum];
-	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
-	
-	// Notify delegate, but quietly
-	self.quiet = YES;
-	[self sendDidFinish];
 	
 	return YES;
 }
 
 - (void) writeImageToAlbum
 {
-	UIImageWriteToSavedPhotosAlbum(self.item.image, nil, nil, nil);
+	UIImageWriteToSavedPhotosAlbum(self.item.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+-(void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)ctxInfo
+{
+    if (error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:SHKLocalizedString(@"An error occured, please check the privacy settings for this app.") delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+    } else {
+        // Notify user
+        [[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+        
+        // Notify delegate, but quietly
+        self.quiet = YES;
+        [self sendDidFinish];
+    }
 }
 
 
