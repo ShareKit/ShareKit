@@ -327,6 +327,7 @@
 /*
  1 - Set up an app at https://bufferapp.com/developers/apps/create
  2 - Once the app is set up this requires a URL Scheme to be set up within your apps info.plist. bufferXXXX where XXXX is your client ID, this will enable Buffer authentication.
+ 3 - Set bufferShouldShortenURLS. NO will use ShareKit's shortening (if available). YES will use Buffer's shortener once the sheet is autheorised and presented.
 */
 
 - (NSString*)bufferClientID
@@ -337,6 +338,10 @@
 - (NSString*)bufferClientSecret
 {
 	return @"";
+}
+
+-(BOOL)bufferShouldShortenURLS {
+    return YES;
 }
 
 /* 
