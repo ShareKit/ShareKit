@@ -23,7 +23,7 @@
 //  THE SOFTWARE.
 
 #import "OAAsynchronousDataFetcher.h"
-#import "DefaultSHKConfigurator.h"
+#import "Debug.h"
 #import "OAServiceTicket.h"
 
 @implementation OAAsynchronousDataFetcher

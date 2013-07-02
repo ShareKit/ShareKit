@@ -37,8 +37,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SHK.h"
 #import "SHKOAuthSharer.h"
+#import "SHKFormOptionController.h"
 
 extern NSString * const kSHKTumblrUserInfo;
 

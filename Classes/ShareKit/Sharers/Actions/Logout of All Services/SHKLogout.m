@@ -26,7 +26,7 @@
 //
 
 #import "SHKLogout.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKLogout
 

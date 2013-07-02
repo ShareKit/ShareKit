@@ -26,8 +26,13 @@
 //
 
 #import "SHKFoursquareV2VenuesForm.h"
+
 #import "SHKFoursquareV2CheckInForm.h"
 #import "SHKFoursquareV2Venue.h"
+
+#import "SHK.h"
+#import "SHKActivityIndicator.h"
+
 
 @implementation SHKFoursquareV2VenuesForm
 

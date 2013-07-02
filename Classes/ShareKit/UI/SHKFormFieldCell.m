@@ -27,6 +27,7 @@
 
 #import "SHKConfiguration.h"
 #import "SHKFormFieldCell_PrivateProperties.h"
+#import "SHKFormFieldSettings.h"
 
 @implementation SHKFormFieldCell
 

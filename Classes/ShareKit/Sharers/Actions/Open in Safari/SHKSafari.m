@@ -26,7 +26,7 @@
 //
 
 #import "SHKSafari.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKSafari
 

@@ -7,6 +7,7 @@
 //
 
 #import "SHKiOSSharer_Protected.h"
+#import "SharersCommonHeaders.h"
 #import <Social/Social.h>
 
 @interface SHKiOSSharer ()

@@ -1,5 +1,6 @@
-#import "SHKConfiguration.h"
+
 #import "SHKPrint.h"
+#import "SharersCommonHeaders.h"
 
 @implementation SHKPrint
 

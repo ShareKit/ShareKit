@@ -25,7 +25,7 @@
 
 
 #import "OAMutableURLRequest.h"
-#import "DefaultSHKConfigurator.h"
+#import "Debug.h"
 
 
 @interface OAMutableURLRequest (Private)

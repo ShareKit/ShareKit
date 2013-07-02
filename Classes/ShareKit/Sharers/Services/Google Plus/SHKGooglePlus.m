@@ -7,7 +7,8 @@
 //
 
 #import "SHKGooglePlus.h"
-#import "SHKConfiguration.h"
+
+#import "SharersCommonHeaders.h"
 
 @interface SHKGooglePlus ()
 

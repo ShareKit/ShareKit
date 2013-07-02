@@ -8,6 +8,7 @@
 
 #import "SHKSinaWeibo.h"
 #import "SHKiOSSharer_Protected.h"
+#import "SharersCommonHeaders.h"
 
 @interface SHKSinaWeibo ()
 

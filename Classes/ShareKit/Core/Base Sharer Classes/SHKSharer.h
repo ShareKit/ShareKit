@@ -26,8 +26,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SHK.h"
-#import "SHKFormController.h"
+
+#import "SHKItem.h"
+
+@class SHKRequest;
+@class SHKFormController;
+@class SHKFormOptionController;
+@class SHKFile;
 
 @class SHKSharer;
 

@@ -33,6 +33,7 @@
 #define SHK_FORM_CELL_PAD_RIGHT 10
 
 @class SHKFormController;
+@class SHKFormFieldSettings;
 
 @protocol SHKFormFieldCellDelegate <NSObject>
 

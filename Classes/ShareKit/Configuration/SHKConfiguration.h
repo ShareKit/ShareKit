@@ -26,7 +26,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DefaultSHKConfigurator.h"
+@class DefaultSHKConfigurator;
 
 @interface SHKConfiguration : NSObject 
 

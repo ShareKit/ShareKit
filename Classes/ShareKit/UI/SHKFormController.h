@@ -26,9 +26,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SHKFormFieldSettings.h"
-#import "SHKCustomFormFieldCell.h"
+#import "SHKFormFieldCell.h"
 #import "SHKFormOptionController.h"
+
+@class SHKFormFieldSettings;
 
 @interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient>
 

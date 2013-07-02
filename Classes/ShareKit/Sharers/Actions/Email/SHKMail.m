@@ -25,8 +25,8 @@
 //
 //
 
-#import "SHKConfiguration.h"
 #import "SHKMail.h"
+#import "SharersCommonHeaders.h"
 
 #define MAX_ATTACHMENT_SIZE 10*1024*1024 //10mb
 

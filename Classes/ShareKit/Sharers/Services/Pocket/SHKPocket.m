@@ -8,7 +8,7 @@
 
 #import "SHKPocket.h"
 #import "PocketAPI.h"
-#import "SHKConfiguration.h"
+#import "SharersCommonHeaders.h"
 
 @interface SHKPocket ()
 

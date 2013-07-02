@@ -24,6 +24,7 @@
 
 #import "SHKFormFieldCellOptionPicker.h"
 #import "SHKConfiguration.h"
+#import "SHKFormFieldSettings.h"
 
 @implementation SHKFormFieldCellOptionPicker
 

@@ -23,6 +23,7 @@
 
 #import "SHKiOSTwitter.h"
 #import "SHKiOSSharer_Protected.h"
+#import "SharersCommonHeaders.h"
 
 @implementation SHKiOSTwitter
 

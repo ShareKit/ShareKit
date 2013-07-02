@@ -27,7 +27,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import "SHKOAuthView.h"
 #import "OAuthConsumer.h"
 
 @interface SHKOAuthSharer : SHKSharer

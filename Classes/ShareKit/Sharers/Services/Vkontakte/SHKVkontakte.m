@@ -26,9 +26,9 @@
 //
 
 #import "SHKVkontakte.h"
-#import "SHKConfiguration.h"
 #import "SHKVkontakteOAuthView.h"
 #import "SHKVKontakteRequest.h"
+#import "SharersCommonHeaders.h"
 
 @interface SHKVkontakte()
 

@@ -25,7 +25,10 @@
 //
 
 #import "SHKVkontakteOAuthView.h"
+
 #import "SHKVkontakte.h"
+#import "SHK.h"
+#import "Debug.h"
 
 @implementation SHKVkontakteOAuthView
 @synthesize vkWebView, appID, delegate;

@@ -25,6 +25,10 @@
 
 
 #import "SHKKippt.h"
+
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
+
 #import <objc/runtime.h>
 
 // -- Constants --

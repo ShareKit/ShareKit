@@ -26,7 +26,7 @@
 //
 
 #import "SHKRequest.h"
-#import "DefaultSHKConfigurator.h"
+#import "Debug.h"
 
 #define SHK_TIMEOUT 90
 

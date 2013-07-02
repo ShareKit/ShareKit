@@ -26,6 +26,7 @@
 //
 
 #import "SHKTextMessage.h"
+#import "SharersCommonHeaders.h"
 
 @implementation SHKTextMessage
 

@@ -22,6 +22,8 @@
 //  THE SOFTWARE.
 
 #import "SHKSharerDelegate.h"
+#import "SHKActivityIndicator.h"
+#import "SHK.h"
 
 @implementation SHKSharerDelegate
 

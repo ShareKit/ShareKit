@@ -26,8 +26,9 @@
 //
 
 #import "ExampleShareFile.h"
+
+#import "ShareKit.h"
 #import "SHK.h"
-#import "SHKActionSheet.h"
 
 #define SHARE_FILE_WITH_PATH 1
 

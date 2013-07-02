@@ -26,8 +26,7 @@
 //
 
 #import "ExampleShareImage.h"
-#import "SHKItem.h"
-#import "SHKActionSheet.h"
+#import "ShareKit.h"
 
 @interface ExampleShareImage ()
 

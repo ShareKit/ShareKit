@@ -26,6 +26,9 @@
 
 #import "SHKInstapaper.h"
 
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
+
 static NSString * const kInstapaperAuthenticationURL = @"https://www.instapaper.com/api/authenticate";
 static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api/add";
 

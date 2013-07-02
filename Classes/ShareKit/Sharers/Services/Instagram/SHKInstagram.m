@@ -23,7 +23,7 @@
 //
 
 #import "SHKInstagram.h"
-#import "SHKConfiguration.h"
+#import "SharersCommonHeaders.h"
 
 #define MAX_RESOLUTION_IPHONE_3GS 1536.0f
 #define MAX_RESOLUTION_IPHONE_4 1936.0f

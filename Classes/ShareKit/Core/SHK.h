@@ -28,21 +28,15 @@
 #define SHK_VERSION @"0.2.1"
 
 #import <Foundation/Foundation.h>
-#import "DefaultSHKConfigurator.h"
-#import "SHKItem.h"
-#import "SHKActionSheet.h"
-#import "SHKRequest.h"
-#import "SHKActivityIndicator.h"
-#import "SHKFormFieldSettings.h"
-#import "UIWebView+SHK.h"
+
+@class SHKActionSheet;
+@class SHKItem;
 
 extern NSString * const SHKSendDidStartNotification;
 extern NSString * const SHKSendDidFinishNotification;
 extern NSString * const SHKSendDidFailWithErrorNotification;
 extern NSString * const SHKSendDidCancelNotification;
 extern NSString * const SHKAuthDidFinishNotification;
-
-@class SHKActionSheet;
 
 @interface SHK : NSObject 
 

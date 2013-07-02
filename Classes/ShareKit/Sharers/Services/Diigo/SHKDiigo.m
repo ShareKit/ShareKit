@@ -24,8 +24,11 @@
 //  THE SOFTWARE.
 //
 //
-#import "SHKConfiguration.h"
+
 #import "SHKDiigo.h"
+
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
 
 /**
  Private helper methods

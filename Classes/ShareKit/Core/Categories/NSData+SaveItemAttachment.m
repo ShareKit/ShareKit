@@ -8,7 +8,7 @@
 
 #import "NSData+SaveItemAttachment.h"
 #import "SHKItem.h"
-#import "SHK.h"
+#import "Debug.h"
 
 @implementation NSData (SaveItemAttachment)
 

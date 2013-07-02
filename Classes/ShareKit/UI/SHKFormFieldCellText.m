@@ -23,6 +23,7 @@
 
 #import "SHKFormFieldCellText.h"
 #import "SHKConfiguration.h"
+#import "SHKFormFieldSettings.h"
 
 #define SHK_FORM_CELL_TEXTFIELD_HEIGHT 25
 

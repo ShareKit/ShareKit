@@ -34,9 +34,10 @@ Google Reader API is unoffical, this was hobbled together from:
  http://www.google.com/support/reader/bin/answer.py?hl=en&answer=147149 
 */
 
-
-#import "SHKConfiguration.h"
 #import "SHKGoogleReader.h"
+
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
 
 /**
  Private helper methods

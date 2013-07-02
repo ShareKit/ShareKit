@@ -17,6 +17,8 @@
 #import "PocketAPI.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
+#import "SHK.h"
+
 
 @implementation ShareKitAppDelegate
 

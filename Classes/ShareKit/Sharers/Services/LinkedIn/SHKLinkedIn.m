@@ -24,9 +24,11 @@
 //
 //
 
-#import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
+
+#import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
+
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 

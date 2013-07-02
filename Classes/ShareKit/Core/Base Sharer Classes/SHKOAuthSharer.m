@@ -27,8 +27,8 @@
 
 #import "SHKOAuthSharer.h"
 #import "SHKOAuthView.h"
-#import "OAuthConsumer.h"
 #import "NSHTTPCookieStorage+DeleteForURL.h"
+#import "SharersCommonHeaders.h"
 
 
 @implementation SHKOAuthSharer

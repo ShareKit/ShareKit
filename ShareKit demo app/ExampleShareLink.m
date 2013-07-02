@@ -26,7 +26,7 @@
 //
 
 #import "ExampleShareLink.h"
-#import "SHK.h"
+#import "ShareKit.h"
 
 @interface ExampleShareLink () <UIWebViewDelegate>
 
@@ -58,7 +58,8 @@
 
 - (void)share
 {
-	SHKItem *item = [SHKItem URL:self.webView.request.URL title:[self.webView pageTitle] contentType:(SHKURLContentTypeWebpage)];
+    NSString *pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+	SHKItem *item = [SHKItem URL:self.webView.request.URL title:pageTitle contentType:(SHKURLContentTypeWebpage)];
 
     /* bellow are examples how to preload SHKItem with some custom sharer specific settings. You can prefill them ad hoc during each particular SHKItem createion, or set them globally in your configurator, so that every SHKItem is prefilled with the same values. More info in SHKItem.h or DefaultSHKConfigurator.m.    
     

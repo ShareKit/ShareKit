@@ -25,7 +25,7 @@
 //
 
 #import "SHKPlurk.h"
-#import "SHKConfiguration.h"
+#import "SharersCommonHeaders.h"
 
 @implementation SHKPlurk
 

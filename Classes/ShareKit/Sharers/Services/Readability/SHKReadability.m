@@ -23,9 +23,9 @@
 //
 //
 
-#import "SHKConfiguration.h"
 #import "SHKReadability.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import "SharersCommonHeaders.h"
 
 static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 

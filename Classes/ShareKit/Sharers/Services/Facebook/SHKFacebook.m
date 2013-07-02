@@ -26,12 +26,14 @@
 //
 //
 
-#import "SHKiOSFacebook.h"
 #import "SHKFacebook.h"
-#import <FacebookSDK.h>
-#import "SHKConfiguration.h"
+
+#import "SHKiOSFacebook.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import "SharersCommonHeaders.h"
+
 #import <Social/Social.h>
+#import <FacebookSDK.h>
 
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";

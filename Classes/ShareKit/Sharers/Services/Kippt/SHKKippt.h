@@ -24,6 +24,7 @@
 //
 
 #import "SHKSharer.h"
+#import "SHKFormOptionController.h"
 
 // Needed for HTTP Basic Auth
 NSString *base64(NSData *plainText);

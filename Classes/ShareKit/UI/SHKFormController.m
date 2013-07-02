@@ -25,13 +25,14 @@
 //
 //
 
-#import "SHK.h"
-#import "SHKConfiguration.h"
 #import "SHKFormController.h"
+
+#import "SHKConfiguration.h"
 #import "SHKCustomFormFieldCell.h"
 #import "SHKFormFieldCellText.h"
 #import "SHKFormFieldCellSwitch.h"
 #import "SHKFormFieldCellOptionPicker.h"
+#import "SHKFormFieldSettings.h"
 
 #define CELL_IDENTIFIER_TEXT @"textCell"
 #define CELL_IDENTIFIER_SWITCH @"switchCell"

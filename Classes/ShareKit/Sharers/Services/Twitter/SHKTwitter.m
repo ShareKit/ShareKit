@@ -28,12 +28,15 @@
 // TODO - SHKTwitter supports offline sharing, however the url cannot be shortened without an internet connection.  Need a graceful workaround for this.
 
 
-#import "SHKConfiguration.h"
+
 #import "SHKTwitter.h"
+
+#import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
 #import "SHKiOSTwitter.h"
 #import "SHKiOS5Twitter.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+
 #import <Social/Social.h>
 
 static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";

@@ -26,7 +26,7 @@
 //
 
 #import "SHKCopy.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKCopy
 

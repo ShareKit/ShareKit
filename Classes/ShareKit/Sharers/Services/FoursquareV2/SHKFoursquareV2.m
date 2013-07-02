@@ -26,11 +26,11 @@
 //
 
 #import "SHKFoursquareV2.h"
+
+#import "SharersCommonHeaders.h"
 #import "SHKFoursquareV2OAuthView.h"
 #import "SHKFoursquareV2VenuesForm.h"
 #import "SHKFoursquareV2CheckInForm.h"
-#import "SHKConfiguration.h"
-
 #import "NSString+URLEncoding.h"
 #import "NSHTTPCookieStorage+DeleteForURL.h"
 

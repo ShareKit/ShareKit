@@ -27,6 +27,9 @@
 
 #import "SHKPinboard.h"
 
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
+
 /**
  Private helper methods
  */

@@ -26,9 +26,10 @@
 //
 
 #import "SHKSharer.h"
-#import "SHKActivityIndicator.h"
-#import "SHKConfiguration.h"
+
 #import "SHKSharerDelegate.h"
+#import "SHKRequest.h"
+#import "SharersCommonHeaders.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";

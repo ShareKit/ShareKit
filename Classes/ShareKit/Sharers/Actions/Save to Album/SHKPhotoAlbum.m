@@ -26,7 +26,7 @@
 //
 
 #import "SHKPhotoAlbum.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKPhotoAlbum
 

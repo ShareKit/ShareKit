@@ -26,7 +26,8 @@
 
 
 #import "SHKFlickr.h"
-#import "SHKConfiguration.h"
+
+#import "SharersCommonHeaders.h"
 #import "NSHTTPCookieStorage+DeleteForURL.h"
 
 NSString *kFlickrAuthenticationURL = @"http://flickr.com/services/auth/";

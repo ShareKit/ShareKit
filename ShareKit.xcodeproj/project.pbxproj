@@ -19,7 +19,6 @@
 		7A0F91DD156BA2A0009CB40A /* SHKSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367711DBE3B9004A1712 /* SHKSharer.m */; };
 		7A0F91DE156BA2A0009CB40A /* SHKSharerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A36F42614B2021100372747 /* SHKSharerDelegate.m */; };
 		7A0F91DF156BA2A0009CB40A /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2E91291AE5700D2A41E /* NSData+md5.m */; };
-		7A0F91E0156BA2A0009CB40A /* UIWebView+SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */; };
 		7A0F91E1156BA2A0009CB40A /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */; };
 		7A0F91E2156BA2A0009CB40A /* NSHTTPCookieStorage+DeleteForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */; };
 		7A0F91F4156BA2A0009CB40A /* SHKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A511DBE3B9004A1712 /* SHKRequest.m */; };
@@ -96,6 +95,8 @@
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
+		7A8397431782CC9500E1F8B9 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A8397421782CC9500E1F8B9 /* Debug.h */; };
+		7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A83974A1782FBFB00E1F8B9 /* ShareKit.h */; };
 		7AA2E9E21743E44500B17434 /* SHKPocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E01743E44500B17434 /* SHKPocket.h */; };
 		7AA2E9E31743E44500B17434 /* SHKPocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E11743E44500B17434 /* SHKPocket.m */; };
 		7AA2E9EF1743E51C00B17434 /* PocketAPI+NSOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */; };
@@ -766,8 +767,6 @@
 		43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthSharer.m; sourceTree = "<group>"; };
 		43A5367611DBE3B9004A1712 /* SHKSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SHKSharer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		43A5367711DBE3B9004A1712 /* SHKSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKSharer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+SHK.h"; sourceTree = "<group>"; };
-		43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+SHK.m"; sourceTree = "<group>"; };
 		43A5368111DBE3B9004A1712 /* NSMutableURLRequest+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableURLRequest+Parameters.h"; sourceTree = "<group>"; };
 		43A5368211DBE3B9004A1712 /* NSMutableURLRequest+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableURLRequest+Parameters.m"; sourceTree = "<group>"; };
 		43A5368311DBE3B9004A1712 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
@@ -904,6 +903,9 @@
 		7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
 		7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOS5Twitter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		7A8397421782CC9500E1F8B9 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
+		7A8397491782CF5400E1F8B9 /* SharersCommonHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharersCommonHeaders.h; sourceTree = "<group>"; };
+		7A83974A1782FBFB00E1F8B9 /* ShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKit.h; sourceTree = "<group>"; };
 		7AA2E9E01743E44500B17434 /* SHKPocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKPocket.h; path = Pocket/SHKPocket.h; sourceTree = "<group>"; };
 		7AA2E9E11743E44500B17434 /* SHKPocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKPocket.m; path = Pocket/SHKPocket.m; sourceTree = "<group>"; };
 		7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
@@ -1871,6 +1873,7 @@
 			isa = PBXGroup;
 			children = (
 				43A536AC11DBE3B9004A1712 /* SHKSharers.plist */,
+				7A83974A1782FBFB00E1F8B9 /* ShareKit.h */,
 				43A536A611DBE3B9004A1712 /* SHK.h */,
 				43A536A711DBE3B9004A1712 /* SHK.m */,
 				43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */,
@@ -1894,6 +1897,7 @@
 				7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */,
 				7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */,
 				7A56BFC01659173D00134F04 /* SHKiOSSharer.m */,
+				7A8397491782CF5400E1F8B9 /* SharersCommonHeaders.h */,
 			);
 			path = "Base Sharer Classes";
 			sourceTree = "<group>";
@@ -1909,8 +1913,6 @@
 				7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */,
 				7A25903514CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.h */,
 				7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */,
-				43A5367911DBE3B9004A1712 /* UIWebView+SHK.h */,
-				43A5367A11DBE3B9004A1712 /* UIWebView+SHK.m */,
 				7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */,
 				7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */,
 			);
@@ -1931,6 +1933,7 @@
 				7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */,
 				7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */,
 				7A74C18616E8A64400CFDFC3 /* Singleton.h */,
+				7A8397421782CC9500E1F8B9 /* Debug.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2805,6 +2808,8 @@
 				7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */,
 				7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
+				7A8397431782CC9500E1F8B9 /* Debug.h in Headers */,
+				7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4107,7 +4112,6 @@
 				7A0F91DE156BA2A0009CB40A /* SHKSharerDelegate.m in Sources */,
 				7A0F91E1156BA2A0009CB40A /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,
 				7A0F91DF156BA2A0009CB40A /* NSData+md5.m in Sources */,
-				7A0F91E0156BA2A0009CB40A /* UIWebView+SHK.m in Sources */,
 				7A0F91E2156BA2A0009CB40A /* NSHTTPCookieStorage+DeleteForURL.m in Sources */,
 				7A0F91F4156BA2A0009CB40A /* SHKRequest.m in Sources */,
 				7A0F91F5156BA2A0009CB40A /* SHKXMLResponseParser.m in Sources */,

@@ -26,10 +26,11 @@
 //
 
 #import "SHKItem.h"
-#import "SHK.h"
+
 #import "SHKConfiguration.h"
 #import "NSData+SaveItemAttachment.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "SHKFormFieldSettings.h"
 
 NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 

@@ -22,6 +22,9 @@
 //  THE SOFTWARE.
 
 #import "SHKiOS5Twitter.h"
+
+#import "SharersCommonHeaders.h"
+
 #import <Twitter/Twitter.h>
 
 @interface SHKiOS5Twitter ()

@@ -10,8 +10,8 @@
 #error "This file requires ARC support."
 #endif
 
-#import "SHKConfiguration.h"
 #import "SHKYouTube.h"
+#import "SharersCommonHeaders.h"
 
 #import "GTLYouTube.h"
 #import "GTLUtilities.h"

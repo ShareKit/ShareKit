@@ -26,7 +26,10 @@
 //
 
 #import "SHKDelicious.h"
+
+#import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
+#import "SHKRequest.h"
 
 /**
  Private helper methods

@@ -23,6 +23,7 @@
 //  THE SOFTWARE.
 
 #import "SHKFormFieldCellSwitch.h"
+#import "SHKFormFieldSettings.h"
 
 @implementation SHKFormFieldCellSwitch
 

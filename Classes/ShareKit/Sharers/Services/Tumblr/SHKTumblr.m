@@ -23,7 +23,8 @@
 //  THE SOFTWARE.
 
 #import "SHKTumblr.h"
-#import "SHKConfiguration.h"
+
+#import "SharersCommonHeaders.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 #define MAX_SIZE_MB_PHOTO 10
