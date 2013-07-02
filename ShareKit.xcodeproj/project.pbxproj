@@ -308,6 +308,7 @@
 		DE334CFC16F34C8E00FF692B /* NSURLResponse+Encoding.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C5316F335A200FF692B /* NSURLResponse+Encoding.m */; };
 		DE4D0CA716F34D2B0056AAE7 /* libDropbox SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE334CCF16F34BDD00FF692B /* libDropbox SDK.a */; };
 		DE4D0CAA16F34F7C0056AAE7 /* MPOAuthSignatureParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = DE4D0CA916F34F7C0056AAE7 /* MPOAuthSignatureParameter.m */; };
+		FF97F6D217832513007C5D1C /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -667,6 +668,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = DE334CCE16F34BDD00FF692B;
 			remoteInfo = DropboxSDK;
+		};
+		FF97F6CB1783250D007C5D1C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1519,6 +1527,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF97F6D217832513007C5D1C /* libfacebook_ios_sdk.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3775,6 +3784,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				FF97F6CC1783250D007C5D1C /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -4780,6 +4790,11 @@
 			isa = PBXTargetDependency;
 			target = DE334CCE16F34BDD00FF692B /* Dropbox SDK */;
 			targetProxy = DE4D0CA516F34D220056AAE7 /* PBXContainerItemProxy */;
+		};
+		FF97F6CC1783250D007C5D1C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = FF97F6CB1783250D007C5D1C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
