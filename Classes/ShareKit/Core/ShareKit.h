@@ -13,5 +13,6 @@
 
 #import "SHKItem.h"
 #import "SHKActionSheet.h"
+#import "SHK.h"
 
 #endif
