@@ -47,11 +47,26 @@
 	
 }
 
+- (void) closeView
+{
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+}
+
+- (void) addCloseButton
+{
+    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleBordered
+                                                                                           target:self
+                                                                                           action:@selector(closeView)]
+                                             autorelease];
+}
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
+    [self addCloseButton];
+    
 	if(!vkWebView)
 	{
 		self.vkWebView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
