@@ -379,12 +379,10 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 -(void) optionsEnumerated:(NSArray*)options{
 	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
 	[self.curOptionController optionsEnumerated:options];
-	self.curOptionController = nil;
 }
 -(void) optionsEnumerationFailed:(NSError*)error{
 	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
 	[self.curOptionController optionsEnumerationFailedWithError:error];
-	self.curOptionController = nil;
 }
 
 -(void) SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController*) optionController
@@ -397,7 +395,6 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 -(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
 {
 	NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
-	self.curOptionController = nil;
 	NSAssert(self.flickrRequest.sessionInfo == kGetGroupsStep, @"The active request should be kGetGroupsStep");
 	[self.flickrRequest cancel];
 }

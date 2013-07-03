@@ -460,7 +460,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
     self.getUserBlogsObserver = nil;
     NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
-	self.curOptionController = nil;
 }
 
 #pragma mark - 
@@ -469,7 +468,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
 	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
 	[self.curOptionController optionsEnumerated:blogs];
-	self.curOptionController = nil;
 }
 
 - (NSArray *)userBlogURLs {

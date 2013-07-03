@@ -878,7 +878,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         
         if (self.curOptionController) {
             [self popViewControllerAnimated:NO];//dismiss option controller
-            self.curOptionController = nil;
             NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
             [self updateItemWithForm:(SHKFormController *)self.topViewController];
         }        

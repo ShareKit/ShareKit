@@ -255,7 +255,6 @@ static char const* const ListURIKey = "ListURIKey";
         NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Failed to fetch lists." forKey:NSLocalizedDescriptionKey];
         NSError *err = [NSError errorWithDomain:@"KPT" code:1 userInfo:userInfo];
         [self.curOptionController optionsEnumerationFailedWithError:err];
-        self.curOptionController = nil;
     } else {
         NSError *error = nil;
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
@@ -267,7 +266,6 @@ static char const* const ListURIKey = "ListURIKey";
         }
         
         [self.curOptionController optionsEnumerated:lists];
-        self.curOptionController = nil;
     }
 }
 

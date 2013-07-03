@@ -63,7 +63,7 @@ typedef enum
 
 @property (strong) SHKItem *item;
 @property (strong) SHKFormController *pendingForm;
-@property (weak) SHKFormOptionController *curOptionController; //TODO in ARC should be weak, remove all nilling
+@property (weak) SHKFormOptionController *curOptionController;
 @property (strong) SHKRequest *request; //TODO: sharer retains request, but request retains sharer too. Memory leak?
 @property (nonatomic, strong) NSError *lastError;
 @property BOOL quiet;
