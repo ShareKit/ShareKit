@@ -40,10 +40,10 @@
 	SHKSharer* limboSharer;	// used to postpone the call to share until the menu has finished animating out.
 }
 
-@property (nonatomic, retain) SHKItem *item;
-@property (retain) NSMutableArray *tableData;
-@property (retain) NSMutableArray *exclusions;
-@property (retain) id<SHKShareItemDelegate> shareDelegate;
+@property (nonatomic, strong) SHKItem *item;
+@property (strong) NSMutableArray *tableData;
+@property (strong) NSMutableArray *exclusions;
+@property (strong) id<SHKShareItemDelegate> shareDelegate;
 
 
 - (void)rebuildTableDataAnimated:(BOOL)animated;

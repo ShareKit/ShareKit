@@ -48,7 +48,7 @@ NSString * SHKLocalizedStringFormat(NSString* key);
 
 @interface SHK ()
 
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 @property SEL showMethod;
 
 @end
@@ -64,13 +64,6 @@ BOOL SHKinit;
     });
 }
 
-- (void)dealloc
-{
-	[_currentView release];
-	[_pendingView release];
-	[_offlineQueue release];
-	[super dealloc];
-}
 
 #pragma mark -
 #pragma mark View Management
@@ -143,7 +136,7 @@ BOOL SHKinit;
         NSAssert(vc.presentingViewController == nil, @"vc must not be in the view hierarchy now"); //ios5+
     }
     
-	if (![vc isKindOfClass:[UINavigationController class]]) vc = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+	if (![vc isKindOfClass:[UINavigationController class]]) vc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     [(UINavigationController *)vc navigationBar].barStyle = [SHK barStyle];
     [(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
@@ -356,7 +349,6 @@ BOOL SHKinit;
 		favoriteSharers = [NSArray arrayWithArray:newFavs];
 		[self setFavorites:favoriteSharers forItem:item];
 		
-		[newFavs release];
     }
 	
 	// Make sure the favorites are not using any exclusions, remove them if they are.
@@ -373,7 +365,6 @@ BOOL SHKinit;
 		favoriteSharers = [NSArray arrayWithArray:newFavs];
 		[self setFavorites:favoriteSharers forItem:item];
 		
-		[newFavs release];
 	}
 	
 	return favoriteSharers;
@@ -402,7 +393,6 @@ BOOL SHKinit;
 	
 	[self setFavorites:favs forItem:item];
 	
-	[favs release];
 }
 
 + (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item
@@ -490,7 +480,7 @@ static NSString *shareKitLibraryBundlePath = nil;
 {
     if (shareKitLibraryBundlePath == nil) {
         
-        shareKitLibraryBundlePath = [[[NSBundle bundleForClass:[SHK class]] pathForResource:@"ShareKit" ofType:@"bundle"] retain];
+        shareKitLibraryBundlePath = [[NSBundle bundleForClass:[SHK class]] pathForResource:@"ShareKit" ofType:@"bundle"];
     }
     return shareKitLibraryBundlePath;
 }
@@ -501,18 +491,18 @@ static NSDictionary *sharersDictionary = nil;
 {
 	if (sharersDictionary == nil)
     {        
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+		sharersDictionary = [NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]];
     }
     
     //if user sets his own sharers plist - name only
     if (sharersDictionary == nil) 
     {
-        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
+        sharersDictionary = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]];
     }
     
     //if user sets his own sharers plist - complete path
     if (sharersDictionary == nil) {
-        sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistName)] retain];
+        sharersDictionary = [NSDictionary dictionaryWithContentsOfFile:SHKCONFIG(sharersPlistName)];
     }
     
     NSAssert(sharersDictionary != nil, @"ShareKit: You do not have properly set sharersPlistName");
@@ -550,7 +540,7 @@ static NSDictionary *sharersDictionary = nil;
 + (NSMutableArray *)getOfflineQueueList
 {
 	//TODO:should do this off the main thread
-    return [[[NSArray arrayWithContentsOfFile:[self offlineQueueListPath]] mutableCopy] autorelease];
+    return [[NSArray arrayWithContentsOfFile:[self offlineQueueListPath]] mutableCopy];
 }
 
 + (void)saveOfflineQueueList:(NSMutableArray *)queueList
@@ -598,12 +588,11 @@ static NSDictionary *sharersDictionary = nil;
 		if (helper.offlineQueue == nil) {
             NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
 			helper.offlineQueue = aQueue;	
-            [aQueue release];
         }
 			
 		for (NSDictionary *entry in queueList)
 		{
-            [helper.offlineQueue addOperation:[[[SHKOfflineSharer alloc] initWithDictionary:entry] autorelease]];
+            [helper.offlineQueue addOperation:[[SHKOfflineSharer alloc] initWithDictionary:entry]];
 		}
 		
 		// Remove offline queue - TODO: only do this if everything was successful?
@@ -621,7 +610,7 @@ static NSDictionary *sharersDictionary = nil;
 	if (description) {
 		va_list args;
 		va_start(args, description);
-		NSString *string = [[[NSString alloc] initWithFormat:description arguments:args] autorelease];
+		NSString *string = [[NSString alloc] initWithFormat:description arguments:args];
 		va_end(args);
 
 		userInfo = [NSDictionary dictionaryWithObject:string forKey:NSLocalizedDescriptionKey];
@@ -642,11 +631,6 @@ static NSDictionary *sharersDictionary = nil;
 }
 
 @end
-
-NSString * SHKStringOrBlank(NSString * value)
-{
-	return value == nil ? @"" : value;
-}
 
 NSString * SHKEncode(NSString * value)
 {
@@ -671,12 +655,11 @@ NSString * SHKEncodeURL(NSURL * value)
 	if (value == nil)
 		return @"";
 	
-	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                           (CFStringRef)value.absoluteString,
+	NSString *result = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                           (__bridge CFStringRef)value.absoluteString,
                                                                            NULL,
 																		   CFSTR("!*'();:@&=+$,/?%#[]"),
                                                                            kCFStringEncodingUTF8);
-    [result autorelease];
 	return result;
 }
 
@@ -717,7 +700,7 @@ NSString* SHKLocalizedStringFormat(NSString* key)
           path = [[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:@"ShareKit.bundle"];
       }
       
-      bundle = [[NSBundle bundleWithPath:path] retain];
+      bundle = [NSBundle bundleWithPath:path];
       NSCAssert(bundle != nil,@"ShareKit has been refactored to be used as Xcode subproject. Please follow the updated installation wiki and re-add it to the project. Please do not forget to clean project and clean build folder afterwards. In case you use CocoaPods override - (NSNumber *)isUsingCocoaPods; method in your configurator subclass and return [NSNumber numberWithBool:YES]");
   }
   return [bundle localizedStringForKey:key value:key table:nil];
@@ -730,7 +713,7 @@ NSString* SHKLocalizedString(NSString* key, ...)
 	
 	va_list args;
     va_start(args, key);
-    NSString *string = [[[NSString alloc] initWithFormat:localizedStringFormat arguments:args] autorelease];
+    NSString *string = [[NSString alloc] initWithFormat:localizedStringFormat arguments:args];
     va_end(args);
 	
 	return string;

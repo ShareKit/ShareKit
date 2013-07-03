@@ -43,7 +43,7 @@
 
 @interface SHKFormFieldCell : UITableViewCell 
 
-@property (assign) id <SHKFormFieldCellDelegate> delegate;
+@property (weak) id <SHKFormFieldCellDelegate> delegate;
 
 - (void)setupLayout;
 - (void)setupWithSettings:(SHKFormFieldSettings *)_settings;

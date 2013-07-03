@@ -41,13 +41,13 @@ typedef enum
 
 @interface SHKFormFieldSettings : NSObject 
 
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *key;
+@property (nonatomic, strong) NSString *label;
+@property (nonatomic, strong) NSString *key;
 @property SHKFormFieldType type;
-@property (nonatomic, retain) NSString *start;
+@property (nonatomic, strong) NSString *start;
 
 //this holds actual value of a setting. It is a start value until user sets something.
-@property (nonatomic, retain) NSString *displayValue;
+@property (nonatomic, strong) NSString *displayValue;
 
 /*	optionPickerInfo contains the info needed to present the fact that there is a value that 
  can be picked from a list. The actual choices can be provided in the optionPickerInfo or
@@ -68,8 +68,8 @@ typedef enum
  protocol.
  
  */	
-@property (nonatomic, retain) NSMutableDictionary *optionPickerInfo;
-@property (nonatomic, retain) NSString *optionDetailLabelDefault;
+@property (nonatomic, strong) NSMutableDictionary *optionPickerInfo;
+@property (nonatomic, strong) NSString *optionDetailLabelDefault;
 
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s optionPickerInfo:(NSMutableDictionary *)oi optionDetailLabelDefault:(NSString *)od;

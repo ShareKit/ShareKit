@@ -59,13 +59,13 @@ typedef enum
 
 @interface SHKSharer : UINavigationController
 
-@property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
+@property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 
-@property (retain) SHKItem *item;
-@property (retain) SHKFormController *pendingForm;
-@property (assign) SHKFormOptionController *curOptionController; //TODO in ARC should be weak, remove all nilling
-@property (retain) SHKRequest *request; //TODO: sharer retains request, but request retains sharer too. Memory leak?
-@property (nonatomic, retain) NSError *lastError;
+@property (strong) SHKItem *item;
+@property (strong) SHKFormController *pendingForm;
+@property (weak) SHKFormOptionController *curOptionController; //TODO in ARC should be weak, remove all nilling
+@property (strong) SHKRequest *request; //TODO: sharer retains request, but request retains sharer too. Memory leak?
+@property (nonatomic, strong) NSError *lastError;
 @property BOOL quiet;
 @property SHKSharerPendingAction pendingAction;
 

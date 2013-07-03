@@ -46,9 +46,9 @@
 	UIActivityIndicatorView *spinner;
 }
 
-@property (nonatomic, retain) UIWebView *webView;
-@property (retain) id<SHKOAuthViewDelegate> delegate;
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIWebView *webView;
+@property (strong) id<SHKOAuthViewDelegate> delegate;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
 - (id)initWithURL:(NSURL *)authorizeURL delegate:(id)d;
 

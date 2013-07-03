@@ -30,11 +30,11 @@
 
 @interface SHKActivityIndicator : UIView
 
-@property (nonatomic, retain) UILabel *centerMessageLabel;
-@property (nonatomic, retain) UILabel *subMessageLabel;
+@property (nonatomic, strong) UILabel *centerMessageLabel;
+@property (nonatomic, strong) UILabel *subMessageLabel;
 
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-@property (nonatomic, retain) UIProgressView *progress;
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIProgressView *progress;
 
 + (SHKActivityIndicator *)currentIndicator;
 

@@ -46,9 +46,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[self updateFromOptions];
-	[self.navigationItem setLeftBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							 target:self
-																							 action:@selector(cancel:)] autorelease] animated:YES];
+																							 action:@selector(cancel:)] animated:YES];
 }
 
 
@@ -74,9 +74,9 @@
 	[self updateFromOptions];
 
 	if (allowMultiple) {
-		[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																								 target:self
-																								 action:@selector(done:)] autorelease] animated:YES];
+																								 action:@selector(done:)] animated:YES];
 	}
 }
 
@@ -89,11 +89,11 @@
 {
 	
 	provider = nil;
-	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"No Options")
+	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"No Options")
 								 message:[NSString stringWithFormat:@"%@ %@", SHKLocalizedString(@"Could not find any"), [self.settings.optionPickerInfo objectForKey:@"title"]]
 								delegate:self
 					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
-					   otherButtonTitles:nil] autorelease] show];}
+					   otherButtonTitles:nil] show];}
 
 - (IBAction)cancel:(id)sender {
 	[[SHKActivityIndicator currentIndicator] hide];		
@@ -144,7 +144,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	bool isSelected = false;
@@ -228,10 +228,6 @@
 }
 
 
-- (void)dealloc {
-	[settings release];
-    [super dealloc];
-}
 
 
 @end

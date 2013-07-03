@@ -40,7 +40,7 @@
 
 @interface SHKFormController ()
 
-@property (nonatomic, retain) UITextField *activeField;
+@property (nonatomic, strong) UITextField *activeField;
 
 @end
 
@@ -54,10 +54,7 @@
 - (void)dealloc 
 {
 	delegate = nil;
-	[sections release];
-	[activeField release];
 	
-    [super dealloc];
 }
 
 #pragma mark -
@@ -69,14 +66,14 @@
 	{
 		self.title = barTitle;
 		
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)] autorelease];
+																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(validateForm)] autorelease];
+																				 action:@selector(validateForm)];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
 	return self;
@@ -132,7 +129,6 @@
         SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];        
         SHKFormOptionController* optionsPicker = [[SHKFormOptionController alloc] initWithOptionsInfo:settingsForCell client:self];
 		[self.navigationController pushViewController:optionsPicker animated:YES];
-        [optionsPicker release];
     }
 }
 
@@ -180,7 +176,7 @@
     
     if (cell == nil) {
 		
-        cell = [[[cellSubclass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier] autorelease];
+        cell = [[cellSubclass alloc] initWithStyle:cellStyle reuseIdentifier:cellIdentifier];
 		cell.delegate = self;
         [cell setupLayout];
     }

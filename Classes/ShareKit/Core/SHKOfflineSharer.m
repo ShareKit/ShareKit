@@ -30,18 +30,13 @@
 
 @interface SHKOfflineSharer ()
 
-@property (retain) NSDictionary *savedShareDictionary;
+@property (strong) NSDictionary *savedShareDictionary;
 @property BOOL isShareFinished;
 
 @end
 
 @implementation SHKOfflineSharer
 
-- (void)dealloc
-{
-	[_savedShareDictionary release];
-	[super dealloc];
-}
 
 - (id)initWithDictionary:(NSDictionary *)dictionary {
     
@@ -49,7 +44,7 @@
     
     if (self)
 	{
-        _savedShareDictionary = [dictionary retain];
+        _savedShareDictionary = dictionary;
 	}
 	return self;
 }
@@ -71,7 +66,7 @@
     if (!item || !sharerID) return;    
     
     // create sharer
-	SHKSharer *sharer = [[[NSClassFromString(sharerID) alloc] init] autorelease];
+	SHKSharer *sharer = [[NSClassFromString(sharerID) alloc] init];
 	sharer.item = item;
 	sharer.quiet = YES;
 	sharer.shareDelegate = self;

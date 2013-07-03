@@ -14,13 +14,13 @@
 
 @interface SHKFormOptionController : UITableViewController {
 	SHKFormFieldSettings* settings;
-	id<SHKFormOptionControllerClient> client;
+	id<SHKFormOptionControllerClient> __weak client;
 	id<SHKFormOptionControllerOptionProvider> provider;
 	bool didLoad;
 }
 
-@property(nonatomic,retain) SHKFormFieldSettings* settings;
-@property(nonatomic,assign) id<SHKFormOptionControllerClient> client;
+@property(nonatomic,strong) SHKFormFieldSettings* settings;
+@property(nonatomic,weak) id<SHKFormOptionControllerClient> client;
 
 
 - (id)initWithOptionsInfo:(SHKFormFieldSettings*) settingsItem client:(id<SHKFormOptionControllerClient>) optionClient;

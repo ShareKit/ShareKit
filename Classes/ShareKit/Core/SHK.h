@@ -40,11 +40,11 @@ extern NSString * const SHKAuthDidFinishNotification;
 
 @interface SHK : NSObject 
 
-@property (nonatomic, retain) UIViewController *currentView;
-@property (nonatomic, retain) UIViewController *pendingView;
+@property (nonatomic, strong) UIViewController *currentView;
+@property (nonatomic, strong) UIViewController *pendingView;
 @property BOOL isDismissingView;
 
-@property (nonatomic, retain) NSOperationQueue *offlineQueue;
+@property (nonatomic, strong) NSOperationQueue *offlineQueue;
 
 #pragma mark -
 
@@ -109,7 +109,6 @@ extern NSString * const SHKAuthDidFinishNotification;
 
 @end
 
-NSString * SHKStringOrBlank(NSString * value);
 NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
 NSString * SHKFlattenHTML(NSString * value, BOOL preserveLineBreaks);

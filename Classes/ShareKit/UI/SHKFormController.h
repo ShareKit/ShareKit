@@ -33,12 +33,12 @@
 
 @interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient>
 
-@property (assign) id delegate;
+@property (weak) id delegate;
 @property SEL validateSelector;
 @property SEL saveSelector;
 @property SEL cancelSelector;
 
-@property (retain) NSMutableArray *sections;
+@property (strong) NSMutableArray *sections;
 
 @property BOOL autoSelect;
 

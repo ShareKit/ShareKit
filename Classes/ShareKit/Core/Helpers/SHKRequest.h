@@ -48,21 +48,21 @@
 	BOOL success;
 }
 
-@property (retain) NSURL *url;
-@property (retain) NSString *params;
-@property (retain) NSString *method;
-@property (retain) NSDictionary *headerFields;
+@property (strong) NSURL *url;
+@property (strong) NSString *params;
+@property (strong) NSString *method;
+@property (strong) NSDictionary *headerFields;
 
-@property (retain) id delegate;
+@property (strong) id delegate;
 @property (assign) SEL isFinishedSelector;
 
-@property (retain) NSURLConnection *connection;
+@property (strong) NSURLConnection *connection;
 
-@property (retain) NSHTTPURLResponse *response;
-@property (retain) NSDictionary *headers;
+@property (strong) NSHTTPURLResponse *response;
+@property (strong) NSDictionary *headers;
 
-@property (retain) NSMutableData *data;
-@property (nonatomic, retain, getter=getResult) NSString *result;
+@property (strong) NSMutableData *data;
+@property (nonatomic, strong, getter=getResult) NSString *result;
 @property (nonatomic) BOOL success;
 
 - (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;

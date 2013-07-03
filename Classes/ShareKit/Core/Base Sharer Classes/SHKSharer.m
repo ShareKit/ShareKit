@@ -43,16 +43,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 @implementation SHKSharer
 
-- (void)dealloc
-{
-	[_item release];
-    [_shareDelegate release];
-	[_pendingForm release];
-	[_request release];
-	[_lastError release];
-	
-	[super dealloc];
-}
 
 
 #pragma mark -
@@ -180,7 +170,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
-		self.shareDelegate = [[[SHKSharerDelegate alloc] init] autorelease];
+		self.shareDelegate = [[SHKSharerDelegate alloc] init];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
@@ -206,7 +196,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 - (void)loadItem:(SHKItem *)i
@@ -233,7 +223,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 
-	return [controller autorelease];
+	return controller;
 }
 
 + (id)shareImage:(UIImage *)image title:(NSString *)title
@@ -247,7 +237,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 + (id)shareText:(NSString *)text
@@ -260,7 +250,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
@@ -279,7 +269,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 + (id)shareFilePath:(NSString *)path title:(NSString *)title
@@ -293,7 +283,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	// share and/or show UI
 	[controller share];
 	
-	return [controller autorelease];
+	return controller;
 }
 
 + (id)getUserInfo
@@ -304,12 +294,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     // Create controller and set share options
 	SHKSharer *controller = [[self alloc] init];
 	controller.item = item;
-    [item release];
     
 	// share and/or show UI
 	[controller share];
     
-    return [controller autorelease];
+    return controller;
 }
 
 #pragma mark - Share Item temporary save
@@ -364,7 +353,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	
 	if (!self.quiet) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+	self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
 																		  bitLyLogin,
 																		  bitLyKey,
 																		  SHKEncodeURL(self.item.URL)
@@ -373,7 +362,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 										   delegate:self
 								 isFinishedSelector:@selector(shortenURLFinished:)
 											 method:@"GET"
-										  autostart:YES] autorelease];
+										  autostart:YES];
 }
 
 - (void)shortenURLFinished:(SHKRequest *)aRequest
@@ -472,11 +461,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	{
 		if (!self.quiet)
 		{
-			[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
+			[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
 										 message:SHKLocalizedString(@"You must be online to login to %@", [self sharerTitle])
 										delegate:nil
 							   cancelButtonTitle:SHKLocalizedString(@"Close")
-							   otherButtonTitles:nil] autorelease] show];
+							   otherButtonTitles:nil] show];
 		}
 		return;
 	}
@@ -508,7 +497,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	form.autoSelect = YES;
 	
     [self pushViewController:form animated:NO];
-    [form release];
     
 	[[SHK currentHelper] showViewController:self];
 }
@@ -596,7 +584,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {	
 	SHKSharer *controller = [[self alloc] init];
 	BOOL isAuthorized = [controller isAuthorized];
-	[controller release];
 	
 	return isAuthorized;	
 }
@@ -638,7 +625,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 		rootView.cancelSelector = @selector(shareFormCancel:);
 		
 		[self pushViewController:rootView animated:NO];
-        [rootView release];
 		
 		[[SHK currentHelper] showViewController:self];
 	}
@@ -807,11 +793,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	
 	else if (!self.quiet)
 	{
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
 									 message:SHKLocalizedString(@"You must be online in order to share with %@", [self sharerTitle])
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
+						   otherButtonTitles:nil] show];
 		
 		return YES;
 	}

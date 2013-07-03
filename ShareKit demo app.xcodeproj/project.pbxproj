@@ -384,8 +384,6 @@
 		7A0406701740E3F6003404B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A0406721740E3F6003404B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A0406741740E3F6003404B9 /* ShareKit demo app-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShareKit demo app-Prefix.pch"; sourceTree = "<group>"; };
-		7A0406751740E3F6003404B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7A0406761740E3F6003404B9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7A0406781740E3F6003404B9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7A04067A1740E3F6003404B9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		7A04067C1740E3F6003404B9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -527,8 +525,6 @@
 				7A0406B01740F0A5003404B9 /* ShareKitAppDelegate.m */,
 				7A0406B11740F0A6003404B9 /* ShareKitDemoConfigurator.h */,
 				7A0406B21740F0A6003404B9 /* ShareKitDemoConfigurator.m */,
-				7A0406751740E3F6003404B9 /* AppDelegate.h */,
-				7A0406761740E3F6003404B9 /* AppDelegate.m */,
 				7A04066D1740E3F6003404B9 /* Supporting Files */,
 			);
 			path = "ShareKit demo app";

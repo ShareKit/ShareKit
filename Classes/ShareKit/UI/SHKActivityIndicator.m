@@ -73,11 +73,7 @@
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	
-	[_centerMessageLabel release];
-	[_subMessageLabel release];
-	[_spinner release];
 	
-	[super dealloc];
 }
 
 #pragma mark Creating Message
@@ -174,7 +170,7 @@
 	{
 		if (self.centerMessageLabel == nil)
 		{
-			self.centerMessageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(12,round(self.bounds.size.height/2-50/2),self.bounds.size.width-24,50)] autorelease];
+			self.centerMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(12,round(self.bounds.size.height/2-50/2),self.bounds.size.width-24,50)];
 			self.centerMessageLabel.backgroundColor = [UIColor clearColor];
 			self.centerMessageLabel.opaque = NO;
 			self.centerMessageLabel.textColor = [UIColor whiteColor];
@@ -201,7 +197,7 @@
 	{
 		if (self.subMessageLabel == nil)
 		{
-			self.subMessageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(12,self.bounds.size.height-45,self.bounds.size.width-24,30)] autorelease];
+			self.subMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(12,self.bounds.size.height-45,self.bounds.size.width-24,30)];
 			self.subMessageLabel.backgroundColor = [UIColor clearColor];
 			self.subMessageLabel.opaque = NO;
 			self.subMessageLabel.textColor = [UIColor whiteColor];
@@ -224,7 +220,6 @@
 	{
 		UIActivityIndicatorView *aSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         self.spinner = aSpinner;
-        [aSpinner release];
 
 		self.spinner.frame = CGRectMake(round(self.bounds.size.width/2 - self.spinner.frame.size.width/2),
 								round(self.bounds.size.height/2 - self.spinner.frame.size.height/2),

@@ -62,15 +62,15 @@ typedef enum
 
 @property (nonatomic) SHKShareType shareType;
 
-@property (nonatomic, retain)	NSString *title;
-@property (nonatomic, retain)	NSString *text;
-@property (nonatomic, retain)	NSArray *tags;
+@property (nonatomic, strong)	NSString *title;
+@property (nonatomic, strong)	NSString *text;
+@property (nonatomic, strong)	NSArray *tags;
 
-@property (nonatomic, retain)	NSURL *URL;
+@property (nonatomic, strong)	NSURL *URL;
 @property (nonatomic) SHKURLContentType URLContentType;
-@property (nonatomic, retain)	UIImage *image;
+@property (nonatomic, strong)	UIImage *image;
 
-@property (nonatomic, retain) SHKFile *file;
+@property (nonatomic, strong) SHKFile *file;
 
 /*** creation methods ***/
 
@@ -113,17 +113,17 @@ typedef enum
 @property (nonatomic) UIPrintInfoOutputType printOutputType;
 
 /* SHKMail */
-@property (nonatomic, retain) NSArray *mailToRecipients;
+@property (nonatomic, strong) NSArray *mailToRecipients;
 @property BOOL isMailHTML;
 @property CGFloat mailJPGQuality; 
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 
 /* SHKFacebook */
-@property (nonatomic, retain) NSString *facebookURLSharePictureURI;
-@property (nonatomic, retain) NSString *facebookURLShareDescription;
+@property (nonatomic, strong) NSString *facebookURLSharePictureURI;
+@property (nonatomic, strong) NSString *facebookURLShareDescription;
 
 /* SHKTextMessage */
-@property (nonatomic, retain) NSArray *textMessageToRecipients;
+@property (nonatomic, strong) NSArray *textMessageToRecipients;
 /* if you add new sharer specific properties, make sure to add them also to dictionaryRepresentation, itemWithDictionary and description methods in SHKItem.m */
 
 /* put in for SHKInstagram, but could be useful in some other place. This is the rect in the coordinates of the view of the viewcontroller set with

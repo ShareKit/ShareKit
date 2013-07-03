@@ -25,6 +25,6 @@
 
 @interface SHKFormFieldCellText : SHKFormFieldCell <UITextFieldDelegate>
 
-@property (nonatomic, retain) UITextField *textField;
+@property (nonatomic, strong) UITextField *textField;
 
 @end
