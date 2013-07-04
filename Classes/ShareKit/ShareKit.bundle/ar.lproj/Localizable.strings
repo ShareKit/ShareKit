@@ -90,9 +90,6 @@
 "Sorry, %@ encountered an error. Please try again." = "عفواً، حصل خطأ لدى %@. الرجاء المحاولة مرة أخرى.";
 "There was a problem saving to %@." = "حصل خطأ أثناء الحفظ في %@.";
 
-"Incorrect username and password" = "اسم المستخدم وكلمة المرور خاطئين";
-
-"There was an error logging into Google Reader" = "حصل خطأ أثناء تسجيل الدخول لقارئ جوجل";
 "There was a problem saving your note." = "حصل خطأ في حفظ ملاحظتك.";
 
 "Open in Safari" = "افتح في سفاري";
@@ -221,7 +218,6 @@
 "Flickr" = "فليكر";
 "Foursquare" = "فورسكوير";
 "Google+" = "جوجل+";
-"Google Reader" = "قارئ جوجل";
 "Hatena" = "Hatena";
 "Instapaper" = "Instapaper";
 "Kippt" = "Kippt";

@@ -90,9 +90,6 @@
 "Sorry, %@ encountered an error. Please try again." = "Desculpe, %@ encontrou um erro. Por favor tente novamente.";
 "There was a problem saving to %@." = "Houve um problema salvando ao %@.";
 
-"Incorrect username and password" = "Usuário e senha inválidos";
-
-"There was an error logging into Google Reader" = "Ocorreu um erro ao entrar no Google Reader";
 "There was a problem saving your note." = "Ocorreu um erro salvando sua nota.";
 
 "Open in Safari" = "Abrir no Safari";

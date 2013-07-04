@@ -92,10 +92,6 @@
 
 "There was a problem saving to %@." = "Během odesílání na %@ nastala chyba.";
 
-"Incorrect username and password" = "Nesprávné jméno nebo heslo";
-
-"There was an error logging into Google Reader" = "Během přihlašování na Google Reader nastala chyba";
-
 "There was a problem authenticating your account." = "Během autorizace Vašeho konta nastal problém.";
 
 "There was a problem saving your note." = "Během ukládání Vašeho záznamu nastal problém.";

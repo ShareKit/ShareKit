@@ -16,6 +16,7 @@
 
 "Private" = "Private";
 
+/* Belonged to removed Google Reader, currently unused. Left undeleted, since this is a common word which might be of use elsewhere */
 "Public" = "Public";
 
 "Caption" = "Caption";
@@ -26,6 +27,7 @@
 
 "Notes" = "Notes";
 
+/* Belonged to removed Google Reader, currently unused. Left undeleted, since this is a common word which might be of use elsewhere */
 "Note" = "Note";
 
 "Shared" = "Shared";
@@ -90,9 +92,6 @@
 "Sorry, %@ encountered an error. Please try again." = "Sorry, %@ encountered an error. Please try again.";
 "There was a problem saving to %@." = "There was a problem saving to %@.";
 
-"Incorrect username and password" = "Incorrect username and password";
-
-"There was an error logging into Google Reader" = "There was an error logging into Google Reader";
 "There was a problem saving your note." = "There was a problem saving your note.";
 
 "Open in Safari" = "Open in Safari";
@@ -221,7 +220,6 @@
 "Flickr" = "Flickr";
 "Foursquare" = "Foursquare";
 "Google+" = "Google+";
-"Google Reader" = "Google Reader";
 "Hatena" = "Hatena";
 "Instapaper" = "Instapaper";
 "Kippt" = "Kippt";

@@ -56,9 +56,6 @@
 "Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 碰到了一个问题，请重试。";
 "There was a problem saving to %@." = "保存到 %@ 的过程中出错。";
 
-"Incorrect username and password" = "用户名或密码不正确";
-"There was an error logging into Google Reader" = "登录到 Google Reader 的过程中出错";
-
 "There was a problem saving your note." = "保存您笔记的过程中出错。";
 
 "Open in Safari" = "在 Safari 中打开";
