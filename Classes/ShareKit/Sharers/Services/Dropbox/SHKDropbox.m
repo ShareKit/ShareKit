@@ -217,7 +217,7 @@ typedef enum {
 #pragma mark Configuration : Dynamic Enable
 
 - (BOOL) shouldOverwrite {
-    return (BOOL)SHKCONFIG(dropboxShouldOverwriteExistedFile);
+    return [SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue];
 }
 
 #pragma mark -

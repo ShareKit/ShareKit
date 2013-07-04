@@ -122,5 +122,7 @@
 -(NSString *)dropboxAppKey;
 -(NSString *)dropboxAppSecret;
 -(NSString *)dropboxRootFolder;
--(BOOL)dropboxShouldOverwriteExistedFile;
+-(NSNumber *)dropboxShouldOverwriteExistedFile;
+//SHKBuffer
+- (NSNumber *)bufferShouldShortenURLS;
 @end

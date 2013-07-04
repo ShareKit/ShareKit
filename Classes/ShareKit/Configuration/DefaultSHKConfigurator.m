@@ -340,8 +340,8 @@
 	return @"";
 }
 
--(BOOL)bufferShouldShortenURLS {
-    return YES;
+- (NSNumber *)bufferShouldShortenURLS {
+    return [NSNumber numberWithBool:YES];
 }
 
 /* 
@@ -354,8 +354,8 @@
 }
 
 // if you set NO, a dialogue will appear where user can choose different filename, otherwise the file is silently overwritten.
--(BOOL)dropboxShouldOverwriteExistedFile {
-    return YES;
+- (NSNumber *)dropboxShouldOverwriteExistedFile {
+    return [NSNumber numberWithBool:YES];
 }
 
 
