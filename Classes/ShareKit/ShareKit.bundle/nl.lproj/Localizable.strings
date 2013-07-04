@@ -56,8 +56,6 @@
 "Sorry, %@ encountered an error. Please try again." = "%@ gaf een fout. Probeer het nogmaals.";
 "There was a problem saving to %@." = "Er was een probleem bij het bewaren naar %@.";
 
-"Incorrect username and password" = "Gebruikersnaam en wachtwoord niet goed";
-"There was an error logging into Google Reader" = "Er trad een fout op bij het inloggen bij Google Reader";
 "There was a problem authenticating your account." = "Er was een probleem bij het verifiëren van het account.";
 "There was a problem saving your note." = "Er was een probleem bij het bewaren van de notitie.";
 

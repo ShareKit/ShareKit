@@ -58,8 +58,6 @@
 "Sorry, %@ encountered an error. Please try again." = "Извините, у %@ возникла ошибка. Попробуйте, пожалуйста, еще раз.";
 "There was a problem saving to %@." = "Произошла ошибка при oтправке на %@.";
 
-"Incorrect username and password" = "Неверные имя и пароль";
-"There was an error logging into Google Reader" = "Ошибка входа в Google Reader";
 "There was a problem authenticating your account." = "Произошла ошибка авторизации Вашего аккаунта.";
 "There was a problem saving your note." = "Произошла ошибка при oтправке Вашей заметки.";
 

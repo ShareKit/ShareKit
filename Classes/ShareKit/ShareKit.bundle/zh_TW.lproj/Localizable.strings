@@ -55,8 +55,6 @@
 "Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 發生錯誤，請稍候再試。";
 "There was a problem saving to %@." = "儲存到 %@ 時發生錯誤。";
 
-"Incorrect username and password" = "帳號和密碼錯誤";
-"There was an error logging into Google Reader" = "登入 Google Reader 時發生錯誤";
 "There was a problem authenticating your account." = "帳號授權時發生錯誤。";
 "There was a problem saving your note." = "儲存筆記時發生錯誤。";
 

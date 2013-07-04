@@ -54,8 +54,6 @@
 "Sorry, %@ encountered an error. Please try again." = "%@ 오류가 발생했습니다. 다시 시도해 주세요.";
 "There was a problem saving to %@." = "%@로 저장 중에 문제가 발생했습니다.";
 
-"Incorrect username and password" = "잘못된 아이디나 비밀번호";
-"There was an error logging into Google Reader" = "Google Reader 로그인 중 오류가 발생했습니다";
 "There was a problem authenticating your account." = "게정 인증에 실패했습니다.";
 "There was a problem saving your note." = "메모 저장에 실패했습니다.";
 

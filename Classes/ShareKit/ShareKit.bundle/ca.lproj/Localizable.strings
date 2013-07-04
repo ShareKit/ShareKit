@@ -90,9 +90,6 @@
 "Sorry, %@ encountered an error. Please try again." = "Ho sentim, %@ ha trobat un error. Torna a intentar-ho.";
 "There was a problem saving to %@." = "Hi ha hagut un problema desant a %@.";
 
-"Incorrect username and password" = "Usuari i contrasenya incorrectes";
-
-"There was an error logging into Google Reader" = "Hi ha hagut un error entrant a Google Reader";
 "There was a problem saving your note." = "Hi ha hagut un error desant la teva nota.";
 
 "Open in Safari" = "Obrir a Safari";

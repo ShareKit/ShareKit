@@ -56,8 +56,6 @@
 "Sorry, %@ encountered an error. Please try again." = "Przepraszamy, %@ wykrył błąd. Spróbuj ponownie.";
 "There was a problem saving to %@." = "Wystąpił problem z zapisem w %@.";
 
-"Incorrect username and password" = "Nieprawidłowa nazwa użytkownika i hasło";
-"There was an error logging into Google Reader" = "Wystąpił błąd podczas logowania do Google Reader";
 "There was a problem authenticating your account." = "Wystąpił problem z uwierzytelnieniem Twojego konta.";
 "There was a problem saving your note." = "Wystąpił problem z zapisem Twojej notatki.";
 
