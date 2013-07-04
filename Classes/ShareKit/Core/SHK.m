@@ -49,7 +49,7 @@ NSString * SHKLocalizedStringFormat(NSString* key);
 @interface SHK ()
 
 @property (nonatomic, weak) UIViewController *rootViewController;
-@property SEL showMethod;
+@property BOOL wrapViewController;
 
 @end
 
@@ -123,7 +123,7 @@ BOOL SHKinit;
 
 - (void)showViewController:(UIViewController *)vc
 {
-    self.showMethod = @selector(showViewController:);
+    self.wrapViewController = YES;
     
     BOOL isHidingPreviousView = [self hidePreviousView:vc];
     if (isHidingPreviousView) return;
@@ -148,7 +148,7 @@ BOOL SHKinit;
 /* method for sharers with custom UI, e.g. all social.framework sharers, print etc */
 - (void)showStandaloneViewController:(UIViewController *)vc {
     
-    self.showMethod = @selector(presentVC:);
+    self.wrapViewController = NO;
     
     BOOL isHidingPreviousView = [self hidePreviousView:vc];
     if (isHidingPreviousView) return;    
@@ -222,8 +222,11 @@ BOOL SHKinit;
 
 - (void)showPendingView
 {
-    if (self.pendingView)
-        [self performSelector:self.showMethod withObject:self.pendingView];
+    if (self.wrapViewController) {
+        [self showViewController:self.pendingView];
+    } else {
+        [self presentVC:self.pendingView];
+    }
 }
 
 - (void)viewWasDismissed

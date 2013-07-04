@@ -27,6 +27,7 @@
 
 #import "SHKConfiguration.h"
 #import "DefaultSHKConfigurator.h"
+#import "SuppressPerformSelectorWarning.h"
 
 @interface SHKConfiguration ()
 
@@ -51,9 +52,9 @@ static SHKConfiguration *sharedInstance = nil;
 	if ([self.configurator respondsToSelector:sel]) {
 		id value;        
         if (object) {
-            value = [self.configurator performSelector:sel withObject:object];
+            SuppressPerformSelectorLeakWarning(value = [self.configurator performSelector:sel withObject:object]);
         } else {
-            value = [self.configurator performSelector:sel];
+            SuppressPerformSelectorLeakWarning(value = [self.configurator performSelector:sel]);
         }
 
 		if (value) {
