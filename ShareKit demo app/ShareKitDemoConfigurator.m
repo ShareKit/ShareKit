@@ -76,7 +76,7 @@
  register the bundle ID of your application.
  */
 - (NSString*)googlePlusClientId {
-    return @"651258972991.apps.googleusercontent.com";
+    return @"210716542944-aq12sk8s1eit7msa4jsdtpci5121nrbv.apps.googleusercontent.com";
 }
 
 //Pocket v3 consumer key. http://getpocket.com/developer/apps/. If you have old read it later app, you should obtain new key.
