@@ -42,20 +42,11 @@
 
 @property (nonatomic, strong) UITextField *activeField;
 
+- (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @implementation SHKFormController
-
-@synthesize delegate, validateSelector, saveSelector, cancelSelector; 
-@synthesize sections;
-@synthesize activeField;
-@synthesize autoSelect;
-
-- (void)dealloc 
-{
-	delegate = nil;
-	
-}
 
 #pragma mark -
 #pragma mark Initialization
@@ -81,7 +72,7 @@
 
 - (void)addSection:(NSArray *)fields header:(NSString *)header footer:(NSString *)footer
 {
-	if (sections == nil)
+	if (self.sections == nil)
 		self.sections = [NSMutableArray arrayWithCapacity:0];
 	
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
@@ -93,7 +84,7 @@
 	if (footer)
 		[dict setObject:footer forKey:@"footer"];
 	
-	[sections addObject:dict];
+	[self.sections addObject:dict];
 }
 
 #pragma mark -
@@ -102,7 +93,7 @@
 {
 	[super viewDidAppear:animated];
 	
-	if (autoSelect)
+	if (self.autoSelect)
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
@@ -137,12 +128,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView 
 {
-    return sections.count;
+    return self.sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return [[[sections objectAtIndex:section] objectForKey:@"rows"] count];
+    return [[[self.sections objectAtIndex:section] objectForKey:@"rows"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
@@ -188,17 +179,17 @@
 
 - (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath
 {
-	return [[[sections objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
+	return [[[self.sections objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [[sections objectAtIndex:section] objectForKey:@"header"];
+	return [[self.sections objectAtIndex:section] objectForKey:@"header"];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
-	return [[sections objectAtIndex:section] objectForKey:@"footer"];
+	return [[self.sections objectAtIndex:section] objectForKey:@"footer"];
 }
 
 #pragma mark -
@@ -219,7 +210,7 @@
 
 - (void)SHKFormOptionControllerDidFinish:(SHKFormOptionController *)optionController
 {	
-    NSArray *fields = [[sections objectAtIndex:0] objectForKey:@"rows"];
+    NSArray *fields = [[self.sections objectAtIndex:0] objectForKey:@"rows"];
     NSUInteger index = [fields indexOfObject:optionController.settings];
     SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
     [cell setupWithSettings:optionController.settings];        
@@ -238,19 +229,18 @@
 - (void)cancel
 {
 	[self close];
-	[delegate performSelector:cancelSelector withObject:self];
+    self.cancelBlock(self);
 }
 
 - (void)validateForm
 {
-	
     [self.activeField.delegate textFieldShouldReturn:self.activeField];
-	[delegate performSelector:validateSelector withObject:self];
+    self.validateBlock(self);
 }
 
 - (void)saveForm
 {
-	[delegate performSelector:saveSelector withObject:self];
+    self.saveBlock(self);
 	[self close];
 }
 
@@ -265,7 +255,7 @@
 {
 	// go through all form fields and get values
 	NSMutableDictionary *formValues = [NSMutableDictionary dictionaryWithCapacity:0];	
-	NSArray *allFieldSettings = [[sections objectAtIndex:section] objectForKey:@"rows"];
+	NSArray *allFieldSettings = [[self.sections objectAtIndex:section] objectForKey:@"rows"];
 	
     for(SHKFormFieldSettings *settings in allFieldSettings)
 	{		

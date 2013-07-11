@@ -64,29 +64,33 @@
 	return SHKLocalizedString(@"Create an account at %@", @"http://www.diigo.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator	
-	if (!self.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
-													 SHKEncode([formValues objectForKey:@"username"]),
-													 password,SHKCONFIG(diigoKey),SHKEncode([formValues objectForKey:@"username"])
-													 ]]
-											params:nil
-										  delegate:self
-								isFinishedSelector:@selector(authFinished:)
-											method:@"GET"
-										 autostart:YES] autorelease];
-	
-	self.pendingForm = form;
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^ (SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        weakSelf.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
+                                                        [NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
+                                                         SHKEncode([formValues objectForKey:@"username"]),
+                                                         password,SHKCONFIG(diigoKey),SHKEncode([formValues objectForKey:@"username"])
+                                                         ]]
+                                                params:nil
+                                              delegate:self
+                                    isFinishedSelector:@selector(authFinished:)
+                                                method:@"GET"
+                                             autostart:YES];
+        weakSelf.pendingForm = form;
+    };
+    return result;
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -108,6 +112,7 @@
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
+        SHKLog(@"%@", [aRequest description]);
     }
   
 	[self authDidFinish:aRequest.success];
@@ -151,12 +156,12 @@
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password];
     
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
 												params:params
 											  delegate:self
 									isFinishedSelector:@selector(sendFinished:)
 												method:@"POST"
-											 autostart:YES] autorelease];
+											 autostart:YES];
 		
 		
 		// Notify delegate

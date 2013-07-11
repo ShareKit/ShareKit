@@ -45,12 +45,51 @@
 		7A04083917413908003404B9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083717413908003404B9 /* MainWindow.xib */; };
 		7A04083A17413908003404B9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
 		7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
+		7A76D2CC178EE4EF0006B85F /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8851743805E00B17434 /* libPinboard.a */; };
+		7A76D2CD178EE4F40006B85F /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8511743805E00B17434 /* libShareKitCore.a */; };
+		7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8551743805E00B17434 /* libOAuth.a */; };
+		7A76D2D0178EE5180006B85F /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8571743805E00B17434 /* libReachability.a */; };
+		7A76D2D1178EE5180006B85F /* libSSKeyChain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8531743805E00B17434 /* libSSKeyChain.a */; };
 		7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */; };
-		7AA2E93D1743825100B17434 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E84D1743805E00B17434 /* libShareKit.a */; };
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7A76D2C2178EE4AA0006B85F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A0F91D1156BA2A0009CB40A;
+			remoteInfo = "Static Library Core";
+		};
+		7A76D2C4178EE4AD0006B85F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFCB1160E11F90086B98A;
+			remoteInfo = SSKeyChain;
+		};
+		7A76D2C6178EE4B10006B85F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A16F36F161340DD0019645D;
+			remoteInfo = OAuth;
+		};
+		7A76D2C8178EE4B50006B85F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A1AFCC2160E123C0086B98A;
+			remoteInfo = Reachability;
+		};
+		7A76D2CA178EE4CF0006B85F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED6C162F0C1A009D46E4;
+			remoteInfo = Pinboard;
+		};
 		7AA2E84C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -212,13 +251,6 @@
 			remoteGlobalIDString = 7AA83BF91705E355009C483A;
 			remoteInfo = "Google Plus SDK";
 		};
-		7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AABBED59162F0BC5009D46E4;
-			remoteInfo = "Google Reader";
-		};
 		7AA2E87C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -345,13 +377,6 @@
 			remoteGlobalIDString = 7AECF32C171D51C3000722FA;
 			remoteInfo = "YouTube SDK";
 		};
-		7AA2E9391743823E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7AB5342D1552AADD00171BCE;
-			remoteInfo = "Static Library";
-		};
 		7AA2E93B1743824200B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -434,7 +459,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA2E93D1743825100B17434 /* libShareKit.a in Frameworks */,
+				7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */,
+				7A76D2D0178EE5180006B85F /* libReachability.a in Frameworks */,
+				7A76D2D1178EE5180006B85F /* libSSKeyChain.a in Frameworks */,
+				7A76D2CD178EE4F40006B85F /* libShareKitCore.a in Frameworks */,
+				7A76D2CC178EE4EF0006B85F /* libPinboard.a in Frameworks */,
 				7A040832174133C5003404B9 /* Social.framework in Frameworks */,
 				7A04076A17410472003404B9 /* QuartzCore.framework in Frameworks */,
 				7A04076817410466003404B9 /* StoreKit.framework in Frameworks */,
@@ -582,7 +611,6 @@
 				7AA2E8751743805E00B17434 /* libFlickr SDK.a */,
 				7AA2E8771743805E00B17434 /* libGoogle Plus.a */,
 				7AA2E8791743805E00B17434 /* libGoogle Plus SDK.a */,
-				7AA2E87B1743805E00B17434 /* libGoogle Reader.a */,
 				7AA2E87D1743805E00B17434 /* libInstagram.a */,
 				7AA2E87F1743805E00B17434 /* libInstapaper.a */,
 				7AA2E8811743805E00B17434 /* libKippt.a */,
@@ -637,8 +665,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A76D2CB178EE4CF0006B85F /* PBXTargetDependency */,
+				7A76D2C9178EE4B50006B85F /* PBXTargetDependency */,
+				7A76D2C7178EE4B10006B85F /* PBXTargetDependency */,
+				7A76D2C5178EE4AD0006B85F /* PBXTargetDependency */,
+				7A76D2C3178EE4AA0006B85F /* PBXTargetDependency */,
 				7AA2E93C1743824200B17434 /* PBXTargetDependency */,
-				7AA2E93A1743823E00B17434 /* PBXTargetDependency */,
 			);
 			name = "ShareKit demo app";
 			productName = "ShareKit demo app";
@@ -839,13 +871,6 @@
 			remoteRef = 7AA2E8781743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7AA2E87B1743805E00B17434 /* libGoogle Reader.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libGoogle Reader.a";
-			remoteRef = 7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7AA2E87D1743805E00B17434 /* libInstagram.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1031,10 +1056,30 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7AA2E93A1743823E00B17434 /* PBXTargetDependency */ = {
+		7A76D2C3178EE4AA0006B85F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "Static Library";
-			targetProxy = 7AA2E9391743823E00B17434 /* PBXContainerItemProxy */;
+			name = "Static Library Core";
+			targetProxy = 7A76D2C2178EE4AA0006B85F /* PBXContainerItemProxy */;
+		};
+		7A76D2C5178EE4AD0006B85F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SSKeyChain;
+			targetProxy = 7A76D2C4178EE4AD0006B85F /* PBXContainerItemProxy */;
+		};
+		7A76D2C7178EE4B10006B85F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = OAuth;
+			targetProxy = 7A76D2C6178EE4B10006B85F /* PBXContainerItemProxy */;
+		};
+		7A76D2C9178EE4B50006B85F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Reachability;
+			targetProxy = 7A76D2C8178EE4B50006B85F /* PBXContainerItemProxy */;
+		};
+		7A76D2CB178EE4CF0006B85F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Pinboard;
+			targetProxy = 7A76D2CA178EE4CF0006B85F /* PBXContainerItemProxy */;
 		};
 		7AA2E93C1743824200B17434 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

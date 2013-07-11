@@ -65,29 +65,33 @@
 	return SHKLocalizedString(@"Create an account at %@", @"http://delicious.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator	
-	if (!self.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get",
-													 SHKEncode([formValues objectForKey:@"username"]),
-													 password
-													 ]]
-											params:nil
-										  delegate:self
-								isFinishedSelector:@selector(authFinished:)
-											method:@"GET"
-										 autostart:YES] autorelease];
-	
-	self.pendingForm = form;
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result =  ^(SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        weakSelf.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
+                                                        [NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get",
+                                                         SHKEncode([formValues objectForKey:@"username"]),
+                                                         password
+                                                         ]]
+                                                params:nil
+                                              delegate:self
+                                    isFinishedSelector:@selector(authFinished:)
+                                                method:@"GET"
+                                             autostart:YES];
+        weakSelf.pendingForm = form;
+    };
+    return result;
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -108,7 +112,8 @@
         else
         {
             [self authShowOtherAuthorizationErrorAlert];
-        }   
+        }
+        SHKLog(@"%@", [aRequest description]);
     }
 	[self authDidFinish:aRequest.success];
 }
@@ -153,12 +158,12 @@
                         [self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];
     
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
 												params:nil
 											  delegate:self
 									isFinishedSelector:@selector(sendFinished:)
 												method:@"GET"
-											 autostart:YES] autorelease];
+											 autostart:YES];
 		
 		
 		// Notify delegate

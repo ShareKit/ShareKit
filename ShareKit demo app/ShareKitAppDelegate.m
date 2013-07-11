@@ -8,17 +8,17 @@
 
 #import "ShareKitAppDelegate.h"
 #import "RootViewController.h"
-
+/*
 #import "SHKDropbox.h"
 #import "SHKGooglePlus.h"
 #import "SHKFacebook.h"
 #import "EvernoteSDK.h"
 #import "SHKBuffer.h"
 #import "PocketAPI.h"
+*/
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 #import "SHK.h"
-
 
 @implementation ShareKitAppDelegate
 
@@ -51,7 +51,7 @@
 {	
 	[SHK flushOfflineQueue];
 }
-
+/*
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 	[SHKFacebook handleDidBecomeActive];
@@ -91,7 +91,7 @@
 
     
     return YES;
-}
+}*/
 
 #pragma mark -
 #pragma mark Memory management

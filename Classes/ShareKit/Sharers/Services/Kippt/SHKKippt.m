@@ -107,12 +107,12 @@ static char const* const ListURIKey = "ListURIKey";
 - (void)sendRequest:(NSString *)url params:(NSString *)params isFinishedSelector:(SEL)sel method:(NSString *)method
 {
     // Send request
-    self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:url]
+    self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:url]
                                              params:params
 										   delegate:self
 								 isFinishedSelector:sel
 											 method:method
-										  autostart:NO] autorelease];
+										  autostart:NO];
     
     if (_username == nil || _password == nil) {
         _username = [[self getAuthValueForKey:@"username"] copy];
@@ -125,7 +125,6 @@ static char const* const ListURIKey = "ListURIKey";
     
     NSDictionary *headers = [[NSDictionary alloc] initWithObjectsAndKeys:authValue, @"Authorization", nil];
     self.request.headerFields = headers;
-    [headers release];
     [self.request start];
 }
 
@@ -155,24 +154,30 @@ static char const* const ListURIKey = "ListURIKey";
 	return SHKLocalizedString(@"Create a free account at %@", @"kippt.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator	
-	if (!self.quiet) {
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging in...")];
-    }
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
+	__weak typeof(self) weakSelf = self;
     
-    // Remember user/pass
-    _username = [[formValues objectForKey:@"username"] retain];
-    _password = [[formValues objectForKey:@"password"] retain];
-	
-    // Send request
-    [self sendRequest:kAccountURL params:nil isFinishedSelector:@selector(authFinished:) method:@"POST"];
-	
-	self.pendingForm = form;
+    FormControllerCallback result = ^ (SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet) {
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging in...")];
+        }
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        // Remember user/pass
+        _username = [formValues objectForKey:@"username"];
+        _password = [formValues objectForKey:@"password"];
+        
+        // Send request
+        [weakSelf sendRequest:kAccountURL params:nil isFinishedSelector:@selector(authFinished:) method:@"POST"];
+        
+        weakSelf.pendingForm = form;
+    };
+    return result;
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -194,6 +199,7 @@ static char const* const ListURIKey = "ListURIKey";
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
+        SHKLog(@"%@", [aRequest description]);
     }
     
 	[self authDidFinish:aRequest.success];

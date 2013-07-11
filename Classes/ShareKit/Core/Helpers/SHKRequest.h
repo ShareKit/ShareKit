@@ -27,34 +27,16 @@
 
 #import <Foundation/Foundation.h>
 
+@class SHKRequest;
+
+typedef void (^RequestCallback) (SHKRequest *request);
 
 @interface SHKRequest : NSObject 
-{
-	NSURL *url;
-	NSString *params;
-	NSString *method;
-	NSDictionary *headerFields;
-	
-	id delegate;
-	SEL isFinishedSelector;
-	
-	NSURLConnection *connection;
-	
-	NSHTTPURLResponse *response;
-	NSDictionary *headers;
-	
-	NSMutableData *data;
-	NSString *result;
-	BOOL success;
-}
 
 @property (strong) NSURL *url;
 @property (strong) NSString *params;
 @property (strong) NSString *method;
 @property (strong) NSDictionary *headerFields;
-
-@property (strong) id delegate;
-@property (assign) SEL isFinishedSelector;
 
 @property (strong) NSURLConnection *connection;
 
@@ -65,10 +47,10 @@
 @property (nonatomic, strong, getter=getResult) NSString *result;
 @property (nonatomic) BOOL success;
 
-- (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;
++ (void)startWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
+- (id)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
 
 - (void)start;
 - (void)finish;
-
 
 @end

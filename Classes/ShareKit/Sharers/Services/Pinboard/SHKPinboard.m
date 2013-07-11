@@ -30,17 +30,7 @@
 #import "SharersCommonHeaders.h"
 #import "SHKRequest.h"
 
-/**
- Private helper methods
- */
-@interface SHKPinboard ()
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
-@end
-
 @implementation SHKPinboard
-
-
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -64,58 +54,61 @@
 	return SHKLocalizedString(@"Create an account at %@", @"http://pinboard.in");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator	
-	if (!self.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/get",
-													 SHKEncode([formValues objectForKey:@"username"]),
-													 password
-													 ]]
-											params:nil
-										  delegate:self
-								isFinishedSelector:@selector(authFinished:)
-											method:@"POST"
-										 autostart:YES] autorelease];
-	
-	self.pendingForm = form;
-}
-
-- (void)authFinished:(SHKRequest *)aRequest
-{	
-	// Hide the activity indicator
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-    if (aRequest.success) 
-	{
-		[self.pendingForm saveForm];
-	}
-    else
-    {
-        NSString *errorMessage = nil;
+    __weak typeof(self) weakSelf = self;
+    FormControllerCallback result = ^(SHKFormController *form) {
         
-        if (aRequest.response.statusCode == 401)
-            errorMessage = SHKLocalizedString(@"Invalid email or password.");
-        else
-            errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+           [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
         
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                     message:errorMessage
-                                    delegate:nil
-                           cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
-	}
-	[self authDidFinish:aRequest.success];
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        
+        [SHKRequest startWithURL:[NSURL URLWithString:
+                                  [NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/get",
+                                   SHKEncode([formValues objectForKey:@"username"]),
+                                   password
+                                   ]]
+                          params:nil
+                          method:@"POST"
+                      completion:^ (SHKRequest *request) {
+                          
+                          //must be retained, otherwise it would not exist at the time of completion
+                          __strong typeof(weakSelf) strongSelf = weakSelf;
+                          
+                          // Hide the activity indicator
+                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          if (request.success)
+                          {
+                              [strongSelf.pendingForm saveForm];
+                          }
+                          else
+                          {
+                              NSString *errorMessage = nil;
+                              
+                              if (request.response.statusCode == 401)
+                                  errorMessage = SHKLocalizedString(@"Invalid email or password.");
+                              else
+                                  errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
+                              
+                              [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+                                                          message:errorMessage
+                                                         delegate:nil
+                                                cancelButtonTitle:SHKLocalizedString(@"Close")
+                                                otherButtonTitles:nil] show];
+                              SHKLog(@"Pinboard auth failed with response:%@", [request description]);
+                          }
+                          [strongSelf authDidFinish:request.success];
+                      }];
+        weakSelf.pendingForm = form;
+    };
+    return result;
 }
-
 
 #pragma mark -
 #pragma mark Share Form
@@ -143,23 +136,37 @@
 	if ([self validateItem])
 	{			
 		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-        
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-														[NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
-														 SHKEncode([self getAuthValueForKey:@"username"]),
-														 password,
-														 SHKEncodeURL(self.item.URL),
-														 SHKEncode(self.item.title),
-														 SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" ,"] invertedSet] tagPrefix:nil tagSuffix:nil]),
-														 SHKEncode(self.item.text),
-														 [self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
-														 ]]
-												params:nil
-											  delegate:self
-									isFinishedSelector:@selector(sendFinished:)
-												method:@"GET"
-											 autostart:YES] autorelease];
-		
+
+		[SHKRequest startWithURL:[NSURL URLWithString:
+                                  [NSString stringWithFormat:@"https://%@:%@@api.pinboard.in/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
+                                   SHKEncode([self getAuthValueForKey:@"username"]),
+                                   password,
+                                   SHKEncodeURL(self.item.URL),
+                                   SHKEncode(self.item.title),
+                                   SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:[[NSCharacterSet characterSetWithCharactersInString:@" ,"] invertedSet] tagPrefix:nil tagSuffix:nil]),
+                                   SHKEncode(self.item.text),
+                                   [self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
+                                   ]]
+                          params:nil
+                          method:@"GET"
+                      completion:^ (SHKRequest *request) {
+                          
+                          if (!request.success)
+                          {
+                              if (request.response.statusCode == 401)
+                              {
+                                  [self shouldReloginWithPendingAction:SHKPendingSend];
+                                  return;
+                              }
+                              
+                              // TODO parse <result code="MESSAGE" to get response from api for better error message
+                              [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Pinboard")]];
+                              SHKLog(@"Share failed with error:%@", [request description]);
+                              return;
+                              
+                          }
+                          [self sendDidFinish];
+                      }];
 		
 		// Notify delegate
 		[self sendDidStart];
@@ -168,26 +175,6 @@
 	}
 	
 	return NO;
-}
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{	
-	
-    if (!aRequest.success) 
-    {
-        if (aRequest.response.statusCode == 401)
-		{
-			[self shouldReloginWithPendingAction:SHKPendingSend];
-			return;
-		}
-		
-		// TODO parse <result code="MESSAGE" to get response from api for better error message
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Pinboard")]];
-		return;
-
-    }    
-    
-    [self sendDidFinish];
 }
 
 @end

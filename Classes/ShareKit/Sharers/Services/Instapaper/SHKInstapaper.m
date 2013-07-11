@@ -68,29 +68,34 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	return SHKLocalizedString(@"Create a free account at %@", @"Instapaper.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate:(SHKFormController *)form
 {
-	// Display an activity indicator
-	if (!self.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *params = [NSMutableString stringWithFormat:@"username=%@&password=%@",
-                       SHKEncode([formValues objectForKey:@"username"]),
-                       SHKEncode([formValues objectForKey:@"password"])
-                       ];
-	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
-                                           params:params
-                                         delegate:self
-                               isFinishedSelector:@selector(authFinished:)
-                                           method:@"POST"
-                                        autostart:YES] autorelease];
-	
-	self.self.pendingForm = form;
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *params = [NSMutableString stringWithFormat:@"username=%@&password=%@",
+                            SHKEncode([formValues objectForKey:@"username"]),
+                            SHKEncode([formValues objectForKey:@"password"])
+                            ];
+        
+        weakSelf.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
+                                                    params:params
+                                                  delegate:self
+                                        isFinishedSelector:@selector(authFinished:)
+                                                    method:@"POST"
+                                                 autostart:YES];
+        
+        weakSelf.pendingForm = form;
+    };
+    return result;
 }
 
 - (void)authFinished:(SHKRequest *)aRequest
@@ -110,6 +115,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
         {
             [self authShowOtherAuthorizationErrorAlert];
         }
+        SHKLog(@"%@", [aRequest description]);
     }
     [self authDidFinish:aRequest.success];
 }
@@ -138,12 +144,12 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                             SHKEncode([self getAuthValueForKey:@"username"]),
                             SHKEncode([self getAuthValueForKey:@"password"])];
 		
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
+		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
                                              params:params
                                            delegate:self
                                  isFinishedSelector:@selector(sendFinished:)
                                              method:@"POST"
-                                          autostart:YES] autorelease];
+                                          autostart:YES];
 		
 		// Notify delegate
 		[self sendDidStart];

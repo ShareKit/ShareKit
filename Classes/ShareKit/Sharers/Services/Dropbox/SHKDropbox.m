@@ -38,9 +38,7 @@ typedef enum {
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
 - (void) showDropboxForm;
-- (void) editFormValidate:(SHKFormController *) form;
-- (void) editFormSave:(SHKFormController *) form;
-- (void) editFormCancel:(SHKFormController *) form;
+
 @end
 
 @implementation SHKDropbox
@@ -597,10 +595,10 @@ static int outstandingRequests = 0;
                                               start:[[self.item customValueForKey:kSHKDropboxDestinationDir] stringByAppendingString:[self.item customValueForKey:kSHKDropboxStoredFileName]]],
                         nil];
 	[form addSection:fileSecton header:SHKLocalizedString(@"Do you want to overwrite existing file in %@?", [self sharerTitle]) footer:@"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name"];
-	form.delegate = self;
-	form.validateSelector = @selector(editFormValidate:);
-	form.saveSelector = @selector(editFormSave:);
-	form.cancelSelector = @selector(editFormCancel:);
+
+	form.validateBlock = [self shareFormValidate];
+	form.saveBlock = [self shareFormSave];
+	form.cancelBlock = [self shareFormCancel];
 	form.autoSelect = YES;
 	
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:, self);
@@ -610,44 +608,59 @@ static int outstandingRequests = 0;
 	[[SHK currentHelper] showViewController:self];
 }
 
-- (void) editFormValidate:(SHKFormController *) form {
-    NSString *formPath = [[form formValues] objectForKey:@"fileName"];
-    if (formPath.length < 1 || [formPath isEqualToDropboxPath:@""] || [formPath isEqualToDropboxPath:@"/"]) {
-        [[[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
-                                     message:SHKLocalizedString(@"File name is wrong")
-                                    delegate:self
-                           cancelButtonTitle:SHKLocalizedString(@"Continue")
-                           otherButtonTitles:nil,
-           nil] autorelease] show];
-    } else {
-        [form saveForm];
-    }
+- (FormControllerCallback)shareFormValidate {
     
-}
-- (void) editFormSave:(SHKFormController *) form {
-    NSString *formPath = [[form formValues] objectForKey:@"fileName"];
-    NSString *dir = [formPath stringByDeletingLastPathComponent];
-    NSString *fileName = [formPath lastPathComponent];
-    if (fileName.length > 0) {
-        if (![fileName isEqualToString:kSHKDropboxStoredFileName]) {
-            [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
-            [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
-        } else if (dir.length > 0) {
-            [self.item setCustomValue:self.item.file.filename forKey:kSHKDropboxStoredFileName];
-            [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
-        }
+    FormControllerCallback result = ^(SHKFormController *form) {
         
-    }
-    if (dir.length > 0) {
-        NSString *remotePath = [self.item customValueForKey:kSHKDropboxDestinationDir];
-        remotePath = [remotePath stringByAppendingPathComponent:dir];
-        [self.item setCustomValue:remotePath forKey:kSHKDropboxDestinationDir];
-    }
-    [self startSendingStoredObject];
+        NSString *formPath = [[form formValues] objectForKey:@"fileName"];
+        if (formPath.length < 1 || [formPath isEqualToDropboxPath:@""] || [formPath isEqualToDropboxPath:@"/"]) {
+            [[[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
+                                         message:SHKLocalizedString(@"File name is wrong")
+                                        delegate:self
+                               cancelButtonTitle:SHKLocalizedString(@"Continue")
+                               otherButtonTitles:nil,
+               nil] autorelease] show];
+        } else {
+            [form saveForm];
+        }
+    };
+    return result;
 }
 
-- (void) editFormCancel:(SHKFormController *) form {
-    [self SHKDropboxDidCansel];
+- (FormControllerCallback)shareFormSave {
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        NSString *formPath = [[form formValues] objectForKey:@"fileName"];
+        NSString *dir = [formPath stringByDeletingLastPathComponent];
+        NSString *fileName = [formPath lastPathComponent];
+        if (fileName.length > 0) {
+            if (![fileName isEqualToString:kSHKDropboxStoredFileName]) {
+                [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
+                [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
+            } else if (dir.length > 0) {
+                [self.item setCustomValue:self.item.file.filename forKey:kSHKDropboxStoredFileName];
+                [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
+            }
+            
+        }
+        if (dir.length > 0) {
+            NSString *remotePath = [self.item customValueForKey:kSHKDropboxDestinationDir];
+            remotePath = [remotePath stringByAppendingPathComponent:dir];
+            [self.item setCustomValue:remotePath forKey:kSHKDropboxDestinationDir];
+        }
+        [self startSendingStoredObject];
+    };
+    return result;
+}
+
+- (FormControllerCallback)shareFormCancel {
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        [self SHKDropboxDidCansel];
+    };
+    return result;
 }
 
 
