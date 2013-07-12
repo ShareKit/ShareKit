@@ -212,13 +212,6 @@
 			remoteGlobalIDString = 7AA83BF91705E355009C483A;
 			remoteInfo = "Google Plus SDK";
 		};
-		7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AABBED59162F0BC5009D46E4;
-			remoteInfo = "Google Reader";
-		};
 		7AA2E87C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -586,7 +579,6 @@
 				7AA2E8751743805E00B17434 /* libFlickr SDK.a */,
 				7AA2E8771743805E00B17434 /* libGoogle Plus.a */,
 				7AA2E8791743805E00B17434 /* libGoogle Plus SDK.a */,
-				7AA2E87B1743805E00B17434 /* libGoogle Reader.a */,
 				7AA2E87D1743805E00B17434 /* libInstagram.a */,
 				7AA2E87F1743805E00B17434 /* libInstapaper.a */,
 				7AA2E8811743805E00B17434 /* libKippt.a */,
@@ -841,13 +833,6 @@
 			fileType = archive.ar;
 			path = "libGoogle Plus SDK.a";
 			remoteRef = 7AA2E8781743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7AA2E87B1743805E00B17434 /* libGoogle Reader.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libGoogle Reader.a";
-			remoteRef = 7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7AA2E87D1743805E00B17434 /* libInstagram.a */ = {
