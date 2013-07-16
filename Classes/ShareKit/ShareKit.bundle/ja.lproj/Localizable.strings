@@ -45,10 +45,7 @@
 
 "Enter your message:" = "メッセージを入力:";
 
-"Invalid email or password." = "メールアドレスかパスワードが間違えています";
 "The service encountered an error. Please try again later." = "只今サービスが利用できません。しばらくして再試行してください";
-
-"There was an error saving to Pinboard" = "Pinboardの保存にエラーが起きました";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "%@が認証情報を受理できませんでした。再試行してください";
 "Sorry, %@ encountered an error. Please try again." = "%@エラーが発生しました。再試行してください";

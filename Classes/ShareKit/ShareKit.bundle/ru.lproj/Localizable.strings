@@ -49,10 +49,7 @@
 
 "Enter your message:" = "Ваше сообщение:";
 
-"Invalid email or password." = "Неверный email или пароль.";
 "The service encountered an error. Please try again later." = "У сервиса произошла ошибка. Попробуйте, пожалуйста, позже.";
-
-"There was an error saving to Pinboard" = "Произошла ошибка при oтправке на Pinboard";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Извините, но %@ не принял ваши данные. Попробуйте, пожалуйста, еще раз.";
 "Sorry, %@ encountered an error. Please try again." = "Извините, у %@ возникла ошибка. Попробуйте, пожалуйста, еще раз.";

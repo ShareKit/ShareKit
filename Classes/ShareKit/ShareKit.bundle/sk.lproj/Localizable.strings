@@ -80,11 +80,7 @@
 
 "Enter your message:" = "Zadajte Vašu správu:";
 
-"Invalid email or password." = "Neplatný email alebo heslo.";
-
 "The service encountered an error. Please try again later." = "Na službe sa vyskytla chyba. Skúste neskôr, prosím.";
-
-"There was an error saving to Pinboard" = "Počas odosielania na Pinboard sa vyskytla chyba";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Prepáčte, %@ neakceptoval Vaše prihlasovacie údaje. Skúste znova, prosím.";
 

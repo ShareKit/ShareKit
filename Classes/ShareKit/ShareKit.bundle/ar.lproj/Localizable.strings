@@ -80,11 +80,7 @@
 
 "Enter your message:" = "أدخل رسالتك:";
 
-"Invalid email or password." = "خطأ في البريد الإلكتروني أو كلمة المرور.";
-
 "The service encountered an error. Please try again later." = "توجد مشكلة في الخدمة. الرجاء المحاولة في وقت لاحق.";
-
-"There was an error saving to Pinboard" = "حصل خطأ أثناء الحفظ في بن بورد";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "عفواً، %@ لم يقبل معلومات الدخول. الرجاء المحاولة مرة أخرى.";
 "Sorry, %@ encountered an error. Please try again." = "عفواً، حصل خطأ لدى %@. الرجاء المحاولة مرة أخرى.";

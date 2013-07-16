@@ -80,11 +80,7 @@
 
 "Enter your message:" = "Escreva sua mensagem:";
 
-"Invalid email or password." = "Email ou senha inválida.";
-
 "The service encountered an error. Please try again later." = "Ocorreu um erro no serviço. Por favor tente novamente mais tarde.";
-
-"There was an error saving to Pinboard" = "Ocorreu um erro ao salvar no Pinboard";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Desculpe, %@ não aceitou suas credenciais. Por favor tente novamente.";
 "Sorry, %@ encountered an error. Please try again." = "Desculpe, %@ encontrou um erro. Por favor tente novamente.";

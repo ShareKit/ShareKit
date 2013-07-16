@@ -47,10 +47,7 @@
 
 "Enter your message:" = "Nachricht eingeben:";
 
-"Invalid email or password." = "Falsche Email oder Passwort.";
 "The service encountered an error. Please try again later." = "Der Dienst konnte nicht abgeschlossen werden. Bitte versuchen Sie es später erneut.";
-
-"There was an error saving to Pinboard" = "Beim Speichern zu Pinboard trat ein Fehler auf.";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "%@ akzeptierte Ihren Login nicht. Bitte versuchen Sie es erneut.";
 "Sorry, %@ encountered an error. Please try again." = "%@ schlug fehl. Bitte versuchen Sie es erneut.";

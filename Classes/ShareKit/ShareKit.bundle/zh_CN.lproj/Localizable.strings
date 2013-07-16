@@ -46,11 +46,8 @@
 
 "Enter your message:" = "输入你的消息：";
 
-"Invalid email or password." = "Email 或密码不正确。";
 "The service encountered an error. Please try again later." = "此服务碰到了一点错误，请稍后重试。";
 "There was an error sending your post to Tumblr." = "发送至 Tumblr 的过程中出错。";
-
-"There was an error saving to Pinboard" = "保存到 Pinboard 的过程中出错";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "抱歉，%@ 无法验证您的账号，请重试。";
 "Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 碰到了一个问题，请重试。";

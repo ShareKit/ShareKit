@@ -80,11 +80,7 @@
 
 "Enter your message:" = "Entra el teu missatge:";
 
-"Invalid email or password." = "Email o contrasenya no vàlids.";
-
 "The service encountered an error. Please try again later." = "El servei ha trobat un error. Intenta-ho més tard.";
-
-"There was an error saving to Pinboard" = "Hi ha hagut un error desant a Pinboard";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Ho sentim, %@ no ha acceptat les teves credencials. Torna a intentar-ho.";
 "Sorry, %@ encountered an error. Please try again." = "Ho sentim, %@ ha trobat un error. Torna a intentar-ho.";
