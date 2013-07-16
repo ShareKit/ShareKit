@@ -63,7 +63,7 @@ typedef enum
 @property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 
 @property (strong) SHKItem *item;
-@property (strong) SHKFormController *pendingForm;
+@property (weak) SHKFormController *pendingForm;
 @property (weak) SHKFormOptionController *curOptionController;
 @property (nonatomic, strong) NSError *lastError;
 @property BOOL quiet;
