@@ -46,41 +46,63 @@
 
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)item
 {
-	SHKActionSheet *as = [[SHKCONFIG(SHKActionSheetSubclass) alloc] initWithTitle:SHKLocalizedString(@"Share")
-													  delegate:nil
-											 cancelButtonTitle:nil
-										destructiveButtonTitle:nil
-											 otherButtonTitles:nil];
+	return [self actionSheetForItem:item withSharers:nil];
+}
+
++ (SHKActionSheet *)actionSheetForItem:(SHKItem *)item withSharers:(NSArray *)sharers
+{
+    SHKActionSheet *as = [[SHKCONFIG(SHKActionSheetSubclass) alloc] initWithTitle:SHKLocalizedString(@"Share")
+                                                                         delegate:nil
+                                                                cancelButtonTitle:nil
+                                                           destructiveButtonTitle:nil
+                                                                otherButtonTitles:nil];
 	as.delegate = as;
 	as.item = item;
 	
-	as.sharers = [NSMutableArray arrayWithCapacity:0];
-	NSArray *favoriteSharers = [SHK favoriteSharersForItem:item];
-		
-	// Add buttons for each favorite sharer
-	id class;
-	for(NSString *sharerId in favoriteSharers)
+    if (!sharers) {
+        sharers = [SHK favoriteSharersForItem:item];
+    }
+    
+	as.sharers = sharers;
+	
+	return [as autorelease];
+}
+
+- (void)setSharers:(NSArray *)sharers
+{
+    if (sharers == _sharers) {
+        return;
+    }
+    
+    NSMutableArray *potentialSharers = [NSMutableArray arrayWithCapacity:5];
+    
+    // Add buttons for each favorite sharer
+	for(NSString *sharerId in sharers)
 	{
 		//Do not add buttons for sharers, which are not able to share item
-        class = NSClassFromString(sharerId);
-		if ([class canShare] && [class canShareItem:item])
+        id class = NSClassFromString(sharerId);
+		if ([class canShare] && [class canShareItem:self.item])
 		{
-			[as addButtonWithTitle: [class sharerTitle] ];
-			[as.sharers addObject:sharerId];
+			[self addButtonWithTitle: [class sharerTitle] ];
+			[potentialSharers addObject:sharerId];
 		}
 	}
 	
 	if([SHKCONFIG(showActionSheetMoreButton) boolValue])
 	{
 		// Add More button
-		[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+		[self addButtonWithTitle:SHKLocalizedString(@"More...")];
 	}
 	
 	// Add Cancel button
-	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
-	as.cancelButtonIndex = as.numberOfButtons -1;
-	
-	return [as autorelease];
+	[self addButtonWithTitle:SHKLocalizedString(@"Cancel")];
+	self.cancelButtonIndex = self.numberOfButtons - 1;
+    
+    @synchronized(self)
+    {
+        [_sharers release];
+        _sharers = [potentialSharers retain];
+    }
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
