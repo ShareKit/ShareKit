@@ -28,6 +28,7 @@
 
 #import "SharersCommonHeaders.h"
 #import "SHKRequest.h"
+#import "Debug.h"
 
 #import <objc/runtime.h>
 
@@ -100,32 +101,35 @@ static char const* const ListURIKey = "ListURIKey";
 
 @end
 
-// --
+@interface SHKKippt ()
+
+@property (strong, nonatomic) NSString *username;
+@property (strong, nonatomic) NSString *password;
+
+@end
 
 @implementation SHKKippt
 
-- (void)sendRequest:(NSString *)url params:(NSString *)params isFinishedSelector:(SEL)sel method:(NSString *)method
+- (void)sendRequest:(NSString *)url params:(NSString *)params method:(NSString *)method completion:(RequestCallback)completion
 {
     // Send request
-    self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:url]
-                                             params:params
-										   delegate:self
-								 isFinishedSelector:sel
-											 method:method
-										  autostart:NO];
+    SHKRequest *request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:url]
+                                                   params:params
+                                                   method:method
+                                               completion:completion];
     
-    if (_username == nil || _password == nil) {
-        _username = [[self getAuthValueForKey:@"username"] copy];
-        _password = [[self getAuthValueForKey:@"password"] copy];
+    if (!self.username || !self.password) {
+        self.username = [self getAuthValueForKey:@"username"];
+        self.password = [self getAuthValueForKey:@"password"];
     }
     
     // Basic Auth -- credit: http://stackoverflow.com/a/9468371
-    NSString *authStr = [NSString stringWithFormat:@"%@:%@", _username, _password];
+    NSString *authStr = [NSString stringWithFormat:@"%@:%@", self.username, self.password];
     NSString *authValue = [NSString stringWithFormat:@"Basic %@", base64([authStr dataUsingEncoding:NSUTF8StringEncoding])];
     
     NSDictionary *headers = [[NSDictionary alloc] initWithObjectsAndKeys:authValue, @"Authorization", nil];
-    self.request.headerFields = headers;
-    [self.request start];
+    request.headerFields = headers;
+    [request start];
 }
 
 #pragma mark -
@@ -165,46 +169,42 @@ static char const* const ListURIKey = "ListURIKey";
             [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging in...")];
         }
         
+        weakSelf.pendingForm = form;
+
         // Authorize the user through the server
         NSDictionary *formValues = [form formValues];
         
         // Remember user/pass
-        _username = [formValues objectForKey:@"username"];
-        _password = [formValues objectForKey:@"password"];
+        weakSelf.username = [formValues objectForKey:@"username"];
+        weakSelf.password = [formValues objectForKey:@"password"];
         
         // Send request
-        [weakSelf sendRequest:kAccountURL params:nil isFinishedSelector:@selector(authFinished:) method:@"POST"];
-        
-        weakSelf.pendingForm = form;
+        [weakSelf sendRequest:kAccountURL params:nil method:@"POST" completion:^ (SHKRequest *request) {
+            
+            // Hide the activity indicator
+            [[SHKActivityIndicator currentIndicator] hide];
+            
+            if (request.success)
+            {
+                [weakSelf.pendingForm saveForm];
+            }
+            else
+            {
+                if (request.response.statusCode == 401)
+                {
+                    [weakSelf authShowBadCredentialsAlert];
+                }
+                else
+                {
+                    [weakSelf authShowOtherAuthorizationErrorAlert];
+                }
+                SHKLog(@"%@", [request description]);
+            }
+            [weakSelf authDidFinish:request.success];
+        }];
     };
     return result;
 }
-
-- (void)authFinished:(SHKRequest *)aRequest
-{
-	// Hide the activity indicator
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	if (aRequest.success)
-	{
-		[self.pendingForm saveForm];
-	}
-    else
-    {
-        if (aRequest.response.statusCode == 401)
-        {
-            [self authShowBadCredentialsAlert];
-        }
-        else
-        {
-            [self authShowOtherAuthorizationErrorAlert];
-        }
-        SHKLog(@"%@", [aRequest description]);
-    }
-    
-	[self authDidFinish:aRequest.success];
-}
-
 
 #pragma mark -
 #pragma mark Share Form
@@ -247,32 +247,33 @@ static char const* const ListURIKey = "ListURIKey";
     self.curOptionController = optionController;
     
     // This is our cue to fire a request
-    [self sendRequest:kListsURL params:nil isFinishedSelector:@selector(didFetchLists:) method:@"GET"];
+    [self sendRequest:kListsURL params:nil method:@"GET" completion:^(SHKRequest *request) {
+        
+        if (request.response.statusCode != 200) {
+            
+            NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Failed to fetch lists." forKey:NSLocalizedDescriptionKey];
+            NSError *err = [NSError errorWithDomain:@"KPT" code:1 userInfo:userInfo];
+            [self.curOptionController optionsEnumerationFailedWithError:err];
+            
+        } else {
+            
+            NSError *error = nil;
+            NSDictionary *result = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSMutableArray *lists = [[NSMutableArray alloc] init];
+            for (NSDictionary *l in [result objectForKey:@"objects"]) {
+                NSString *s = [l objectForKey:@"title"];
+                s.listURI = [l objectForKey:@"resource_uri"];
+                [lists addObject:s];
+            }
+            
+            [self.curOptionController optionsEnumerated:lists];
+        }
+    }];
 }
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController
 {
-    
-}
-     
-- (void)didFetchLists:(SHKRequest *)aRequest
-{   
-    if (aRequest.response.statusCode != 200) {
-        NSDictionary *userInfo = [NSDictionary dictionaryWithObject:@"Failed to fetch lists." forKey:NSLocalizedDescriptionKey];
-        NSError *err = [NSError errorWithDomain:@"KPT" code:1 userInfo:userInfo];
-        [self.curOptionController optionsEnumerationFailedWithError:err];
-    } else {
-        NSError *error = nil;
-        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
-        NSMutableArray *lists = [[NSMutableArray alloc] init];
-        for (NSDictionary *l in [result objectForKey:@"objects"]) {
-            NSString *s = [l objectForKey:@"title"];
-            s.listURI = [l objectForKey:@"resource_uri"];
-            [lists addObject:s];
-        }
-        
-        [self.curOptionController optionsEnumerated:lists];
-    }
+
 }
 
 #pragma mark -
@@ -280,50 +281,46 @@ static char const* const ListURIKey = "ListURIKey";
 
 - (BOOL)send
 {	
-	if ([self validateItem])
-	{
-        NSString *list = [self.item customValueForKey:@"list"];
-        NSString *notes = [self.item customValueForKey:@"notes"];
-        if (notes == nil) notes = @"";
+	if (![self validateItem]) return NO;
+    
+    NSString *list = [self.item customValueForKey:@"list"];
+    NSString *notes = [self.item customValueForKey:@"notes"];
+    if (notes == nil) notes = @"";
+    
+    NSDictionary *clip = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [self.item.URL absoluteString], @"url",
+                          self.item.title, @"title",
+                          list.listURI, @"list",
+                          notes, @"notes",
+                          nil];
+    
+    NSError *error = nil;
+    NSData *clipData = [NSJSONSerialization dataWithJSONObject:clip options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *clipString = [[NSString alloc] initWithData:clipData encoding:NSUTF8StringEncoding];
+    
+    [self sendRequest:kNewClipURL params:clipString  method:@"POST" completion:^ (SHKRequest *request) {
         
-        NSDictionary *clip = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [self.item.URL absoluteString], @"url",
-                              self.item.title, @"title",
-                              list.listURI, @"list",
-                              notes, @"notes",
-                              nil];
-        
-        NSError *error = nil;
-        NSData *clipData = [NSJSONSerialization dataWithJSONObject:clip options:NSJSONWritingPrettyPrinted error:&error];
-        NSString *clipString = [[NSString alloc] initWithData:clipData encoding:NSUTF8StringEncoding];
-        [self sendRequest:kNewClipURL params:clipString isFinishedSelector:@selector(sendFinished:) method:@"POST"];
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{
-    if (aRequest.success)
-	{
-		[self sendDidFinish];
-	}
-    else
-    {
-        if (aRequest.response.statusCode == 401)
+        if (request.success)
         {
-            [self shouldReloginWithPendingAction:SHKPendingSend];
+            [self sendDidFinish];
         }
         else
         {
-            [self sendShowSimpleErrorAlert];
+            if (request.response.statusCode == 401)
+            {
+                [self shouldReloginWithPendingAction:SHKPendingSend];
+            }
+            else
+            {
+                [self sendShowSimpleErrorAlert];
+            }
+        SHKLog(@"share failed with error: %@", [request description]);
         }
-    }
+    }];
+    
+    // Notify delegate
+    [self sendDidStart];
+    return YES;
 }
 
 @end

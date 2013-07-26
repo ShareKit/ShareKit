@@ -30,17 +30,7 @@
 #import "SharersCommonHeaders.h"
 #import "SHKRequest.h"
 
-/**
- Private helper methods
- */
-@interface SHKDiigo ()
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
-@end
-
 @implementation SHKDiigo
-
-
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -74,50 +64,47 @@
         if (!weakSelf.quiet)
             [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
         
+        weakSelf.pendingForm = form;
+        
         // Authorize the user through the server
         NSDictionary *formValues = [form formValues];
-        
         NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-        weakSelf.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-                                                        [NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
-                                                         SHKEncode([formValues objectForKey:@"username"]),
-                                                         password,SHKCONFIG(diigoKey),SHKEncode([formValues objectForKey:@"username"])
-                                                         ]]
-                                                params:nil
-                                              delegate:self
-                                    isFinishedSelector:@selector(authFinished:)
-                                                method:@"GET"
-                                             autostart:YES];
-        weakSelf.pendingForm = form;
+        
+        [SHKRequest startWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks?key=%@&count=1&user=%@",
+                                                       SHKEncode([formValues objectForKey:@"username"]),
+                                                       password,
+                                                       SHKCONFIG(diigoKey),
+                                                       SHKEncode([formValues objectForKey:@"username"])
+                                                       ]]
+                          params:nil
+                          method:@"GET"
+                      completion:^ (SHKRequest *request) {
+                          
+                          // Hide the activity indicator
+                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          if (request.success)
+                          {
+                              [weakSelf.pendingForm saveForm];
+                          }
+                          else
+                          {
+                              if (request.response.statusCode == 401)
+                              {
+                                  [weakSelf authShowBadCredentialsAlert];
+                              }
+                              else
+                              {
+                                  [weakSelf authShowOtherAuthorizationErrorAlert];
+                              }
+                              SHKLog(@"%@", [request description]);
+                          }
+                          
+                          [weakSelf authDidFinish:request.success];
+                      }];
     };
     return result;
 }
-
-- (void)authFinished:(SHKRequest *)aRequest
-{	
-	// Hide the activity indicator
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	if (aRequest.success)
-	{
-		[self.pendingForm saveForm];
-	} 
-    else
-    {        
-        if (aRequest.response.statusCode == 401) 
-        {
-            [self authShowBadCredentialsAlert];
-        }
-        else
-        {
-            [self authShowOtherAuthorizationErrorAlert];
-        }
-        SHKLog(@"%@", [aRequest description]);
-    }
-  
-	[self authDidFinish:aRequest.success];
-}
-
 
 #pragma mark -
 #pragma mark Share Form
@@ -135,61 +122,50 @@
 	return nil;
 }
 
-
-
 #pragma mark -
 #pragma mark Share API Methods
 
 - (BOOL)send
 {	
-	if ([self validateItem])
-	{	
+	if (![self validateItem]) return NO;
+
+    NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+    [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [allowedCharacters removeCharactersInString:@","];
+    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(self.item.URL),SHKEncode(self.item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),SHKEncode(self.item.text),[self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
     
-        NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
-        [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-        [allowedCharacters removeCharactersInString:@","];
-        NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(self.item.URL),SHKEncode(self.item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),SHKEncode(self.item.text),[self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
-    
-		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
     
     NSString* address =[NSString stringWithFormat:@"https://%@:%@@secure.diigo.com/api/v2/bookmarks",
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password];
     
-		self.request = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
-												params:params
-											  delegate:self
-									isFinishedSelector:@selector(sendFinished:)
-												method:@"POST"
-											 autostart:YES];
-		
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{	
-	if (aRequest.success)
-	{
-		[self sendDidFinish];
-	}
-    else
-    {   
-        if (aRequest.response.statusCode == 401)
-        {        
-        [self shouldReloginWithPendingAction:SHKPendingSend];       
-        }
-        else
-        {        
-        [self sendShowSimpleErrorAlert];
-        }
-    }
+    [SHKRequest startWithURL:[NSURL URLWithString:address]
+                      params:params
+                      method:@"POST"
+                  completion:^ (SHKRequest *request) {
+                      
+                      if (request.success)
+                      {
+                          [self sendDidFinish];
+                      }
+                      else
+                      {
+                          if (request.response.statusCode == 401)
+                          {
+                              [self shouldReloginWithPendingAction:SHKPendingSend];
+                          }
+                          else
+                          {        
+                              [self sendShowSimpleErrorAlert];
+                          }
+                          SHKLog(@"Share failed with error:%@", [request description]);
+                      }
+                  }];
+    
+    // Notify delegate
+    [self sendDidStart];
+    return YES;
 }
 
 @end

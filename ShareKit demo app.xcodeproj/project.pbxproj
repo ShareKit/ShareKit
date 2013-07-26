@@ -45,6 +45,9 @@
 		7A04083917413908003404B9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083717413908003404B9 /* MainWindow.xib */; };
 		7A04083A17413908003404B9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
 		7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
+		7A0F308417955C07000778BC /* libDiigo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8691743805E00B17434 /* libDiigo.a */; };
+		7A0F308517955FA4000778BC /* libDelicious.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8671743805E00B17434 /* libDelicious.a */; };
+		7A0F308A1795639A000778BC /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8811743805E00B17434 /* libKippt.a */; };
 		7A76D2CC178EE4EF0006B85F /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8851743805E00B17434 /* libPinboard.a */; };
 		7A76D2CD178EE4F40006B85F /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8511743805E00B17434 /* libShareKitCore.a */; };
 		7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8551743805E00B17434 /* libOAuth.a */; };
@@ -55,6 +58,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7A0F305D17955BFC000778BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED09162F087F009D46E4;
+			remoteInfo = Diigo;
+		};
+		7A0F308617955FB1000778BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED00162F0858009D46E4;
+			remoteInfo = Delicious;
+		};
+		7A0F308817956390000778BC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBECF7162F0835009D46E4;
+			remoteInfo = Kippt;
+		};
 		7A76D2C2178EE4AA0006B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -459,6 +483,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0F308A1795639A000778BC /* libKippt.a in Frameworks */,
+				7A0F308517955FA4000778BC /* libDelicious.a in Frameworks */,
+				7A0F308417955C07000778BC /* libDiigo.a in Frameworks */,
 				7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */,
 				7A76D2D0178EE5180006B85F /* libReachability.a in Frameworks */,
 				7A76D2D1178EE5180006B85F /* libSSKeyChain.a in Frameworks */,
@@ -665,6 +692,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A0F308917956390000778BC /* PBXTargetDependency */,
+				7A0F308717955FB1000778BC /* PBXTargetDependency */,
+				7A0F305E17955BFC000778BC /* PBXTargetDependency */,
 				7A76D2CB178EE4CF0006B85F /* PBXTargetDependency */,
 				7A76D2C9178EE4B50006B85F /* PBXTargetDependency */,
 				7A76D2C7178EE4B10006B85F /* PBXTargetDependency */,
@@ -1056,6 +1086,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7A0F305E17955BFC000778BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Diigo;
+			targetProxy = 7A0F305D17955BFC000778BC /* PBXContainerItemProxy */;
+		};
+		7A0F308717955FB1000778BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Delicious;
+			targetProxy = 7A0F308617955FB1000778BC /* PBXContainerItemProxy */;
+		};
+		7A0F308917956390000778BC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Kippt;
+			targetProxy = 7A0F308817956390000778BC /* PBXContainerItemProxy */;
+		};
 		7A76D2C3178EE4AA0006B85F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Static Library Core";
