@@ -12,24 +12,17 @@
 @protocol SHKFormOptionControllerClient;
 @protocol SHKFormOptionControllerOptionProvider;
 
-@interface SHKFormOptionController : UITableViewController {
-	SHKFormFieldSettings* settings;
-	id<SHKFormOptionControllerClient> __weak client;
-	id<SHKFormOptionControllerOptionProvider> provider;
-	bool didLoad;
-}
+@interface SHKFormOptionController : UITableViewController
 
-@property(nonatomic,strong) SHKFormFieldSettings* settings;
-@property(nonatomic,weak) id<SHKFormOptionControllerClient> client;
+@property (nonatomic, strong) SHKFormFieldSettings *settings;
+@property (nonatomic, weak) id <SHKFormOptionControllerClient> client;
+@property (nonatomic, weak) id <SHKFormOptionControllerOptionProvider> provider;
 
+- (id)initWithOptionsInfo:(SHKFormFieldSettings *)settingsItem client:(id <SHKFormOptionControllerClient>)optionClient;
+- (void)optionsEnumerated:(NSArray*) options;
+- (void)optionsEnumerationFailedWithError:(NSError *)error;
 
-- (id)initWithOptionsInfo:(SHKFormFieldSettings*) settingsItem client:(id<SHKFormOptionControllerClient>) optionClient;
-- (void) optionsEnumerated:(NSArray*) options;
-- (void) optionsEnumerationFailedWithError:(NSError *)error;;
 @end
-
-
-
 
 @protocol SHKFormOptionControllerClient
 
