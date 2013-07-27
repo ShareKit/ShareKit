@@ -117,10 +117,16 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 			  nil];
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	self.pendingForm = form;
-	[self tokenAccess];
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        weakSelf.pendingForm = form;
+        [weakSelf tokenAccess];
+    };
+    return result;
 }
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest

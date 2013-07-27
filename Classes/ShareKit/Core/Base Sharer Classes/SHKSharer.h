@@ -183,11 +183,8 @@ typedef enum
 #pragma mark Share Form
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
-//- (void)shareFormValidate:(SHKFormController *)form;
 - (FormControllerCallback)shareFormValidate;
-//- (void)shareFormSave:(SHKFormController *)form;
 - (FormControllerCallback)shareFormSave;
-//- (void)shareFormCancel:(SHKFormController *)form;
 - (FormControllerCallback)shareFormCancel;
 
 #pragma mark -

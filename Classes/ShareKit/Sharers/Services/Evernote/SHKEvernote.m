@@ -105,11 +105,6 @@
 	 nil];
 }
 
-- (void)shareFormValidate:(SHKFormController *)form 
-{	
-	[form saveForm];
-}
-
 #pragma mark -
 #pragma mark Implementation
 
