@@ -42,12 +42,8 @@
     
     self.delegate = nil;
     
-    self.query = nil;
     
-    self.venues = nil;
-    self.filteredVenues = nil;
     
-    [super dealloc];
 }
 
 - (id)initWithDelegate:(SHKFoursquareV2*)delegate
@@ -58,9 +54,9 @@
         
         self.delegate = delegate;
         
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)] autorelease];
+																							  action:@selector(cancel)];
     }
     return self;
 }
@@ -79,7 +75,7 @@
 {
     [super loadView];
     
-    UISearchBar *searchBar = [[[UISearchBar alloc] init] autorelease];
+    UISearchBar *searchBar = [[UISearchBar alloc] init];
     searchBar.placeholder = SHKLocalizedString(@"Search places");
     [searchBar sizeToFit];
     searchBar.delegate = self;
@@ -178,7 +174,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
@@ -291,7 +287,6 @@
     }
     
     self.locationManager = locationManager;
-    [locationManager release];
     
     if (self.location == nil) {
         [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Determine your location...")];

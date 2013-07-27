@@ -47,16 +47,6 @@ static NSString *accessTokenKey = @"accessToken";
 
 @implementation SHKFoursquareV2
 
-- (void)dealloc
-{
-    self.clientId = nil;
-    self.authorizeCallbackURL = nil;
-    self.accessToken = nil;
-    self.location = nil;
-    self.venue = nil;
-    
-    [super dealloc];
-}
 
 - (id)init
 {
@@ -119,7 +109,6 @@ static NSString *accessTokenKey = @"accessToken";
 	
 	SHKFoursquareV2OAuthView *auth = [[SHKFoursquareV2OAuthView alloc] initWithURL:url delegate:self];
 	[[SHK currentHelper] showViewController:auth];	
-	[auth release];
 }
 
 
@@ -133,11 +122,11 @@ static NSString *accessTokenKey = @"accessToken";
     }
     else
     {
-        [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
+        [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
                                      message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
                                     delegate:nil
                            cancelButtonTitle:SHKLocalizedString(@"Close")
-                           otherButtonTitles:nil] autorelease] show];
+                           otherButtonTitles:nil] show];
     }
     [self authDidFinish:success];
 }
@@ -197,7 +186,6 @@ static NSString *accessTokenKey = @"accessToken";
 	
 	[[SHK currentHelper] showViewController:self];	
     
-    [venuesForm release];
 }
 
 - (void)showFoursquareV2CheckInForm;
@@ -208,7 +196,6 @@ static NSString *accessTokenKey = @"accessToken";
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:checkInForm animated:YES];	
-    [checkInForm release];
 }
 
 - (void)sendForm:(SHKCustomFormControllerLargeTextField *)form

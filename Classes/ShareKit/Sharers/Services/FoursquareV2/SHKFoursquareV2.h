@@ -47,8 +47,8 @@
 
 @property (nonatomic, copy) NSString *accessToken;
 
-@property (nonatomic, retain) CLLocation *location;
-@property (nonatomic, retain) SHKFoursquareV2Venue *venue;
+@property (nonatomic, strong) CLLocation *location;
+@property (nonatomic, strong) SHKFoursquareV2Venue *venue;
 
 - (void)showFoursquareV2VenuesForm;
 - (void)showFoursquareV2CheckInForm;

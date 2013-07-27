@@ -34,8 +34,8 @@
 
 @interface SHKFoursquareV2Request : SHKRequest
 
-@property (nonatomic, readonly, getter=getFoursquareResponse) NSDictionary *foursquareResponse;
-@property (nonatomic, readonly, getter=getFoursquareError) NSError *foursquareError;
+@property (nonatomic, strong, readonly) NSDictionary *foursquareResponse;
+@property (nonatomic, strong, readonly) NSError *foursquareError;
 
 + (void)startRequestProfileForUserId:(NSString*)u accessToken:(NSString*)t completion:(RequestCallback)completion;
 + (void)startRequestVenuesSearchLocation:(CLLocation*)l query:(NSString*)q accessToken:(NSString*)t completion:(RequestCallback)completion;

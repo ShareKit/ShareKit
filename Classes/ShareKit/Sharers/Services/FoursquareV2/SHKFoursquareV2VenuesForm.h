@@ -31,15 +31,15 @@
 
 @interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate>
 
-@property (nonatomic, assign) SHKFoursquareV2 *delegate;
+@property (nonatomic, weak) SHKFoursquareV2 *delegate;
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) CLLocation *location;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *location;
 
 @property (nonatomic, copy) NSString *query;
 
-@property (nonatomic, retain) NSMutableArray *venues;
-@property (nonatomic, retain) NSMutableArray *filteredVenues;
+@property (nonatomic, strong) NSMutableArray *venues;
+@property (nonatomic, strong) NSMutableArray *filteredVenues;
 
 - (id)initWithDelegate:(SHKFoursquareV2*)delegate;
 

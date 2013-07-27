@@ -33,54 +33,47 @@ static NSString *apiDateVerified = @"20110927";
 
 @interface SHKFoursquareV2Request ()
 
-@property (nonatomic, getter=getFoursquareResult) NSDictionary *foursquareResult;
-@property (nonatomic, getter=getFoursquareMeta) NSDictionary *foursquareMeta;
-@property (nonatomic, getter=getFoursquareResponse) NSDictionary *foursquareResponse;
-@property (nonatomic, getter=getFoursquareError) NSError *foursquareError;
+@property (nonatomic, strong) NSDictionary *foursquareResult;
+@property (nonatomic, strong) NSDictionary *foursquareMeta;
+@property (nonatomic, strong) NSDictionary *foursquareResponse;
+@property (nonatomic, strong) NSError *foursquareError;
 
 @end
 
 @implementation SHKFoursquareV2Request
 
-- (void)dealloc
-{
-    [_foursquareResult release];
-    [_foursquareError release];
-    
-    [super dealloc];
-}
 
-- (NSDictionary*)getFoursquareResult
+- (NSDictionary*)foursquareResult
 {
     if (_foursquareResult == nil) {
         
         NSError *error = nil;
         id jsonResult = [NSJSONSerialization JSONObjectWithData:self.data options:NSJSONReadingMutableContainers error:&error];
         
-        _foursquareResult = [([jsonResult isKindOfClass:[NSDictionary class]] ? jsonResult : nil) retain];
+        _foursquareResult = ([jsonResult isKindOfClass:[NSDictionary class]] ? jsonResult : nil);
     }
     
     return _foursquareResult;
 }
 
-- (NSDictionary*)getFoursquareMeta
+- (NSDictionary*)foursquareMeta
 {
     return [self.foursquareResult objectForKey:@"meta"];
 }
 
-- (NSDictionary*)getFoursquareResponse
+- (NSDictionary*)foursquareResponse
 {
     return [self.foursquareResult objectForKey:@"response"];
 }
 
-- (NSError*)getFoursquareError
+- (NSError*)foursquareError
 {
     if (self.success) {
         return nil;
     }
     
     if (_foursquareError == nil) {
-        _foursquareError = [[NSError errorWithFoursquareMeta:self.foursquareMeta] retain];
+        _foursquareError = [NSError errorWithFoursquareMeta:self.foursquareMeta];
     }
     
     return _foursquareError;
@@ -88,9 +81,7 @@ static NSString *apiDateVerified = @"20110927";
 
 - (void) start
 {
-    [_foursquareResult release];
     _foursquareResult = nil;
-    [_foursquareError release];
     _foursquareError = nil;
     
     [super start];
