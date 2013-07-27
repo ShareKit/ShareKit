@@ -67,7 +67,9 @@ typedef enum
  'SHKFormOptionControllerOptionProvider' => something that implements the SHKFormOptionControllerOptionProvider
  protocol.
  
- */	
+ */
+
+// TODO: make this a class, to get strong typing AND the possiblity to make provider property weak to avoid current retain cycle.
 @property (nonatomic, strong) NSMutableDictionary *optionPickerInfo;
 @property (nonatomic, strong) NSString *optionDetailLabelDefault;
 

@@ -48,6 +48,7 @@
 		7A0F308417955C07000778BC /* libDiigo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8691743805E00B17434 /* libDiigo.a */; };
 		7A0F308517955FA4000778BC /* libDelicious.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8671743805E00B17434 /* libDelicious.a */; };
 		7A0F308A1795639A000778BC /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8811743805E00B17434 /* libKippt.a */; };
+		7A0FB7E817A3CAC500B88C87 /* libInstapaper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E87F1743805E00B17434 /* libInstapaper.a */; };
 		7A76D2CC178EE4EF0006B85F /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8851743805E00B17434 /* libPinboard.a */; };
 		7A76D2CD178EE4F40006B85F /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8511743805E00B17434 /* libShareKitCore.a */; };
 		7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8551743805E00B17434 /* libOAuth.a */; };
@@ -78,6 +79,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBECF7162F0835009D46E4;
 			remoteInfo = Kippt;
+		};
+		7A0FB7E917A3CAD000B88C87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED5A162F0BE8009D46E4;
+			remoteInfo = Instapaper;
 		};
 		7A76D2C2178EE4AA0006B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -483,6 +491,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0FB7E817A3CAC500B88C87 /* libInstapaper.a in Frameworks */,
 				7A0F308A1795639A000778BC /* libKippt.a in Frameworks */,
 				7A0F308517955FA4000778BC /* libDelicious.a in Frameworks */,
 				7A0F308417955C07000778BC /* libDiigo.a in Frameworks */,
@@ -692,6 +701,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A0FB7EA17A3CAD000B88C87 /* PBXTargetDependency */,
 				7A0F308917956390000778BC /* PBXTargetDependency */,
 				7A0F308717955FB1000778BC /* PBXTargetDependency */,
 				7A0F305E17955BFC000778BC /* PBXTargetDependency */,
@@ -1100,6 +1110,11 @@
 			isa = PBXTargetDependency;
 			name = Kippt;
 			targetProxy = 7A0F308817956390000778BC /* PBXContainerItemProxy */;
+		};
+		7A0FB7EA17A3CAD000B88C87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Instapaper;
+			targetProxy = 7A0FB7E917A3CAD000B88C87 /* PBXContainerItemProxy */;
 		};
 		7A76D2C3178EE4AA0006B85F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
