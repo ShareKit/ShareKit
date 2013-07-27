@@ -16,7 +16,7 @@
 #define kENMLSuffix @"</en-note>"
 
 @interface SHKEvernoteItem : SHKItem {}
-@property (retain) EDAMNote* note;
+@property (strong) EDAMNote* note;
 @end
 
 
