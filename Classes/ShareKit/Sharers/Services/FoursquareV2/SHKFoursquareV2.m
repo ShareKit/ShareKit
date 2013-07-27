@@ -37,7 +37,6 @@
 static NSString *authorizeURL = @"https://foursquare.com/oauth2/authenticate";
 static NSString *accessTokenKey = @"accessToken";
 
-
 @interface SHKFoursquareV2 ()
 
 - (void)storeAccessToken;
@@ -47,12 +46,6 @@ static NSString *accessTokenKey = @"accessToken";
 @end
 
 @implementation SHKFoursquareV2
-
-@synthesize clientId = _clientId;
-@synthesize authorizeCallbackURL = _authorizeCallbackURL;
-@synthesize accessToken = _accessToken;
-@synthesize location = _location;
-@synthesize venue = _venue;
 
 - (void)dealloc
 {
@@ -93,19 +86,9 @@ static NSString *accessTokenKey = @"accessToken";
              [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined));
 }
 
-+ (BOOL)canShareURL
-{
-	return NO;
-}
-
 + (BOOL)canShareText
 {
 	return YES;
-}
-
-+ (BOOL)canShareImage
-{
-	return NO;
 }
 
 + (BOOL)canShareOffline
@@ -238,27 +221,25 @@ static NSString *accessTokenKey = @"accessToken";
 {
     [self sendDidStart];
     
-    self.request = [SHKFoursquareV2Request requestCheckinLocation:self.location venue:self.venue message:self.item.text delegate:self isFinishedSelector:@selector(finishCheckInRequest:) accessToken:self.accessToken autostart:YES];
+    [SHKFoursquareV2Request startRequestCheckinLocation:self.location
+                                                  venue:self.venue
+                                                message:self.item.text
+                                            accessToken:self.accessToken
+                                             completion:^ (SHKRequest *request) {
+                                                 
+                                                 [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+                                                 
+                                                 if (request.success)
+                                                 {
+                                                     [self sendDidFinish];
+                                                 }
+                                                 else
+                                                 {
+                                                     SHKFoursquareV2Request *FSRequest = (SHKFoursquareV2Request *)request;
+                                                     NSError *error = FSRequest.foursquareError;
+                                                     [self sendDidFailWithError:error shouldRelogin:error.foursquareRelogin];
+                                                 }
+                                             }];
 }
-
-- (void)finishCheckInRequest:(SHKFoursquareV2Request*)sender
-{
-    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    
-    if (sender.success)
-    {
-        [self sendDidFinish];
-    }
-    else
-    {
-        NSError *error = sender.foursquareError;
-        
-        [self sendDidFailWithError:error shouldRelogin:error.foursquareRelogin];
-    }
-    
-    self.request = nil;
-}
-
-
 
 @end

@@ -40,8 +40,8 @@
 
 + (void)startWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock {
     
-    SHKRequest *request = [[SHKRequest alloc] initWithURL:u params:p method:m completion:completionBlock];
-    [request start];
+    id request = [[self alloc] initWithURL:u params:p method:m completion:completionBlock];
+    [(SHKRequest *)request start];
 }
 
 - (id)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock

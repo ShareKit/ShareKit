@@ -31,6 +31,15 @@
 static NSString *apiURL = @"https://api.foursquare.com/v2";
 static NSString *apiDateVerified = @"20110927";
 
+@interface SHKFoursquareV2Request ()
+
+@property (nonatomic, getter=getFoursquareResult) NSDictionary *foursquareResult;
+@property (nonatomic, getter=getFoursquareMeta) NSDictionary *foursquareMeta;
+@property (nonatomic, getter=getFoursquareResponse) NSDictionary *foursquareResponse;
+@property (nonatomic, getter=getFoursquareError) NSError *foursquareError;
+
+@end
+
 @implementation SHKFoursquareV2Request
 
 - (void)dealloc
@@ -87,20 +96,15 @@ static NSString *apiDateVerified = @"20110927";
     [super start];
 }
 
-+ (id)requestProfileForUserId:(NSString*)u delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart
++ (void)startRequestProfileForUserId:(NSString*)u accessToken:(NSString*)t completion:(RequestCallback)completion
 {
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/users/%@?oauth_token=%@&v=%@", apiURL, u, t, apiDateVerified]];
     
-    return [[[SHKFoursquareV2Request alloc] initWithURL:url 
-                                                 params:nil 
-                                               delegate:d 
-                                     isFinishedSelector:s 
-                                                 method:@"GET" 
-                                              autostart:autostart] autorelease];
+    [SHKFoursquareV2Request startWithURL:url params:nil method:@"GET" completion:completion];
 }
 
-+ (id)requestVenuesSearchLocation:(CLLocation*)l query:(NSString*)q delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart
-{
++ (void)startRequestVenuesSearchLocation:(CLLocation*)l query:(NSString*)q accessToken:(NSString*)t completion:(RequestCallback)completion {
+    
     NSMutableString *url = [NSMutableString stringWithFormat:@"%@/venues/search?oauth_token=%@&v=%@", apiURL, t, apiDateVerified];
     [url appendFormat:@"&ll=%.5lf,%.5lf", l.coordinate.latitude, l.coordinate.longitude];
     [url appendFormat:@"&llAcc=%.2lf", l.horizontalAccuracy];
@@ -110,16 +114,11 @@ static NSString *apiDateVerified = @"20110927";
     {
         [url appendFormat:@"&query=%@", [q URLEncodedString]];
     }
-    
-    return [[[SHKFoursquareV2Request alloc] initWithURL:[NSURL URLWithString:url] 
-                                                 params:nil 
-                                               delegate:d
-                                     isFinishedSelector:s 
-                                                 method:@"GET" 
-                                              autostart:autostart] autorelease];
+
+    [SHKFoursquareV2Request startWithURL:[NSURL URLWithString:url] params:nil method:@"GET" completion:completion];    
 }
 
-+ (id)requestCheckinLocation:(CLLocation*)l venue:(SHKFoursquareV2Venue*)v message:(NSString*)m delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart
++ (void)startRequestCheckinLocation:(CLLocation*)l venue:(SHKFoursquareV2Venue*)v message:(NSString*)m accessToken:(NSString*)t completion:(RequestCallback)completion;
 {
     NSMutableString *url = [NSMutableString stringWithFormat:@"%@/checkins/add?oauth_token=%@&v=%@", apiURL, t, apiDateVerified];
     [url appendFormat:@"&venueId=%@", v.venueId];
@@ -132,14 +131,10 @@ static NSString *apiDateVerified = @"20110927";
         [url appendFormat:@"&shout=%@", [m URLEncodedString]];
     }
     
-    return [[[SHKFoursquareV2Request alloc] initWithURL:[NSURL URLWithString:url] 
-                                                 params:@"" // Otherwise, the method won't be set in SHKRequest start
-                                               delegate:d
-                                     isFinishedSelector:s 
-                                                 method:@"POST" 
-                                              autostart:autostart] autorelease];
+    [SHKFoursquareV2Request startWithURL:[NSURL URLWithString:url]
+                                  params:@"" // Otherwise, the method won't be set in SHKRequest start
+                                  method:@"POST"
+                              completion:completion];
 }
-
-
 
 @end

@@ -29,21 +29,9 @@
 #import "SHKFoursquareV2.h"
 #import "SHKFoursquareV2Request.h"
 
-@interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate> {
-    SHKFoursquareV2 *_delegate;
-    SHKFoursquareV2Request *_request;
-    
-    CLLocationManager *_locationManager;
-    CLLocation *_location;
-    
-    NSString *_query;
-    
-    NSMutableArray *_venues;
-    NSMutableArray *_filteredVenues;
-}
+@interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate>
 
 @property (nonatomic, assign) SHKFoursquareV2 *delegate;
-@property (nonatomic, retain) SHKFoursquareV2Request *request;
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, retain) CLLocation *location;
@@ -59,6 +47,5 @@
 - (void)stopMonitoringLocation;
 
 - (void)startloadingVenues;
-- (void)finishLoadingVenues:(SHKFoursquareV2Request*)request;
 
 @end
