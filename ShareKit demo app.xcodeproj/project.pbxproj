@@ -50,6 +50,7 @@
 		7A0F308A1795639A000778BC /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8811743805E00B17434 /* libKippt.a */; };
 		7A0FB7E817A3CAC500B88C87 /* libInstapaper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E87F1743805E00B17434 /* libInstapaper.a */; };
 		7A0FB81817A3DBB800B88C87 /* libFoursquareV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8711743805E00B17434 /* libFoursquareV2.a */; };
+		7A0FB84F17A4242D00B88C87 /* libVKontakte.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8911743805E00B17434 /* libVKontakte.a */; };
 		7A76D2CC178EE4EF0006B85F /* libPinboard.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8851743805E00B17434 /* libPinboard.a */; };
 		7A76D2CD178EE4F40006B85F /* libShareKitCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8511743805E00B17434 /* libShareKitCore.a */; };
 		7A76D2CF178EE5180006B85F /* libOAuth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E8551743805E00B17434 /* libOAuth.a */; };
@@ -94,6 +95,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBED38162F0B86009D46E4;
 			remoteInfo = FoursquareV2;
+		};
+		7A0FB82D17A4241E00B88C87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = AABBED12162F08A3009D46E4;
+			remoteInfo = VKontakte;
 		};
 		7A76D2C2178EE4AA0006B85F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -499,6 +507,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A0FB84F17A4242D00B88C87 /* libVKontakte.a in Frameworks */,
 				7A0FB81817A3DBB800B88C87 /* libFoursquareV2.a in Frameworks */,
 				7A0FB7E817A3CAC500B88C87 /* libInstapaper.a in Frameworks */,
 				7A0F308A1795639A000778BC /* libKippt.a in Frameworks */,
@@ -710,6 +719,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A0FB82E17A4241E00B88C87 /* PBXTargetDependency */,
 				7A0FB7F617A3DBB100B88C87 /* PBXTargetDependency */,
 				7A0FB7EA17A3CAD000B88C87 /* PBXTargetDependency */,
 				7A0F308917956390000778BC /* PBXTargetDependency */,
@@ -1130,6 +1140,11 @@
 			isa = PBXTargetDependency;
 			name = FoursquareV2;
 			targetProxy = 7A0FB7F517A3DBB100B88C87 /* PBXContainerItemProxy */;
+		};
+		7A0FB82E17A4241E00B88C87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VKontakte;
+			targetProxy = 7A0FB82D17A4241E00B88C87 /* PBXContainerItemProxy */;
 		};
 		7A76D2C3178EE4AA0006B85F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

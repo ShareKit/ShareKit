@@ -36,15 +36,7 @@ static NSString *const kSHKVkontakteAccessCodeKey=@"kSHKVkontakteAccessCode";
 static NSString *const kSHKVkonakteUserInfo=@"kSHKVkontakteUserInfo";
 
 @interface SHKVkontakte : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
-{
-	BOOL isCaptcha;
-}
-
-@property (nonatomic, retain) NSString *accessUserId;
-@property (nonatomic, retain) NSString *accessToken;
-@property (nonatomic, retain) NSDate *expirationDate;
 
 - (void)authComplete;
-- (void)getAccessCode;
 
 @end
