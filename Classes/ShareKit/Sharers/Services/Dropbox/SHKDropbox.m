@@ -34,7 +34,7 @@ typedef enum {
     SHKDropboxMetadata metadataStatus;
 }
 
-@property (nonatomic, retain) DBRestClient *restClient;
+@property (nonatomic, strong) DBRestClient *restClient;
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
 - (void) showDropboxForm;
@@ -49,12 +49,10 @@ typedef enum {
     [[self restClient] cancelAllRequests];
     [DBRequest setNetworkRequestDelegate:nil];
     self.restClient.delegate = nil;
-    self.restClient = nil;
     if ([DBSession sharedSession].delegate == self) {
         [[DBSession sharedSession] setDelegate:nil];
         [DBSession setSharedSession:nil];
     }
-	[super dealloc];
 }
 
 #pragma mark - Dropbox object
@@ -101,20 +99,18 @@ typedef enum {
     
     if (errorMsg != nil)
     {
-        [[[[UIAlertView alloc]
+        [[[UIAlertView alloc]
            initWithTitle:@"Error Configuring Session" message:errorMsg
            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]
-          autorelease]
          show];
         return nil;
     }
     //End reminder
     
 //    http://stackoverflow.com/a/11261164/812678
-    DBSession* session =[[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:[[root retain] autorelease]];
+    DBSession* session =[[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
     session.delegate = nil; 
     [DBSession setSharedSession:session];
-    [session release];
     return session;
 }
 + (DBSession *) dropbox
@@ -129,7 +125,6 @@ typedef enum {
         DBRestClient *client = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
         self.restClient = client;
         self.restClient.delegate = self;
-        [client release];
     }
     return _restClient;
 }
@@ -143,9 +138,8 @@ typedef enum {
             dropboxSharer = [[SHKDropbox alloc] init];
             DBSession *dropbox = [SHKDropbox dropbox];
             [dropbox setDelegate:dropboxSharer];
-            [dropboxSharer autorelease];
         }
-        [dropboxSharer performSelector:@selector(checkURL:) withObject:[[url retain] autorelease]];
+        [dropboxSharer checkURL:url];
         return TRUE;
     }
     return FALSE;
@@ -159,10 +153,9 @@ typedef enum {
         //  if user has pressed "Cancel" in dialogue, url = "db-APP-KEY://API_VERSION/cancel"
         
         if ([[url absoluteString] rangeOfString:@"cancel"].length > 0 && [[url absoluteString] rangeOfString:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]].length > 0) {
-            [[[[UIAlertView alloc]
+            [[[UIAlertView alloc]
                initWithTitle:@"Dropbox" message:SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [self sharerTitle])  delegate:self
                cancelButtonTitle:SHKLocalizedString(@"Cancel") otherButtonTitles:SHKLocalizedString(@"Continue"), nil]
-              autorelease]
              show];
             return;
         }
@@ -237,7 +230,7 @@ typedef enum {
 
         [self saveItemForLater:self.pendingAction];
         
-        [self retain]; // DBSession doesn't retain delegates
+        [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
         [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
     }
 }
@@ -271,7 +264,7 @@ typedef enum {
         
         [self performSelectorOnMainThread:@selector(startLoadDropboxMetadata:) withObject:remoteFilePath waitUntilDone:FALSE];
         
-        [self retain];
+        [[SHK currentHelper] keepSharerReference:self];
 		return TRUE;
     }
 	
@@ -354,18 +347,16 @@ typedef enum {
     __fileSize = fileSize;
     _startSending = TRUE;
     NSString *parentRev = [self.item customValueForKey:kSHKDropboxParentRevision]; //nil in case of new file
-    if (parentRev) {
-        [[parentRev retain] autorelease];
-    }
+
     if (fileSize <= kSHKDropboxSizeChunks) {
-        [restClient uploadFile:[[fileName retain] autorelease]
-                        toPath:[[destinationDir retain] autorelease]
+        [restClient uploadFile:fileName
+                        toPath:destinationDir
                  withParentRev:parentRev
-                      fromPath:[[localPath retain] autorelease]];
+                      fromPath:localPath];
     } else {
         [restClient    uploadFileChunk:nil
                                 offset:__fileOffset
-                              fromPath:[[localPath retain] autorelease]];
+                              fromPath:localPath];
     }
     _startSending = TRUE;
 }
@@ -395,11 +386,11 @@ static int outstandingRequests = 0;
 
 #pragma mark - DBSessionDelegate methods
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
-	[[[[UIAlertView alloc] initWithTitle:@"Dropbox"
+	[[[UIAlertView alloc] initWithTitle:@"Dropbox"
                                  message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
                                 delegate:self
                        cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
+                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
 }
 
 #pragma mark - DBRestClientDelegate methods
@@ -512,11 +503,11 @@ static int outstandingRequests = 0;
         
         [self saveItemForLater:self.pendingAction];
         [[SHKDropbox dropbox] unlinkAll];
-        [[[[UIAlertView alloc] initWithTitle:[self sharerTitle]
+        [[[UIAlertView alloc] initWithTitle:[self sharerTitle]
                                      message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
                                     delegate:self
                            cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
+                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
     } else {
         NSError *internal = nil;
         if (dbErrorCode == 507) {
@@ -530,7 +521,7 @@ static int outstandingRequests = 0;
         }
         [self sendDidFailWithError:internal];
         [self stopNetworkIndication];
-        [self release]; //see [self send]
+        [[SHK currentHelper] removeSharerReference:self]; //see [self send]
     }
 }
 
@@ -558,7 +549,7 @@ static int outstandingRequests = 0;
     _startSending = FALSE;
     [self sendDidFinish];
     [self stopNetworkIndication];
-    [self release];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 
 - (void) SHKDropboxDidCansel {
@@ -566,7 +557,7 @@ static int outstandingRequests = 0;
     [self stopNetworkIndication];
     _startSending = FALSE;
     [self sendDidCancel];
-    [self release];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 - (void) stopNetworkIndication {
     outstandingRequests = 0;
@@ -603,7 +594,6 @@ static int outstandingRequests = 0;
 	
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:, self);
     [self pushViewController:form animated:NO];
-    [form release];
     
 	[[SHK currentHelper] showViewController:self];
 }
@@ -614,12 +604,12 @@ static int outstandingRequests = 0;
         
         NSString *formPath = [[form formValues] objectForKey:@"fileName"];
         if (formPath.length < 1 || [formPath isEqualToDropboxPath:@""] || [formPath isEqualToDropboxPath:@"/"]) {
-            [[[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
+            [[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
                                          message:SHKLocalizedString(@"File name is wrong")
                                         delegate:self
                                cancelButtonTitle:SHKLocalizedString(@"Continue")
                                otherButtonTitles:nil,
-               nil] autorelease] show];
+               nil] show];
         } else {
             [form saveForm];
         }
