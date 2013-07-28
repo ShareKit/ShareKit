@@ -111,14 +111,14 @@
 
 - (BOOL)sendMail
 {	
-	MFMailComposeViewController *mailController = [[[MFMailComposeViewController alloc] init] autorelease];
+	MFMailComposeViewController *mailController = [[MFMailComposeViewController alloc] init];
 	if (!mailController) {
 		// e.g. no mail account registered (will show alert)
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		return YES;
 	}
 	
-    [self retain]; //must retain, because mailController does not retain its delegates. Released in callback.
+    [[SHK currentHelper] keepSharerReference:self]; //must retain, because mailController does not retain its delegates. Released in callback.
 	mailController.mailComposeDelegate = self;
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
@@ -199,8 +199,7 @@
 			[self sendDidFailWithError:nil];
 			break;
 	}
-	[self autorelease];
+	[[SHK currentHelper] removeSharerReference:self];
 }
-
 
 @end
