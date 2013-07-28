@@ -44,7 +44,7 @@
 }
 
 @property (nonatomic, readonly) OFFlickrAPIContext *flickrContext;
-@property (nonatomic, retain) NSString *flickrUserName;
+@property (nonatomic, strong) NSString *flickrUserName;
 
 - (void)sendPhoto;
 - (NSData*) generateImageData;

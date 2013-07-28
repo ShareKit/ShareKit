@@ -335,7 +335,6 @@
     return [NSNumber numberWithBool:YES];
 }
 
-
 // Buffer
 /*
  1 - Set up an app at https://bufferapp.com/developers/apps/create
