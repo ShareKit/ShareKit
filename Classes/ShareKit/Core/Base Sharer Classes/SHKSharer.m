@@ -680,7 +680,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         [form saveForm];
     };
     return result;
-    
 }
 
 - (FormControllerCallback)shareFormSave

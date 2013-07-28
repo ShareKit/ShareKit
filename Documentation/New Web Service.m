@@ -132,8 +132,13 @@
 }
 
 // Authenticate the user using the data they've entered into the form
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
+	// make sure to always call weakself in this block, to avoid retain cycle (currently the sharer retains the form, and the form retains this block
+    __weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
 	/*
 	 This is called when the user taps 'Login' on the login form after entering their information.
 	 
@@ -167,11 +172,11 @@
 	if ([formValues objectForKey:@"username"] == nil || [formValues objectForKey:@"password"] == nil)
 	{
 		// display an error
-		[[[[UIAlertView alloc] initWithTitle:@"Login Error"
-									 message:@"You must enter a username and password"
-									delegate:nil
-						   cancelButtonTitle:@"Close"
-						   otherButtonTitles:nil] autorelease] show];
+		[[[UIAlertView alloc] initWithTitle:@"Login Error"
+                                    message:@"You must enter a username and password"
+                                   delegate:nil
+                          cancelButtonTitle:@"Close"
+                          otherButtonTitles:nil] show];
 
 	}
 	
@@ -182,7 +187,7 @@
 		[[SHKActivityIndicator currentIndicator] displayActivity:@"Logging In..."];
 	
 		// Retain the form so we can access it after the request finishes
-		self.pendingForm = form;
+		weakSelf.pendingForm = form;
 	
 		// -- Send a request to the server
 		// See http://getsharekit.com/docs/#requests for documentation on using the SHKRequest and SHKEncode helpers
@@ -194,50 +199,50 @@
 							];
 	
 		// Send request
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.example.com/auth/"]
+		[SHKRequest startWithURL:[NSURL URLWithString:@"http://api.example.com/auth/"]
 													params:params
-										   delegate:self
-								 isFinishedSelector:@selector(authFinished:)
 											 method:@"POST"
-										  autostart:YES] autorelease];
-	}													 
-}
+                      completion:^(SHKRequest *request) {
+                          
+                          //This code is handling the request's response
+                          
+                          // Hide the activity indicator
+                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          // If the result is successful, save the form to continue sharing
+                          if (aRequest.success)
+                              [pendingForm saveForm];
+                          
+                          // If there is an error, display it to the user
+                          else
+                          {
+                              // See http://getsharekit.com/docs/#requests for documentation on SHKRequest
+                              // SHKRequest contains three properties that may assist you in responding to errors:
+                              // aRequest.response is the NSHTTPURLResponse of the request
+                              // aRequest.response.statusCode is the HTTTP status code of the response
+                              // [aRequest getResult] returns a NSString of the body of the response
+                              // aRequest.headers is a NSDictionary of all response headers
+                              
+                              //for parsing XML responses you can use convenient SHKXMLResponseParser
+                              
+                              //you should distinguish between bad credentials, and other error. In this example the service returns 401 when bad credentials. The services might differ, so make sure to check the service's API and test it. Your duty is only to check response and call appropriate builtin method. These method notify the delegate and show builtin alerts. Also, do not forget to notify the delegate by calling authDidFinish:
+                              
+                              if (aRequest.response.statusCode == 401)
+                              {
+                                  [weakSelf authShowBadCredentialsAlert];
+                              }
+                              else
+                              {
+                                  [weakSelf authShowOtherAuthorizationErrorAlert];
+                              }
+                          }
+                          [weakSelf authDidFinish:aRequest.success];
 
-// This is a continuation of the example provided in authorizationFormValidate above.  It handles the SHKRequest response. You should implement this method, and parse response.
-
-- (void)authFinished:(SHKRequest *)aRequest
-{		
-	// Hide the activity indicator
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	// If the result is successful, save the form to continue sharing
-	if (aRequest.success)
-		[pendingForm saveForm];
-	
-	// If there is an error, display it to the user
-	else
-	{
-		// See http://getsharekit.com/docs/#requests for documentation on SHKRequest
-		// SHKRequest contains three properties that may assist you in responding to errors:
-		// aRequest.response is the NSHTTPURLResponse of the request
-		// aRequest.response.statusCode is the HTTTP status code of the response
-		// [aRequest getResult] returns a NSString of the body of the response
-		// aRequest.headers is a NSDictionary of all response headers
+                      }];
+	}
         
-        //for parsing XML responses you can use convenient SHKXMLResponseParser
- 
-        //you should distinguish between bad credentials, and other error. In this example the service returns 401 when bad credentials. The services might differ, so make sure to check the service's API and test it. Your duty is only to check response and call appropriate builtin method. These method notify the delegate and show builtin alerts. Also, do not forget to notify the delegate by calling authDidFinish:
-        
-        if (aRequest.response.statusCode == 401)
-        {
-            [self authShowBadCredentialsAlert];
-        }
-        else
-        {
-            [self authShowOtherAuthorizationErrorAlert];
-        }
-    }
-    [self authDidFinish:aRequest.success];
+    };
+    return result;
 }
 
 #pragma mark -
@@ -293,18 +298,26 @@
 
 // Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
 /*
-- (void)shareFormValidate:(SHKCustomFormController *)form
-{
-    You can get a dictionary of the field values from [form formValues]
-    
-    You should perform one of the following actions:
-    
-    1.	Save the form - If everything is correct call 
-    
-    [form saveForm]
-    
-    2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
-}*/
+ - (FormControllerCallback)shareFormValidate
+ {
+ 
+ // make sure to always call weakself in this block, to avoid retain cycle (currently the sharer retains the form, and the form retains this block
+__weak typeof(self) weakSelf = self;
+
+ FormControllerCallback result = ^(SHKFormController *form) {
+ 
+ You can get a dictionary of the field values from [form formValues]
+ 
+ You should perform one of the following actions:
+ 
+ 1.	Save the form - If everything is correct call
+ 
+ [form saveForm]
+ 
+ 2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
+ };
+ }
+ */
 
 #pragma mark -
 #pragma mark Implementation
@@ -365,62 +378,57 @@
 							];
 		
 		// Send request
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.example.com/share/"]
-												 params:params
-											   delegate:self
-									 isFinishedSelector:@selector(sendFinished:)
-												 method:@"POST"
-											  autostart:YES] autorelease];
+		[SHKRequest startWithURL:[NSURL URLWithString:@"http://api.example.com/share/"]
+                          params:params
+                          method:@"POST"
+                      completion:^(SHKRequest *request) {
+                          /*
+                          This block handles the SHKRequest response and should be implemented - your duty is to check the response and decide, if send finished OK, or what kind of error there is. Depending on the result, you should call one of these methods:
+                              
+                              [self sendDidFinish]; (if successful)
+                          [self shouldReloginWithPendingAction:SHKPendingSend]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and silently share after successful login)
+                          [self shouldReloginWithPendingAction:SHKPendingShare]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and present share UI dialogue after successful login. This can happen if the service always requires to check credentials prior send request)
+                          [self sendShowSimpleErrorAlert]; (in case of other error)
+                          [self sendDidCancel];(in case of user cancelled - you might need this if the service presents its own UI for sharing)
+                           
+                           here is example implementation:
+                           */
+                          
+                          if (request.success)
+                          {
+                              [self sendDidFinish];
+                          }
+                          else
+                          {
+                              // See http://getsharekit.com/docs/#requests for documentation on SHKRequest
+                              // SHKRequest contains three properties that may assist you in responding to errors:
+                              // aRequest.response is the NSHTTPURLResponse of the request
+                              // aRequest.response.statusCode is the HTTTP status code of the response
+                              // [aRequest getResult] returns a NSString of the body of the response
+                              // aRequest.headers is a NSDictionary of all response headers
+                              
+                              //for parsing XML responses you can use convenient SHKXMLResponseParser
+                              
+                              //you should distinguish between bad credentials, and other error. In this example the service returns 403 when bad credentials. The services might differ, so make sure to check the service's API and test it.
+                              
+                              if (request.response.statusCode == 403)
+                              {
+                                  [self shouldReloginWithPendingAction:SHKPendingSend];
+                              }
+                              else
+                              {
+                                  [self sendShowSimpleErrorAlert];
+                              }
+                          }
+
+
+                      }];
 		
 		// Notify self and it's delegates that we started
 		[self sendDidStart];
 		
 		return YES; // we started the request
 	}
-	
-	return NO;
-}
-
-
-/* This is a continuation of the example provided in send method above. It handles the SHKRequest response and should be implemented - your duty is to check the response and decide, if send finished OK, or what kind of error there is. Depending on the result, you should call one of these methods:
-    
-    [self sendDidFinish]; (if successful)
-    [self shouldReloginWithPendingAction:SHKPendingSend]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and silently share after successful login)
-    [self shouldReloginWithPendingAction:SHKPendingShare]; (if credentials saved in app are obsolete - e.g. user might have changed password, or revoked app access - this will prompt for new credentials and present share UI dialogue after successful login. This can happen if the service always requires to check credentials prior send request)
-    [self sendShowSimpleErrorAlert]; (in case of other error)
-    [self sendDidCancel];(in case of user cancelled - you might need this if the service presents its own UI for sharing)
- 
-    example is bellow
-*/
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{
-	if (aRequest.success)
-	{
-		[self sendDidFinish];
-	}
-    else
-    {
-        // See http://getsharekit.com/docs/#requests for documentation on SHKRequest
-		// SHKRequest contains three properties that may assist you in responding to errors:
-		// aRequest.response is the NSHTTPURLResponse of the request
-		// aRequest.response.statusCode is the HTTTP status code of the response
-		// [aRequest getResult] returns a NSString of the body of the response
-		// aRequest.headers is a NSDictionary of all response headers
-        
-        //for parsing XML responses you can use convenient SHKXMLResponseParser
-        
-        //you should distinguish between bad credentials, and other error. In this example the service returns 403 when bad credentials. The services might differ, so make sure to check the service's API and test it.
-
-        if (aRequest.response.statusCode == 403)
-        {
-            [self shouldReloginWithPendingAction:SHKPendingSend];
-        }
-        else
-        {
-            [self sendShowSimpleErrorAlert];
-        }
-    }
 }
 
 @end

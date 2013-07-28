@@ -135,8 +135,8 @@
 	    self.accessURL = [NSURL URLWithString:@"https://api.example.com/get_token"];
 		
 		// Allows you to set a default signature type, uncomment only one
-		//self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
-		//self.signatureProvider = [[[OAPlaintextSignatureProvider alloc] init] autorelease];
+		//self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
+		//self.signatureProvider = [[OAPlaintextSignatureProvider alloc] init];
 	}	
 	return self;
 }
@@ -213,20 +213,26 @@
 
 // Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
 /*
- - (void)shareFormValidate:(SHKCustomFormController *)form
- {
- You can get a dictionary of the field values from [form formValues]
+- (FormControllerCallback)shareFormValidate
+{
+    // make sure to always call weakself in this block, to avoid retain cycle (currently the sharer retains the form, and the form retains this block
+    __weak typeof(self) weakSelf = self;
  
- You should perform one of the following actions:
- 
- 1.	Save the form - If everything is correct call
- 
- [form saveForm]
- 
- 2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
- }
- */
-
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        You can get a dictionary of the field values from [form formValues]
+        
+        You should perform one of the following actions:
+        
+        1.	Save the form - If everything is correct call
+        
+        [form saveForm]
+        
+        2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
+            };
+    return result;
+}
+*/
 
 #pragma mark -
 #pragma mark Implementation
@@ -290,8 +296,6 @@
             
             // Add the params to the request
             [oRequest setParameters:[NSArray arrayWithObjects:titleParam, urlParam, nil]];
-            [urlParam release];
-            [titleParam release];
         }
         case SHKShareTypeFile
         {
@@ -303,8 +307,6 @@
                 
                 //Setup the request...
                 [params addObjectsFromArray:@[typeParam, captionParam]];
-                [typeParam release];
-                [captionParam release];
                 
                 /* bellow lines might help you upload binary data */
                 
@@ -325,7 +327,6 @@
                                                                                  didFinishSelector:@selector(sendTicket:didFinishWithData:)
                                                                                    didFailSelector:@selector(sendTicket:didFailWithError:)];	
     [fetcher start];
-    [oRequest release];
     
     // Notify delegate
     [self sendDidStart];
