@@ -89,7 +89,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	    self.authorizeURL = [NSURL URLWithString:@"https://www.linkedin.com/uas/oauth/authorize"];
 	    self.accessURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/accessToken"];
 		
-		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
+		self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}	
 	return self;
 }
@@ -127,7 +127,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-    [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
@@ -239,7 +238,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
                                                                                        didFailSelector:@selector(sendTicket:didFailWithError:)];	
         
         [fetcher start];
-        [oRequest release];
         
         // Notify delegate
         [self sendDidStart];
@@ -261,7 +259,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     {
         
 #ifdef _SHKDebugShowLogs
-        NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 #endif
         SHKLog(@"%@", responseBody);
         

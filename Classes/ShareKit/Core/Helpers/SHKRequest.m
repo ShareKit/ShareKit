@@ -124,9 +124,9 @@
 
 - (NSString *)getResult
 {
-	if (self.result == nil)
-		self.result = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-	return self.result;
+	if (_result == nil)
+		_result = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+	return _result;
 }
 
 #pragma mark -

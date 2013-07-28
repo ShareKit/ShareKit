@@ -96,7 +96,6 @@
                                                                                      didFinishSelector:@selector(sendTicket:didFinishWithData:)
                                                                                        didFailSelector:@selector(sendTicket:didFailWithError:)];
         [fetcher start];
-        [oRequest release];
         
         [self sendDidStart];
         
@@ -111,7 +110,7 @@
     if (ticket.didSucceed && ticket.response.statusCode == 201) {
         [self sendDidFinish];
     } else {
-        SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        SHKLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         
         if (ticket.response.statusCode == 401) {
             [self shouldReloginWithPendingAction:SHKPendingSend];
