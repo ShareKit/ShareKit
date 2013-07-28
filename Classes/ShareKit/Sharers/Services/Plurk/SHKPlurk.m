@@ -139,7 +139,6 @@
   self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
 	
 	[self pushViewController:rootView animated:NO];
-  [rootView release];
 	
 	[[SHK currentHelper] showViewController:self];	
 }
@@ -173,7 +172,6 @@
                                                                                didFinishSelector:@selector(uploadImageTicket:didFinishWithData:)
                                                                                  didFailSelector:@selector(uploadImageTicket:didFailWithError:)];
 	[fetcher start];
-	[oRequest release];
 }
 
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
@@ -182,7 +180,7 @@
   
   if (SHKDebugShowLogs) {
     SHKLog(@"Plurk Upload Picture Status Code: %d", [ticket.response statusCode]);
-    SHKLog(@"Plurk Upload Picture Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    SHKLog(@"Plurk Upload Picture Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
   }
   
 	if (ticket.didSucceed) {
@@ -212,11 +210,11 @@
 
 - (void)alertUploadImageWithError:(NSError *)error
 {
-	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Request Error")
+	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Request Error")
                                message:SHKLocalizedString(@"There was an error while sharing")
                               delegate:nil
                      cancelButtonTitle:SHKLocalizedString(@"Continue")
-                     otherButtonTitles:nil] autorelease] show];
+                     otherButtonTitles:nil] show];
 }
 
 
@@ -263,8 +261,6 @@
                                                                        value:[self.item customValueForKey:@"status"]];
 	NSArray *params = [NSArray arrayWithObjects:qualifierParam, statusParam, nil];
 	[oRequest setParameters:params];
-  [qualifierParam release];
-	[statusParam release];
   
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                         delegate:self
@@ -272,7 +268,6 @@
                                                                                  didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
   
 	[fetcher start];
-	[oRequest release];
 }
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data

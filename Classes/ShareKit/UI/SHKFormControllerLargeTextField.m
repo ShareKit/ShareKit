@@ -8,7 +8,7 @@
 
 @interface SHKFormControllerLargeTextField ()
 
-@property (nonatomic, retain) UILabel *counter;
+@property (nonatomic, strong) UILabel *counter;
 
 - (void)layoutCounter;
 - (void)updateCounter;
@@ -22,15 +22,6 @@
 
 @implementation SHKFormControllerLargeTextField
 
-- (void)dealloc 
-{
-	[_textView release];
-	[_counter release];
-	[_text release];
-	[_image release];
-	
-	[super dealloc];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil delegate:(id <SHKFormControllerLargeTextFieldDelegate>)aDelegate
 {
@@ -61,7 +52,6 @@
 	
 	[self.view addSubview:aTextView];
     self.textView = aTextView;
-    [aTextView release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -96,14 +86,14 @@
 
 - (void)setupBarButtonItems {
 	
-	self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																														target:self
-																														action:@selector(cancel)] autorelease];
+																														action:@selector(cancel)];
 	
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[self.delegate class] sharerTitle]) 
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", [[self.delegate class] sharerTitle]) 
 																										style:UIBarButtonItemStyleDone
 																									  target:self
-																									  action:@selector(save)] autorelease];
+																									  action:@selector(save)];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
@@ -173,7 +163,6 @@
 		aLabel.autoresizesSubviews = YES;
 		aLabel.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 		self.counter = aLabel;
-		[aLabel release];
 		
 		[self.view addSubview:self.counter];
 		[self layoutCounter];

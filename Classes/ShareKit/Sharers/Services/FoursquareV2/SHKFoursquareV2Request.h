@@ -32,20 +32,13 @@
 #import "SHKFoursquareV2Venue.h"
 #import "NSError+SHKFoursquareV2.h"
 
+@interface SHKFoursquareV2Request : SHKRequest
 
-@interface SHKFoursquareV2Request : SHKRequest {
-    NSDictionary *_foursquareResult;
-    NSError *_foursquareError;
-}
+@property (nonatomic, strong, readonly) NSDictionary *foursquareResponse;
+@property (nonatomic, strong, readonly) NSError *foursquareError;
 
-@property (nonatomic, readonly, getter=getFoursquareResult) NSDictionary *foursquareResult;
-@property (nonatomic, readonly, getter=getFoursquareMeta) NSDictionary *foursquareMeta;
-@property (nonatomic, readonly, getter=getFoursquareResponse) NSDictionary *foursquareResponse;
-@property (nonatomic, readonly, getter=getFoursquareError) NSError *foursquareError;
-
-+ (id)requestProfileForUserId:(NSString*)u delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart;
-+ (id)requestVenuesSearchLocation:(CLLocation*)l query:(NSString*)q delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart;
-+ (id)requestCheckinLocation:(CLLocation*)l venue:(SHKFoursquareV2Venue*)v message:(NSString*)m delegate:(id)d isFinishedSelector:(SEL)s accessToken:(NSString*)t autostart:(BOOL)autostart;
-
++ (void)startRequestProfileForUserId:(NSString*)u accessToken:(NSString*)t completion:(RequestCallback)completion;
++ (void)startRequestVenuesSearchLocation:(CLLocation*)l query:(NSString*)q accessToken:(NSString*)t completion:(RequestCallback)completion;
++ (void)startRequestCheckinLocation:(CLLocation*)l venue:(SHKFoursquareV2Venue*)v message:(NSString*)m accessToken:(NSString*)t completion:(RequestCallback)completion;
 
 @end

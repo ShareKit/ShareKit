@@ -28,26 +28,20 @@
 #import <UIKit/UIKit.h>
 #import "SHKFormFieldCell.h"
 #import "SHKFormOptionController.h"
+#import "FormControllerCallback.h"
 
 @class SHKFormFieldSettings;
 
 @interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient>
 
-@property (assign) id delegate;
-@property SEL validateSelector;
-@property SEL saveSelector;
-@property SEL cancelSelector;
-
-@property (retain) NSMutableArray *sections;
-
+@property (strong) NSMutableArray *sections;
+@property (copy) FormControllerCallback validateBlock;
+@property (copy) FormControllerCallback saveBlock;
+@property (copy) FormControllerCallback cancelBlock;
 @property BOOL autoSelect;
 
 - (id)initWithStyle:(UITableViewStyle)style title:(NSString *)barTitle rightButtonTitle:(NSString *)rightButtonTitle;
 - (void)addSection:(NSArray *)fields header:(NSString *)header footer:(NSString *)footer;
-
-#pragma mark -
-
-- (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark -
 #pragma mark Completion

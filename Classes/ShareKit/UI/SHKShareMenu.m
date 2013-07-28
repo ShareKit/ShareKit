@@ -32,7 +32,7 @@
 #import "SHKShareItemDelegate.h"
 
 @interface SHKShareMenu()
-@property (retain) SHKSharer* limboSharer;
+@property (strong) SHKSharer* limboSharer;
 @end
 
 @implementation SHKShareMenu
@@ -46,15 +46,6 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (void)dealloc 
-{
-	[item release];
-	[tableData release];
-	[exclusions release];
-	[shareDelegate release];
-	[limboSharer release];
-    [super dealloc];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -62,13 +53,13 @@
 	{
 		self.title = SHKLocalizedString(@"Share");
 		
-		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                                                target:self
-                                                                                               action:@selector(cancel)] autorelease];
+                                                                                               action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                                                 target:self
-                                                                                                action:@selector(edit)] autorelease];
+                                                                                                action:@selector(edit)];
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
@@ -97,8 +88,7 @@
 
 - (void)setItem:(SHKItem *)i
 {
-	[item release];
-	item = [i retain];
+	item = i;
 	
 	[self rebuildTableDataAnimated:NO];
 }
@@ -137,7 +127,7 @@
 		
 		// Use temp objects so we can mutate as we are enumerating
 		NSMutableArray *sectionCopy;
-		NSMutableDictionary *tableDataCopy = [[tableData mutableCopy] autorelease];
+		NSMutableDictionary *tableDataCopy = [tableData mutableCopy];
 		NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
         
 		for(NSMutableArray *section in tableDataCopy)
@@ -145,7 +135,7 @@
 			r = 0;
 			[indexes removeAllIndexes];
 			
-			sectionCopy = [[section mutableCopy] autorelease];
+			sectionCopy = [section mutableCopy];
 			
 			for (NSMutableDictionary *row in section)
 			{
@@ -169,7 +159,6 @@
 			s++;
 		}
 		
-		[indexes release];
 		
 		if (animated)
 		{
@@ -200,7 +189,7 @@
 	}
     
 	if (sectionData.count && [SHKCONFIG(shareMenuAlphabeticalOrder) boolValue])
-		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
+		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)]]];
 	
 	return sectionData;
 }
@@ -236,7 +225,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCONFIG(SHKShareMenuCellSubclass) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[SHKCONFIG(SHKShareMenuCellSubclass) alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
     
@@ -248,7 +237,6 @@
 		UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectZero];
 		toggle.userInteractionEnabled = NO;
 		cell.editingAccessoryView = toggle;
-		[toggle release];
 	}
 	
 	[(UISwitch *)cell.editingAccessoryView setOn:![exclusions containsObject:[rowData objectForKey:@"className"]]];
@@ -297,7 +285,7 @@
 	else 
 	{
 		bool doShare = YES;
-		SHKSharer* sharer = [[[NSClassFromString([rowData objectForKey:@"className"]) alloc] init] autorelease];
+		SHKSharer* sharer = [[NSClassFromString([rowData objectForKey:@"className"]) alloc] init];
 		[sharer loadItem:item];
 		if (shareDelegate != nil && [shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
 		{
@@ -344,9 +332,9 @@
 	[self.tableView setEditing:YES animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                               target:self
-																							  action:@selector(save)] autorelease] animated:YES];
+																							  action:@selector(save)] animated:YES];
 }
 
 - (void)save
@@ -356,9 +344,9 @@
 	[self.tableView setEditing:NO animated:YES];
 	[self rebuildTableDataAnimated:YES];
 	
-	[self.navigationItem setRightBarButtonItem:[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+	[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
 																							  target:self
-																							  action:@selector(edit)] autorelease] animated:YES];	
+																							  action:@selector(edit)] animated:YES];	
 }
 
 @end

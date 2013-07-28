@@ -9,13 +9,9 @@
 #import "SHKRequest.h"
 
 @interface SHKVKontakteRequest : SHKRequest
-{
-    NSData *paramsData;
-}
 
-@property (retain) NSData *paramsData;
+@property (strong) NSData *paramsData;
 
-- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;
-
+- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD method:(NSString *)m completion:(RequestCallback)completionBlock;
 
 @end

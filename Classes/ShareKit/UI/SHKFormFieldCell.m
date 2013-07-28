@@ -33,11 +33,6 @@
 
 @synthesize delegate, settings;
 
-- (void)dealloc {
-    
-    [settings release];
-    [super dealloc];    
-}
 
 - (void)setupLayout {
     

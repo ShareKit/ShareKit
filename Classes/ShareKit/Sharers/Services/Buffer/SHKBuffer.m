@@ -51,7 +51,7 @@
 
 - (BOOL)requiresShortenedURL
 {
-    return !SHKCONFIG(bufferShouldShortenURLS);
+    return ![SHKCONFIG(bufferShouldShortenURLS) boolValue];
 }
 
 
@@ -108,7 +108,7 @@
     
     [[BufferSDK sharedAPI] setClientID:SHKCONFIG(bufferClientID) andClientSecret:SHKCONFIG(bufferClientSecret)];
     
-    [[BufferSDK sharedAPI] shouldShortenURLS:SHKCONFIG(bufferShouldShortenURLS)];
+    [[BufferSDK sharedAPI] shouldShortenURLS:[SHKCONFIG(bufferShouldShortenURLS) boolValue]];
     
     // BufferSDKResources.bundle is contained within ShareKit.bundle so pass this to BufferSDK.
     NSString *bundleRoot = [[NSBundle mainBundle] pathForResource:@"ShareKit" ofType:@"bundle"];

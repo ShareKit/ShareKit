@@ -45,10 +45,7 @@
 
 "Enter your message:" = "Kirjoita viestisi:";
 
-"Invalid email or password." = "Väärä sähköposti tai salasana.";
 "The service encountered an error. Please try again later." = "Tapahtui virhe. Yritä myöhemmin uudelleen.";
-
-"There was an error saving to Pinboard" = "Virhe tallennettaessa Pinboard";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Väärä käyttäjätunnus tai salasana.";
 "Sorry, %@ encountered an error. Please try again." = "Virhe %@. Yritä myöhemmin uudelleen.";

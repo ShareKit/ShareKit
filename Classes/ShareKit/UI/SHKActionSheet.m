@@ -36,13 +36,6 @@
 
 @implementation SHKActionSheet
 
-- (void)dealloc
-{
-	[_item release];
-	[_sharers release];
-	[_shareDelegate release];
-	[super dealloc];
-}
 
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)item
 {
@@ -80,7 +73,7 @@
 	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
 	as.cancelButtonIndex = as.numberOfButtons -1;
 	
-	return [as autorelease];
+	return as;
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
@@ -91,7 +84,7 @@
 	if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
 	{
 		bool doShare = YES;
-		SHKSharer* sharer = [[[NSClassFromString([self.sharers objectAtIndex:buttonIndex]) alloc] init] autorelease];
+		SHKSharer* sharer = [[NSClassFromString([self.sharers objectAtIndex:buttonIndex]) alloc] init];
 		[sharer loadItem:self.item];
 		if (self.shareDelegate != nil && [self.shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
 		{
@@ -108,7 +101,6 @@
 		shareMenu.shareDelegate = self.shareDelegate;
 		shareMenu.item = self.item;
 		[[SHK currentHelper] showViewController:shareMenu];
-		[shareMenu release];
 	}
 	
 	[super dismissWithClickedButtonIndex:buttonIndex animated:animated];

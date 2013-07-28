@@ -26,6 +26,6 @@
 
 @interface SHKFormFieldCellSwitch : SHKFormFieldCell
 
-@property (nonatomic, retain) UISwitch *mySwitch;
+@property (nonatomic, strong) UISwitch *mySwitch;
 
 @end

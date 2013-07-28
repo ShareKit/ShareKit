@@ -26,6 +26,6 @@
 
 @interface SHKFormFieldCell ()
 
-@property (nonatomic, retain) SHKFormFieldSettings *settings;
+@property (nonatomic, strong) SHKFormFieldSettings *settings;
 
 @end

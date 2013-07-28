@@ -47,10 +47,7 @@
 
 "Enter your message:" = "Maak je bericht:";
 
-"Invalid email or password." = "Fout email of password.";
 "The service encountered an error. Please try again later." = "De dienst gaf een fout. Probeer het later opnieuw.";
-
-"There was an error saving to Pinboard" = "Pinboard gaf een fout bij het bewaren.";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "%@ accepteert de login gegevens niet. Probeer het nogmaals.";
 "Sorry, %@ encountered an error. Please try again." = "%@ gaf een fout. Probeer het nogmaals.";

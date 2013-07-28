@@ -28,6 +28,7 @@
 #import <UIKit/UIKit.h>
 
 #import "SHKItem.h"
+#import "FormControllerCallback.h"
 
 @class SHKRequest;
 @class SHKFormController;
@@ -59,13 +60,12 @@ typedef enum
 
 @interface SHKSharer : UINavigationController
 
-@property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
+@property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 
-@property (retain) SHKItem *item;
-@property (retain) SHKFormController *pendingForm;
-@property (assign) SHKFormOptionController *curOptionController; //TODO in ARC should be weak, remove all nilling
-@property (retain) SHKRequest *request; //TODO: sharer retains request, but request retains sharer too. Memory leak?
-@property (nonatomic, retain) NSError *lastError;
+@property (strong) SHKItem *item;
+@property (weak) SHKFormController *pendingForm;
+@property (weak) SHKFormOptionController *curOptionController;
+@property (nonatomic, strong) NSError *lastError;
 @property BOOL quiet;
 @property SHKSharerPendingAction pendingAction;
 
@@ -155,9 +155,9 @@ typedef enum
 #pragma mark Authorization Form
 
 - (void)authorizationFormShow;
-- (void)authorizationFormValidate:(SHKFormController *)form;
-- (void)authorizationFormSave:(SHKFormController *)form;
-- (void)authorizationFormCancel:(SHKFormController *)form;
+- (FormControllerCallback)authorizationFormValidate;
+- (FormControllerCallback)authorizationFormSave;
+- (FormControllerCallback)authorizationFormCancel;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
 + (NSArray *)authorizationFormFields;
@@ -183,9 +183,9 @@ typedef enum
 #pragma mark Share Form
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
-- (void)shareFormValidate:(SHKFormController *)form;
-- (void)shareFormSave:(SHKFormController *)form;
-- (void)shareFormCancel:(SHKFormController *)form;
+- (FormControllerCallback)shareFormValidate;
+- (FormControllerCallback)shareFormSave;
+- (FormControllerCallback)shareFormCancel;
 
 #pragma mark -
 #pragma mark Pending Actions

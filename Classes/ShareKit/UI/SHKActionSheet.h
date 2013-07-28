@@ -32,9 +32,9 @@
 
 @interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
 
-@property (retain) NSMutableArray *sharers;
-@property (retain) SHKItem *item;
-@property (retain) id<SHKShareItemDelegate> shareDelegate;
+@property (strong) NSMutableArray *sharers;
+@property (strong) SHKItem *item;
+@property (strong) id<SHKShareItemDelegate> shareDelegate;
 
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;
 

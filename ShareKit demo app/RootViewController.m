@@ -12,12 +12,9 @@
 #import "ExampleShareText.h"
 #import "ExampleShareFile.h"
 #import "SHK.h"
-#import "SHKFacebook.h"
 #import "ExampleAccountsViewController.h"
 
 @interface RootViewController ()
-
-@property (nonatomic, retain) SHKFacebook *shkFacebook;
 
 @end
 
@@ -162,31 +159,6 @@
                        animated:YES
                      completion:^{
                      }];
-}
-/*
-- (void)logout
-{
-	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Logout")
-                                message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
-                               delegate:self
-                      cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                      otherButtonTitles:SHKLocalizedString(@"Logout"),nil] show];
-	
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (buttonIndex == alertView.firstOtherButtonIndex)
-		[SHK logoutOfAll];
-}
-*/
-- (void)facebookConnect
-{
-    if (nil == self.shkFacebook) {
-        self.shkFacebook = [[SHKFacebook alloc] init];
-    }
-    
-    [self.shkFacebook authorize];
 }
 
 - (void)authDidFinish:(NSNotification*)notification

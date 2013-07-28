@@ -12,33 +12,16 @@
 
 @implementation SHKVKontakteRequest
 
-@synthesize paramsData;
 
-- (void)dealloc
+- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD method:(NSString *)m completion:(RequestCallback)completionBlock
 {
-    [paramsData release];
-	[super dealloc];
-}
-
-
-- (id)initWithURL:(NSURL *)u paramsData:(NSData *)pD delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart
-{
-	if (self = [super init])
+	self = [super initWithURL:u params:nil method:m completion:completionBlock];
+    if (self)
 	{
-		self.url = u;
-		self.paramsData = pD;
-		self.method = m;
-		
-		self.delegate = d;
-		self.isFinishedSelector = s;
-		
-		if (autostart)
-			[self start];
-	}
-	
+		_paramsData = pD;
+    }
 	return self;
 }
-
 
 #pragma mark -
 
@@ -46,37 +29,34 @@
 {
 	NSMutableData *aData = [[NSMutableData alloc] initWithLength:0];
     self.data = aData;
-	[aData release];
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.url
                                                                 cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                                             timeoutInterval:SHK_TIMEOUT];
 	
 	// overwrite header fields (generally for cookies)
-	if (headerFields != nil)
-		[request setAllHTTPHeaderFields:headerFields];
+	if (self.headerFields != nil)
+		[request setAllHTTPHeaderFields:self.headerFields];
 	
 	// Setup Request Data/Params
-	if (paramsData != nil)
+	if (self.paramsData != nil)
 	{
 		// Fill Request
-		[request setHTTPMethod:method];
-		[request setHTTPBody:paramsData];
+		[request setHTTPMethod:self.method];
+		[request setHTTPBody:self.paramsData];
     } else
-        if (params != nil)
+        if (self.params != nil)
         {
-            NSData *requestParamsData = [ NSData dataWithBytes:[params UTF8String] length:[params length] ];
+            NSData *requestParamsData = [ NSData dataWithBytes:[self.params UTF8String] length:[self.params length] ];
             
             // Fill Request
-            [request setHTTPMethod:method];
+            [request setHTTPMethod:self.method];
             [request setHTTPBody:requestParamsData];
         }
 	
 	// Start Connection
 	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-    [request release];
     self.connection = aConnection;	
-	[aConnection release];
 }
 
 

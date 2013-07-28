@@ -45,10 +45,7 @@
 
 "Enter your message:" = "메시지 입력:";
 
-"Invalid email or password." = "잘못된 email이나 비밀번호.";
 "The service encountered an error. Please try again later." = "서비스에 오류가 발생했습니다. 나중에 다시 시도해 주세요.";
-
-"There was an error saving to Pinboard" = "Pinboard로 저장 중에 오류가 발생했습니다";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "%@ 인증에 실패했습니다. 다시 시도해 주세요.";
 "Sorry, %@ encountered an error. Please try again." = "%@ 오류가 발생했습니다. 다시 시도해 주세요.";

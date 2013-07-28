@@ -27,48 +27,30 @@
 
 #import <Foundation/Foundation.h>
 
+@class SHKRequest;
+
+typedef void (^RequestCallback) (SHKRequest *request);
 
 @interface SHKRequest : NSObject 
-{
-	NSURL *url;
-	NSString *params;
-	NSString *method;
-	NSDictionary *headerFields;
-	
-	id delegate;
-	SEL isFinishedSelector;
-	
-	NSURLConnection *connection;
-	
-	NSHTTPURLResponse *response;
-	NSDictionary *headers;
-	
-	NSMutableData *data;
-	NSString *result;
-	BOOL success;
-}
 
-@property (retain) NSURL *url;
-@property (retain) NSString *params;
-@property (retain) NSString *method;
-@property (retain) NSDictionary *headerFields;
+@property (strong) NSURL *url;
+@property (strong) NSString *params;
+@property (strong) NSString *method;
+@property (strong) NSDictionary *headerFields;
 
-@property (retain) id delegate;
-@property (assign) SEL isFinishedSelector;
+@property (strong) NSURLConnection *connection;
 
-@property (retain) NSURLConnection *connection;
+@property (strong) NSHTTPURLResponse *response;
+@property (strong) NSDictionary *headers;
 
-@property (retain) NSHTTPURLResponse *response;
-@property (retain) NSDictionary *headers;
-
-@property (retain) NSMutableData *data;
-@property (nonatomic, retain, getter=getResult) NSString *result;
+@property (strong) NSMutableData *data;
+@property (nonatomic, strong, getter=getResult) NSString *result;
 @property (nonatomic) BOOL success;
 
-- (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart;
++ (void)startWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
+- (id)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
 
 - (void)start;
 - (void)finish;
-
 
 @end

@@ -15,10 +15,10 @@
 #import "EvernoteSDK.h"
 #import "SHKBuffer.h"
 #import "PocketAPI.h"
+
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 #import "SHK.h"
-
 
 @implementation ShareKitAppDelegate
 
@@ -93,11 +93,4 @@
     return YES;
 }
 
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-}
-
 @end
-

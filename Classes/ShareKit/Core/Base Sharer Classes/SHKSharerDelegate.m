@@ -52,11 +52,11 @@
     //if user sent the item already but needs to relogin we do not show alert
     if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
 	{				
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
+		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
 									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
+						   otherButtonTitles:nil] show];
     }		
     if (shouldRelogin) {        
         [sharer promptAuthorization];
@@ -77,22 +77,22 @@
 {    
     NSString *errorMessage = SHKLocalizedString(@"Sorry, %@ did not accept your credentials. Please try again.", [[sharer class] sharerTitle]);
        
-    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+    [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
                                  message:errorMessage
                                 delegate:nil
                        cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
+                       otherButtonTitles:nil] show];
 }
 
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer
 {    
     NSString *errorMessage = SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [[sharer class] sharerTitle]);
     
-    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+    [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
                                  message:errorMessage
                                 delegate:nil
                        cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
+                       otherButtonTitles:nil] show];
 }
 
 

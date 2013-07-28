@@ -94,7 +94,7 @@
 
 - (BOOL)sendText
 {	
-	MFMessageComposeViewController *composeView = [[[MFMessageComposeViewController alloc] init] autorelease];
+	MFMessageComposeViewController *composeView = [[MFMessageComposeViewController alloc] init];
 	composeView.messageComposeDelegate = self;
   
 	NSString *body = self.item.text;
@@ -123,7 +123,7 @@
 		[composeView setRecipients:toRecipients];
   
 	[[SHK currentHelper] showViewController:composeView];
-    [self retain]; //release is in callback, MFMessageComposeViewController does not retain its delegate
+    [[SHK currentHelper] keepSharerReference:self]; //release is in callback, MFMessageComposeViewController does not retain its delegate
 	
 	return YES;
 }
@@ -146,7 +146,7 @@
 			break;
 	}
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    [self autorelease]; //retained in [self sendText] method
+    [[SHK currentHelper] removeSharerReference:self]; //retained in [self sendText] method
 }
 
 

@@ -15,10 +15,6 @@
 @implementation SHKEvernoteItem
 @synthesize note;
 
-- (void)dealloc {
-	[note release];
-	[super dealloc];	
-}
 
 @end
 
@@ -73,11 +69,11 @@
         BOOL success = (error == nil) && session.isAuthenticated;
         [self authDidFinish:success];
         if (error) {
-            [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+            [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
                                          message:SHKLocalizedString(@"There was an error while authorizing")
                                         delegate:nil
                                    cancelButtonTitle:SHKLocalizedString(@"Close")
-                                   otherButtonTitles:nil] autorelease] show];
+                                   otherButtonTitles:nil] show];
             
         } else if (session.isAuthenticated && self.item) {
             [self tryPendingAction];
@@ -105,11 +101,6 @@
 	 nil];
 }
 
-- (void)shareFormValidate:(SHKFormController *)form 
-{	
-	[form saveForm];
-}
-
 #pragma mark -
 #pragma mark Implementation
 
@@ -132,10 +123,10 @@
     if(!resources)
     	resources = [[NSMutableArray alloc] init];
     if(!note)
-    	note = [[[EDAMNote alloc] init] autorelease];
+    	note = [[EDAMNote alloc] init];
     
     
-    EDAMNoteAttributes *atr = [note attributesIsSet] ? [note.attributes retain] : [[EDAMNoteAttributes alloc] init];
+    EDAMNoteAttributes *atr = [note attributesIsSet] ? note.attributes : [[EDAMNoteAttributes alloc] init];
     
     if(![atr sourceURLIsSet]&&enItem.URL) {
     	[atr setSourceURL:[enItem.URL absoluteString]];
@@ -144,7 +135,7 @@
     note.title = self.item.title.length > 0 ? self.item.title :( [note titleIsSet] ? note.title : SHKLocalizedString(@"Untitled") );
     
     if(![note tagNamesIsSet]&&self.item.tags)
-    	[note setTagNames:[[self.item.tags mutableCopy] autorelease]];
+    	[note setTagNames:[self.item.tags mutableCopy]];
     
     if(![note contentIsSet]) {
         NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
@@ -165,9 +156,9 @@
             [contentStr appendFormat:@"<p>%@</p>", [SHKFlattenHTML(self.item.text, YES) gtm_stringByEscapingForHTML]];
         
         if(self.item.image) {
-            EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
+            EDAMResource *img = [[EDAMResource alloc] init];
             NSData *rawimg = UIImageJPEGRepresentation(self.item.image, 0.6);
-            EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
+            EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg];
             [img setData:imgd];
             [img setRecognition:imgd];
             [img setMime:@"image/jpeg"];
@@ -176,8 +167,8 @@
         }
         
         if(self.item.file) {
-            EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
-            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:self.item.file.data size:[self.item.file.data length] body:self.item.file.data] autorelease];
+            EDAMResource *file = [[EDAMResource alloc] init];	
+            EDAMData *filed = [[EDAMData alloc] initWithBodyHash:self.item.file.data size:[self.item.file.data length] body:self.item.file.data];
             [file setData:filed];
             [file setRecognition:filed];
             [file setMime:self.item.file.mimeType];
@@ -186,7 +177,6 @@
         }
         [contentStr appendString:kENMLSuffix];
         [note setContent:contentStr];
-        [contentStr release];
     }
     
     ////////////////////////////////////////////////
@@ -199,7 +189,7 @@
                 NSData *rawimg = [NSData dataWithContentsOfURL:[NSURL URLWithString:res.attributes.sourceURL]];
                 UIImage *img = [UIImage imageWithData:rawimg];
                 if(img) {
-                    EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
+                    EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg];
                     [res setData:imgd];
                     [res setRecognition:imgd];
                     [note setContent:
@@ -214,8 +204,6 @@
     }
     [note setResources:resources];
     [note setAttributes:atr];
-    [resources release];
-    [atr release];
     [note setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
     
     

@@ -33,7 +33,7 @@
 @interface SHKFacebook : SHKSharer <SHKFormControllerLargeTextFieldDelegate>{
 	NSMutableSet* pendingConnections;	// use a set so that connections can only be added once
 }
-@property (readonly,retain) NSMutableSet* pendingConnections; // sub classes can use the set
+@property (readonly,strong) NSMutableSet* pendingConnections; // sub classes can use the set
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 + (void)handleDidBecomeActive;

@@ -47,10 +47,7 @@
 
 "Enter your message:" = "Fyll inn din melding:";
 
-"Invalid email or password." = "Ugyldig e-post eller passord.";
 "The service encountered an error. Please try again later." = "Det har oppstått en feil med denne tjenesten. Vennligst prøv igjen senere.";
-
-"There was an error saving to Pinboard" = "Det oppstod en feil ved lagring til Pinboard.";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Beklager, %@ aksepterte ikke innlogginsdetaljene dine.";
 "Sorry, %@ encountered an error. Please try again." = "Beklager, det oppstod en feil med %@. Vennligst prøv igjen.";

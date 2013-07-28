@@ -34,13 +34,11 @@ typedef enum {
     SHKDropboxMetadata metadataStatus;
 }
 
-@property (nonatomic, retain) DBRestClient *restClient;
+@property (nonatomic, strong) DBRestClient *restClient;
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
 - (void) showDropboxForm;
-- (void) editFormValidate:(SHKFormController *) form;
-- (void) editFormSave:(SHKFormController *) form;
-- (void) editFormCancel:(SHKFormController *) form;
+
 @end
 
 @implementation SHKDropbox
@@ -51,12 +49,10 @@ typedef enum {
     [[self restClient] cancelAllRequests];
     [DBRequest setNetworkRequestDelegate:nil];
     self.restClient.delegate = nil;
-    self.restClient = nil;
     if ([DBSession sharedSession].delegate == self) {
         [[DBSession sharedSession] setDelegate:nil];
         [DBSession setSharedSession:nil];
     }
-	[super dealloc];
 }
 
 #pragma mark - Dropbox object
@@ -103,20 +99,18 @@ typedef enum {
     
     if (errorMsg != nil)
     {
-        [[[[UIAlertView alloc]
+        [[[UIAlertView alloc]
            initWithTitle:@"Error Configuring Session" message:errorMsg
            delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil]
-          autorelease]
          show];
         return nil;
     }
     //End reminder
     
 //    http://stackoverflow.com/a/11261164/812678
-    DBSession* session =[[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:[[root retain] autorelease]];
+    DBSession* session =[[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
     session.delegate = nil; 
     [DBSession setSharedSession:session];
-    [session release];
     return session;
 }
 + (DBSession *) dropbox
@@ -131,7 +125,6 @@ typedef enum {
         DBRestClient *client = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
         self.restClient = client;
         self.restClient.delegate = self;
-        [client release];
     }
     return _restClient;
 }
@@ -145,9 +138,8 @@ typedef enum {
             dropboxSharer = [[SHKDropbox alloc] init];
             DBSession *dropbox = [SHKDropbox dropbox];
             [dropbox setDelegate:dropboxSharer];
-            [dropboxSharer autorelease];
         }
-        [dropboxSharer performSelector:@selector(checkURL:) withObject:[[url retain] autorelease]];
+        [dropboxSharer checkURL:url];
         return TRUE;
     }
     return FALSE;
@@ -161,10 +153,9 @@ typedef enum {
         //  if user has pressed "Cancel" in dialogue, url = "db-APP-KEY://API_VERSION/cancel"
         
         if ([[url absoluteString] rangeOfString:@"cancel"].length > 0 && [[url absoluteString] rangeOfString:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]].length > 0) {
-            [[[[UIAlertView alloc]
+            [[[UIAlertView alloc]
                initWithTitle:@"Dropbox" message:SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [self sharerTitle])  delegate:self
                cancelButtonTitle:SHKLocalizedString(@"Cancel") otherButtonTitles:SHKLocalizedString(@"Continue"), nil]
-              autorelease]
              show];
             return;
         }
@@ -217,7 +208,7 @@ typedef enum {
 #pragma mark Configuration : Dynamic Enable
 
 - (BOOL) shouldOverwrite {
-    return (BOOL)SHKCONFIG(dropboxShouldOverwriteExistedFile);
+    return [SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue];
 }
 
 #pragma mark -
@@ -239,7 +230,7 @@ typedef enum {
 
         [self saveItemForLater:self.pendingAction];
         
-        [self retain]; // DBSession doesn't retain delegates
+        [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
         [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
     }
 }
@@ -273,7 +264,7 @@ typedef enum {
         
         [self performSelectorOnMainThread:@selector(startLoadDropboxMetadata:) withObject:remoteFilePath waitUntilDone:FALSE];
         
-        [self retain];
+        [[SHK currentHelper] keepSharerReference:self];
 		return TRUE;
     }
 	
@@ -356,18 +347,16 @@ typedef enum {
     __fileSize = fileSize;
     _startSending = TRUE;
     NSString *parentRev = [self.item customValueForKey:kSHKDropboxParentRevision]; //nil in case of new file
-    if (parentRev) {
-        [[parentRev retain] autorelease];
-    }
+
     if (fileSize <= kSHKDropboxSizeChunks) {
-        [restClient uploadFile:[[fileName retain] autorelease]
-                        toPath:[[destinationDir retain] autorelease]
+        [restClient uploadFile:fileName
+                        toPath:destinationDir
                  withParentRev:parentRev
-                      fromPath:[[localPath retain] autorelease]];
+                      fromPath:localPath];
     } else {
         [restClient    uploadFileChunk:nil
                                 offset:__fileOffset
-                              fromPath:[[localPath retain] autorelease]];
+                              fromPath:localPath];
     }
     _startSending = TRUE;
 }
@@ -397,11 +386,11 @@ static int outstandingRequests = 0;
 
 #pragma mark - DBSessionDelegate methods
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
-	[[[[UIAlertView alloc] initWithTitle:@"Dropbox"
+	[[[UIAlertView alloc] initWithTitle:@"Dropbox"
                                  message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
                                 delegate:self
                        cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
+                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
 }
 
 #pragma mark - DBRestClientDelegate methods
@@ -514,11 +503,11 @@ static int outstandingRequests = 0;
         
         [self saveItemForLater:self.pendingAction];
         [[SHKDropbox dropbox] unlinkAll];
-        [[[[UIAlertView alloc] initWithTitle:[self sharerTitle]
+        [[[UIAlertView alloc] initWithTitle:[self sharerTitle]
                                      message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
                                     delegate:self
                            cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] autorelease] show];
+                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
     } else {
         NSError *internal = nil;
         if (dbErrorCode == 507) {
@@ -532,7 +521,7 @@ static int outstandingRequests = 0;
         }
         [self sendDidFailWithError:internal];
         [self stopNetworkIndication];
-        [self release]; //see [self send]
+        [[SHK currentHelper] removeSharerReference:self]; //see [self send]
     }
 }
 
@@ -560,7 +549,7 @@ static int outstandingRequests = 0;
     _startSending = FALSE;
     [self sendDidFinish];
     [self stopNetworkIndication];
-    [self release];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 
 - (void) SHKDropboxDidCansel {
@@ -568,7 +557,7 @@ static int outstandingRequests = 0;
     [self stopNetworkIndication];
     _startSending = FALSE;
     [self sendDidCancel];
-    [self release];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 - (void) stopNetworkIndication {
     outstandingRequests = 0;
@@ -597,57 +586,71 @@ static int outstandingRequests = 0;
                                               start:[[self.item customValueForKey:kSHKDropboxDestinationDir] stringByAppendingString:[self.item customValueForKey:kSHKDropboxStoredFileName]]],
                         nil];
 	[form addSection:fileSecton header:SHKLocalizedString(@"Do you want to overwrite existing file in %@?", [self sharerTitle]) footer:@"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name"];
-	form.delegate = self;
-	form.validateSelector = @selector(editFormValidate:);
-	form.saveSelector = @selector(editFormSave:);
-	form.cancelSelector = @selector(editFormCancel:);
+
+	form.validateBlock = [self shareFormValidate];
+	form.saveBlock = [self shareFormSave];
+	form.cancelBlock = [self shareFormCancel];
 	form.autoSelect = YES;
 	
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:, self);
     [self pushViewController:form animated:NO];
-    [form release];
     
 	[[SHK currentHelper] showViewController:self];
 }
 
-- (void) editFormValidate:(SHKFormController *) form {
-    NSString *formPath = [[form formValues] objectForKey:@"fileName"];
-    if (formPath.length < 1 || [formPath isEqualToDropboxPath:@""] || [formPath isEqualToDropboxPath:@"/"]) {
-        [[[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
-                                     message:SHKLocalizedString(@"File name is wrong")
-                                    delegate:self
-                           cancelButtonTitle:SHKLocalizedString(@"Continue")
-                           otherButtonTitles:nil,
-           nil] autorelease] show];
-    } else {
-        [form saveForm];
-    }
+- (FormControllerCallback)shareFormValidate {
     
-}
-- (void) editFormSave:(SHKFormController *) form {
-    NSString *formPath = [[form formValues] objectForKey:@"fileName"];
-    NSString *dir = [formPath stringByDeletingLastPathComponent];
-    NSString *fileName = [formPath lastPathComponent];
-    if (fileName.length > 0) {
-        if (![fileName isEqualToString:kSHKDropboxStoredFileName]) {
-            [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
-            [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
-        } else if (dir.length > 0) {
-            [self.item setCustomValue:self.item.file.filename forKey:kSHKDropboxStoredFileName];
-            [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
-        }
+    FormControllerCallback result = ^(SHKFormController *form) {
         
-    }
-    if (dir.length > 0) {
-        NSString *remotePath = [self.item customValueForKey:kSHKDropboxDestinationDir];
-        remotePath = [remotePath stringByAppendingPathComponent:dir];
-        [self.item setCustomValue:remotePath forKey:kSHKDropboxDestinationDir];
-    }
-    [self startSendingStoredObject];
+        NSString *formPath = [[form formValues] objectForKey:@"fileName"];
+        if (formPath.length < 1 || [formPath isEqualToDropboxPath:@""] || [formPath isEqualToDropboxPath:@"/"]) {
+            [[[UIAlertView alloc] initWithTitle:SHKCONFIG(appName)
+                                         message:SHKLocalizedString(@"File name is wrong")
+                                        delegate:self
+                               cancelButtonTitle:SHKLocalizedString(@"Continue")
+                               otherButtonTitles:nil,
+               nil] show];
+        } else {
+            [form saveForm];
+        }
+    };
+    return result;
 }
 
-- (void) editFormCancel:(SHKFormController *) form {
-    [self SHKDropboxDidCansel];
+- (FormControllerCallback)shareFormSave {
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        NSString *formPath = [[form formValues] objectForKey:@"fileName"];
+        NSString *dir = [formPath stringByDeletingLastPathComponent];
+        NSString *fileName = [formPath lastPathComponent];
+        if (fileName.length > 0) {
+            if (![fileName isEqualToString:kSHKDropboxStoredFileName]) {
+                [self.item setCustomValue:fileName forKey:kSHKDropboxStoredFileName];
+                [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
+            } else if (dir.length > 0) {
+                [self.item setCustomValue:self.item.file.filename forKey:kSHKDropboxStoredFileName];
+                [self.item setCustomValue:nil forKey:kSHKDropboxParentRevision];
+            }
+            
+        }
+        if (dir.length > 0) {
+            NSString *remotePath = [self.item customValueForKey:kSHKDropboxDestinationDir];
+            remotePath = [remotePath stringByAppendingPathComponent:dir];
+            [self.item setCustomValue:remotePath forKey:kSHKDropboxDestinationDir];
+        }
+        [self startSendingStoredObject];
+    };
+    return result;
+}
+
+- (FormControllerCallback)shareFormCancel {
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        [self SHKDropboxDidCansel];
+    };
+    return result;
 }
 
 

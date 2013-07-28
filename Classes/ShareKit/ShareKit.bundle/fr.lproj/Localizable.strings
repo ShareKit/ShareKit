@@ -48,10 +48,7 @@
 
 "Enter your message:" = "Tapez votre message:";
 
-"Invalid email or password." = "E-mail ou mot de passe incorrect";
 "The service encountered an error. Please try again later." = "Ce service n'est pas disponible actuellement. Veuillez réessayer ultérieurement.";
-
-"There was an error saving to Pinboard" = "Erreur d'envoi sur Pinboard";
 
 "Sorry, %@ did not accept your credentials. Please try again." = "Désolé, %@ n'a pas accepté vos informations de connexion. Veuillez réessayer .";
 "Sorry, %@ encountered an error. Please try again." = "Désolé, une erreur est survenue sur %@.  Veuillez réessayer ultérieurement.";

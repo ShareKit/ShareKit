@@ -45,12 +45,19 @@
 		7A04083917413908003404B9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083717413908003404B9 /* MainWindow.xib */; };
 		7A04083A17413908003404B9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
 		7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
+		7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E84D1743805E00B17434 /* libShareKit.a */; };
 		7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */; };
-		7AA2E93D1743825100B17434 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E84D1743805E00B17434 /* libShareKit.a */; };
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7A0FB85117A4462300B88C87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7AB5342D1552AADD00171BCE;
+			remoteInfo = "Static Library";
+		};
 		7AA2E84C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -212,13 +219,6 @@
 			remoteGlobalIDString = 7AA83BF91705E355009C483A;
 			remoteInfo = "Google Plus SDK";
 		};
-		7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = AABBED59162F0BC5009D46E4;
-			remoteInfo = "Google Reader";
-		};
 		7AA2E87C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -345,13 +345,6 @@
 			remoteGlobalIDString = 7AECF32C171D51C3000722FA;
 			remoteInfo = "YouTube SDK";
 		};
-		7AA2E9391743823E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 7AB5342D1552AADD00171BCE;
-			remoteInfo = "Static Library";
-		};
 		7AA2E93B1743824200B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -384,8 +377,6 @@
 		7A0406701740E3F6003404B9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		7A0406721740E3F6003404B9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7A0406741740E3F6003404B9 /* ShareKit demo app-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShareKit demo app-Prefix.pch"; sourceTree = "<group>"; };
-		7A0406751740E3F6003404B9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		7A0406761740E3F6003404B9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		7A0406781740E3F6003404B9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		7A04067A1740E3F6003404B9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		7A04067C1740E3F6003404B9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -436,7 +427,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AA2E93D1743825100B17434 /* libShareKit.a in Frameworks */,
+				7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */,
 				7A040832174133C5003404B9 /* Social.framework in Frameworks */,
 				7A04076A17410472003404B9 /* QuartzCore.framework in Frameworks */,
 				7A04076817410466003404B9 /* StoreKit.framework in Frameworks */,
@@ -527,8 +518,6 @@
 				7A0406B01740F0A5003404B9 /* ShareKitAppDelegate.m */,
 				7A0406B11740F0A6003404B9 /* ShareKitDemoConfigurator.h */,
 				7A0406B21740F0A6003404B9 /* ShareKitDemoConfigurator.m */,
-				7A0406751740E3F6003404B9 /* AppDelegate.h */,
-				7A0406761740E3F6003404B9 /* AppDelegate.m */,
 				7A04066D1740E3F6003404B9 /* Supporting Files */,
 			);
 			path = "ShareKit demo app";
@@ -586,7 +575,6 @@
 				7AA2E8751743805E00B17434 /* libFlickr SDK.a */,
 				7AA2E8771743805E00B17434 /* libGoogle Plus.a */,
 				7AA2E8791743805E00B17434 /* libGoogle Plus SDK.a */,
-				7AA2E87B1743805E00B17434 /* libGoogle Reader.a */,
 				7AA2E87D1743805E00B17434 /* libInstagram.a */,
 				7AA2E87F1743805E00B17434 /* libInstapaper.a */,
 				7AA2E8811743805E00B17434 /* libKippt.a */,
@@ -641,8 +629,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A0FB85217A4462300B88C87 /* PBXTargetDependency */,
 				7AA2E93C1743824200B17434 /* PBXTargetDependency */,
-				7AA2E93A1743823E00B17434 /* PBXTargetDependency */,
 			);
 			name = "ShareKit demo app";
 			productName = "ShareKit demo app";
@@ -843,13 +831,6 @@
 			remoteRef = 7AA2E8781743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7AA2E87B1743805E00B17434 /* libGoogle Reader.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libGoogle Reader.a";
-			remoteRef = 7AA2E87A1743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7AA2E87D1743805E00B17434 /* libInstagram.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1035,10 +1016,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7AA2E93A1743823E00B17434 /* PBXTargetDependency */ = {
+		7A0FB85217A4462300B88C87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Static Library";
-			targetProxy = 7AA2E9391743823E00B17434 /* PBXContainerItemProxy */;
+			targetProxy = 7A0FB85117A4462300B88C87 /* PBXContainerItemProxy */;
 		};
 		7AA2E93C1743824200B17434 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

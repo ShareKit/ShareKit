@@ -85,7 +85,6 @@
     };
     
     [[SHK currentHelper] showStandaloneViewController:sharerUIController];
-    [sharerUIController autorelease];
 }
 
 @end

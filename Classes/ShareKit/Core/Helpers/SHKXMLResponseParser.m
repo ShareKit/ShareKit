@@ -25,9 +25,9 @@
 
 @interface SHKXMLResponseParser ()
 
-@property (nonatomic, retain) NSMutableDictionary *parsedResponse;
-@property (nonatomic, retain) NSMutableString *currentElementValue;
-@property (nonatomic, retain) NSData *data;
+@property (nonatomic, strong) NSMutableDictionary *parsedResponse;
+@property (nonatomic, strong) NSMutableString *currentElementValue;
+@property (nonatomic, strong) NSData *data;
 @property BOOL xmlParsedSuccessfully;
 
 - (id)initWithData:(NSData *)responseData;
@@ -40,21 +40,13 @@
 
 @synthesize parsedResponse, currentElementValue, data, xmlParsedSuccessfully;
 
-- (void)dealloc {
-    
-    [parsedResponse release];
-    [currentElementValue release];
-    [data release];
-    
-    [super dealloc];
-}
 
 - (id)initWithData:(NSData *)responseData {
     
     self = [super init];
     
     if (self) {
-        data = [responseData retain];        
+        data = responseData;        
     }
     return self;
 }
@@ -70,7 +62,6 @@
     } else {
         result = nil;
     }
-    [shkParser release];
 
     return result;    
 }
@@ -99,7 +90,6 @@
     NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithData:self.data];
     xmlParser.delegate = self;        
     self.xmlParsedSuccessfully = [xmlParser parse];
-    [xmlParser release];
 }
 
 #pragma mark -

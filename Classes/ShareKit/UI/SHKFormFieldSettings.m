@@ -31,17 +31,6 @@
 
 @synthesize label, key, type, start, displayValue, optionPickerInfo, optionDetailLabelDefault;
 
-- (void)dealloc
-{
-	[label release];
-	[key release];
-	[start release];
-    [displayValue release];
-    [optionPickerInfo release];
-    [optionDetailLabelDefault release];
-	
-	[super dealloc];
-}
 
 + (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s
 {
@@ -58,7 +47,7 @@
     settings.displayValue = s;
 	settings.optionPickerInfo = oi;
     settings.optionDetailLabelDefault = od;
-	return [settings autorelease];
+	return settings;
 }
 
 - (NSString*) optionPickerDisplayValueForIndexes:(NSString*)indexes
