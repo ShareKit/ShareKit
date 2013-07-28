@@ -56,7 +56,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 - (void) doNativeShow;
 - (void) doSHKShow;
 
-@property (readwrite,retain) NSMutableSet* pendingConnections;
+@property (readwrite,strong) NSMutableSet* pendingConnections;
 @end
 
 @implementation SHKFacebook
@@ -67,7 +67,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 {
     self = [super init];
     if (self) {
-        self.pendingConnections = [[[NSMutableSet alloc] init] autorelease];
+        self.pendingConnections = [[NSMutableSet alloc] init];
 		[FBSettings setDefaultAppID:SHKCONFIG(facebookAppId)];
     }
     return self;
@@ -76,7 +76,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 - (void)dealloc
 {
 	[self cancelPendingRequests];
-	self.pendingConnections = nil;
 	[FBSession.activeSession close];	// unhooks this instance from the sessionStateChanged callback
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
@@ -84,7 +83,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	if (requestingPermisSHKFacebook == self) {
 		requestingPermisSHKFacebook = nil;
 	}
-	[super dealloc];
 }
 
 - (void)cancelPendingRequests{
@@ -116,10 +114,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	
     BOOL result = NO;
     FBSession *session =
-	[[[FBSession alloc] initWithAppID:SHKCONFIG(facebookAppId)
+	[[FBSession alloc] initWithAppID:SHKCONFIG(facebookAppId)
 						 permissions:SHKCONFIG(facebookReadPermissions)	// FB only wants read or publish so use default read, request publish when we need it
 					 urlSchemeSuffix:SHKCONFIG(facebookLocalAppId)
-				  tokenCacheStrategy:nil] autorelease];
+				  tokenCacheStrategy:nil];
     
     if (allowLoginUI || (session.state == FBSessionStateCreatedTokenLoaded)) {
         
@@ -182,11 +180,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
     }
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
-		[self release];
+		[[SHK currentHelper] removeSharerReference:self];
 	}
 }
 
@@ -292,7 +289,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	
 	NSAssert(authingSHKFacebook == nil, @"ShareKit: auth loop logic error - will lead to leaks");
 	authingSHKFacebook = self;
-	[self retain];
+	[[SHK currentHelper] keepSharerReference:self];
 	
 	[self openSessionWithAllowLoginUI:YES];
 }
@@ -385,7 +382,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                                                   cancelButtonTitle:@"OK"
                                                                                   otherButtonTitles:nil];
                                                         [alertView show];
-                                                        [alertView release];
                                                         
                                                         self.pendingAction = SHKPendingShare;	// flip back to here so they can cancel
                                                         [self tryPendingAction];
@@ -529,8 +525,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             NSUInteger maxVideoSize = [result[@"video_upload_limits"][@"size"] unsignedIntegerValue];
             BOOL isUnderSize = maxVideoSize >= self.item.file.size;
             if(!isUnderSize){
-                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}] autorelease]);
+                completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's file size is too large for upload to Facebook.")}]);
                 return;
             }
             
@@ -538,8 +534,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             NSUInteger maxVideoDuration = (int)result[@"video_upload_limits"][@"length"];
             BOOL isUnderDuration = maxVideoDuration >= self.item.file.duration;
             if(!isUnderDuration){
-                completionBlock([[NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
-                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}] autorelease]);
+                completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
+                                NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}]);
                 return;
             }
             
@@ -674,7 +670,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 																					   cancelButtonTitle:@"OK"
 																					   otherButtonTitles:nil];
 															 [alertView show];
-                                                             [alertView release];
 															 
 															 [self sendDidCancel];
 														 }else{
@@ -720,7 +715,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     }
     self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
  	[self pushViewController:rootView animated:NO];
-    [rootView release];
     
     [[SHK currentHelper] showViewController:self];  
 }
