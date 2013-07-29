@@ -8,16 +8,20 @@
 
 #import "SHKFormOptionController.h"
 #import "SHKFormFieldSettings.h"
+#import "SHKFormFieldOptionPickerSettings.h"
 #import "SHKActivityIndicator.h"
 #import "SHK.h"
 
 @interface SHKFormOptionController()
 
+@property (nonatomic, strong) SHKFormFieldOptionPickerSettings *settings;
+@property (nonatomic, weak) id <SHKFormOptionControllerClient> client;
+@property (nonatomic, weak) id <SHKFormOptionControllerOptionProvider> provider;
+
 @property BOOL didLoad;
 
 - (IBAction)done:(id)sender;
 - (IBAction)cancel:(id)sender;
-- (void) updateFromOptions;
 
 @end
 
@@ -26,13 +30,14 @@
 #pragma mark -
 #pragma mark Initialization
 
-- (id)initWithOptionsInfo:(SHKFormFieldSettings*) settingsItem client:(id<SHKFormOptionControllerClient>) optionClient
+- (id)initWithOptionPickerSettings:(SHKFormFieldOptionPickerSettings *)settingsItem client:(id <SHKFormOptionControllerClient>)optionClient;
 {
     self = [super initWithStyle:UITableViewStylePlain];
     if (self) {
-        self.settings = settingsItem;
-		self.title = [self.settings.optionPickerInfo objectForKey:@"title"];
-		self.client = optionClient;
+        _settings = settingsItem;
+		self.title = settingsItem.pickerTitle;
+		_client = optionClient;
+        _provider = settingsItem.provider;
     }
     return self;
 }
@@ -48,27 +53,28 @@
 																							 action:@selector(cancel:)] animated:YES];
 }
 
-- (void) optionsEnumerated:(NSArray*) options;
+- (void)optionsEnumeratedDisplay:(NSArray *)displayOptions save:(NSArray *)saveOptions
 {
-	bool allowMultiple = [self.settings.optionPickerInfo objectForKey:@"allowMultiple"] != nil && [[self.settings.optionPickerInfo objectForKey:@"allowMultiple"] boolValue] == YES;
 	self.didLoad = true;
-	[self.settings.optionPickerInfo setValue:options forKey:@"itemsList"];
-	// best reset the selection if values are not in range.
-	NSString* curIndexs = [self.settings.optionPickerInfo objectForKey:@"curIndexes"];
-	if(![curIndexs isEqualToString:@"-1"]){
-		NSArray* indexes = [curIndexs componentsSeparatedByString:@","];
-		for (NSString* index in indexes) {
-			int indexVal = [index intValue];
-			if(indexVal >= [options count]){
-				[self.settings.optionPickerInfo setValue:[[NSNumber numberWithInt:-1]stringValue] forKey:@"curIndexes"];
-				break;
-			}
-		}
-	}
+    
+    if (saveOptions) {
+        NSAssert([saveOptions count] == [displayOptions count], @"saveValues and displayValues mapping must match");
+    }
+    
+	self.settings.displayValues = displayOptions;
+    self.settings.saveValues = saveOptions;
+    
+	//defense - if there is any selected index out of bounds, remove it.
+    [self.settings.selectedIndexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+        
+        if (index >= [displayOptions count]) {
+            [self.settings.selectedIndexes removeIndex:index];
+        }
+    }];
 
 	[self updateFromOptions];
 
-	if (allowMultiple) {
+	if (self.settings.allowMultiple) {
 		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																								 target:self
 																								 action:@selector(done:)] animated:YES];
@@ -83,10 +89,11 @@
 - (void) optionsEnumerationFailedWithError:(NSError *)error
 {
 	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"No Options")
-								 message:[NSString stringWithFormat:@"%@ %@", SHKLocalizedString(@"Could not find any"), [self.settings.optionPickerInfo objectForKey:@"title"]]
-								delegate:self
-					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
-					   otherButtonTitles:nil] show];}
+                                message:[NSString stringWithFormat:@"%@ %@", SHKLocalizedString(@"Could not find any"), self.title]
+                               delegate:self
+                      cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                      otherButtonTitles:nil] show];
+}
 
 - (IBAction)cancel:(id)sender {
 	[[SHKActivityIndicator currentIndicator] hide];		
@@ -98,14 +105,6 @@
 
 - (IBAction)done:(id)sender {
 	
-    NSString *pickedValues = [self.settings optionPickerDisplayValueForIndexes:[self.settings.optionPickerInfo objectForKey:@"curIndexes"]];
-    
-    BOOL pickedNone = [pickedValues isEqualToString:@"-1"];    
-    if(pickedNone) {        
-        pickedValues = nil;        
-    }
-    
-    self.settings.displayValue = pickedValues;
     [self.client SHKFormOptionControllerDidFinish:self];
 }
 
@@ -126,9 +125,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [[self.settings.optionPickerInfo objectForKey:@"itemsList"] count];
+    return [self.settings.displayValues count];
 }
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,37 +138,29 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-	bool isSelected = false;
-	NSString* curIndexs = [self.settings.optionPickerInfo objectForKey:@"curIndexes"];
-	if(![curIndexs isEqualToString:@"-1"]){
-		NSArray* indexes = [curIndexs componentsSeparatedByString:@","];
-		isSelected = [indexes containsObject:[[NSNumber numberWithInt:indexPath.row]stringValue]];
-	}
-
+	BOOL isSelected = [self.settings.selectedIndexes containsIndex:indexPath.row];
 	cell.accessoryType = isSelected ? UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
-	
-	cell.textLabel.text = [[self.settings.optionPickerInfo objectForKey:@"itemsList"] objectAtIndex:indexPath.row] ;
+	cell.textLabel.text = self.settings.displayValues[indexPath.row];
 
     return cell;
 }
 
 - (void) updateFromOptions{
-	NSAssert([self.settings.optionPickerInfo objectForKey:@"curIndexes"] != nil, @"ShareKit: missing the cur selection value");
-	NSAssert([self.settings.optionPickerInfo objectForKey:@"itemsList"] != nil, @"ShareKit: missing the itemsList");
-	NSAssert([self.settings.optionPickerInfo objectForKey:@"static"] != nil, @"ShareKit: missing the static flag");
 	
-	NSAssert(	([[self.settings.optionPickerInfo objectForKey:@"static"] boolValue] == true && [[self. settings.optionPickerInfo objectForKey:@"itemsList"] count] != 0 ) ||
-				([[self.settings.optionPickerInfo objectForKey:@"static"] boolValue] == false && (!self.didLoad || [[self.settings.optionPickerInfo objectForKey:@"itemsList"] count] != 0 )), @"ShareKit: there must be some choices or it must be not static");
-	NSAssert([[self.settings.optionPickerInfo objectForKey:@"static"] boolValue] == true || [self.settings.optionPickerInfo objectForKey:@"SHKFormOptionControllerOptionProvider"] != nil, @"ShareKit: if you are not static you must give a provider");
+	NSAssert((!self.settings.fetchFromWeb && [self.settings.displayValues count] > 0 ) ||
+             (self.settings.fetchFromWeb && (!self.didLoad || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");
+	NSAssert(!self.settings.fetchFromWeb || self.provider, @"ShareKit: if you are fetching you must give a provider");
 	
-	if(![[self.settings.optionPickerInfo objectForKey:@"static"] boolValue] && self.provider == nil && !self.didLoad){// provider is a sentinal for a pending operation
+	if (self.settings.fetchFromWeb && !self.didLoad) {
+        
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading...")];
-		self.provider = [self.settings.optionPickerInfo objectForKey:@"SHKFormOptionControllerOptionProvider"];
 		[self.provider SHKFormOptionControllerEnumerateOptions:self];
-	}else{
+        
+	} else {
+        
 		[[SHKActivityIndicator currentIndicator] hide];	
 	}
-
+    
 	[self.tableView reloadData];
 }
 
@@ -178,30 +168,23 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	bool allowMultiple = [self.settings.optionPickerInfo objectForKey:@"allowMultiple"] != nil && [[self.settings.optionPickerInfo objectForKey:@"allowMultiple"] boolValue] == YES;
-	if(allowMultiple){
-		NSString* curIndexs = [self.settings.optionPickerInfo objectForKey:@"curIndexes"];
-		if ([curIndexs isEqualToString:@"-1"]) {	// no prev selecion
-			[self.settings.optionPickerInfo setValue:[[NSNumber numberWithInt:indexPath.row]stringValue] forKey:@"curIndexes"];
-		}else{
-			NSArray* indexes = [curIndexs componentsSeparatedByString:@","];
-			NSUInteger loc = [indexes indexOfObject:[[NSNumber numberWithInt:indexPath.row]stringValue]];
-			if (loc == NSNotFound) {	// append
-				[self.settings.optionPickerInfo setValue:[NSString stringWithFormat:@"%@,%@", curIndexs, [[NSNumber numberWithInt:indexPath.row]stringValue]] forKey:@"curIndexes"];
-			}else {						// remove
-				NSMutableArray* tmpA = [NSMutableArray arrayWithArray:indexes];
-				[tmpA removeObjectAtIndex:loc];
-				NSString * result = [tmpA count] > 0 ? [[tmpA valueForKey:@"description"] componentsJoinedByString:@","] : @"-1";
-				[self.settings.optionPickerInfo setValue:result
-											 forKey:@"curIndexes"];
-			}
 
-		}
-		[tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-	}else{
-		[self.settings.optionPickerInfo setValue:[[NSNumber numberWithInt:indexPath.row]stringValue] forKey:@"curIndexes"];
-		[self done:nil];
-	}
+	if (self.settings.allowMultiple) {
+        
+        if ([self.settings.selectedIndexes containsIndex:indexPath.row]) {
+            [self.settings.selectedIndexes removeIndex:indexPath.row];
+        } else {
+            [self.settings.selectedIndexes addIndex:indexPath.row];
+        }
+        
+        [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } else {
+        
+        [self.settings.selectedIndexes removeAllIndexes];
+        [self.settings.selectedIndexes addIndex:indexPath.row];
+        [self done:nil];
+    }
 }
 
 #pragma mark -

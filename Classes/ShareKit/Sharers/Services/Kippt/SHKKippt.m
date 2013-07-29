@@ -78,29 +78,6 @@ NSString *base64(NSData *plainText) {
     return result;
 }
 
-// -- HORRIBLE NSString category hack for option picker --
-
-static char const* const ListURIKey = "ListURIKey";
-
-@interface NSString (ListURI)
-@property (nonatomic, strong) NSString *listURI;
-@end
-
-@implementation NSString (ListURI)
-@dynamic listURI;
-
-- (NSString *)listURI
-{
-    return objc_getAssociatedObject(self, ListURIKey);
-}
-
-- (void)setListURI:(NSString *)uri
-{
-    objc_setAssociatedObject(self, ListURIKey, uri, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-@end
-
 @interface SHKKippt ()
 
 @property (strong, nonatomic) NSString *username;
@@ -212,30 +189,25 @@ static char const* const ListURIKey = "ListURIKey";
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
 	if (type == SHKShareTypeURL) {
+        
         // Placeholder list
         NSMutableArray *lists = [NSMutableArray array];
         [lists addObject:@"Inbox"];
         
-        NSMutableDictionary *pickerInfo = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           @"List", @"title",
-                                           @"0", @"curIndexes",
-                                           [NSNumber numberWithBool:NO], @"allowMultiple",
-                                           [NSNumber numberWithBool:NO], @"static",
-                                           lists, @"itemsList",
-                                           self, @"SHKFormOptionControllerOptionProvider",
-                                           nil];
-        
 		return [NSArray arrayWithObjects:
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"notes" type:SHKFormFieldTypeText start:self.item.text],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"List")
-                                        key:@"list"
-                                       type:SHKFormFieldTypeOptionPicker
-                                      start:@"Inbox"
-                           optionPickerInfo:pickerInfo
-                   optionDetailLabelDefault:nil],
-				nil];
-	}
+				[SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"List")
+                                                    key:@"list"
+                                                   type:SHKFormFieldTypeOptionPicker
+                                                  start:nil
+                                            pickerTitle:SHKLocalizedString(@"List")
+                                        selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]
+                                          displayValues:lists
+                                             saveValues:nil
+                                          allowMultiple:NO
+                                           fetchFromWeb:YES
+                                               provider:self], nil];}
 	return nil;
 }
 
@@ -259,14 +231,16 @@ static char const* const ListURIKey = "ListURIKey";
             
             NSError *error = nil;
             NSDictionary *result = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
-            NSMutableArray *lists = [[NSMutableArray alloc] init];
+            NSMutableArray *displayValues = [@[] mutableCopy];
+            NSMutableArray *saveValues = [@[] mutableCopy];
             for (NSDictionary *l in [result objectForKey:@"objects"]) {
-                NSString *s = [l objectForKey:@"title"];
-                s.listURI = [l objectForKey:@"resource_uri"];
-                [lists addObject:s];
+                NSString *displayValue = [l objectForKey:@"title"];
+                [displayValues addObject:displayValue];
+                NSString *saveValue = [l objectForKey:@"resource_uri"];
+                [saveValues addObject:saveValue];
             }
             
-            [self.curOptionController optionsEnumerated:lists];
+            [self.curOptionController optionsEnumeratedDisplay:displayValues save:saveValues];
         }
     }];
 }
@@ -290,7 +264,7 @@ static char const* const ListURIKey = "ListURIKey";
     NSDictionary *clip = [NSDictionary dictionaryWithObjectsAndKeys:
                           [self.item.URL absoluteString], @"url",
                           self.item.title, @"title",
-                          list.listURI, @"list",
+                          list, @"list",
                           notes, @"notes",
                           nil];
     

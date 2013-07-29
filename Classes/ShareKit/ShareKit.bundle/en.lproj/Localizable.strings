@@ -260,3 +260,11 @@
  *  Show tips for user how to rename file or enter another remote directory while upload a file
  */
 "Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name" = "Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name";
+
+//youtube option picker
+"Privacy" = "Privacy";
+"Unlisted" = "Unlisted";
+
+//kippt option picker
+"List" = "List";
+

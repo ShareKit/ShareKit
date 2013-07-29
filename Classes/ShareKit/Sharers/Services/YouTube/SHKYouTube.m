@@ -306,20 +306,17 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
            [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
            [SHKFormFieldSettings label:SHKLocalizedString(@"Text") key:@"text" type:SHKFormFieldTypeText start:self.item.text],
            [SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@","]],
-           [SHKFormFieldSettings label:SHKLocalizedString(@"Privacy")
-                                   key:@"privacy"
-                                  type:SHKFormFieldTypeOptionPicker
-                                 start:@"public"
-                      optionPickerInfo:[NSMutableDictionary dictionaryWithDictionary:@{
-                                        @"title":@"Privacy",
-                                        @"curIndexes":@"0",
-                                        @"allowMultiple":@NO,
-                                        @"itemsList":@[@"public",@"private",@"unlisted"],
-                                        @"static":@YES
-                                        }]
-              optionDetailLabelDefault:@"Select Privacy Level"]
-           ];
-	
+           [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Privacy")
+                                               key:@"privacy"
+                                              type:SHKFormFieldTypeOptionPicker
+                                             start:@"public"
+                                       pickerTitle:SHKLocalizedString(@"Privacy")
+                                   selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]
+                                     displayValues:@[SHKLocalizedString(@"Public"), SHKLocalizedString(@"Private"), SHKLocalizedString(@"Unlisted")]
+                                        saveValues:@[@"public", @"private", @"unlisted"]
+                                     allowMultiple:NO
+                                      fetchFromWeb:NO
+                                          provider:nil]];
 	return nil;
 }
 

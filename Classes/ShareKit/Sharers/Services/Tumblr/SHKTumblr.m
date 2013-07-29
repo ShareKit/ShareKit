@@ -116,43 +116,43 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     //if there is user info saved already in defaults, show the first blog as default option, otherwise user must choose one.
     NSArray *userBlogURLs = [self userBlogURLs];
     NSString *defaultBlogURL = nil;
-    NSString *defaultPickedIndex = @"-1";
+    NSMutableIndexSet *defaultPickedIndex = [[NSMutableIndexSet alloc] init];
     NSMutableArray *defaultItemsList = [NSMutableArray arrayWithCapacity:0];
     if ([userBlogURLs count] > 0) {
         defaultBlogURL = userBlogURLs[0];
-        defaultPickedIndex = @"0";
+        [defaultPickedIndex addIndex:0];
         [defaultItemsList addObject:defaultBlogURL];
     }
     
-    SHKFormFieldSettings *blogField = [SHKFormFieldSettings label:SHKLocalizedString(@"Blog")
-                                                              key:@"blog"
-                                                             type:SHKFormFieldTypeOptionPicker
-                                                            start:defaultBlogURL
-                                                 optionPickerInfo:[@{@"title":SHKLocalizedString(@"Choose blog"),
-                                                                    @"curIndexes":defaultPickedIndex,
-                                                                    @"itemsList":defaultItemsList,
-                                                                    @"static":[NSNumber numberWithBool:NO],
-                                                                    @"allowMultiple":[NSNumber numberWithBool:NO],
-                                                                    @"SHKFormOptionControllerOptionProvider":self} mutableCopy]
-                                         optionDetailLabelDefault:SHKLocalizedString(@"Select blog")];
+    SHKFormFieldOptionPickerSettings *blogField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Blog")
+                                                                                      key:@"blog"
+                                                                                     type:SHKFormFieldTypeOptionPicker
+                                                                                    start:SHKLocalizedString(@"Select blog")
+                                                                              pickerTitle:SHKLocalizedString(@"Choose blog")
+                                                                          selectedIndexes:defaultPickedIndex
+                                                                            displayValues:userBlogURLs
+                                                                               saveValues:nil
+                                                                            allowMultiple:NO
+                                                                             fetchFromWeb:YES
+                                                                                 provider:self];
     
     SHKFormFieldSettings *tagsField = [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
                                                               key:@"tags"
                                                              type:SHKFormFieldTypeText
                                                             start:[self.item.tags componentsJoinedByString:@", "]];
     
-    SHKFormFieldSettings *publishField = [SHKFormFieldSettings label:SHKLocalizedString(@"Publish")
-                                                                 key:@"publish"
-                                                                type:SHKFormFieldTypeOptionPicker
-                                                               start:SHKLocalizedString(@"Publish now")
-                                                    optionPickerInfo:[@{@"title":SHKLocalizedString(@"Publish type"),
-                                                                       @"curIndexes":@"0",
-                                                                       @"itemsList":@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"), SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")],
-                                                                       @"itemsValues":@[@"published", @"draft", @"queue", @"private"],
-                                                                       @"static":[NSNumber numberWithBool:YES],
-                                                                       @"allowMultiple":[NSNumber numberWithBool:NO]} mutableCopy]
-                                            optionDetailLabelDefault:nil];
-
+    SHKFormFieldOptionPickerSettings *publishField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Publish")
+                                                                                         key:@"publish"
+                                                                                        type:SHKFormFieldTypeOptionPicker
+                                                                                       start:SHKLocalizedString(@"Publish now")
+                                                                                 pickerTitle:SHKLocalizedString(@"Publish type")
+                                                                             selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]
+                                                                               displayValues:@[SHKLocalizedString(@"Publish now"), SHKLocalizedString(@"Draft"),
+                                                      SHKLocalizedString(@"Add to queue"), SHKLocalizedString(@"Private")]
+                                                                                  saveValues:@[@"published", @"draft", @"queue", @"private"]
+                                                                               allowMultiple:NO
+                                                                                fetchFromWeb:NO
+                                                                                    provider:nil];
     NSMutableArray *result = nil;
     switch (type) {
         case SHKShareTypeText:
@@ -444,7 +444,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 - (void)blogsEnumerated:(NSArray *)blogs{
     
 	NSAssert(self.curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[self.curOptionController optionsEnumerated:blogs];
+	[self.curOptionController optionsEnumeratedDisplay:blogs save:nil];
 }
 
 - (NSArray *)userBlogURLs {

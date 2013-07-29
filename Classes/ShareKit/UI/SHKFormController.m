@@ -117,8 +117,8 @@
     
     if ([cell isKindOfClass:[SHKFormFieldCellOptionPicker class]]) {
         
-        SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];        
-        SHKFormOptionController* optionsPicker = [[SHKFormOptionController alloc] initWithOptionsInfo:settingsForCell client:self];
+        SHKFormFieldOptionPickerSettings *settingsForCell = (SHKFormFieldOptionPickerSettings *)[self rowSettingsForIndexPath:indexPath];
+        SHKFormOptionController* optionsPicker = [[SHKFormOptionController alloc] initWithOptionPickerSettings:settingsForCell client:self];
 		[self.navigationController pushViewController:optionsPicker animated:YES];
     }
 }
@@ -210,11 +210,7 @@
 
 - (void)SHKFormOptionControllerDidFinish:(SHKFormOptionController *)optionController
 {	
-    NSArray *fields = [[self.sections objectAtIndex:0] objectForKey:@"rows"];
-    NSUInteger index = [fields indexOfObject:optionController.settings];
-    SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
-    [cell setupWithSettings:optionController.settings];        
-    
+    [self.tableView reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

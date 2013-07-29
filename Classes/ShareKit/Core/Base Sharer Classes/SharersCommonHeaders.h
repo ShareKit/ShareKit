@@ -15,6 +15,7 @@
 #import "Debug.h"
 #import "SHKActivityIndicator.h"
 #import "SHKFormFieldSettings.h"
+#import "SHKFormFieldOptionPickerSettings.h"
 #import "SHKFormController.h"
 #import "SHKConfiguration.h"
 

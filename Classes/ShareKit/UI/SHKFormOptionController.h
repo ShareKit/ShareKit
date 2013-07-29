@@ -9,17 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class SHKFormFieldSettings;
+@class SHKFormFieldOptionPickerSettings;
+
 @protocol SHKFormOptionControllerClient;
 @protocol SHKFormOptionControllerOptionProvider;
 
 @interface SHKFormOptionController : UITableViewController
 
-@property (nonatomic, strong) SHKFormFieldSettings *settings;
-@property (nonatomic, weak) id <SHKFormOptionControllerClient> client;
-@property (nonatomic, weak) id <SHKFormOptionControllerOptionProvider> provider;
+- (id)initWithOptionPickerSettings:(SHKFormFieldOptionPickerSettings *)settingsItem client:(id <SHKFormOptionControllerClient>)optionClient;
 
-- (id)initWithOptionsInfo:(SHKFormFieldSettings *)settingsItem client:(id <SHKFormOptionControllerClient>)optionClient;
-- (void)optionsEnumerated:(NSArray*) options;
+- (void)optionsEnumeratedDisplay:(NSArray *)displayOptions save:(NSArray *)saveOptions;
 - (void)optionsEnumerationFailedWithError:(NSError *)error;
 
 @end
