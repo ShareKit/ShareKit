@@ -103,7 +103,11 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
                                                     imageTextLength:0
                                                             hasLink:NO
                                                      allowEmptySend:NO
-                                                             select:YES]] mutableCopy];
+                                                             select:YES],
+                              [SHKFormFieldSettings label:SHKLocalizedString(@"Public")
+                                                      key:SHKLinkedInVisibilityCodeKey
+                                                     type:SHKFormFieldTypeSwitch
+                                                    start:SHKFormFieldSwitchOn]] mutableCopy];
     if (type == SHKShareTypeURL) {
         [result insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title] atIndex:0];
     }
@@ -141,9 +145,12 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         // TODO use more robust method to escape         
         NSString *comment = [self sanitizeString:self.item.text];
 
-        NSString *visibility = [self.item customValueForKey:SHKLinkedInVisibilityCodeKey];
-        if (visibility == nil) {
+        NSString *visibility;
+        BOOL public = [[self.item customValueForKey:SHKLinkedInVisibilityCodeKey] boolValue];
+        if (public) {
             visibility = @"anyone";
+        } else {
+            visibility = @"connections-only";
         }
         
         NSString *submittedUrl;
