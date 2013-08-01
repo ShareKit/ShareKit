@@ -173,13 +173,35 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     
     if (error) {
 		[FBSession.activeSession closeAndClearTokenInformation];
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
+
+        NSString *errorReason = [error.userInfo objectForKey:FBErrorLoginFailedReason];
+        
+        // If error is not caused by cancelling authorization by the user -> show alert
+        if (![errorReason isEqual:FBErrorLoginFailedReasonUserCancelledSystemValue] && ![errorReason isEqualToString:FBErrorLoginFailedReasonUserCancelledValue]) {
+
+            //we need to show alert only if the reason of error is not caused by user decision to cancel it
+            if ([errorReason isEqualToString:FBErrorLoginFailedReasonSystemDisallowedWithoutErrorValue]) {
+                //ios 6 system facebook login is disabled in settings for this app.
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          initWithTitle:@"Could not login with Facebook"
+                                          message:@"Please check your Facebook settings on your phone. Maybe this app is disallowed to use with Facebook."
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                [alertView show];
+                [alertView release];
+            }
+            else {
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          initWithTitle:@"Error"
+                                          message:error.localizedDescription
+                                          delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+                [alertView show];
+                [alertView release];
+            }
+        }        
     }
 	if (authingSHKFacebook == self) {
 		authingSHKFacebook = nil;
