@@ -25,15 +25,14 @@
 //
 
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKPlurk : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
-
+@interface SHKPlurk : SHKOAuthSharer
+/*
 #pragma mark -
 #pragma mark UI Implementation
 
 - (void)showPlurkForm;
-
+*/
 #pragma mark -
 #pragma mark Share API Methods
 
@@ -41,8 +40,6 @@
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error;
 - (void)alertUploadImageWithError:(NSError *)error;
-
-- (void)sendForm:(SHKFormControllerLargeTextField *)form;
 
 - (void)sendStatus;
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
