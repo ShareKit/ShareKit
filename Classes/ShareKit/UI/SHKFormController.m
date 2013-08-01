@@ -30,13 +30,18 @@
 #import "SHKConfiguration.h"
 #import "SHKCustomFormFieldCell.h"
 #import "SHKFormFieldCellText.h"
+#import "SHKFormFieldCellTextLarge.h"
 #import "SHKFormFieldCellSwitch.h"
 #import "SHKFormFieldCellOptionPicker.h"
 #import "SHKFormFieldSettings.h"
+#import "SHKFormFieldLargeTextSettings.h"
 
 #define CELL_IDENTIFIER_TEXT @"textCell"
+#define CELL_IDENTIFIER_LARGE_TEXT @"largeTextCell"
 #define CELL_IDENTIFIER_SWITCH @"switchCell"
 #define CELL_IDENTIFIER_OPTIONS @"optionsCell"
+
+#define LARGE_TEXT_CELL_HEIGHT 120
 
 @interface SHKFormController ()
 
@@ -87,14 +92,42 @@
 	[self.sections addObject:dict];
 }
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
 #pragma mark -
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
-	if (self.autoSelect)
+	if (self.autoSelect) {
 		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    } else {
+        
+        NSIndexPath *fieldToSelect = [self fieldToSelect];
+        if (fieldToSelect) {
+            [self.tableView selectRowAtIndexPath:fieldToSelect animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }
+    }
+    
+    [self checkFieldValidity];
+}
+
+- (NSIndexPath *)fieldToSelect {
+    
+    NSIndexPath *result = nil;
+    NSArray *fieldToSelect = [self settingsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+    
+        BOOL result = [(SHKFormFieldSettings *)obj select];
+        if (result) stop = YES;
+        return result;
+    }];
+    
+    if ([fieldToSelect count]) result = fieldToSelect[0];
+    return result;
 }
 
 - (void)viewDidLoad
@@ -108,9 +141,25 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Right Bar Button dynamic enable
+
+- (void)checkFieldValidity {
+       
+    NSArray *invalidFields = [self settingsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+        
+        BOOL result = ![(SHKFormFieldSettings *)obj isValid];
+        if (!result) stop = YES;
+        return result;
+    }];
+    
+    BOOL allowSend = [invalidFields count] == 0;    
+    self.navigationItem.rightBarButtonItem.enabled = allowSend;
+}
 
 #pragma mark -
 #pragma mark Table view
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 	
     UITableViewCell *cell = [self tableView:self.tableView cellForRowAtIndexPath:indexPath];
@@ -120,6 +169,16 @@
         SHKFormFieldOptionPickerSettings *settingsForCell = (SHKFormFieldOptionPickerSettings *)[self rowSettingsForIndexPath:indexPath];
         SHKFormOptionController* optionsPicker = [[SHKFormOptionController alloc] initWithOptionPickerSettings:settingsForCell client:self];
 		[self.navigationController pushViewController:optionsPicker animated:YES];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    SHKFormFieldSettings *settings = [self rowSettingsForIndexPath:indexPath];
+    if (settings.type == SHKFormFieldTypeTextLarge) {
+        return LARGE_TEXT_CELL_HEIGHT;
+    } else {
+        return [super tableView:tableView heightForRowAtIndexPath:indexPath];
     }
 }
 
@@ -151,6 +210,10 @@
             cellIdentifier = CELL_IDENTIFIER_TEXT;
             cellSubclass = [SHKFormFieldCellText class];
             break;
+        case SHKFormFieldTypeTextLarge:
+            cellIdentifier = CELL_IDENTIFIER_LARGE_TEXT;
+            cellSubclass = [SHKFormFieldCellTextLarge class];
+            break;
         case SHKFormFieldTypeSwitch:
             cellIdentifier = CELL_IDENTIFIER_SWITCH;
             cellSubclass = [SHKFormFieldCellSwitch class];
@@ -177,11 +240,6 @@
     return cell;
 }
 
-- (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath
-{
-	return [[[self.sections objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
-}
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	return [[self.sections objectAtIndex:section] objectForKey:@"header"];
@@ -194,9 +252,37 @@
 
 #pragma mark -
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+	id result = [[[self.sections objectAtIndex:indexPath.section] objectForKey:@"rows"] objectAtIndex:indexPath.row];
+    return result;
+}
+
+- (NSArray *)settingsPassingTest:(BOOL (^)(id obj, NSUInteger idx, BOOL *stop))predicate {
+    
+    NSMutableArray *result = [@[] mutableCopy];
+    BOOL *shouldStop = NO;
+    
+    for (NSDictionary *section in self.sections) {
+        
+        if (shouldStop) break;
+        
+        NSArray *settingsForSection = [section objectForKey:@"rows"];
+        
+        for (SHKFormFieldSettings *settings in settingsForSection) {
+            
+            if (shouldStop) break;
+            
+            NSUInteger indexOfSettings = [settingsForSection indexOfObject:settings];
+            BOOL passed = predicate(settings, indexOfSettings, shouldStop);
+            if (passed) {
+                
+                NSInteger sectionIndex = [self.sections indexOfObject:section];
+                [result addObject:[NSIndexPath indexPathForRow:indexOfSettings inSection:sectionIndex]];
+            }
+        }
+    }
+    return result;
 }
 
 #pragma mark - SHKFormFieldCellDelegate
@@ -204,6 +290,11 @@
 - (void)setActiveTextField:(UITextField *)activeTextField {
     
     self.activeField = activeTextField;
+}
+
+- (void)valueChanged {
+    
+    [self checkFieldValidity];
 }
 
 #pragma mark - SHKFormOptionControllerClient

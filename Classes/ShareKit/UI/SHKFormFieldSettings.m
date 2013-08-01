@@ -45,6 +45,7 @@
         _type = t;
         _start = s;
         _displayValue = s;
+        _select = NO;
     }
     return self;
 }
@@ -53,6 +54,10 @@
     
     NSString *result = self.displayValue;
     return result;
+}
+
+- (BOOL)isValid {
+    return YES;
 }
 
 @end

@@ -38,6 +38,7 @@
 @protocol SHKFormFieldCellDelegate <NSObject>
 
 - (void)setActiveTextField:(UITextField *)activeTextField;
+- (void)valueChanged;
 
 @end
 

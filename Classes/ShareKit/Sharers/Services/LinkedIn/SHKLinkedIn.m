@@ -29,7 +29,6 @@
 #import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
 
-
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 // The oauth scope we need to request at LinkedIn
@@ -40,37 +39,20 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-// Enter the name of the service
 + (NSString *)sharerTitle
 {
 	return SHKLocalizedString(@"LinkedIn");
 }
 
-
-// What types of content can the action handle?
-
-// If the action can handle URLs, uncomment this section
 + (BOOL)canShareURL
 {
     return YES;
 }
 
-// If the action can handle text, uncomment this section
 + (BOOL)canShareText
 {
     return YES;
 }
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-// Subclass if you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)
-+ (BOOL)canShare
-{
-	return YES;
-}
-
-
 
 #pragma mark -
 #pragma mark Authentication
@@ -110,77 +92,36 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 #pragma mark -
 #pragma mark Share Form
-
-- (void)showSHKTextForm
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-    if (self.item.shareType == SHKShareTypeURL) {
-        rootView.text = self.item.title;
-        rootView.hasLink = YES;
-        
-    } else {
-        rootView.text = self.item.text;
+    NSMutableArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                key:@"text"
+                                                               type:SHKFormFieldTypeTextLarge
+                                                              start:self.item.text
+                                                      maxTextLength:700
+                                                              image:nil
+                                                    imageTextLength:0
+                                                            hasLink:NO
+                                                     allowEmptySend:NO
+                                                             select:YES]] mutableCopy];
+    if (type == SHKShareTypeURL) {
+        [result insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title] atIndex:0];
     }
-    
-    rootView.maxTextLength = 700;  
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:rootView animated:NO];
-	
-	[[SHK currentHelper] showViewController:self];	
+    return result;
 }
 
-- (void)show
-{
-    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL)
-	{
-		[self showSHKTextForm];
-	}
-}
-
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
 + (BOOL)canAutoShare
 {
     return NO;
 }
 
 #pragma mark -
-#pragma mark SHKCustomFormControllerLargeTextField delegate
-
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{	
-    if (self.item.shareType == SHKShareTypeURL) {
-        self.item.title = form.textView.text;
-    } else {
-       self.item.text = form.textView.text;
-    }
-	[self tryToSend];
-}
-
-#pragma mark -
 #pragma mark Implementation
-
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-- (BOOL)validateItem
-{ 
-    if (![super validateItem]) {
-        return NO;
-    }
-    
-    if (self.item.shareType == SHKShareTypeURL && self.item.title == nil) {
-        return NO;
-    };
-    
-    return YES;
-}
 
 // Send the share item to the server
 - (BOOL)send
 {	
-	if (![self validateItem])
-		return NO;
+	if (![self validateItem]) return NO;
 	
     // Determine which type of share to do
     if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL) // sharing a Text or URL
@@ -198,13 +139,8 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
         
         // TODO use more robust method to escape         
-        NSString *comment;
-        if (self.item.shareType == SHKShareTypeURL) {
-            comment =[[[[self.item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        } else {
-            comment =[[[[self.item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        }
-        
+        NSString *comment = [self sanitizeString:self.item.text];
+
         NSString *visibility = [self.item customValueForKey:SHKLinkedInVisibilityCodeKey];
         if (visibility == nil) {
             visibility = @"anyone";
@@ -212,8 +148,13 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         NSString *submittedUrl;
         if (self.item.shareType == SHKShareTypeURL) {
-            NSString *urlString = [[[[self.item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-            submittedUrl = [NSString stringWithFormat:@"<content><submitted-url>%@</submitted-url></content>", urlString];
+            
+            NSString *submittedTitle = @"";
+            if ([self.item.title length]) {
+                submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>",[self sanitizeString:self.item.title]];
+            }
+            NSString *urlString = [self sanitizeString:self.item.URL.absoluteString];
+            submittedUrl = [NSString stringWithFormat:@"<content>%@<submitted-url>%@</submitted-url></content>", submittedTitle, urlString];
         } else {
             submittedUrl = @"";
         }
@@ -246,6 +187,11 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     }
     
     return NO;
+}
+
+- (NSString *)sanitizeString:(NSString *)string {
+    
+    return [[[[string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 

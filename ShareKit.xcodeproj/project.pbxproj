@@ -98,6 +98,8 @@
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
+		7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */; };
+		7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A57618E17A8034900B38ACB /* SHKFormFieldCellTextLarge.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
 		7A8397431782CC9500E1F8B9 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A8397421782CC9500E1F8B9 /* Debug.h */; };
 		7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A83974A1782FBFB00E1F8B9 /* ShareKit.h */; };
@@ -139,6 +141,8 @@
 		7AB8051115AC7BCC004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
+		7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABDD99617A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h */; };
+		7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABDD99717A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m */; };
 		7AC28F0B165A21C2006D7441 /* libCopy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECD2162F0756009D46E4 /* libCopy.a */; };
 		7AC28F0C165A21C2006D7441 /* libDelicious.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED08162F0858009D46E4 /* libDelicious.a */; };
 		7AC28F0D165A21C2006D7441 /* libDiigo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED11162F087F009D46E4 /* libDiigo.a */; };
@@ -899,6 +903,8 @@
 		7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOSFacebook.m; sourceTree = "<group>"; };
 		7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
 		7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOS5Twitter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellTextLarge.h; sourceTree = "<group>"; };
+		7A57618E17A8034900B38ACB /* SHKFormFieldCellTextLarge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellTextLarge.m; sourceTree = "<group>"; };
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
 		7A8397421782CC9500E1F8B9 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		7A8397491782CF5400E1F8B9 /* SharersCommonHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharersCommonHeaders.h; sourceTree = "<group>"; };
@@ -943,6 +949,8 @@
 		7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellSwitch.m; sourceTree = "<group>"; };
 		7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellOptionPicker.h; sourceTree = "<group>"; };
 		7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellOptionPicker.m; sourceTree = "<group>"; };
+		7ABDD99617A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldLargeTextSettings.h; sourceTree = "<group>"; };
+		7ABDD99717A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldLargeTextSettings.m; sourceTree = "<group>"; };
 		7ABF7EDF17857D86000D7EF1 /* SuppressPerformSelectorWarning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuppressPerformSelectorWarning.h; sourceTree = "<group>"; };
 		7AC2A38C16597CCC0089ABE8 /* SHKSinaWeibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
 		7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
@@ -2127,6 +2135,8 @@
 				43A536F511DBE3B9004A1712 /* SHKFormFieldCell.m */,
 				7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */,
 				7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */,
+				7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */,
+				7A57618E17A8034900B38ACB /* SHKFormFieldCellTextLarge.m */,
 				7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */,
 				7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */,
 				7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */,
@@ -2135,6 +2145,8 @@
 				43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */,
 				7A0FB85D17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.h */,
 				7A0FB85E17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.m */,
+				7ABDD99617A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h */,
+				7ABDD99717A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m */,
 				AA511B7E14C893A10022332B /* SHKFormOptionController.h */,
 				AA511B7F14C893A10022332B /* SHKFormOptionController.m */,
 				43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */,
@@ -2805,6 +2817,8 @@
 				7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */,
 				7A0FB85F17A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.h in Headers */,
 				7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */,
+				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
+				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4104,6 +4118,8 @@
 				7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */,
 				7A0FB86017A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.m in Sources */,
 				7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */,
+				7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */,
+				7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

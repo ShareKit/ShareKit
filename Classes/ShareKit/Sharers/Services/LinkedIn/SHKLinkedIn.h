@@ -29,6 +29,6 @@
 
 extern NSString *SHKLinkedInVisibilityCodeKey;
 
-@interface SHKLinkedIn : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKLinkedIn : SHKOAuthSharer
 
 @end

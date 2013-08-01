@@ -108,15 +108,6 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	return SHKLocalizedString(@"Create a free account at %@", @"Readability.com");
 }
 
-+ (NSArray *)authorizationFormFields
-{
-	
-	return [NSArray arrayWithObjects:
-			  [SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
-			  [SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			  nil];
-}
-
 - (FormControllerCallback)authorizationFormValidate
 {
 	__weak typeof(self) weakSelf = self;

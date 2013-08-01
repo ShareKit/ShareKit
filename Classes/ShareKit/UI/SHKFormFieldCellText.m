@@ -46,7 +46,7 @@
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.font = [UIFont systemFontOfSize:17];
     self.textField.textColor = [UIColor darkGrayColor];
-    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textField.delegate = self;
     [self.contentView addSubview:self.textField];
     
