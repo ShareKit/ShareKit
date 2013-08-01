@@ -9,6 +9,7 @@
 #import "SHKFormFieldCellTextLarge.h"
 #import "SHKFormFieldCell_PrivateProperties.h"
 #import "SHKFormFieldLargeTextSettings.h"
+#import "SSTextView.h"
 
 #define SHK_FORM_CELL_PAD_TOP 7
 #define SHK_FORM_CELL_PAD_BOTTOM 28
@@ -19,7 +20,7 @@
 
 @interface SHKFormFieldCellTextLarge ()
 
-@property (weak, nonatomic) UITextView *textView;
+@property (weak, nonatomic) SSTextView *textView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *counter;
 
@@ -31,7 +32,7 @@
 
 - (void)setupLayout {
     
-    UITextView *textView = [[UITextView alloc] initWithFrame:[self frameForTextview]];
+    SSTextView *textView = [[SSTextView alloc] initWithFrame:[self frameForTextview]];
     textView.delegate = self;
     textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     textView.contentInset = UIEdgeInsetsMake(-8, 0, 0, 0);
@@ -72,6 +73,7 @@
     [super setupWithSettings:settings];
     
     self.textView.text = settings.displayValue;
+    self.textView.placeholder = settings.label;
     [self updateCounter];
 }
 

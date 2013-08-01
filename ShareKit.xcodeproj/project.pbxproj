@@ -38,6 +38,8 @@
 		7A0FB86017A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FB85E17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.m */; };
 		7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0FB86617A644AF00B88C87 /* NSArray+JoinValues.h */; };
 		7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */; };
+		7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A107CA717AA419B009A7F0E /* SSTextView.h */; };
+		7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A107CA817AA419C009A7F0E /* SSTextView.m */; };
 		7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
 		7A16F380161341570019645D /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		7A16F381161341570019645D /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
@@ -855,6 +857,8 @@
 		7A0FB85E17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldOptionPickerSettings.m; sourceTree = "<group>"; };
 		7A0FB86617A644AF00B88C87 /* NSArray+JoinValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JoinValues.h"; sourceTree = "<group>"; };
 		7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JoinValues.m"; sourceTree = "<group>"; };
+		7A107CA717AA419B009A7F0E /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTextView.h; path = Submodules/sstoolkit/SSToolkit/SSTextView.h; sourceTree = SOURCE_ROOT; };
+		7A107CA817AA419C009A7F0E /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTextView.m; path = Submodules/sstoolkit/SSToolkit/SSTextView.m; sourceTree = SOURCE_ROOT; };
 		7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellText.h; sourceTree = "<group>"; };
 		7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellText.m; sourceTree = "<group>"; };
 		7A16F37E161340DD0019645D /* libOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1921,6 +1925,7 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7A107CA117AA4169009A7F0E /* SSToolkit */,
 				7AEAC53C178DA34F0032B0AA /* Declarations */,
 				43A5367C11DBE3B9004A1712 /* Keychain */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
@@ -2223,6 +2228,15 @@
 				7A0F9250156BA5F3009CB40A /* NSData+LFHTTPFormExtensions.m */,
 			);
 			name = LFWebAPIKit;
+			sourceTree = "<group>";
+		};
+		7A107CA117AA4169009A7F0E /* SSToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				7A107CA717AA419B009A7F0E /* SSTextView.h */,
+				7A107CA817AA419C009A7F0E /* SSTextView.m */,
+			);
+			name = SSToolkit;
 			sourceTree = "<group>";
 		};
 		7A16F3AC16134A5D0019645D /* Instagram */ = {
@@ -2819,6 +2833,7 @@
 				7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */,
 				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
+				7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4120,6 +4135,7 @@
 				7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */,
 				7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */,
 				7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */,
+				7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
