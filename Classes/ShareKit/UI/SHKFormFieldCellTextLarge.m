@@ -11,7 +11,6 @@
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SSTextView.h"
 #import "UIImage+OurBundle.h"
-#import <QuartzCore/QuartzCore.h>
 
 #define SHK_FORM_TEXT_PAD_TOP 7
 #define SHK_FORM_TEXT_PAD_BOTTOM 28
@@ -60,8 +59,10 @@
     [self.contentView addSubview:counter];
     self.counter = counter;
     
-    UIImage *image = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
+    UIImage *image = [self thumbnailImage];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
+    imageView.clipsToBounds = YES;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     CGPoint imageViewCenter = CGPointMake(self.contentView.bounds.size.width - imageView.frame.size.width/2 - SHK_FORM_PHOTO_PAD_RIGHT, self.contentView.bounds.size.height - imageView.frame.size.height/2 - SHK_FORM_TEXT_PAD_TOP - SHK_FORM_TEXT_PAD_BOTTOM + SHK_FORM_PHOTO_PAD_TOP);
     imageView.center = imageViewCenter;
@@ -71,7 +72,7 @@
     UIImage *clip = [UIImage imageNamedFromOurBundle:@"DETweetPaperClip.png"];
     UIImageView *clipView = [[UIImageView alloc] initWithImage:clip];
     clipView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    clipView.center = CGPointMake(self.clippedImageView.center.x + 8, self.clippedImageView.center.y - 35) ;
+    clipView.center = CGPointMake(self.clippedImageView.center.x + 9, self.clippedImageView.center.y - 35) ;
     [self.contentView addSubview:clipView];
     self.clipImageView = clipView;    
     
@@ -85,6 +86,18 @@
                               SHK_FORM_TEXT_PAD_TOP,
                               self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT/4 - SHK_FORM_CELL_PAD_LEFT/4 - photoWidth,
                               self.contentView.bounds.size.height - SHK_FORM_TEXT_PAD_TOP - SHK_FORM_TEXT_PAD_BOTTOM);
+    return result;
+}
+
+- (UIImage *)thumbnailImage {
+    
+    UIImage *result;
+    
+    if (self.settings.image) {
+        result = self.settings.image;
+    } else {
+        result = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
+    }
     return result;
 }
 
@@ -106,6 +119,7 @@
     } else {
         self.clippedImageView.hidden = NO;
         self.clipImageView.hidden = NO;
+        self.clippedImageView.image = [self thumbnailImage];
     }
     self.textView.frame = [self frameForTextview];
 }
