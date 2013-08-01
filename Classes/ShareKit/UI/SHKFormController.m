@@ -182,6 +182,15 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //to allow clip overlap neighbouring cell
+    BOOL isLargeTextCell = [(SHKFormFieldCellTextLarge *)cell settings].type == SHKFormFieldTypeTextLarge;
+    if (isLargeTextCell) {
+        [self.tableView bringSubviewToFront:cell];
+    }
+}
+
 #pragma mark -
 #pragma mark Table view data source
 

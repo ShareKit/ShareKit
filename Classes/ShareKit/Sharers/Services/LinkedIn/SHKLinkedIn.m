@@ -101,7 +101,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
                                                       maxTextLength:700
                                                               image:nil
                                                     imageTextLength:0
-                                                            hasLink:NO
+                                                             hasLink:self.item.URL ? YES : NO
                                                      allowEmptySend:NO
                                                              select:YES],
                               [SHKFormFieldSettings label:SHKLocalizedString(@"Public")

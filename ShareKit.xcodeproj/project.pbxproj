@@ -40,6 +40,12 @@
 		7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */; };
 		7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A107CA717AA419B009A7F0E /* SSTextView.h */; };
 		7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A107CA817AA419C009A7F0E /* SSTextView.m */; };
+		7A107CE417AA4E7A009A7F0E /* DETweetPaperClip.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */; };
+		7A107CE517AA4E7A009A7F0E /* DETweetPaperClip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */; };
+		7A107CE617AA4E7A009A7F0E /* DETweetURLAttachment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */; };
+		7A107CE717AA4E7A009A7F0E /* DETweetURLAttachment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CE117AA4E79009A7F0E /* DETweetURLAttachment@2x.png */; };
+		7A107CEB17AA5674009A7F0E /* UIImage+OurBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A107CE917AA5674009A7F0E /* UIImage+OurBundle.h */; };
+		7A107CEC17AA5674009A7F0E /* UIImage+OurBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A107CEA17AA5674009A7F0E /* UIImage+OurBundle.m */; };
 		7A164DC5157662ED00D55DB4 /* SHKFormFieldCellText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */; };
 		7A16F380161341570019645D /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		7A16F381161341570019645D /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B5156CD8A70011E15F /* hmac.c */; };
@@ -859,6 +865,12 @@
 		7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JoinValues.m"; sourceTree = "<group>"; };
 		7A107CA717AA419B009A7F0E /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTextView.h; path = Submodules/sstoolkit/SSToolkit/SSTextView.h; sourceTree = SOURCE_ROOT; };
 		7A107CA817AA419C009A7F0E /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTextView.m; path = Submodules/sstoolkit/SSToolkit/SSTextView.m; sourceTree = SOURCE_ROOT; };
+		7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DETweetPaperClip.png; path = ../DETweetPaperClip.png; sourceTree = "<group>"; };
+		7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DETweetPaperClip@2x.png"; path = "../DETweetPaperClip@2x.png"; sourceTree = "<group>"; };
+		7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DETweetURLAttachment.png; path = ../DETweetURLAttachment.png; sourceTree = "<group>"; };
+		7A107CE117AA4E79009A7F0E /* DETweetURLAttachment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DETweetURLAttachment@2x.png"; path = "../DETweetURLAttachment@2x.png"; sourceTree = "<group>"; };
+		7A107CE917AA5674009A7F0E /* UIImage+OurBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OurBundle.h"; sourceTree = "<group>"; };
+		7A107CEA17AA5674009A7F0E /* UIImage+OurBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+OurBundle.m"; sourceTree = "<group>"; };
 		7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellText.h; sourceTree = "<group>"; };
 		7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellText.m; sourceTree = "<group>"; };
 		7A16F37E161340DD0019645D /* libOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1918,6 +1930,8 @@
 				7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */,
 				7A0FB86617A644AF00B88C87 /* NSArray+JoinValues.h */,
 				7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */,
+				7A107CE917AA5674009A7F0E /* UIImage+OurBundle.h */,
+				7A107CEA17AA5674009A7F0E /* UIImage+OurBundle.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2127,6 +2141,7 @@
 		43A536ED11DBE3B9004A1712 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				7A107CE817AA4EC8009A7F0E /* graphics */,
 				43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */,
 				43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */,
 				43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */,
@@ -2237,6 +2252,17 @@
 				7A107CA817AA419C009A7F0E /* SSTextView.m */,
 			);
 			name = SSToolkit;
+			sourceTree = "<group>";
+		};
+		7A107CE817AA4EC8009A7F0E /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */,
+				7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */,
+				7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */,
+				7A107CE117AA4E79009A7F0E /* DETweetURLAttachment@2x.png */,
+			);
+			name = graphics;
 			sourceTree = "<group>";
 		};
 		7A16F3AC16134A5D0019645D /* Instagram */ = {
@@ -2834,6 +2860,7 @@
 				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
 				7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */,
+				7A107CEB17AA5674009A7F0E /* UIImage+OurBundle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4082,6 +4109,10 @@
 				7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */,
 				7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */,
 				94CC29071745399800C31CD8 /* BufferSDKResources.bundle in Resources */,
+				7A107CE417AA4E7A009A7F0E /* DETweetPaperClip.png in Resources */,
+				7A107CE517AA4E7A009A7F0E /* DETweetPaperClip@2x.png in Resources */,
+				7A107CE617AA4E7A009A7F0E /* DETweetURLAttachment.png in Resources */,
+				7A107CE717AA4E7A009A7F0E /* DETweetURLAttachment@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4136,6 +4167,7 @@
 				7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */,
 				7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */,
 				7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */,
+				7A107CEC17AA5674009A7F0E /* UIImage+OurBundle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,19 +10,24 @@
 #import "SHKFormFieldCell_PrivateProperties.h"
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SSTextView.h"
+#import "UIImage+OurBundle.h"
+#import <QuartzCore/QuartzCore.h>
 
-#define SHK_FORM_CELL_PAD_TOP 7
-#define SHK_FORM_CELL_PAD_BOTTOM 28
-#define SHK_FORM_CELL_PAD_PHOTO_WIDTH 44
+#define SHK_FORM_TEXT_PAD_TOP 7
+#define SHK_FORM_TEXT_PAD_BOTTOM 28
 
-#define SHK_FORM_CELL_COUNTER_WIDTH 40
-#define SHK_FORM_CELL_COUNTER_HEIGHT 20
+#define SHK_FORM_COUNTER_WIDTH 40
+#define SHK_FORM_COUNTER_HEIGHT 20
+
+#define SHK_FORM_PHOTO_PAD_RIGHT 5
+#define SHK_FORM_PHOTO_PAD_TOP 1
 
 @interface SHKFormFieldCellTextLarge ()
 
 @property (weak, nonatomic) SSTextView *textView;
-@property (strong, nonatomic) UIImageView *imageView;
-@property (nonatomic, strong) UILabel *counter;
+@property (weak, nonatomic) UILabel *counter;
+@property (weak, nonatomic) UIImageView *clippedImageView;
+@property (weak, nonatomic) UIImageView *clipImageView;
 
 @property (strong, nonatomic) SHKFormFieldLargeTextSettings *settings;
 
@@ -42,9 +47,9 @@
     [self.contentView addSubview:textView];
     self.textView = textView;
     
-    CGRect counterRect = CGRectMake(self.contentView.frame.size.width - SHK_FORM_CELL_COUNTER_WIDTH - SHK_FORM_CELL_PAD_RIGHT,
-                                    self.contentView.frame.size.height - SHK_FORM_CELL_COUNTER_HEIGHT - SHK_FORM_CELL_PAD_TOP,
-                                    SHK_FORM_CELL_COUNTER_WIDTH, SHK_FORM_CELL_COUNTER_HEIGHT);
+    CGRect counterRect = CGRectMake(self.contentView.frame.size.width - SHK_FORM_COUNTER_WIDTH - SHK_FORM_CELL_PAD_RIGHT,
+                                    self.contentView.frame.size.height - SHK_FORM_COUNTER_HEIGHT - SHK_FORM_TEXT_PAD_TOP,
+                                    SHK_FORM_COUNTER_WIDTH, SHK_FORM_COUNTER_HEIGHT);
         
     UILabel *counter = [[UILabel alloc] initWithFrame:counterRect];
     counter.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
@@ -55,16 +60,31 @@
     [self.contentView addSubview:counter];
     self.counter = counter;
     
+    UIImage *image = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    CGPoint imageViewCenter = CGPointMake(self.contentView.bounds.size.width - imageView.frame.size.width/2 - SHK_FORM_PHOTO_PAD_RIGHT, self.contentView.bounds.size.height - imageView.frame.size.height/2 - SHK_FORM_TEXT_PAD_TOP - SHK_FORM_TEXT_PAD_BOTTOM + SHK_FORM_PHOTO_PAD_TOP);
+    imageView.center = imageViewCenter;
+    [self.contentView addSubview:imageView];
+    self.clippedImageView = imageView;
+        
+    UIImage *clip = [UIImage imageNamedFromOurBundle:@"DETweetPaperClip.png"];
+    UIImageView *clipView = [[UIImageView alloc] initWithImage:clip];
+    clipView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    clipView.center = CGPointMake(self.clippedImageView.center.x + 8, self.clippedImageView.center.y - 35) ;
+    [self.contentView addSubview:clipView];
+    self.clipImageView = clipView;    
+    
     [super setupLayout];
 }
 
 - (CGRect)frameForTextview {
     
-    CGFloat photoWidth = self.settings.image ? SHK_FORM_CELL_PAD_PHOTO_WIDTH : 0;
+    CGFloat photoWidth = self.settings.image || self.settings.hasLink ? self.clippedImageView.frame.size.width : 0;
     CGRect result = CGRectMake(SHK_FORM_CELL_PAD_RIGHT/4,
-                              SHK_FORM_CELL_PAD_TOP,
+                              SHK_FORM_TEXT_PAD_TOP,
                               self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT/4 - SHK_FORM_CELL_PAD_LEFT/4 - photoWidth,
-                              self.contentView.bounds.size.height - SHK_FORM_CELL_PAD_TOP - SHK_FORM_CELL_PAD_BOTTOM);
+                              self.contentView.bounds.size.height - SHK_FORM_TEXT_PAD_TOP - SHK_FORM_TEXT_PAD_BOTTOM);
     return result;
 }
 
@@ -74,7 +94,20 @@
     
     self.textView.text = settings.displayValue;
     self.textView.placeholder = settings.label;
+    [self checkClipImage];
     [self updateCounter];
+}
+
+- (void)checkClipImage {
+    
+    if (!self.settings.image && !self.settings.hasLink) {
+        self.clippedImageView.hidden = YES;
+        self.clipImageView.hidden = YES;
+    } else {
+        self.clippedImageView.hidden = NO;
+        self.clipImageView.hidden = NO;
+    }
+    self.textView.frame = [self frameForTextview];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
