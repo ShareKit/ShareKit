@@ -151,7 +151,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
                                                                                   }];
 
         self.isLoadingUserInfo = YES;
-        return nil;
+        return nil; //means continue silently. In send method if isLoadingUserInfo escapes without sending anything.
     }
     
     if (self.item.shareType == SHKShareTypeURL)
