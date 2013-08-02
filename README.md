@@ -5,10 +5,11 @@ In order to make it easier for new users to choose a canonical fork of ShareKit,
 
 Highlights:
 
-* new sharers (FourSquare, LinkedIn, VKontakte, ...)
-* you can use iOS native social.framework based sharers
-* many other improvements, mostly stability and memory issues
+* many new sharers
+* new UI (currently used by Facebook, Plurk and LinkedIn, more to follow)
+* iOS native social.framework based sharers
 * optimised for easy updating (subproject library + 3rd party code as git submodules)
+* uses ARC and block callbacks
 
 You can follow the initial planning at https://github.com/ideashower/ShareKit/issues/283.
 
