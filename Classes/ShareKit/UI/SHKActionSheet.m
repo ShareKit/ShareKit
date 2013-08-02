@@ -34,46 +34,72 @@
 
 #import <Foundation/NSObjCRuntime.h>
 
+@interface SHKActionSheet ()
+
+@property (strong) NSMutableArray *sharers;
+@property (strong) SHKItem *item;
+
+@end
+
 @implementation SHKActionSheet
 
+- (id)initWithItem:(SHKItem *)item {
+    
+    self = [super initWithTitle:SHKLocalizedString(@"Share")
+                       delegate:nil
+              cancelButtonTitle:nil
+         destructiveButtonTitle:nil
+              otherButtonTitles:nil, nil];
+    
+    if (self) {
+        _item = item;
+    }
+    return self;
+}
 
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)item
 {
-	SHKActionSheet *as = [[SHKCONFIG(SHKActionSheetSubclass) alloc] initWithTitle:SHKLocalizedString(@"Share")
-													  delegate:nil
-											 cancelButtonTitle:nil
-										destructiveButtonTitle:nil
-											 otherButtonTitles:nil];
+	SHKActionSheet *as = [[SHKActionSheet alloc] initWithItem:item];
 	as.delegate = as;
-	as.item = item;
-	
-	as.sharers = [NSMutableArray arrayWithCapacity:0];
-	NSArray *favoriteSharers = [SHK favoriteSharersForItem:item];
-		
+	as.sharers = [as sharersToShow];
+    [as populateButtons];
+    return as;
+}
+
+- (NSMutableArray *)sharersToShow {
+    
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:0];
+	NSArray *favoriteSharers = [SHK favoriteSharersForItem:self.item];
+    
 	// Add buttons for each favorite sharer
 	id class;
 	for(NSString *sharerId in favoriteSharers)
 	{
 		//Do not add buttons for sharers, which are not able to share item
         class = NSClassFromString(sharerId);
-		if ([class canShare] && [class canShareItem:item])
+		if ([class canShare] && [class canShareItem:self.item])
 		{
-			[as addButtonWithTitle: [class sharerTitle] ];
-			[as.sharers addObject:sharerId];
+			[result addObject:sharerId];
 		}
 	}
-	
+    return result;    
+}
+
+- (void)populateButtons {
+    
+    for (NSString *sharerId in self.sharers) {
+        [self addButtonWithTitle: [NSClassFromString(sharerId) sharerTitle]];
+    }
+    
 	if([SHKCONFIG(showActionSheetMoreButton) boolValue])
 	{
 		// Add More button
-		[as addButtonWithTitle:SHKLocalizedString(@"More...")];
+		[self addButtonWithTitle:SHKLocalizedString(@"More...")];
 	}
 	
 	// Add Cancel button
-	[as addButtonWithTitle:SHKLocalizedString(@"Cancel")];
-	as.cancelButtonIndex = as.numberOfButtons -1;
-	
-	return as;
+	[self addButtonWithTitle:SHKLocalizedString(@"Cancel")];
+	self.cancelButtonIndex = self.numberOfButtons -1;
 }
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated

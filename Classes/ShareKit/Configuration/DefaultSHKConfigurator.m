@@ -453,10 +453,6 @@
  check out http://getsharekit.com/customize. To use a subclass, you can create your own, and let ShareKit know about it in your configurator, overriding one (or more) of these methods.
  */
 
-- (Class)SHKActionSheetSubclass {    
-    return NSClassFromString(@"SHKActionSheet");
-}
-
 - (Class)SHKShareMenuSubclass {    
     return NSClassFromString(@"SHKShareMenu");
 }
