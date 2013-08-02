@@ -54,4 +54,7 @@
  */
 - (id)initWithFileData:(NSData *)data filename:(NSString *)filename;
 
+//if has path, it is path extension, if has data it is mime type to avoid saving data
+- (NSString *)extension;
+
 @end

@@ -95,15 +95,16 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
     NSMutableArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                key:@"text"
-                                                               type:SHKFormFieldTypeTextLarge
-                                                              start:self.item.text
-                                                      maxTextLength:700
-                                                              image:nil
-                                                    imageTextLength:0
-                                                             hasLink:self.item.URL ? YES : NO
-                                                     allowEmptySend:NO
-                                                             select:YES],
+                                                                 key:@"text"
+                                                                type:SHKFormFieldTypeTextLarge
+                                                               start:self.item.text
+                                                       maxTextLength:700
+                                                               image:nil
+                                                     imageTextLength:0
+                                                                link:self.item.URL
+                                                                file:self.item.file
+                                                      allowEmptySend:NO
+                                                              select:YES],
                               [SHKFormFieldSettings label:SHKLocalizedString(@"Public")
                                                       key:SHKLinkedInVisibilityCodeKey
                                                      type:SHKFormFieldTypeSwitch

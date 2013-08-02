@@ -188,7 +188,8 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
                                                maxTextLength:210
                                                        image:self.item.image
                                              imageTextLength:0
-                                                     hasLink:self.item.URL ? YES : NO
+                                                        link:self.item.URL
+                                                        file:self.item.file
                                               allowEmptySend:NO
                                                       select:YES],
                         

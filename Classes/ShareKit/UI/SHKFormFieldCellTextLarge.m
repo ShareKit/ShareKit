@@ -11,6 +11,7 @@
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SSTextView.h"
 #import "UIImage+OurBundle.h"
+#import "SHKFile.h"
 
 #define SHK_FORM_TEXT_PAD_TOP 7
 #define SHK_FORM_TEXT_PAD_BOTTOM 28
@@ -21,12 +22,15 @@
 #define SHK_FORM_PHOTO_PAD_RIGHT 5
 #define SHK_FORM_PHOTO_PAD_TOP 1
 
+#define SHK_FORM_EXTENSION_PAD 15
+
 @interface SHKFormFieldCellTextLarge ()
 
 @property (weak, nonatomic) SSTextView *textView;
 @property (weak, nonatomic) UILabel *counter;
 @property (weak, nonatomic) UIImageView *clippedImageView;
 @property (weak, nonatomic) UIImageView *clipImageView;
+@property (weak, nonatomic) UILabel *fileExtension;
 
 @property (strong, nonatomic) SHKFormFieldLargeTextSettings *settings;
 
@@ -74,14 +78,29 @@
     clipView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     clipView.center = CGPointMake(self.clippedImageView.center.x + 9, self.clippedImageView.center.y - 35) ;
     [self.contentView addSubview:clipView];
-    self.clipImageView = clipView;    
+    self.clipImageView = clipView;
+    
+    CGRect extensionFrame = CGRectMake(CGRectGetMinX(self.clippedImageView.frame) + SHK_FORM_EXTENSION_PAD,
+                                       CGRectGetMinY(self.clippedImageView.frame) + CGRectGetWidth(self.clippedImageView.frame)/2,
+                                       CGRectGetWidth(self.clippedImageView.frame) - SHK_FORM_EXTENSION_PAD*2,
+                                       CGRectGetHeight(self.clippedImageView.frame)/2);
+    UILabel *extension = [[UILabel alloc] initWithFrame:extensionFrame];
+    extension.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+    extension.textAlignment = UITextAlignmentCenter;
+    extension.text = [self extension];
+    extension.backgroundColor = [UIColor clearColor];
+    extension.textColor = [UIColor darkGrayColor];
+    extension.font = [UIFont systemFontOfSize:13];
+    extension.adjustsFontSizeToFitWidth = YES;
+    [self.contentView addSubview:extension];
+    self.fileExtension = extension;    
     
     [super setupLayout];
 }
 
 - (CGRect)frameForTextview {
     
-    CGFloat photoWidth = self.settings.image || self.settings.hasLink ? self.clippedImageView.frame.size.width : 0;
+    CGFloat photoWidth = self.settings.image || self.settings.url || self.settings.file ? self.clippedImageView.frame.size.width : 0;
     CGRect result = CGRectMake(SHK_FORM_CELL_PAD_RIGHT/4,
                               SHK_FORM_TEXT_PAD_TOP,
                               self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT/4 - SHK_FORM_CELL_PAD_LEFT/4 - photoWidth,
@@ -95,31 +114,52 @@
     
     if (self.settings.image) {
         result = self.settings.image;
+    } else if (self.settings.file) {
+        result = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
     } else {
         result = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
+
     }
     return result;
 }
 
-- (void)setupWithSettings:(SHKFormFieldSettings *)settings {
+- (NSString *)extension {
+    
+    NSString *extension = [self.settings.file extension];
+    NSRange rangeOfDash = [extension rangeOfString:@"/"];
+    BOOL isMimeType = rangeOfDash.location != NSNotFound;
+    
+    NSString *result;
+    if (isMimeType) {
+        result = [extension substringWithRange:NSMakeRange(rangeOfDash.location+1, [extension length] - rangeOfDash.location - 1)];
+    } else {
+        result = [[NSString alloc] initWithFormat:@".%@", [self.settings.file extension]];
+    }
+    return result;
+}
+
+- (void)setupWithSettings:(SHKFormFieldLargeTextSettings *)settings {
     
     [super setupWithSettings:settings];
     
     self.textView.text = settings.displayValue;
     self.textView.placeholder = settings.label;
+    self.fileExtension.text = [self extension];
     [self checkClipImage];
     [self updateCounter];
 }
 
 - (void)checkClipImage {
     
-    if (!self.settings.image && !self.settings.hasLink) {
+    if (!self.settings.image && !self.settings.url && !self.settings.file) {
         self.clippedImageView.hidden = YES;
         self.clipImageView.hidden = YES;
+        self.fileExtension.hidden = YES;
     } else {
         self.clippedImageView.hidden = NO;
-        self.clipImageView.hidden = NO;
         self.clippedImageView.image = [self thumbnailImage];
+        self.clipImageView.hidden = NO;
+        self.fileExtension.hidden = NO;
     }
     self.textView.frame = [self frameForTextview];
 }

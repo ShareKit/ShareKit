@@ -181,6 +181,8 @@
 		7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */; };
 		7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */; };
 		7AD9861E16E78D730052A5B8 /* NSData+SaveItemAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */; };
+		7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */; };
+		7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */; };
 		7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */; };
 		7AE8DC7D165B549B004D99D2 /* DummyLibFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */; };
 		7AECF2F9171D4D8C000722FA /* GTMLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AECF2F7171D4D8C000722FA /* GTMLogger.h */; };
@@ -973,6 +975,8 @@
 		7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSina Weibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SaveItemAttachment.h"; sourceTree = "<group>"; };
 		7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SaveItemAttachment.m"; sourceTree = "<group>"; };
+		7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SHKShareFileIcon.png; path = Classes/ShareKit/SHKShareFileIcon.png; sourceTree = SOURCE_ROOT; };
+		7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SHKShareFileIcon@2x.png"; path = "Classes/ShareKit/SHKShareFileIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyLibFile.h; path = ShareKitLibrary/DummyLibFile.h; sourceTree = "<group>"; };
 		7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyLibFile.m; path = ShareKitLibrary/DummyLibFile.m; sourceTree = "<group>"; };
 		7AEAC536178DA3340032B0AA /* FormControllerCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormControllerCallback.h; sourceTree = "<group>"; };
@@ -2257,6 +2261,8 @@
 		7A107CE817AA4EC8009A7F0E /* graphics */ = {
 			isa = PBXGroup;
 			children = (
+				7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */,
+				7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */,
 				7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */,
 				7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */,
 				7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */,
@@ -4113,6 +4119,8 @@
 				7A107CE517AA4E7A009A7F0E /* DETweetPaperClip@2x.png in Resources */,
 				7A107CE617AA4E7A009A7F0E /* DETweetURLAttachment.png in Resources */,
 				7A107CE717AA4E7A009A7F0E /* DETweetURLAttachment@2x.png in Resources */,
+				7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */,
+				7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

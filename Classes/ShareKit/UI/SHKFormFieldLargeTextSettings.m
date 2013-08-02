@@ -17,15 +17,17 @@
                            maxTextLength:(NSUInteger)maxTextLength
                                    image:(UIImage *)image
                          imageTextLength:(NSUInteger)imageTextLength
-                                 hasLink:(BOOL)hasLink
+                                    link:(NSURL *)url
+                                    file:(SHKFile *)file
                           allowEmptySend:(BOOL)allowEmpty
                                   select:(BOOL)select {
-    
+
     SHKFormFieldLargeTextSettings *result = [[SHKFormFieldLargeTextSettings alloc] initWithLabel:l key:k type:t start:s];
     result.maxTextLength = maxTextLength;
     result.image = image;
     result.imageTextLength = imageTextLength;
-    result.hasLink = hasLink;
+    result.url = url;
+    result.file = file;
     result.allowSendingEmptyMessage = allowEmpty;
     result.select = select;
     
@@ -35,7 +37,7 @@
 - (BOOL)isValid {
     
     BOOL emptyCriterium = self.allowSendingEmptyMessage || [self.valueToSave length] > 0;
-    BOOL maxTextLenCriterium = [self.valueToSave length] <= self.maxTextLength;
+    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength;
     
     if (emptyCriterium && maxTextLenCriterium) {
         return YES;
