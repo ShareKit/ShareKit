@@ -28,12 +28,10 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
 
-@interface SHKFacebook : SHKSharer <SHKFormControllerLargeTextFieldDelegate>{
-	NSMutableSet* pendingConnections;	// use a set so that connections can only be added once
-}
-@property (readonly,strong) NSMutableSet* pendingConnections; // sub classes can use the set
+@interface SHKFacebook : SHKSharer
+
+@property (readonly,strong) NSMutableSet* pendingConnections; // sub classes can use the set. use a set so that connections can only be added once
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 + (void)handleDidBecomeActive;
