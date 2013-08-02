@@ -264,11 +264,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     return YES;
 }
 
-+ (BOOL)canAutoShare
-{
-	return NO;
-}
-
 #pragma mark -
 #pragma mark Authentication
 
@@ -300,30 +295,35 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark Share Form
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-    NSString *text = nil;
+    NSString *text;
+    NSString *key;
     BOOL allowEmptyMessage = NO;
     
     switch (self.item.shareType) {
         case SHKShareTypeText:
             text = self.item.text;
+            key = @"text";
             break;
         case SHKShareTypeImage:
             text = self.item.title;
+            key = @"title";
             allowEmptyMessage = YES;
             break;
         case SHKShareTypeURL:
             text = self.item.text;
+            key = @"text";
             allowEmptyMessage = YES;
             break;
         case SHKShareTypeFile:
-            text = self.item.title;
+            text = self.item.text;
+            key = @"text";
             break;
         default:
             return nil;
     }
     
     NSMutableArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                 key:@"text"
+                                                                 key:key
                                                                 type:SHKFormFieldTypeTextLarge
                                                                start:text
                                                        maxTextLength:0
@@ -334,7 +334,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                       allowEmptySend:allowEmptyMessage
                                                               select:YES]] mutableCopy];
     
-    if (self.item.shareType == SHKShareTypeURL) {
+    if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeFile) {
         SHKFormFieldSettings *title = [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
         [result insertObject:title atIndex:0];
     }
@@ -561,10 +561,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	else if (self.item.shareType == SHKShareTypeImage)
 	{
-		/*if (self.item.title)
+        /*if (self.item.title)
 			[params setObject:self.item.title forKey:@"caption"];*/ //caption apparently does not work
-		if (self.item.text)
-			[params setObject:self.item.text forKey:@"message"];
+		if (self.item.title)
+			[params setObject:self.item.title forKey:@"message"];
 		[params setObject:self.item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo
 		// via the dialog option:
@@ -587,7 +587,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             }
             
             if (self.item.title)
-                [params setObject:self.item.title forKey:@"name"];
+                [params setObject:self.item.title forKey:@"title"];
             if (self.item.text)
                 [params setObject:self.item.text forKey:@"description"];
             
