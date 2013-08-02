@@ -500,7 +500,7 @@
 /* 
  Debugging settings
  ------------------
- see DefaultSHKConfigurator.h
+ see Debug.h
  */
 
 /*
