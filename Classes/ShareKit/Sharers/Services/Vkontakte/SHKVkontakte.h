@@ -35,7 +35,7 @@ static NSString *const kSHKVkontakteExpiryDateKey=@"kSHKVkontakteExpiryDate";
 static NSString *const kSHKVkontakteAccessCodeKey=@"kSHKVkontakteAccessCode";
 static NSString *const kSHKVkonakteUserInfo=@"kSHKVkontakteUserInfo";
 
-@interface SHKVkontakte : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKVkontakte : SHKSharer
 
 - (void)authComplete;
 

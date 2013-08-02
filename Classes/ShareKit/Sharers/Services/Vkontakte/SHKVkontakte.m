@@ -40,7 +40,6 @@
 - (void)getAccessCode;
 
 - (void)getUserInfo;
-- (void)showVkontakteForm;
 - (void)getCaptcha;
 - (void)sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha;
 - (void) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha completion:(RequestCallback)completion;
@@ -130,15 +129,6 @@
 
 + (BOOL)canShareFile:(SHKFile *)file {
     return YES;
-}
-
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare
-{
-	return NO;
 }
 
 #pragma mark -
@@ -318,39 +308,50 @@
     return YES;
 }
 
-#pragma mark -	
-#pragma mark UI Implementation
-
-- (void)show
+#pragma mark -
+#pragma mark Share Form
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	if (self.item.shareType == SHKShareTypeText)        
-	{
-		[self showVkontakteForm];
-	}
- 	else
-	{
-		[self tryToSend];
-	}
-}
-
-- (void)showVkontakteForm
-{
- 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+    NSString *text;
+    NSString *key;
+    BOOL allowEmptyMessage = NO;
     
- 	rootView.text = self.item.text;
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
- 	[self pushViewController:rootView animated:NO];
-	[[SHK currentHelper] showViewController:self];  
+    switch (self.item.shareType) {
+        case SHKShareTypeText:
+            text = self.item.text;
+            key = @"text";
+            break;
+        case SHKShareTypeImage:
+            text = self.item.title;
+            key = @"title";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeURL:
+            text = self.item.text;
+            key = @"text";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeFile:
+            text = self.item.title;
+            key = @"title";
+            break;
+        default:
+            return nil;
+    }
+        
+    NSArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                          key:key
+                                                         type:SHKFormFieldTypeTextLarge
+                                                        start:text
+                                                maxTextLength:0
+                                                        image:self.item.image
+                                              imageTextLength:0
+                                                         link:self.item.URL
+                                                         file:self.item.file
+                                               allowEmptySend:NO
+                                                       select:YES]] mutableCopy];
+    return result;
 }
-
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{  
- 	self.item.text = form.textView.text;
- 	[self tryToSend];
-}
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////
 //
