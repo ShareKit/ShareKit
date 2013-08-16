@@ -50,8 +50,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 @implementation SHKTwitter
 
-@synthesize xAuth;
-
 - (id)init
 {
 	if (self = [super init])
@@ -214,7 +212,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		return;
 	}
 	
-	if (xAuth)
+	if (self.xAuth)
 		[super authorizationFormShow]; // xAuth process
 	
 	else
@@ -260,7 +258,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {	
-	if (xAuth)
+	if (self.xAuth)
 	{
 		NSDictionary *formValues = [self.pendingForm formValues];
 		
@@ -287,7 +285,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	if (xAuth) 
+	if (self.xAuth)
 	{
 		if (ticket.didSucceed)
 		{
@@ -312,39 +310,25 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 #pragma mark -
 #pragma mark UI Implementation
 
-- (void)show
-{
-    if (self.item.shareType == SHKShareTypeUserInfo)
-	{
-		[self setQuiet:YES];
-		[self tryToSend];
-	}
-    else
-    {
-        [self showTwitterForm];
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+    
+    if (type == SHKShareTypeUserInfo) {
+        self.quiet = YES;
+        return nil;
     }
-}
-
-- (void)showTwitterForm
-{
-	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-	rootView.text = [self.item customValueForKey:@"status"];
-	rootView.maxTextLength = 140;
-	rootView.image = self.item.image;
-	rootView.imageTextLength = 25;
-	
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:rootView animated:NO];
-	
-	[[SHK currentHelper] showViewController:self];	
-}
-
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{
-	[self.item setCustomValue:form.textView.text forKey:@"status"];
-	[self tryToSend];
+    
+    NSArray *result = @[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
+                                                         key:@"status"
+                                                        type:SHKFormFieldTypeTextLarge
+                                                       start:[self.item customValueForKey:@"status"]
+                                               maxTextLength:140
+                                                       image:self.item.image
+                                             imageTextLength:25
+                                                        link:self.item.URL
+                                                        file:nil
+                                              allowEmptySend:NO
+                                                      select:YES]];
+    return result;
 }
 
 #pragma mark -
@@ -367,7 +351,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 - (BOOL)send
 {	
 	// Check if we should send follow request too
-	if (xAuth && [self.item customBoolForSwitchKey:@"followMe"])
+	if (self.xAuth && [self.item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
 	if (![self validateItem])

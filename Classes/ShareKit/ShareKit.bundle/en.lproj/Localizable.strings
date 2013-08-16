@@ -270,3 +270,6 @@
 
 //linkedin text field placeholder
 "Comment" = "Comment";
+
+//twitter text filed placeholder
+"Tweet" = "Tweet"

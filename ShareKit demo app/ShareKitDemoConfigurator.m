@@ -111,7 +111,7 @@
  */
 
 - (NSNumber*)forcePreIOS5TwitterAccess {
-    return [NSNumber numberWithBool:false];
+    return [NSNumber numberWithBool:true];
 }
 
 - (NSString*)twitterConsumerKey {
