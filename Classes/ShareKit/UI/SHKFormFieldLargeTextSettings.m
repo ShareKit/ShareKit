@@ -37,7 +37,7 @@
 - (BOOL)isValid {
     
     BOOL emptyCriterium = self.allowSendingEmptyMessage || [self.valueToSave length] > 0;
-    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength;
+    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength - self.imageTextLength;
     
     if (emptyCriterium && maxTextLenCriterium) {
         return YES;

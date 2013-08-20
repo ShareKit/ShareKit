@@ -27,16 +27,10 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKCustomFormControllerLargeTextField.h"
 
 @interface SHKTwitter : SHKOAuthSharer
 
 @property BOOL xAuth;
-
-#pragma mark -
-#pragma mark UI Implementation
-
-- (void)showTwitterForm;
 
 #pragma mark -
 #pragma mark Share API Methods
