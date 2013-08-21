@@ -616,26 +616,32 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 																		 title:nil
 															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
 									   ];
-		[rootView addSection:shareFormFields header:nil footer:self.item.URL!=nil?self.item.URL.absoluteString:nil];
-		
-		if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
-		{
-			[rootView addSection:
-			[NSArray arrayWithObject:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Auto Share") key:@"autoShare" type:SHKFormFieldTypeSwitch start:([self shouldAutoShare]?SHKFormFieldSwitchOn:SHKFormFieldSwitchOff)]
-			 ]
-						header:nil
-						footer:SHKLocalizedString(@"Enable auto share to skip this step in the future.")];
-		}
-		
-		rootView.validateBlock = [self shareFormValidate];
-		rootView.saveBlock = [self shareFormSave];
-		rootView.cancelBlock = [self shareFormCancel];
-		
+        
+        [self setupFormController:rootView withFields:shareFormFields];
+				
 		[self pushViewController:rootView animated:NO];
 		
 		[[SHK currentHelper] showViewController:self];
 	}
+}
+
+- (void)setupFormController:(SHKFormController *)rootView withFields:(NSArray *)shareFormFields {
+    
+    [rootView addSection:shareFormFields header:nil footer:self.item.URL!=nil?self.item.URL.absoluteString:nil];
+    
+    if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
+    {
+        [rootView addSection:
+         [NSArray arrayWithObject:
+          [SHKFormFieldSettings label:SHKLocalizedString(@"Auto Share") key:@"autoShare" type:SHKFormFieldTypeSwitch start:([self shouldAutoShare]?SHKFormFieldSwitchOn:SHKFormFieldSwitchOff)]
+          ]
+                      header:nil
+                      footer:SHKLocalizedString(@"Enable auto share to skip this step in the future.")];
+    }
+    
+    rootView.validateBlock = [self shareFormValidate];
+    rootView.saveBlock = [self shareFormSave];
+    rootView.cancelBlock = [self shareFormCancel];
 }
 
 #pragma mark -

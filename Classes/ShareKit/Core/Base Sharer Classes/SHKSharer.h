@@ -186,6 +186,7 @@ typedef enum
 - (FormControllerCallback)shareFormValidate;
 - (FormControllerCallback)shareFormSave;
 - (FormControllerCallback)shareFormCancel;
+- (void)setupFormController:(SHKFormController *)rootView withFields:(NSArray *)shareFormFields;
 
 #pragma mark -
 #pragma mark Pending Actions

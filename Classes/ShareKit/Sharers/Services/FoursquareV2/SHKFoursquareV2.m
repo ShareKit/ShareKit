@@ -170,6 +170,24 @@ static NSString *accessTokenKey = @"accessToken";
 
 #pragma mark -
 #pragma mark UI
+
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+    
+    NSString *label = [SHKLocalizedString(@"Check In") stringByAppendingFormat:@" %@", SHKLocalizedString(@"Message")];
+    NSArray *result = @[[SHKFormFieldLargeTextSettings label:label
+                                                         key:@"text"
+                                                        type:SHKFormFieldTypeTextLarge
+                                                       start:self.item.text
+                                               maxTextLength:140
+                                                       image:nil
+                                             imageTextLength:0
+                                                        link:nil
+                                                        file:nil
+                                              allowEmptySend:YES
+                                                      select:YES]];
+    return result;
+}
+
 - (void)show
 {
 	if (self.item.shareType == SHKShareTypeText)
@@ -189,23 +207,23 @@ static NSString *accessTokenKey = @"accessToken";
 }
 
 - (void)showFoursquareV2CheckInForm;
-{
-    SHKFoursquareV2CheckInForm *checkInForm = [[SHKFoursquareV2CheckInForm alloc] initWithNibName:nil bundle:nil delegate:self];	
-    checkInForm.text = self.item.text;       
-    checkInForm.maxTextLength = 140;  
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:checkInForm animated:YES];	
+{    
+    NSArray *shareFormFields = [self shareFormFieldsForType:self.item.shareType];
+    if (!shareFormFields) [self tryToSend];
+    
+    SHKFormController *rootView = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped
+                                                                                        title:nil
+                                                                             rightButtonTitle:SHKLocalizedString(@"Check In")];
+    rootView.navigationItem.leftBarButtonItem = nil;
+    [self setupFormController:rootView withFields:shareFormFields];
+    
+    [self pushViewController:rootView animated:YES];
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{  
- 	self.item.text = form.textView.text;
- 	[self startCheckInRequest];
-}
-
-- (void)startCheckInRequest
+- (BOOL)send
 {
+    if (![self validateItem]) return NO;
+    
     [self sendDidStart];
     
     [SHKFoursquareV2Request startRequestCheckinLocation:self.location
@@ -227,6 +245,7 @@ static NSString *accessTokenKey = @"accessToken";
                                                      [self sendDidFailWithError:error shouldRelogin:error.foursquareRelogin];
                                                  }
                                              }];
+    return YES;
 }
 
 @end

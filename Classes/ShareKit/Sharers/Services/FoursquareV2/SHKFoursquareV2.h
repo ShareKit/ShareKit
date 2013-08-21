@@ -38,9 +38,9 @@
 
 #import "SHKFoursquareV2Request.h"
 #import "SHKFoursquareV2Venue.h"
-#import "SHKCustomFormControllerLargeTextField.h"
+#import "SHKFormOptionController.h"
 
-@interface SHKFoursquareV2 : SHKSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKFoursquareV2 : SHKSharer
 
 @property (nonatomic, copy) NSString *clientId;
 @property (nonatomic, copy) NSURL *authorizeCallbackURL;
@@ -52,7 +52,5 @@
 
 - (void)showFoursquareV2VenuesForm;
 - (void)showFoursquareV2CheckInForm;
-
-- (void)startCheckInRequest;
 
 @end
