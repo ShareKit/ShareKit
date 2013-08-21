@@ -8,7 +8,6 @@
 
 #import "SHKDropbox.h"
 #import "SharersCommonHeaders.h"
-#import "SHKCustomFormControllerLargeTextField.h"
 
 #define kDropboxMaxFileSize 150000000
 #define kSHKDropboxSizeChunks 104800
