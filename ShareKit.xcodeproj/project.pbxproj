@@ -365,19 +365,19 @@
 			remoteGlobalIDString = 7A4E465B173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
 		};
+		7A74D2B317D1070600F63975 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = "facebook-ios-sdk";
+		};
 		7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 7AA83BAA1705E355009C483A;
 			remoteInfo = "Google Plus SDK";
-		};
-		7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 		7AAE8CA716EB964900429C51 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -3469,7 +3469,6 @@
 				7AC28EEE165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF0165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */,
-				7AA83C1E1705E8FC009C483A /* PBXTargetDependency */,
 				7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3788,6 +3787,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A74D2B417D1070600F63975 /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -4581,15 +4581,15 @@
 			target = 7A4E465B173E2C2500CCEE80 /* Pocket SDK */;
 			targetProxy = 7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */;
 		};
+		7A74D2B417D1070600F63975 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "facebook-ios-sdk";
+			targetProxy = 7A74D2B317D1070600F63975 /* PBXContainerItemProxy */;
+		};
 		7AA83BFC1705E4FF009C483A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7AA83BAA1705E355009C483A /* Google Plus SDK */;
 			targetProxy = 7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */;
-		};
-		7AA83C1E1705E8FC009C483A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = 7AA83C1D1705E8FC009C483A /* PBXContainerItemProxy */;
 		};
 		7AAE8CA816EB964900429C51 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
