@@ -10,9 +10,6 @@
 [submodule "Submodules/googleplus-ios-sdk"]
 	path = Submodules/googleplus-ios-sdk
 	url = git://github.com/adamotte/googleplus-ios-sdk.git
-[submodule "Submodules/dropbox-sdk-ios"]
-	path = Submodules/dropbox-sdk-ios
-	url = https://github.com/dropbox-sdk-mirror/dropbox-sdk-ios.git
 [submodule "Submodules/google-api-objectivec"]
 	path = Submodules/google-api-objectivec
 	url = git://github.com/jakemdunn/google-api-objectivec-client.git

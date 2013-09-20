@@ -7,7 +7,7 @@
 //
 
 #import "SHKSharer.h"
-#import "DropboxSDK.h"
+#import <DropboxSDK/DropboxSDK.h>
 //you could use customValue in SHK item to setup remote path to upload file
 static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
 //the key uses to send notifications with NSNotificationCenter

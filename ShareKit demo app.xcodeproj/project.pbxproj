@@ -49,6 +49,7 @@
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
 		7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */; };
 		7AD7D5CB17EC5A8200DE20F6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */; };
+		7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -422,6 +423,7 @@
 		7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = Frameworks/DropboxSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +440,7 @@
 				7A04076417410435003404B9 /* Accounts.framework in Frameworks */,
 				7A0407621741042E003404B9 /* AdSupport.framework in Frameworks */,
 				7A04076017410423003404B9 /* Twitter.framework in Frameworks */,
+				7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */,
 				7A04075E1741041A003404B9 /* CoreLocation.framework in Frameworks */,
 				7A04075C17410412003404B9 /* CFNetwork.framework in Frameworks */,
 				7A04075A1741040A003404B9 /* AVFoundation.framework in Frameworks */,
@@ -477,6 +480,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */,
 				7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */,
 				7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */,
 				7A040831174133C5003404B9 /* Social.framework */,
@@ -1136,6 +1140,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Frameworks,
+					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
@@ -1156,6 +1161,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Frameworks,
+					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
