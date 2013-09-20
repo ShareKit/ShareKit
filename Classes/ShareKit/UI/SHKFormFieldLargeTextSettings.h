@@ -47,4 +47,12 @@
                           allowEmptySend:(BOOL)allowEmpty
                                   select:(BOOL)select;
 
+/**
+ * If there is an image AND imageTextLength set, this evaluates, how many characters are taken by image if included. Useful if sharer has limited text length allowed.
+ * @author Vilem Kurz
+ *
+ * @return How many characters should be substracted from text length.
+ */
+- (NSUInteger)actualImageTextLength;
+
 @end

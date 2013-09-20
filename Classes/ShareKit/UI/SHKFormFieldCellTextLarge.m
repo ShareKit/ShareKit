@@ -38,6 +38,15 @@
 
 @implementation SHKFormFieldCellTextLarge
 
+- (BOOL)isiOS6OrOlder {
+    
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        return YES;
+    }   else {
+        return NO;
+    }
+}
+
 - (void)setupLayout {
     
     SSTextView *textView = [[SSTextView alloc] initWithFrame:[self frameForTextview]];
@@ -72,14 +81,17 @@
     imageView.center = imageViewCenter;
     [self.contentView addSubview:imageView];
     self.clippedImageView = imageView;
-        
-    UIImage *clip = [UIImage imageNamedFromOurBundle:@"DETweetPaperClip.png"];
-    UIImageView *clipView = [[UIImageView alloc] initWithImage:clip];
-    clipView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    clipView.center = CGPointMake(self.clippedImageView.center.x + 9, self.clippedImageView.center.y - 35) ;
-    [self.contentView addSubview:clipView];
-    self.clipImageView = clipView;
     
+    if ([self isiOS6OrOlder]) {
+        
+        UIImage *clip = [UIImage imageNamedFromOurBundle:@"DETweetPaperClip.png"];
+        UIImageView *clipView = [[UIImageView alloc] initWithImage:clip];
+        clipView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        clipView.center = CGPointMake(self.clippedImageView.center.x + 9, self.clippedImageView.center.y - 35) ;
+        [self.contentView addSubview:clipView];
+        self.clipImageView = clipView;
+    }
+
     CGRect extensionFrame = CGRectMake(CGRectGetMinX(self.clippedImageView.frame) + SHK_FORM_EXTENSION_PAD,
                                        CGRectGetMinY(self.clippedImageView.frame) + CGRectGetWidth(self.clippedImageView.frame)/2,
                                        CGRectGetWidth(self.clippedImageView.frame) - SHK_FORM_EXTENSION_PAD*2,
@@ -181,10 +193,8 @@
     [self.delegate valueChanged];
     
     if (!self.settings.maxTextLength) return;
-		   
-    NSUInteger imageTextLength = (self.settings.image && self.settings.imageTextLength) ? self.settings.imageTextLength : 0;
-
-    NSInteger countNumber = self.settings.maxTextLength - [self.textView.text length] - imageTextLength;
+		  
+    NSInteger countNumber = self.settings.maxTextLength - [self.textView.text length] - [self.settings actualImageTextLength];
     NSString *count = [NSString stringWithFormat:@"%i", countNumber];
     self.counter.text = count;
  	

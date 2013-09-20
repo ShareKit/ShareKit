@@ -34,10 +34,16 @@
     return result;
 }
 
+- (NSUInteger)actualImageTextLength {
+    
+    NSUInteger result = (self.image && self.imageTextLength) ? self.imageTextLength : 0;
+    return result;
+}
+
 - (BOOL)isValid {
     
     BOOL emptyCriterium = self.allowSendingEmptyMessage || [self.valueToSave length] > 0;
-    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength - self.imageTextLength;
+    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength - [self actualImageTextLength];
     
     if (emptyCriterium && maxTextLenCriterium) {
         return YES;
