@@ -128,7 +128,6 @@
 		7AA83BD01705E355009C483A /* GPPSignIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD0D16910707005B3077 /* GPPSignIn.h */; };
 		7AA83BD11705E355009C483A /* GPPSignInButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BAD0E16910707005B3077 /* GPPSignInButton.h */; };
 		7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA83BF91705E355009C483A /* libGoogle Plus SDK.a */; };
-		7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */; };
 		7AA83C42170637CC009C483A /* ENAFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */; };
 		7AA83C43170637CC009C483A /* ENAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA83C41170637CC009C483A /* ENAFURLConnectionOperation.m */; };
 		7AA83C4817063828009C483A /* ENGCOAuth.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C4417063828009C483A /* ENGCOAuth.h */; };
@@ -323,13 +322,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		133357A31767AC3C00EB196B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 85A44B9F16A8CE05007BE80E;
-			remoteInfo = FacebookSDKIntegrationTests;
-		};
 		456BADAE16910966005B3077 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -364,13 +356,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A4E465B173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
-		};
-		7A74D2B317D1070600F63975 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
 		};
 		7AA83BFB1705E4FF009C483A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -637,20 +622,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = AABBECF7162F0835009D46E4;
 			remoteInfo = Kippt;
-		};
-		AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = "facebook-ios-sdk";
-		};
-		AA75856F1624AABF001EFCBE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B9CBC519152537270036AA71;
-			remoteInfo = FacebookSDKTests;
 		};
 		DE334C2F16F333B000FF692B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1113,7 +1084,6 @@
 		AA3B1DE41612938F00036C82 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		AA511B7E14C893A10022332B /* SHKFormOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormOptionController.h; sourceTree = "<group>"; };
 		AA511B7F14C893A10022332B /* SHKFormOptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormOptionController.m; sourceTree = "<group>"; };
-		AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "facebook-ios-sdk.xcodeproj"; path = "Submodules/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		AAACE01513CCB1F500A2118F /* DefaultSHKConfigurator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSHKConfigurator.h; sourceTree = "<group>"; };
 		AAACE01613CCB1F500A2118F /* DefaultSHKConfigurator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSHKConfigurator.m; sourceTree = "<group>"; };
 		AAACE01913CCB1F500A2118F /* SHKConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKConfiguration.h; sourceTree = "<group>"; };
@@ -1370,7 +1340,6 @@
 				7AECF412171D55BD000722FA /* libGTLTouchStaticLib.a in Frameworks */,
 				7AECF40F171D52DF000722FA /* libYouTube.a in Frameworks */,
 				7AECF40E171D52DB000722FA /* libYouTube SDK.a in Frameworks */,
-				7AA83C1F1705E90C009C483A /* libfacebook_ios_sdk.a in Frameworks */,
 				7AA83BFD1705E526009C483A /* libGoogle Plus SDK.a in Frameworks */,
 				DE4D0CA716F34D2B0056AAE7 /* libDropbox SDK.a in Frameworks */,
 				DE334C2E16F333A800FF692B /* libDropbox.a in Frameworks */,
@@ -2090,7 +2059,6 @@
 		43A536C411DBE3B9004A1712 /* Facebook */ = {
 			isa = PBXGroup;
 			children = (
-				AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */,
 				43A536DC11DBE3B9004A1712 /* SHKFacebook.h */,
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
 				7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */,
@@ -2575,16 +2543,6 @@
 			);
 			name = ObjectiveFlickr;
 			path = ../../../../../Submodules/objectiveflickr/Source;
-			sourceTree = "<group>";
-		};
-		AA6C09EB16122ED90023EE48 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */,
-				AA7585701624AABF001EFCBE /* FacebookSDKTests.octest */,
-				133357A41767AC3C00EB196B /* FacebookSDKIntegrationTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		AAACE01413CCB1F500A2118F /* Configuration */ = {
@@ -3787,7 +3745,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				7A74D2B417D1070600F63975 /* PBXTargetDependency */,
 			);
 			name = Facebook;
 			productName = ShareKitLibrary;
@@ -3962,10 +3919,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = AA6C09EB16122ED90023EE48 /* Products */;
-					ProjectRef = AA6C09EA16122ED90023EE48 /* facebook-ios-sdk.xcodeproj */;
-				},
-				{
 					ProductGroup = 7AECF2E5171D4679000722FA /* Products */;
 					ProjectRef = 7AECF2E4171D4679000722FA /* GTL.xcodeproj */;
 				},
@@ -4020,13 +3973,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		133357A41767AC3C00EB196B /* FacebookSDKIntegrationTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FacebookSDKIntegrationTests.octest;
-			remoteRef = 133357A31767AC3C00EB196B /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7AECF2EC171D4679000722FA /* GTL.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -4053,20 +3999,6 @@
 			fileType = "compiled.mach-o.executable";
 			path = DevelopmentTestTool;
 			remoteRef = 7AECF2F1171D4679000722FA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		AA6C09F316122ED90023EE48 /* libfacebook_ios_sdk.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libfacebook_ios_sdk.a;
-			remoteRef = AA6C09F216122ED90023EE48 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		AA7585701624AABF001EFCBE /* FacebookSDKTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FacebookSDKTests.octest;
-			remoteRef = AA75856F1624AABF001EFCBE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -4580,11 +4512,6 @@
 			isa = PBXTargetDependency;
 			target = 7A4E465B173E2C2500CCEE80 /* Pocket SDK */;
 			targetProxy = 7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */;
-		};
-		7A74D2B417D1070600F63975 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "facebook-ios-sdk";
-			targetProxy = 7A74D2B317D1070600F63975 /* PBXContainerItemProxy */;
 		};
 		7AA83BFC1705E4FF009C483A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5529,6 +5456,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Classes/ShareKit/Sharers/Services/Facebook,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -5560,6 +5491,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Classes/ShareKit/Sharers/Services/Facebook,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
@@ -6426,6 +6361,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$SRCROOT\"/**",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6444,7 +6383,7 @@
 				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -6454,6 +6393,10 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/ShareKitLibrary.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$SRCROOT\"/**",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
@@ -6465,7 +6408,7 @@
 				);
 				PRODUCT_NAME = Facebook;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(PROJECT_TEMP_DIR)/../UninstalledProducts/facebook-ios-sdk\" \"$(SOURCE_ROOT)/Submodules/facebook-ios-sdk\"/**";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};

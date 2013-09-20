@@ -1,6 +1,3 @@
-[submodule "Submodules/facebook-ios-sdk"]
-	path = Submodules/facebook-ios-sdk
-	url = https://github.com/facebook/facebook-ios-sdk.git
 [submodule "Submodules/sskeychain"]
 	path = Submodules/sskeychain
 	url = https://github.com/samsoffes/sskeychain.git

@@ -33,7 +33,7 @@
 #import "SharersCommonHeaders.h"
 
 #import <Social/Social.h>
-#import <FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";
