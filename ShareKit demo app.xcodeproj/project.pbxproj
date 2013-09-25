@@ -326,13 +326,6 @@
 			remoteGlobalIDString = DE334C2116F3339300FF692B;
 			remoteInfo = Dropbox;
 		};
-		7AA2E89C1743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DE334CCF16F34BDD00FF692B;
-			remoteInfo = "Dropbox SDK";
-		};
 		7AA2E89E1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -598,7 +591,6 @@
 				7AA2E8971743805E00B17434 /* libHatena.a */,
 				7AA2E8991743805E00B17434 /* libPlurk.a */,
 				7AA2E89B1743805E00B17434 /* libDropbox.a */,
-				7AA2E89D1743805E00B17434 /* libDropbox SDK.a */,
 				7AA2E89F1743805E00B17434 /* libYouTube.a */,
 				7AA2E8A11743805E00B17434 /* libYouTube SDK.a */,
 				94CC293617453A3100C31CD8 /* libPocket.a */,
@@ -954,13 +946,6 @@
 			remoteRef = 7AA2E89A1743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7AA2E89D1743805E00B17434 /* libDropbox SDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libDropbox SDK.a";
-			remoteRef = 7AA2E89C1743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7AA2E89F1743805E00B17434 /* libYouTube.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1073,7 +1058,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1113,7 +1098,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg";
-				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1137,11 +1122,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = (
-					$inherited,
-					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Frameworks,
-					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
@@ -1158,11 +1139,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = (
-					$inherited,
-					/Users/vilemkurz/Documents/WeightMe/Submodules/ShareKit/Frameworks,
-					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
