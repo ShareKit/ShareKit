@@ -24,6 +24,8 @@
 
 #define SHK_FORM_EXTENSION_PAD 15
 
+#define SHKFoundationVersionNumber_iOS_6_1  993.00
+
 @interface SHKFormFieldCellTextLarge ()
 
 @property (weak, nonatomic) SSTextView *textView;
@@ -40,7 +42,7 @@
 
 - (BOOL)isiOS6OrOlder {
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+    if (floor(NSFoundationVersionNumber) <= SHKFoundationVersionNumber_iOS_6_1) {
         return YES;
     }   else {
         return NO;
