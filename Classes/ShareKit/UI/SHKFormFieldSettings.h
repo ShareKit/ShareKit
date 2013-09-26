@@ -49,20 +49,20 @@ typedef enum
 @property SHKFormFieldType type;
 @property (nonatomic, strong) NSString *start;
 
-//tells SHKFormController, if should be selected when the form is presented. In case multiple fields have this set to YES, only the first one is selected.
+///Tells SHKFormController, if should be selected when the form is presented. In case multiple fields have this set to YES, only the first one is selected.
 @property (nonatomic) BOOL select;
 
-//It is a start value until user sets something. This holds actual value of a setting - this value is used when submitting the form, see valueToSave. 
+///It is a start value until user sets something. This holds actual value of a setting - this value is used when submitting the form, see valueToSave.
 @property (nonatomic, strong) NSString *displayValue;
 
 - (id)initWithLabel:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
 
 + (SHKFormFieldSettings *)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
 
-//value, which is saved to item, and will be used in share request. Mostly this value is user friendly, thus it just echoes displayValue.
+///Value, which is saved to item, and will be used in share request. Mostly this value is user friendly, thus it just echoes displayValue.
 - (NSString *)valueToSave;
 
-//form controller checks this. If it finds any field invalid, send button is disabled
+///Form controller checks this. If it finds any field invalid, send button is disabled
 - (BOOL)isValid;
 
 @end

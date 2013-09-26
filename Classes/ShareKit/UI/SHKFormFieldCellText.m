@@ -101,4 +101,12 @@
 	[self.delegate setActiveTextField:self.textField];
 }
 
+- (void)userSetValue:(NSString *)newValue {
+    
+    if ([newValue isEqualToString:@""]) {
+        newValue = nil;
+    }
+    [super userSetValue:newValue];
+}
+
 @end
