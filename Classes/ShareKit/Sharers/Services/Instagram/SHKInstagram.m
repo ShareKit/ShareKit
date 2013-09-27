@@ -100,7 +100,7 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString* homePath = [paths objectAtIndex:0];
 	NSString* basePath = @"integration/instagram";
-	NSString* tmpFileName = @"jumpto.ig";
+	NSString* tmpFileName = @"jumpto.igo";
 	
 	NSString* dirPath = [NSString stringWithFormat:@"%@/%@", homePath, basePath];
 	NSString* docPath = [NSString stringWithFormat:@"%@/%@", dirPath, tmpFileName];
