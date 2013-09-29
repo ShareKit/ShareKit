@@ -79,8 +79,9 @@
 - (NSString *)plurkAppKey;
 - (NSString *)plurkAppSecret;
 - (NSString *)plurkCallbackURL;
-- (NSNumber*)instagramLetterBoxImages;
-- (UIColor*)instagramLetterBoxColor;
+- (NSNumber *)instagramLetterBoxImages;
+- (UIColor *)instagramLetterBoxColor;
+- (NSNumber *)instagramOnly;
 - (NSString*)youTubeConsumerKey;
 - (NSString*)youTubeSecret;
 - (NSNumber*)shareMenuAlphabeticalOrder;

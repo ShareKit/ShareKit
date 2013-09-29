@@ -100,7 +100,12 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString* homePath = [paths objectAtIndex:0];
 	NSString* basePath = @"integration/instagram";
-	NSString* tmpFileName = @"jumpto.ig";
+	NSString* tmpFileName;
+    if ([SHKCONFIG(instagramOnly) boolValue]) {
+        tmpFileName = @"jumpto.igo";
+    } else {
+        tmpFileName = @"jumpto.ig";
+    }
 	
 	NSString* dirPath = [NSString stringWithFormat:@"%@/%@", homePath, basePath];
 	NSString* docPath = [NSString stringWithFormat:@"%@/%@", dirPath, tmpFileName];
@@ -121,7 +126,11 @@
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
-		self.dic.UTI = @"com.instagram.exclusivegram";
+        if (SHKCONFIG(instagramOnly)) {
+            self.dic.UTI = @"com.instagram.exclusivegram";
+        } else {
+            self.dic.UTI = @"com.instagram.photo";
+        }
 		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([self.item.title length] ? self.item.title : @""), ([self.item.title length] && [self.item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
 		self.dic.annotation = @{@"InstagramCaption" : captionString};
 		self.dic.delegate = self;

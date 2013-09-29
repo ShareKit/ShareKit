@@ -305,6 +305,11 @@
     return [UIColor whiteColor];
 }
 
+///only show instagram in the application list (instead of Instagram plus any other public/jpeg-conforming apps) 
+- (NSNumber *)instagramOnly {
+    return [NSNumber numberWithBool:YES];
+}
+
 // YouTube - https://developers.google.com/youtube/v3/guides/authentication#OAuth2_Register
 - (NSString*)youTubeConsumerKey {
 	return @"";
