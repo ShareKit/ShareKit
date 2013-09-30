@@ -486,8 +486,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                 requestingPermisSHKFacebook = nil;
                                                 if (error) {
                                                     
-                                                    NSString *errorReason = [error.userInfo objectForKey:@"com.facebook.sdk:ErrorLoginFailedReason"];
-                                                    if ([errorReason isEqualToString:@"com.facebook.sdk:ErrorReauthorizeFailedReasonUserCancelled"]) {
+                                                    if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
+                                                        
                                                         [self sendDidCancel];
                                                         return;
                                                         
