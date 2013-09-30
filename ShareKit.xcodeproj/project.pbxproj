@@ -108,6 +108,23 @@
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
 		7A8397431782CC9500E1F8B9 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A8397421782CC9500E1F8B9 /* Debug.h */; };
 		7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A83974A1782FBFB00E1F8B9 /* ShareKit.h */; };
+		7A85B52017FA1E6F00C86E77 /* ENEncryptedContentInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51117FA1E6F00C86E77 /* ENEncryptedContentInfo.h */; };
+		7A85B52117FA1E6F00C86E77 /* ENEncryptedContentInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51217FA1E6F00C86E77 /* ENEncryptedContentInfo.m */; };
+		7A85B52217FA1E6F00C86E77 /* ENMIMEUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51317FA1E6F00C86E77 /* ENMIMEUtils.h */; };
+		7A85B52317FA1E6F00C86E77 /* ENMIMEUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51417FA1E6F00C86E77 /* ENMIMEUtils.m */; };
+		7A85B52417FA1E6F00C86E77 /* ENMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51517FA1E6F00C86E77 /* ENMLWriter.h */; };
+		7A85B52517FA1E6F00C86E77 /* ENMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51617FA1E6F00C86E77 /* ENMLWriter.m */; };
+		7A85B52617FA1E6F00C86E77 /* ENXMLDTD.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51717FA1E6F00C86E77 /* ENXMLDTD.h */; };
+		7A85B52717FA1E6F00C86E77 /* ENXMLDTD.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51817FA1E6F00C86E77 /* ENXMLDTD.m */; };
+		7A85B52817FA1E6F00C86E77 /* ENXMLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51917FA1E6F00C86E77 /* ENXMLUtils.h */; };
+		7A85B52917FA1E6F00C86E77 /* ENXMLWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51A17FA1E6F00C86E77 /* ENXMLWriter.h */; };
+		7A85B52A17FA1E6F00C86E77 /* ENXMLWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51B17FA1E6F00C86E77 /* ENXMLWriter.m */; };
+		7A85B52B17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51C17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.h */; };
+		7A85B52C17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51D17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.m */; };
+		7A85B52D17FA1E6F00C86E77 /* NSString+EDAMAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B51E17FA1E6F00C86E77 /* NSString+EDAMAdditions.m */; };
+		7A85B52E17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51F17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h */; };
+		7A85B53117FA1ED300C86E77 /* NSData+EvernoteSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B52F17FA1ED300C86E77 /* NSData+EvernoteSDK.h */; };
+		7A85B53217FA1ED300C86E77 /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B53017FA1ED300C86E77 /* NSData+EvernoteSDK.m */; };
 		7AA2E9E21743E44500B17434 /* SHKPocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E01743E44500B17434 /* SHKPocket.h */; };
 		7AA2E9E31743E44500B17434 /* SHKPocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E11743E44500B17434 /* SHKPocket.m */; };
 		7AA2E9EF1743E51C00B17434 /* PocketAPI+NSOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */; };
@@ -831,6 +848,24 @@
 		7A8397421782CC9500E1F8B9 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
 		7A8397491782CF5400E1F8B9 /* SharersCommonHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharersCommonHeaders.h; sourceTree = "<group>"; };
 		7A83974A1782FBFB00E1F8B9 /* ShareKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareKit.h; sourceTree = "<group>"; };
+		7A85B51117FA1E6F00C86E77 /* ENEncryptedContentInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENEncryptedContentInfo.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENEncryptedContentInfo.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51217FA1E6F00C86E77 /* ENEncryptedContentInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENEncryptedContentInfo.m; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENEncryptedContentInfo.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51317FA1E6F00C86E77 /* ENMIMEUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENMIMEUtils.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENMIMEUtils.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51417FA1E6F00C86E77 /* ENMIMEUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENMIMEUtils.m; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENMIMEUtils.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51517FA1E6F00C86E77 /* ENMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENMLWriter.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENMLWriter.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51617FA1E6F00C86E77 /* ENMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENMLWriter.m; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENMLWriter.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51717FA1E6F00C86E77 /* ENXMLDTD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENXMLDTD.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENXMLDTD.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51817FA1E6F00C86E77 /* ENXMLDTD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENXMLDTD.m; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENXMLDTD.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51917FA1E6F00C86E77 /* ENXMLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENXMLUtils.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENXMLUtils.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51A17FA1E6F00C86E77 /* ENXMLWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENXMLWriter.h; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENXMLWriter.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51B17FA1E6F00C86E77 /* ENXMLWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENXMLWriter.m; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/ENXMLWriter.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51C17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSRegularExpression+ENAGRegex.h"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/NSRegularExpression+ENAGRegex.h"; sourceTree = SOURCE_ROOT; };
+		7A85B51D17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSRegularExpression+ENAGRegex.m"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/NSRegularExpression+ENAGRegex.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51E17FA1E6F00C86E77 /* NSString+EDAMAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+EDAMAdditions.m"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/NSString+EDAMAdditions.m"; sourceTree = SOURCE_ROOT; };
+		7A85B51F17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+EDAMNilAdditions.h"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/ENMLWriter/NSString+EDAMNilAdditions.h"; sourceTree = SOURCE_ROOT; };
+		7A85B52F17FA1ED300C86E77 /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+EvernoteSDK.h"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/NSData+EvernoteSDK.h"; sourceTree = SOURCE_ROOT; };
+		7A85B53017FA1ED300C86E77 /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+EvernoteSDK.m"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/NSData+EvernoteSDK.m"; sourceTree = SOURCE_ROOT; };
+		7A85B55D17FA204700C86E77 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		7AA2E9E01743E44500B17434 /* SHKPocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKPocket.h; path = Pocket/SHKPocket.h; sourceTree = "<group>"; };
 		7AA2E9E11743E44500B17434 /* SHKPocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKPocket.m; path = Pocket/SHKPocket.m; sourceTree = "<group>"; };
 		7AA2E9E51743E51C00B17434 /* PocketAPI+NSOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PocketAPI+NSOperation.h"; sourceTree = "<group>"; };
@@ -1503,6 +1538,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A85B55D17FA204700C86E77 /* libxml2.dylib */,
 				7A3A0D90170CC94B00A0B717 /* CoreMedia.framework */,
 				7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */,
 				7A3A0D8C170CC58B00A0B717 /* AVFoundation.framework */,
@@ -1637,6 +1673,9 @@
 		42EDC7A4156CFBF400E3303E /* internal */ = {
 			isa = PBXGroup;
 			children = (
+				7A85B52F17FA1ED300C86E77 /* NSData+EvernoteSDK.h */,
+				7A85B53017FA1ED300C86E77 /* NSData+EvernoteSDK.m */,
+				7A85B50D17FA1E4C00C86E77 /* ENMLWriter */,
 				42EDC7A5156CFBF400E3303E /* ENAPI.h */,
 				42EDC7A6156CFBF400E3303E /* ENAPI.m */,
 				42EDC7A7156CFBF400E3303E /* ENCredentials.h */,
@@ -2110,6 +2149,28 @@
 			name = "Google OAuth";
 			sourceTree = "<group>";
 		};
+		7A85B50D17FA1E4C00C86E77 /* ENMLWriter */ = {
+			isa = PBXGroup;
+			children = (
+				7A85B51117FA1E6F00C86E77 /* ENEncryptedContentInfo.h */,
+				7A85B51217FA1E6F00C86E77 /* ENEncryptedContentInfo.m */,
+				7A85B51317FA1E6F00C86E77 /* ENMIMEUtils.h */,
+				7A85B51417FA1E6F00C86E77 /* ENMIMEUtils.m */,
+				7A85B51517FA1E6F00C86E77 /* ENMLWriter.h */,
+				7A85B51617FA1E6F00C86E77 /* ENMLWriter.m */,
+				7A85B51717FA1E6F00C86E77 /* ENXMLDTD.h */,
+				7A85B51817FA1E6F00C86E77 /* ENXMLDTD.m */,
+				7A85B51917FA1E6F00C86E77 /* ENXMLUtils.h */,
+				7A85B51A17FA1E6F00C86E77 /* ENXMLWriter.h */,
+				7A85B51B17FA1E6F00C86E77 /* ENXMLWriter.m */,
+				7A85B51C17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.h */,
+				7A85B51D17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.m */,
+				7A85B51E17FA1E6F00C86E77 /* NSString+EDAMAdditions.m */,
+				7A85B51F17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h */,
+			);
+			name = ENMLWriter;
+			sourceTree = "<group>";
+		};
 		7A9A255017256E33006B97C0 /* Resources - ShareKit Library */ = {
 			isa = PBXGroup;
 			children = (
@@ -2571,12 +2632,21 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A85B52017FA1E6F00C86E77 /* ENEncryptedContentInfo.h in Headers */,
+				7A85B52817FA1E6F00C86E77 /* ENXMLUtils.h in Headers */,
 				7AA83C42170637CC009C483A /* ENAFURLConnectionOperation.h in Headers */,
 				7AA83C4817063828009C483A /* ENGCOAuth.h in Headers */,
 				7AA83C4A17063828009C483A /* NSData+ENBase64.h in Headers */,
+				7A85B52B17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.h in Headers */,
+				7A85B52617FA1E6F00C86E77 /* ENXMLDTD.h in Headers */,
+				7A85B52E17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h in Headers */,
 				7AA83C4E1706386E009C483A /* ENConstants.h in Headers */,
 				7AA83C53170638EF009C483A /* EDAMNoteStoreClient+Utilities.h in Headers */,
+				7A85B52917FA1E6F00C86E77 /* ENXMLWriter.h in Headers */,
 				7AA83C5717063926009C483A /* NSDate+EDAMAdditions.h in Headers */,
+				7A85B52417FA1E6F00C86E77 /* ENMLWriter.h in Headers */,
+				7A85B53117FA1ED300C86E77 /* NSData+EvernoteSDK.h in Headers */,
+				7A85B52217FA1E6F00C86E77 /* ENMIMEUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3852,17 +3922,22 @@
 				7A1AFCE5160E13080086B98A /* TBinaryProtocol.m in Sources */,
 				7A1AFCE6160E13080086B98A /* TProtocolException.m in Sources */,
 				7A1AFCE7160E13080086B98A /* TProtocolUtil.m in Sources */,
+				7A85B52C17FA1E6F00C86E77 /* NSRegularExpression+ENAGRegex.m in Sources */,
+				7A85B52117FA1E6F00C86E77 /* ENEncryptedContentInfo.m in Sources */,
 				7A1AFCE8160E13080086B98A /* TApplicationException.m in Sources */,
 				7A1AFCE9160E13080086B98A /* TException.m in Sources */,
 				7A1AFCEA160E13080086B98A /* THTTPClient.m in Sources */,
 				7A1AFCEB160E13080086B98A /* TMemoryBuffer.m in Sources */,
 				7A1AFCEC160E13080086B98A /* TTransportException.m in Sources */,
+				7A85B52A17FA1E6F00C86E77 /* ENXMLWriter.m in Sources */,
 				7A1AFCED160E13080086B98A /* EDAMErrors.m in Sources */,
 				7A1AFCEE160E13080086B98A /* EDAMLimits.m in Sources */,
 				7A1AFCEF160E13080086B98A /* EDAMNoteStore.m in Sources */,
 				7A1AFCF0160E13080086B98A /* EDAMTypes.m in Sources */,
 				7A1AFCF1160E13080086B98A /* EDAMUserStore.m in Sources */,
+				7A85B52517FA1E6F00C86E77 /* ENMLWriter.m in Sources */,
 				7A1AFCF2160E13080086B98A /* EvernoteNoteStore.m in Sources */,
+				7A85B53217FA1ED300C86E77 /* NSData+EvernoteSDK.m in Sources */,
 				7A1AFCF3160E13080086B98A /* EvernoteSDK.m in Sources */,
 				7A1AFCF4160E13080086B98A /* EvernoteSession.m in Sources */,
 				7A1AFCF5160E13080086B98A /* EvernoteUserStore.m in Sources */,
@@ -3871,8 +3946,11 @@
 				7A1AFCF8160E13080086B98A /* ENCredentialStore.m in Sources */,
 				7A1AFCF9160E13080086B98A /* ENOAuthViewController.m in Sources */,
 				7AA83C43170637CC009C483A /* ENAFURLConnectionOperation.m in Sources */,
+				7A85B52717FA1E6F00C86E77 /* ENXMLDTD.m in Sources */,
 				7AA83C4917063828009C483A /* ENGCOAuth.m in Sources */,
+				7A85B52317FA1E6F00C86E77 /* ENMIMEUtils.m in Sources */,
 				7AA83C4B17063828009C483A /* NSData+ENBase64.m in Sources */,
+				7A85B52D17FA1E6F00C86E77 /* NSString+EDAMAdditions.m in Sources */,
 				7AA83C4F1706386E009C483A /* ENConstants.m in Sources */,
 				7AA83C54170638EF009C483A /* EDAMNoteStoreClient+Utilities.m in Sources */,
 				7AA83C5817063926009C483A /* NSDate+EDAMAdditions.m in Sources */,
@@ -4694,6 +4772,11 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SDKROOT}/usr/include/libxml2",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -4715,6 +4798,11 @@
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SDKROOT}/usr/include/libxml2",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",

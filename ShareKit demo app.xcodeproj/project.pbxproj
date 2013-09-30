@@ -45,6 +45,7 @@
 		7A04083A17413908003404B9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
 		7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
 		7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E84D1743805E00B17434 /* libShareKit.a */; };
+		7A85B55F17FA220100C86E77 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85B53317FA1FD900C86E77 /* libxml2.dylib */; };
 		7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */; };
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
 		7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */; };
@@ -413,6 +414,7 @@
 		7A04083717413908003404B9 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		7A04083817413908003404B9 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		7A04083B1741399E003404B9 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		7A85B53317FA1FD900C86E77 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A85B55F17FA220100C86E77 /* libxml2.dylib in Frameworks */,
 				7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */,
 				7AD7D5CB17EC5A8200DE20F6 /* FacebookSDK.framework in Frameworks */,
 				7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */,
@@ -473,6 +476,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A85B53317FA1FD900C86E77 /* libxml2.dylib */,
 				7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */,
 				7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */,
 				7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */,
