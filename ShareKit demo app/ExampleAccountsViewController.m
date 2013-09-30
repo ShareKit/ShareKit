@@ -94,7 +94,7 @@
     
     cell.textLabel.text = sharerId;
     
-    if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
+    if ([NSClassFromString(sharerId) isServiceAuthorized]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
