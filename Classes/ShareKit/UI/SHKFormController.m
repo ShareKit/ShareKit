@@ -214,20 +214,20 @@
         case SHKFormFieldTypeTextNoCorrect:
         case SHKFormFieldTypePassword:
             cellIdentifier = CELL_IDENTIFIER_TEXT;
-            cellSubclass = [SHKFormFieldCellText class];
+            cellSubclass = [self SHKFormFieldCellTextClass];
             break;
         case SHKFormFieldTypeTextLarge:
             cellIdentifier = CELL_IDENTIFIER_LARGE_TEXT;
-            cellSubclass = [SHKFormFieldCellTextLarge class];
+            cellSubclass = [self SHKFormFieldCellTextLargeClass];
             break;
         case SHKFormFieldTypeSwitch:
             cellIdentifier = CELL_IDENTIFIER_SWITCH;
-            cellSubclass = [SHKFormFieldCellSwitch class];
+            cellSubclass = [self SHKFormFieldCellSwitchClass];
             break;
         case SHKFormFieldTypeOptionPicker:
             cellIdentifier = CELL_IDENTIFIER_OPTIONS;
             cellStyle = UITableViewCellStyleValue1;
-            cellSubclass = [SHKFormFieldCellOptionPicker class];
+            cellSubclass = [self SHKFormFieldCellOptionPickerClass];
         default:
             break;
     }    
@@ -245,6 +245,14 @@
 	
     return cell;
 }
+
+- (Class)SHKFormFieldCellTextClass { return [SHKFormFieldCellText class]; }
+
+- (Class)SHKFormFieldCellTextLargeClass { return [SHKFormFieldCellTextLarge class]; }
+
+- (Class)SHKFormFieldCellSwitchClass { return [SHKFormFieldCellSwitch class]; }
+
+- (Class)SHKFormFieldCellOptionPickerClass { return [SHKFormFieldCellOptionPicker class]; }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {

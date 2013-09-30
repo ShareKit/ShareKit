@@ -466,6 +466,7 @@
     return NSClassFromString(@"UITableViewCell");
 }
 
+///You can override methods from Configuration section (see SHKFormController.h) to use your own cell subclasses.
 - (Class)SHKFormControllerSubclass {
     return NSClassFromString(@"SHKFormController");
 }

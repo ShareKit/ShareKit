@@ -56,4 +56,12 @@
 - (NSMutableDictionary *)formValues;
 - (NSMutableDictionary *)formValuesForSection:(int)section;
 
+#pragma mark -
+#pragma mark Customization
+
+- (Class)SHKFormFieldCellTextClass;
+- (Class)SHKFormFieldCellTextLargeClass;
+- (Class)SHKFormFieldCellSwitchClass;
+- (Class)SHKFormFieldCellOptionPickerClass;
+
 @end
