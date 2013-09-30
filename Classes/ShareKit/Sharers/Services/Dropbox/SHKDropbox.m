@@ -415,7 +415,7 @@ static int outstandingRequests = 0;
     if (__fileOffset < __fileSize) {
         [client uploadFileChunk:uploadId offset:__fileOffset fromPath:localPath];
     } else {
-        NSString *fileName = self.item.file.path;
+        NSString *fileName = [self.item customValueForKey:kSHKDropboxStoredFileName];
         if (fileName.length < 1) {
             fileName = [NSString stringWithFormat:@"ShareKit-file-%lu", random() % 200];
         }
