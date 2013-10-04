@@ -101,7 +101,7 @@ BOOL SHKinit;
     UIViewController *result = [self getCurrentRootViewController];
     
     // Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	while (result.modalViewController != nil) result = result.modalViewController;
+	while (result.presentedViewController != nil) result = result.presentedViewController;
     
     NSAssert(result, @"ShareKit: There is no view controller to display from");
 	return result;  
@@ -189,13 +189,8 @@ BOOL SHKinit;
         vc.modalTransitionStyle = [SHK modalTransitionStyleForController:vc];
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
-    
-    if ([UIViewController instancesRespondToSelector:@selector(presentViewController:animated:completion:)]) {
-        [topViewController presentViewController:vc animated:YES completion:nil];
-    } else {
-        [topViewController presentModalViewController:vc animated:YES];
-    }
-    
+    [topViewController presentViewController:vc animated:YES completion:nil];
+
     self.currentView = vc;
 	self.pendingView = nil;
 }
@@ -519,7 +514,7 @@ static NSDictionary *sharersDictionary = nil;
 		sharersDictionary = [NSDictionary dictionaryWithContentsOfFile:[[SHK shareKitLibraryBundlePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]];
     }
     
-    //if user sets his own sharers plist - name only
+    //if user sets his own sharers plist - name only, or if using CocoaPods
     if (sharersDictionary == nil) 
     {
         sharersDictionary = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]];
