@@ -124,7 +124,8 @@
 	
     [self retain]; //must retain, because mailController does not retain its delegates. Released in callback.
 	mailController.mailComposeDelegate = self;
-	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
+//	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
+	mailController.navigationBar.translucent = NO;
 	
 	NSString *body = item.text;
 	BOOL isHTML = self.item.isMailHTML;
