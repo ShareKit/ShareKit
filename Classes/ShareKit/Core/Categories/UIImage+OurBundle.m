@@ -13,16 +13,8 @@
 
 + (UIImage *)imageNamedFromOurBundle:(NSString *)name {
     
-    BOOL usesPods = [SHKCONFIG(isUsingCocoaPods) boolValue];
-    UIImage *result;
-    
-    if (usesPods) {
-        result = [UIImage imageNamed:name];
-    } else {
-        NSString *ourBundlePath = [@"ShareKit.bundle" stringByAppendingPathComponent:name];
-        result = [UIImage imageNamed:ourBundlePath];
-    }
-    
+    NSString *ourBundlePath = [@"ShareKit.bundle" stringByAppendingPathComponent:name];
+    UIImage *result = [UIImage imageNamed:ourBundlePath];
     return result;
 }
 

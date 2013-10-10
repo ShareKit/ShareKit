@@ -43,7 +43,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
@@ -85,14 +85,16 @@
 				<string>buffer518cdcb0872cad4744000038</string>
 			</array>
 		</dict>
-        <dict>
-      		<key>CFBundleTypeRole</key>
-     		<string>Pocket</string>
-       		<key>CFBundleURLSchemes</key>
-            <array>
-                <string>pocketapp14225</string>
-            </array>
-        </dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Pocket</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>pocketapp14225</string>
+			</array>
+		</dict>
 	</array>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 </dict>
 </plist>

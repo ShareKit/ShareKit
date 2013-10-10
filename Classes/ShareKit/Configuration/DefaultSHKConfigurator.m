@@ -477,12 +477,6 @@
  These settings can be left as is.  This only need to be changed for uber custom installs.
  */
 
-
-/* cocoaPods can not build ShareKit.bundle resource target. This switches ShareKit to use resources directly. If someone knows how to build a resource target with cocoapods, please submit a pull request, so we can get rid of languages ShareKit.bundle and put languages directly to resource target */
-- (NSNumber *)isUsingCocoaPods {
-    return [NSNumber numberWithBool:NO];
-}
-
 - (NSNumber*)maxFavCount {
 	return [NSNumber numberWithInt:3];
 }
