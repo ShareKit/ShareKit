@@ -34,7 +34,7 @@
 //    }
 
 #import "SHKSharer.h"
-#import "GPPShare.h"
+#import <GooglePlus/GPPShare.h>
 
 @interface SHKGooglePlus : SHKSharer <GPPShareDelegate>
 

@@ -10,6 +10,8 @@
 
 #import "SharersCommonHeaders.h"
 
+#import <GooglePlus/GPPSignIn.h>
+
 @interface SHKGooglePlus ()
 
 @property (nonatomic, strong) GPPShare *mGooglePlusShare;
@@ -85,7 +87,8 @@
 
         self = [super init];
         if (self) {
-            _mGooglePlusShare = [[GPPShare alloc] initWithClientID:SHKCONFIG(googlePlusClientId)];
+            [[GPPSignIn sharedInstance] setClientID:SHKCONFIG(googlePlusClientId)];
+            _mGooglePlusShare = [GPPShare sharedInstance];
             _mGooglePlusShare.delegate = self;
         }
         return self;
