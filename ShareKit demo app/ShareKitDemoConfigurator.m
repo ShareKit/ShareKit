@@ -312,4 +312,11 @@
     return nil;
 }
 
+/* Write appName to metadata when share to PhotoLibrary */
+
+- (NSNumber *)photoAlbumShouldWriteMetadata
+{
+    return @YES;
+}
+
 @end

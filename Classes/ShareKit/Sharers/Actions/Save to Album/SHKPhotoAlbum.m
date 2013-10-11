@@ -27,6 +27,8 @@
 
 #import "SHKPhotoAlbum.h"
 #import "SharersCommonHeaders.h"
+#import <ImageIO/ImageIO.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation SHKPhotoAlbum
 
@@ -76,7 +78,30 @@
 
 - (void) writeImageToAlbum
 {
-	UIImageWriteToSavedPhotosAlbum(self.item.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    BOOL shouldWriteMetadata = [SHKCONFIG(photoAlbumShouldWriteMetadata) boolValue];
+    
+    if (shouldWriteMetadata) {
+        [self writeImageWithMetadata];
+    } else {
+        [self writeImageWithoutMetadata];
+    }
+}
+
+- (void) writeImageWithoutMetadata
+{
+    UIImageWriteToSavedPhotosAlbum(self.item.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+
+- (void) writeImageWithMetadata
+{
+    NSString *softwareString = SHKCONFIG(appName);
+    NSDictionary *tiffDictionary = @{(NSString *)kCGImagePropertyTIFFSoftware : softwareString };
+    NSDictionary *metadata = @{(NSString *)kCGImagePropertyTIFFDictionary : tiffDictionary};
+    
+    ALAssetsLibrary *assetLibrary = [[ALAssetsLibrary alloc] init];
+    [assetLibrary writeImageToSavedPhotosAlbum:self.item.image.CGImage metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
+        [self image:self.item.image didFinishSavingWithError:error contextInfo:NULL];
+    }];
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)ctxInfo

@@ -110,6 +110,8 @@
 - (NSNumber*)isMailHTML;
 - (NSNumber*)mailJPGQuality;
 - (NSNumber*)sharedWithSignature;
+//SHKPhotoAlbum
+- (NSNumber*)photoAlbumShouldWriteMetadata;
 //SHKFacebook
 - (NSString *)facebookURLSharePictureURI;
 - (NSString *)facebookURLShareDescription;

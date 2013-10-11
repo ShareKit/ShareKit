@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B9C17AA1803F486002200C1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9C17A81803F486002200C1 /* ImageIO.framework */; };
+		5B9C17AB1803F486002200C1 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B9C17A91803F486002200C1 /* AssetsLibrary.framework */; };
 		7A0406671740E3F6003404B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406661740E3F6003404B9 /* UIKit.framework */; };
 		7A0406691740E3F6003404B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406681740E3F6003404B9 /* Foundation.framework */; };
 		7A04066B1740E3F6003404B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04066A1740E3F6003404B9 /* CoreGraphics.framework */; };
@@ -365,6 +367,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5B9C17A81803F486002200C1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/ImageIO.framework; sourceTree = "<absolute>"; };
+		5B9C17A91803F486002200C1 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = "<absolute>"; };
 		7A0406631740E3F6003404B9 /* ShareKit demo app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShareKit demo app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A0406661740E3F6003404B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7A0406681740E3F6003404B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -429,6 +433,7 @@
 				7A85B55F17FA220100C86E77 /* libxml2.dylib in Frameworks */,
 				7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */,
 				7AD7D5CB17EC5A8200DE20F6 /* FacebookSDK.framework in Frameworks */,
+				5B9C17AB1803F486002200C1 /* AssetsLibrary.framework in Frameworks */,
 				7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */,
 				7A040832174133C5003404B9 /* Social.framework in Frameworks */,
 				7A04076A17410472003404B9 /* QuartzCore.framework in Frameworks */,
@@ -447,6 +452,7 @@
 				7A040750174103E4003404B9 /* SystemConfiguration.framework in Frameworks */,
 				7A0406671740E3F6003404B9 /* UIKit.framework in Frameworks */,
 				7A0406691740E3F6003404B9 /* Foundation.framework in Frameworks */,
+				5B9C17AA1803F486002200C1 /* ImageIO.framework in Frameworks */,
 				7A04066B1740E3F6003404B9 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +482,8 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5B9C17A81803F486002200C1 /* ImageIO.framework */,
+				5B9C17A91803F486002200C1 /* AssetsLibrary.framework */,
 				7A85B53317FA1FD900C86E77 /* libxml2.dylib */,
 				7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */,
 				7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */,
