@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.4.4'
+  s.version       = '2.4.5'
   s.platform      = :ios, '5.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -160,13 +160,18 @@ Pod::Spec.new do |s|
     youtube.dependency 'Google-API-Client/Utilities'
   end
 
- # s.subspec 'GooglePlus' do |googleplus|
- #   googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
- #   googleplus.dependency 'ShareKit/Core'
- #   googleplus.dependency 'google-plus-ios-sdk'
-    #googleplus.dependency 'Google-API-Client/Common'
+  s.subspec 'GooglePlus' do |googleplus|
+    googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
+    googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
+    googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
+    googleplus.dependency 'ShareKit/Core'
+    #googleplus.dependency 'google-plus-ios-sdk'
+    googleplus.dependency 'Google-API-Client/Common'
+    googleplus.dependency 'Google-API-Client/Services/Plus'
+    googleplus.dependency 'OpenInChrome'
+    googleplus.dependency 'SHK-GTM', :podspec => 'SHK-GTM.podspec'
     #googleplus.dependency 'Google-API-Client/Objects'
     #googleplus.dependency 'Google-API-Client/Utilities'
-  #end
+  end
 
 end
