@@ -10,8 +10,10 @@
 #import "SHKFormFieldCell_PrivateProperties.h"
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SSTextView.h"
-#import "UIImage+OurBundle.h"
 #import "SHKFile.h"
+
+#import "UIImage+OurBundle.h"
+#import "UIApplication+iOSVersion.h"
 
 #define SHK_FORM_TEXT_PAD_TOP 7
 #define SHK_FORM_TEXT_PAD_BOTTOM 28
@@ -23,8 +25,6 @@
 #define SHK_FORM_PHOTO_PAD_TOP 1
 
 #define SHK_FORM_EXTENSION_PAD 15
-
-#define SHKFoundationVersionNumber_iOS_6_1  993.00
 
 @interface SHKFormFieldCellTextLarge ()
 
@@ -39,15 +39,6 @@
 @end
 
 @implementation SHKFormFieldCellTextLarge
-
-- (BOOL)isiOS6OrOlder {
-    
-    if (floor(NSFoundationVersionNumber) <= SHKFoundationVersionNumber_iOS_6_1) {
-        return YES;
-    }   else {
-        return NO;
-    }
-}
 
 - (void)setupLayout {
     
@@ -84,7 +75,7 @@
     [self.contentView addSubview:imageView];
     self.clippedImageView = imageView;
     
-    if ([self isiOS6OrOlder]) {
+    if ([[UIApplication sharedApplication] isiOS6OrOlder]) {
         
         UIImage *clip = [UIImage imageNamedFromOurBundle:@"DETweetPaperClip.png"];
         UIImageView *clipView = [[UIImageView alloc] initWithImage:clip];

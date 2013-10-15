@@ -123,6 +123,8 @@
 		7A85B52E17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B51F17FA1E6F00C86E77 /* NSString+EDAMNilAdditions.h */; };
 		7A85B53117FA1ED300C86E77 /* NSData+EvernoteSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A85B52F17FA1ED300C86E77 /* NSData+EvernoteSDK.h */; };
 		7A85B53217FA1ED300C86E77 /* NSData+EvernoteSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A85B53017FA1ED300C86E77 /* NSData+EvernoteSDK.m */; };
+		7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A930ED3180D86180066C399 /* UIApplication+iOSVersion.h */; };
+		7A930ED6180D86180066C399 /* UIApplication+iOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A930ED4180D86180066C399 /* UIApplication+iOSVersion.m */; };
 		7A9FEF35180403520053CB40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A9FEF1E180403520053CB40 /* Localizable.strings */; };
 		7A9FEF971807462A0053CB40 /* GTLPlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A9FEF771807462A0053CB40 /* GTLPlus.h */; };
 		7A9FEF981807462A0053CB40 /* GTLPlus_Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9FEF781807462A0053CB40 /* GTLPlus_Sources.m */; };
@@ -879,6 +881,8 @@
 		7A85B52F17FA1ED300C86E77 /* NSData+EvernoteSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+EvernoteSDK.h"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/NSData+EvernoteSDK.h"; sourceTree = SOURCE_ROOT; };
 		7A85B53017FA1ED300C86E77 /* NSData+EvernoteSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+EvernoteSDK.m"; path = "Submodules/evernote-ios-sdk/evernote-sdk-ios/Utilities/NSData+EvernoteSDK.m"; sourceTree = SOURCE_ROOT; };
 		7A85B55D17FA204700C86E77 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		7A930ED3180D86180066C399 /* UIApplication+iOSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+iOSVersion.h"; sourceTree = "<group>"; };
+		7A930ED4180D86180066C399 /* UIApplication+iOSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+iOSVersion.m"; sourceTree = "<group>"; };
 		7A9FEF1F180403520053CB40 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A9FEF20180403520053CB40 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A9FEF21180403520053CB40 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1858,6 +1862,8 @@
 				7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */,
 				7A107CE917AA5674009A7F0E /* UIImage+OurBundle.h */,
 				7A107CEA17AA5674009A7F0E /* UIImage+OurBundle.m */,
+				7A930ED3180D86180066C399 /* UIApplication+iOSVersion.h */,
+				7A930ED4180D86180066C399 /* UIApplication+iOSVersion.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -2716,6 +2722,7 @@
 				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
 				7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */,
+				7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */,
 				7A107CEB17AA5674009A7F0E /* UIImage+OurBundle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3981,6 +3988,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A930ED6180D86180066C399 /* UIApplication+iOSVersion.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,

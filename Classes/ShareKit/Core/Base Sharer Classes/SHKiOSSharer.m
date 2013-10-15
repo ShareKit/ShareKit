@@ -8,6 +8,7 @@
 
 #import "SHKiOSSharer_Protected.h"
 #import "SharersCommonHeaders.h"
+#import "UIApplication+iOSVersion.h"
 #import <Social/Social.h>
 
 @interface SHKiOSSharer ()
@@ -48,7 +49,12 @@
     
     sharerUIController.completionHandler = ^(SLComposeViewControllerResult result)
     {
-        [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+        
+        if ([[UIApplication sharedApplication] isiOS6OrOlder]) {
+            [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+        } else {
+            [[SHK currentHelper] setCurrentView:nil];
+        }
         
         switch (result) {
                 
