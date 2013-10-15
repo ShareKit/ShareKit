@@ -114,7 +114,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 	else
 	{
-        [self prepareItem];
         [super share];
 	}
 }
@@ -307,6 +306,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
         self.quiet = YES;
         return nil;
     }
+    
+    [self prepareItem];
     
     NSArray *result = @[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
                                                          key:@"status"
