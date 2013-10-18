@@ -152,6 +152,9 @@
 // If |attemptSSO| is true, try to authenticate with the Google+ app, if
 // installed. If false, always use Google+ via Chrome or Mobile Safari for
 // authentication. The delegate will be called at the end of this process.
+// Note that this method should not be called when the app is starting up,
+// (e.g in application:didFinishLaunchingWithOptions:). Instead use the
+// |trySilentAuthentication| method.
 - (void)authenticate;
 
 // This method should be called from your |UIApplicationDelegate|'s
