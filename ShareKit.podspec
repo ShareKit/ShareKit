@@ -165,13 +165,10 @@ Pod::Spec.new do |s|
     googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
     googleplus.dependency 'ShareKit/Core'
-    #googleplus.dependency 'google-plus-ios-sdk'
     googleplus.dependency 'Google-API-Client/Common'
     googleplus.dependency 'Google-API-Client/Services/Plus'
     googleplus.dependency 'OpenInChrome'
-    googleplus.dependency 'SHK-GTM', :podspec => 'SHK-GTM.podspec'
-    #googleplus.dependency 'Google-API-Client/Objects'
-    #googleplus.dependency 'Google-API-Client/Utilities'
+    googleplus.dependency 'gtm-logger'
   end
 
 end
