@@ -168,7 +168,7 @@ Pod::Spec.new do |s|
     googleplus.dependency 'Google-API-Client/Common'
     googleplus.dependency 'Google-API-Client/Services/Plus'
     googleplus.dependency 'OpenInChrome'
-    googleplus.dependency 'gtm-logger'
+    #googleplus.dependency 'gtm-logger'
   end
 
 end
