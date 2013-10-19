@@ -9,6 +9,7 @@
 #import "SHKFile.h"
 #import <AVFoundation/AVFoundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "Debug.h"
 
 @interface SHKFile()
 
@@ -157,6 +158,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 
 -(void)createPathFromData
 {
+    SHKLog(@"Warning, you are saving a file to the disc");
     NSString *sanitizedFileName = [self sanitizeFileNameString:self.filename];
     
     // Our filename
@@ -182,6 +184,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 
 -(void)createDataFromPath
 {
+    SHKLog(@"Warning, you are reading file to memory");
     NSError *error;
     _data = [NSData dataWithContentsOfFile:_path options:NSDataReadingMapped|NSDataReadingUncached error:&error];
     
@@ -194,6 +197,12 @@ static NSString *kSHKFileData = @"kSHKFileData";
 {
     if(!self.hasPath || [self.path rangeOfString:tempDirectory].location == NSNotFound) return;
     [[NSFileManager defaultManager] removeItemAtPath:self.path error:nil];
+}
+
+- (NSURL *)URL {
+    
+    NSURL *result = [[NSURL alloc] initFileURLWithPath:[self.path stringByExpandingTildeInPath]];
+    return result;
 }
 
 #pragma mark ---

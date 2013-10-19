@@ -27,6 +27,10 @@
 
 #import "SHKPhotoAlbum.h"
 #import "SharersCommonHeaders.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <ImageIO/ImageIO.h>
+
+typedef void (^SHKPhotoSharerCompletionBlock)(NSURL *assetURL, NSError *error);
 
 @implementation SHKPhotoAlbum
 
@@ -41,6 +45,18 @@
 + (BOOL)canShareImage
 {
 	return YES;
+}
+
++ (BOOL)canShareFile:(SHKFile *)file {
+    
+    //if file is in-memory only, it would have to be synchronously saved to disc to obtain path. This is unacceptable long process, it would pause share sheet displaying.
+    if ([file.mimeType hasPrefix:@"video/"] && !file.hasPath) return NO;
+    
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    BOOL acceptedVideo = [library videoAtPathIsCompatibleWithSavedPhotosAlbum:file.URL];
+    BOOL isImage = [file.mimeType hasPrefix:@"image/"];
+    BOOL result = isImage || acceptedVideo;
+    return result;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -68,24 +84,89 @@
 
 - (BOOL)send
 {	
-	if (self.item.shareType == SHKShareTypeImage)
-		[self writeImageToAlbum];
-	
+	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    switch (self.item.shareType) {
+            
+        case SHKShareTypeImage:
+            
+            [self writeImageToAlbum];
+            break;
+            
+        case SHKShareTypeFile:
+            
+            if ([self.item.file.mimeType hasPrefix:@"video"]) {
+                [library writeVideoAtPathToSavedPhotosAlbum:self.item.file.URL completionBlock:[self completionBlock]];
+            } else {
+                [self writeImageToAlbum];
+            }
+            break;
+        default:
+            break;
+    }
+    
 	return YES;
 }
 
-- (void) writeImageToAlbum
-{
-	UIImageWriteToSavedPhotosAlbum(self.item.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+- (void)writeImageToAlbum {
+    
+    UIImage *imageToShare = nil;
+    
+    switch (self.item.shareType) {
+        case SHKShareTypeImage:
+            imageToShare = self.item.image;
+            break;
+        case SHKShareTypeFile:
+            imageToShare = [UIImage imageWithData:self.item.file.data];
+        default:
+            break;
+    }
+    
+    NSDictionary *metadata = [self extractExifFrom:self.item.file.data];
+    
+    ALAssetsLibrary* assetsLibrary = [[ALAssetsLibrary alloc] init];
+    [assetsLibrary writeImageToSavedPhotosAlbum:imageToShare.CGImage
+                                       metadata:metadata
+                                completionBlock:[self completionBlock]];
 }
 
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)ctxInfo
-{
-    if (error) {
-        [self sendShowSimpleErrorAlert];
-    } else {
-        [self sendDidFinish];
+- (NSDictionary *)extractExifFrom :(NSData *)imageData {
+    
+    if (!imageData) return nil;
+
+    NSDictionary *result = nil;
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    
+    if (source)
+    {
+        CFDictionaryRef metadataRef = CGImageSourceCopyPropertiesAtIndex (source, 0, NULL);
+        if (metadataRef)
+        {
+            NSDictionary *immutableMetadata = (__bridge NSDictionary *)metadataRef;
+            if (immutableMetadata)
+            {
+                result = [NSDictionary dictionaryWithDictionary : (__bridge NSDictionary *)metadataRef];
+            }
+            CFRelease (metadataRef);
+        }
+        CFRelease(source);
+        source = nil;
     }
+    return result;
+}
+
+- (SHKPhotoSharerCompletionBlock)completionBlock {
+    
+    SHKPhotoSharerCompletionBlock result = ^(NSURL *assetURL, NSError *error) {
+       
+        if (assetURL) {
+            [self sendDidFinish];
+        } else {
+            [self sendShowSimpleErrorAlert];
+            SHKLog(@"Error while saving video: %@", [error description]);
+        }
+    };
+    return result;
 }
 
 @end
