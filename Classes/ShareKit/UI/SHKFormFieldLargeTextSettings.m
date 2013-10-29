@@ -36,7 +36,7 @@
 
 - (NSUInteger)actualImageTextLength {
     
-    NSUInteger result = (self.image && self.imageTextLength) ? self.imageTextLength : 0;
+    NSUInteger result = ((self.image || self.file) && self.imageTextLength) ? self.imageTextLength : 0;
     return result;
 }
 

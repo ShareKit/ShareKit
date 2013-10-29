@@ -37,7 +37,15 @@
 
 #import <Social/Social.h>
 
-static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
+#define MAX_FILE_SIZE 3145728
+#define API_CONFIG_PHOTO_SIZE_KEY @"photo_size_limit"
+#define CHARS_PER_MEDIA 23
+#define API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA @"characters_reserved_per_media"
+#define REVOKED_ACCESS_ERROR_CODE 32
+
+static NSString * const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
+static NSString * const SHKTwitterAPIConfigurationDataKey = @"SHKTwitterAPIConfigurationDataKey";
+static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIConfigurationSaveDateKey";
 
 @implementation SHKTwitter
 
@@ -93,21 +101,102 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return YES;
 }
 
++ (BOOL)canShareFile:(SHKFile *)file {
+    
+    BOOL isUsingPreiOS5Sharing = ![self twitterFrameworkAvailable] && ![self socialFrameworkAvailable];
+    BOOL isFileSupported = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"];
+    BOOL isSizeSupported = file.size < [self maxTwitterFileSize];
+    
+    if (isUsingPreiOS5Sharing && isFileSupported && isSizeSupported) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 - (BOOL)requiresShortenedURL
 {
     return YES;
+}
+
+#pragma mark - Fetch Twitter API configuration
+
++ (NSUInteger)maxTwitterFileSize {
+    
+    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
+    NSUInteger result = [twitterAPIConfig[API_CONFIG_PHOTO_SIZE_KEY] integerValue];
+    if (!result) {
+        result = MAX_FILE_SIZE;//if not fetched yet, return last known value. This must be quick in order not to slow share menu creation.
+    }
+    return result;
+}
+
+- (NSUInteger)charsReservedPerMedia {
+    
+    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
+    NSUInteger result = [twitterAPIConfig[API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA] integerValue];
+    if (!result) {
+        result = CHARS_PER_MEDIA;//if not fetched yet, return last known value. This must be quick in order not to slow share menu creation.
+    }
+    return result;
+}
+
+- (void)downloadAPIConfiguration {
+    
+    NSDate *lastFetchDate = [[NSUserDefaults standardUserDefaults] objectForKey:SHKTwitterAPIConfigurationSaveDateKey];
+    BOOL isConfigOld = [[NSDate date] compare:[lastFetchDate dateByAddingTimeInterval:24*60*60]] == NSOrderedDescending;
+    if (isConfigOld || !lastFetchDate) {
+        
+            OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/help/configuration.json"]
+                                                                            consumer:consumer
+                                                                               token:accessToken
+                                                                               realm:nil
+                                                                   signatureProvider:nil];
+            [oRequest setHTTPMethod:@"GET"];
+            OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                                  delegate:self
+                                                                                         didFinishSelector:@selector(configFetchTicket:didFinishWithData:)
+                                                                                           didFailSelector:nil];
+            [fetcher start];
+        }
+}
+
+- (void)configFetchTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    
+    if (ticket.didSucceed) {
+        
+        [self saveData:data defaultsKey:SHKTwitterAPIConfigurationDataKey];
+        [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:SHKTwitterAPIConfigurationSaveDateKey];
+        
+    } else {
+        
+        SHKLog(@"Error when fetching Twitter config:%@", ticket.body);
+    }
+}
+
+- (void)saveData:(NSData *)data defaultsKey:(NSString *)key {
+    
+    NSError *error = nil;
+    NSMutableDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+    if (error) {
+        SHKLog(@"Error when parsing json %@ request:%@", key, [error description]);
+    }
+    
+    [parsedData convertNSNullsToEmptyStrings];
+    [[NSUserDefaults standardUserDefaults] setObject:parsedData forKey:key];
 }
 
 #pragma mark -
 #pragma mark Commit Share
 
 - (void)share {
-	if ([self socialFrameworkAvailable])
+	if ([[self class] socialFrameworkAvailable])
 	{
 		SHKSharer *sharer = [SHKiOSTwitter shareItem:self.item];
 		[self setupiOSSharer:sharer];
 	}
-	else if ([self twitterFrameworkAvailable])
+	else if ([[self class] twitterFrameworkAvailable])
 	{
 		SHKSharer *sharer = [SHKiOS5Twitter shareItem:self.item];
 		[self setupiOSSharer:sharer];
@@ -126,7 +215,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 #pragma mark -
 
-- (BOOL)twitterFrameworkAvailable {
++ (BOOL)twitterFrameworkAvailable {
 	
     if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
     {
@@ -140,7 +229,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	return NO;
 }
 
-- (BOOL)socialFrameworkAvailable {
++ (BOOL)socialFrameworkAvailable {
     
     if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
     {
@@ -188,16 +277,20 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 - (BOOL)isAuthorized
 {		
-	if ([self twitterFrameworkAvailable]) {
+	if ([[self class] twitterFrameworkAvailable]) {
 		[SHKTwitter logout];
 		return NO; 
 	}
-	return [self restoreAccessToken];
+	BOOL result = [self restoreAccessToken];
+    if (result) {
+        [self downloadAPIConfiguration]; //fetch file size limits
+    }
+    return result;
 }
 
 - (void)promptAuthorization
 {	
-	if ([self twitterFrameworkAvailable]) {
+	if ([[self class] twitterFrameworkAvailable]) {
 		SHKLog(@"There is no need to authorize when we use iOS Twitter framework");
 		return;
 	}
@@ -301,10 +394,21 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 #pragma mark UI Implementation
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
-    
-    if (type == SHKShareTypeUserInfo) {
-        self.quiet = YES;
-        return nil;
+
+    NSUInteger additionalTextLength = 0;
+    switch (type) {
+        case SHKShareTypeUserInfo:
+            self.quiet = YES;
+            return nil;
+            break;
+        case SHKShareTypeFile:
+            additionalTextLength = [self charsReservedPerMedia];
+            break;
+        case SHKShareTypeImage:
+            additionalTextLength = 25;
+            break;
+        default:
+            break;
     }
     
     [self prepareItem];
@@ -315,9 +419,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
                                                        start:[self.item customValueForKey:@"status"]
                                                maxTextLength:140
                                                        image:self.item.image
-                                             imageTextLength:25
+                                             imageTextLength:additionalTextLength
                                                         link:self.item.URL
-                                                        file:nil
+                                                        file:self.item.file
                                               allowEmptySend:NO
                                                       select:YES]];
     return result;
@@ -359,6 +463,9 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 			[self sendUserInfo];
 			break;
 			
+        case SHKShareTypeFile:
+            [self sendData:self.item.file.data];
+            break;
 		default:
 			[self sendStatus];
 			break;
@@ -380,36 +487,30 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	[oRequest setHTTPMethod:@"GET"];
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
-																										  didFinishSelector:@selector(sendUserInfo:didFinishWithData:)
-																											 didFailSelector:@selector(sendUserInfo:didFailWithError:)];		
+																										  didFinishSelector:@selector(sendTicket:didFinishWithData:)
+																											 didFailSelector:@selector(sendTicket:didFailWithError:)];
 	[fetcher start];
 }
 
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
-{	
-	if (ticket.didSucceed) {
-		
-		NSError *error = nil;
-		NSMutableDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-		
-		if (error) {
-			SHKLog(@"Error when parsing json twitter user info request:%@", [error description]);
-		}
-		
-		[userInfo convertNSNullsToEmptyStrings];
-		[[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKTwitterUserInfo];
-		
-		[self sendDidFinish];
-		
-	} else {
-		
-		[self handleUnsuccessfulTicket:data];
-	}
-}
-
-- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
-{
-	[self sendDidFailWithError:error];
+- (void)sendData:(NSData *)data {
+    
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"]
+                                                                    consumer:consumer
+                                                                       token:accessToken
+                                                                       realm:nil
+                                                           signatureProvider:nil];
+	[oRequest setHTTPMethod:@"POST"];
+    [oRequest prepare];
+    
+	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status" value:[self.item customValueForKey:@"status"]];
+	[oRequest setParameters:@[statusParam]];
+    [oRequest attachFileWithParameterName:@"media" filename:self.item.file.filename contentType:self.item.file.mimeType data:data];
+	
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+	[fetcher start];
 }
 
 - (void)sendStatus
@@ -424,33 +525,15 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
 																								value:[self.item customValueForKey:@"status"]];
-	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
+    NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
 	[oRequest setParameters:params];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
-																										  didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
-																											 didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
 	
 	[fetcher start];
-}
-
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
-{	
-	// TODO better error handling here
-	
-	if (ticket.didSucceed) 
-		[self sendDidFinish];
-	
-	else
-	{		
-		[self handleUnsuccessfulTicket:data];
-	}
-}
-
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
-{
-	[self sendDidFailWithError:error];
 }
 
 - (void)sendImage {
@@ -545,11 +628,8 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
 																										  didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																											 didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
-	
+																											 didFailSelector:@selector(sendTicket:didFailWithError:)];
 	[fetcher start];
-	
-	
 }
 
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
@@ -579,11 +659,6 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 	}
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
-	[self sendDidFailWithError:error];
-}
-
-
 - (void)followMe
 {
 	// remove it so in case of other failures this doesn't get hit again
@@ -607,35 +682,36 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 
 #pragma mark -
 
+- (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	[self sendDidFailWithError:error];
+}
+
+- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+
+	if (ticket.didSucceed) {
+        
+        if (self.item.shareType == SHKShareTypeUserInfo) [self saveData:data defaultsKey:kSHKTwitterUserInfo];
+		[self sendDidFinish];
+
+    } else {
+        
+		[self handleUnsuccessfulTicket:data];
+	}
+}
+
 - (void)handleUnsuccessfulTicket:(NSData *)data
 {
 	if (SHKDebugShowLogs)
 		SHKLog(@"Twitter Send Status Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	
-	// CREDIT: Oliver Drobnik
+	NSMutableDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *twitterError = parsedResponse[@"errors"][0];
 	
-	NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];		
-	
-	// in case our makeshift parsing does not yield an error message
-	NSString *errorMessage = @"Unknown Error";		
-	
-	NSScanner *scanner = [NSScanner scannerWithString:string];
-	
-	// skip until error message
-	[scanner scanUpToString:@"\"error\":\"" intoString:nil];
-	
-	
-	if ([scanner scanString:@"\"error\":\"" intoString:nil])
-	{
-		// get the message until the closing double quotes
-		[scanner scanUpToCharactersFromSet:[NSCharacterSet characterSetWithCharactersInString:@"\""] intoString:&errorMessage];
-	}
-	
-	
-	// this is the error message for revoked access ...?... || removed app from Twitter
-	if ([errorMessage isEqualToString:@"Invalid / used nonce"] || [errorMessage isEqualToString:@"Could not authenticate with OAuth."]) {
+	if ([twitterError[@"code"] integerValue] == REVOKED_ACCESS_ERROR_CODE) {
 		
 		[self shouldReloginWithPendingAction:SHKPendingSend];
+        return;
 		
 	} else {
 		
@@ -647,7 +723,7 @@ static NSString *const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 		}
 	}
 	
-	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:twitterError[@"message"] forKey:NSLocalizedDescriptionKey]];
 	[self sendDidFailWithError:error];
 }
 
