@@ -37,10 +37,13 @@
 
 #import <Social/Social.h>
 
+#define MAX_TWEET_LENGTH 140
 #define MAX_FILE_SIZE 3145728
 #define API_CONFIG_PHOTO_SIZE_KEY @"photo_size_limit"
 #define CHARS_PER_MEDIA 23
 #define API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA @"characters_reserved_per_media"
+#define CHARS_PER_URL 23
+#define API_CONFIG_CHARACTERS_RESERVED_PER_URL @"short_url_length_https"
 #define REVOKED_ACCESS_ERROR_CODE 32
 
 static NSString * const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
@@ -114,11 +117,6 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     }
 }
 
-- (BOOL)requiresShortenedURL
-{
-    return YES;
-}
-
 #pragma mark - Fetch Twitter API configuration
 
 + (NSUInteger)maxTwitterFileSize {
@@ -136,7 +134,17 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
     NSUInteger result = [twitterAPIConfig[API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA] integerValue];
     if (!result) {
-        result = CHARS_PER_MEDIA;//if not fetched yet, return last known value. This must be quick in order not to slow share menu creation.
+        result = CHARS_PER_MEDIA;//if not fetched yet, return last known value.
+    }
+    return result;
+}
+
+- (NSUInteger)charsReservedPerURL {
+    
+    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
+    NSUInteger result = [twitterAPIConfig[API_CONFIG_CHARACTERS_RESERVED_PER_URL] integerValue];
+    if (!result) {
+        result = CHARS_PER_URL;//if not fetched yet, return last known value.
     }
     return result;
 }
@@ -395,31 +403,37 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
 
-    NSUInteger additionalTextLength = 0;
-    switch (type) {
-        case SHKShareTypeUserInfo:
-            self.quiet = YES;
-            return nil;
-            break;
-        case SHKShareTypeFile:
-            additionalTextLength = [self charsReservedPerMedia];
-            break;
-        case SHKShareTypeImage:
-            additionalTextLength = 25;
-            break;
-        default:
-            break;
+    
+    if (self.item.shareType == SHKShareTypeUserInfo) {
+        self.quiet = YES;
+        return nil;
+    }
+    
+    //if media is attached there is less room for user's tweet text
+    NSUInteger textLengthToSubtract = 0;
+    if (self.item.file) {
+        textLengthToSubtract += [self charsReservedPerMedia];
+    } else if (self.item.image) {
+        textLengthToSubtract += [self charsReservedPerURL]; //the image link is shortened natively by Twitter anyway via t.co)
+    }
+    
+    //if url is attached there is less room for user's tweet text
+    NSUInteger URLLengthToSubtract = 0;
+    if (self.item.URL) {
+        URLLengthToSubtract = [self charsReservedPerURL];
     }
     
     [self prepareItem];
+    
+    NSUInteger maxTextLength = MAX_TWEET_LENGTH + [[self.item.URL absoluteString] length] - URLLengthToSubtract; //link is shortened natively by Twitter via t.co, and the original link itself does not eat up to 140 chars limit
     
     NSArray *result = @[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
                                                          key:@"status"
                                                         type:SHKFormFieldTypeTextLarge
                                                        start:[self.item customValueForKey:@"status"]
-                                               maxTextLength:140
+                                               maxTextLength:maxTextLength
                                                        image:self.item.image
-                                             imageTextLength:additionalTextLength
+                                             imageTextLength:textLengthToSubtract
                                                         link:self.item.URL
                                                         file:self.item.file
                                               allowEmptySend:NO
@@ -430,46 +444,23 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validateItem {
-	
-	if (self.item.shareType == SHKShareTypeUserInfo) return YES;
-    
-	BOOL isValid = [super validateItem];
-	NSString *status = [self.item customValueForKey:@"status"];
-	
-	if (isValid && 0 < status.length && status.length <= 140) {
-		return YES;
-	} else {
-        return NO;
-    }
-}
-
 - (BOOL)send
 {	
 	// Check if we should send follow request too
 	if (self.xAuth && [self.item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
-	if (![self validateItem])
-		return NO;
-	
-	switch (self.item.shareType) {
-			
-		case SHKShareTypeImage:            
-			[self sendImage];
-			break;
-			
-		case SHKShareTypeUserInfo:            
-			[self sendUserInfo];
-			break;
-			
-        case SHKShareTypeFile:
-            [self sendData:self.item.file.data];
-            break;
-		default:
-			[self sendStatus];
-			break;
-	}
+	if (![self validateItem]) return NO;
+    
+    if (self.item.image) {
+        [self sendImage];
+    } else if (self.item.file) {
+        [self sendData:self.item.file.data];
+    } else if (self.item.shareType == SHKShareTypeUserInfo) {
+        [self sendUserInfo];
+    } else {
+        [self sendStatus];
+    }
 	
 	// Notify delegate
 	[self sendDidStart];	

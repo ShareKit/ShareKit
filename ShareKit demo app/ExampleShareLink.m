@@ -61,8 +61,16 @@
     NSString *pageTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	SHKItem *item = [SHKItem URL:self.webView.request.URL title:pageTitle contentType:(SHKURLContentTypeWebpage)];
     
-    /* bellow are examples how to preload SHKItem with some custom sharer specific settings. You can prefill them ad hoc during each particular SHKItem createion, or set them globally in your configurator, so that every SHKItem is prefilled with the same values. More info in SHKItem.h or DefaultSHKConfigurator.m.
+    /* temporary alternatives for testing */
+    //SHKItem *item = [SHKItem URL:[NSURL URLWithString:@"http://ekonomika.sme.sk/c/6987338/smer-dovolil-odborom-aby-presadili-vyssie-platy-aj-bez-suhlasu-firiem.html"] title:@"Big bang" contentType:SHKURLContentTypeVideo];
+    /*
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"sanFran" ofType:@"jpg"];
+    SHKItem *item = [SHKItem filePath:filePath title:@"San Francisco"];
+    //item.image = [UIImage imageNamed:@"sanFran.jpg"];
+    item.URL = [NSURL URLWithString:@"ekonomika.sme.sk/c/6987338/smer-dovolil-odborom-aby-presadili-vyssie-platy-aj-bez-suhlasu-firiem.html"];
+     */
     
+    /* bellow are examples how to preload SHKItem with some custom sharer specific settings. You can prefill them ad hoc during each particular SHKItem createion, or set them globally in your configurator, so that every SHKItem is prefilled with the same values. More info in SHKItem.h or DefaultSHKConfigurator.m.
     SHKItem *item = [SHKItem URL:[NSURL URLWithString:@"http://www.youtube.com/watch?v=3t8MeE8Ik4Y"] title:@"Big bang" contentType:SHKURLContentTypeVideo];
     item.facebookURLSharePictureURI = @"http://www.state.gov/cms_images/india_tajmahal_2003_06_252.jpg";
     item.facebookURLShareDescription = @"description text";
