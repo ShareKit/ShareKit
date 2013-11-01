@@ -135,6 +135,11 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                             allowMultiple:NO
                                                                              fetchFromWeb:YES
                                                                                  provider:self];
+    blogField.validationBlock = ^ (SHKFormFieldOptionPickerSettings *formFieldSettings) {
+        
+        BOOL result = [formFieldSettings valueToSave];
+        return result;
+    };
     
     SHKFormFieldSettings *tagsField = [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
                                                               key:@"tags"
