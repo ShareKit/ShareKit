@@ -339,18 +339,19 @@
             return nil;
     }
         
-    NSArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                          key:key
-                                                         type:SHKFormFieldTypeTextLarge
-                                                        start:text
-                                                maxTextLength:0
-                                                        image:self.item.image
-                                              imageTextLength:0
-                                                         link:self.item.URL
-                                                         file:self.item.file
-                                               allowEmptySend:NO
-                                                       select:YES]] mutableCopy];
-    return result;
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:key
+                                                                                  type:SHKFormFieldTypeTextLarge
+                                                                                 start:text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL result = formFieldSettings.valueToSave > 0;
+        return result;
+    };
+    
+    return @[commentField];
 }
 
 ///////////////////////////////////////////////////////////////////////////

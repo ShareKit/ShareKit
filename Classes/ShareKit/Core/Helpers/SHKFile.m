@@ -242,13 +242,4 @@ static NSString *kSHKFileData = @"kSHKFileData";
     return result;
 }
 
-- (NSString *)extension {
-    
-    if (self.hasPath) {
-        return [self.path pathExtension];
-    } else {
-        return self.mimeType;
-    }
-}
-
 @end

@@ -10,7 +10,6 @@
 #import "SHKFormFieldCell_PrivateProperties.h"
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SSTextView.h"
-#import "SHKFile.h"
 
 #import "UIImage+OurBundle.h"
 #import "UIApplication+iOSVersion.h"
@@ -65,7 +64,7 @@
     [self.contentView addSubview:counter];
     self.counter = counter;
     
-    UIImage *image = [self thumbnailImage];
+    UIImage *image = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"]; //this image is used just for initial layout, will be replaced during setupWithSettings:
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     imageView.clipsToBounds = YES;
@@ -92,7 +91,7 @@
     UILabel *extension = [[UILabel alloc] initWithFrame:extensionFrame];
     extension.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
     extension.textAlignment = UITextAlignmentCenter;
-    extension.text = [self extension];
+    extension.text = [self.settings extensionForThumbnail];
     extension.backgroundColor = [UIColor clearColor];
     extension.textColor = [UIColor darkGrayColor];
     extension.font = [UIFont systemFontOfSize:13];
@@ -105,7 +104,7 @@
 
 - (CGRect)frameForTextview {
     
-    CGFloat photoWidth = self.settings.image || self.settings.url || self.settings.file ? self.clippedImageView.frame.size.width : 0;
+    CGFloat photoWidth =  [self.settings shouldShowThumbnail] ? self.clippedImageView.frame.size.width : 0;
     CGRect result = CGRectMake(SHK_FORM_CELL_PAD_RIGHT/4,
                               SHK_FORM_TEXT_PAD_TOP,
                               self.contentView.bounds.size.width - SHK_FORM_CELL_PAD_RIGHT/4 - SHK_FORM_CELL_PAD_LEFT/4 - photoWidth,
@@ -114,32 +113,22 @@
 }
 
 - (UIImage *)thumbnailImage {
-    
-    UIImage *result;
-    
-    if (self.settings.image) {
-        result = self.settings.image;
-    } else if (self.settings.file) {
-        result = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
-    } else {
-        result = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
 
+    UIImage *result = nil;
+    switch (self.settings.shareType) {
+        case SHKShareTypeURL:
+            result = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
+            break;
+        case SHKShareTypeImage:
+            result = [self.settings imageForThumbnail];
+            break;
+        case SHKShareTypeFile:
+            result = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
+            break;
+        default:
+            break;
     }
-    return result;
-}
-
-- (NSString *)extension {
     
-    NSString *extension = [self.settings.file extension];
-    NSRange rangeOfDash = [extension rangeOfString:@"/"];
-    BOOL isMimeType = rangeOfDash.location != NSNotFound;
-    
-    NSString *result;
-    if (isMimeType) {
-        result = [extension substringWithRange:NSMakeRange(rangeOfDash.location+1, [extension length] - rangeOfDash.location - 1)];
-    } else {
-        result = [[NSString alloc] initWithFormat:@".%@", [self.settings.file extension]];
-    }
     return result;
 }
 
@@ -149,22 +138,22 @@
     
     self.textView.text = settings.displayValue;
     self.textView.placeholder = settings.label;
-    self.fileExtension.text = [self extension];
+    self.fileExtension.text = [self.settings extensionForThumbnail];
     [self checkClipImage];
     [self updateCounter];
 }
 
 - (void)checkClipImage {
     
-    if (!self.settings.image && !self.settings.url && !self.settings.file) {
-        self.clippedImageView.hidden = YES;
-        self.clipImageView.hidden = YES;
-        self.fileExtension.hidden = YES;
-    } else {
+    if ([self.settings shouldShowThumbnail]) {
         self.clippedImageView.hidden = NO;
         self.clippedImageView.image = [self thumbnailImage];
         self.clipImageView.hidden = NO;
         self.fileExtension.hidden = NO;
+    } else {
+        self.clippedImageView.hidden = YES;
+        self.clipImageView.hidden = YES;
+        self.fileExtension.hidden = YES;
     }
     self.textView.frame = [self frameForTextview];
 }
@@ -187,7 +176,7 @@
     
     if (!self.settings.maxTextLength) return;
 		  
-    NSInteger countNumber = self.settings.maxTextLength - [self.textView.text length] - [self.settings actualImageTextLength];
+    NSInteger countNumber = self.settings.maxTextLength - [self.textView.text length];
     NSString *count = [NSString stringWithFormat:@"%i", countNumber];
     self.counter.text = count;
  	

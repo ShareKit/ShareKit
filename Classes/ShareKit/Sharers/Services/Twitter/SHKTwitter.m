@@ -409,6 +409,32 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
         return nil;
     }
     
+    [self prepareItem];
+    
+    SHKFormFieldLargeTextSettings *largeTextSettings = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
+                                                                                        key:@"status"
+                                                                                       type:SHKFormFieldTypeTextLarge
+                                                                                      start:[self.item customValueForKey:@"status"]
+                                                                                       item:self.item];
+    largeTextSettings.maxTextLength = [self maxTextLength];
+    largeTextSettings.select = YES;
+    largeTextSettings.validationBlock = ^(SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL emptyCriterium =  [formFieldSettings.valueToSave length] > 0;
+        BOOL maxTextLenCriterium = [formFieldSettings.valueToSave length] <= formFieldSettings.maxTextLength;
+        
+        if (emptyCriterium && maxTextLenCriterium) {
+            return YES;
+        } else {
+            return NO;
+        }
+    };
+
+    return @[largeTextSettings];
+}
+
+- (NSUInteger)maxTextLength {
+    
     //if media is attached there is less room for user's tweet text
     NSUInteger textLengthToSubtract = 0;
     if (self.item.file) {
@@ -418,26 +444,12 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     }
     
     //if url is attached there is less room for user's tweet text
-    NSUInteger URLLengthToSubtract = 0;
     if (self.item.URL) {
-        URLLengthToSubtract = [self charsReservedPerURL];
+        textLengthToSubtract += [self charsReservedPerURL];
     }
     
-    [self prepareItem];
-    
-    NSUInteger maxTextLength = MAX_TWEET_LENGTH + [[self.item.URL absoluteString] length] - URLLengthToSubtract; //link is shortened natively by Twitter via t.co, and the original link itself does not eat up to 140 chars limit
-    
-    NSArray *result = @[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
-                                                         key:@"status"
-                                                        type:SHKFormFieldTypeTextLarge
-                                                       start:[self.item customValueForKey:@"status"]
-                                               maxTextLength:maxTextLength
-                                                       image:self.item.image
-                                             imageTextLength:textLengthToSubtract
-                                                        link:self.item.URL
-                                                        file:self.item.file
-                                              allowEmptySend:NO
-                                                      select:YES]];
+    //link is shortened natively by Twitter via t.co, and the original link itself does not eat up to 140 chars limit, thus we add url length
+    NSUInteger result = MAX_TWEET_LENGTH + [[self.item.URL absoluteString] length] - textLengthToSubtract;
     return result;
 }
 

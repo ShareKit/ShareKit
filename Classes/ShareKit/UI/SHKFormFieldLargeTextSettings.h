@@ -24,35 +24,21 @@
 
 
 #import "SHKFormFieldSettings.h"
-@class SHKFile;
+#import "SHKItem.h"
 
 @interface SHKFormFieldLargeTextSettings : SHKFormFieldSettings
 
-@property NSUInteger maxTextLength;
-@property (nonatomic, strong) UIImage *image; //if image is being shared, it will be displayed
-@property NSUInteger imageTextLength; //set only if image subtracts from text length (e.g. Twitter)
-@property (nonatomic, strong) NSURL *url; //only if the link is not part of the text in a text view
-@property BOOL allowSendingEmptyMessage;
-@property (nonatomic, strong) SHKFile *file;
+/// Max allowed text length. Default is 0. If some other value is set, counter will appear.
+@property (nonatomic) NSUInteger maxTextLength;
 
 + (SHKFormFieldLargeTextSettings *)label:(NSString *)l
                                      key:(NSString *)k
                                     type:(SHKFormFieldType)t
                                    start:(NSString *)s
-                           maxTextLength:(NSUInteger)maxTextLength
-                                   image:(UIImage *)image
-                         imageTextLength:(NSUInteger)imageTextLength
-                                    link:(NSURL *)url
-                                    file:(SHKFile *)file
-                          allowEmptySend:(BOOL)allowEmpty
-                                  select:(BOOL)select;
-
-/**
- * If there is an image AND imageTextLength set, this evaluates, how many characters are taken by image if included. Useful if sharer has limited text length allowed.
- * @author Vilem Kurz
- *
- * @return How many characters should be substracted from text length.
- */
-- (NSUInteger)actualImageTextLength;
+                                    item:(SHKItem *)item;
+- (BOOL)shouldShowThumbnail;
+- (UIImage *)imageForThumbnail;
+- (NSString *)extensionForThumbnail;
+- (SHKShareType)shareType;
 
 @end

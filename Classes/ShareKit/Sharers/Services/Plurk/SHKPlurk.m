@@ -168,36 +168,44 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	{
 		[self.item setCustomValue:self.item.text forKey:@"status"];
 	}
+    
+    SHKFormFieldOptionPickerSettings *userDoesField = [SHKFormFieldOptionPickerSettings label:username
+                                                                                          key:SHKPlurkQualifierKey
+                                                                                         type:SHKFormFieldTypeOptionPicker
+                                                                                        start:nil
+                                                                                  pickerTitle:username
+                                                                              selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:2]
+                                                                                displayValues:@[@"loves", @"likes", @"shares", @"gives", @"hates", @"wants", @"has", @"will", @"asks", @"wishes", @"was", @"feels", @"thinks", @"says", @"is", @"freestyle", @"hopes", @"needs", @"wonders"]
+                                                                                   saveValues:nil
+                                                                                allowMultiple:NO
+                                                                                 fetchFromWeb:NO
+                                                                                     provider:nil];
+    
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:@"status"
+                                                                                  type:SHKFormFieldTypeTextLarge
+                                                                                 start:[self.item customValueForKey:@"status"]
+                                                                                  item:self.item];
+    commentField.maxTextLength = 210;
+    commentField.select = YES;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL emptyCriterium =  [formFieldSettings.valueToSave length] > 0;
+        BOOL maxTextLenCriterium = [formFieldSettings.valueToSave length] <= formFieldSettings.maxTextLength;
+        
+        if (emptyCriterium && maxTextLenCriterium) {
+            return YES;
+        } else {
+            return NO;
+        }
+    };
 
-    NSArray *result = @[[SHKFormFieldOptionPickerSettings label:username
-                                                            key:SHKPlurkQualifierKey
-                                                           type:SHKFormFieldTypeOptionPicker
-                                                          start:nil
-                                                    pickerTitle:username
-                                                selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:2]
-                                                  displayValues:@[@"loves", @"likes", @"shares", @"gives", @"hates", @"wants", @"has", @"will", @"asks", @"wishes", @"was", @"feels", @"thinks", @"says", @"is", @"freestyle", @"hopes", @"needs", @"wonders"]
-                                                     saveValues:nil
-                                                  allowMultiple:NO
-                                                   fetchFromWeb:NO
-                                                       provider:nil],
-                        
-                        [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                         key:@"status"
-                                                        type:SHKFormFieldTypeTextLarge
-                                                       start:[self.item customValueForKey:@"status"]
-                                               maxTextLength:210
-                                                       image:self.item.image
-                                             imageTextLength:0
-                                                        link:self.item.URL
-                                                        file:self.item.file
-                                              allowEmptySend:NO
-                                                      select:YES],
-                        
-                        [SHKFormFieldSettings label:SHKLocalizedString(@"Private")
-                                                key:SHKPlurkPrivateKey
-                                               type:SHKFormFieldTypeSwitch
-                                              start:SHKFormFieldSwitchOff]];
-    return result;
+    SHKFormFieldSettings *privateField = [SHKFormFieldSettings label:SHKLocalizedString(@"Private")
+                                                                 key:SHKPlurkPrivateKey
+                                                                type:SHKFormFieldTypeSwitch
+                                                               start:SHKFormFieldSwitchOff];
+    
+    return @[userDoesField, commentField, privateField];
 }
 
 - (NSString *)username {

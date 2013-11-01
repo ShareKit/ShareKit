@@ -46,6 +46,7 @@
         _start = s;
         _displayValue = s;
         _select = NO;
+        _validationBlock = ^ (id formFieldSettings) { return YES; };
     }
     return self;
 }
@@ -57,7 +58,9 @@
 }
 
 - (BOOL)isValid {
-    return YES;
+    
+    __weak typeof(self) weakSelf = self;
+    return  self.validationBlock (weakSelf);
 }
 
 @end

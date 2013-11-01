@@ -173,18 +173,21 @@ static NSString *accessTokenKey = @"accessToken";
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
     
     NSString *label = [SHKLocalizedString(@"Check In") stringByAppendingFormat:@" %@", SHKLocalizedString(@"Message")];
-    NSArray *result = @[[SHKFormFieldLargeTextSettings label:label
-                                                         key:@"text"
-                                                        type:SHKFormFieldTypeTextLarge
-                                                       start:self.item.text
-                                               maxTextLength:140
-                                                       image:nil
-                                             imageTextLength:0
-                                                        link:nil
-                                                        file:nil
-                                              allowEmptySend:YES
-                                                      select:YES]];
-    return result;
+    
+    SHKFormFieldLargeTextSettings *messageField = [SHKFormFieldLargeTextSettings label:label
+                                                                                   key:@"text"
+                                                                                  type:SHKFormFieldTypeTextLarge
+                                                                                 start:self.item.text
+                                                                                  item:self.item];
+    messageField.select = YES;
+    messageField.maxTextLength = 140;
+    messageField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL result = [formFieldSettings.valueToSave length] <= formFieldSettings.maxTextLength;
+        return result;
+    };
+
+    return @[messageField];
 }
 
 - (void)show

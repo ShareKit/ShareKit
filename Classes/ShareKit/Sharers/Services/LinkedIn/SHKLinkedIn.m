@@ -94,21 +94,32 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 #pragma mark Share Form
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-    NSMutableArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                 key:@"text"
-                                                                type:SHKFormFieldTypeTextLarge
-                                                               start:self.item.text
-                                                       maxTextLength:700
-                                                               image:nil
-                                                     imageTextLength:0
-                                                                link:self.item.URL
-                                                                file:self.item.file
-                                                      allowEmptySend:NO
-                                                              select:YES],
-                              [SHKFormFieldSettings label:SHKLocalizedString(@"Public")
-                                                      key:SHKLinkedInVisibilityCodeKey
-                                                     type:SHKFormFieldTypeSwitch
-                                                    start:SHKFormFieldSwitchOn]] mutableCopy];
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:@"text"
+                                                                                  type:SHKFormFieldTypeTextLarge
+                                                                                 start:self.item.text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.maxTextLength = 700;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL emptyCriterium =  [formFieldSettings.valueToSave length] > 0;
+        BOOL maxTextLenCriterium = [formFieldSettings.valueToSave length] <= formFieldSettings.maxTextLength;
+        
+        if (emptyCriterium && maxTextLenCriterium) {
+            return YES;
+        } else {
+            return NO;
+        }
+    };
+    
+    SHKFormFieldSettings *publicField = [SHKFormFieldSettings label:SHKLocalizedString(@"Public")
+                                                                key:SHKLinkedInVisibilityCodeKey
+                                                               type:SHKFormFieldTypeSwitch
+                                                              start:SHKFormFieldSwitchOn];
+    
+    NSMutableArray *result = [@[commentField, publicField] mutableCopy];
+    
     if (type == SHKShareTypeURL) {
         [result insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title] atIndex:0];
     }

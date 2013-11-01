@@ -8,48 +8,43 @@
 
 #import "SHKFormFieldLargeTextSettings.h"
 
+@interface SHKFormFieldLargeTextSettings ()
+
+/// Shared item. Cell might display its properties, such as image, file etc.
+@property (nonatomic, strong) SHKItem *item;
+
+@end
+
 @implementation SHKFormFieldLargeTextSettings
 
-+ (SHKFormFieldLargeTextSettings *)label:(NSString *)l
-                                     key:(NSString *)k
-                                    type:(SHKFormFieldType)t
-                                   start:(NSString *)s
-                           maxTextLength:(NSUInteger)maxTextLength
-                                   image:(UIImage *)image
-                         imageTextLength:(NSUInteger)imageTextLength
-                                    link:(NSURL *)url
-                                    file:(SHKFile *)file
-                          allowEmptySend:(BOOL)allowEmpty
-                                  select:(BOOL)select {
++ (SHKFormFieldLargeTextSettings *)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s item:(SHKItem *)item {
 
     SHKFormFieldLargeTextSettings *result = [[SHKFormFieldLargeTextSettings alloc] initWithLabel:l key:k type:t start:s];
-    result.maxTextLength = maxTextLength;
-    result.image = image;
-    result.imageTextLength = imageTextLength;
-    result.url = url;
-    result.file = file;
-    result.allowSendingEmptyMessage = allowEmpty;
-    result.select = select;
+    result.maxTextLength = 0;
+    result.item = item;
     
     return result;
 }
 
-- (NSUInteger)actualImageTextLength {
+- (BOOL)shouldShowThumbnail {
     
-    NSUInteger result = ((self.image || self.file) && self.imageTextLength) ? self.imageTextLength : 0;
-    return result;
+    BOOL result = self.item.image || self.item.URL || self.item.file;
+    return result;    
 }
 
-- (BOOL)isValid {
+- (UIImage *)imageForThumbnail {
     
-    BOOL emptyCriterium = self.allowSendingEmptyMessage || [self.valueToSave length] > 0;
-    BOOL maxTextLenCriterium = self.maxTextLength == 0 ? YES : [self.valueToSave length] <= self.maxTextLength - [self actualImageTextLength];
+    return self.item.image;
+}
+
+- (NSString *)extensionForThumbnail {
     
-    if (emptyCriterium && maxTextLenCriterium) {
-        return YES;
-    } else {
-        return NO;
-    }
+    return [self.item.file.filename pathExtension];
+}
+
+- (SHKShareType)shareType {
+    
+    return self.item.shareType;
 }
 
 @end

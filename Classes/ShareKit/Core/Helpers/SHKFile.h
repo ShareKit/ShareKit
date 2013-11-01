@@ -71,9 +71,5 @@
  * @param filename Filename
  */
 - (id)initWithFileData:(NSData *)data filename:(NSString *)filename;
-/*!
- If has path, it is path extension, if has data it is mime type to avoid saving data
- */
-- (NSString *)extension;
 
 @end

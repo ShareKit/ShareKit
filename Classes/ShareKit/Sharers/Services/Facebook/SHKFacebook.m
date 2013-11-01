@@ -322,17 +322,26 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
             return nil;
     }
     
-    NSMutableArray *result = [@[[SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                 key:key
-                                                                type:SHKFormFieldTypeTextLarge
-                                                               start:text
-                                                       maxTextLength:0
-                                                               image:self.item.image
-                                                     imageTextLength:0
-                                                                link:self.item.URL
-                                                                file:self.item.file
-                                                      allowEmptySend:allowEmptyMessage
-                                                              select:YES]] mutableCopy];
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:key
+                                                                                  type:SHKFormFieldTypeTextLarge
+                                                                                 start:text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL result;
+        
+        if (allowEmptyMessage) {
+            result = YES;
+        } else {
+            result = [formFieldSettings.valueToSave length] > 0;
+        }
+        
+        return result;
+    };
+    
+    NSMutableArray *result = [@[commentField] mutableCopy];
     
     if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeFile) {
         SHKFormFieldSettings *title = [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];

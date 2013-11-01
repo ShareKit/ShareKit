@@ -25,9 +25,24 @@
 //
 //
 
+/*!
+ @class SHKFormFieldSettings
+ @discussion Provides model layer for for SHKFormFieldCell.
+ */
+
 #import <Foundation/Foundation.h>
 
-typedef enum 
+/*!
+ @abstract Indicates what type of form cell should be created.
+ @constant SHKFormFieldTypeText Cell with simple one line text field with text autocorrection. Best for user share content.
+ @constant SHKFormFieldTypeTextNoCorrect Cell with simple one line text field with disabled text autocorrection. Useful for usernames or filenames.
+ @constant SHKFormFieldTypePassword Cell with simple one line text field with hidden characters. Useful for passwords.
+ @constant SHKFormFieldTypeTextLarge Cell similar to apple tweet sheet. Has multiple lines, attachment thumbnail and optionally character counter.
+ @constant SHKFormFieldTypeSwitch Cell with switch. Useful for setting share options, such as private/public etc.
+ @constant SHKFormFieldTypeOptionPicker Cell which presents multivalue picker on selection. Useful if user has to choose from multiple values with support for downloading the possible values asynchronously. Suitable e.g. for selecting what album shared photo goest to.
+ */
+
+typedef enum
 {
 	SHKFormFieldTypeText,
 	SHKFormFieldTypeTextNoCorrect,
@@ -37,6 +52,15 @@ typedef enum
 	SHKFormFieldTypeOptionPicker
 } SHKFormFieldType;
 
+/*!
+ @typedef SHKFormFieldValidationBlock
+ @abstract Validation code for particular form field.
+ @param formFieldSettings The SHKFormFieldSettings instance which is being evaluated.
+ @result Returns YES if user's input is valid, NO if input is invalid.
+ @discussion Validation is evaluated whenever user types a character. The input to be validated you get from valueToSave method, but other properties might be helpful too, such as maxTextLength. 
+ */
+typedef BOOL (^SHKFormFieldValidationBlock) (id formFieldSettings);
+
 #define SHKFormFieldSwitchOff @"0"
 #define SHKFormFieldSwitchOn @"1"
 
@@ -44,15 +68,25 @@ typedef enum
 
 @interface SHKFormFieldSettings : NSObject 
 
-@property (nonatomic, strong) NSString *label;
-@property (nonatomic, strong) NSString *key;
+/// Displayed on the left of the cell with bold
+@property (nonatomic, readonly, strong) NSString *label;
+
+/// What SHKItem property this cell item will be saved.
+@property (nonatomic, readonly, strong) NSString *key;
+
+/// Specifies the type of cell to be constructed
 @property SHKFormFieldType type;
-@property (nonatomic, strong) NSString *start;
+
+/// Initial value of the cell
+@property (nonatomic, readonly, strong) NSString *start;
+
+/// Validation block for cell. It is evaluated on each user's character input. The default implementation always returns YES.
+@property (nonatomic, copy) SHKFormFieldValidationBlock validationBlock;
 
 ///Tells SHKFormController, if should be selected when the form is presented. In case multiple fields have this set to YES, only the first one is selected.
 @property (nonatomic) BOOL select;
 
-///It is a start value until user sets something. This holds actual value of a setting - this value is used when submitting the form, see valueToSave.
+///It is a start value until user sets something. This holds actual value of a setting - this value is used when submitting the form, @see valueToSave.
 @property (nonatomic, strong) NSString *displayValue;
 
 - (id)initWithLabel:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
