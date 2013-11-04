@@ -1,4 +1,4 @@
-//
+ //
 //  SHKTwitter.m
 //  ShareKit
 //
@@ -107,10 +107,10 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 + (BOOL)canShareFile:(SHKFile *)file {
     
     BOOL isUsingPreiOS5Sharing = ![self twitterFrameworkAvailable] && ![self socialFrameworkAvailable];
-    BOOL isFileSupported = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"];
-    BOOL isSizeSupported = file.size < [self maxTwitterFileSize];
+    BOOL isVideo = [file.mimeType hasPrefix:@"video/"]; //all videos are supported by Yfrog
+    BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"] || [file.mimeType isEqualToString:@"image/bmp"] || [file.mimeType isEqualToString:@"image/x-windows-bmp"];
     
-    if (isUsingPreiOS5Sharing && isFileSupported && isSizeSupported) {
+    if (isUsingPreiOS5Sharing && (isVideo || isSupportedImage)) {
         return YES;
     } else {
         return NO;
@@ -465,9 +465,22 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 	if (![self validateItem]) return NO;
     
     if (self.item.image) {
-        [self sendImage];
+        
+        NSData *imageData = nil;
+        if ([SHKTwitter canTwitterAcceptImage:self.item.image convertedData:&imageData]) {
+            [self sendDataViaTwitter:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
+        } else {
+            [self sendDataViaYFrog:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
+        }
+
     } else if (self.item.file) {
-        [self sendData:self.item.file.data];
+        
+        if ([SHKTwitter canTwitterAcceptFile:self.item.file]) {
+            [self sendDataViaTwitter:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
+        } else {
+            [self sendDataViaYFrog:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
+        }
+        
     } else if (self.item.shareType == SHKShareTypeUserInfo) {
         [self sendUserInfo];
     } else {
@@ -478,6 +491,24 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 	[self sendDidStart];	
 	
 	return YES;
+}
+
++ (BOOL)canTwitterAcceptFile:(SHKFile *)file {
+    
+    BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"];
+    BOOL isSizeSupported = file.size < [self maxTwitterFileSize];
+    BOOL result = isSupportedImage && isSizeSupported;
+    return result;
+}
+
++ (BOOL)canTwitterAcceptImage:(UIImage *)image convertedData:(NSData **)data {
+    
+    CGFloat compression = 1;
+	NSData *imageData = UIImageJPEGRepresentation(image, compression);
+    *data = imageData;
+    
+    BOOL result = [imageData length] < [self maxTwitterFileSize];
+    return result;
 }
 
 - (void)sendUserInfo {
@@ -495,7 +526,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 	[fetcher start];
 }
 
-- (void)sendData:(NSData *)data {
+- (void)sendDataViaTwitter:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
     
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"]
                                                                     consumer:consumer
@@ -507,13 +538,63 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     
 	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status" value:[self.item customValueForKey:@"status"]];
 	[oRequest setParameters:@[statusParam]];
-    [oRequest attachFileWithParameterName:@"media" filename:self.item.file.filename contentType:self.item.file.mimeType data:data];
+    [oRequest attachFileWithParameterName:@"media" filename:filename contentType:mimeType data:data];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
                                                                                  didFinishSelector:@selector(sendTicket:didFinishWithData:)
                                                                                    didFailSelector:@selector(sendTicket:didFailWithError:)];
 	[fetcher start];
+}
+
+- (void)sendDataViaYFrog:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
+    
+    OAMutableURLRequest *uploadRequest = [[OAMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]
+                                                                         consumer:consumer
+                                                                            token:accessToken
+                                                                            realm:@"https://api.twitter.com/"
+                                                                signatureProvider:signatureProvider];
+    [uploadRequest setHTTPMethod:@"POST"];
+    [uploadRequest setValue:@"https://api.twitter.com/1.1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
+    [uploadRequest setValue:[self createOAuthHeaderForYFrog] forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
+    [uploadRequest attachFileWithParameterName:@"media" filename:filename contentType:mimeType data:data];
+    
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:uploadRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendYFrogTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    [fetcher start];
+}
+
+- (NSString *)createOAuthHeaderForYFrog {
+    
+    OAMutableURLRequest *auth = [[OAMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://api.twitter.com/1.1/account/verify_credentials.xml"]
+                                                                consumer:consumer token:accessToken
+                                                                   realm:@"https://api.twitter.com/"
+                                                       signatureProvider:signatureProvider];
+    [auth prepare];
+    NSDictionary *headerDict = [auth allHTTPHeaderFields];
+    NSString *result = [[NSString alloc] initWithString:[headerDict valueForKey:@"Authorization"]];
+    return result;
+}
+
+- (void)sendYFrogTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    
+    if (ticket.didSucceed) {
+        
+        NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromResponse:data];
+        if (mediaURL) {
+            
+            [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];
+			[self sendStatus];
+            
+        } else {
+            
+            [self handleUnsuccessfulTicket:data];
+        }
+    } else {
+        [self sendShowSimpleErrorAlert];
+    }
 }
 
 - (void)sendStatus
@@ -537,129 +618,6 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
                                                                                    didFailSelector:@selector(sendTicket:didFailWithError:)];
 	
 	[fetcher start];
-}
-
-- (void)sendImage {
-	
-	NSURL *serviceURL = nil;
-	if([self.item customValueForKey:@"profile_update"]){//update_profile does not work
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/update_profile_image.json"];
-	} else {
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"];
-	}
-	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-																						 consumer:consumer
-																							 token:accessToken
-																							 realm:@"https://api.twitter.com/"
-																			 signatureProvider:signatureProvider];
-	[oRequest setHTTPMethod:@"GET"];
-	
-	if([self.item customValueForKey:@"profile_update"]){//update_profile does not work
-		[oRequest prepare];
-	} else {
-		[oRequest prepare];
-		
-		NSDictionary * headerDict = [oRequest allHTTPHeaderFields];
-		NSString * oauthHeader = [NSString stringWithString:[headerDict valueForKey:@"Authorization"]];
-		
-		oRequest = nil;
-		
-		serviceURL = [NSURL URLWithString:@"http://img.ly/api/2/upload.xml"];
-		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-																 consumer:consumer
-																	 token:accessToken
-																	 realm:@"https://api.twitter.com/"
-													 signatureProvider:signatureProvider];
-		[oRequest setHTTPMethod:@"POST"];
-		[oRequest setValue:@"https://api.twitter.com/1.1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
-		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
-	}
-	
-	CGFloat compression = 0.9f;
-	NSData *imageData = UIImageJPEGRepresentation([self.item image], compression);
-	
-	// TODO
-	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
-	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
-	// to an appropriate size (max of img.ly) and then start trying to compress.
-	
-	while ([imageData length] > 700000 && compression > 0.1) {
-		// SHKLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
-		compression -= 0.1;
-		imageData = UIImageJPEGRepresentation([self.item image], compression);
-		
-	}
-	
-	NSString *boundary = @"0xKhTmLbOuNdArY";
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-	[oRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
-	
-	NSMutableData *body = [NSMutableData data];
-	NSString *dispKey = @"";
-	if([self.item customValueForKey:@"profile_update"]){//update_profile does not work
-		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
-	} else {
-		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
-	}
-	
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:imageData];
-	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	if([self.item customValueForKey:@"profile_update"]){//update_profile does not work
-		// no ops
-	} else {
-		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"Content-Disposition: form-data; name=\"message\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[self.item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
-	}
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	// setting the body of the post to the reqeust
-	[oRequest setHTTPBody:body];
-	
-	// Notify delegate
-	[self sendDidStart];
-	
-	// Start the request
-	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																													  delegate:self
-																										  didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																											 didFailSelector:@selector(sendTicket:didFailWithError:)];
-	[fetcher start];
-}
-
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
-	// TODO better error handling here
-	// SHKLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-	
-	if (ticket.didSucceed) {
-		// Finished uploading Image, now need to posh the message and url in twitter
-		NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
-		//SHKLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);
-		NSRange endingRange = [dataString rangeOfString:@"</url>" options:NSCaseInsensitiveSearch];
-		//SHKLog(@"found end string at %d, len %d",endingRange.location,endingRange.length);
-		
-		if (startingRange.location != NSNotFound && endingRange.location != NSNotFound) {
-			NSString *urlString = [dataString substringWithRange:NSMakeRange(startingRange.location + startingRange.length, endingRange.location - (startingRange.location + startingRange.length))];
-			//SHKLog(@"extracted string: %@",urlString);
-			[self.item setCustomValue:[NSString stringWithFormat:@"%@ %@",[self.item customValueForKey:@"status"],urlString] forKey:@"status"];
-			[self sendStatus];
-		} else {
-			[self handleUnsuccessfulTicket:data];
-		}
-		
-		
-	} else {
-		[self sendDidFailWithError:nil];
-	}
 }
 
 - (void)followMe
