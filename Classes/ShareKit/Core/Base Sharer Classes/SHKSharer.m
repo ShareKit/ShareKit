@@ -940,7 +940,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)authDidFinish:(BOOL)success	
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:SHKAuthDidFinishNotification object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
+	if ([[self class] canGetUserInfo]) {
+        [[self class] getUserInfo];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKAuthDidFinishNotification object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];
