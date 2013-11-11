@@ -220,6 +220,8 @@
 		7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
 		7AC28F29165A21C2006D7441 /* libVKontakte.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED1B162F08A3009D46E4 /* libVKontakte.a */; };
 		7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */; };
+		7AD94F5D18293C6F0033E726 /* SHKTwitterCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */; };
+		7AD94F5E18293C6F0033E726 /* SHKTwitterCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */; };
 		7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */; };
 		7AD9861E16E78D730052A5B8 /* NSData+SaveItemAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */; };
 		7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */; };
@@ -999,6 +1001,8 @@
 		7AC2A38C16597CCC0089ABE8 /* SHKSinaWeibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
 		7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
 		7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSina Weibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitterCommon.h; sourceTree = "<group>"; };
+		7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitterCommon.m; sourceTree = "<group>"; };
 		7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SaveItemAttachment.h"; sourceTree = "<group>"; };
 		7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SaveItemAttachment.m"; sourceTree = "<group>"; };
 		7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SHKShareFileIcon.png; path = Classes/ShareKit/SHKShareFileIcon.png; sourceTree = SOURCE_ROOT; };
@@ -2041,10 +2045,12 @@
 		43A536E711DBE3B9004A1712 /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
-				F92EF487148E915E0070F913 /* SHKiOSTwitter.h */,
-				F92EF488148E915E0070F913 /* SHKiOSTwitter.m */,
+				7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */,
+				7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */,
 				43A536E811DBE3B9004A1712 /* SHKTwitter.h */,
 				43A536E911DBE3B9004A1712 /* SHKTwitter.m */,
+				F92EF487148E915E0070F913 /* SHKiOSTwitter.h */,
+				F92EF488148E915E0070F913 /* SHKiOSTwitter.m */,
 				7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */,
 				7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */,
 			);
@@ -2790,6 +2796,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AD94F5D18293C6F0033E726 /* SHKTwitterCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4134,6 +4141,7 @@
 			files = (
 				7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */,
 				7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */,
+				7AD94F5E18293C6F0033E726 /* SHKTwitterCommon.m in Sources */,
 				7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

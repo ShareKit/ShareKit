@@ -84,6 +84,7 @@
 - (NSNumber *)instagramOnly;
 - (NSString*)youTubeConsumerKey;
 - (NSString*)youTubeSecret;
+- (NSNumber *)useAppleShareUI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
 - (UIColor*)barTintForView:(UIViewController*)vc;

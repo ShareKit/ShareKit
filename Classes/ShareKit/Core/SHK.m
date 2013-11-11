@@ -26,6 +26,8 @@
 //
 
 #import "SHK.h"
+#import "Singleton.h"
+
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
 #import "SHKActionSheet.h"
@@ -33,10 +35,10 @@
 #import "SSKeychain.h"
 #import "SHKReachability.h"
 #import "SHKMail.h"
+
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
-#import "Singleton.h"
 
 NSString * const SHKSendDidStartNotification = @"SHKSendDidStartNotification";
 NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";

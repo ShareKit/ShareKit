@@ -152,6 +152,20 @@ typedef enum
 - (void)promptAuthorization;
 - (NSString *)getAuthValueForKey:(NSString *)key;
 
+/*!
+ * Convenient method for getting authorization status for particular service.
+ *
+ * @return If any user is authorized, returns YES, otherwise nil.
+ */
++ (BOOL)isServiceAuthorized;
+
+/*!
+ * Convenient method for getting username, if any user is logged in.
+ *
+ * @return If any user is authorized, returns username, otherwise nil. For this method to work for OAuth sharer, this has to implement canGetUserInfo, otherwise returns nil.
+ */
++ (NSString *)username;
+
 #pragma mark Authorization Form
 
 - (void)authorizationFormShow;
@@ -163,7 +177,7 @@ typedef enum
 + (NSArray *)authorizationFormFields;
 + (NSString *)authorizationFormCaption;
 + (void)logout;
-+ (BOOL)isServiceAuthorized;
+
 
 #pragma mark -
 #pragma mark API Implementation

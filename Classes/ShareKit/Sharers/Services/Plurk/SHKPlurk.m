@@ -105,11 +105,6 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	return [self restoreAccessToken];
 }
 
-- (void)promptAuthorization
-{
-	[super promptAuthorization];
-}
-
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
   [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];

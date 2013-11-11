@@ -33,22 +33,11 @@
 #import "SHKXMLResponseParser.h"
 #import "SHKiOSTwitter.h"
 #import "SHKiOS5Twitter.h"
-#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import "SHKTwitterCommon.h"
 
 #import <Social/Social.h>
 
-#define MAX_TWEET_LENGTH 140
-#define MAX_FILE_SIZE 3145728
-#define API_CONFIG_PHOTO_SIZE_KEY @"photo_size_limit"
-#define CHARS_PER_MEDIA 23
-#define API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA @"characters_reserved_per_media"
-#define CHARS_PER_URL 23
-#define API_CONFIG_CHARACTERS_RESERVED_PER_URL @"short_url_length_https"
 #define REVOKED_ACCESS_ERROR_CODE 32
-
-static NSString * const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
-static NSString * const SHKTwitterAPIConfigurationDataKey = @"SHKTwitterAPIConfigurationDataKey";
-static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIConfigurationSaveDateKey";
 
 @implementation SHKTwitter
 
@@ -106,7 +95,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
 + (BOOL)canShareFile:(SHKFile *)file {
     
-    BOOL isUsingPreiOS5Sharing = ![self twitterFrameworkAvailable] && ![self socialFrameworkAvailable];
+    BOOL isUsingPreiOS5Sharing = ![self twitterFrameworkAvailable] && ![SHKTwitterCommon socialFrameworkAvailable];
     BOOL isVideo = [file.mimeType hasPrefix:@"video/"]; //all videos are supported by Yfrog
     BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"] || [file.mimeType isEqualToString:@"image/bmp"] || [file.mimeType isEqualToString:@"image/x-windows-bmp"];
     
@@ -117,35 +106,9 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     }
 }
 
-#pragma mark - Fetch Twitter API configuration
-
-+ (NSUInteger)maxTwitterFileSize {
++ (BOOL)canShare {
     
-    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
-    NSUInteger result = [twitterAPIConfig[API_CONFIG_PHOTO_SIZE_KEY] integerValue];
-    if (!result) {
-        result = MAX_FILE_SIZE;//if not fetched yet, return last known value. This must be quick in order not to slow share menu creation.
-    }
-    return result;
-}
-
-- (NSUInteger)charsReservedPerMedia {
-    
-    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
-    NSUInteger result = [twitterAPIConfig[API_CONFIG_CHARACTERS_RESERVED_PER_MEDIA] integerValue];
-    if (!result) {
-        result = CHARS_PER_MEDIA;//if not fetched yet, return last known value.
-    }
-    return result;
-}
-
-- (NSUInteger)charsReservedPerURL {
-    
-    NSDictionary *twitterAPIConfig = [[NSUserDefaults standardUserDefaults] dictionaryForKey:SHKTwitterAPIConfigurationDataKey];
-    NSUInteger result = [twitterAPIConfig[API_CONFIG_CHARACTERS_RESERVED_PER_URL] integerValue];
-    if (!result) {
-        result = CHARS_PER_URL;//if not fetched yet, return last known value.
-    }
+    BOOL result = ![SHKTwitterCommon socialFrameworkAvailable];
     return result;
 }
 
@@ -155,7 +118,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     BOOL isConfigOld = [[NSDate date] compare:[lastFetchDate dateByAddingTimeInterval:24*60*60]] == NSOrderedDescending;
     if (isConfigOld || !lastFetchDate) {
         
-            OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/help/configuration.json"]
+            OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIConfigurationURL]
                                                                             consumer:consumer
                                                                                token:accessToken
                                                                                realm:nil
@@ -173,7 +136,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     
     if (ticket.didSucceed) {
         
-        [self saveData:data defaultsKey:SHKTwitterAPIConfigurationDataKey];
+        [SHKTwitterCommon saveData:data defaultsKey:SHKTwitterAPIConfigurationDataKey];
         [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:SHKTwitterAPIConfigurationSaveDateKey];
         
     } else {
@@ -182,29 +145,12 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     }
 }
 
-- (void)saveData:(NSData *)data defaultsKey:(NSString *)key {
-    
-    NSError *error = nil;
-    NSMutableDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    
-    if (error) {
-        SHKLog(@"Error when parsing json %@ request:%@", key, [error description]);
-    }
-    
-    [parsedData convertNSNullsToEmptyStrings];
-    [[NSUserDefaults standardUserDefaults] setObject:parsedData forKey:key];
-}
-
 #pragma mark -
 #pragma mark Commit Share
 
 - (void)share {
-	if ([[self class] socialFrameworkAvailable])
-	{
-		SHKSharer *sharer = [SHKiOSTwitter shareItem:self.item];
-		[self setupiOSSharer:sharer];
-	}
-	else if ([[self class] twitterFrameworkAvailable])
+
+	if ([[self class] canShare] && [[self class] twitterFrameworkAvailable])
 	{
 		SHKSharer *sharer = [SHKiOS5Twitter shareItem:self.item];
 		[self setupiOSSharer:sharer];
@@ -237,68 +183,34 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 	return NO;
 }
 
-+ (BOOL)socialFrameworkAvailable {
-    
-    if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
-    {
-        return NO;
-    }
-    
-	if (NSClassFromString(@"SLComposeViewController"))
-    {
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (void)prepareItem {
-
-	NSString *status = [self.item customValueForKey:@"status"];
-	if (!status)
-	{
-		status = self.item.shareType == SHKShareTypeText ? self.item.text : self.item.title;
-	}
-	
-	//Only add the additional tags / URL if user has authorized his account
-	if(self.isAuthorized) {
-		NSString *hashtags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet]
-		                                   tagPrefix:@"#" tagSuffix:nil];
-		if ([hashtags length] > 0)
-		{
-			status = [NSString stringWithFormat:@"%@ %@", status, hashtags];
-		}
-    
-		if (self.item.URL)
-		{
-			NSString *URLstring = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			status = [NSString stringWithFormat:@"%@ %@", status, URLstring];
-		}	
-	}
-	
-    
-	[self.item setCustomValue:status forKey:@"status"];
-}
-
 #pragma mark -
 #pragma mark Authorization
 
 - (BOOL)isAuthorized
 {		
-	if ([[self class] twitterFrameworkAvailable]) {
+	BOOL result = NO;
+    
+    if ([[self class] canShare] && [[self class] twitterFrameworkAvailable]) {
+        
 		[SHKTwitter logout];
-		return NO; 
-	}
-	BOOL result = [self restoreAccessToken];
-    if (result) {
-        [self downloadAPIConfiguration]; //fetch file size limits
+	
+    } else {
+        
+        result = [self restoreAccessToken];
+        if (result) {
+            [self downloadAPIConfiguration]; //fetch fresh file size limits
+        }
     }
+    
+
+    
     return result;
 }
 
 - (void)promptAuthorization
 {	
-	if ([[self class] twitterFrameworkAvailable]) {
+
+    if ([[self class] canShare] && [[self class] twitterFrameworkAvailable]) {
 		SHKLog(@"There is no need to authorize when we use iOS Twitter framework");
 		return;
 	}
@@ -313,7 +225,16 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 + (void)logout {
 	
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTwitterUserInfo];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:SHKTwitterAPIConfigurationDataKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:SHKTwitterAPIConfigurationSaveDateKey];
 	[super logout];    
+}
+
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKTwitterUserInfo];
+    NSString *result = userInfo[SHKTwitterAPIUserInfoNameKey];
+    return result;
 }
 
 #pragma mark xAuth
@@ -404,19 +325,18 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
 
     
-    if (self.item.shareType == SHKShareTypeUserInfo) {
-        self.quiet = YES;
-        return nil;
-    }
+    if (self.item.shareType == SHKShareTypeUserInfo) return nil;
     
-    [self prepareItem];
+    [SHKTwitterCommon prepareItem:self.item joinedTags:[self tagStringJoinedBy:@" "
+                                                             allowedCharacters:[NSCharacterSet alphanumericCharacterSet]
+                                                                     tagPrefix:@"#" tagSuffix:nil]];
     
     SHKFormFieldLargeTextSettings *largeTextSettings = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
                                                                                         key:@"status"
                                                                                        type:SHKFormFieldTypeTextLarge
                                                                                       start:[self.item customValueForKey:@"status"]
                                                                                        item:self.item];
-    largeTextSettings.maxTextLength = [self maxTextLength];
+    largeTextSettings.maxTextLength = [SHKTwitterCommon maxTextLengthForItem:self.item];
     largeTextSettings.select = YES;
     largeTextSettings.validationBlock = ^(SHKFormFieldLargeTextSettings *formFieldSettings) {
         
@@ -433,31 +353,19 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     return @[largeTextSettings];
 }
 
-- (NSUInteger)maxTextLength {
-    
-    //if media is attached there is less room for user's tweet text
-    NSUInteger textLengthToSubtract = 0;
-    if (self.item.file) {
-        textLengthToSubtract += [self charsReservedPerMedia];
-    } else if (self.item.image) {
-        textLengthToSubtract += [self charsReservedPerURL]; //the image link is shortened natively by Twitter anyway via t.co)
-    }
-    
-    //if url is attached there is less room for user's tweet text
-    if (self.item.URL) {
-        textLengthToSubtract += [self charsReservedPerURL];
-    }
-    
-    //link is shortened natively by Twitter via t.co, and the original link itself does not eat up to 140 chars limit, thus we add url length
-    NSUInteger result = MAX_TWEET_LENGTH + [[self.item.URL absoluteString] length] - textLengthToSubtract;
-    return result;
-}
-
 #pragma mark -
 #pragma mark Share API Methods
 
 - (BOOL)send
-{	
+{
+    //Needed for silent share. Normally status is aggregated just before presenting the UI
+    if (![self.item customValueForKey:@"status"]) {
+        
+        [SHKTwitterCommon prepareItem:self.item joinedTags:[self tagStringJoinedBy:@" "
+                                                                 allowedCharacters:[NSCharacterSet alphanumericCharacterSet]
+                                                                         tagPrefix:@"#" tagSuffix:nil]];
+    }
+    
 	// Check if we should send follow request too
 	if (self.xAuth && [self.item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
@@ -467,7 +375,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
     if (self.item.image) {
         
         NSData *imageData = nil;
-        if ([SHKTwitter canTwitterAcceptImage:self.item.image convertedData:&imageData]) {
+        if ([SHKTwitterCommon canTwitterAcceptImage:self.item.image convertedData:&imageData]) {
             [self sendDataViaTwitter:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
         } else {
             [self sendDataViaYFrog:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
@@ -475,13 +383,14 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
     } else if (self.item.file) {
         
-        if ([SHKTwitter canTwitterAcceptFile:self.item.file]) {
+        if ([SHKTwitterCommon canTwitterAcceptFile:self.item.file]) {
             [self sendDataViaTwitter:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
         } else {
             [self sendDataViaYFrog:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
         }
         
     } else if (self.item.shareType == SHKShareTypeUserInfo) {
+        self.quiet = YES;
         [self sendUserInfo];
     } else {
         [self sendStatus];
@@ -493,31 +402,13 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 	return YES;
 }
 
-+ (BOOL)canTwitterAcceptFile:(SHKFile *)file {
-    
-    BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"];
-    BOOL isSizeSupported = file.size < [self maxTwitterFileSize];
-    BOOL result = isSupportedImage && isSizeSupported;
-    return result;
-}
-
-+ (BOOL)canTwitterAcceptImage:(UIImage *)image convertedData:(NSData **)data {
-    
-    CGFloat compression = 1;
-	NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    *data = imageData;
-    
-    BOOL result = [imageData length] < [self maxTwitterFileSize];
-    return result;
-}
-
 - (void)sendUserInfo {
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/account/verify_credentials.json"]
-																						 consumer:consumer
-																							 token:accessToken
-																							 realm:nil
-																			 signatureProvider:nil];	
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIUserInfoURL]
+                                                                    consumer:consumer
+                                                                       token:accessToken
+                                                                       realm:nil
+                                                           signatureProvider:nil];	
 	[oRequest setHTTPMethod:@"GET"];
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
@@ -528,7 +419,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
 - (void)sendDataViaTwitter:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
     
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update_with_media.json"]
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIUpdateWithMediaURL]
                                                                     consumer:consumer
                                                                        token:accessToken
                                                                        realm:nil
@@ -599,11 +490,11 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
 - (void)sendStatus
 {
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.twitter.com/1.1/statuses/update.json"]
-																						 consumer:consumer
-																							 token:accessToken
-																							 realm:nil
-																			 signatureProvider:nil];
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIUpdateURL]
+                                                                    consumer:consumer
+                                                                       token:accessToken
+                                                                       realm:nil
+                                                           signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
@@ -652,7 +543,7 @@ static NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIC
 
 	if (ticket.didSucceed) {
         
-        if (self.item.shareType == SHKShareTypeUserInfo) [self saveData:data defaultsKey:kSHKTwitterUserInfo];
+        if (self.item.shareType == SHKShareTypeUserInfo) [SHKTwitterCommon saveData:data defaultsKey:kSHKTwitterUserInfo];
 		[self sendDidFinish];
 
     } else {

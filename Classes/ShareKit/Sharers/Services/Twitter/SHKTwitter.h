@@ -38,10 +38,6 @@
 - (void)sendStatus;
 - (void)sendUserInfo;
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-
-- (void)sendImage;
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-
 - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 - (void)followMe;

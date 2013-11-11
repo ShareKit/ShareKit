@@ -28,23 +28,51 @@
 
 #import "SHKFormOptionController.h"
 
-@interface SHKFormFieldOptionPickerSettings : SHKFormFieldSettings
-
-/*	SHKFormFieldOptionPickerSettings contains the info needed to present the fact that there is a value that
+/*!
+ @class SHKFormFieldOptionPickerSettings
+ @discussion SHKFormFieldOptionPickerSettings contains the info needed to present the value that
  can be picked from a list. The actual choices can be provided here or
  the sharer can provide them when asked. The latter is for when the option is something that
  can't be known ahead of time, like the list of albums to place a photo in or a group that a
  user belongs to.
  */
 
-@property (strong, nonatomic) NSString *pickerTitle; //title to put at the top of the list
-@property (strong, nonatomic) NSMutableIndexSet *selectedIndexes; //these indexes will be preselected on load (former curIndexes) and changed as per user choice. Save value will be calculated using this. Can be nil.
-@property (strong, nonatomic) NSArray *displayValues; //This will be displayed to user. If you need different (non-readable) strings to save, map them in saveValues (former itemsList)
-@property (strong, nonatomic) NSArray *saveValues; //if nil, displayValues are saved. (former itemsValues)
-@property (nonatomic) BOOL allowMultiple; //if true then multiple options can be picked and a done button is added.
-@property (nonatomic) BOOL fetchFromWeb; //if the choices must be loaded with a network operation. If true, provider is mandatory (former static)
+@interface SHKFormFieldOptionPickerSettings : SHKFormFieldSettings
+
+/// Title to put at the top of the list
+@property (strong, nonatomic) NSString *pickerTitle;
+
+/// These indexes will be preselected on load (former curIndexes) and changed as per user choice. Save value will be calculated using this. Can be nil.
+@property (strong, nonatomic) NSMutableIndexSet *selectedIndexes;
+
+///This will be displayed to user. If you need different (non-readable) strings to save, map them in saveValues (former itemsList)
+@property (strong, nonatomic) NSArray *displayValues;
+
+///if nil, displayValues are saved. (former itemsValues)
+@property (strong, nonatomic) NSArray *saveValues;
+
+///if true then multiple options can be picked and a done button is added.
+@property (nonatomic) BOOL allowMultiple;
+
+///if the choices must be loaded with a network operation. If true, provider is mandatory (former static)
+@property (nonatomic) BOOL fetchFromWeb;
+
 @property (weak, nonatomic) id <SHKFormOptionControllerOptionProvider> provider;
 
+/*!
+ @param label Presented bold on the left side
+ @param key  Corresponding key in SHKItem
+ @param type  Type of form field to be created
+ @param start  Placeholder, or initial value
+ @param pickerTitle Title to put at the top of the list
+ @param selectedIndexes These indexes will be preselected on load (former curIndexes) and changed as per user choice. Save value will be calculated using this. Can be nil.
+ @param displayValues This will be displayed to user. If you need different (non-readable) strings to save, map them in saveValues (former itemsList)
+ @param saveValues If nil, displayValues are saved. (former itemsValues)
+ @param allowMultiple If true then multiple options can be picked and a done button is added.
+ @param fetchFromWeb If the choices must be loaded with a network operation. If true, provider is mandatory (former static)
+ @param provider Provider delegate responsible for fetching options from network
+ @result Instance of SHKFormFieldOptionPickerSettings
+ */
 + (SHKFormFieldOptionPickerSettings *)label:(NSString *)l
                                         key:(NSString *)k
                                        type:(SHKFormFieldType)t

@@ -8,15 +8,33 @@
 
 #import "SHKiOSSharer.h"
 #import <Social/Social.h>
+#import <Accounts/Accounts.h>
 
 @interface SHKiOSSharer ()
 
-- (void)shareWithServiceType:(NSString *)serviceType;
+/*!
+ Attempts to share self.item with SLComposeViewController. If SLComposeViewController was able to add all self.item properties (text, image, URL), item is shared.
+ @param serviceType A string constant that identifies sharer's service, such as SLServiceTypeTwitter
+ @return YES if SLComposeViewController accepted all self.item properties and has been presented to the user. NO if SLComposeViewController did not accept at least one of self.item's text, image or URL properties. In this case SLComposeViewController is not presented to the user.
+ */
+- (BOOL)shareWithServiceType:(NSString *)serviceType;
 
-/* services, which impose limit on text length should override this method and return its limit. Default is NSNotFound */
-- (NSUInteger)maxTextLength;
+/*!
+ Each iOS sharer should subclass this method. The value is used in superclass to check if user has account authorized etc.
+ 
+ @return Appropriate accountTypeIdentifier for sharer subclass.
+ */
+- (NSString *)accountTypeIdentifier;
+
+/*!
+ Returns all accounts available for particular subclass
+ 
+ @return ACAccounts available for this service
+ */
+- (NSArray *)availableAccounts;
 
 /* returns nil by default. Subclasses which can pass tags directly in system dialogue might want to return properly concatenated tags ready to ship to service. */
 - (NSString *)joinedTags;
+
 
 @end

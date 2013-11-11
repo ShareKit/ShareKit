@@ -54,11 +54,6 @@
     }
 }
 
-- (NSUInteger)maxTextLength {
-    
-    return 280;
-}
-
 - (void)share {
     
     [self shareWithServiceType:SLServiceTypeSinaWeibo];

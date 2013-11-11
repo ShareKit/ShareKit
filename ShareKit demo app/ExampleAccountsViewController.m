@@ -9,6 +9,10 @@
 #import "ExampleAccountsViewController.h"
 #import "SHK.h"
 #import "SHKSharer.h"
+#import "SHKiOSSharer.h"
+#import "SHKiOSTwitter.h"
+#import "Debug.h"
+
 
 @interface ExampleAccountsViewController ()
 
@@ -23,9 +27,17 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        
+        //makes checkmark appear after successful authentication
         [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(authDidFinish:)
+                                                 selector:@selector(reloadTable:)
                                                      name:@"SHKAuthDidFinish"
+                                                   object:nil];
+        
+        //makes username appear after SHKShareTypeGetUserInfo fetches user data
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(reloadTable:)
+                                                     name:@"SHKSendDidFinish"
                                                    object:nil];
 
     }
@@ -87,19 +99,24 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
-    
+    Class sharerClass = NSClassFromString(sharerId);
     cell.textLabel.text = sharerId;
     
-    if ([NSClassFromString(sharerId) isServiceAuthorized]) {
+    if ([sharerClass isServiceAuthorized]) {
+        
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        cell.detailTextLabel.text = [sharerClass username];
+    
     } else {
+        
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.detailTextLabel.text = [sharerClass username]; //should be nil, but this might better show possible error in logoff methods
     }
-
+    
     return cell;
 }
 
@@ -111,18 +128,49 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
-    if (YES == [NSClassFromString(sharerId) isServiceAuthorized]) {
-        [NSClassFromString(sharerId) logout];
-        [self.tableView reloadData];
+    Class sharerClass = NSClassFromString(sharerId);
+    
+    BOOL isiOSSharer = [sharerClass isSubclassOfClass:[SHKiOSSharer class]];
+    
+    if ([sharerClass isServiceAuthorized]) {
+        
+        if (isiOSSharer) {
+            
+            [sharerClass getUserInfo];
+            
+            UIAlertView *iosSharerAlert = [[UIAlertView alloc] initWithTitle:@"iOS Social.framework sharer"
+                                                                     message:@"You can deauthorize this kind of sharer in settings.app, not here. By tapping this button you have refetched user info data only."
+                                                                    delegate:nil
+                                                           cancelButtonTitle:nil
+                                                           otherButtonTitles:@"OK", nil];
+            [iosSharerAlert show];
+            
+        } else {
+            
+            [sharerClass logout];
+            [self.tableView reloadData];
+        }
+        
     } else {
-        SHKSharer *sharer = [[NSClassFromString(sharerId) alloc] init];
+        
+        SHKSharer *sharer = [[sharerClass alloc] init];
         [sharer authorize];
+        
+        if (isiOSSharer) {
+            UIAlertView *iosSharerAlert = [[UIAlertView alloc] initWithTitle:@"iOS Social.framework sharer"
+                                                                     message:@"You can authorize this kind of sharer in settings.app, not here."
+                                                                    delegate:nil
+                                                           cancelButtonTitle:nil
+                                                           otherButtonTitles:@"OK", nil];
+            [iosSharerAlert show];
+        }
     }
 }
 
-- (void)authDidFinish:(NSNotification*)notification
+- (void)reloadTable:(NSNotification*)notification
 {    
     [self.tableView reloadData];
+    SHKLog(@"table reloaded");
 }
 
 - (void)dealloc {

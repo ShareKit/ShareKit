@@ -111,7 +111,7 @@
  */
 
 - (NSNumber*)forcePreIOS5TwitterAccess {
-    return [NSNumber numberWithBool:true];
+    return [NSNumber numberWithBool:false];
 }
 
 - (NSString*)twitterConsumerKey {
@@ -300,6 +300,13 @@
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
  */
+
+/*
+ For sharers supported by Social.framework you can choose to present Apple's UI (SLComposeViewController) or ShareKit's UI (you can customize ShareKit's UI). Note that SLComposeViewController has only limited sharing capabilities, e.g. for file sharing on Twitter (photo files, video files, large UIImages) ShareKit's UI will be used anyway.
+ */
+- (NSNumber *)useAppleShareUI {
+    return @NO;
+}
 
 - (UIColor*)barTintForView:(UIViewController*)vc {    
 	

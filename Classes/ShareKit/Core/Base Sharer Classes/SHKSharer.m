@@ -588,6 +588,12 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	}	
 }
 
++ (NSString *)username {
+    
+    NSString *result = [SHK getAuthValueForKey:@"username" forSharer:[self sharerId]];
+    return result;
+}
+
 // Credit: GreatWiz
 + (BOOL)isServiceAuthorized 
 {	
@@ -596,9 +602,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	
 	return isAuthorized;	
 }
-
-
-
 
 #pragma mark -
 #pragma mark UI Implementation
@@ -940,7 +943,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)authDidFinish:(BOOL)success	
 {
-	if ([[self class] canGetUserInfo]) {
+	if (success && [[self class] canGetUserInfo]) {
         [[self class] getUserInfo];
     }
     

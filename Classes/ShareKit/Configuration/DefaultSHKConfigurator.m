@@ -124,9 +124,19 @@
 - (NSString*)diigoKey {
   return @"";
 }
-// Twitter - http://dev.twitter.com/apps/new
+
+// Twitter
+
 /*
- Important Twitter settings to get right:
+ If you want to force use of old-style, pre-IOS5 twitter authentication, set this to true. This way user will have to enter credentials to the OAuthWebView presented by your app. These credentials will not end up in the device account store. If set to false, sharekit takes user credentials from the builtin device store on iOS6 or later and utilizes social.framework to share content. Much easier, and thus recommended is to leave this false and use iOS builtin authentication.
+ */
+- (NSNumber*)forcePreIOS5TwitterAccess {
+	return [NSNumber numberWithBool:false];
+}
+
+/* YOU CAN SKIP THIS SECTION unless you set forcePreIOS5TwitterAccess to true, or if you support iOS 4 or older.
+ 
+ Register your app here - http://dev.twitter.com/apps/new
  
  Differences between OAuth and xAuth
  --
@@ -140,14 +150,6 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
-
-/*
- If you want to force use of old-style, pre-IOS5 twitter framework, for example to ensure
- twitter accounts don't end up in the devices account store, set this to true.
- */
-- (NSNumber*)forcePreIOS5TwitterAccess {
-	return [NSNumber numberWithBool:false];
-}
 
 - (NSString*)twitterConsumerKey {
 	return @"";
@@ -168,6 +170,7 @@
 - (NSString*)twitterUsername {
 	return @"";
 }
+
 // Evernote - http://www.evernote.com/about/developer/api/
 /*	You need to set to sandbox until you get approved by evernote. If you use sandbox, you can use it with special sandbox user account only. You can create it here: https://sandbox.evernote.com/Registration.action
     If you already have a consumer-key and secret which have been created with the old username/password authentication system
@@ -366,6 +369,13 @@
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
  */
+
+/*
+ For sharers supported by Social.framework you can choose to present Apple's UI (SLComposeViewController) or ShareKit's UI (you can customize ShareKit's UI). Note that SLComposeViewController has only limited sharing capabilities, e.g. for file sharing on Twitter (photo files, video files, large UIImages) ShareKit's UI will be used anyway.
+ */
+- (NSNumber *)useAppleShareUI {
+    return @YES;
+}
 
 // Toolbars
 - (NSString*)barStyle {

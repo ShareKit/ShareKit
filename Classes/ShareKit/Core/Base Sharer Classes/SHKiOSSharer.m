@@ -17,34 +17,49 @@
 
 @implementation SHKiOSSharer
 
-- (void)shareWithServiceType:(NSString *)serviceType {
+#pragma mark - Abstract methods
+
+- (NSString *)accountTypeIdentifier {
     
-    if ([self.item shareType] == SHKShareTypeUserInfo) {
-        SHKLog(@"User info not possible to download on iOS sharing. You can get service enabled user info from Accounts framework");
-        return;
+    NSAssert(NO, @"Abstract method. Must be subclassed!");
+    return nil;
+}
+
+#pragma mark - UI
+
+- (void)show {
+
+    if ([SHKCONFIG(useAppleShareUI) boolValue]) {
+        
+        BOOL nativeUISuccessful = [self shareWithServiceType:SLServiceTypeTwitter];
+        if (nativeUISuccessful) return; //shared via iOS native UI
     }
+    
+    [super show];
+}
+
+- (BOOL)shareWithServiceType:(NSString *)serviceType {
+    
+    NSAssert(self.item.shareType != SHKShareTypeUserInfo, @"this routine is not for user info");
     
     SLComposeViewController *sharerUIController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
     
-    [sharerUIController addImage:self.item.image];
-    [sharerUIController addURL:self.item.URL];
+    BOOL addedImage = [sharerUIController addImage:self.item.image];
+    if (!addedImage) return NO;
+    
+    BOOL addedURL = [sharerUIController addURL:self.item.URL];
+    if (!addedURL) return NO;
     
     NSString *initialText = (self.item.shareType == SHKShareTypeText ? self.item.text : self.item.title);
     
     NSString *tagString = [self joinedTags];
     if ([tagString length] > 0) initialText = [initialText stringByAppendingFormat:@" %@",tagString];
 
-    // Trim string to fit limit, if any.    
-    if (self.maxTextLength != NSNotFound) {
         
-        NSUInteger textLength = [initialText length] > self.maxTextLength ? self.maxTextLength : [initialText length];
-        while ([sharerUIController setInitialText:[initialText substringToIndex:textLength]] == NO && textLength > 0) {
-            textLength--;
-        }
-        
-    } else {
-        
-        [sharerUIController setInitialText:initialText];
+    NSUInteger textLength = [initialText length];
+    
+    while ([sharerUIController setInitialText:[initialText substringToIndex:textLength]] == NO && textLength > 0) {
+        textLength--;
     }
     
     sharerUIController.completionHandler = ^(SLComposeViewControllerResult result)
@@ -71,16 +86,60 @@
     };
     
     [[SHK currentHelper] showStandaloneViewController:sharerUIController];
+    return YES;
 }
+
+#pragma mark - Authorization
+
+- (BOOL)isAuthorized {
+    
+    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
+    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
+    BOOL result = accountType.accessGranted;
+    
+    if (result) {
+        
+    } else {
+        
+        [[self class] logout]; //destroy userInfo
+    }
+    
+    return result;
+}
+
+- (void)authorizationFormShow {
+    
+    ACAccountStore *store = [[ACAccountStore alloc] init];
+    ACAccountType *sharerAccountType = [store accountTypeWithAccountTypeIdentifier:[[self class] accountTypeIdentifier]];
+    
+    [store requestAccessToAccountsWithType:sharerAccountType
+                                   options:nil
+                                completion:^(BOOL granted, NSError *error) {
+                                    
+                                    [self authDidFinish:granted];
+                                    
+                                    if (error) {
+                                        SHKLog(@"auth failed:%@", [error description]);
+                                        [[self class] logout];
+                                    }
+                                }];
+}
+
+#pragma mark - Authorization helpers
+
+- (NSArray *)availableAccounts {
+    
+    ACAccountStore *store = [[ACAccountStore alloc] init];
+    ACAccountType *twitterAccountType = [store accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
+    NSArray *result = [store accountsWithAccountType:twitterAccountType];
+    return result;
+}
+
+#pragma mark - MISC
 
 - (NSString *)joinedTags {
     
     return nil;
-}
-
-- (NSUInteger)maxTextLength {
-    
-    return NSNotFound;
 }
 
 @end
