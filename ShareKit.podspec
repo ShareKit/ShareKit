@@ -166,6 +166,8 @@ Pod::Spec.new do |s|
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
     googleplus.dependency 'ShareKit/Core'
     googleplus.dependency 'Google-API-Client/Common'
+    googleplus.dependency 'Google-API-Client/Objects'
+    googleplus.dependency 'Google-API-Client/Utilities'
     googleplus.dependency 'Google-API-Client/Services/Plus'
     googleplus.dependency 'OpenInChrome'
     googleplus.dependency 'gtm-logger'
