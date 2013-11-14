@@ -37,7 +37,7 @@
 {
 	DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
         
-        UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+        UIWindow *keyWindow = [[[UIApplication sharedApplication] delegate] window];
         NSAssert(keyWindow != nil, @"this means the app is trying to do a ShareKit operation prior to having a UIWindow ready, we don't want the singleton instance to have a messed up frame");
         
 		CGFloat width = 160;
@@ -80,17 +80,15 @@
 
 - (void)show
 {	
-	if ([self superview] != [[UIApplication sharedApplication] keyWindow]) 
-		[[[UIApplication sharedApplication] keyWindow] addSubview:self];
+	if ([self superview] != [[[UIApplication sharedApplication] delegate] window])
+		[[[[UIApplication sharedApplication] delegate] window] addSubview:self];
 	
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hide) object:nil];
 	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.3];
-	
-	self.alpha = 1;
-	
-	[UIView commitAnimations];
+	[UIView animateWithDuration:0.3
+                     animations:^{
+                         self.alpha = 1;
+                     }];
 }
 
 - (void)hideAfterDelay
@@ -100,14 +98,13 @@
 
 - (void)hide
 {
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.4];
-	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(hidden)];
-	
-	self.alpha = 0;
-	
-	[UIView commitAnimations];
+	[UIView animateWithDuration:0.4
+                     animations:^{
+                         self.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         [self hidden];
+                     }];
 }
 
 - (void)persist
