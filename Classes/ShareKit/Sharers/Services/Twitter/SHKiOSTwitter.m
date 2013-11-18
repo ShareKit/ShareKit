@@ -50,6 +50,7 @@
 #pragma mark - SHKiOSSharer config
 
 - (NSString *)accountTypeIdentifier { return ACAccountTypeIdentifierTwitter; }
+- (NSString *)serviceTypeIdentifier { return SLServiceTypeTwitter; }
 
 - (NSString *)joinedTags {
     return [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil];
@@ -223,7 +224,7 @@
         
         if (error) {
             
-            dispatch_sync(dispatch_get_main_queue(), ^ {
+            dispatch_async(dispatch_get_main_queue(), ^ {
                 [self sendDidFailWithError:error];
             });
             
@@ -232,7 +233,7 @@
             BOOL requestDidSucceed = urlResponse.statusCode < 400;
             if (requestDidSucceed) {
                 
-                dispatch_sync(dispatch_get_main_queue(), ^ {
+                dispatch_async(dispatch_get_main_queue(), ^ {
                     [self sendDidFinish];
                 });
                 
@@ -245,7 +246,7 @@
                 NSDictionary *twitterError = parsedResponse[@"errors"][0];
                 NSError *ourError = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:twitterError[@"message"] forKey:NSLocalizedDescriptionKey]];
                 
-                dispatch_sync(dispatch_get_main_queue(), ^ {
+                dispatch_async(dispatch_get_main_queue(), ^ {
                     [self sendDidFailWithError:ourError];
                 });
             }
@@ -276,7 +277,7 @@
                 [SHKTwitterCommon saveData:responseData defaultsKey:kSHKiOSTwitterUserInfo];
                 SHKLog(@"response:%@", [urlResponse description]);
                 
-                dispatch_sync(dispatch_get_main_queue(), ^{
+                dispatch_async(dispatch_get_main_queue(), ^{
                     [self sendDidFinish];
                 });
             }

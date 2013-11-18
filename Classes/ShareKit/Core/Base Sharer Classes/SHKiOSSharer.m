@@ -120,8 +120,10 @@
                                 completion:^(BOOL granted, NSError *error) {
                                     
                                     [self authDidFinish:granted];
-                                    
-                                    if (error) {
+    
+                                    if (!error) {
+                                        [self tryPendingAction];
+                                    } else {
                                         SHKLog(@"auth failed:%@", [error description]);
                                         [[self class] logout];
                                     }
