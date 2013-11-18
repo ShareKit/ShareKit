@@ -72,6 +72,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     return result;
 }
 + (BOOL)canGetUserInfo { return YES; }
++ (BOOL)canAutoShare { return NO; }
 
 #pragma mark -
 #pragma mark Authentication

@@ -137,13 +137,13 @@
         if (isiOSSharer) {
             
             [sharerClass getUserInfo];
-            
+            /*
             UIAlertView *iosSharerAlert = [[UIAlertView alloc] initWithTitle:@"iOS Social.framework sharer"
                                                                      message:@"You can deauthorize this kind of sharer in settings.app, not here. By tapping this button you have refetched user info data only."
                                                                     delegate:nil
                                                            cancelButtonTitle:nil
                                                            otherButtonTitles:@"OK", nil];
-            [iosSharerAlert show];
+            [iosSharerAlert show];*/
             
         } else {
             
@@ -157,20 +157,22 @@
         [sharer authorize];
         
         if (isiOSSharer) {
-            UIAlertView *iosSharerAlert = [[UIAlertView alloc] initWithTitle:@"iOS Social.framework sharer"
+            /*UIAlertView *iosSharerAlert = [[UIAlertView alloc] initWithTitle:@"iOS Social.framework sharer"
                                                                      message:@"You can authorize this kind of sharer in settings.app, not here."
                                                                     delegate:nil
                                                            cancelButtonTitle:nil
                                                            otherButtonTitles:@"OK", nil];
-            [iosSharerAlert show];
+            [iosSharerAlert show];*/
         }
     }
 }
 
 - (void)reloadTable:(NSNotification*)notification
-{    
-    [self.tableView reloadData];
-    SHKLog(@"table reloaded");
+{
+    dispatch_async(dispatch_get_main_queue(), ^ {
+        [self.tableView reloadData];
+        SHKLog(@"table reloaded");
+    });
 }
 
 - (void)dealloc {

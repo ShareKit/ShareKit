@@ -9,6 +9,7 @@
 #import "SHKSinaWeibo.h"
 #import "SHKiOSSharer_Protected.h"
 #import "SharersCommonHeaders.h"
+#import <Accounts/Accounts.h>
 
 @interface SHKSinaWeibo ()
 
@@ -16,8 +17,7 @@
 
 @implementation SHKSinaWeibo
 
-#pragma mark -
-#pragma mark Configuration : Service Defination
+#pragma mark - Configuration : Service Definition
 
 + (NSString *)sharerTitle
 {
@@ -54,15 +54,23 @@
     }
 }
 
-- (void)share {
-    
-    [self shareWithServiceType:SLServiceTypeSinaWeibo];
-}
+#pragma mark SHKiOSSharer config
+
+- (NSString *)accountTypeIdentifier { return ACAccountTypeIdentifierSinaWeibo; }
 
 - (NSString *)joinedTags {
     
     NSString *result = [self tagStringJoinedBy:@" " allowedCharacters:nil tagPrefix:@"#" tagSuffix:@"#"];
     return result;
 }
+
+#pragma mark Share
+
+- (void)share {
+    
+    [self shareWithServiceType:SLServiceTypeSinaWeibo];
+}
+
+
 
 @end

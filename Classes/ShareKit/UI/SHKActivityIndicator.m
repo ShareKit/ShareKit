@@ -62,7 +62,6 @@
 												 selector:@selector(setProperRotation)
 													 name:UIDeviceOrientationDidChangeNotification
 												   object:nil];
-
         return result;
     });
 }
@@ -72,8 +71,6 @@
 - (void)dealloc
 {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-	
-	
 }
 
 #pragma mark Creating Message

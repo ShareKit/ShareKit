@@ -10,6 +10,8 @@
 		456BADAB169107D1005B3077 /* SHKGooglePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BADA9169107D1005B3077 /* SHKGooglePlus.h */; };
 		456BADAC169107D1005B3077 /* SHKGooglePlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 456BADAA169107D1005B3077 /* SHKGooglePlus.m */; };
 		456BADAD1691095B005B3077 /* libGoogle Plus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4503EBC0169104470057294C /* libGoogle Plus.a */; };
+		7A04074618313A5F00691F2B /* SHKFacebookCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A04074418313A5F00691F2B /* SHKFacebookCommon.h */; };
+		7A04074718313A5F00691F2B /* SHKFacebookCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04074518313A5F00691F2B /* SHKFacebookCommon.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
 		7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A911DBE3B9004A1712 /* SHKItem.m */; };
 		7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536AB11DBE3B9004A1712 /* SHKOfflineSharer.m */; };
@@ -789,6 +791,8 @@
 		4503EBC0169104470057294C /* libGoogle Plus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Plus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		456BADA9169107D1005B3077 /* SHKGooglePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKGooglePlus.h; path = "Google Plus/SHKGooglePlus.h"; sourceTree = "<group>"; };
 		456BADAA169107D1005B3077 /* SHKGooglePlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKGooglePlus.m; path = "Google Plus/SHKGooglePlus.m"; sourceTree = "<group>"; };
+		7A04074418313A5F00691F2B /* SHKFacebookCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookCommon.h; sourceTree = "<group>"; };
+		7A04074518313A5F00691F2B /* SHKFacebookCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookCommon.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
 		7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SHKDelicious.m; path = Delicious/SHKDelicious.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A0F9246156BA2A0009CB40A /* libShareKitCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libShareKitCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2029,6 +2033,8 @@
 				43A536DD11DBE3B9004A1712 /* SHKFacebook.m */,
 				7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */,
 				7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */,
+				7A04074418313A5F00691F2B /* SHKFacebookCommon.h */,
+				7A04074518313A5F00691F2B /* SHKFacebookCommon.m */,
 			);
 			path = Facebook;
 			sourceTree = "<group>";
@@ -3051,6 +3057,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A04074618313A5F00691F2B /* SHKFacebookCommon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4353,6 +4360,7 @@
 			files = (
 				AABBED29162F0B65009D46E4 /* SHKFacebook.m in Sources */,
 				7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */,
+				7A04074718313A5F00691F2B /* SHKFacebookCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

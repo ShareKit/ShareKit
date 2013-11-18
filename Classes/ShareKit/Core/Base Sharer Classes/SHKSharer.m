@@ -904,7 +904,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action
 {
-    
     if (action == SHKPendingShare) {
         
         if (self.curOptionController) {
@@ -943,9 +942,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)authDidFinish:(BOOL)success	
 {
-	if (success && [[self class] canGetUserInfo]) {
-        [[self class] getUserInfo];
-    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SHKAuthDidFinishNotification object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
     

@@ -58,7 +58,7 @@
 // 
 //    Your CFBundleURLSchemes entry: fb555lite
 - (NSString*)facebookAppId {
-	return @"281987678567988";
+	return @"232705466797125";
 }
 
 - (NSString*)facebookLocalAppId {
@@ -66,7 +66,7 @@
 }
 
 - (NSNumber*)forcePreIOS6FacebookPosting {
-	return [NSNumber numberWithBool:false];
+	return [NSNumber numberWithBool:true];
 }
 
 /*
@@ -305,7 +305,7 @@
  For sharers supported by Social.framework you can choose to present Apple's UI (SLComposeViewController) or ShareKit's UI (you can customize ShareKit's UI). Note that SLComposeViewController has only limited sharing capabilities, e.g. for file sharing on Twitter (photo files, video files, large UIImages) ShareKit's UI will be used anyway.
  */
 - (NSNumber *)useAppleShareUI {
-    return @NO;
+    return @YES;
 }
 
 - (UIColor*)barTintForView:(UIViewController*)vc {    

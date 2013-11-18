@@ -25,13 +25,19 @@
     return nil;
 }
 
+- (NSString *)serviceTypeIdentifier {
+    
+    NSAssert(NO, @"Abstract method. Must be subclassed!");
+    return nil;
+}
+
 #pragma mark - UI
 
 - (void)show {
 
     if ([SHKCONFIG(useAppleShareUI) boolValue]) {
         
-        BOOL nativeUISuccessful = [self shareWithServiceType:SLServiceTypeTwitter];
+        BOOL nativeUISuccessful = [self shareWithServiceType:[self serviceTypeIdentifier]];
         if (nativeUISuccessful) return; //shared via iOS native UI
     }
     
@@ -41,6 +47,8 @@
 - (BOOL)shareWithServiceType:(NSString *)serviceType {
     
     NSAssert(self.item.shareType != SHKShareTypeUserInfo, @"this routine is not for user info");
+    
+    if (self.item.shareType == SHKShareTypeFile) return NO;
     
     SLComposeViewController *sharerUIController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
     
@@ -97,12 +105,7 @@
     ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
     BOOL result = accountType.accessGranted;
     
-    if (result) {
-        
-    } else {
-        
-        [[self class] logout]; //destroy userInfo
-    }
+    if (!result) [[self class] logout]; //destroy userInfo
     
     return result;
 }
@@ -110,7 +113,7 @@
 - (void)authorizationFormShow {
     
     ACAccountStore *store = [[ACAccountStore alloc] init];
-    ACAccountType *sharerAccountType = [store accountTypeWithAccountTypeIdentifier:[[self class] accountTypeIdentifier]];
+    ACAccountType *sharerAccountType = [store accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
     
     [store requestAccessToAccountsWithType:sharerAccountType
                                    options:nil
@@ -123,6 +126,16 @@
                                         [[self class] logout];
                                     }
                                 }];
+}
+
+- (void)iOSAuthorizationFailedWithError:(NSError *)error {
+    
+    if (!error) {
+        SHKLog(@"User revoked access in settings.app, or in service itself.");
+    } else {
+        SHKLog(@"auth failed:%@", [error description]);
+    }
+    [[self class] logout];
 }
 
 #pragma mark - Authorization helpers

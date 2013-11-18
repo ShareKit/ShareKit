@@ -28,15 +28,11 @@
 
 #import "SHKFacebook.h"
 
-#import "SHKiOSFacebook.h"
+#import "SHKFacebookCommon.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 #import "SharersCommonHeaders.h"
 
-#import <Social/Social.h>
 #import <FacebookSDK/FacebookSDK.h>
-
-static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
-static NSString *const kSHKFacebookVideoUploadLimits =@"kSHKFacebookVideoUploadLimits";
 
 // these are ways of getting back to the instance that made the request through statics
 // there are two so that the logic of their lifetimes is understandable.
@@ -242,16 +238,8 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 
 + (BOOL)canShareFile:(SHKFile *)file
 {
-	NSArray *facebookValidTypes = @[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
-            @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"];
-    
-    for (NSString *extension in facebookValidTypes) {
-        if ([file.filename hasSuffix:extension]) {
-            return YES;
-        }
-    }
-    
-    return NO;
+    BOOL result = [SHKFacebookCommon canFacebookAcceptFile:file];
+    return result;
 }
 
 + (BOOL)canShareOffline
@@ -262,6 +250,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 + (BOOL)canGetUserInfo
 {
     return YES;
+}
+
++ (BOOL)canShare {
+    
+    BOOL result = ![SHKFacebookCommon socialFrameworkAvailable];
+    return result;
 }
 
 #pragma mark -
@@ -283,6 +277,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	[self openSessionWithAllowLoginUI:YES];
 }
 
++ (NSString *)username {
+    
+    return [SHKFacebookCommon username];
+}
+
 + (void)logout
 {
 	[SHKFacebook clearSavedItem];
@@ -295,58 +294,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark Share Form
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-    NSString *text;
-    NSString *key;
-    BOOL allowEmptyMessage = NO;
-    
-    switch (self.item.shareType) {
-        case SHKShareTypeText:
-            text = self.item.text;
-            key = @"text";
-            break;
-        case SHKShareTypeImage:
-            text = self.item.title;
-            key = @"title";
-            allowEmptyMessage = YES;
-            break;
-        case SHKShareTypeURL:
-            text = self.item.text;
-            key = @"text";
-            allowEmptyMessage = YES;
-            break;
-        case SHKShareTypeFile:
-            text = self.item.text;
-            key = @"text";
-            break;
-        default:
-            return nil;
-    }
-    
-    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                                   key:key
-                                                                                  type:SHKFormFieldTypeTextLarge
-                                                                                 start:text
-                                                                                  item:self.item];
-    commentField.select = YES;
-    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
-        
-        BOOL result;
-        
-        if (allowEmptyMessage) {
-            result = YES;
-        } else {
-            result = [formFieldSettings.valueToSave length] > 0;
-        }
-        
-        return result;
-    };
-    
-    NSMutableArray *result = [@[commentField] mutableCopy];
-    
-    if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeFile) {
-        SHKFormFieldSettings *title = [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
-        [result insertObject:title atIndex:0];
-    }
+    NSArray *result = [SHKFacebookCommon shareFormFieldsForItem:self.item];
     return result;
 }
 
@@ -432,35 +380,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 #pragma mark -
 #pragma mark Share API Methods
 
-- (void)share {
-    
-    if ([self socialFrameworkAvailable]) {
-        
-        SHKSharer *iosSharer = [SHKiOSFacebook shareItem:self.item];
-        iosSharer.quiet = self.quiet;
-        iosSharer.shareDelegate = self.shareDelegate;
-        [SHKFacebook logout];
-        
-    } else {
-        
-        [super share];
-    }   
-}
-
-- (BOOL)socialFrameworkAvailable {
-    
-    if (self.item.shareType == SHKShareTypeFile)
-        return NO; // iOS6 sharing can't handle video
-    
-    if ([SHKCONFIG(forcePreIOS6FacebookPosting) boolValue])
-        return NO;
-    
-	if (NSClassFromString(@"SLComposeViewController"))
-		return YES;
-	
-	return NO;
-}
-
 -(void) sendDidCancel
 {
 	[super sendDidCancel];
@@ -534,46 +453,21 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     // Warning to modifiers of SEND, be sure that if send becomes more than a single FBRequestConnection
 	// you properly deal with closing the session. For the moment we can close the session when these complete
 	// and get un-retained by the session state callback.
-	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	NSString *actions = [NSString stringWithFormat:@"{\"name\":\"%@ %@\",\"link\":\"%@\"}",
-						 SHKLocalizedString(@"Get"), SHKCONFIG(appName), SHKCONFIG(appURL)];
-	[params setObject:actions forKey:@"actions"];
+	NSMutableDictionary *params = [SHKFacebookCommon composeParamsForItem:self.item];
 	
 	if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeText)
 	{
-        if (self.item.URL) {
-            NSString *url = [self.item.URL absoluteString];
-            [params setObject:url forKey:@"link"];
-        }
-        
-        if (self.item.title) {
-            [params setObject:self.item.title forKey:@"name"];
-        }
-
-		if (self.item.text)
-			[params setObject:self.item.text forKey:@"message"];
-		
-		NSString *pictureURI = self.item.facebookURLSharePictureURI;
-		if (pictureURI)
-			[params setObject:pictureURI forKey:@"picture"];
-		
-		NSString *description = self.item.facebookURLShareDescription;
-		if (description)
-			[params setObject:description forKey:@"description"];
 		FBRequestConnection* con = [FBRequestConnection startWithGraphPath:@"me/feed"
 																parameters:params
 																HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
 																	[self FBRequestHandlerCallback:connection result:result error:error];
 																}];
 		[self.pendingConnections addObject:con];
-		
 	}
 	else if (self.item.shareType == SHKShareTypeImage)
 	{
         /*if (self.item.title)
 			[params setObject:self.item.title forKey:@"caption"];*/ //caption apparently does not work
-		if (self.item.title)
-			[params setObject:self.item.title forKey:@"message"];
 		[params setObject:self.item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo
 		// via the dialog option:
@@ -594,11 +488,6 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                 [self sendDidFinish];
                 return;
             }
-            
-            if (self.item.title)
-                [params setObject:self.item.title forKey:@"title"];
-            if (self.item.text)
-                [params setObject:self.item.text forKey:@"description"];
             
             if (error) {
                 [[SHKActivityIndicator currentIndicator] hide];

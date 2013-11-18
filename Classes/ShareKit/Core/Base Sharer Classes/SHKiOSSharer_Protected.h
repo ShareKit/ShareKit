@@ -27,6 +27,13 @@
 - (NSString *)accountTypeIdentifier;
 
 /*!
+ Each iOS sharer should subclass this method. The value is used in superclass to present appropriate SLComposeViewController
+ 
+ @return Appropriate serviceTypeIdentifier for sharer subclass.
+ */
+- (NSString *)serviceTypeIdentifier;
+
+/*!
  Returns all accounts available for particular subclass
  
  @return ACAccounts available for this service
@@ -35,6 +42,11 @@
 
 /* returns nil by default. Subclasses which can pass tags directly in system dialogue might want to return properly concatenated tags ready to ship to service. */
 - (NSString *)joinedTags;
+
+/*! iOS sharer should call this when there is any problem during auth, e.g. user does not grant access
+ @param error Error from social.framework authorization
+ */
+- (void)iOSAuthorizationFailedWithError:(NSError *)error;
 
 
 @end
