@@ -33,6 +33,15 @@
 
 #pragma mark - UI
 
+- (void)share {
+    
+    if ([self availableAccounts].count > 0) {
+        [super share];
+    } else {
+        [self presentNoAvailableAccountAlert];
+    }
+}
+
 - (void)show {
 
     if ([SHKCONFIG(useAppleShareUI) boolValue]) {
@@ -148,6 +157,18 @@
     ACAccountType *twitterAccountType = [store accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
     NSArray *result = [store accountsWithAccountType:twitterAccountType];
     return result;
+}
+
+- (void)presentNoAvailableAccountAlert {
+    
+    NSString *alertTitle = SHKLocalizedString(@"No %@ Accounts", [[self class] sharerTitle]);
+    NSString *alertMessage = SHKLocalizedString(@"There are no %@ accounts configured. You can add or create a %@ account in Settings.", [[self class] sharerTitle], [[self class] sharerTitle]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle
+                                                    message:alertMessage
+                                                   delegate:nil
+                                          cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                                          otherButtonTitles:nil];
+    [alert show];
 }
 
 #pragma mark - MISC

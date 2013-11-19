@@ -19,7 +19,7 @@
 
 #pragma mark - SHKSharer config
 
-+ (NSString *)sharerTitle {	return SHKLocalizedString(@"iOS Facebook"); }
++ (NSString *)sharerTitle {	return SHKLocalizedString(@"Facebook"); }
 
 + (BOOL)canGetUserInfo { return YES; }
 + (BOOL)canShareURL { return YES; }

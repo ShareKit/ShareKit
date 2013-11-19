@@ -66,7 +66,7 @@
 }
 
 - (NSNumber*)forcePreIOS6FacebookPosting {
-	return [NSNumber numberWithBool:true];
+	return [NSNumber numberWithBool:false];
 }
 
 /*
