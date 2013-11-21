@@ -25,6 +25,8 @@
 #import "SHKiOSSharer_Protected.h"
 #import "SharersCommonHeaders.h"
 #import "SHKTwitterCommon.h"
+#import "SHKXMLResponseParser.h"
+#import "SHKRequest.h"
 
 @implementation SHKiOSTwitter
 
@@ -38,7 +40,7 @@
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareFile:(SHKFile *)file {
     
-    BOOL result = [SHKTwitterCommon canTwitterAcceptFile:file];
+    BOOL result = [SHKTwitterCommon canShareFile:file];
     return result;
 }
 
@@ -140,7 +142,6 @@
     return result;
 }
 
-
 #pragma mark - Share
 
 - (BOOL)send {
@@ -158,7 +159,7 @@
     
         NSData *imageData = nil;
         BOOL sendViaTwitter = [SHKTwitterCommon canTwitterAcceptImage:self.item.image convertedData:&imageData];
-        //BOOL sendViaTwitter = NO;
+        
         if (sendViaTwitter) {
             [self sendStatusViaTwitter:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
         } else {
@@ -179,7 +180,6 @@
     } else {
         [self sendStatusViaTwitter:nil mimeType:nil filename:nil];
     }
-    
 
     [self sendDidStart];
     return YES;
@@ -202,23 +202,7 @@
     
     if (data) [request addMultipartData:data withName:@"media" type:mimeType filename:filename];
     
-    NSArray *availableAccounts = [self availableAccounts];
-    NSString *selectedUsername = [self.item customValueForKey:@"account"];
-    ACAccount *selectedAccount;
-    
-    if (selectedUsername) {
-        
-        NSUInteger indexOfSelectedAccount = [availableAccounts indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-            return ([[(ACAccount *)obj username] isEqualToString:selectedUsername]);
-        }];
-        selectedAccount = availableAccounts[indexOfSelectedAccount];
-        
-    } else {
-        
-        //during silent share we do not know, what account should be used, thus we choose the last one. Might be done better in the future, if there is demand
-        selectedAccount = [availableAccounts lastObject];
-    }
-    request.account = selectedAccount;
+        request.account = [self selectedAccount];
     
     [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
         
@@ -256,7 +240,39 @@
 
 - (void)sendDataViaYFrog:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
     
-//#warning TODO: yFrog implementation
+    SLRequest *yFrogUploadRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                       requestMethod:SLRequestMethodPOST
+                                                                 URL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]
+                                                          parameters:@{@"X-Auth-Service-Provider": @"https://api.twitter.com/1.1/account/verify_credentials.json",
+                                                                       @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]}];
+    [yFrogUploadRequest addMultipartData:data withName:@"media" type:mimeType filename:filename];
+    [yFrogUploadRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        
+        if (!error) {
+            
+            if (urlResponse.statusCode < 400) {
+                
+                NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromResponse:responseData];
+                if (mediaURL) {
+                    
+                    [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];
+                    [self sendStatusViaTwitter:nil mimeType:nil filename:nil];
+                    
+                } else {
+                    
+                    [SHKTwitterCommon handleUnsuccessfulTicket:responseData forSharer:self];
+                }
+                
+            } else {
+                
+                [self sendShowSimpleErrorAlert];
+            }
+        
+        } else {
+            
+            [self sendDidFailWithError:error];
+        }
+    }];
 }
 
 - (void)fetchUserInfo {
@@ -305,6 +321,42 @@
             }
         }];
     }
+}
+                              
+#pragma mark - helpers
+
+- (ACAccount *)selectedAccount {
+    
+    NSArray *availableAccounts = [self availableAccounts];
+    NSString *selectedUsername = [self.item customValueForKey:@"account"];
+    ACAccount *result;
+    
+    if (selectedUsername) {
+        
+        NSUInteger indexOfSelectedAccount = [availableAccounts indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+            return ([[(ACAccount *)obj username] isEqualToString:selectedUsername]);
+        }];
+        result = availableAccounts[indexOfSelectedAccount];
+        
+    } else {
+        
+        //during silent share we do not know, what account should be used, thus we choose the last one. Might be done better in the future, if there is demand
+        result = [availableAccounts lastObject];
+    }
+    return result;
+}
+
+- (NSString *)authorizationYFrogHeader {
+    
+    SLRequest *twitterRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                   requestMethod:SLRequestMethodPOST
+                                                             URL:[[NSURL alloc] initWithString:@"https://api.twitter.com/1.1/account/verify_credentials.xml"]
+                                                      parameters:nil];
+    twitterRequest.account = [self selectedAccount];
+    NSURLRequest *preparedRequest = [twitterRequest preparedURLRequest];
+    NSDictionary *headerDict = [preparedRequest allHTTPHeaderFields];
+    NSString *result = [headerDict valueForKey:@"Authorization"];
+    return result;
 }
 
 @end

@@ -37,8 +37,6 @@
 
 #import <Social/Social.h>
 
-#define REVOKED_ACCESS_ERROR_CODE 32
-
 @implementation SHKTwitter
 
 - (id)init
@@ -95,15 +93,8 @@
 
 + (BOOL)canShareFile:(SHKFile *)file {
     
-    BOOL isUsingPreiOS5Sharing = ![self twitterFrameworkAvailable] && ![SHKTwitterCommon socialFrameworkAvailable];
-    BOOL isVideo = [file.mimeType hasPrefix:@"video/"]; //all videos are supported by Yfrog
-    BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"] || [file.mimeType isEqualToString:@"image/bmp"] || [file.mimeType isEqualToString:@"image/x-windows-bmp"];
-    
-    if (isUsingPreiOS5Sharing && (isVideo || isSupportedImage)) {
-        return YES;
-    } else {
-        return NO;
-    }
+    BOOL result = [SHKTwitterCommon canShareFile:file];
+    return result;
 }
 
 + (BOOL)canShare {
@@ -481,7 +472,7 @@
             
         } else {
             
-            [self handleUnsuccessfulTicket:data];
+            [SHKTwitterCommon handleUnsuccessfulTicket:data forSharer:self];
         }
     } else {
         [self sendShowSimpleErrorAlert];
@@ -548,35 +539,8 @@
 
     } else {
         
-		[self handleUnsuccessfulTicket:data];
+		[SHKTwitterCommon handleUnsuccessfulTicket:data forSharer:self];
 	}
-}
-
-- (void)handleUnsuccessfulTicket:(NSData *)data
-{
-	if (SHKDebugShowLogs)
-		SHKLog(@"Twitter Send Status Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-	
-	NSMutableDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    NSDictionary *twitterError = parsedResponse[@"errors"][0];
-	
-	if ([twitterError[@"code"] integerValue] == REVOKED_ACCESS_ERROR_CODE) {
-		
-		[self shouldReloginWithPendingAction:SHKPendingSend];
-        return;
-		
-	} else {
-		
-		//when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
-		if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
-			
-			[self shouldReloginWithPendingAction:SHKPendingSend];
-			return;
-		}
-	}
-	
-	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:twitterError[@"message"] forKey:NSLocalizedDescriptionKey]];
-	[self sendDidFailWithError:error];
 }
 
 @end

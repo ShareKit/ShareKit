@@ -8,6 +8,7 @@
 
 @class SHKFile;
 @class SHKItem;
+@class SHKSharer;
 
 #import <Foundation/Foundation.h>
 
@@ -23,9 +24,9 @@ extern NSString * const SHKTwitterAPIUpdateURL;
 
 @interface SHKTwitterCommon : NSObject
 
-+ (void)saveData:(NSData *)data defaultsKey:(NSString *)key;
 + (void)prepareItem:(SHKItem *)item joinedTags:(NSString *)hashtags;
 
++ (BOOL)canShareFile:(SHKFile *)file;
 + (BOOL)canTwitterAcceptFile:(SHKFile *)file;
 + (BOOL)canTwitterAcceptImage:(UIImage *)image convertedData:(NSData **)data;
 + (BOOL)socialFrameworkAvailable;
@@ -39,5 +40,10 @@ extern NSString * const SHKTwitterAPIUpdateURL;
 #pragma mark - UI Configuration
 
 + (NSUInteger)maxTextLengthForItem:(SHKItem *)item;
+
+#pragma mark - response data handling
+
++ (void)saveData:(NSData *)data defaultsKey:(NSString *)key;
++ (void)handleUnsuccessfulTicket:(NSData *)data forSharer:(SHKSharer *)sharer;
 
 @end

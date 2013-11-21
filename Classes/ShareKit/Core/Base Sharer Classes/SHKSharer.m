@@ -397,6 +397,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         return;
     }
     
+    BOOL isSharerReady = [self isSharerReady];
+    if (!isSharerReady) {
+        return;
+    }
+    
     BOOL shouldShortenURL = self.item.URL && [self requiresShortenedURL];
     if (shouldShortenURL) {
         [self shortenURL];
@@ -408,6 +413,12 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     } else {
         [self show];
     }
+}
+
+//insertion point for sharers, which must have fulfilled more conditions for sharing, e.g. available user account in settings.app for iOS sharers
+- (BOOL)isSharerReady {
+    
+    return YES;
 }
 
 - (BOOL)shouldShareSilently {

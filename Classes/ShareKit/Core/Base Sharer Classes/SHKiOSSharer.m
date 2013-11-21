@@ -33,15 +33,6 @@
 
 #pragma mark - UI
 
-- (void)share {
-    
-    if ([self availableAccounts].count > 0) {
-        [super share];
-    } else {
-        [self presentNoAvailableAccountAlert];
-    }
-}
-
 - (void)show {
 
     if ([SHKCONFIG(useAppleShareUI) boolValue]) {
@@ -54,8 +45,6 @@
 }
 
 - (BOOL)shareWithServiceType:(NSString *)serviceType {
-    
-    NSAssert(self.item.shareType != SHKShareTypeUserInfo, @"this routine is not for user info");
     
     if (self.item.shareType == SHKShareTypeFile) return NO;
     
@@ -117,6 +106,16 @@
     if (!result) [[self class] logout]; //destroy userInfo
     
     return result;
+}
+
+- (BOOL)isSharerReady {
+    
+    if ([self availableAccounts].count > 0) {
+        return YES;
+    } else {
+        [self presentNoAvailableAccountAlert];
+        return NO;
+    }
 }
 
 - (void)authorizationFormShow {

@@ -8,10 +8,10 @@
 
 #import "SHKTwitterCommon.h"
 
-#import "Debug.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
-#import "SHKConfiguration.h"
-#import "SHKItem.h"
+#import "SharersCommonHeaders.h"
+#import "SHKXMLResponseParser.h"
+#import "SHKSharer.h"
 
 NSString * const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 NSString * const kSHKiOSTwitterUserInfo = @"kSHKiOSTwitterUserInfo";
@@ -33,37 +33,19 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
 #define CHARS_PER_URL 23
 #define API_CONFIG_CHARACTERS_RESERVED_PER_URL @"short_url_length_https"
 
+#define REVOKED_ACCESS_ERROR_CODE 32
+
 @implementation SHKTwitterCommon
 
-+ (void)saveData:(NSData *)data defaultsKey:(NSString *)key {
++ (BOOL)canShareFile:(SHKFile *)file {
     
-    NSError *error = nil;
-    NSMutableDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    BOOL isVideo = [file.mimeType hasPrefix:@"video/"]; //all videos are supported by Yfrog
+    BOOL isSupportedImage = [file.mimeType isEqualToString:@"image/png"] || [file.mimeType isEqualToString:@"image/gif"] || [file.mimeType isEqualToString:@"image/jpeg"] || [file.mimeType isEqualToString:@"image/bmp"] || [file.mimeType isEqualToString:@"image/x-windows-bmp"];
     
-    if (error) {
-        SHKLog(@"Error when parsing json %@ request:%@", key, [error description]);
-    }
-    
-    [parsedData convertNSNullsToEmptyStrings];
-    
-    if ([key isEqualToString:kSHKiOSTwitterUserInfo]) {
-        
-        //there can be multiple accounts authorized (e.g. SHKiOSTwitter)
-        NSArray *existingAuthorizedAccounts = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-        if (existingAuthorizedAccounts) {
-            NSMutableArray *existingAccountsMutable = [existingAuthorizedAccounts mutableCopy];
-            [existingAccountsMutable addObject:parsedData];
-            existingAuthorizedAccounts = existingAccountsMutable;
-        } else {
-            existingAuthorizedAccounts = @[parsedData];
-        }
-        SHKLog(@"fetched user info data: %@", [existingAuthorizedAccounts description]);
-        [[NSUserDefaults standardUserDefaults] setObject:existingAuthorizedAccounts forKey:key];
-        
+    if (isVideo || isSupportedImage) {
+        return YES;
     } else {
-        
-        SHKLog(@"fetched user info data: %@", [parsedData description]);
-        [[NSUserDefaults standardUserDefaults] setObject:parsedData forKey:key];
+        return NO;
     }
 }
 
@@ -172,9 +154,65 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
     return result;
 }
 
+#pragma mark - response data handling
 
++ (void)saveData:(NSData *)data defaultsKey:(NSString *)key {
+    
+    NSError *error = nil;
+    NSMutableDictionary *parsedData = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    
+    if (error) {
+        SHKLog(@"Error when parsing json %@ request:%@", key, [error description]);
+    }
+    
+    [parsedData convertNSNullsToEmptyStrings];
+    
+    if ([key isEqualToString:kSHKiOSTwitterUserInfo]) {
+        
+        //there can be multiple accounts authorized (e.g. SHKiOSTwitter)
+        NSArray *existingAuthorizedAccounts = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        if (existingAuthorizedAccounts) {
+            NSMutableArray *existingAccountsMutable = [existingAuthorizedAccounts mutableCopy];
+            [existingAccountsMutable addObject:parsedData];
+            existingAuthorizedAccounts = existingAccountsMutable;
+        } else {
+            existingAuthorizedAccounts = @[parsedData];
+        }
+        SHKLog(@"fetched user info data: %@", [existingAuthorizedAccounts description]);
+        [[NSUserDefaults standardUserDefaults] setObject:existingAuthorizedAccounts forKey:key];
+        
+    } else {
+        
+        SHKLog(@"fetched user info data: %@", [parsedData description]);
+        [[NSUserDefaults standardUserDefaults] setObject:parsedData forKey:key];
+    }
+}
 
-
-
++ (void)handleUnsuccessfulTicket:(NSData *)data forSharer:(SHKSharer *)sharer {
+    
+	if (SHKDebugShowLogs)
+		SHKLog(@"Twitter Send Status Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+	
+	NSMutableDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+    NSDictionary *twitterError = parsedResponse[@"errors"][0];
+	
+	if ([twitterError[@"code"] integerValue] == REVOKED_ACCESS_ERROR_CODE) {
+		
+		[sharer shouldReloginWithPendingAction:SHKPendingSend];
+        return;
+		
+	} else {
+		
+		//when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
+		if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
+			
+			[sharer shouldReloginWithPendingAction:SHKPendingSend];
+			return;
+		}
+	}
+	
+	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:twitterError[@"message"] forKey:NSLocalizedDescriptionKey]];
+	[sharer sendDidFailWithError:error];
+}
 
 @end
