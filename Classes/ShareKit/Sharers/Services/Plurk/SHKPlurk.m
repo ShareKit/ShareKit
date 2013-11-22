@@ -240,7 +240,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	[[SHKActivityIndicator currentIndicator] hide];
   
   if (SHKDebugShowLogs) {
-    SHKLog(@"Plurk Upload Picture Status Code: %d", [ticket.response statusCode]);
+    SHKLog(@"Plurk Upload Picture Status Code: %ld", (long)[ticket.response statusCode]);
     SHKLog(@"Plurk Upload Picture Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
   }
   

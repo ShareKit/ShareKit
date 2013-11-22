@@ -133,7 +133,7 @@
 
 - (NSString *)description {
     
-    NSString *functionResult = [NSString stringWithFormat:@"method: %@\nurl: %@\nparams: %@\nresponse: %i (%@)\ndata: %@", self.method, [self.url absoluteString], self.params, [self.response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[self.response statusCode]], [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
+    NSString *functionResult = [NSString stringWithFormat:@"method: %@\nurl: %@\nparams: %@\nresponse: %li (%@)\ndata: %@", self.method, [self.url absoluteString], self.params, (long)[self.response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[self.response statusCode]], [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding]];
     
     return functionResult;    
 }

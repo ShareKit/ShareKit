@@ -177,7 +177,7 @@
     if (!self.settings.maxTextLength) return;
 		  
     NSInteger countNumber = self.settings.maxTextLength - [self.textView.text length];
-    NSString *count = [NSString stringWithFormat:@"%i", countNumber];
+    NSString *count = [NSString stringWithFormat:@"%li", (long)countNumber];
     self.counter.text = count;
  	
 	if (countNumber >= 0) {

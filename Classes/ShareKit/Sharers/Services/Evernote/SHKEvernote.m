@@ -158,7 +158,7 @@
         if(self.item.image) {
             EDAMResource *img = [[EDAMResource alloc] init];
             NSData *rawimg = UIImageJPEGRepresentation(self.item.image, 0.6);
-            EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg];
+            EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:(int)[rawimg length] body:rawimg];
             [img setData:imgd];
             [img setRecognition:imgd];
             [img setMime:@"image/jpeg"];
@@ -168,7 +168,7 @@
         
         if(self.item.file) {
             EDAMResource *file = [[EDAMResource alloc] init];	
-            EDAMData *filed = [[EDAMData alloc] initWithBodyHash:self.item.file.data size:[self.item.file.data length] body:self.item.file.data];
+            EDAMData *filed = [[EDAMData alloc] initWithBodyHash:self.item.file.data size:(int)[self.item.file.data length] body:self.item.file.data];
             [file setData:filed];
             [file setRecognition:filed];
             [file setMime:self.item.file.mimeType];
@@ -189,7 +189,7 @@
                 NSData *rawimg = [NSData dataWithContentsOfURL:[NSURL URLWithString:res.attributes.sourceURL]];
                 UIImage *img = [UIImage imageWithData:rawimg];
                 if(img) {
-                    EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg];
+                    EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:(int)[rawimg length] body:rawimg];
                     [res setData:imgd];
                     [res setRecognition:imgd];
                     [note setContent:

@@ -43,13 +43,13 @@ NSString *kNewClipURL = @"https://kippt.com/api/clips/";
 static char *alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 NSString *base64(NSData *plainText) {
-    int encodedLength = (((([plainText length] % 3) + [plainText length]) / 3) * 4) + 1;
+    NSInteger encodedLength = (((([plainText length] % 3) + [plainText length]) / 3) * 4) + 1;
     unsigned char *outputBuffer = malloc(encodedLength);
     unsigned char *inputBuffer = (unsigned char *)[plainText bytes];
 
     NSInteger i;
     NSInteger j = 0;
-    int remain;
+    NSInteger remain;
 
     for(i = 0; i < [plainText length]; i += 3) {
         remain = [plainText length] - i;
