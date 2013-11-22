@@ -144,6 +144,9 @@
         SHKLog(@"User revoked access in settings.app, or in service itself.");
     } else {
         SHKLog(@"auth failed:%@", [error description]);
+        if ([error.domain isEqualToString:@"com.apple.accounts"] && error.code == 6) {
+            [self presentNoAvailableAccountAlert];
+        }
     }
     [[self class] logout];
 }

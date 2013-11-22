@@ -98,7 +98,9 @@
                                                                                 }];
                                                 } else {
                                                     
-                                                    [self iOSAuthorizationFailedWithError:error];
+                                                    [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                                                        [self iOSAuthorizationFailedWithError:error];
+                                                    }];
                                                 }
                                         }];
             break;
