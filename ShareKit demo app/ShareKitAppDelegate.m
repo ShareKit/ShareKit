@@ -13,7 +13,7 @@
 #import "SHKGooglePlus.h"
 #import "SHKFacebook.h"
 #import "EvernoteSDK.h"
-#import "SHKBuffer.h"
+//#import "SHKBuffer.h"
 #import "PocketAPI.h"
 
 #import "SHKConfiguration.h"
@@ -84,7 +84,7 @@
     } else if ([[NSString stringWithFormat:@"en-%@", [[EvernoteSession sharedSession] consumerKey]] isEqualToString:[url scheme]]) {
         return [[EvernoteSession sharedSession] canHandleOpenURL:url];
     } else if ([scheme hasPrefix:[NSString stringWithFormat:@"buffer%@", SHKCONFIG(bufferClientID)]]) {
-        return [SHKBuffer handleOpenURL:url];
+        //return [SHKBuffer handleOpenURL:url];
     }else if ([scheme hasPrefix:[NSString stringWithFormat:@"pocketapp%@", pocketPrefixKeyPart]]) {
         return [[PocketAPI sharedAPI] handleOpenURL:url];
     }

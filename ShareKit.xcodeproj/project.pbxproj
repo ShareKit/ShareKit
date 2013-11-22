@@ -289,7 +289,6 @@
 		7AECF40E171D52DB000722FA /* libYouTube SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF32C171D51C3000722FA /* libYouTube SDK.a */; };
 		7AECF40F171D52DF000722FA /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF322171D5194000722FA /* libYouTube.a */; };
 		7AECF412171D55BD000722FA /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF2EE171D4679000722FA /* libGTLTouchStaticLib.a */; };
-		949202C6172A9BBD00DF9530 /* libBuffer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 949BCB8C172A993000D706D4 /* libBuffer.a */; };
 		9492063917302B4C00DF9530 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 949BCB95172A99AF00D706D4 /* SHKBuffer.h */; };
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
@@ -613,13 +612,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4F1C6E0E1027B3CE00B46459;
 			remoteInfo = GTLTouchStaticLib;
-		};
-		949202C7172A9BC800DF9530 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 949BCB84172A993000D706D4;
-			remoteInfo = Buffer;
 		};
 		9492063117302B0700DF9530 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1320,7 +1312,6 @@
 				7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */,
 				7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */,
 				9492063917302B4C00DF9530 /* libKippt.a in Frameworks */,
-				949202C6172A9BBD00DF9530 /* libBuffer.a in Frameworks */,
 				7AECF412171D55BD000722FA /* libGTLTouchStaticLib.a in Frameworks */,
 				7AECF40F171D52DF000722FA /* libYouTube.a in Frameworks */,
 				7AECF40E171D52DB000722FA /* libYouTube SDK.a in Frameworks */,
@@ -3375,7 +3366,6 @@
 				7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */,
 				7A4E4665173E2C4F00CCEE80 /* PBXTargetDependency */,
 				9492063217302B0700DF9530 /* PBXTargetDependency */,
-				949202C8172A9BC800DF9530 /* PBXTargetDependency */,
 				7AECF411171D55B7000722FA /* PBXTargetDependency */,
 				7AECF40D171D52D4000722FA /* PBXTargetDependency */,
 				7AECF40B171D52D0000722FA /* PBXTargetDependency */,
@@ -4612,11 +4602,6 @@
 			isa = PBXTargetDependency;
 			name = GTLTouchStaticLib;
 			targetProxy = 7AECF410171D55B7000722FA /* PBXContainerItemProxy */;
-		};
-		949202C8172A9BC800DF9530 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 949BCB84172A993000D706D4 /* Buffer */;
-			targetProxy = 949202C7172A9BC800DF9530 /* PBXContainerItemProxy */;
 		};
 		9492063217302B0700DF9530 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
