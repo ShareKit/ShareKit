@@ -164,11 +164,12 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
      postNotificationName:@"SHKFacebookSessionStateChangeNotification"
      object:session];
     
-    if (error) {
+    if (error && error.fberrorShouldNotifyUser) {
 		[FBSession.activeSession closeAndClearTokenInformation];
+        
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"Error"
-                                  message:error.localizedDescription
+                                  message:error.fberrorUserMessage
                                   delegate:nil
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
@@ -352,10 +353,10 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                     [self restoreItem];
                                                     [[SHKActivityIndicator currentIndicator] hide];
                                                     requestingPermisSHKFacebook = nil;
-                                                    if (error) {
+                                                    if (error && error.fberrorShouldNotifyUser) {
                                                         UIAlertView *alertView = [[UIAlertView alloc]
                                                                                   initWithTitle:@"Error"
-                                                                                  message:error.localizedDescription
+                                                                                  message:error.fberrorUserMessage
                                                                                   delegate:nil
                                                                                   cancelButtonTitle:@"OK"
                                                                                   otherButtonTitles:nil];
@@ -419,11 +420,11 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                         [self sendDidCancel];
                                                         return;
                                                         
-                                                    } else {
+                                                    } else if (error.fberrorShouldNotifyUser){
                                                         
                                                         UIAlertView *alertView = [[UIAlertView alloc]
                                                                                   initWithTitle:@"Error"
-                                                                                  message:error.localizedDescription
+                                                                                  message:error.fberrorUserMessage
                                                                                   delegate:nil
                                                                                   cancelButtonTitle:@"OK"
                                                                                   otherButtonTitles:nil];
