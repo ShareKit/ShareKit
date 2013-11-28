@@ -13,7 +13,6 @@
 
 + (SHKFormFieldOptionPickerSettings *)label:(NSString *)l
                                         key:(NSString *)k
-                                       type:(SHKFormFieldType)t
                                       start:(NSString *)s
                                 pickerTitle:(NSString *)pickerTitle
                             selectedIndexes:(NSMutableIndexSet *)selectedIndexes
@@ -23,7 +22,7 @@
                                fetchFromWeb:(BOOL)fetchFromWeb
                                    provider:(id <SHKFormOptionControllerOptionProvider>)provider {
     
-    SHKFormFieldOptionPickerSettings *result = [[SHKFormFieldOptionPickerSettings alloc] initWithLabel:l key:k type:t start:s];
+    SHKFormFieldOptionPickerSettings *result = [[SHKFormFieldOptionPickerSettings alloc] initWithLabel:l key:k type:SHKFormFieldTypeOptionPicker start:s];
     result.pickerTitle = pickerTitle;
     
     if (selectedIndexes) {

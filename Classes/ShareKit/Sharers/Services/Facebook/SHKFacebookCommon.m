@@ -143,7 +143,6 @@ NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/me/video
     
     SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
                                                                                    key:key
-                                                                                  type:SHKFormFieldTypeTextLarge
                                                                                  start:text
                                                                                   item:item];
     commentField.select = YES;

@@ -127,7 +127,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     SHKFormFieldOptionPickerSettings *blogField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Blog")
                                                                                       key:@"blog"
-                                                                                     type:SHKFormFieldTypeOptionPicker
                                                                                     start:SHKLocalizedString(@"Select blog")
                                                                               pickerTitle:SHKLocalizedString(@"Choose blog")
                                                                           selectedIndexes:defaultPickedIndex
@@ -149,7 +148,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     SHKFormFieldOptionPickerSettings *publishField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Publish")
                                                                                          key:@"publish"
-                                                                                        type:SHKFormFieldTypeOptionPicker
                                                                                        start:SHKLocalizedString(@"Publish now")
                                                                                  pickerTitle:SHKLocalizedString(@"Publish type")
                                                                              selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]

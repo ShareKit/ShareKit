@@ -144,6 +144,7 @@
         SHKLog(@"User revoked access in settings.app, or in service itself.");
     } else {
         SHKLog(@"auth failed:%@", [error description]);
+        //code 6 means user account not exists in settings.app (at least for Facebook)
         if ([error.domain isEqualToString:@"com.apple.accounts"] && error.code == 6) {
             [self presentNoAvailableAccountAlert];
         }
@@ -162,6 +163,8 @@
 }
 
 - (void)presentNoAvailableAccountAlert {
+    
+    if (self.quiet) return;
     
     NSString *alertTitle = SHKLocalizedString(@"No %@ Accounts", [[self class] sharerTitle]);
     NSString *alertMessage = SHKLocalizedString(@"There are no %@ accounts configured. You can add or create a %@ account in Settings.", [[self class] sharerTitle], [[self class] sharerTitle]);

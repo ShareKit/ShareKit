@@ -17,9 +17,9 @@
 
 @implementation SHKFormFieldLargeTextSettings
 
-+ (SHKFormFieldLargeTextSettings *)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s item:(SHKItem *)item {
++ (SHKFormFieldLargeTextSettings *)label:(NSString *)l key:(NSString *)k start:(NSString *)s item:(SHKItem *)item {
 
-    SHKFormFieldLargeTextSettings *result = [[SHKFormFieldLargeTextSettings alloc] initWithLabel:l key:k type:t start:s];
+    SHKFormFieldLargeTextSettings *result = [[SHKFormFieldLargeTextSettings alloc] initWithLabel:l key:k type:SHKFormFieldTypeTextLarge start:s];
     result.maxTextLength = 0;
     result.item = item;
     

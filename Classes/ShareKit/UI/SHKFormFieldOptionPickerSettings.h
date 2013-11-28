@@ -75,7 +75,6 @@
  */
 + (SHKFormFieldOptionPickerSettings *)label:(NSString *)l
                                         key:(NSString *)k
-                                       type:(SHKFormFieldType)t
                                       start:(NSString *)s
                                 pickerTitle:(NSString *)pickerTitle
                             selectedIndexes:(NSMutableIndexSet *)selectedIndexes

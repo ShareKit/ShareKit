@@ -151,7 +151,6 @@ NSString *kPutInGroupsStep = @"kPutInGroupsStep";
 														   start:SHKFormFieldSwitchOn],
                                      [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Post To Groups")
                                                                          key:@"postgroup"
-                                                                        type:SHKFormFieldTypeOptionPicker
                                                                        start:SHKLocalizedString(@"Select Group")
                                                                  pickerTitle:SHKLocalizedString(@"Flickr Groups")
                                                              selectedIndexes:nil

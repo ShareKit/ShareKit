@@ -33,7 +33,6 @@
 
 + (SHKFormFieldLargeTextSettings *)label:(NSString *)l
                                      key:(NSString *)k
-                                    type:(SHKFormFieldType)t
                                    start:(NSString *)s
                                     item:(SHKItem *)item;
 - (BOOL)shouldShowThumbnail;

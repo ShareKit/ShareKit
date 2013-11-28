@@ -308,7 +308,6 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
            [SHKFormFieldSettings label:SHKLocalizedString(@"Tags") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@","]],
            [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Privacy")
                                                key:@"privacy"
-                                              type:SHKFormFieldTypeOptionPicker
                                              start:@"public"
                                        pickerTitle:SHKLocalizedString(@"Privacy")
                                    selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]

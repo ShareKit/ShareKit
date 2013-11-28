@@ -341,7 +341,6 @@
         
     SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
                                                                                    key:key
-                                                                                  type:SHKFormFieldTypeTextLarge
                                                                                  start:text
                                                                                   item:self.item];
     commentField.select = YES;

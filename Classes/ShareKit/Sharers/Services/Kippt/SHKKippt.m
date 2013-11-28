@@ -199,7 +199,6 @@ NSString *base64(NSData *plainText) {
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"notes" type:SHKFormFieldTypeText start:self.item.text],
 				[SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"List")
                                                     key:@"list"
-                                                   type:SHKFormFieldTypeOptionPicker
                                                   start:nil
                                             pickerTitle:SHKLocalizedString(@"List")
                                         selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]

@@ -324,7 +324,6 @@
     
     SHKFormFieldLargeTextSettings *largeTextSettings = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
                                                                                         key:@"status"
-                                                                                       type:SHKFormFieldTypeTextLarge
                                                                                       start:[self.item customValueForKey:@"status"]
                                                                                        item:self.item];
     largeTextSettings.maxTextLength = [SHKTwitterCommon maxTextLengthForItem:self.item];

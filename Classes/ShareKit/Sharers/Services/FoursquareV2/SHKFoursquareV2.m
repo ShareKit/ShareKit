@@ -176,7 +176,6 @@ static NSString *accessTokenKey = @"accessToken";
     
     SHKFormFieldLargeTextSettings *messageField = [SHKFormFieldLargeTextSettings label:label
                                                                                    key:@"text"
-                                                                                  type:SHKFormFieldTypeTextLarge
                                                                                  start:self.item.text
                                                                                   item:self.item];
     messageField.select = YES;

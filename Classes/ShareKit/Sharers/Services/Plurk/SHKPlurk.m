@@ -166,7 +166,6 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     
     SHKFormFieldOptionPickerSettings *userDoesField = [SHKFormFieldOptionPickerSettings label:username
                                                                                           key:SHKPlurkQualifierKey
-                                                                                         type:SHKFormFieldTypeOptionPicker
                                                                                         start:nil
                                                                                   pickerTitle:username
                                                                               selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:2]
@@ -178,7 +177,6 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     
     SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
                                                                                    key:@"status"
-                                                                                  type:SHKFormFieldTypeTextLarge
                                                                                  start:[self.item customValueForKey:@"status"]
                                                                                   item:self.item];
     commentField.maxTextLength = 210;

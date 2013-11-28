@@ -96,7 +96,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 {
     SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
                                                                                    key:@"text"
-                                                                                  type:SHKFormFieldTypeTextLarge
                                                                                  start:self.item.text
                                                                                   item:self.item];
     commentField.select = YES;

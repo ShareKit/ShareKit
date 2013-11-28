@@ -99,7 +99,6 @@
     
     SHKFormFieldLargeTextSettings *largeTextSettings = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Tweet")
                                                                                         key:@"status"
-                                                                                       type:SHKFormFieldTypeTextLarge
                                                                                       start:[self.item customValueForKey:@"status"]
                                                                                        item:self.item];
     largeTextSettings.maxTextLength = [SHKTwitterCommon maxTextLengthForItem:self.item];
@@ -127,7 +126,6 @@
         }
         SHKFormFieldOptionPickerSettings *accountField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Account")
                                                                                              key:@"account"
-                                                                                            type:SHKFormFieldTypeOptionPicker
                                                                                            start:[(ACAccount *)availableAccounts[0] username]
                                                                                      pickerTitle:SHKLocalizedString(@"Account")
                                                                                  selectedIndexes:[[NSMutableIndexSet alloc] initWithIndex:0]
