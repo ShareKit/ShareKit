@@ -33,26 +33,18 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 // The oauth scope we need to request at LinkedIn
 #define SHKLinkedInRequiredScope @"rw_nus"
+#define kSHKLinkedInUserInfo @"kSHKLinkedInUserInfo"
 
 @implementation SHKLinkedIn
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"LinkedIn");
-}
++ (NSString *)sharerTitle { return SHKLocalizedString(@"LinkedIn"); }
 
-+ (BOOL)canShareURL
-{
-    return YES;
-}
-
-+ (BOOL)canShareText
-{
-    return YES;
-}
++ (BOOL)canShareURL { return YES; }
++ (BOOL)canShareText { return YES; }
++ (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -
 #pragma mark Authentication
@@ -90,10 +82,18 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     [oRequest setOAuthParameterName:@"scope" withValue:SHKLinkedInRequiredScope];
 }
 
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKLinkedInUserInfo];
+	[super logout];
+}
+
 #pragma mark -
 #pragma mark Share Form
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
+    if (type == SHKShareTypeUserInfo) return nil;
+
     SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
                                                                                    key:@"text"
                                                                                  start:self.item.text
@@ -139,72 +139,97 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	if (![self validateItem]) return NO;
 	
     // Determine which type of share to do
-    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL) // sharing a Text or URL
-    {
-        // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
-        
-        OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
-                                                                        consumer:consumer // this is a consumer object already made available to us
-                                                                           token:accessToken // this is our accessToken already made available to us
-                                                                           realm:nil
-                                                               signatureProvider:signatureProvider];
-        
-        [oRequest setHTTPMethod:@"POST"];
-        
-        [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
-        
-        // TODO use more robust method to escape         
-        NSString *comment = [self sanitizeString:self.item.text];
+    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL) {
+        [self shareContent];
+    } else if (self.item.shareType == SHKShareTypeUserInfo) {
+        self.quiet = YES;
+        [self fetchUserInfo];
+    } else {
+        return NO;
+    }
 
-        NSString *visibility;
-        BOOL public = [[self.item customValueForKey:SHKLinkedInVisibilityCodeKey] boolValue];
-        if (public) {
-            visibility = @"anyone";
-        } else {
-            visibility = @"connections-only";
-        }
-        
-        NSString *submittedUrl;
-        if (self.item.shareType == SHKShareTypeURL) {
-            
-            NSString *submittedTitle = @"";
-            if ([self.item.title length]) {
-                submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>",[self sanitizeString:self.item.title]];
-            }
-            NSString *urlString = [self sanitizeString:self.item.URL.absoluteString];
-            submittedUrl = [NSString stringWithFormat:@"<content>%@<submitted-url>%@</submitted-url></content>", submittedTitle, urlString];
-        } else {
-            submittedUrl = @"";
-        }
+    // Notify delegate
+    [self sendDidStart];
+    
+    return YES;
+}
 
-        NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                          "<share>"
-                            "<comment>%@</comment>"
-                            "%@"
-                            "<visibility>"
-                                "<code>%@</code>"
-                            "</visibility>"
-                          "</share>", comment, submittedUrl, visibility];
-        
-        [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];         
-        
-        // Start the request
-        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                              delegate:self
-                                                                                     didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];	
-        
-        [fetcher start];
-        
-        // Notify delegate
-        [self sendDidStart];
-        
-        return YES;
+- (void)fetchUserInfo {
+    
+    OAMutableURLRequest *userInfoRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"]
+                                                                           consumer:consumer
+                                                                              token:accessToken
+                                                                              realm:nil
+                                                                  signatureProvider:signatureProvider];
+    [userInfoRequest setHTTPMethod:@"GET"];
+    [userInfoRequest prepare];
+    
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:userInfoRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
+}
+
+- (void)shareContent {
+    
+    // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
+    
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
+                                                                    consumer:consumer // this is a consumer object already made available to us
+                                                                       token:accessToken // this is our accessToken already made available to us
+                                                                       realm:nil
+                                                           signatureProvider:signatureProvider];
+    
+    [oRequest setHTTPMethod:@"POST"];
+    
+    [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
+    
+    // TODO use more robust method to escape
+    NSString *comment = [self sanitizeString:self.item.text];
+    
+    NSString *visibility;
+    BOOL public = [[self.item customValueForKey:SHKLinkedInVisibilityCodeKey] boolValue];
+    if (public) {
+        visibility = @"anyone";
+    } else {
+        visibility = @"connections-only";
     }
     
-    return NO;
+    NSString *submittedUrl;
+    if (self.item.shareType == SHKShareTypeURL) {
+        
+        NSString *submittedTitle = @"";
+        if ([self.item.title length]) {
+            submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>",[self sanitizeString:self.item.title]];
+        }
+        NSString *urlString = [self sanitizeString:self.item.URL.absoluteString];
+        submittedUrl = [NSString stringWithFormat:@"<content>%@<submitted-url>%@</submitted-url></content>", submittedTitle, urlString];
+    } else {
+        submittedUrl = @"";
+    }
+    
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                      "<share>"
+                      "<comment>%@</comment>"
+                      "%@"
+                      "<visibility>"
+                      "<code>%@</code>"
+                      "</visibility>"
+                      "</share>", comment, submittedUrl, visibility];
+    
+    [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    
+    // Start the request
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
 }
 
 - (NSString *)sanitizeString:(NSString *)string {
@@ -212,18 +237,27 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     return [[[[string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
 }
 
-- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)responseData 
 {	
     if (ticket.didSucceed)
     {
+        NSString *dataInString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        SHKLog(@"%@", dataInString);
         // The send was successful
         [self sendDidFinish];
+        
+        NSDictionary *userInfo = [SHKXMLResponseParser dictionaryFromData:responseData];
+        if (userInfo[@"person"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKLinkedInUserInfo];
+            NSString *responseBody = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            SHKLog(@"fetched user info: %@", [responseBody description]);
+        }
     }
     else
     {
         
 #ifdef _SHKDebugShowLogs
-        NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *responseBody = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 #endif
         SHKLog(@"%@", responseBody);
         
@@ -231,7 +265,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         // If the error was the result of the user no longer being authenticated, you can reprompt
         // for the login information with:
-        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
+        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromXMLData:responseData];
         
         // If we receive 401, we're not logged in. If we receive 403, we were logged in before, but didn't
         // yet have the proper privileges, so we force a relogin so linkedin can ask the user the
@@ -253,5 +287,17 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     [self sendDidFailWithError:error shouldRelogin:NO];
 }
 
++ (NSString *)username {
+    
+    NSDictionary *LIuserInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKLinkedInUserInfo];
+    NSString *result = nil;
+    if (LIuserInfo) {
+        NSDictionary *person = [LIuserInfo objectForKey:@"person"];
+        NSString *name = [person objectForKey:@"first-name"];
+        NSString *surname = [person objectForKey:@"last-name"];
+        result = [[NSString alloc] initWithFormat:@"%@ %@", name, surname];
+    }
+    return result;
+}
 
 @end

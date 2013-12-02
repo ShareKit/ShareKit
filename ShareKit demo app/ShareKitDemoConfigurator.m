@@ -183,11 +183,11 @@
 
 // LinkedIn - https://www.linkedin.com/secure/developer
 - (NSString*)linkedInConsumerKey {
-	return @"9f8m5vx0yhjf";
+	return @"ppc8a0wlnipp";
 }
 
 - (NSString*)linkedInSecret {
-	return @"UWGKcBWreMKhwzRG";
+	return @"jSzl76tvzsPgKBXh";
 }
 
 - (NSString*)linkedInCallbackUrl {
