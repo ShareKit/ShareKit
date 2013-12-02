@@ -463,7 +463,7 @@
     
     if (ticket.didSucceed) {
         
-        NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromResponse:data];
+        NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromXMLData:data];
         if (mediaURL) {
             
             [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];

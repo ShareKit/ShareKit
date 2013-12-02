@@ -250,7 +250,7 @@
             
             if (urlResponse.statusCode < 400) {
                 
-                NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromResponse:responseData];
+                NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromXMLData:responseData];
                 if (mediaURL) {
                     
                     [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];

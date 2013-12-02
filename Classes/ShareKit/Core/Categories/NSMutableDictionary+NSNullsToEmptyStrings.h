@@ -27,4 +27,6 @@
 
 - (void)convertNSNullsToEmptyStrings;
 
++ (void)recursivelyEnumerateMutableDictionary:(NSMutableDictionary *)dictToEnumerate usingBlock:(void (^)(NSMutableDictionary *dict, id key, id obj, BOOL *stop))block;
+
 @end

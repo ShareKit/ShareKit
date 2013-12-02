@@ -141,7 +141,7 @@
                       method:@"GET"
                   completion:^ (SHKRequest *request) {
                       
-                      NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromResponse:request.data];
+                      NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromXMLData:request.data];
                       
                       if ([responseResultCode isEqualToString:@"done"]) {
                           

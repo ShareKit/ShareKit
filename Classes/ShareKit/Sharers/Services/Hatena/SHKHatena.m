@@ -7,7 +7,6 @@
 //
 
 #import "SHKHatena.h"
-#import "SHKXMLResponseParser.h"
 #import "SharersCommonHeaders.h"
 
 @interface SHKHatena ()

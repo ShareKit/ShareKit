@@ -183,7 +183,7 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
         
     } else {
         
-        SHKLog(@"fetched user info data: %@", [parsedData description]);
+        SHKLog(@"fetched user api config: %@", [parsedData description]);
         [[NSUserDefaults standardUserDefaults] setObject:parsedData forKey:key];
     }
 }
@@ -204,7 +204,7 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
 	} else {
 		
 		//when sharing image, and the user removed app permissions there is no JSON response expected above, but XML, which we need to parse. 401 is obsolete credentials -> need to relogin
-		if ([[SHKXMLResponseParser getValueForElement:@"code" fromResponse:data] isEqualToString:@"401"]) {
+		if ([[SHKXMLResponseParser getValueForElement:@"code" fromXMLData:data] isEqualToString:@"401"]) {
 			
 			[sharer shouldReloginWithPendingAction:SHKPendingSend];
 			return;
