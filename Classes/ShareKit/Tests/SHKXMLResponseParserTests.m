@@ -21,8 +21,6 @@
 {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    
-    
 }
 
 - (void)tearDown
@@ -54,6 +52,15 @@
     NSDictionary *properResultDict = [self properResultDictAttributes2];
     XCTAssert([parsedDict isEqualToDictionary:properResultDict], @"Badly parsed attributes xml!");
 }
+
+- (void)testXMLAttributes3 {
+    
+    NSData *testXMLData = [self loadTestXML:@"testXMLAttributes3"];
+    NSDictionary *parsedDict = [SHKXMLResponseParser dictionaryFromData:testXMLData];
+    NSDictionary *properResultDict = [self properResultDictAttributes3];
+    XCTAssert([parsedDict isEqualToDictionary:properResultDict], @"Badly parsed attributes xml!");
+}
+
 
 - (void)testValueForElement {
     
@@ -91,6 +98,14 @@
     NSMutableDictionary *result = @{@"rsp": @{@"stat": @"ok",
                                               @"mediaid": @"",
                                               @"mediaurl": @"http://yfrog.com/"}};
+    return result;
+}
+
+- (NSDictionary *)properResultDictAttributes3 {
+    
+    NSMutableDictionary *result = @{@"rsp": @{@"stat": @"ok",
+                                              @"user": @{@"id": @"75231457@N02",
+                                                         @"username": @"Vito132"}}};
     return result;
 }
 

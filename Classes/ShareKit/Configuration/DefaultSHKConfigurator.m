@@ -198,7 +198,8 @@
 /*
  1 - This requires the CFNetwork.framework 
  2 - One needs to setup the flickr app as a "web service" on the flickr authentication flow settings, and enter in your app's custom callback URL scheme. 
- 3 - make sure you define and create the same URL scheme in your apps info.plist. It can be as simple as yourapp://flickr */
+ 3 - make sure you define and create the same URL scheme in your app description on Flickr. It can be as simple as yourapp://flickr
+ 4 - do not override this, unless you subclass the sharer and need more privileges for custom added functionality.*/
 - (NSString*)flickrConsumerKey {
     return @"";
 }
@@ -209,6 +210,10 @@
 // The user defined callback url
 - (NSString*)flickrCallbackUrl{
     return @"app://flickr";
+}
+
+- (NSString *)flickrPermissions {
+    return @"write";
 }
 
 // Bit.ly for shortening URLs, used by some sharers (e.g. Buffer). http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key If you do not enter bit.ly credentials, URL will be shared unshortened.

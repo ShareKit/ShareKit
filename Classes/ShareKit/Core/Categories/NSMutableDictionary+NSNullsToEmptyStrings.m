@@ -22,38 +22,20 @@
 //  THE SOFTWARE.
 
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+
+#import "NSDictionary+Recursive.h"
 #import "Debug.h"
 
 @implementation NSMutableDictionary (NSNullsToEmptyStrings)
 
 - (void)convertNSNullsToEmptyStrings {
     
-    [NSMutableDictionary recursivelyEnumerateMutableDictionary:self usingBlock:^(NSMutableDictionary *dict, id key, id obj, BOOL *stop) {
+    [NSDictionary recursivelyEnumerateDictionary:self usingBlock:^(NSDictionary *dict, id key, id obj, BOOL *stop) {
         
         if (obj == [NSNull null]) {
-            [dict setObject:@"" forKey:key];
+            [(NSMutableDictionary *)dict setObject:@"" forKey:key];
         }
     }];
-}
-
-//must be class method to be able to pass nested dictionary into the block.
-+ (void)recursivelyEnumerateMutableDictionary:(NSMutableDictionary *)dictToEnumerate usingBlock:(void (^)(NSMutableDictionary *dict, id key, id obj, BOOL *stop))block {
-    
-    NSArray *keys = [dictToEnumerate allKeys];
-    __block BOOL stop = NO;
-    
-    for (NSString *key in keys) {
-        
-        id object = [dictToEnumerate objectForKey:key];
-        SHKLog(@"object name:%@, class:%@", key, NSStringFromClass([object class]));;
-        if ([object isKindOfClass:[NSMutableDictionary class]]) {
-            [NSMutableDictionary recursivelyEnumerateMutableDictionary:object usingBlock:block];
-        } else {
-            block(dictToEnumerate, key, object, &stop);
-        }
-        
-        if (stop) return;
-    }
 }
 
 @end

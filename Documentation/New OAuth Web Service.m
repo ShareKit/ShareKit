@@ -26,7 +26,7 @@
 
 
 «OPTIONALHEADERIMPORTLINE»
-#import "SHKConfiguration.h"
+#import "SharersCommonHeaders.h"
 
 @implementation «FILEBASENAMEASIDENTIFIER»
 
@@ -77,7 +77,7 @@
 
 // If the action can handle files, uncomment this section
 /*
-+ (BOOL)canShareFile
++ (BOOL)canShareFile:(SHKFile *)file
 {
 	return YES;
 }
@@ -160,12 +160,26 @@
 }
 */
 
+//if the sharer can get user info (and it should!) override these convenience methods too. Replace example implementation with the one specific for your sharer.
+/*
++ (NSString *)username {
+ 
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKFlickrUserInfo];
+    NSString *result = [userInfo findRecursivelyValueForKey:@"_content"];
+    return result;
+}
++ (void)logout {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFlickrUserInfo];
+    [super logout];
+}
+ */
 
 #pragma mark -
 #pragma mark Share Form
 
 // If your action has options or additional information it needs to get from the user,
-// use this to create the form that is presented to user upon sharing.
+// use this to create the form that is presented to user upon sharing. You can even set validationBlock to validate user's input for any field setting)
 /*
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
@@ -207,30 +221,6 @@
 + (BOOL)canAutoShare
 {
 	return NO;
-}
-*/
-
-
-// Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
-/*
-- (FormControllerCallback)shareFormValidate
-{
-    // make sure to always call weakself in this block, to avoid retain cycle (currently the sharer retains the form, and the form retains this block
-    __weak typeof(self) weakSelf = self;
- 
-    FormControllerCallback result = ^(SHKFormController *form) {
-        
-        You can get a dictionary of the field values from [form formValues]
-        
-        You should perform one of the following actions:
-        
-        1.	Save the form - If everything is correct call
-        
-        [form saveForm]
-        
-        2.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
-            };
-    return result;
 }
 */
 

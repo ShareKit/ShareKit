@@ -1,8 +1,9 @@
 //
-//  NSMutableDictionary+NSNullsToEmptyStrings.h
+//  NSDictionary+Recursive.h
 //  ShareKit
 //
-//  Created by Vilem Kurz on 23.1.2012.
+//  Created by Vilem Kurz on 03/12/2013.
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -23,8 +24,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMutableDictionary (NSNullsToEmptyStrings)
+@interface NSDictionary (Recursive)
 
-- (void)convertNSNullsToEmptyStrings;
++ (void)recursivelyEnumerateDictionary:(NSDictionary *)dictToEnumerate usingBlock:(void (^)(NSDictionary *dict, id key, id obj, BOOL *stop))block;
+
+- (id)findRecursivelyValueForKey:(NSString *)searchedKey;
 
 @end

@@ -22,7 +22,7 @@
 //  THE SOFTWARE.
 
 #import "SHKXMLResponseParser.h"
-#import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import "NSDictionary+Recursive.h"
 
 @interface SHKXMLResponseParser ()
 
@@ -37,14 +37,14 @@
 
 @implementation SHKXMLResponseParser
 
-+ (NSString *)getValueForElement:(NSString *)element fromXMLData:(NSData *)data {
++ (id)getValueForElement:(NSString *)element fromXMLData:(NSData *)data {
     
     SHKXMLResponseParser *shkParser = [[SHKXMLResponseParser alloc] initWithData:data];
     [shkParser parse];
     
-    NSString *result;    
+    id result;
     if (shkParser.xmlParsedSuccessfully) {
-        result = [shkParser findRecursivelyValueForKey:element inDict:shkParser.parsedResponse];
+        result = [shkParser.parsedResponse findRecursivelyValueForKey:element];
     } else {
         result = nil;
     }
@@ -73,20 +73,6 @@
         _currentElementNames = [[NSMutableArray alloc] initWithCapacity:3];
     }
     return self;
-}
-
-- (NSString *)findRecursivelyValueForKey:(NSString *)searchedKey inDict:(NSMutableDictionary *)dictionary {
-    
-    __block NSString *result = nil;
-    
-    [NSMutableDictionary recursivelyEnumerateMutableDictionary:dictionary usingBlock:^(NSMutableDictionary *dict, id key, id obj, BOOL *stop) {
-        if ([key isEqualToString:searchedKey] && ![obj isKindOfClass:[NSMutableDictionary class]]) {
-            result = obj;
-            *stop = YES;
-        }
-    }];
-    
-    return result;
 }
 
 - (void)parse {
@@ -136,10 +122,9 @@
             [self.currentParentElement setObject:mutableAttributesDict forKey:elementName];
         } else {
             [self.parsedResponse setObject:mutableAttributesDict forKey:elementName];
-            self.currentParentElement = mutableAttributesDict;
         }
+        self.currentParentElement = mutableAttributesDict;
     }
-    
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
@@ -161,11 +146,11 @@
         self.currentParentElement = [self parentOfElement:elementName];
     } else {
         //trim and save finished current element
-        if(self.currentElementValue && ![elementName isEqualToString:@"errors"] && ![elementName isEqualToString:@"error"]) {
+        if(self.currentElementValue) {
             
             NSString *trimmedElementValue = [self.currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             self.currentElementValue = nil;
-            /*if (trimmedElementValue)*/ [self.currentParentElement setObject:trimmedElementValue forKey:elementName];
+            [self.currentParentElement setObject:trimmedElementValue forKey:elementName];
         }
     }
     [self.currentElementNames removeLastObject];

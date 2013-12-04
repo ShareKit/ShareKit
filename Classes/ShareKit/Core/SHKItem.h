@@ -30,7 +30,17 @@
 
 extern NSString * const SHKAttachmentSaveDir;
 
-typedef enum 
+/*!
+ @typedef SHKShareType
+ @abstract This is a hint for ShareKit about what type of data do you want to share.
+ @constant SHKShareTypeUserInfo There are two ways services interact with ShareKit - some store credentials in user's keychain, some do not. If they do not, you have to fetch available user info using this share type. The user info is then fetched and stored in kSHK<sharerName>UserInfo> key in NSUserDefaults. You might want to wait for SHKSendDidFinishNotification and then update your UI. User info is fetched automatically after successful login. If you only need username, you can call username method on sharer's class.
+ @constant SHKShareTypeUndefined placeholder
+ @constant SHKShareTypeURL placeholder
+ @constant SHKShareTypeText placeholder
+ @constant SHKShareTypeImage placeholder
+ @constant SHKShareTypeFile placeholder
+ */
+typedef enum
 {
 	SHKShareTypeUndefined,
 	SHKShareTypeURL,
@@ -78,7 +88,7 @@ typedef enum
 
 + (id)URL:(NSURL *)url title:(NSString *)title __attribute__((deprecated ("use URL:title:contentType: instead")));
 
-//Some sharers might present audio and video urls in enhanced way - e.g with media player (see Tumblr sharer). Other sharers share same way they used to, regardless of what type is specified.
+//Some sharers might present various content type (e.g audio and video) urls in enhanced way - e.g with media player (see Tumblr sharer). Other sharers share same way they used to, regardless of what type is specified.
 + (id)URL:(NSURL *)url title:(NSString *)title contentType:(SHKURLContentType)type;
 + (id)image:(UIImage *)image title:(NSString *)title;
 + (id)text:(NSString *)text;
