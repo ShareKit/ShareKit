@@ -1,28 +1,28 @@
-ShareKit allows you to share content very easily, like this
+ShareKit allows you to share content easily:
 ```objective-c
-    - (void)myButtonHandlerAction
-    {
-      // Create the item to share (in this example, a url)
-      NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
-      SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!" contentType:SHKURLContentTypeWebpage];
-    
-      // Get the ShareKit action sheet
-      SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+- (void)myButtonHandlerAction {
 
-      // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
-      // but sometimes it may not find one. To be safe, set it explicitly
-      [SHK setRootViewController:self];
+    // Create the item to share (in this example, a url)
+    NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
+    SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!" contentType:SHKURLContentTypeWebpage];
     
-      // Display the action sheet
-      [actionSheet showFromToolbar:navigationController.toolbar];
-    }
+    // Get the ShareKit action sheet
+    SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+
+    // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
+    // but sometimes it may not find one. To be safe, set it explicitly
+    [SHK setRootViewController:self];
+    
+    // Display the action sheet
+    [actionSheet showFromToolbar:navigationController.toolbar];
+}
 ```
-For a brief introduction, check the demo app. To know more about configuration options see [DefaultSHKConfigurator.m](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/Configuration/DefaultSHKConfigurator.m). To find out what sharers exist, and what are they capable of, check [Sharer support matrix](https://github.com/ShareKit/ShareKit/blob/master/Documentation/sharer_itemProperty_support_matrix.xlsx)(does not contain all sharers yet)
+Everything else (user authentication, API calls, shareUI etc) is handled by ShareKit. For a brief introduction, check the demo app. To know more about configuration options see [DefaultSHKConfigurator.m](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/Configuration/DefaultSHKConfigurator.m). To know more about what can type of content can be shared, see [SHKItem.h](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/Core/SHKItem.h). To find out what sharers exist, and what are they capable of, check [Sharer support matrix](https://github.com/ShareKit/ShareKit/blob/master/Documentation/sharer_itemProperty_support_matrix.xlsx)(does not contain all sharers yet)
 
 Documentation
 -------------
 
-The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki).
+The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki). To get a preview of new features see [What's new](https://github.com/ShareKit/ShareKit/wiki/What's-new) wiki page.
 
 !!! Updated new service creation guidelines for contributors + updated service templates are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
 
