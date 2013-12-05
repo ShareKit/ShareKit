@@ -31,7 +31,7 @@
 
 #define kSHKFlickrUserInfo @"kSHKFlickrUserInfo"
 #define USER_REMOVED_ACCESS_CODE @"98"
-
+#define USER_EXCEEDED_UPLOAD_LIMIT_CODE @"6"
 
 @interface SHKFlickr ()
 
@@ -50,7 +50,19 @@
 + (BOOL)canGetUserInfo { return YES; }
 + (BOOL)canShareFile:(SHKFile *)file {
     
-    if ([file.mimeType hasPrefix:@"image/"]) {
+    NSArray *allowedFileTypes = @[@"image/jpeg",
+                                  @"image/png",
+                                  @"image/gif",
+                                  @"video/avi",
+                                  @"video/x-ms-wmv",
+                                  @"video/x-msvideo",
+                                  @"video/quicktime",
+                                  @"video/mpeg",
+                                  @"video/3gpp",
+                                  @"video/MP2T",
+                                  @"video/ogg"];
+    
+    if ([allowedFileTypes containsObject:file.mimeType]) {
         return YES;
     } else {
         return NO;
@@ -277,6 +289,8 @@
             NSString *code = [response findRecursivelyValueForKey:@"code"];
             if ([code isEqualToString:USER_REMOVED_ACCESS_CODE]) {
                 [self shouldReloginWithPendingAction:SHKPendingSend];
+            } else if ([code isEqualToString:USER_EXCEEDED_UPLOAD_LIMIT_CODE]) {
+                [self sendDidFailWithError:[SHK error:[response findRecursivelyValueForKey:@"msg"]]];
             } else {
                 [self sendShowSimpleErrorAlert];
             }
