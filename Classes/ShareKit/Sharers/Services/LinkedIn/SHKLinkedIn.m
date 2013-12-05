@@ -29,11 +29,15 @@
 #import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
 
+#import "NSString+LinkedIn.h"
+
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 // The oauth scope we need to request at LinkedIn
 #define SHKLinkedInRequiredScope @"rw_nus"
 #define kSHKLinkedInUserInfo @"kSHKLinkedInUserInfo"
+#define URL_DESCRIPTION_LIMIT 256
+#define TITLE_LIMIT 200
 
 @implementation SHKLinkedIn
 
@@ -187,7 +191,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
     
     // TODO use more robust method to escape
-    NSString *comment = [self sanitizeString:self.item.text];
+    NSString *comment = [self.item.text sanitize];
     
     NSString *visibility;
     BOOL public = [[self.item customValueForKey:SHKLinkedInVisibilityCodeKey] boolValue];
@@ -201,11 +205,22 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     if (self.item.shareType == SHKShareTypeURL) {
         
         NSString *submittedTitle = @"";
+        NSString *submittedPictureURI = @"";
+        NSString *submittedURLComment = @"";
         if ([self.item.title length]) {
-            submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>",[self sanitizeString:self.item.title]];
+            submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>", [[self.item.title sanitize] trimToIndex:TITLE_LIMIT]];
+            if (self.item.URLPictureURI) submittedPictureURI = [[NSString alloc] initWithFormat:@"<submitted-image-url>%@</submitted-image-url>", [self.item.URLPictureURI absoluteString]];
+            if (self.item.URLDescription) {
+                submittedURLComment = [[NSString alloc] initWithFormat:@"<description>%@</description>", [[self.item.URLDescription sanitize] trimToIndex:URL_DESCRIPTION_LIMIT]];
+            }
         }
-        NSString *urlString = [self sanitizeString:self.item.URL.absoluteString];
-        submittedUrl = [NSString stringWithFormat:@"<content>%@<submitted-url>%@</submitted-url></content>", submittedTitle, urlString];
+        NSString *urlString = [self.item.URL.absoluteString sanitize];
+        submittedUrl = [NSString stringWithFormat:@"<content>\
+                                                        %@\
+                                                        <submitted-url>%@</submitted-url>\
+                                                        %@\
+                                                        %@\
+                                                    </content>", submittedTitle, urlString, submittedPictureURI, submittedURLComment];
     } else {
         submittedUrl = @"";
     }
@@ -230,11 +245,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
                                                                                    didFailSelector:@selector(sendTicket:didFailWithError:)];
     
     [fetcher start];
-}
-
-- (NSString *)sanitizeString:(NSString *)string {
-    
-    return [[[[string stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)responseData 

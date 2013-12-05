@@ -72,13 +72,18 @@ typedef enum
 
 @property (nonatomic) SHKShareType shareType;
 
-@property (nonatomic, strong)	NSString *title;
-@property (nonatomic, strong)	NSString *text;
-@property (nonatomic, strong)	NSArray *tags;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *text;
+@property (nonatomic, strong) NSArray *tags;
 
-@property (nonatomic, strong)	NSURL *URL;
+@property (nonatomic, strong) NSURL *URL;
+/// Optional. Some services (Facebook, LinkedIn, ...) might use this to visually enhance the share. This parameter is omitted if you use ios native share sheet.
+@property (nonatomic, strong) NSURL *URLPictureURI;
+/// Optional. Some services (Facebook, LinkedIn, ...) might use this to enhance the URL share. This parameter is omitted if you use ios native share sheet.
+@property (nonatomic, strong) NSString *URLDescription;
 @property (nonatomic) SHKURLContentType URLContentType;
-@property (nonatomic, strong)	UIImage *image;
+
+@property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, strong) SHKFile *file;
 
@@ -129,8 +134,8 @@ typedef enum
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 
 /* SHKFacebook */
-@property (nonatomic, strong) NSString *facebookURLSharePictureURI;
-@property (nonatomic, strong) NSString *facebookURLShareDescription;
+@property (nonatomic, strong) NSString *facebookURLSharePictureURI __attribute__((deprecated ("use URLPictureURI instead")));;
+@property (nonatomic, strong) NSString *facebookURLShareDescription __attribute__((deprecated ("use URLDescription instead")));
 
 /* SHKTextMessage */
 @property (nonatomic, strong) NSArray *textMessageToRecipients;

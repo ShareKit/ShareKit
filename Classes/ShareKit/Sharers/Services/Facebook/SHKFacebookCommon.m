@@ -91,11 +91,13 @@ NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/me/video
             
             if (item.title) [result setObject:item.title forKey:NAME_API_KEY];
             if (item.text) [result setObject:item.text forKey:MESSAGE_API_KEY];
-            
-            NSString *pictureURI = item.facebookURLSharePictureURI;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            NSString *pictureURI = item.URLPictureURI ? [item.URLPictureURI absoluteString] : item.facebookURLSharePictureURI;
             if (pictureURI) [result setObject:pictureURI forKey:PICTURE_API_KEY];
-            
-            NSString *description = item.facebookURLShareDescription;
+
+            NSString *description = item.URLDescription ? item.URLDescription : item.facebookURLShareDescription;
+#pragma clang diagnostic pop
             if (description) [result setObject:description forKey:DESCRIPTION_API_KEY];
             break;
         }

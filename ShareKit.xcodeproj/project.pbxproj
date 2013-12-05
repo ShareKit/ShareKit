@@ -298,6 +298,8 @@
 		7AECF40E171D52DB000722FA /* libYouTube SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF32C171D51C3000722FA /* libYouTube SDK.a */; };
 		7AECF40F171D52DF000722FA /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF322171D5194000722FA /* libYouTube.a */; };
 		7AECF412171D55BD000722FA /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF2EE171D4679000722FA /* libGTLTouchStaticLib.a */; };
+		7AEEDC8E18508E3600AD7E69 /* NSString+LinkedIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AEEDC8C18508E3600AD7E69 /* NSString+LinkedIn.h */; };
+		7AEEDC8F18508E3600AD7E69 /* NSString+LinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */; };
 		9492063917302B4C00DF9530 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 949BCB95172A99AF00D706D4 /* SHKBuffer.h */; };
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
@@ -1133,6 +1135,8 @@
 		7AECF398171D529D000722FA /* GTLYouTubeVideoStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTubeVideoStatus.m; path = "Submodules/google-api-objectivec/Source/Services/YouTube/Generated/GTLYouTubeVideoStatus.m"; sourceTree = SOURCE_ROOT; };
 		7AECF399171D529D000722FA /* GTLYouTubeVideoTopicDetails.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTLYouTubeVideoTopicDetails.h; path = "Submodules/google-api-objectivec/Source/Services/YouTube/Generated/GTLYouTubeVideoTopicDetails.h"; sourceTree = SOURCE_ROOT; };
 		7AECF39A171D529D000722FA /* GTLYouTubeVideoTopicDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTubeVideoTopicDetails.m; path = "Submodules/google-api-objectivec/Source/Services/YouTube/Generated/GTLYouTubeVideoTopicDetails.m"; sourceTree = SOURCE_ROOT; };
+		7AEEDC8C18508E3600AD7E69 /* NSString+LinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LinkedIn.h"; sourceTree = "<group>"; };
+		7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LinkedIn.m"; sourceTree = "<group>"; };
 		949BCB8C172A993000D706D4 /* libBuffer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuffer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		949BCB95172A99AF00D706D4 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		949BCB96172A99AF00D706D4 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
@@ -2660,6 +2664,8 @@
 			children = (
 				C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */,
 				C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */,
+				7AEEDC8C18508E3600AD7E69 /* NSString+LinkedIn.h */,
+				7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */,
 			);
 			path = LinkedIn;
 			sourceTree = "<group>";
@@ -3077,6 +3083,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AEEDC8E18508E3600AD7E69 /* NSString+LinkedIn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4404,6 +4411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AABBED65162F0C03009D46E4 /* SHKLinkedIn.m in Sources */,
+				7AEEDC8F18508E3600AD7E69 /* NSString+LinkedIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

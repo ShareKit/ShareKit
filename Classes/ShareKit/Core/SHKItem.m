@@ -218,6 +218,8 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
 static NSString *kSHKShareType = @"kSHKShareType";
 static NSString *kSHKURLContentType = @"kSHKURLContentType";
 static NSString *kSHKURL = @"kSHKURL";
+static NSString *kSHKURLPictureURI = @"kSHKURLPictureURI";
+static NSString *kSHKURLDescription = @"kSHKURLDescription";
 static NSString *kSHKTitle = @"kSHKTitle";
 static NSString *kSHKText = @"kSHKText";
 static NSString *kSHKTags = @"kSHKTags";
@@ -243,6 +245,8 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
         _shareType = [decoder decodeIntForKey:kSHKShareType];
         _URLContentType = [decoder decodeIntForKey:kSHKURLContentType];
         _URL = [decoder decodeObjectForKey:kSHKURL];
+        _URLPictureURI = [decoder decodeObjectForKey:kSHKURLPictureURI];
+        _URLDescription = [decoder decodeObjectForKey:kSHKURLDescription];
         _title = [decoder decodeObjectForKey:kSHKTitle];
         _text = [decoder decodeObjectForKey:kSHKText];
         _tags = [decoder decodeObjectForKey:kSHKTags];
@@ -267,6 +271,8 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
     [encoder encodeInt:self.shareType forKey:kSHKShareType];
     [encoder encodeInt:self.URLContentType forKey:kSHKURLContentType];
     [encoder encodeObject:self.URL forKey:kSHKURL];
+    [encoder encodeObject:self.URLPictureURI forKey:kSHKURLPictureURI];
+    [encoder encodeObject:self.URLDescription forKey:kSHKURLDescription];
     [encoder encodeObject:self.title forKey:kSHKTitle];
     [encoder encodeObject:self.text forKey:kSHKText];
     [encoder encodeObject:self.tags forKey:kSHKTags];
@@ -278,8 +284,11 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
     [encoder encodeBool:self.isMailHTML forKey:kSHKIsMailHTML];
     [encoder encodeFloat:self.mailJPGQuality forKey:kSHKMailJPGQuality];
     [encoder encodeBool:self.mailShareWithAppSignature forKey:kSHKMailShareWithAppSignature];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [encoder encodeObject:self.facebookURLShareDescription forKey:kSHKFacebookURLShareDescription];
     [encoder encodeObject:self.facebookURLSharePictureURI forKey:kSHKFacebookURLSharePictureURI];
+#pragma clang diagnostic pop
     [encoder encodeObject:self.textMessageToRecipients forKey:kSHKTextMessageToRecipients];
     [encoder encodeObject:NSStringFromCGRect(self.popOverSourceRect) forKey:kSHKPopOverSourceRect];
 }
@@ -290,6 +299,8 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
 
     NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\n\
                                                     URLContentType: %i\n\
+                                                    URLPictureURI: %@\n\
+                                                    URLDescription: %@\n\
                                                     Image:%@\n\
                                                     Title: %@\n\
                                                     Text: %@\n\
@@ -301,14 +312,14 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
                                                     isMailHTML: %i\n\
                                                     mailJPGQuality: %f\n\
                                                     mailShareWithAppSignature: %i\n\
-                                                    facebookURLSharePictureURI: %@\n\
-                                                    facebookURLShareDescription: %@\n\
                                                     textMessageToRecipients: %@\n\
                                                     popOverSourceRect: %@",
 						
                                                     [self shareTypeToString:self.shareType],
                                                     [self.URL absoluteString],
                                                     self.URLContentType,
+                                                    [self.URLPictureURI absoluteString],
+                                                    self.URLDescription,
                                                     [self.image description], 
                                                     self.title, self.text, 
                                                     self.tags, 
@@ -318,8 +329,6 @@ static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
                                                     self.isMailHTML,
                                                     self.mailJPGQuality,
                                                     self.mailShareWithAppSignature,
-                                                    self.facebookURLSharePictureURI,
-                                                    self.facebookURLShareDescription,
                                                     self.textMessageToRecipients,
 													NSStringFromCGRect(self.popOverSourceRect)];    
     return result;
