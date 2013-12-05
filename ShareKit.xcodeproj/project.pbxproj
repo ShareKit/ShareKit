@@ -205,7 +205,6 @@
 		7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */; };
 		7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED24162F08E6009D46E4 /* libEvernote.a */; };
 		7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED37162F0B65009D46E4 /* libFacebook.a */; };
-		7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */; };
 		7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED50162F0BA7009D46E4 /* libFlickr.a */; };
 		7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED46162F0B86009D46E4 /* libFoursquareV2.a */; };
 		7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A16F3C216134A890019645D /* libInstagram.a */; };
@@ -524,13 +523,6 @@
 			remoteGlobalIDString = AABBED47162F0BA7009D46E4;
 			remoteInfo = Flickr;
 		};
-		7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 7A1AFD15160E13740086B98A;
-			remoteInfo = "Flickr SDK";
-		};
 		7AC28EFB165A1EE7006D7441 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -825,7 +817,6 @@
 		7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSSKeyChain.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCD1160E123C0086B98A /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libEvernote SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7A1AFD24160E13740086B98A /* libFlickr SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libFlickr SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A1AFD3A160E14340086B98A /* libTwitter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libTwitter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A203D0016EB776D00421995 /* SHKHatena.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SHKHatena.h; path = Hatena/SHKHatena.h; sourceTree = "<group>"; };
 		7A203D0116EB776D00421995 /* SHKHatena.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SHKHatena.m; path = Hatena/SHKHatena.m; sourceTree = "<group>"; };
@@ -1264,13 +1255,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFD18160E13740086B98A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFD2E160E14340086B98A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1353,7 +1337,6 @@
 				7AC28F0F165A21C2006D7441 /* libEvernote SDK.a in Frameworks */,
 				7AC28F10165A21C2006D7441 /* libEvernote.a in Frameworks */,
 				7AC28F11165A21C2006D7441 /* libFacebook.a in Frameworks */,
-				7AC28F12165A21C2006D7441 /* libFlickr SDK.a in Frameworks */,
 				7AC28F13165A21C2006D7441 /* libFlickr.a in Frameworks */,
 				7AC28F14165A21C2006D7441 /* libFoursquareV2.a in Frameworks */,
 				7AC28F16165A21C2006D7441 /* libInstagram.a in Frameworks */,
@@ -1573,7 +1556,6 @@
 				7A1AFCC0160E11F90086B98A /* libSSKeyChain.a */,
 				7A1AFCD1160E123C0086B98A /* libReachability.a */,
 				7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */,
-				7A1AFD24160E13740086B98A /* libFlickr SDK.a */,
 				7A1AFD3A160E14340086B98A /* libTwitter.a */,
 				7A16F37E161340DD0019645D /* libOAuth.a */,
 				7A16F3C216134A890019645D /* libInstagram.a */,
@@ -2806,13 +2788,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7A1AFD19160E13740086B98A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		7A1AFD2F160E14340086B98A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3241,23 +3216,6 @@
 			productReference = 7A1AFCE2160E127B0086B98A /* libEvernote SDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		7A1AFD15160E13740086B98A /* Flickr SDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7A1AFD21160E13740086B98A /* Build configuration list for PBXNativeTarget "Flickr SDK" */;
-			buildPhases = (
-				7A1AFD16160E13740086B98A /* Sources */,
-				7A1AFD18160E13740086B98A /* Frameworks */,
-				7A1AFD19160E13740086B98A /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Flickr SDK";
-			productName = ShareKitLibrary;
-			productReference = 7A1AFD24160E13740086B98A /* libFlickr SDK.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		7A1AFD2B160E14340086B98A /* Twitter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A1AFD37160E14340086B98A /* Build configuration list for PBXNativeTarget "Twitter" */;
@@ -3435,7 +3393,6 @@
 				7AC28EF2165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF4165A1EE7006D7441 /* PBXTargetDependency */,
 				7AC28EF6165A1EE7006D7441 /* PBXTargetDependency */,
-				7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */,
 				456BADAF16910966005B3077 /* PBXTargetDependency */,
 				7AA83BFC1705E4FF009C483A /* PBXTargetDependency */,
 				7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */,
@@ -3951,7 +3908,6 @@
 				AABBED25162F0B65009D46E4 /* Facebook */,
 				AABBED38162F0B86009D46E4 /* FoursquareV2 */,
 				AABBED47162F0BA7009D46E4 /* Flickr */,
-				7A1AFD15160E13740086B98A /* Flickr SDK */,
 				4503EBB8169104470057294C /* Google Plus */,
 				7AA83BAA1705E355009C483A /* Google Plus SDK */,
 				7A16F3B316134A890019645D /* Instagram */,
@@ -4178,13 +4134,6 @@
 				7AA83C4F1706386E009C483A /* ENConstants.m in Sources */,
 				7AA83C54170638EF009C483A /* EDAMNoteStoreClient+Utilities.m in Sources */,
 				7AA83C5817063926009C483A /* NSDate+EDAMAdditions.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A1AFD16160E13740086B98A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4619,11 +4568,6 @@
 			isa = PBXTargetDependency;
 			target = AABBED47162F0BA7009D46E4 /* Flickr */;
 			targetProxy = 7AC28EF5165A1EE7006D7441 /* PBXContainerItemProxy */;
-		};
-		7AC28EF8165A1EE7006D7441 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 7A1AFD15160E13740086B98A /* Flickr SDK */;
-			targetProxy = 7AC28EF7165A1EE7006D7441 /* PBXContainerItemProxy */;
 		};
 		7AC28EFC165A1EE7006D7441 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5085,53 +5029,6 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Evernote SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		7A1AFD22160E13740086B98A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Flickr SDK";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		7A1AFD23160E13740086B98A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DSTROOT = /tmp/ShareKitLibrary.dst;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-all_load",
-				);
-				PRODUCT_NAME = "Flickr SDK";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6973,15 +6870,6 @@
 			buildConfigurations = (
 				7A1AFCE0160E127B0086B98A /* Debug */,
 				7A1AFCE1160E127B0086B98A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7A1AFD21160E13740086B98A /* Build configuration list for PBXNativeTarget "Flickr SDK" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7A1AFD22160E13740086B98A /* Debug */,
-				7A1AFD23160E13740086B98A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
