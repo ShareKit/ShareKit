@@ -13,6 +13,11 @@
 
 @interface SHKiOSSharer ()
 
+/**
+* Due to the bug in ios SDK we need to keep reference to ACAccountStore.
+*/
+@property (nonatomic, strong) ACAccountStore * accountStore;
+
 @end
 
 @implementation SHKiOSSharer
@@ -99,8 +104,7 @@
 
 - (BOOL)isAuthorized {
     
-    ACAccountStore *accountStore = [[ACAccountStore alloc] init];
-    ACAccountType *accountType = [accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
+    ACAccountType *accountType = [self.accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
     BOOL result = accountType.accessGranted;
     
     if (!result) [[self class] logout]; //destroy userInfo
@@ -120,10 +124,9 @@
 
 - (void)authorizationFormShow {
     
-    ACAccountStore *store = [[ACAccountStore alloc] init];
-    ACAccountType *sharerAccountType = [store accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
+    ACAccountType *sharerAccountType = [self.accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
     
-    [store requestAccessToAccountsWithType:sharerAccountType
+    [self.accountStore requestAccessToAccountsWithType:sharerAccountType
                                    options:nil
                                 completion:^(BOOL granted, NSError *error) {
                                     
@@ -156,9 +159,8 @@
 
 - (NSArray *)availableAccounts {
     
-    ACAccountStore *store = [[ACAccountStore alloc] init];
-    ACAccountType *twitterAccountType = [store accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
-    NSArray *result = [store accountsWithAccountType:twitterAccountType];
+    ACAccountType *twitterAccountType = [self.accountStore accountTypeWithAccountTypeIdentifier:[self accountTypeIdentifier]];
+    NSArray *result = [self.accountStore accountsWithAccountType:twitterAccountType];
     return result;
 }
 
@@ -182,5 +184,15 @@
     
     return nil;
 }
+
+#pragma mark - ACAccountStore lazy loading
+
+- (ACAccountStore *)accountStore {
+    if (!_accountStore) {
+        _accountStore = [[ACAccountStore alloc] init];
+    }
+    return _accountStore;
+}
+
 
 @end
