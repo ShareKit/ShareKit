@@ -46,7 +46,7 @@
 
 - (BOOL)shareWithServiceType:(NSString *)serviceType {
     
-    if (self.item.shareType == SHKShareTypeFile) return NO;
+    if (self.item.shareType == SHKShareTypeFile || self.item.shareType == SHKShareTypeUserInfo) return NO;
     
     SLComposeViewController *sharerUIController = [SLComposeViewController composeViewControllerForServiceType:serviceType];
     

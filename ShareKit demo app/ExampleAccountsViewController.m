@@ -50,7 +50,15 @@
 	// Do any additional setup after loading the view.
     
     NSDictionary *sharersDictionary = [SHK sharersDictionary];
-    self.sharers = [sharersDictionary objectForKey:@"services"];
+    NSArray *services = [sharersDictionary objectForKey:@"services"];
+    NSMutableArray *canShareServices = [[NSMutableArray alloc] initWithCapacity:[services count]];
+    for (NSString *sharer in services) {
+        Class sharerClass = NSClassFromString(sharer);
+        if ([sharerClass canShare] && [sharerClass requiresAuthentication]) {
+            [canShareServices addObject:sharer];
+        }
+    }
+    self.sharers = canShareServices;  
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                            target:self
