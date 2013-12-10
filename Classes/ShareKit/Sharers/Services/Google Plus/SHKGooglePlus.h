@@ -34,9 +34,10 @@
 //    }
 
 #import "SHKSharer.h"
-#import <GooglePlus/GPPShare.h>
+#import <GooglePlus/GooglePlus.h>
 
-@interface SHKGooglePlus : SHKSharer <GPPShareDelegate>
+
+@interface SHKGooglePlus : SHKSharer <GPPShareDelegate, GPPSignInDelegate>
 
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 

@@ -85,10 +85,6 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-+ (BOOL)canShare{
-	return YES;
-}
-
 + (BOOL)canAutoShare{
 	return NO;
 }
