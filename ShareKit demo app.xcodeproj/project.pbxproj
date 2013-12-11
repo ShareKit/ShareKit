@@ -53,6 +53,8 @@
 		7A9FEF6C1807430A0053CB40 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9FEF6B1807430A0053CB40 /* MediaPlayer.framework */; };
 		7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */; };
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
+		7AD6581C18576AA9002D6245 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */; };
+		7AD6584818576FC3002D6245 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AD6584718576FC3002D6245 /* GooglePlus.bundle */; };
 		7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */; };
 		7AD7D5CB17EC5A8200DE20F6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */; };
 		7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */; };
@@ -207,26 +209,12 @@
 			remoteGlobalIDString = AABBED50162F0BA7009D46E4;
 			remoteInfo = Flickr;
 		};
-		7AA2E8741743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7A1AFD24160E13740086B98A;
-			remoteInfo = "Flickr SDK";
-		};
 		7AA2E8761743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4503EBC0169104470057294C;
 			remoteInfo = "Google Plus";
-		};
-		7AA2E8781743805E00B17434 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 7AA83BF91705E355009C483A;
-			remoteInfo = "Google Plus SDK";
 		};
 		7AA2E87C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -354,6 +342,13 @@
 			remoteGlobalIDString = 7AB5360E1552E26800171BCE;
 			remoteInfo = "Resource Bundle";
 		};
+		7AD6584518576AAA002D6245 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A8C03BE1848CDEE008E4C0A;
+			remoteInfo = "Static Library Tests";
+		};
 		94CC293517453A3100C31CD8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -427,6 +422,8 @@
 		7A9FEF69180742A70053CB40 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		7A9FEF6B1807430A0053CB40 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
+		7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = Frameworks/GoogleOpenSource.framework; sourceTree = "<group>"; };
+		7AD6584718576FC3002D6245 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = Frameworks/GooglePlus.bundle; sourceTree = "<group>"; };
 		7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = Frameworks/DropboxSDK.framework; sourceTree = "<group>"; };
@@ -463,6 +460,7 @@
 				7A040752174103EB003404B9 /* Security.framework in Frameworks */,
 				7A040750174103E4003404B9 /* SystemConfiguration.framework in Frameworks */,
 				7A0406671740E3F6003404B9 /* UIKit.framework in Frameworks */,
+				7AD6581C18576AA9002D6245 /* GoogleOpenSource.framework in Frameworks */,
 				7A0406691740E3F6003404B9 /* Foundation.framework in Frameworks */,
 				7A04066B1740E3F6003404B9 /* CoreGraphics.framework in Frameworks */,
 				7A9FEF3C180741840053CB40 /* GooglePlus.framework in Frameworks */,
@@ -494,6 +492,8 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AD6584718576FC3002D6245 /* GooglePlus.bundle */,
+				7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */,
 				7AE5333D18129CE300C66849 /* ImageIO.framework */,
 				7A9FEF6B1807430A0053CB40 /* MediaPlayer.framework */,
 				7A9FEF69180742A70053CB40 /* CoreMotion.framework */,
@@ -601,9 +601,7 @@
 				7AA2E86F1743805E00B17434 /* libFacebook.a */,
 				7AA2E8711743805E00B17434 /* libFoursquareV2.a */,
 				7AA2E8731743805E00B17434 /* libFlickr.a */,
-				7AA2E8751743805E00B17434 /* libFlickr SDK.a */,
 				7AA2E8771743805E00B17434 /* libGoogle Plus.a */,
-				7AA2E8791743805E00B17434 /* libGoogle Plus SDK.a */,
 				7AA2E87D1743805E00B17434 /* libInstagram.a */,
 				7AA2E87F1743805E00B17434 /* libInstapaper.a */,
 				7AA2E8811743805E00B17434 /* libKippt.a */,
@@ -623,6 +621,7 @@
 				7AA2E8A11743805E00B17434 /* libYouTube SDK.a */,
 				94CC293617453A3100C31CD8 /* libPocket.a */,
 				94CC293817453A3100C31CD8 /* libPocket SDK.a */,
+				7AD6584618576AAA002D6245 /* Static Library Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -848,25 +847,11 @@
 			remoteRef = 7AA2E8721743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		7AA2E8751743805E00B17434 /* libFlickr SDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libFlickr SDK.a";
-			remoteRef = 7AA2E8741743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		7AA2E8771743805E00B17434 /* libGoogle Plus.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = "libGoogle Plus.a";
 			remoteRef = 7AA2E8761743805E00B17434 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		7AA2E8791743805E00B17434 /* libGoogle Plus SDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libGoogle Plus SDK.a";
-			remoteRef = 7AA2E8781743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7AA2E87D1743805E00B17434 /* libInstagram.a */ = {
@@ -988,6 +973,13 @@
 			remoteRef = 7AA2E8A01743805E00B17434 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		7AD6584618576AAA002D6245 /* Static Library Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Static Library Tests.xctest";
+			remoteRef = 7AD6584518576AAA002D6245 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		94CC293617453A3100C31CD8 /* libPocket.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -1021,6 +1013,7 @@
 				7A04083917413908003404B9 /* MainWindow.xib in Resources */,
 				7A04083A17413908003404B9 /* RootViewController.xib in Resources */,
 				7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */,
+				7AD6584818576FC3002D6245 /* GooglePlus.bundle in Resources */,
 				7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1156,6 +1149,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					/Users/vilemkurz/Documents/Github/ShareKit/Frameworks,
+					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
@@ -1177,6 +1171,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					/Users/vilemkurz/Documents/Github/ShareKit/Frameworks,
+					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";

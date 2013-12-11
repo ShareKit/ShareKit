@@ -41,6 +41,7 @@
     if (self) {
         
         [[GPPSignIn sharedInstance] setClientID:SHKCONFIG(googlePlusClientId)];
+        [[GPPSignIn sharedInstance] setShouldFetchGooglePlusUser:YES];
     }
     return self;
 }
@@ -54,7 +55,9 @@
     BOOL result = alreadyAuthenticated;
     
     if (!alreadyAuthenticated) {
+        [[GPPSignIn sharedInstance] setDelegate:self];
         result = [[GPPSignIn sharedInstance] trySilentAuthentication];
+        [[SHK currentHelper] keepSharerReference:self];
     }
     
 	return result;
@@ -62,8 +65,9 @@
 
 - (void)promptAuthorization {
     
+    [self saveItemForLater:SHKPendingShare];
+    
     [[GPPSignIn sharedInstance] setDelegate:self];
-    [[GPPSignIn sharedInstance] setShouldFetchGooglePlusUser:YES];
     [[GPPSignIn sharedInstance] authenticate];
 }
 
@@ -83,7 +87,6 @@
 
 + (NSString *)username {
     
-    [[GPPSignIn sharedInstance] trySilentAuthentication];
     GTLPlusPerson *loggedUser = [[GPPSignIn sharedInstance] googlePlusUser];
     NSString *result = loggedUser.displayName;
     return result;
@@ -97,6 +100,8 @@
     
     if (!error) {
         [self authDidFinish:YES];
+        [self restoreItem];
+        [self tryPendingAction];
     } else {
         [self authDidFinish:NO];
         SHKLog(@"auth error: %@", [error description]);
@@ -123,7 +128,7 @@
     //item validation is not needed, as GPPShareBuilder can be empty.
     
     [[GPPShare sharedInstance] setDelegate:self];
-    id<GPPShareBuilder> mShareBuilder = [[GPPShare sharedInstance] shareDialog];
+    id<GPPShareBuilder> mShareBuilder = [[GPPShare sharedInstance] nativeShareDialog];
     
     switch ([self.item shareType]) {
         case SHKShareTypeURL:
