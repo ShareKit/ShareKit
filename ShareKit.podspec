@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.4.6'
+  s.version       = '2.5.0'
   s.platform      = :ios, '5.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -151,26 +151,40 @@ Pod::Spec.new do |s|
     instagram.dependency 'ShareKit/Core'
   end
 
-  s.subspec 'YouTube' do |youtube|
-    youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
-    youtube.dependency 'ShareKit/Core'
-    youtube.dependency 'Google-API-Client/Services/YouTube'
-    youtube.dependency 'Google-API-Client/Common'
-    youtube.dependency 'Google-API-Client/Objects'
-    youtube.dependency 'Google-API-Client/Utilities'
-  end
-
   s.subspec 'GooglePlus' do |googleplus|
     googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
-    googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
+    googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework', 'Frameworks/GoogleOpenSource.framework'
+    googleplus.resource = "Frameworks/GooglePlus.bundle"
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
     googleplus.dependency 'ShareKit/Core'
-    googleplus.dependency 'Google-API-Client/Common'
-    googleplus.dependency 'Google-API-Client/Objects'
-    googleplus.dependency 'Google-API-Client/Utilities'
-    googleplus.dependency 'Google-API-Client/Services/Plus'
-    googleplus.dependency 'OpenInChrome'
-    googleplus.dependency 'gtm-logger'
+    googleplus.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/ShareKit/Frameworks/GoogleOpenSource.framework/Versions/A/Headers"' }
   end
+
+  #working version of YouTube subspec. It uses cutting edge Google-API-Client, which is incopatible with current GooglePlus (GooglePlus needs older version). Unfortunately older version of Google-API-Client is not available on CocoaPods. You have to choose between YouTube or GooglePlus - can not use both at the moment, as there would be duplicate symbols (Google-API-Client vs. GoogleOpenSource.framework).
+
+  #s.subspec 'YouTube' do |youtube|
+    #youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
+    #youtube.dependency 'ShareKit/Core'
+    #youtube.dependency 'Google-API-Client/Services/YouTube'
+    #youtube.dependency 'Google-API-Client/Common'
+    #youtube.dependency 'Google-API-Client/Objects'
+    #youtube.dependency 'Google-API-Client/Utilities'
+  #end
+
+  #This version of GooglePlus subspec can coexist with YouTube. Will be used after they update GooglePlus.framework with newest Google-API-Client
+
+  #s.subspec 'GooglePlus' do |googleplus|
+    #googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
+    #googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
+    #googleplus.resource = "Frameworks/GooglePlus.bundle"
+    #googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
+    #googleplus.dependency 'ShareKit/Core'
+    #googleplus.dependency 'Google-API-Client/Common'
+    #googleplus.dependency 'Google-API-Client/Objects'
+    #googleplus.dependency 'Google-API-Client/Utilities'
+    #googleplus.dependency 'Google-API-Client/Services/Plus'
+    #googleplus.dependency 'OpenInChrome'
+    #googleplus.dependency 'gtm-logger'
+  #end
 
 end
