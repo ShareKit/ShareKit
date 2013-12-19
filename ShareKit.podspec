@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.5.0'
+  s.version       = '2.5.1'
   s.platform      = :ios, '5.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Facebook' do |facebook|
     facebook.source_files   = 'Classes/ShareKit/Sharers/Services/Facebook/**/*.{h,m}'
-    facebook.dependency 'Facebook-iOS-SDK',"~> 3.8"
+    facebook.dependency 'Facebook-iOS-SDK'
     facebook.dependency 'ShareKit/Core'
   end
 
@@ -155,7 +155,7 @@ Pod::Spec.new do |s|
     googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
     googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework', 'Frameworks/GoogleOpenSource.framework'
     googleplus.resource = "Frameworks/GooglePlus.bundle"
-    googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
+    googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     googleplus.dependency 'ShareKit/Core'
     googleplus.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/ShareKit/Frameworks/GoogleOpenSource.framework/Versions/A/Headers"' }
   end
@@ -171,13 +171,13 @@ Pod::Spec.new do |s|
     #youtube.dependency 'Google-API-Client/Utilities'
   #end
 
-  #This version of GooglePlus subspec can coexist with YouTube. Will be used after they update GooglePlus.framework with newest Google-API-Client
+  #This version of GooglePlus subspec can coexist with YouTube. The prerequisite is that GooglePlus.framework can be used with 'Google-API-Client/Services/Plus'. Otherwise we must use GoogleOpenSource.framework, which causes conflicts with youtube subspec
 
   #s.subspec 'GooglePlus' do |googleplus|
     #googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
     #googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
     #googleplus.resource = "Frameworks/GooglePlus.bundle"
-    #googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration'
+    #googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     #googleplus.dependency 'ShareKit/Core'
     #googleplus.dependency 'Google-API-Client/Common'
     #googleplus.dependency 'Google-API-Client/Objects'
