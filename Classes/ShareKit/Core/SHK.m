@@ -182,7 +182,8 @@ BOOL SHKinit;
 
 - (void)presentVC:(UIViewController *)vc {
     
-    BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:@selector(setInitialText:)];
+    SEL selector = NSSelectorFromString(@"setInitialText:");
+    BOOL isSocialOrTwitterComposeVc = [vc respondsToSelector:selector];
 
     if ([vc respondsToSelector:@selector(modalPresentationStyle)] && !isSocialOrTwitterComposeVc)
         vc.modalPresentationStyle = [SHK modalPresentationStyleForController:vc];

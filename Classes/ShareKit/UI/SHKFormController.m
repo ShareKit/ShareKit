@@ -119,7 +119,7 @@
     NSArray *fieldToSelect = [self settingsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
     
         BOOL result = [(SHKFormFieldSettings *)obj select];
-        if (result) stop = YES;
+        if (result) *stop = YES;
         return result;
     }];
     
@@ -146,7 +146,7 @@
     NSArray *invalidFields = [self settingsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         
         BOOL result = ![(SHKFormFieldSettings *)obj isValid];
-        if (!result) stop = YES;
+        if (!result) *stop = YES;
         return result;
     }];
     
