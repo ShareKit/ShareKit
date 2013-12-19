@@ -192,7 +192,7 @@ enum {
 // create the dialog after setting the parameters as needed.
 // Before the native share dialog can be opened, the user must have consented to the OAuth2 scope
 // "https://www.googleapis.com/auth/plus.login".
-- (id<GPPShareBuilder>)nativeShareDialog;
+- (id<GPPNativeShareBuilder>)nativeShareDialog;
 
 // Closes the active native share dialog immediately, if one exists.
 // Note that it is usually not necessary to call this method, as the sharebox closes itself

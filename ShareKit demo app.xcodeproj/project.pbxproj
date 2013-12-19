@@ -53,6 +53,7 @@
 		7A9FEF6C1807430A0053CB40 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9FEF6B1807430A0053CB40 /* MediaPlayer.framework */; };
 		7AA2E9381743814A00B17434 /* GTMOAuth2ViewTouch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */; };
 		7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AA2E84F1743805E00B17434 /* ShareKit.bundle */; };
+		7AB4D67F18631C8D00B54FE0 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */; };
 		7AD6581C18576AA9002D6245 /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */; };
 		7AD6584818576FC3002D6245 /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AD6584718576FC3002D6245 /* GooglePlus.bundle */; };
 		7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */; };
@@ -422,6 +423,7 @@
 		7A9FEF69180742A70053CB40 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		7A9FEF6B1807430A0053CB40 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		7AA2E8ED1743814A00B17434 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
+		7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleOpenSource.framework; path = Frameworks/GoogleOpenSource.framework; sourceTree = "<group>"; };
 		7AD6584718576FC3002D6245 /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlus.bundle; path = Frameworks/GooglePlus.bundle; sourceTree = "<group>"; };
 		7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -435,6 +437,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AB4D67F18631C8D00B54FE0 /* AddressBook.framework in Frameworks */,
 				7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */,
 				7A9FEF6C1807430A0053CB40 /* MediaPlayer.framework in Frameworks */,
 				7A9FEF6A180742A70053CB40 /* CoreMotion.framework in Frameworks */,
@@ -492,6 +495,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */,
 				7AD6584718576FC3002D6245 /* GooglePlus.bundle */,
 				7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */,
 				7AE5333D18129CE300C66849 /* ImageIO.framework */,

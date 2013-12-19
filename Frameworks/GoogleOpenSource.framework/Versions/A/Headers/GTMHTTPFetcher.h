@@ -329,8 +329,13 @@ NSString *GTMSystemVersionString(void);
 
 // Make a generic name and version for the current application, like
 // com.example.MyApp/1.2.3 relying on the bundle identifier and the
-// CFBundleShortVersionString or CFBundleVersion.  If no bundle ID
-// is available, the process name preceded by "proc_" is used.
+// CFBundleShortVersionString or CFBundleVersion.
+//
+// The bundle ID may be overridden as the base identifier string by
+// adding to the bundle's Info.plist a "GTMUserAgentID" key.
+//
+// If no bundle ID or override is available, the process name preceded
+// by "proc_" is used.
 NSString *GTMApplicationIdentifier(NSBundle *bundle);
 
 #ifdef __cplusplus

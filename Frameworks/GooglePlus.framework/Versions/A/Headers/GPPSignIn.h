@@ -87,6 +87,10 @@
 // https://developers.google.com/accounts/docs/OAuth2Login#obtainuserinfo
 @property(nonatomic, copy) NSString *homeServerClientID;
 
+// The OpenID2 realm of the home web server. This allows Google to include
+// the user's OpenID Identifier in the JWT ID token.
+@property(nonatomic, copy) NSString *openIDRealm;
+
 // The API scopes requested by the app in an array of |NSString|s.
 // The default value is |@[@"https://www.googleapis.com/auth/plus.login"]|.
 @property(nonatomic, copy) NSArray *scopes;
