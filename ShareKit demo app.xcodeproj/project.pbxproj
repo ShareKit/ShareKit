@@ -1150,11 +1150,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = (
-					$inherited,
-					/Users/vilemkurz/Documents/Github/ShareKit/Frameworks,
-					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
@@ -1172,11 +1168,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = (
-					$inherited,
-					/Users/vilemkurz/Documents/Github/ShareKit/Frameworks,
-					/Users/vilemkurz/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = $inherited;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
