@@ -86,7 +86,11 @@ BOOL SHKinit;
 
 - (void)removeSharerReference:(SHKSharer *)sharer {
     
-    [self.sharerReferences removeObject:sharer];
+    NSUInteger indexOfSharer = [self.sharerReferences indexOfObject:sharer];
+    
+    if (indexOfSharer != NSNotFound) {
+        [self.sharerReferences removeObjectAtIndex:indexOfSharer];
+    }
 }
 
 #pragma mark -

@@ -171,7 +171,12 @@
     }
     self.quiet = YES; //if user cancels, on return blinks activity indicator. This disables it, as we share in safari and it is hidden anyway
     [self sendDidStart];
-    return [mShareBuilder open];
+    
+    BOOL dialogOpenedSuccessfully = [mShareBuilder open];
+    if (dialogOpenedSuccessfully) {
+        [[SHK currentHelper] keepSharerReference:self];
+    }
+    return dialogOpenedSuccessfully;
 }
 
 #pragma mark -

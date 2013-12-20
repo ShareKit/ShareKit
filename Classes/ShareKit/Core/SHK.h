@@ -56,8 +56,9 @@ extern NSString * const SHKAuthDidFinishNotification;
 #pragma mark -
 #pragma mark Sharer Management
 
-//some sharers need to be retained until callback from UI or web service, otherwise they would be prematurely deallocated. Each sharer is responsible for removing itself on callback.
+///some sharers need to be retained until callback from UI or web service, otherwise they would be prematurely deallocated. Each sharer is responsible for removing itself on callback.
 - (void)keepSharerReference:(SHKSharer *)sharer;
+///Warning: this method removes only the first occurence of the sharer. If the sharer is on multiple indexes, the sharer's implementation is responsible to remove each one separately. The reason is pendingShare - the sharer might finish authentication, thus remove itself. Then it would be unavailable for callback after finishing subsequent pending share.
 - (void)removeSharerReference:(SHKSharer *)sharer;
 
 #pragma mark -
