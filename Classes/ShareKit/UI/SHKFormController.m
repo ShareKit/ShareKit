@@ -275,7 +275,7 @@
 - (NSArray *)settingsPassingTest:(BOOL (^)(id obj, NSUInteger idx, BOOL *stop))predicate {
     
     NSMutableArray *result = [@[] mutableCopy];
-    BOOL *shouldStop = NO;
+    BOOL shouldStop = NO;
     
     for (NSDictionary *section in self.sections) {
         
@@ -288,7 +288,7 @@
             if (shouldStop) break;
             
             NSUInteger indexOfSettings = [settingsForSection indexOfObject:settings];
-            BOOL passed = predicate(settings, indexOfSettings, shouldStop);
+            BOOL passed = predicate(settings, indexOfSettings, &shouldStop);
             if (passed) {
                 
                 NSInteger sectionIndex = [self.sections indexOfObject:section];
