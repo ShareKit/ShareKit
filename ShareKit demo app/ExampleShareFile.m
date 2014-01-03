@@ -31,6 +31,7 @@
 #import "SHK.h"
 
 #define SHARE_FILE_WITH_PATH 1
+#define SHARE_LARGE_VIDEO 1
 
 @interface ExampleShareFile () <UIWebViewDelegate>
 
@@ -94,7 +95,13 @@
         }
         case 1:
         {
-            NSString *filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+            NSString *filePath;
+            
+            if (SHARE_LARGE_VIDEO) {
+                filePath = [[NSBundle mainBundle] pathForResource:@"demo_large_video_share" ofType:@"mp4"];
+            } else {
+                filePath = [[NSBundle mainBundle] pathForResource:@"demo_video_share" ofType:@"mov"];
+            }
             
             if (SHARE_FILE_WITH_PATH) {
                 item = [SHKItem filePath:filePath title:@"Impressionism - blue ball"];
