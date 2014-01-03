@@ -25,7 +25,6 @@ typedef enum {
     _isChecked     =   2,
 } SHKDropboxMetadata;
 
-
 @interface SHKDropbox () {
     long long   __fileOffset;
     long long   __fileSize;
@@ -34,6 +33,7 @@ typedef enum {
 }
 
 @property (nonatomic, strong) DBRestClient *restClient;
+
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
 - (void) showDropboxForm;
@@ -41,13 +41,16 @@ typedef enum {
 @end
 
 @implementation SHKDropbox
-@synthesize restClient = _restClient;
+
 #pragma mark - Memory
+
 - (void)dealloc
 {
-    [[self restClient] cancelAllRequests];
+    [_restClient cancelAllRequests];
+    
     [DBRequest setNetworkRequestDelegate:nil];
-    self.restClient.delegate = nil;
+    _restClient.delegate = nil;
+    
     if ([DBSession sharedSession].delegate == self) {
         [[DBSession sharedSession] setDelegate:nil];
         [DBSession setSharedSession:nil];
@@ -57,6 +60,7 @@ typedef enum {
 #pragma mark - Dropbox object
 //in case of using DropboxFramework by other part of App
 + (DBSession *) createNewDropbox {
+    
     NSString* appKey = SHKCONFIG(dropboxAppKey);
     NSString* appSecret = SHKCONFIG(dropboxAppSecret);
     NSString *root = SHKCONFIG(dropboxRootFolder);
@@ -128,7 +132,64 @@ typedef enum {
     return _restClient;
 }
 
-#pragma mark - Handle URL
+#pragma mark -
+#pragma mark Configuration : Service Defination
+
++ (NSString *)sharerTitle {	return SHKLocalizedString(@"Dropbox"); }
+
++ (BOOL)canGetUserInfo { return YES; }
++ (BOOL)canShareImage { return YES; }
++ (BOOL)canShareFile:(SHKFile *)file { return YES; }
+
+#pragma mark -
+#pragma mark Configuration : Dynamic Enable
+
+- (BOOL) shouldOverwrite {
+    return [SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue];
+}
+
+#pragma mark -
+#pragma mark Authentication
+
+- (BOOL)isAuthorized
+{
+    return [[SHKDropbox dropbox] isLinked];
+}
+
+- (void)promptAuthorization
+{
+    if (![[SHKDropbox dropbox] isLinked]) {
+        DBSession *dropbox = [SHKDropbox dropbox];
+        if (dropbox.delegate && dropbox.delegate != self) {
+            dropbox = [SHKDropbox createNewDropbox];
+        }
+        dropbox.delegate = self;
+
+        [DBRequest setNetworkRequestDelegate:self];
+
+        [self saveItemForLater:self.pendingAction];
+        
+        [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
+        [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
+    }
+}
+
+#pragma mark - Handle authorization URL response
+
++ (void)logout
+{
+    [[SHKDropbox dropbox] unlinkAll];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKDropboxUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)username {
+    
+    NSData *userInfoData = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKDropboxUserInfo];
+    DBAccountInfo *accountInfo = [NSKeyedUnarchiver unarchiveObjectWithData:userInfoData];
+    NSString *result = accountInfo.displayName;
+    return result;
+}
 
 + (BOOL) handleOpenURL:(NSURL *)url {
     if ([[DBSession sharedSession] handleOpenURL:url]) {
@@ -185,58 +246,6 @@ typedef enum {
         [self performSelector:@selector(SHKDropboxDidCansel) withObject:nil afterDelay:0.5]; //Avoid exception with animation conflicts between SDK and SHK UIs
     }
 }
-#pragma mark -
-#pragma mark Configuration : Service Defination
-
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"Dropbox");
-}
-
-+ (BOOL)canShareImage
-{
-    return YES;
-}
-
-+ (BOOL)canShareFile:(SHKFile *)file
-{
-    return YES;
-}
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL) shouldOverwrite {
-    return [SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue];
-}
-
-#pragma mark -
-#pragma mark Authentication
-- (BOOL)isAuthorized
-{
-    return [[SHKDropbox dropbox] isLinked];
-}
-- (void)promptAuthorization
-{
-    if (![[SHKDropbox dropbox] isLinked]) {
-        DBSession *dropbox = [SHKDropbox dropbox];
-        if (dropbox.delegate && dropbox.delegate != self) {
-            dropbox = [SHKDropbox createNewDropbox];
-        }
-        dropbox.delegate = self;
-
-        [DBRequest setNetworkRequestDelegate:self];
-
-        [self saveItemForLater:self.pendingAction];
-        
-        [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
-        [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
-    }
-}
-+ (void)logout
-{
-    [[SHKDropbox dropbox] unlinkAll];
-}
 
 #pragma mark - Send
 
@@ -265,10 +274,37 @@ typedef enum {
         
         [[SHK currentHelper] keepSharerReference:self];
 		return TRUE;
+    } else if (self.item.shareType == SHKShareTypeUserInfo) {
+        
+        self.quiet = YES;
+        [self.restClient loadAccountInfo];
+        [[SHK currentHelper] keepSharerReference:self];
+        [self sendDidStart];
+		return TRUE;
     }
 	
 	return NO;
 }
+
+#pragma mark - DBRestClientDelegate methods (loadAccountInfo)
+
+- (void)restClient:(DBRestClient*)client loadedAccountInfo:(DBAccountInfo*)info {
+    
+    SHKLog(@"dropboxUserInfo %@ saved to defaults", [info description]);
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:info];    // obj is the data object we want to put into NSUserDefaults.
+    [[NSUserDefaults standardUserDefaults] setObject:data forKey:kSHKDropboxUserInfo];
+    [self sendDidFinish];
+    //must be postponed, otherwise dropbox-ios-sdk v1.3.9 crashes
+    [[SHK currentHelper] performSelector:@selector(removeSharerReference:) withObject:self afterDelay:0.5];
+}
+
+- (void)restClient:(DBRestClient*)client loadAccountInfoFailedWithError:(NSError*)error; {
+    
+    SHKLog(@"loadUserInfo failed with error: %@", [error description]);
+    //must be postponed, otherwise dropbox-ios-sdk v1.3.9 crashes
+    [[SHK currentHelper] performSelector:@selector(removeSharerReference:) withObject:self afterDelay:0.5];
+}
+
 
 - (NSString *)destinationDir {
     
@@ -392,7 +428,7 @@ static int outstandingRequests = 0;
                        otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
 }
 
-#pragma mark - DBRestClientDelegate methods
+#pragma mark - DBRestClientDelegate methods (upload)
 
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath from:(NSString*)srcPath
           metadata:(DBMetadata*)metadata {

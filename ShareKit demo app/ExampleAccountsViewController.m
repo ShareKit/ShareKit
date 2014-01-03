@@ -116,6 +116,9 @@
     
     if ([sharerClass isServiceAuthorized]) {
         
+        //if ([sharerId isEqualToString:@"SHKDropbox"]) {
+        //    [sharerClass getUserInfo];
+        //}
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
         cell.detailTextLabel.text = [sharerClass username];
     
