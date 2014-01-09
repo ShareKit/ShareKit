@@ -22,20 +22,15 @@ static NSString *const kSHKDropboxUserInfo =@"SHKDropboxUserInfo";
 static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 
-typedef enum {
-    _isNotChecked  =   0,
-    _isStarting    =   1,
-    _isChecked     =   2,
-} SHKDropboxMetadata;
-
 @interface SHKDropbox () {
     long long   __fileOffset;
     long long   __fileSize;
     BOOL        _startSending;
-    SHKDropboxMetadata metadataStatus;
 }
 
 @property (nonatomic, strong) DBRestClient *restClient;
+@property (nonatomic, strong) UIAlertView *authAlert;
+@property (nonatomic, strong) UIAlertView *overwriteAlert;
 
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
@@ -169,10 +164,10 @@ typedef enum {
 
         [DBRequest setNetworkRequestDelegate:self];
 
-        [self saveItemForLater:self.pendingAction];
+        [self saveItemForLater:SHKPendingShare];
         
         [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
-        [dropbox performSelector:@selector(linkFromController:) withObject:[[SHK currentHelper] rootViewForUIDisplay] afterDelay:0.2]; //Avoid exception with animation conflicts between SDK and SHK UIs
+        [dropbox linkFromController:[[SHK currentHelper] rootViewForUIDisplay]];
     }
 }
 
@@ -234,14 +229,11 @@ typedef enum {
         else
         {
             //start upload logic for pending share
-            
             [self restoreItem];
-            self.pendingAction = SHKPendingSend;
-            
             [self authDidFinish:TRUE];
             
             if (self.item)
-                [self tryPendingAction];
+                [self performSelector:@selector(tryPendingAction) withObject:nil afterDelay:0.6]; //Let Oauth login view dismiss
         }
     } else {
         [self authDidFinish:NO];
@@ -285,9 +277,115 @@ typedef enum {
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController {
     
-//TODO: cancel all requests
+    //TODO: cancel all requests
 	//NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
 	//[self.getGroupsFetcher cancel];
+}
+
+#pragma mark - Share form validation (check metadata - if file exists on Dropbox)
+
+- (FormControllerCallback)shareFormValidate {
+    
+    __weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result =  ^(SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+        
+        self.pendingForm = form;
+        
+        NSString *dropboxFileName = [weakSelf.item.file.filename normalizedDropboxPath];
+        [self.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];
+        
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *destinationDir = [formValues objectForKey:kSHKDropboxDestinationDir];
+        if (![destinationDir hasSuffix:@"/"]) {
+            destinationDir = [destinationDir stringByAppendingString:@"/"];
+        }
+        
+        NSString *remoteFilePath = [destinationDir stringByAppendingString:dropboxFileName];
+        
+        [self startLoadMetadataForPath:remoteFilePath withHash:nil];
+        [[SHK currentHelper] keepSharerReference:self];
+    };
+    return result;
+}
+
+//TODO: is this method needed? We can call restClient directly...
+- (void) startLoadMetadataForPath:(NSString *)path withHash:(NSString *) remoteHash {
+    
+    DBRestClient *restClient = [self restClient];
+    [restClient setDelegate:self];
+    [DBRequest setNetworkRequestDelegate:self];
+    if (remoteHash.length > 0) {
+        [restClient loadMetadata:path withHash:remoteHash];
+    } else {
+        [restClient loadMetadata:path];
+    }
+}
+
+#pragma mark - DBRestClientDelegate methods (Metadata)
+
+- (void)restClient:(DBRestClient*)client loadedMetadata:(DBMetadata*)metadata {
+    
+    [[SHK currentHelper] removeSharerReference:self];
+    if (!_startSending) {
+        [[SHKActivityIndicator currentIndicator] hide];
+    }
+    
+    if (metadata && metadata.path.length > 0) {
+        
+        if (metadata.isDirectory) {//user chooses directory within form option controller
+            
+            NSMutableArray *directoriesDisplay = [[NSMutableArray alloc] initWithCapacity:3];
+            NSMutableArray *directoriesSave = [[NSMutableArray alloc] initWithCapacity:3];
+            
+            for (DBMetadata *contentMetadata in metadata.contents) {
+                if (contentMetadata.isDirectory) {
+                    [directoriesDisplay addObject:contentMetadata.filename];
+                    [directoriesSave addObject:contentMetadata.path];
+                }
+            }
+            [self.curOptionController optionsEnumeratedDisplay:directoriesDisplay save:directoriesSave];
+            return;
+        }
+        
+        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:[self.item customValueForKey:kSHKDropboxStoredFileName]]) { //form validation detected file exists (or existed) on Dropbox
+            
+            [self.item setCustomValue:metadata.rev forKey:kSHKDropboxParentRevision];
+            
+            if ([self shouldOverwrite] || metadata.isDeleted) {
+                
+                [self.pendingForm saveForm]; //start sharing
+                
+            } else {
+                
+                self.overwriteAlert = [[UIAlertView alloc] initWithTitle:[[self class] sharerTitle]
+                                           message:SHKLocalizedString(@"Do you want to overwrite existing file in %@?", [[self class] sharerTitle])
+                                          delegate:self
+                                 cancelButtonTitle:SHKLocalizedString(@"Cancel")
+                                 otherButtonTitles:@"OK", nil];
+                [self.overwriteAlert show];
+            }
+        }
+    }
+}
+
+- (void)restClient:(DBRestClient*)client loadMetadataFailedWithError:(NSError*)error {
+    
+    if (!_startSending) {
+        [[SHKActivityIndicator currentIndicator] hide];
+    }
+    
+    if ([error.domain isEqualToString:kDropboxErrorDomain] == YES && error.code == 404) {
+        //[self startSendingStoredObject];
+        [[self pendingForm] saveForm];
+    } else {
+        [self checkDropboxAPIError:error];
+    }
 }
 
 #pragma mark - Send
@@ -303,24 +401,9 @@ typedef enum {
     
     _startSending = FALSE;
 
-    if (self.item.shareType == SHKShareTypeFile)
-    {
-        metadataStatus = _isNotChecked;
-
-        NSString *dropboxFileName = [self.item.file.filename normalizedDropboxPath];
-        [self.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];
+    if (self.item.shareType == SHKShareTypeFile) {
         
-        NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
-        if (![destinationDir hasSuffix:@"/"]) {
-            destinationDir = [destinationDir stringByAppendingString:@"/"];
-            [self.item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDir];
-        }
-
-        NSString *remoteFilePath = [destinationDir stringByAppendingString:dropboxFileName];
-        
-        [self startLoadDropboxMetadata:remoteFilePath];
-        [[SHK currentHelper] keepSharerReference:self];
-		return TRUE;
+        [self startSendingStoredObject];
         
     } else if (self.item.shareType == SHKShareTypeUserInfo) {
         
@@ -351,94 +434,6 @@ typedef enum {
     SHKLog(@"loadUserInfo failed with error: %@", [error description]);
     //must be postponed, otherwise dropbox-ios-sdk v1.3.9 crashes
     [[SHK currentHelper] performSelector:@selector(removeSharerReference:) withObject:self afterDelay:0.5];
-}
-
-#pragma mark - check if file exists on Dropbox (check metadata)
-
-//remote path could be directory or file
-- (void) startLoadDropboxMetadata:(NSString *) remotePath {
-    
-    if (remotePath.length < 1) {
-        remotePath = [self.item customValueForKey:kSHKDropboxDestinationDir];
-        if (remotePath.length < 1) {
-            remotePath = @"/";
-        }
-    }
-    [self startLoadMetadataForPath:remotePath withHash:nil];
-}
-
-- (void) startLoadMetadataForPath:(NSString *)path withHash:(NSString *) remoteHash {
-    
-    DBRestClient *restClient = [self restClient];
-    [restClient setDelegate:self];
-    [DBRequest setNetworkRequestDelegate:self];
-    if (remoteHash.length > 0) {
-        [restClient loadMetadata:path withHash:remoteHash];
-    } else {
-        [restClient loadMetadata:path];
-    }
-    metadataStatus = _isStarting;
-    //TODO: change activity string
-    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-}
-
-#pragma mark - DBRestClientDelegate methods (Metadata)
-- (void)restClient:(DBRestClient*)client loadedMetadata:(DBMetadata*)metadata {
-    
-    if (!_startSending) {
-        [[SHKActivityIndicator currentIndicator] hide];
-    }
-    
-    if (metadata && metadata.path.length > 0) {
-        
-        if (metadata.isDirectory) {
-            
-            //user chooses directory
-            NSMutableArray *directoriesDisplay = [[NSMutableArray alloc] initWithCapacity:3];
-            NSMutableArray *directoriesSave = [[NSMutableArray alloc] initWithCapacity:3];
-            
-            for (DBMetadata *contentMetadata in metadata.contents) {
-                if (contentMetadata.isDirectory) {
-                    [directoriesDisplay addObject:contentMetadata.filename];
-                    [directoriesSave addObject:contentMetadata.path];
-                }
-            }
-            [self.curOptionController optionsEnumeratedDisplay:directoriesDisplay save:directoriesSave];
-            return;
-        }
-        
-        if ([[metadata.path lastPathComponent] isEqualToDropboxPath:[self.item customValueForKey:kSHKDropboxStoredFileName]]) {
-            
-            [self.item setCustomValue:metadata.rev forKey:kSHKDropboxParentRevision];
-            
-            if (![self shouldOverwrite]) {
-                
-                //show old form if overwriting file and overwrite is disallowed in configurator
-                //[self showDropboxForm];
-#warning implement what to do if override
-                SHKLog(@"overwriting the file");
-                [self startSendingStoredObject];
-            } else {
-                [self startSendingStoredObject];
-            }
-        }
-        metadataStatus = _isChecked;
-    }
-}
-
-- (void)restClient:(DBRestClient*)client loadMetadataFailedWithError:(NSError*)error {
-    
-    if (!_startSending) {
-        [[SHKActivityIndicator currentIndicator] hide];
-    }
-    
-    if ([error.domain isEqualToString:kDropboxErrorDomain] == YES && error.code == 404) {
-        metadataStatus = _isChecked;
-        [self startSendingStoredObject];
-    } else {
-        metadataStatus = _isNotChecked;
-        [self checkDropboxAPIError:error];
-    }
 }
 
 //  https://www.dropbox.com/developers/start/files#ios
@@ -513,11 +508,13 @@ static int outstandingRequests = 0;
 
 #pragma mark - DBSessionDelegate methods
 - (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
-	[[[UIAlertView alloc] initWithTitle:@"Dropbox"
+	
+    self.authAlert = [[UIAlertView alloc] initWithTitle:@"Dropbox"
                                  message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
                                 delegate:self
                        cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
+                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil];
+    [self.authAlert show];
 }
 
 #pragma mark - DBRestClientDelegate methods (upload)
@@ -620,12 +617,25 @@ static int outstandingRequests = 0;
 
 #pragma mark -
 #pragma mark UIAlertViewDelegate methods
+
 - (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-        [self performSelector:@selector(authorize) withObject:nil afterDelay:0.1]; //Avoid exception with animation conflicts between SDK and SHK UIs
-	} else {
-        [self SHKDropboxDidCansel];
+    
+    if ([alertView isEqual:self.authAlert]) {
+        
+        if (buttonIndex != alertView.cancelButtonIndex) {
+            [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+            [self performSelector:@selector(authorize) withObject:nil afterDelay:0.1]; //Avoid exception with animation conflicts between SDK and SHK UIs
+        } else {
+            [self SHKDropboxDidCansel];
+        }
+    
+    } else if ([alertView isEqual:self.overwriteAlert]) {
+        
+        if (buttonIndex == alertView.cancelButtonIndex) {
+            [[self pendingForm] cancel];
+        } else {
+            [self startSendingStoredObject];
+        }
     }
 }
 
