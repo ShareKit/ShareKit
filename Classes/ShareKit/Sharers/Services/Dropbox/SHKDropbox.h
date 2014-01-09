@@ -14,6 +14,8 @@
 #import <DropboxSDK/DropboxSDK.h>
 #endif
 
+#import "SHKFormOptionController.h"
+
 //
 //you could use customValue in SHK item to setup remote path to upload file
 static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
@@ -21,7 +23,7 @@ static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
 static NSString *const kSHKDropboxUploadProgress =@"SHKDropboxUploadProgress";
 static NSString *const kSHKDropboxSharableLink =@"SHKDropboxSharableLink";
 
-@interface SHKDropbox : SHKSharer <DBSessionDelegate, DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate>
+@interface SHKDropbox : SHKSharer <DBSessionDelegate, DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate, SHKFormOptionControllerOptionProvider>
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 
