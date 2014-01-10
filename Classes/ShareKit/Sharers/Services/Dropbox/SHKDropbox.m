@@ -156,17 +156,16 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 - (void)promptAuthorization
 {
     if (![[SHKDropbox dropbox] isLinked]) {
+        
         DBSession *dropbox = [SHKDropbox dropbox];
         if (dropbox.delegate && dropbox.delegate != self) {
             dropbox = [SHKDropbox createNewDropbox];
         }
-        dropbox.delegate = self;
 
         [DBRequest setNetworkRequestDelegate:self];
-
+        
         [self saveItemForLater:SHKPendingShare];
         
-        [[SHK currentHelper] keepSharerReference:self]; // DBSession doesn't retain delegates
         [dropbox linkFromController:[[SHK currentHelper] rootViewForUIDisplay]];
     }
 }
@@ -189,31 +188,29 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 }
 
 + (BOOL) handleOpenURL:(NSURL *)url {
-    if ([[DBSession sharedSession] handleOpenURL:url]) {
-        SHKDropbox *dropboxSharer = (SHKDropbox *)[DBSession sharedSession].delegate;
-        if (!dropboxSharer || ![dropboxSharer isKindOfClass:[SHKDropbox class]]) {
-            dropboxSharer = [[SHKDropbox alloc] init];
-            DBSession *dropbox = [SHKDropbox dropbox];
-            [dropbox setDelegate:dropboxSharer];
-        }
+    
+    DBSession *dropbox = [SHKDropbox dropbox];
+    SHKDropbox *dropboxSharer = [[[self class] alloc] init];
+
+    if ([dropbox handleOpenURL:url]) {
         [dropboxSharer checkURL:url];
         return TRUE;
+    } else {
+        return FALSE;
     }
-    return FALSE;
 }
 
 // Just to keep watch dog out
 - (void) checkURL:(NSURL *)url {
+    
     if ([[DBSession sharedSession] isLinked])
     {
         //  check url
         //  if user has pressed "Cancel" in dialogue, url = "db-APP-KEY://API_VERSION/cancel"
         
         if ([[url absoluteString] rangeOfString:@"cancel"].length > 0 && [[url absoluteString] rangeOfString:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]].length > 0) {
-            [[[UIAlertView alloc]
-               initWithTitle:@"Dropbox" message:SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [self sharerTitle])  delegate:self
-               cancelButtonTitle:SHKLocalizedString(@"Cancel") otherButtonTitles:SHKLocalizedString(@"Continue"), nil]
-             show];
+            
+            [self authDidFinish:NO];
             return;
         }
         // error code 401: Bad or expired token. This can happen if the user or
@@ -233,11 +230,11 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
             [self authDidFinish:TRUE];
             
             if (self.item)
-                [self performSelector:@selector(tryPendingAction) withObject:nil afterDelay:0.6]; //Let Oauth login view dismiss
+                [self performSelector:@selector(tryPendingAction) withObject:nil afterDelay:0.7]; //Let Oauth login view dismiss
         }
     } else {
+        
         [self authDidFinish:NO];
-        [self performSelector:@selector(SHKDropboxDidCansel) withObject:nil afterDelay:0.5]; //Avoid exception with animation conflicts between SDK and SHK UIs
     }
 }
 
@@ -381,7 +378,6 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
     }
     
     if ([error.domain isEqualToString:kDropboxErrorDomain] == YES && error.code == 404) {
-        //[self startSendingStoredObject];
         [[self pendingForm] saveForm];
     } else {
         [self checkDropboxAPIError:error];
@@ -506,17 +502,6 @@ static int outstandingRequests = 0;
 	}
 }
 
-#pragma mark - DBSessionDelegate methods
-- (void)sessionDidReceiveAuthorizationFailure:(DBSession*)session userId:(NSString *)userId {
-	
-    self.authAlert = [[UIAlertView alloc] initWithTitle:@"Dropbox"
-                                 message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
-                                delegate:self
-                       cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                       otherButtonTitles:SHKLocalizedString(@"Continue"), nil];
-    [self.authAlert show];
-}
-
 #pragma mark - DBRestClientDelegate methods (upload)
 
 - (void)restClient:(DBRestClient*)client uploadedFile:(NSString*)destPath from:(NSString*)srcPath
@@ -591,13 +576,19 @@ static int outstandingRequests = 0;
     NSInteger dbErrorCode = error.code;
     if ([error.domain isEqual: kDropboxErrorDomain] == YES && (dbErrorCode == 401 || dbErrorCode == 403)) {
         
-        [self saveItemForLater:self.pendingAction];
         [[SHKDropbox dropbox] unlinkAll];
-        [[[UIAlertView alloc] initWithTitle:[self sharerTitle]
-                                     message:SHKLocalizedString(@"Could not authenticate you. Please relogin.")
-                                    delegate:self
-                           cancelButtonTitle:SHKLocalizedString(@"Cancel")
-                           otherButtonTitles:SHKLocalizedString(@"Continue"), nil] show];
+        
+        if ([self.item customValueForKey:kSHKDropboxDestinationDir]) {//user already picked the path
+            
+            [self saveItemForLater:SHKPendingSend];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
+            
+        } else {
+            
+            [self saveItemForLater:SHKPendingShare];
+            [self shouldReloginWithPendingAction:SHKPendingShare];
+        }
+
     } else {
         NSError *internal = nil;
         if (dbErrorCode == 507) {
