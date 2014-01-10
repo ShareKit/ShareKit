@@ -269,7 +269,7 @@
     //return @"dropbox";
 }
 - (NSNumber *)dropboxShouldOverwriteExistedFile {
-    return [NSNumber numberWithBool:YES];
+    return [NSNumber numberWithBool:NO];
 }
 -(NSString *)youTubeConsumerKey
 {

@@ -23,7 +23,7 @@ static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
 static NSString *const kSHKDropboxUploadProgress =@"SHKDropboxUploadProgress";
 static NSString *const kSHKDropboxSharableLink =@"SHKDropboxSharableLink";
 
-@interface SHKDropbox : SHKSharer <DBSessionDelegate, DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate, SHKFormOptionControllerOptionProvider>
+@interface SHKDropbox : SHKSharer <DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate, SHKFormOptionControllerOptionProvider>
 
 + (BOOL)handleOpenURL:(NSURL*)url;
 
