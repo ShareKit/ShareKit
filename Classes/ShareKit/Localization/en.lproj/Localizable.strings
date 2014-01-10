@@ -233,10 +233,6 @@
 "Dropbox" = "Dropbox";
 /*  SHKDropbox  */
 /*
- *  user can rename file with new name while file is uploading to Dropbox
- */
-"File name" = "File name";
-/*
  *  "Path" uses as label to show the user remote dropbox directory, that uses
  *  to save share object, ex. "Dropbox path"
  */
@@ -244,7 +240,6 @@
 /*
  *  The resourse that user want to share with Dropbox may exceed the service limits
  */
-"File size exceed %@ limits" = "File size exceed %@ limits";
 "You are over Dropbox storage quota" = "You are over Dropbox storage quota";
 /*
  *  Dropbox could refuse the share file.
@@ -256,10 +251,6 @@
  *  Example "Do you want to overwrite existing file in Dropbox?"
  */
 "Do you want to overwrite existing file in %@?" = "Do you want to overwrite existing file in %@?";
-/*
- *  Show tips for user how to rename file or enter another remote directory while upload a file
- */
-"Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name" = "Tips: you could enter /folder_name/file_name to save the file in other folder or/with new name";
 
 //youtube option picker
 "Privacy" = "Privacy";
