@@ -977,7 +977,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)sendShowSimpleErrorAlert {
     
-    [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@", [[self class] sharerTitle])]];
+    [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@.", [[self class] sharerTitle])]];
 }
 
 @end
