@@ -88,8 +88,9 @@
                                                                                     
                                                                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                                                                                         
+                                                                                        [self authDidFinish:writeGranted];
+                                                                                        
                                                                                         if (writeGranted) {
-                                                                                            [self authDidFinish:writeGranted];
                                                                                             [self tryPendingAction];
                                                                                         } else {
                                                                                             [self iOSAuthorizationFailedWithError:error];

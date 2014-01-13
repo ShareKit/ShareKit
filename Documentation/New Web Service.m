@@ -248,6 +248,15 @@
 #pragma mark -
 #pragma mark Share Form
 
+// If you have a share form the user will have the option to skip it in the future.
+// If your form has required information and should never be skipped, uncomment this section.
+/*
+ + (BOOL)canAutoShare
+ {
+ return NO;
+ }
+ */
+
 // If your action has options or additional information it needs to get from the user
 // use this to create the form that is presented to user upon sharing.
 /*
@@ -285,18 +294,7 @@
 }
 */
 
-
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
-/*
-+ (BOOL)canAutoShare
-{
-	return NO;
-}
-*/
-
-
-// Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending.
+// Optionally validate the user input on the share form. You should override (uncomment) this only if you need to validate any data before sending. There are two ways to validate user input: set validationBlock for particular field (in SHKFormFieldSettings), or shareFormValidate method bellow. The latter is useful when you have to check multiple field's data at once, or have to validate any field asynchronously over network.
 /*
  - (FormControllerCallback)shareFormValidate
  {

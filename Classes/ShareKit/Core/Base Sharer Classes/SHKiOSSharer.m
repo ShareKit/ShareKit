@@ -132,10 +132,10 @@
                                     
                                     [self authDidFinish:granted];
     
-                                    if (!error) {
+                                    if (granted) {
                                         [self tryPendingAction];
                                     } else {
-                                        SHKLog(@"auth failed:%@", [error description]);
+                                        [self iOSAuthorizationFailedWithError:error];                                        
                                         [[self class] logout];
                                     }
                                 }];
