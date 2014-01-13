@@ -23,11 +23,10 @@
 //  THE SOFTWARE.
 
 #import "OAAsynchronousDataFetcher.h"
-
+#import "Debug.h"
 #import "OAServiceTicket.h"
 
 @implementation OAAsynchronousDataFetcher
-
 
 + (id)asynchronousFetcherWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector
 {
@@ -41,14 +40,15 @@
 		request = [aRequest retain];
 		delegate = [aDelegate retain];
 		didFinishSelector = finishSelector;
-		didFailSelector = failSelector;
+		didFailSelector = failSelector;	
 	}
 	return self;
 }
 
 - (void)start
-{
+{    
     [request prepare];
+    SHKLog(@"starting request:%@", request.URL);
 	
 	if (connection)
 		[connection release];
@@ -65,7 +65,6 @@
 	{
         OAServiceTicket *ticket= [[OAServiceTicket alloc] initWithRequest:request
                                                                  response:nil
-                                                                     data:nil
                                                                didSucceed:NO];
         [delegate performSelector:didFailSelector
                        withObject:ticket
@@ -116,11 +115,11 @@
 {
 	OAServiceTicket *ticket= [[OAServiceTicket alloc] initWithRequest:request
 															 response:response
-                                                                 data:responseData
 														   didSucceed:NO];
 	[delegate performSelector:didFailSelector
 				   withObject:ticket
 				   withObject:error];
+    SHKLog(@"connection did fail with error:%@", [error description]);
     [delegate release];
     delegate = nil;
 	
@@ -131,11 +130,11 @@
 {
 	OAServiceTicket *ticket = [[OAServiceTicket alloc] initWithRequest:request
 															  response:response
-                                                                  data:responseData
 															didSucceed:[(NSHTTPURLResponse *)response statusCode] < 400];
 	[delegate performSelector:didFinishSelector
 				   withObject:ticket
 				   withObject:responseData];
+    SHKLog(@"connection finished with response:%@", [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease]);
     [delegate release];
     delegate = nil;
 	

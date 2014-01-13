@@ -1,15 +1,24 @@
-[submodule "Submodules/facebook-ios-sdk"]
-	path = Submodules/facebook-ios-sdk
-	url = https://github.com/facebook/facebook-ios-sdk.git
-[submodule "Submodules/JSONKit"]
-	path = Submodules/JSONKit
-	url = https://github.com/johnezang/JSONKit.git
 [submodule "Submodules/sskeychain"]
 	path = Submodules/sskeychain
-	url = https://github.com/samsoffes/sskeychain.git
-[submodule "Submodules/objectiveflickr"]
-	path = Submodules/objectiveflickr
-	url = https://github.com/lukhnos/objectiveflickr.git
+	url = https://github.com/soffes/sskeychain.git
 [submodule "Submodules/evernote-ios-sdk"]
 	path = Submodules/evernote-ios-sdk
 	url = https://github.com/evernote/evernote-sdk-ios.git
+[submodule "Submodules/google-api-objectivec"]
+	path = Submodules/google-api-objectivec
+	url = git://github.com/jakemdunn/google-api-objectivec-client.git
+[submodule "Submodules/buffer-ios-sdk"]
+	path = Submodules/buffer-ios-sdk
+	url = git://github.com/bufferapp/buffer-ios-sdk.git
+[submodule "Submodules/Pocket-ObjC-SDK"]
+	path = Submodules/Pocket-ObjC-SDK
+	url = git://github.com/Pocket/Pocket-ObjC-SDK.git
+[submodule "Submodules/sstoolkit"]
+	path = Submodules/sstoolkit
+	url = https://github.com/soffes/sstoolkit.git
+[submodule "Submodules/google-toolbox-for-mac"]
+	path = Submodules/google-toolbox-for-mac
+	url = https://github.com/adinardi/google-toolbox-for-mac.git
+[submodule "Submodules/OpenInChrome"]
+	path = Submodules/OpenInChrome
+	url = https://github.com/GoogleChrome/OpenInChrome.git

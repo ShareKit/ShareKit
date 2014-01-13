@@ -33,16 +33,13 @@
     NSString *name;
     NSString *value;
 }
-@property(copy, readwrite) NSString *name;
-@property(copy, readwrite) NSString *value;
+@property(retain) NSString *name;
+@property(retain) NSString *value;
 
++ (id)requestParameterWithName:(NSString *)aName value:(NSString *)aValue;
 - (id)initWithName:(NSString *)aName value:(NSString *)aValue;
 - (NSString *)URLEncodedName;
 - (NSString *)URLEncodedValue;
 - (NSString *)URLEncodedNameValuePair;
-
-- (BOOL)isEqualToRequestParameter:(OARequestParameter *)parameter;
-
-+ (id)requestParameter:(NSString *)aName value:(NSString *)aValue;
 
 @end

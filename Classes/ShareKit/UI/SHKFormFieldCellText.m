@@ -3,11 +3,27 @@
 //  ShareKit
 //
 //  Created by Vilem Kurz on 30/05/2012.
-//  Copyright (c) 2012 Cocoa Miners. All rights reserved.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
 
 #import "SHKFormFieldCellText.h"
 #import "SHKConfiguration.h"
+#import "SHKFormFieldSettings.h"
 
 #define SHK_FORM_CELL_TEXTFIELD_HEIGHT 25
 
@@ -15,11 +31,6 @@
 
 @synthesize textField;
 
-- (void)dealloc {
-    
-    [textField release];
-    [super dealloc];
-}
 
 - (void)setupLayout {
     
@@ -30,13 +41,12 @@
     
     UITextField *aTextField = [[UITextField alloc] initWithFrame:frame];
     self.textField = aTextField;
-    [aTextField release];
     
     self.textField.clearsOnBeginEditing = NO;
     self.textField.returnKeyType = UIReturnKeyDone;
     self.textField.font = [UIFont systemFontOfSize:17];
     self.textField.textColor = [UIColor darkGrayColor];
-    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    self.textField.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     self.textField.delegate = self;
     [self.contentView addSubview:self.textField];
     
@@ -45,7 +55,7 @@
 
 - (void)setupWithSettings:(SHKFormFieldSettings *)settings {
     
-    self.textField.text = settings.value;
+    self.textField.text = settings.displayValue;
     self.textField.placeholder = settings.label;
     
     if (settings.type == SHKFormFieldTypePassword) {
@@ -89,6 +99,14 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
 	[self.delegate setActiveTextField:self.textField];
+}
+
+- (void)userSetValue:(NSString *)newValue {
+    
+    if ([newValue isEqualToString:@""]) {
+        newValue = nil;
+    }
+    [super userSetValue:newValue];
 }
 
 @end

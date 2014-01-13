@@ -24,78 +24,31 @@
 //
 //
 
-#import "SHKConfiguration.h"
 #import "SHKLinkedIn.h"
+
+#import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
+
+#import "NSString+LinkedIn.h"
 
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 // The oauth scope we need to request at LinkedIn
 #define SHKLinkedInRequiredScope @"rw_nus"
+#define kSHKLinkedInUserInfo @"kSHKLinkedInUserInfo"
+#define URL_DESCRIPTION_LIMIT 256
+#define TITLE_LIMIT 200
 
 @implementation SHKLinkedIn
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-// Enter the name of the service
-+ (NSString *)sharerTitle
-{
-	return @"LinkedIn";
-}
++ (NSString *)sharerTitle { return SHKLocalizedString(@"LinkedIn"); }
 
-
-// What types of content can the action handle?
-
-// If the action can handle URLs, uncomment this section
-+ (BOOL)canShareURL
-{
-    return YES;
-}
-
-// If the action can handle images, uncomment this section
-/*
- + (BOOL)canShareImage
- {
- return YES;
- }
- */
-
-// If the action can handle text, uncomment this section
-+ (BOOL)canShareText
-{
-    return YES;
-}
-
-
-// If the action can handle files, uncomment this section
-/*
- + (BOOL)canShareFile
- {
- return YES;
- }
- */
-
-
-// Does the service require a login?  If for some reason it does NOT, uncomment this section:
-/*
- + (BOOL)requiresAuthentication
- {
- return NO;
- }
- */ 
-
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-// Subclass if you need to dynamically enable/disable the service.  (For example if it only works with specific hardware)
-+ (BOOL)canShare
-{
-	return YES;
-}
-
-
++ (BOOL)canShareURL { return YES; }
++ (BOOL)canShareText { return YES; }
++ (BOOL)canGetUserInfo { return YES; }
 
 #pragma mark -
 #pragma mark Authentication
@@ -114,7 +67,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 	    self.authorizeURL = [NSURL URLWithString:@"https://www.linkedin.com/uas/oauth/authorize"];
 	    self.accessURL = [NSURL URLWithString:@"https://api.linkedin.com/uas/oauth/accessToken"];
 		
-		self.signatureProvider = [[[OAHMAC_SHA1SignatureProvider alloc] init] autorelease];
+		self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}	
 	return self;
 }
@@ -133,160 +86,188 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     [oRequest setOAuthParameterName:@"scope" withValue:SHKLinkedInRequiredScope];
 }
 
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKLinkedInUserInfo];
+	[super logout];
+}
+
 #pragma mark -
 #pragma mark Share Form
-
-- (void)showSHKTextForm
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
-	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
-	
-    if (item.shareType == SHKShareTypeURL) {
-        rootView.text = item.title;
-        rootView.hasLink = YES;
+    if (type == SHKShareTypeUserInfo) return nil;
+
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:@"text"
+                                                                                 start:self.item.text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.maxTextLength = 700;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
         
-    } else {
-        rootView.text = item.text;
-    }
+        BOOL emptyCriterium =  [formFieldSettings.valueToSave length] > 0;
+        BOOL maxTextLenCriterium = [formFieldSettings.valueToSave length] <= formFieldSettings.maxTextLength;
+        
+        if (emptyCriterium && maxTextLenCriterium) {
+            return YES;
+        } else {
+            return NO;
+        }
+    };
     
-    rootView.maxTextLength = 700;  
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:rootView animated:NO];
-    [rootView release];
-	
-	[[SHK currentHelper] showViewController:self];	
+    SHKFormFieldSettings *publicField = [SHKFormFieldSettings label:SHKLocalizedString(@"Public")
+                                                                key:SHKLinkedInVisibilityCodeKey
+                                                               type:SHKFormFieldTypeSwitch
+                                                              start:SHKFormFieldSwitchOn];
+    
+    NSMutableArray *result = [@[commentField, publicField] mutableCopy];
+    
+    if (type == SHKShareTypeURL) {
+        [result insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title] atIndex:0];
+    }
+    return result;
 }
 
-- (void)show
-{
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL)
-	{
-		[self showSHKTextForm];
-	}
-}
-
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
 + (BOOL)canAutoShare
 {
     return NO;
 }
 
 #pragma mark -
-#pragma mark SHKCustomFormControllerLargeTextField delegate
-
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{	
-    if (item.shareType == SHKShareTypeURL) {
-        item.title = form.textView.text;
-    } else {
-        item.text = form.textView.text;
-    }
-	[self tryToSend];
-}
-
-#pragma mark -
 #pragma mark Implementation
-
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-- (BOOL)validateItem
-{ 
-    if (![super validateItem]) {
-        return NO;
-    }
-    
-    if (item.shareType == SHKShareTypeURL && item.title == nil) {
-        return NO;
-    };
-    
-    return YES;
-}
 
 // Send the share item to the server
 - (BOOL)send
 {	
-	if (![self validateItem])
-		return NO;
+	if (![self validateItem]) return NO;
 	
     // Determine which type of share to do
-    if (item.shareType == SHKShareTypeText || item.shareType == SHKShareTypeURL) // sharing a Text or URL
-    {
-        // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
-        
-        OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
-                                                                        consumer:consumer // this is a consumer object already made available to us
-                                                                           token:accessToken // this is our accessToken already made available to us
-                                                                           realm:nil
-                                                               signatureProvider:signatureProvider];
-        
-        [oRequest setHTTPMethod:@"POST"];
-        
-        [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
-        
-        // TODO use more robust method to escape         
-        NSString *comment;
-        if (item.shareType == SHKShareTypeURL) {
-            comment =[[[[item.title stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        } else {
-            comment =[[[[item.text stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-        }
-        
-        NSString *visibility = [item customValueForKey:SHKLinkedInVisibilityCodeKey];
-        if (visibility == nil) {
-            visibility = @"anyone";
-        }
-        
-        NSString *submittedUrl;
-        if (item.shareType == SHKShareTypeURL) {
-            NSString *urlString = [[[[item.URL.absoluteString stringByReplacingOccurrencesOfString:@"&" withString:@"&amp;"] stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"] stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"] stringByReplacingOccurrencesOfString:@"\"" withString:@"&quot;"];
-            submittedUrl = [NSString stringWithFormat:@"<content><submitted-url>%@</submitted-url></content>", urlString];
-        } else {
-            submittedUrl = @"";
-        }
-
-        NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-                          "<share>"
-                            "<comment>%@</comment>"
-                            "%@"
-                            "<visibility>"
-                                "<code>%@</code>"
-                            "</visibility>"
-                          "</share>", comment, submittedUrl, visibility];
-        
-        [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];         
-        
-        // Start the request
-        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                              delegate:self
-                                                                                     didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];	
-        
-        [fetcher start];
-        [oRequest release];
-        
-        // Notify delegate
-        [self sendDidStart];
-        
-        return YES;
+    if (self.item.shareType == SHKShareTypeText || self.item.shareType == SHKShareTypeURL) {
+        [self shareContent];
+    } else if (self.item.shareType == SHKShareTypeUserInfo) {
+        self.quiet = YES;
+        [self fetchUserInfo];
+    } else {
+        return NO;
     }
+
+    // Notify delegate
+    [self sendDidStart];
     
-    return NO;
+    return YES;
 }
 
-- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+- (void)fetchUserInfo {
+    
+    OAMutableURLRequest *userInfoRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"]
+                                                                           consumer:consumer
+                                                                              token:accessToken
+                                                                              realm:nil
+                                                                  signatureProvider:signatureProvider];
+    [userInfoRequest setHTTPMethod:@"GET"];
+    [userInfoRequest prepare];
+    
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:userInfoRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
+}
+
+- (void)shareContent {
+    
+    // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
+    
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
+                                                                    consumer:consumer // this is a consumer object already made available to us
+                                                                       token:accessToken // this is our accessToken already made available to us
+                                                                       realm:nil
+                                                           signatureProvider:signatureProvider];
+    
+    [oRequest setHTTPMethod:@"POST"];
+    
+    [oRequest prepare]; // Before setting the body, otherwise body will end up in the signature !!!
+    
+    // TODO use more robust method to escape
+    NSString *comment = [self.item.text sanitize];
+    
+    NSString *visibility;
+    BOOL public = [[self.item customValueForKey:SHKLinkedInVisibilityCodeKey] boolValue];
+    if (public) {
+        visibility = @"anyone";
+    } else {
+        visibility = @"connections-only";
+    }
+    
+    NSString *submittedUrl;
+    if (self.item.shareType == SHKShareTypeURL) {
+        
+        NSString *submittedTitle = @"";
+        NSString *submittedPictureURI = @"";
+        NSString *submittedURLComment = @"";
+        if ([self.item.title length]) {
+            submittedTitle = [[NSString alloc] initWithFormat:@"<title>%@</title>", [[self.item.title sanitize] trimToIndex:TITLE_LIMIT]];
+            if (self.item.URLPictureURI) submittedPictureURI = [[NSString alloc] initWithFormat:@"<submitted-image-url>%@</submitted-image-url>", [self.item.URLPictureURI absoluteString]];
+            if (self.item.URLDescription) {
+                submittedURLComment = [[NSString alloc] initWithFormat:@"<description>%@</description>", [[self.item.URLDescription sanitize] trimToIndex:URL_DESCRIPTION_LIMIT]];
+            }
+        }
+        NSString *urlString = [self.item.URL.absoluteString sanitize];
+        submittedUrl = [NSString stringWithFormat:@"<content>\
+                                                        %@\
+                                                        <submitted-url>%@</submitted-url>\
+                                                        %@\
+                                                        %@\
+                                                    </content>", submittedTitle, urlString, submittedPictureURI, submittedURLComment];
+    } else {
+        submittedUrl = @"";
+    }
+    
+    NSString *body = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+                      "<share>"
+                      "<comment>%@</comment>"
+                      "%@"
+                      "<visibility>"
+                      "<code>%@</code>"
+                      "</visibility>"
+                      "</share>", comment, submittedUrl, visibility];
+    
+    [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    
+    // Start the request
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    
+    [fetcher start];
+}
+
+- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)responseData 
 {	
     if (ticket.didSucceed)
     {
+        NSString *dataInString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        SHKLog(@"%@", dataInString);
         // The send was successful
         [self sendDidFinish];
+        
+        NSDictionary *userInfo = [SHKXMLResponseParser dictionaryFromData:responseData];
+        if (userInfo[@"person"]) {
+            [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKLinkedInUserInfo];
+            NSString *responseBody = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+            SHKLog(@"fetched user info: %@", [responseBody description]);
+        }
     }
     else
     {
         
 #ifdef _SHKDebugShowLogs
-        NSString *responseBody = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        NSString *responseBody = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 #endif
         SHKLog(@"%@", responseBody);
         
@@ -294,7 +275,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
         
         // If the error was the result of the user no longer being authenticated, you can reprompt
         // for the login information with:
-        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromResponse:data];
+        NSString *errorCode = [SHKXMLResponseParser getValueForElement:@"status" fromXMLData:responseData];
         
         // If we receive 401, we're not logged in. If we receive 403, we were logged in before, but didn't
         // yet have the proper privileges, so we force a relogin so linkedin can ask the user the
@@ -316,5 +297,17 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     [self sendDidFailWithError:error shouldRelogin:NO];
 }
 
++ (NSString *)username {
+    
+    NSDictionary *LIuserInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKLinkedInUserInfo];
+    NSString *result = nil;
+    if (LIuserInfo) {
+        NSDictionary *person = [LIuserInfo objectForKey:@"person"];
+        NSString *name = [person objectForKey:@"first-name"];
+        NSString *surname = [person objectForKey:@"last-name"];
+        result = [[NSString alloc] initWithFormat:@"%@ %@", name, surname];
+    }
+    return result;
+}
 
 @end

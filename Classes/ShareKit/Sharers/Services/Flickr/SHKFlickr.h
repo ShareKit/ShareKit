@@ -1,8 +1,8 @@
 //
-//  SHKFlickr
-//  Flickr
+//  SHKFlickr.h
+//  ShareKit
 //
-//  Created by Neil Bostrom on 23/02/2011.
+//  Created by Vilem Kurz on 03/12/2013.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,32 +21,10 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
-//
-//
 
-#import <Foundation/Foundation.h>
-#import "SHK.h"
-#import "SHKSharer.h"
-#import "SHKOAuthView.h"
-#import "ObjectiveFlickr.h"
+#import "SHKOAuthSharer.h"
 #import "SHKFormOptionController.h"
 
-@interface SHKFlickr : SHKSharer<	OFFlickrAPIRequestDelegate,
-									SHKOAuthViewDelegate,
-									SHKFormOptionControllerOptionProvider> {
-	
-    OFFlickrAPIContext *flickrContext;
-	OFFlickrAPIRequest *flickrRequest;
-	NSString *flickrUserName;
-	NSString* postedPhotoID;
-	NSArray* fullOptionsData;
-	int postGroupCurIndex;									
-}
-
-@property (nonatomic, readonly) OFFlickrAPIContext *flickrContext;
-@property (nonatomic, retain) NSString *flickrUserName;
-
-- (void)sendPhoto;
-- (NSData*) generateImageData;
+@interface SHKFlickr : SHKOAuthSharer <SHKFormOptionControllerOptionProvider>
 
 @end

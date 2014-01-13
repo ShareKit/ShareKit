@@ -8,18 +8,13 @@
 
 #import "SHKEvernote.h"
 #import "NSData+md5.h"
-#import "SHKConfiguration.h"
 #import "EvernoteSDK.h"
 #import "GTMNSString+HTML.h"
-#import "SHKActivityIndicator.h"
+#import "SharersCommonHeaders.h"
 
 @implementation SHKEvernoteItem
 @synthesize note;
 
-- (void)dealloc {
-	[note release];
-	[super dealloc];	
-}
 
 @end
 
@@ -47,11 +42,11 @@
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle { return @"Evernote"; }
++ (NSString *)sharerTitle { return SHKLocalizedString(@"Evernote"); }
 + (BOOL)canShareURL   { return YES; }
 + (BOOL)canShareImage { return YES; }
 + (BOOL)canShareText  { return YES; }
-+ (BOOL)canShareFile  { return YES; }
++ (BOOL)canShareFile:(SHKFile *)file { return YES; }
 + (BOOL)requiresAuthentication { return YES; }
 
 
@@ -70,15 +65,15 @@
 
 - (void)promptAuthorization {
     EvernoteSession *session = [EvernoteSession sharedSession];
-    [session authenticateWithViewController:[SHK currentHelper].rootViewForCustomUIDisplay completionHandler:^(NSError *error) {
+    [session authenticateWithViewController:[SHK currentHelper].rootViewForUIDisplay completionHandler:^(NSError *error) {
         BOOL success = (error == nil) && session.isAuthenticated;
         [self authDidFinish:success];
         if (error) {
-            [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+            [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
                                          message:SHKLocalizedString(@"There was an error while authorizing")
                                         delegate:nil
                                    cancelButtonTitle:SHKLocalizedString(@"Close")
-                                   otherButtonTitles:nil] autorelease] show];
+                                   otherButtonTitles:nil] show];
             
         } else if (session.isAuthenticated && self.item) {
             [self tryPendingAction];
@@ -100,15 +95,10 @@
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type 
 {
 	return [NSArray arrayWithObjects:
-	 [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-	 //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:item.text],
-	 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")  key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
+	 [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+	 //[SHKFormFieldSettings label:SHKLocalizedString(@"Memo")  key:@"text" type:SHKFormFieldTypeText start:self.item.text],
+	 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")  key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@", "]],
 	 nil];
-}
-
-- (void)shareFormValidate:(SHKFormController *)form 
-{	
-	[form saveForm];
 }
 
 #pragma mark -
@@ -124,8 +114,8 @@
     SHKEvernoteItem *enItem = nil;
     NSMutableArray *resources = nil;
     EDAMNote *note = nil;
-    if([item isKindOfClass:[SHKEvernoteItem class]]) {
-        enItem = (SHKEvernoteItem *)item;
+    if([self.item isKindOfClass:[SHKEvernoteItem class]]) {
+        enItem = (SHKEvernoteItem *)self.item;
         note = enItem.note;
         resources = [note.resources mutableCopy];
     }
@@ -133,61 +123,60 @@
     if(!resources)
     	resources = [[NSMutableArray alloc] init];
     if(!note)
-    	note = [[[EDAMNote alloc] init] autorelease];
+    	note = [[EDAMNote alloc] init];
     
     
-    EDAMNoteAttributes *atr = [note attributesIsSet] ? [note.attributes retain] : [[EDAMNoteAttributes alloc] init];
+    EDAMNoteAttributes *atr = [note attributesIsSet] ? note.attributes : [[EDAMNoteAttributes alloc] init];
     
     if(![atr sourceURLIsSet]&&enItem.URL) {
     	[atr setSourceURL:[enItem.URL absoluteString]];
     }
     
-    note.title = item.title.length > 0 ? item.title :( [note titleIsSet] ? note.title : SHKLocalizedString(@"Untitled") );
+    note.title = self.item.title.length > 0 ? self.item.title :( [note titleIsSet] ? note.title : SHKLocalizedString(@"Untitled") );
     
-    if(![note tagNamesIsSet]&&item.tags)
-    	[note setTagNames:item.tags];
+    if(![note tagNamesIsSet]&&self.item.tags)
+    	[note setTagNames:[self.item.tags mutableCopy]];
     
     if(![note contentIsSet]) {
         NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
-        NSString * strURL = [item.URL absoluteString];
+        NSString * strURL = [self.item.URL absoluteString];
         
         // Evernote doesn't accept unenencoded ampersands
         strURL = SHKEncode(strURL);
         
         if(strURL.length>0) {
-            if(item.title.length>0)
-                [contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,[item.title gtm_stringByEscapingForHTML]];
+            if(self.item.title.length>0)
+                [contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,[self.item.title gtm_stringByEscapingForHTML]];
             [contentStr appendFormat:@"<p><a href=\"%@\">%@</a></p>",strURL,strURL ];
             atr.sourceURL = strURL;
-        } else if(item.title.length>0)
-            [contentStr appendFormat:@"<h1>%@</h1>",[item.title gtm_stringByEscapingForHTML]];
+        } else if(self.item.title.length>0)
+            [contentStr appendFormat:@"<h1>%@</h1>",[self.item.title gtm_stringByEscapingForHTML]];
         
-        if(item.text.length>0 )
-            [contentStr appendFormat:@"<p>%@</p>", [SHKFlattenHTML(item.text, YES) gtm_stringByEscapingForHTML]];
+        if(self.item.text.length>0 )
+            [contentStr appendFormat:@"<p>%@</p>", [SHKFlattenHTML(self.item.text, YES) gtm_stringByEscapingForHTML]];
         
-        if(item.image) {
-            EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
-            NSData *rawimg = UIImageJPEGRepresentation(item.image, 0.6);
-            EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
+        if(self.item.image) {
+            EDAMResource *img = [[EDAMResource alloc] init];
+            NSData *rawimg = UIImageJPEGRepresentation(self.item.image, 0.6);
+            EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:(int)[rawimg length] body:rawimg];
             [img setData:imgd];
             [img setRecognition:imgd];
             [img setMime:@"image/jpeg"];
             [resources addObject:img];
-            [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:item.image.size.width height:item.image.size.height]]];
+            [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:self.item.image.size.width height:self.item.image.size.height]]];
         }
         
-        if(item.data) {
-            EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
-            EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.data size:[item.data length] body:item.data] autorelease];
+        if(self.item.file) {
+            EDAMResource *file = [[EDAMResource alloc] init];	
+            EDAMData *filed = [[EDAMData alloc] initWithBodyHash:self.item.file.data size:(int)[self.item.file.data length] body:self.item.file.data];
             [file setData:filed];
             [file setRecognition:filed];
-            [file setMime:item.mimeType];
+            [file setMime:self.item.file.mimeType];
             [resources addObject:file];
             [contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:file width:0 height:0]]];
         }
         [contentStr appendString:kENMLSuffix];
         [note setContent:contentStr];
-        [contentStr release];
     }
     
     ////////////////////////////////////////////////
@@ -200,7 +189,7 @@
                 NSData *rawimg = [NSData dataWithContentsOfURL:[NSURL URLWithString:res.attributes.sourceURL]];
                 UIImage *img = [UIImage imageWithData:rawimg];
                 if(img) {
-                    EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
+                    EDAMData *imgd = [[EDAMData alloc] initWithBodyHash:rawimg size:(int)[rawimg length] body:rawimg];
                     [res setData:imgd];
                     [res setRecognition:imgd];
                     [note setContent:
@@ -215,8 +204,6 @@
     }
     [note setResources:resources];
     [note setAttributes:atr];
-    [resources release];
-    [atr release];
     [note setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
     
     

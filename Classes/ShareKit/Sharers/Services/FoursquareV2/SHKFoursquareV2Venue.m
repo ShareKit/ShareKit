@@ -29,24 +29,9 @@
 
 @implementation SHKFoursquareV2Venue
 
-@synthesize venueId = _venueId;
-@synthesize name = _name;
-@synthesize address = _address;
-@synthesize icon = _icon;
-
-- (void)dealloc
-{
-    self.venueId = nil;
-    self.name = nil;
-    self.address = nil;
-    self.icon = nil;
-    
-    [super dealloc];
-}
-
 + (id)venueFromDictionary:(NSDictionary*)dictionary
 {
-    SHKFoursquareV2Venue *venue = [[[self alloc] init] autorelease];
+    SHKFoursquareV2Venue *venue = [[self alloc] init];
     
     venue.venueId = [dictionary objectForKey:@"id"];
     venue.name = [dictionary objectForKey:@"name"];

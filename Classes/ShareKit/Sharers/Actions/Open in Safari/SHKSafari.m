@@ -26,7 +26,7 @@
 //
 
 #import "SHKSafari.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKSafari
 
@@ -73,7 +73,7 @@
 {	
 	self.quiet = YES;
 	
-	[[UIApplication sharedApplication] openURL:item.URL];
+	[[UIApplication sharedApplication] openURL:self.item.URL];
 	
 	[self sendDidFinish];
 	

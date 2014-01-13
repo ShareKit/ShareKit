@@ -29,29 +29,17 @@
 #import "SHKFoursquareV2.h"
 #import "SHKFoursquareV2Request.h"
 
-@interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate> {
-    SHKFoursquareV2 *_delegate;
-    SHKFoursquareV2Request *_request;
-    
-    CLLocationManager *_locationManager;
-    CLLocation *_location;
-    
-    NSString *_query;
-    
-    NSMutableArray *_venues;
-    NSMutableArray *_filteredVenues;
-}
+@interface SHKFoursquareV2VenuesForm : UITableViewController<CLLocationManagerDelegate,UISearchDisplayDelegate, UISearchBarDelegate>
 
-@property (nonatomic, assign) SHKFoursquareV2 *delegate;
-@property (nonatomic, retain) SHKFoursquareV2Request *request;
+@property (nonatomic, weak) SHKFoursquareV2 *delegate;
 
-@property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic, retain) CLLocation *location;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) CLLocation *location;
 
 @property (nonatomic, copy) NSString *query;
 
-@property (nonatomic, retain) NSMutableArray *venues;
-@property (nonatomic, retain) NSMutableArray *filteredVenues;
+@property (nonatomic, strong) NSMutableArray *venues;
+@property (nonatomic, strong) NSMutableArray *filteredVenues;
 
 - (id)initWithDelegate:(SHKFoursquareV2*)delegate;
 
@@ -59,6 +47,5 @@
 - (void)stopMonitoringLocation;
 
 - (void)startloadingVenues;
-- (void)finishLoadingVenues:(SHKFoursquareV2Request*)request;
 
 @end

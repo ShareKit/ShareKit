@@ -26,28 +26,32 @@
 //
 
 #import "SHKVkontakte.h"
-#import "SHKConfiguration.h"
 #import "SHKVkontakteOAuthView.h"
-#import "JSONKit.h"
+#import "SHKVKontakteRequest.h"
+#import "SharersCommonHeaders.h"
 
 @interface SHKVkontakte()
 
-- (void)showVkontakteForm;
+@property BOOL isCaptcha;
+@property (nonatomic, strong) NSString *accessUserId;
+@property (nonatomic, strong) NSString *accessToken;
+@property (nonatomic, strong) NSDate *expirationDate;
+
+- (void)getAccessCode;
+
+- (void)getUserInfo;
 - (void)getCaptcha;
-- (NSDictionary *)sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha;
-- (NSDictionary *)sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData;
-- (BOOL)sendTextAndLink;
-- (BOOL)sendImageAction;
-- (BOOL)sendText;
-- (NSString *)encodedURLString:(NSString *)str;
+- (void)sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha;
+- (void) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha completion:(RequestCallback)completion;
+- (void) sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData;
+- (void)sendTextAndLink;
+- (void)sendImageAction;
+- (void)sendText;
+- (NSString *)URLEncodedString:(NSString *)str;
 
 @end
 
 @implementation SHKVkontakte
-
-@synthesize accessUserId;
-@synthesize accessToken;
-@synthesize expirationDate;
 
 + (void)flushAccessToken 
 {
@@ -55,7 +59,39 @@
   [defaults removeObjectForKey:kSHKVkonakteUserId];
   [defaults removeObjectForKey:kSHKVkontakteAccessTokenKey];
   [defaults removeObjectForKey:kSHKVkontakteExpiryDateKey];
+  [defaults removeObjectForKey:kSHKVkontakteAccessCodeKey];
+    [defaults removeObjectForKey:kSHKVkonakteUserInfo];
   [defaults synchronize];
+}
+
+
+#pragma mark - Properties -
+
+-(NSString*)accessToken
+{
+    if (!_accessToken)
+    {
+        _accessToken=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkontakteAccessTokenKey];
+    }
+    return _accessToken;
+}
+
+-(NSString*)accessUserId
+{
+    if (!_accessUserId)
+    {
+        _accessUserId=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkonakteUserId];
+    }
+    return _accessUserId;
+}
+
+-(NSDate*)expirationDate
+{
+    if (!_expirationDate)
+    {
+        _expirationDate=[[NSUserDefaults standardUserDefaults] objectForKey:kSHKVkontakteExpiryDateKey];
+    }
+    return _expirationDate;
 }
 
 #pragma mark -
@@ -63,7 +99,7 @@
 
 + (NSString *)sharerTitle
 {
-	return @"Vkontakte";
+	return SHKLocalizedString(@"Vkontakte");
 }
 
 + (BOOL)canShareText
@@ -88,15 +124,11 @@
 
 + (BOOL)canGetUserInfo
 {
-	return NO;
+	return YES;
 }
 
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL)shouldAutoShare
-{
-	return NO;
++ (BOOL)canShareFile:(SHKFile *)file {
+    return YES;
 }
 
 #pragma mark -
@@ -115,7 +147,7 @@
 }
 
 - (void)promptAuthorization
-{	
+{
 	SHKVkontakteOAuthView *rootView = [[SHKVkontakteOAuthView alloc] init];
 	rootView.appID = SHKCONFIG(vkontakteAppId);
 	rootView.delegate = self;
@@ -126,15 +158,101 @@
 	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,rootView);
 	
 	[self pushViewController:rootView animated:NO];
-	[rootView release];
 	
 	[[SHK currentHelper] showViewController:self];
 }
 
+
+- (void)getAccessCode
+{
+    //we can request AccessCode only if we already authorized
+    if ([self isAuthorized])
+    {
+        NSString *appID = SHKCONFIG(vkontakteAppId);
+        NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", appID];
+        [SHKRequest startWithURL:[NSURL URLWithString:reqURl]
+                          params:nil
+                          method:@"GET"
+                      completion:^(SHKRequest *request) {
+                          
+                          if (request.success)
+                          {
+                              NSString *accessCode = [SHKVkontakteOAuthView stringBetweenString:@"code="
+                                                                                      andString:@"&"
+                                                                                    innerString:request.response.URL.absoluteString];
+                              
+                              if(accessCode)
+                              {
+                                  [[NSUserDefaults standardUserDefaults] setObject:accessCode forKey:kSHKVkontakteAccessCodeKey];
+                                  [[NSUserDefaults standardUserDefaults] synchronize];
+                                  [self authDidFinish: YES];
+                              } else
+                              {
+                                  [self authDidFinish: NO];
+                              }
+                          } else
+                          {
+                              [self authDidFinish: NO];
+                          }
+                      }];
+    } else
+    {
+        [self authDidFinish: NO];
+    }
+}
+
+- (void)getUserInfo
+{
+    if ([self isAuthorized])
+    {
+        NSString *reqURl = [NSString stringWithFormat:@"https://api.vk.com/method/users.get?uids=%@&fields=uid,first_name,last_name,nickname,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,photo_rec&access_token=%@", self.accessUserId,self.accessToken];
+        [SHKRequest startWithURL:[NSURL URLWithString:reqURl]
+                          params:nil
+                          method:@"GET"
+                      completion:^(SHKRequest *request) {
+                          
+                          if (request.success)
+                          {
+                              // convert to JSON
+                              NSError *error = nil;
+                              NSDictionary *res = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+                              NSArray *response=[res objectForKey:@"response"] ? [res objectForKey:@"response"] : nil;
+                              NSArray *userInfo=response.count ? [response objectAtIndex:0] : nil;
+                              
+                              if (userInfo)
+                              {
+                                  [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
+                                  [self sendDidFinish];
+                              } else
+                              {
+                                  [self sendDidFailWithError:nil];
+                              }
+                              
+                          } else
+                          {
+                              [self sendDidFailWithError:nil];
+                          }
+                      }];
+    } else
+    {
+        [self sendDidFailWithError:nil];
+    }
+}
+
+- (void)userInfoReceived:(SHKRequest *)aRequest
+{
+	}
+
+
+
+
+#pragma mark -
+
 - (void) authComplete 
 {
-    [self authDidFinish: YES];
+    [self getAccessCode];
     
+    //[self authDidFinish: YES];
 	if (self.item) 
 		[self share];
 }
@@ -164,110 +282,138 @@
  	if (![self validateItem])
 		return NO;
 	
-	[self setQuiet:NO];
-	
-	if (item.shareType == SHKShareTypeURL && item.URL)
-	{
-		[self sendTextAndLink];
-		return YES;
-	}
-	else if (item.shareType == SHKShareTypeText && item.text)
-	{
-		[self sendText];
-		return YES;
-	}	
-	else if (item.shareType == SHKShareTypeImage && item.image)
-	{	
-		[self sendImageAction];
-		return YES;
-	}
-	else if (item.shareType == SHKShareTypeUserInfo)
-	{
-		/*[self setQuiet:YES];
-		[[SHKFacebook facebook] requestWithGraphPath:@"me" andDelegate:self];
-		return YES;*/
-		return NO;
-	} 
-	else 
-		return NO;
-
-	return [self sendText];
-}
-
-
-#pragma mark -	
-#pragma mark UI Implementation
-
-- (void)show
-{
-	if (item.shareType == SHKShareTypeText)        
-	{
-		[self showVkontakteForm];
-	}
- 	else
-	{
-		[self tryToSend];
-	}
-}
-
-- (void)showVkontakteForm
-{
- 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+	//[self setQuiet:NO];
     
- 	rootView.text = item.text;
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
- 	[self pushViewController:rootView animated:NO];
-	[rootView release];
-	[[SHK currentHelper] showViewController:self];  
+    switch (self.item.shareType) {
+        case SHKShareTypeURL:
+            [self sendTextAndLink];
+            break;
+        case SHKShareTypeText:
+            [self sendText];
+            break;
+        case SHKShareTypeImage:
+            [self sendImageAction];
+            break;
+        case SHKShareTypeUserInfo:
+            [self getUserInfo];
+            break;
+        case SHKShareTypeFile:
+            [self sendFileAction];
+            break;
+        default:
+            return NO;
+    }
+    
+    [self sendDidStart];
+    return YES;
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{  
- 	self.item.text = form.textView.text;
- 	[self tryToSend];
+#pragma mark -
+#pragma mark Share Form
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type
+{
+    NSString *text;
+    NSString *key;
+    BOOL allowEmptyMessage = NO;
+    
+    switch (self.item.shareType) {
+        case SHKShareTypeText:
+            text = self.item.text;
+            key = @"text";
+            break;
+        case SHKShareTypeImage:
+            text = self.item.title;
+            key = @"title";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeURL:
+            text = self.item.text;
+            key = @"text";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeFile:
+            text = self.item.title;
+            key = @"title";
+            break;
+        default:
+            return nil;
+    }
+        
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:key
+                                                                                 start:text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+        
+        BOOL result = formFieldSettings.valueToSave > 0;
+        return result;
+    };
+    
+    return @[commentField];
 }
+
+///////////////////////////////////////////////////////////////////////////
+//
+#pragma mark - sendImageAction -
+//
+///////////////////////////////////////////////////////////////////////////
+
+
 
 //Private
-- (BOOL)sendImageAction 
+- (void)sendImageAction
 {
-	UIImage *image = item.image;
-
+    
 	NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/photos.getWallUploadServer?owner_id=%@&access_token=%@", self.accessUserId, self.accessToken];
-	
-	NSDictionary *uploadServer = [self sendRequest:getWallUploadServer withCaptcha:NO];
-	NSString *upload_url = [[uploadServer objectForKey:@"response"] objectForKey:@"upload_url"];
-	
-	NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
-	
-	NSDictionary *postDictionary = [self sendPOSTRequest:upload_url withImageData:imageData];
-	
-	NSString *hash = [postDictionary objectForKey:@"hash"];
-	NSString *photo = [postDictionary objectForKey:@"photo"];
-	NSString *server = [postDictionary objectForKey:@"server"];
-
-	NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, [self encodedURLString:photo], hash];
-	
-	NSDictionary *saveWallPhotoDict = [self sendRequest:saveWallPhoto withCaptcha:NO];
-	
-	NSDictionary *photoDict = [[saveWallPhotoDict objectForKey:@"response"] lastObject];
-	NSString *photoId = [photoDict objectForKey:@"id"];
-	
-	NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.title], photoId];
-	
-	NSDictionary *postToWallDict = [self sendRequest:postToWallLink withCaptcha:NO];
-	NSString *errorMsg = [[postToWallDict  objectForKey:@"error"] objectForKey:@"error_msg"];
-
-	if(errorMsg) 
-	{
-		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
-		return NO;
-	} 
-	else 
-	{
-		[self sendDidFinish];
-		return YES;
-	}	
+    [self sendRequest:getWallUploadServer withCaptcha:NO completion:^(SHKRequest *request) {
+        
+        if ([self isRequestFinishedWithoutError:request])
+        {
+            // convert to JSON
+            NSError *error = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
+            if (upload_url)
+            {
+                UIImage *image = self.item.image;
+                NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+                //processing to next request
+                [self sendPOSTRequest:upload_url withImageData:imageData];
+                return;
+            }
+        }
+    }];
 }
+
+- (void)sendFileAction
+{
+	NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/docs.getUploadServer?owner_id=%@&access_token=%@", self.accessUserId, self.accessToken];
+    [self sendRequest:getWallUploadServer withCaptcha:NO completion: ^(SHKRequest *request) {
+        
+        if ([self isRequestFinishedWithoutError:request])
+        {
+            // convert to JSON
+            NSError *error = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
+            if (upload_url)
+            {
+                [self sendPOSTRequest:upload_url withFileData:self.item.file.data fileName:self.item.file.filename mime:self.item.file.mimeType];
+                return;
+            }
+        }
+    }];
+}
+
+///////////////////////////////////////////////////////////////////////////
+//
+#pragma mark -
+//
+///////////////////////////////////////////////////////////////////////////
+
+
+
 
 - (void) getCaptcha 
 {
@@ -275,11 +421,11 @@
 	UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Введите код:\n\n\n\n\n"
 																												message:@"\n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 	
-	UIImageView *imageView = [[[UIImageView alloc] initWithFrame:CGRectMake(12.0, 45.0, 130.0, 50.0)] autorelease];
+	UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(12.0, 45.0, 130.0, 50.0)];
 	imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:captcha_img]]];
 	[myAlertView addSubview:imageView];
 	
-	UITextField *myTextField = [[[UITextField alloc] initWithFrame:CGRectMake(12.0, 110.0, 260.0, 25.0)] autorelease];
+	UITextField *myTextField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 110.0, 260.0, 25.0)];
 	[myTextField setBackgroundColor:[UIColor whiteColor]];
 	
 	myTextField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -289,14 +435,13 @@
 	
 	[myAlertView addSubview:myTextField];
 	[myAlertView show];
-	[myAlertView release];
 }
 
 - (void)alertView:(UIAlertView *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if(isCaptcha && buttonIndex == 1)
+	if(self.isCaptcha && buttonIndex == 1)
 	{
-		isCaptcha = NO;
+		self.isCaptcha = NO;
 		
 		UITextField *myTextField = (UITextField *)[actionSheet viewWithTag:33];
 		[[NSUserDefaults standardUserDefaults] setObject:myTextField.text forKey:@"captcha_user"];
@@ -307,135 +452,267 @@
 	}
 }
 
-- (BOOL) sendText 
+
+- (void) sendText
 {		
-	NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.text]];
+	NSString *sendTextMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@", self.accessUserId, self.accessToken, [self URLEncodedString:self.item.text]];
 	
-	NSDictionary *result = [self sendRequest:sendTextMessage withCaptcha:NO];
-
-	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
-	if(errorMsg) 
-	{
-		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
-		return NO;
-	} 
-	else 
-	{
-		[self sendDidFinish];
-		return YES;
-	}	
+	[self sendRequest:sendTextMessage withCaptcha:NO];
 }
 
-- (BOOL) sendTextAndLink 
+
+- (void) sendTextAndLink
 {	
-	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self encodedURLString:item.text]?[self encodedURLString:item.text]:[item.URL absoluteString], [item.URL absoluteString]];
+	NSString *sendTextAndLinkMessage = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:self.item.text]?[self URLEncodedString:self.item.text]:[self.item.URL absoluteString], [self.item.URL absoluteString]];
 	
-	NSDictionary *result = [self sendRequest:sendTextAndLinkMessage withCaptcha:NO];
-	NSString *errorMsg = [[result objectForKey:@"error"] objectForKey:@"error_msg"];
-	if(errorMsg) 
-	{
-		[self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:1 userInfo:[NSDictionary dictionary]]];
-		return NO;
-	} 
-	else 
-	{
-		[self sendDidFinish];
-		return YES;
-	}	
+	[self sendRequest:sendTextAndLinkMessage withCaptcha:NO];
 }
 
-- (NSDictionary *) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha 
+
+
+
+///////////////////////////////////////////////////////////////////////////
+//
+#pragma mark - Send Request -
+//
+///////////////////////////////////////////////////////////////////////////
+
+- (void) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha
+{
+    [self sendRequest:reqURl withCaptcha:captcha completion:^(SHKRequest *request) {
+        
+        if ([self isRequestFinishedWithoutError:request])
+        {
+            NSError *error = nil;
+            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSString *errorMsg = [[res objectForKey:@"error"] objectForKey:@"error_msg"];
+            
+            if([errorMsg isEqualToString:@"Captcha needed"])
+            {
+                self.isCaptcha = YES;
+                
+                NSString *captcha_sid = [[res objectForKey:@"error"] objectForKey:@"captcha_sid"];
+                NSString *captcha_img = [[res objectForKey:@"error"] objectForKey:@"captcha_img"];
+                [[NSUserDefaults standardUserDefaults] setObject:captcha_img forKey:@"captcha_img"];
+                [[NSUserDefaults standardUserDefaults] setObject:captcha_sid forKey:@"captcha_sid"];
+                
+                [[NSUserDefaults standardUserDefaults] setObject:request.url forKey:@"request"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                [self getCaptcha];
+            } else
+            {
+                [self sendDidFinish];
+            }
+        }
+    }];
+}
+
+- (void) sendRequest:(NSString *)reqURl withCaptcha:(BOOL)captcha completion:(RequestCallback)completion
 {
 	if(captcha == YES)
 	{
 		NSString *captcha_sid = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_sid"];
 		NSString *captcha_user = [[NSUserDefaults standardUserDefaults] objectForKey:@"captcha_user"];
-
-		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self encodedURLString: captcha_user]];
+        
+		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self URLEncodedString: captcha_user]];
 	}
-	NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
-																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
-																										 timeoutInterval:60.0]; 
-	
-	NSData *responseData = [NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:nil];
-	
-	if(responseData){
-		NSDictionary *dict = [[JSONDecoder decoder] parseJSONData:responseData];
-		
-		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
-		
-		if([errorMsg isEqualToString:@"Captcha needed"])
-		{
-			isCaptcha = YES;
-
-			NSString *captcha_sid = [[dict objectForKey:@"error"] objectForKey:@"captcha_sid"];
-			NSString *captcha_img = [[dict objectForKey:@"error"] objectForKey:@"captcha_img"];
-			[[NSUserDefaults standardUserDefaults] setObject:captcha_img forKey:@"captcha_img"];
-			[[NSUserDefaults standardUserDefaults] setObject:captcha_sid forKey:@"captcha_sid"];
-
-			[[NSUserDefaults standardUserDefaults] setObject:reqURl forKey:@"request"];
-			[[NSUserDefaults standardUserDefaults] synchronize];
-			
-			[self getCaptcha];
-		}
-		
-		return dict;
-	}
-	return nil;
+    
+    [SHKRequest startWithURL:[NSURL URLWithString:reqURl] params:nil method:@"GET" completion:completion];
 }
 
-- (NSDictionary *) sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData 
+- (BOOL)isRequestFinishedWithoutError:(SHKRequest *)aRequest
 {
-	NSMutableURLRequest *requestM = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:reqURl] 
-																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
-																										 timeoutInterval:60.0]; 
-	[requestM setHTTPMethod:@"POST"]; 
-	
-	[requestM addValue:@"8bit" forHTTPHeaderField:@"Content-Transfer-Encoding"];
-	
+    if (aRequest.success)
+    {
+        // convert to JSON
+        NSError *error = nil;
+        NSDictionary *res = [NSJSONSerialization JSONObjectWithData:aRequest.data options:NSJSONReadingMutableContainers error:&error];
+
+        if (res)
+        {
+            NSString *errorMsg = [[res objectForKey:@"error"] objectForKey:@"error_msg"];
+            NSNumber *errorCode=[[res objectForKey:@"error"] objectForKey:@"error_code"];
+            
+            if (!errorMsg)
+            {
+                return YES;
+            } else
+            if([errorMsg isEqualToString:@"Captcha needed"])
+            {
+                return YES;
+            } else
+            {
+                NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                          errorMsg, NSLocalizedDescriptionKey,
+                                          nil];
+                
+                [self sendDidFailWithError:[NSError errorWithDomain:errorMsg code:[errorCode integerValue] userInfo:userInfo]];
+                return NO;
+            }
+        }
+    }
+    
+    [self sendDidFailWithError:nil];
+    return NO;
+}
+
+///////////////////////////////////////////////////////////////////////////
+//
+#pragma mark - Post Request With ImageData or FileData - 
+//
+///////////////////////////////////////////////////////////////////////////
+
+
+
+- (void) sendPOSTRequest:(NSString *)reqURl withImageData:(NSData *)imageData
+{
+    //creating headers
 	CFUUIDRef uuid = CFUUIDCreate(nil);
-	NSString *uuidString = [(NSString*)CFUUIDCreateString(nil, uuid) autorelease];
+	NSString *uuidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
 	CFRelease(uuid);
+    
 	NSString *stringBoundary = [NSString stringWithFormat:@"0xKhTmLbOuNdArY-%@",uuidString];
 	NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
-	
 	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;  boundary=%@", stringBoundary];
-	
-	[requestM setValue:contentType forHTTPHeaderField:@"Content-Type"];
-	
+
+    //creating body
 	NSMutableData *body = [NSMutableData data];
-	
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[@"Content-Disposition: form-data; name=\"photo\"; filename=\"photo.jpg\"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:imageData];        
+	[body appendData:imageData];
 	[body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[requestM setHTTPBody:body];
-	
-	NSData *responseData = [NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:nil];
-	NSDictionary *dict;
-	if(responseData)
-	{
-		dict = [[JSONDecoder decoder] parseJSONData:responseData];
-#ifdef _SHKDebugShowLogs		
-		NSString *errorMsg = [[dict objectForKey:@"error"] objectForKey:@"error_msg"];
-#endif		
-		SHKLog(@"Server response: %@ \nError: %@", dict, errorMsg);
-		
-		return dict;
-	}
-	return nil;
+    
+    SHKVKontakteRequest *request = [[SHKVKontakteRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                                  paramsData:[NSData dataWithData:body]
+                                                                      method:@"POST"
+                                                                  completion:[self POSTRequestCompletionBlock]];
+    
+    //setting headers
+    request.headerFields=[NSDictionary dictionaryWithObjectsAndKeys:
+                          @"8bit",         @"Content-Transfer-Encoding",
+                          contentType,     @"Content-Type",
+                          nil];
+    
+    [request start];
 }
 
-- (NSString *)encodedURLString:(NSString *)str
+
+- (void) sendPOSTRequest:(NSString *)reqURl withFileData:(NSData *)fileData fileName:(NSString*)filename mime:(NSString*)mime
 {
-	NSString *result = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-																																				 (CFStringRef)str,
-																																				 NULL,
-																																				 CFSTR("!*'();:@&=+$,/?%#[]"),
-																																				 kCFStringEncodingUTF8);
-	[result autorelease];
+    //creating headers
+	CFUUIDRef uuid = CFUUIDCreate(nil);
+	NSString *uuidString = (NSString*)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
+	CFRelease(uuid);
+    
+	NSString *stringBoundary = [NSString stringWithFormat:@"0xKhTmLbOuNdArY-%@",uuidString];
+	NSString *endItemBoundary = [NSString stringWithFormat:@"\r\n--%@\r\n",stringBoundary];
+	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data;  boundary=%@", stringBoundary];
+    
+    //creating body
+	NSMutableData *body = [NSMutableData data];
+	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mime] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:fileData];
+	[body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    SHKVKontakteRequest *request = [[SHKVKontakteRequest alloc] initWithURL:[NSURL URLWithString:reqURl]
+                                                                  paramsData:[NSData dataWithData:body]
+                                                                      method:@"POST"
+                                                                  completion:[self POSTRequestCompletionBlock]];
+    
+    //setting headers
+    request.headerFields=[NSDictionary dictionaryWithObjectsAndKeys:
+                          @"8bit",         @"Content-Transfer-Encoding",
+                          contentType,     @"Content-Type",
+                          nil];
+    
+    [request start];
+}
+
+
+- (RequestCallback)POSTRequestCompletionBlock
+{
+    RequestCallback result = ^(SHKRequest *request) {
+        
+        if ([self isRequestFinishedWithoutError:request])
+        {
+            // convert to JSON
+            NSError *error = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSString *hash = [responseDict objectForKey:@"hash"];
+            NSString *photo = [responseDict objectForKey:@"photo"];
+            NSString *server = [responseDict objectForKey:@"server"];
+            NSString *file = [responseDict objectForKey:@"file"];
+            
+            if (hash && photo && server)
+            {
+                //processing to next request
+                NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/photos.saveWallPhoto?owner_id=%@&access_token=%@&server=%@&photo=%@&hash=%@", self.accessUserId, self.accessToken ,server, [self URLEncodedString:photo], hash];
+                
+                [self sendRequest:saveWallPhoto withCaptcha:NO completion:^(SHKRequest *request) {
+                    
+                    if ([self isRequestFinishedWithoutError:request])
+                    {
+                        // convert to JSON
+                        NSError *error = nil;
+                        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+                        NSDictionary *photoDict = [[responseDict objectForKey:@"response"] lastObject];
+                        NSString *photoId = [photoDict objectForKey:@"id"];
+                        if (photoDict && photoId)
+                        {
+                            NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:self.item.title], photoId];
+                            
+                            //processing to next request
+                            [self sendRequest:postToWallLink withCaptcha:NO];
+                            return;
+                        }
+                    }
+                }];
+            }
+            else if (file)
+            {
+                NSString *saveWallPhoto = [NSString stringWithFormat:@"https://api.vk.com/method/docs.save?owner_id=%@&access_token=%@&file=%@", self.accessUserId, self.accessToken, [self URLEncodedString:file]];
+                
+                [self sendRequest:saveWallPhoto withCaptcha:NO completion:^(SHKRequest *request) {
+                    
+                    if ([self isRequestFinishedWithoutError:request])
+                    {
+                        // convert to JSON
+                        NSError *error = nil;
+                        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+                        NSDictionary *documentDict = [[responseDict objectForKey:@"response"] lastObject];
+                        NSString *ownerId = [documentDict objectForKey:@"owner_id"];
+                        NSString *documentId = [documentDict objectForKey:@"did"];
+                        if (documentDict && ownerId && documentId)
+                        {
+                            NSString *attachment = [NSString stringWithFormat:@"doc%@_%@", ownerId, documentId];
+                            if (self.item.URL)
+                                attachment = [attachment stringByAppendingFormat:@",%@", [self URLEncodedString:[self.item.URL absoluteString]]];
+                            NSString *postToWallLink = [NSString stringWithFormat:@"https://api.vk.com/method/wall.post?owner_id=%@&access_token=%@&message=%@&attachment=%@", self.accessUserId, self.accessToken, [self URLEncodedString:self.item.title], attachment];
+                            
+                            //processing to next request
+                            [self sendRequest:postToWallLink withCaptcha:NO];
+                            return;
+                        }
+                    }
+                }];
+            }
+        }
+    };
+    
+    return result;
+}
+
+- (NSString *)URLEncodedString:(NSString *)str
+{
+	NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                           (CFStringRef)str,
+                                                                           NULL,
+                                                                           CFSTR("!*'();:@&=+$,/?%#[]"),
+                                                                           kCFStringEncodingUTF8));
 	return result;
 }
 

@@ -33,11 +33,11 @@
 	NSString *appID;	
 }
 
-@property (nonatomic, retain) id delegate;
-@property (nonatomic, retain) UIWebView *vkWebView;
-@property (nonatomic, retain) NSString *appID;
+@property (nonatomic, strong) id delegate;
+@property (nonatomic, strong) UIWebView *vkWebView;
+@property (nonatomic, strong) NSString *appID;
 
-- (NSString*)stringBetweenString:(NSString*)start 
++ (NSString*)stringBetweenString:(NSString*)start
                        andString:(NSString*)end 
                      innerString:(NSString*)str;
 

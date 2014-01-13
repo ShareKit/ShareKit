@@ -26,6 +26,7 @@
 //
 
 #import "DefaultSHKConfigurator.h"
+#import "SHKFile.h"
 
 @implementation DefaultSHKConfigurator
 
@@ -103,19 +104,39 @@
 	return [NSNumber numberWithBool:false];
 }
 
+/*
+ Create a project on Google APIs console,
+ https://code.google.com/apis/console . Under "API Access", create a
+ client ID as "Installed application" with the type "iOS", and
+ register the bundle ID of your application.
+ */
+- (NSString*)googlePlusClientId {
+    return @"";
+}
 
-// Read It Later - http://readitlaterlist.com/api/signup/ 
-- (NSString*)readItLaterKey {
-	return @"";
+//Pocket v3 consumer key. http://getpocket.com/developer/apps/. If you have old read it later app, you should obtain new key.
+- (NSString *)pocketConsumerKey {
+    
+    return @"";
 }
 
 // Diigo - http://www.diigo.com/api_keys/new/
 - (NSString*)diigoKey {
   return @"";
 }
-// Twitter - http://dev.twitter.com/apps/new
+
+// Twitter
+
 /*
- Important Twitter settings to get right:
+ If you want to force use of old-style, pre-IOS5 twitter authentication, set this to true. This way user will have to enter credentials to the OAuthWebView presented by your app. These credentials will not end up in the device account store. If set to false, sharekit takes user credentials from the builtin device store on iOS6 or later and utilizes social.framework to share content. Much easier, and thus recommended is to leave this false and use iOS builtin authentication.
+ */
+- (NSNumber*)forcePreIOS5TwitterAccess {
+	return [NSNumber numberWithBool:false];
+}
+
+/* YOU CAN SKIP THIS SECTION unless you set forcePreIOS5TwitterAccess to true, or if you support iOS 4 or older.
+ 
+ Register your app here - http://dev.twitter.com/apps/new
  
  Differences between OAuth and xAuth
  --
@@ -129,14 +150,6 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
-
-/*
- If you want to force use of old-style, pre-IOS5 twitter framework, for example to ensure
- twitter accounts don't end up in the devices account store, set this to true.
- */
-- (NSNumber*)forcePreIOS5TwitterAccess {
-	return [NSNumber numberWithBool:false];
-}
 
 - (NSString*)twitterConsumerKey {
 	return @"";
@@ -156,23 +169,6 @@
 // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 - (NSString*)twitterUsername {
 	return @"";
-}
-
-// Tumblr - http://www.tumblr.com/docs/en/api/v2
-- (NSString*)tumblrConsumerKey {
-	return @"";
-}
-
-- (NSString*)tumblrSecret {
-	return @"";
-}
-// You need to set this if using OAuth
-- (NSString*)tumblrCallbackUrl {
-	return @"";
-}
-// Currently only works in xAuth mode.
-- (NSNumber*)tumblrUseXAuth {
-	return [NSNumber numberWithInt:1];
 }
 
 // Evernote - http://www.evernote.com/about/developer/api/
@@ -202,7 +198,8 @@
 /*
  1 - This requires the CFNetwork.framework 
  2 - One needs to setup the flickr app as a "web service" on the flickr authentication flow settings, and enter in your app's custom callback URL scheme. 
- 3 - make sure you define and create the same URL scheme in your apps info.plist. It can be as simple as yourapp://flickr */
+ 3 - make sure you define and create the same URL scheme in your app description on Flickr. It can be as simple as yourapp://flickr
+ 4 - do not override this, unless you subclass the sharer and need more privileges for custom added functionality.*/
 - (NSString*)flickrConsumerKey {
     return @"";
 }
@@ -215,7 +212,11 @@
     return @"app://flickr";
 }
 
-// Bit.ly for shortening URLs in case you use original SHKTwitter sharer (pre iOS5). If you use iOS 5 builtin framework, the URL will be shortened anyway, these settings are not used in this case. http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key If you do not enter bit.ly credentials, URL will be shared unshortened.
+- (NSString *)flickrPermissions {
+    return @"write";
+}
+
+// Bit.ly for shortening URLs, used by some sharers (e.g. Buffer). http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key If you do not enter bit.ly credentials, URL will be shared unshortened.
 - (NSString*)bitLyLogin {
 	return @"";
 }
@@ -249,6 +250,7 @@
 - (NSNumber*)readabilityUseXAuth {
 	return [NSNumber numberWithInt:1];
 }
+
 // Foursquare V2 - https://developer.foursquare.com
 - (NSString*)foursquareV2ClientId {
     return @"";
@@ -258,11 +260,127 @@
     return @"";
 }
 
+// Tumblr - http://www.tumblr.com/docs/en/api/v2
+- (NSString*)tumblrConsumerKey {
+	return @"";
+}
+
+- (NSString*)tumblrSecret {
+	return @"";
+}
+
+//you can put whatever here. It must be the same you entered in tumblr app registration, eg tumblr.sharekit.com
+- (NSString*)tumblrCallbackUrl {
+	return @"";
+}
+
+// Hatena - https://www.hatena.com/yours12345/config/auth/develop
+- (NSString*)hatenaConsumerKey {
+	return @"";
+}
+
+- (NSString*)hatenaSecret {
+	return @"";
+}
+
+//required permissions. You do not need change these - but it must correspond with what you set during app registration on Hatena.
+- (NSString *)hatenaScope {
+    return @"write_public,read_public";
+}
+
+// Plurk - http://www.plurk.com/API
+- (NSString *)plurkAppKey {
+  return @"";
+}
+
+- (NSString *)plurkAppSecret {
+  return @"";
+}
+
+- (NSString *)plurkCallbackURL {
+  return @"";
+}
+
+// Instagram
+
+// Instagram crops images by default
+- (NSNumber*)instagramLetterBoxImages {
+    return [NSNumber numberWithBool:YES];
+}
+
+- (UIColor *)instagramLetterBoxColor
+{
+    return [UIColor whiteColor];
+}
+
+///only show instagram in the application list (instead of Instagram plus any other public/jpeg-conforming apps) 
+- (NSNumber *)instagramOnly {
+    return [NSNumber numberWithBool:YES];
+}
+
+// YouTube - https://developers.google.com/youtube/v3/guides/authentication#OAuth2_Register
+- (NSString*)youTubeConsumerKey {
+	return @"";
+}
+
+- (NSString*)youTubeSecret {
+	return @"";
+}
+
+// Dropbox - https://www.dropbox.com/developers/apps
+- (NSString *) dropboxAppKey {
+    return @"";
+}
+- (NSString *) dropboxAppSecret {
+    return @"";
+}
+/*
+ This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
+ @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
+ @"dropbox" (set if you chose permission type "Full dropbox" == kDBRootDropbox)
+ */
+- (NSString *) dropboxRootFolder {
+    return @"sandbox";
+}
+
+// if you set NO, a dialogue will appear where user can choose different filename, otherwise the file is silently overwritten.
+- (NSNumber *)dropboxShouldOverwriteExistedFile {
+    return [NSNumber numberWithBool:YES];
+}
+
+// Buffer
+/*
+ 1 - Set up an app at https://bufferapp.com/developers/apps/create
+ 2 - Once the app is set up this requires a URL Scheme to be set up within your apps info.plist. bufferXXXX where XXXX is your client ID, this will enable Buffer authentication.
+ 3 - Set bufferShouldShortenURLS. NO will use ShareKit's shortening (if available). YES will use Buffer's shortener once the sheet is autheorised and presented.
+*/
+
+- (NSString*)bufferClientID
+{
+	return @"";
+}
+
+- (NSString*)bufferClientSecret
+{
+	return @"";
+}
+
+- (NSNumber *)bufferShouldShortenURLS {
+    return [NSNumber numberWithBool:YES];
+}
+
 /*
  UI Configuration : Basic
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
  */
+
+/*
+ For sharers supported by Social.framework you can choose to present Apple's UI (SLComposeViewController) or ShareKit's UI (you can customize ShareKit's UI). Note that SLComposeViewController has only limited sharing capabilities, e.g. for file sharing on Twitter (photo files, video files, large UIImages) ShareKit's UI will be used anyway.
+ */
+- (NSNumber *)useAppleShareUI {
+    return @YES;
+}
 
 // Toolbars
 - (NSString*)barStyle {
@@ -287,7 +405,7 @@
 	return @"UIModalPresentationFormSheet";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 }
 
-- (NSString*)modalTransitionStyle {
+- (NSString*)modalTransitionStyleForController:(UIViewController *)controller {
 	return @"UIModalTransitionStyleCoverVertical";// See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 }
 // ShareMenu Ordering
@@ -315,7 +433,7 @@
  These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
  */
 - (NSArray*)defaultFavoriteURLSharers {
-    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKReadItLater", nil];
+    return [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook", @"SHKPocket", nil];
 }
 - (NSArray*)defaultFavoriteImageSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook", @"SHKCopy", nil];
@@ -323,8 +441,24 @@
 - (NSArray*)defaultFavoriteTextSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 }
-- (NSArray*)defaultFavoriteFileSharers {
-    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+
+//ShareKit will remember last used sharers for each particular mime type.
+
+- (NSArray *)defaultFavoriteSharersForFile:(SHKFile *)file {
+    
+    NSMutableArray *result = [NSMutableArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+    if ([file.mimeType hasPrefix:@"video/"] || [file.mimeType hasPrefix:@"audio/"] || [file.mimeType hasPrefix:@"image/"]) {
+        [result addObject:@"SHKTumblr"];
+    }
+    return result;
+}
+
+- (NSArray*)defaultFavoriteSharersForMimeType:(NSString *)mimeType {
+    return [self defaultFavoriteSharersForFile:nil];
+}
+
+- (NSArray *)defaultFavoriteFileSharers {
+    return [self defaultFavoriteSharersForFile:nil];
 }
 
 //by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
@@ -339,10 +473,6 @@
  check out http://getsharekit.com/customize. To use a subclass, you can create your own, and let ShareKit know about it in your configurator, overriding one (or more) of these methods.
  */
 
-- (Class)SHKActionSheetSubclass {    
-    return NSClassFromString(@"SHKActionSheet");
-}
-
 - (Class)SHKShareMenuSubclass {    
     return NSClassFromString(@"SHKShareMenu");
 }
@@ -351,6 +481,7 @@
     return NSClassFromString(@"UITableViewCell");
 }
 
+///You can override methods from Configuration section (see SHKFormController.h) to use your own cell subclasses.
 - (Class)SHKFormControllerSubclass {
     return NSClassFromString(@"SHKFormController");
 }
@@ -360,6 +491,7 @@
  ----------------------
  These settings can be left as is.  This only need to be changed for uber custom installs.
  */
+
 - (NSNumber*)maxFavCount {
 	return [NSNumber numberWithInt:3];
 }
@@ -383,7 +515,7 @@
 /* 
  Debugging settings
  ------------------
- see DefaultSHKConfigurator.h
+ see Debug.h
  */
 
 /*

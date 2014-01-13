@@ -26,33 +26,25 @@
 //
 
 #import "SHKDelicious.h"
-#import "SHKXMLResponseParser.h"
 
-/**
- Private helper methods
- */
-@interface SHKDelicious ()
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
-@end
+#import "SharersCommonHeaders.h"
+#import "SHKXMLResponseParser.h"
+#import "SHKRequest.h"
 
 @implementation SHKDelicious
-
-
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
 + (NSString *)sharerTitle
 {
-	return @"Delicious";
+	return SHKLocalizedString(@"Delicious");
 }
 
 + (BOOL)canShareURL
 {
 	return YES;
 }
-
 
 #pragma mark -
 #pragma mark Authorization
@@ -62,54 +54,50 @@
 	return SHKLocalizedString(@"Create an account at %@", @"http://delicious.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator	
-	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:
-													[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get",
-													 SHKEncode([formValues objectForKey:@"username"]),
-													 password
-													 ]]
-											params:nil
-										  delegate:self
-								isFinishedSelector:@selector(authFinished:)
-											method:@"GET"
-										 autostart:YES] autorelease];
-	
-	self.pendingForm = form;
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result =  ^(SHKFormController *form) {
+        
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
+        weakSelf.pendingForm = form;
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        NSString *password = [SHKEncode([formValues objectForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+        [SHKRequest startWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/get", SHKEncode([formValues objectForKey:@"username"]), password]]
+                          params:nil
+                          method:@"GET"
+                      completion:^ (SHKRequest *request) {
+                          
+                          // Hide the activity indicator
+                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          if (request.success)
+                          {
+                              [weakSelf.pendingForm saveForm];
+                          }
+                          else
+                          {
+                              if (request.response.statusCode == 401)
+                              {
+                                  [weakSelf authShowBadCredentialsAlert];
+                              }
+                              else
+                              {
+                                  [weakSelf authShowOtherAuthorizationErrorAlert];
+                              }
+                              SHKLog(@"authorization error: %@", [request description]);
+                          }
+                          [weakSelf authDidFinish:request.success];
+                      }];
+    };
+    return result;
 }
-
-- (void)authFinished:(SHKRequest *)aRequest
-{	
-	// Hide the activity indicator
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	if (aRequest.success)
-	{
-		[pendingForm saveForm];
-	}
-    else
-    {    
-        if (aRequest.response.statusCode == 401)
-        {
-            [self authShowBadCredentialsAlert];
-        }
-        else
-        {
-            [self authShowOtherAuthorizationErrorAlert];
-        }   
-    }
-	[self authDidFinish:aRequest.success];
-}
-
 
 #pragma mark -
 #pragma mark Share Form
@@ -118,74 +106,64 @@
 {
 	if (type == SHKShareTypeURL)
 		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[item.tags componentsJoinedByString:@", "]],
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:item.text],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag") key:@"tags" type:SHKFormFieldTypeText start:[self.item.tags componentsJoinedByString:@", "]],
+				[SHKFormFieldSettings label:SHKLocalizedString(@"Notes") key:@"text" type:SHKFormFieldTypeText start:self.item.text],
 				[SHKFormFieldSettings label:SHKLocalizedString(@"Shared") key:@"shared" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOff],
 				nil];
 	
 	return nil;
 }
 
-
-
 #pragma mark -
 #pragma mark Share API Methods
 
 - (BOOL)send
 {	
-	if ([self validateItem])
-	{
-        NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
-        [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-
-		NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
-        NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
+	if (![self validateItem]) return NO;
+    
+    NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
+    [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    
+    NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
+    NSString* address =[NSString stringWithFormat:@"https://%@:%@@api.del.icio.us/v1/posts/add?url=%@&description=%@&tags=%@&extended=%@&shared=%@",
                         SHKEncode([self getAuthValueForKey:@"username"]),
                         password,
-                        SHKEncodeURL(item.URL),
-                        SHKEncode(item.title),
-                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil]),
-                        SHKEncode(item.text),
-                        [item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
+                        SHKEncodeURL(self.item.URL),
+                        SHKEncode(self.item.title),
+                        SHKEncode([self tagStringJoinedBy:@" " allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),
+                        SHKEncode(self.item.text),
+                        [self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"
                         ];
     
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:address]
-												params:nil
-											  delegate:self
-									isFinishedSelector:@selector(sendFinished:)
-												method:@"GET"
-											 autostart:YES] autorelease];
-		
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{	
-	NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromResponse:aRequest.data];
-        
-    if ([responseResultCode isEqualToString:@"done"]) {
-        
-        [self sendDidFinish];
-
-    } else {
-        
-        if (aRequest.response.statusCode == 401){ //user changed password
-        
-            [self shouldReloginWithPendingAction:SHKPendingSend];        
-        
-        } else {
-            
-            [self sendShowSimpleErrorAlert];
-        }
-    }
+    [SHKRequest startWithURL:[NSURL URLWithString:address]
+                      params:nil
+                      method:@"GET"
+                  completion:^ (SHKRequest *request) {
+                      
+                      NSString *responseResultCode = [SHKXMLResponseParser getValueForElement:@"code" fromXMLData:request.data];
+                      
+                      if ([responseResultCode isEqualToString:@"done"]) {
+                          
+                          [self sendDidFinish];
+                          
+                      } else {
+                          
+                          if (request.response.statusCode == 401){ //user changed password
+                              
+                              [self shouldReloginWithPendingAction:SHKPendingSend];
+                              
+                          } else {
+                              
+                              [self sendShowSimpleErrorAlert];
+                          }
+                          SHKLog(@"Share failed with error: %@", [request description]);
+                      }
+                  }];
+    
+    // Notify delegate
+    [self sendDidStart];
+    return YES;
 }
 
 @end

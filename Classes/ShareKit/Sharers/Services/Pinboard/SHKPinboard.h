@@ -29,8 +29,5 @@
 #import "SHKSharer.h"
 
 @interface SHKPinboard : SHKSharer 
-{
-
-}
 
 @end

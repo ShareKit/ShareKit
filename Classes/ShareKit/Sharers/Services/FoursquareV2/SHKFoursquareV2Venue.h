@@ -27,12 +27,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SHKFoursquareV2Venue : NSObject {
-    NSString *_venueId;
-    NSString *_name;
-    NSString *_address;
-    NSString *_icon;
-}
+@interface SHKFoursquareV2Venue : NSObject
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *name;

@@ -33,16 +33,18 @@
 #define SHK_FORM_CELL_PAD_RIGHT 10
 
 @class SHKFormController;
+@class SHKFormFieldSettings;
 
 @protocol SHKFormFieldCellDelegate <NSObject>
 
 - (void)setActiveTextField:(UITextField *)activeTextField;
+- (void)valueChanged;
 
 @end
 
 @interface SHKFormFieldCell : UITableViewCell 
 
-@property (assign) id <SHKFormFieldCellDelegate> delegate;
+@property (weak) id <SHKFormFieldCellDelegate> delegate;
 
 - (void)setupLayout;
 - (void)setupWithSettings:(SHKFormFieldSettings *)_settings;

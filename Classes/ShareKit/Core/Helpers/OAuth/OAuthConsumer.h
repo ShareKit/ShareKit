@@ -24,7 +24,6 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "OAProblem.h"
 #import "OAToken.h"
 #import "OAConsumer.h"
 #import "OAMutableURLRequest.h"
@@ -37,5 +36,4 @@
 #import "OARequestParameter.h"
 #import "OAServiceTicket.h"
 #import "OADataFetcher.h"
-#import "OATokenManager.h"
 #import "OAAsynchronousDataFetcher.h"

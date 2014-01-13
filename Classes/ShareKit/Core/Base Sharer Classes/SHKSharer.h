@@ -26,8 +26,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SHK.h"
-#import "SHKFormController.h"
+
+#import "SHKItem.h"
+#import "FormControllerCallback.h"
+
+@class SHKRequest;
+@class SHKFormController;
+@class SHKFormOptionController;
+@class SHKFile;
 
 @class SHKSharer;
 
@@ -44,7 +50,6 @@
 
 @end
 
-
 typedef enum 
 {
 	SHKPendingNone,
@@ -53,37 +58,19 @@ typedef enum
     SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
 
-
 @interface SHKSharer : UINavigationController
-{	
-	id shareDelegate;
-	
-	SHKItem *item;
-	SHKFormController *pendingForm;
-    SHKFormOptionController* curOptionController;
-	SHKRequest *request;
-		
-	NSError *lastError;
-	
-	BOOL quiet;
-	SHKSharerPendingAction pendingAction;
-}
 
-@property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
+@property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 
-@property (retain) SHKItem *item;
-@property (retain) SHKFormController *pendingForm;
-@property (retain) SHKRequest *request;
-
-@property (nonatomic, retain) NSError *lastError;
-
+@property (strong) SHKItem *item;
+@property (weak) SHKFormController *pendingForm;
+@property (weak) SHKFormOptionController *curOptionController;
+@property (nonatomic, strong) NSError *lastError;
 @property BOOL quiet;
 @property SHKSharerPendingAction pendingAction;
 
-
-
 #pragma mark -
-#pragma mark Configuration : Service Defination
+#pragma mark Configuration : Service Definition
 
 + (NSString *)sharerTitle;
 - (NSString *)sharerTitle;
@@ -91,15 +78,15 @@ typedef enum
 - (NSString *)sharerId;
 + (BOOL)canShareText;
 + (BOOL)canShareURL;
+- (BOOL)requiresShortenedURL;
 + (BOOL)canShareImage;
-+ (BOOL)canShareFile;
++ (BOOL)canShareFile:(SHKFile *)file;
 + (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
 + (BOOL)requiresAuthentication;
-+ (BOOL)canShareType:(SHKShareType)type;
++ (BOOL)canShareItem:(SHKItem *)item;
 + (BOOL)canAutoShare;
-
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
@@ -111,7 +98,6 @@ typedef enum
 #pragma mark Initialization
 
 - (id)init;
-
 
 #pragma mark -
 #pragma mark Share Item Loading Convenience Methods
@@ -127,10 +113,31 @@ typedef enum
 
 + (id)shareText:(NSString *)text;
 
-+ (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
++ (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title __attribute__((deprecated("use shareFileData:filename:title or shareFilePath:title instead. Mimetype is derived from filename")));
+
+// use if you share in-memory data.
++ (id)shareFileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title;
+
+//use if you share file from disk.
++ (id)shareFilePath:(NSString *)path title:(NSString *)title;
 
 //only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
 + (id)getUserInfo;
+
+#pragma mark - 
+#pragma mark Share Item Save Methods
+
+/* used by subclasses when user has to quit the app during share process - e.g. during Facebook SSO trip to facebook app or browser. These methods save item temporarily to defaults and read it back. Data attachments (filedata, image) are stored as separate files in cache dir */
+- (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
+- (BOOL)restoreItem;
+
+// useful for handling custom posting error states
++ (void)clearSavedItem;
+
+#pragma mark - 
+#pragma mark - Share Item URL Shortening
+
+- (void)shortenURL;
 
 #pragma mark -
 #pragma mark Commit Share
@@ -145,23 +152,37 @@ typedef enum
 - (void)promptAuthorization;
 - (NSString *)getAuthValueForKey:(NSString *)key;
 
+/*!
+ * Convenient method for getting authorization status for particular service.
+ *
+ * @return If any user is authorized, returns YES, otherwise nil.
+ */
++ (BOOL)isServiceAuthorized;
+
+/*!
+ * Convenient method for getting username, if any user is logged in.
+ *
+ * @return If any user is authorized, returns username, otherwise nil. For this method to work for OAuth sharer, this has to implement canGetUserInfo, otherwise returns nil.
+ */
++ (NSString *)username;
+
 #pragma mark Authorization Form
 
 - (void)authorizationFormShow;
-- (void)authorizationFormValidate:(SHKFormController *)form;
-- (void)authorizationFormSave:(SHKFormController *)form;
-- (void)authorizationFormCancel:(SHKFormController *)form;
+- (FormControllerCallback)authorizationFormValidate;
+- (FormControllerCallback)authorizationFormSave;
+- (FormControllerCallback)authorizationFormCancel;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
 + (NSArray *)authorizationFormFields;
 + (NSString *)authorizationFormCaption;
 + (void)logout;
-+ (BOOL)isServiceAuthorized;
+
 
 #pragma mark -
 #pragma mark API Implementation
 
--(NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString;
+- (NSString *)tagStringJoinedBy:(NSString *)joinString allowedCharacters:(NSCharacterSet *)charset tagPrefix:(NSString *)prefixString tagSuffix:(NSString *)suffixString;
 
 - (BOOL)validateItem;
 - (BOOL)tryToSend;
@@ -176,9 +197,10 @@ typedef enum
 #pragma mark Share Form
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
-- (void)shareFormValidate:(SHKFormController *)form;
-- (void)shareFormSave:(SHKFormController *)form;
-- (void)shareFormCancel:(SHKFormController *)form;
+- (FormControllerCallback)shareFormValidate;
+- (FormControllerCallback)shareFormSave;
+- (FormControllerCallback)shareFormCancel;
+- (void)setupFormController:(SHKFormController *)rootView withFields:(NSArray *)shareFormFields;
 
 #pragma mark -
 #pragma mark Pending Actions

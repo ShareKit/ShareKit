@@ -25,17 +25,16 @@
 //
 
 #import "SHKVkontakteOAuthView.h"
+
 #import "SHKVkontakte.h"
+#import "SHK.h"
+#import "Debug.h"
 
 @implementation SHKVkontakteOAuthView
 @synthesize vkWebView, appID, delegate;
 
 - (void) dealloc {
-	[delegate release];
-	[appID release];
 	vkWebView.delegate = nil;
-	[vkWebView release];
-	[super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,14 +43,28 @@
 	
 }
 
+- (void) closeView
+{
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+}
+
+- (void) addCloseButton
+{
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonItemStyleBordered
+                                                                                           target:self
+                                                                                           action:@selector(closeView)];
+}
+
 #pragma mark - View lifecycle
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
+    [self addCloseButton];
+    
 	if(!vkWebView)
 	{
-		self.vkWebView = [[[UIWebView alloc] initWithFrame:self.view.bounds] autorelease];
+		self.vkWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
 		vkWebView.delegate = self;
 		vkWebView.scalesPageToFit = YES;
 		self.vkWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -60,14 +73,18 @@
 	
 	if(!appID) 
 	{
-		[self dismissModalViewControllerAnimated:YES];
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		return;
 	}
-	NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID];
-	NSURL *url = [NSURL URLWithString:authLink];
-	
-	[vkWebView loadRequest:[NSURLRequest requestWithURL:url]];
-	
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos,friends,offline,docs&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID];
+    NSURL *url = [NSURL URLWithString:authLink];
+
+    [vkWebView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)viewDidUnload
@@ -93,7 +110,7 @@
 	NSURL *URL = [request URL];
 
 	if ([[URL absoluteString] isEqualToString:@"http://api.vk.com/blank.html#error=access_denied&error_reason=user_denied&error_description=User%20denied%20your%20request"]) {
-		[super dismissModalViewControllerAnimated:YES];
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		return NO;
 	}
 	SHKLog(@"Request: %@", [URL absoluteString]); 
@@ -107,7 +124,7 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
 
 	if ([vkWebView.request.URL.absoluteString rangeOfString:@"access_token"].location != NSNotFound) {
-		NSString *accessToken = [self stringBetweenString:@"access_token=" 
+		NSString *accessToken = [SHKVkontakteOAuthView stringBetweenString:@"access_token="
 																						andString:@"&" 
 																					innerString:[[[webView request] URL] absoluteString]];
 		
@@ -127,10 +144,10 @@
 		
 		SHKLog(@"vkWebView response: %@",[[[webView request] URL] absoluteString]);
 		[(SHKVkontakte *)delegate authComplete];
-		[self dismissModalViewControllerAnimated:YES];
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	} else if ([vkWebView.request.URL.absoluteString rangeOfString:@"error"].location != NSNotFound) {
 		SHKLog(@"Error: %@", vkWebView.request.URL.absoluteString);
-		[self dismissModalViewControllerAnimated:YES];
+		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	}
 	
 }
@@ -138,12 +155,12 @@
 -(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	
 	SHKLog(@"vkWebView Error: %@", [error localizedDescription]);
-	[self dismissModalViewControllerAnimated:YES];
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 }
 
 #pragma mark - Methods
 
-- (NSString*)stringBetweenString:(NSString*)start 
++ (NSString*)stringBetweenString:(NSString*)start
                        andString:(NSString*)end 
                      innerString:(NSString*)str 
 {

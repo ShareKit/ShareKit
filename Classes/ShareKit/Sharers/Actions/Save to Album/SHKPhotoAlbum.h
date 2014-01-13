@@ -29,8 +29,7 @@
 #import "SHKSharer.h"
 
 @interface SHKPhotoAlbum : SHKSharer 
-{
 
-}
 - (void) writeImageToAlbum;
+
 @end

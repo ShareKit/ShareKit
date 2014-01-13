@@ -26,13 +26,11 @@
 
 #import "SHKInstapaper.h"
 
+#import "SharersCommonHeaders.h"
+#import "SHKRequest.h"
+
 static NSString * const kInstapaperAuthenticationURL = @"https://www.instapaper.com/api/authenticate";
 static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api/add";
-
-@interface SHKInstapaper ()
-- (void)authFinished:(SHKRequest *)aRequest;
-- (void)sendFinished:(SHKRequest *)aRequest;
-@end
 
 @implementation SHKInstapaper
 
@@ -41,18 +39,10 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 
 + (NSString *)sharerTitle
 {
-	return @"Instapaper";
+	return SHKLocalizedString(@"Instapaper");
 }
 
 + (BOOL)canShareURL
-{
-	return YES;
-}
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-+ (BOOL)canShare
 {
 	return YES;
 }
@@ -65,50 +55,52 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 	return SHKLocalizedString(@"Create a free account at %@", @"Instapaper.com");
 }
 
-- (void)authorizationFormValidate:(SHKFormController *)form
+- (FormControllerCallback)authorizationFormValidate
 {
-	// Display an activity indicator
-	if (!quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-	
-	
-	// Authorize the user through the server
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *params = [NSMutableString stringWithFormat:@"username=%@&password=%@",
-                       SHKEncode([formValues objectForKey:@"username"]),
-                       SHKEncode([formValues objectForKey:@"password"])
-                       ];
-	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
-                                           params:params
-                                         delegate:self
-                               isFinishedSelector:@selector(authFinished:)
-                                           method:@"POST"
-                                        autostart:YES] autorelease];
-	
-	self.pendingForm = form;
-}
-
-- (void)authFinished:(SHKRequest *)aRequest
-{		
-	[[SHKActivityIndicator currentIndicator] hide];
-	
-	if (aRequest.success)
-		[pendingForm saveForm];
-	
-	else {
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
         
-        if (aRequest.response.statusCode == 403)
-        {
-            [self authShowBadCredentialsAlert];
-        }
-        else
-        {
-            [self authShowOtherAuthorizationErrorAlert];
-        }
-    }
-    [self authDidFinish:aRequest.success];
+        // Display an activity indicator
+        if (!weakSelf.quiet)
+            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        
+        weakSelf.pendingForm = form;
+        
+        // Authorize the user through the server
+        NSDictionary *formValues = [form formValues];
+        
+        NSString *params = [NSMutableString stringWithFormat:@"username=%@&password=%@",
+                            SHKEncode([formValues objectForKey:@"username"]),
+                            SHKEncode([formValues objectForKey:@"password"])
+                            ];
+        
+        [SHKRequest startWithURL:[NSURL URLWithString:kInstapaperAuthenticationURL]
+                          params:params
+                          method:@"POST"
+                      completion:^ (SHKRequest *request) {
+                         
+                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          if (request.success)
+                              [weakSelf.pendingForm saveForm];
+                          
+                          else {
+                              
+                              if (request.response.statusCode == 403)
+                              {
+                                  [weakSelf authShowBadCredentialsAlert];
+                              }
+                              else
+                              {
+                                  [weakSelf authShowOtherAuthorizationErrorAlert];
+                              }
+                              SHKLog(@"auth error: %@", [request description]);
+                          }
+                          [weakSelf authDidFinish:request.success];
+                      }];
+    };
+    return result;
 }
 
 #pragma mark -
@@ -126,49 +118,46 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 
 - (BOOL)send
 {		
-	if ([self validateItem]) {	
-
-        NSString *params = [NSMutableString stringWithFormat:@"url=%@&title=%@&selection=%@&username=%@&password=%@",
-                            SHKEncodeURL(self.item.URL),
-                            SHKEncode(self.item.title),
-                            SHKEncode(SHKFlattenHTML(self.item.text, YES)),
-                            SHKEncode([self getAuthValueForKey:@"username"]),
-                            SHKEncode([self getAuthValueForKey:@"password"])];
-		
-		self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kInstapaperSharingURL]
-                                             params:params
-                                           delegate:self
-                                 isFinishedSelector:@selector(sendFinished:)
-                                             method:@"POST"
-                                          autostart:YES] autorelease];
-		
-		// Notify delegate
-		[self sendDidStart];
-		
-		return YES;
-	}
-	
-	return NO;
-}
-
-- (void)sendFinished:(SHKRequest *)aRequest
-{
-	if (!aRequest.success) {
-		       
-        if (aRequest.response.statusCode == 403) {//user changed password
-            [self shouldReloginWithPendingAction:SHKPendingSend];
-			return;
-		}
-        else if (aRequest.response.statusCode == 500) {		
-            [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
-            return;
-        }
-        
-		[self sendShowSimpleErrorAlert];
-		return;
-	}
+	if (![self validateItem]) return NO;
     
-	[self sendDidFinish];
+    NSString *params = [NSMutableString stringWithFormat:@"url=%@&title=%@&selection=%@&username=%@&password=%@",
+                        SHKEncodeURL(self.item.URL),
+                        SHKEncode(self.item.title),
+                        SHKEncode(SHKFlattenHTML(self.item.text, YES)),
+                        SHKEncode([self getAuthValueForKey:@"username"]),
+                        SHKEncode([self getAuthValueForKey:@"password"])];
+    
+    [SHKRequest startWithURL:[NSURL URLWithString:kInstapaperSharingURL]
+                      params:params
+                      method:@"POST"
+                  completion:^ (SHKRequest *request) {
+                      
+                      if (request.success) {
+                          
+                          [self sendDidFinish];
+                          
+                      } else {
+                          
+                          if (request.response.statusCode == 403) {//user changed password
+                              
+                              [self shouldReloginWithPendingAction:SHKPendingSend];
+                              
+                          } else if (request.response.statusCode == 500) {
+                              
+                              [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
+                              
+                          } else {
+                              
+                              [self sendShowSimpleErrorAlert];
+                          }
+                          SHKLog(@"error during share:%@", [request description]);
+                      }
+                  }];
+    
+    // Notify delegate
+    [self sendDidStart];
+    
+    return YES;
 }
 
 @end

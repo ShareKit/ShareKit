@@ -23,11 +23,14 @@
 //
 
 #import "SHKInstagram.h"
-#import "SHKConfiguration.h"
+#import "SharersCommonHeaders.h"
+
+#define MAX_RESOLUTION_IPHONE_3GS 1536.0f
+#define MAX_RESOLUTION_IPHONE_4 1936.0f
 
 @interface SHKInstagram()
 
-@property (nonatomic, retain) UIDocumentInteractionController* dic;
+@property (nonatomic, strong) UIDocumentInteractionController* dic;
 @property BOOL didSend;
 
 @end
@@ -37,9 +40,7 @@
 - (void)dealloc {
     
 	_dic.delegate = nil;
-	[_dic release];
 	
-	[super dealloc];
 }
 
 #pragma mark -
@@ -57,8 +58,7 @@
 
 + (BOOL)canShareImage
 {
-    NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
-	return 	[[UIApplication sharedApplication] canOpenURL:instagramURL];
+    return YES;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -80,6 +80,12 @@
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
++ (BOOL)canShare
+{
+	NSURL *instagramURL = [NSURL URLWithString:@"instagram://app"];
+	return [[UIApplication sharedApplication] canOpenURL:instagramURL];
+}
+
 + (BOOL)canAutoShare
 {
 	return NO;
@@ -94,7 +100,12 @@
 	NSArray *paths = NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString* homePath = [paths objectAtIndex:0];
 	NSString* basePath = @"integration/instagram";
-	NSString* tmpFileName = @"jumpto.igo";
+	NSString* tmpFileName;
+    if ([SHKCONFIG(instagramOnly) boolValue]) {
+        tmpFileName = @"jumpto.igo";
+    } else {
+        tmpFileName = @"jumpto.ig";
+    }
 	
 	NSString* dirPath = [NSString stringWithFormat:@"%@/%@", homePath, basePath];
 	NSString* docPath = [NSString stringWithFormat:@"%@/%@", dirPath, tmpFileName];
@@ -102,39 +113,25 @@
 	//clear it out and make it fresh
 	[[NSFileManager defaultManager] removeItemAtPath:docPath error:nil];
 	if ([[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil]) {
-		UIImage* tmpImg = item.image;
-		float tmpCGWidth = CGImageGetWidth(tmpImg.CGImage);
-		float tmpCGHeight = CGImageGetHeight(tmpImg.CGImage);
-		float smaller = tmpCGWidth < tmpCGHeight ? tmpCGWidth : tmpCGHeight;
-		float larger = tmpCGWidth > tmpCGHeight ? tmpCGWidth : tmpCGHeight;
-		bool isWide = tmpCGWidth > tmpCGHeight;
-		
-		// make a draw rect based on the 612 square, scaling up if need be
-		smaller = smaller/larger*612;
-		larger = 612;
-		
-		// if we're not passed a proper image, letter box it with white
-		if (tmpImg.size.width != 612 || tmpImg.size.height != 612) {
-			UIGraphicsBeginImageContext(CGSizeMake(612, 612));
-			CGContextRef ctx = UIGraphicsGetCurrentContext();
-			[[UIColor colorWithRed:1 green:1 blue:1 alpha:1] set];
-			CGContextFillRect(ctx, CGRectMake(0, 0, 612,612));
-			CGRect drawRect = CGRectMake(isWide ? 0 :(612 - smaller)/2,
-										 isWide ? (612 - smaller)/2 : 0,
-										 isWide ? larger : smaller,
-										 isWide ? smaller : larger);
-			[tmpImg drawInRect:drawRect];
-			tmpImg = UIGraphicsGetImageFromCurrentImageContext();
-			UIGraphicsEndImageContext();
-			
-		}
+		UIImage* tmpImg = self.item.image;
+        
+        if(tmpImg.size.width != tmpImg.size.height && [SHKCONFIG(instagramLetterBoxImages) boolValue]){
+            float size = tmpImg.size.width > tmpImg.size.height ? tmpImg.size.width : tmpImg.size.height;
+            CGFloat maxPhotoSize = [self maxPhotoSize];
+            if(size > maxPhotoSize) size = maxPhotoSize;
+            tmpImg = [self imageByScalingImage:tmpImg proportionallyToSize:CGSizeMake(size,size)];
+        }
 		
 		NSData* imgData = [self generateImageData:tmpImg];
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
-		self.dic.UTI = @"com.instagram.exclusivegram";
-		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([item.title length] ? item.title : @""), ([item.title length] && [item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#"]];
+        if (SHKCONFIG(instagramOnly)) {
+            self.dic.UTI = @"com.instagram.exclusivegram";
+        } else {
+            self.dic.UTI = @"com.instagram.photo";
+        }
+		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([self.item.title length] ? self.item.title : @""), ([self.item.title length] && [self.item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
 		self.dic.annotation = @{@"InstagramCaption" : captionString};
 		self.dic.delegate = self;
 		UIView* bestView = self.view;
@@ -142,21 +139,94 @@
 			// we haven't been presented yet, so we're not in the hierarchy. On the iPad the DIC is
 			// presented in a popover and that really wants a view rooted in a window. Since we
 			// set the rootViewController in the controller that presents this one, we can use it
-			UIViewController* crvc = [[SHK currentHelper] rootViewForCustomUIDisplay];
+			UIViewController* crvc = [[SHK currentHelper] rootViewForUIDisplay];
 			if (crvc != nil && crvc.view.window != nil ) {
 				bestView = crvc.view;
 			}
 		}
 		if(bestView.window != nil){
-			[self retain];	// retain ourselves until the menu has done it's job or we'll nuke the popup (see documentInteractionControllerDidDismissOpenInMenu)
-			[self.dic presentOpenInMenuFromRect:item.popOverSourceRect inView:bestView animated:YES];
+			[[SHK currentHelper] keepSharerReference:self];	// retain ourselves until the menu has done it's job or we'll nuke the popup (see documentInteractionControllerDidDismissOpenInMenu)
+			[self.dic presentOpenInMenuFromRect:self.item.popOverSourceRect inView:bestView animated:YES];
 		}
 		return YES;
 	}
 	return NO;
 }
 
-- (NSData*) generateImageData:(UIImage*)image
+- (CGFloat)maxPhotoSize {
+    
+    CGFloat scale = [[UIScreen mainScreen] scale];
+    if (scale == 1.0f) {
+        return MAX_RESOLUTION_IPHONE_3GS;
+    } else {
+        return MAX_RESOLUTION_IPHONE_4;
+    }
+}
+
+- (UIImage *)imageByScalingImage:(UIImage*)image proportionallyToSize:(CGSize)targetSize {
+    
+    UIImage *sourceImage = image;
+    UIImage *newImage = nil;
+    
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    
+    CGFloat targetWidth = targetSize.width;
+    CGFloat targetHeight = targetSize.height;
+    
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    
+    if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
+        
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        
+        if (widthFactor < heightFactor)
+            scaleFactor = widthFactor;
+        else
+            scaleFactor = heightFactor;
+        
+        scaledWidth  = width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        
+        // center the image
+        
+        if (widthFactor < heightFactor) {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        } else if (widthFactor > heightFactor) {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    
+    
+    // this is actually the interesting part:
+    
+    UIGraphicsBeginImageContext(targetSize);
+    
+    [(UIColor*)SHKCONFIG(instagramLetterBoxColor) set];
+    CGContextFillRect(UIGraphicsGetCurrentContext(), CGRectMake(0,0,targetSize.width,targetSize.height));
+    
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width  = scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    if(newImage == nil) NSLog(@"could not scale image");
+    
+    return newImage ;
+}
+
+- (NSData*)generateImageData:(UIImage*)image
 {
 	return UIImageJPEGRepresentation(image,1.0);
 }
@@ -168,7 +238,7 @@
 	} else {
 		[self sendDidCancel];
     }
-	[self autorelease];
+	[[SHK currentHelper] removeSharerReference:self];
 }
 - (void) documentInteractionController: (UIDocumentInteractionController *) controller willBeginSendingToApplication: (NSString *) application{
 	self.didSend = true;

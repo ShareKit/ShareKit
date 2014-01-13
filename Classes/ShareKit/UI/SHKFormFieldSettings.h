@@ -25,52 +25,78 @@
 //
 //
 
+/*!
+ @class SHKFormFieldSettings
+ @discussion Provides model layer for for SHKFormFieldCell.
+ */
+
 #import <Foundation/Foundation.h>
 
-typedef enum 
+/*!
+ @abstract Indicates what type of form cell should be created.
+ @constant SHKFormFieldTypeText Cell with simple one line text field with text autocorrection. Best for user share content.
+ @constant SHKFormFieldTypeTextNoCorrect Cell with simple one line text field with disabled text autocorrection. Useful for usernames or filenames.
+ @constant SHKFormFieldTypePassword Cell with simple one line text field with hidden characters. Useful for passwords.
+ @constant SHKFormFieldTypeTextLarge Cell similar to apple tweet sheet. Has multiple lines, attachment thumbnail and optionally character counter.
+ @constant SHKFormFieldTypeSwitch Cell with switch. Useful for setting share options, such as private/public etc.
+ @constant SHKFormFieldTypeOptionPicker Cell which presents multivalue picker on selection. Useful if user has to choose from multiple values with support for downloading the possible values asynchronously. Suitable e.g. for selecting what album shared photo goest to.
+ */
+
+typedef enum
 {
 	SHKFormFieldTypeText,
 	SHKFormFieldTypeTextNoCorrect,
+    SHKFormFieldTypeTextLarge,
 	SHKFormFieldTypePassword,
 	SHKFormFieldTypeSwitch,
 	SHKFormFieldTypeOptionPicker
 } SHKFormFieldType;
 
+/*!
+ @typedef SHKFormFieldValidationBlock
+ @abstract Validation code for particular form field.
+ @param formFieldSettings The SHKFormFieldSettings instance which is being evaluated.
+ @result Returns YES if user's input is valid, NO if input is invalid.
+ @discussion Validation is evaluated whenever user types a character. The input to be validated you get from valueToSave method, but other properties might be helpful too, such as maxTextLength. 
+ */
+typedef BOOL (^SHKFormFieldValidationBlock) (id formFieldSettings);
+
 #define SHKFormFieldSwitchOff @"0"
 #define SHKFormFieldSwitchOn @"1"
 
+@class SHKFormFieldOptionPickerSettings;
+
 @interface SHKFormFieldSettings : NSObject 
 
-@property (nonatomic, retain) NSString *label;
-@property (nonatomic, retain) NSString *key;
+/// Displayed on the left of the cell with bold
+@property (nonatomic, readonly, strong) NSString *label;
+
+/// What SHKItem property this cell item will be saved.
+@property (nonatomic, readonly, strong) NSString *key;
+
+/// Specifies the type of cell to be constructed
 @property SHKFormFieldType type;
-@property (nonatomic, retain) NSString *start;
 
-//this holds value, which will be shared. It is a start value until user sets something.
-@property (nonatomic, retain) NSString *value;
+/// Initial value of the cell
+@property (nonatomic, readonly, strong) NSString *start;
 
-/*	optionPickerInfo contains the info needed to present the fact that there is a value that 
- can be picked from a list. The actual choices can be provided in the optionPickerInfo or
- the sharer can provide them when asked. The latter is for when the option is something that
- can't be known ahead of time, like the list of albums to place a photo in or a group that a
- user belongs to.
- 
- The format of the data is:
- 'title' => title to put at the top of the list
- 'curIndexes' => NSString comma sep list of index into the items list or -1.
- 'allowMultiple' => NSNumber boolVal if true then multiple options can be picked and a done button is added.
- the value is to a comma delimited string, see SHKFormOptionController:pickedOption:
- 'itemsList' => NSArray of NSString
- 'static' => NSNumber boolVal false if the choices must be loaded with a network operation
- if static is false then you must also include
- 'SHKFormOptionControllerOptionProvider' => something that implements the SHKFormOptionControllerOptionProvider
- protocol.
- 
- */	
-@property (nonatomic, retain) NSMutableDictionary *optionPickerInfo;
-@property (nonatomic, retain) NSString *optionDetailLabelDefault;
+/// Validation block for cell. It is evaluated on each user's character input. The default implementation always returns YES.
+@property (nonatomic, copy) SHKFormFieldValidationBlock validationBlock;
 
-+ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
-+ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s optionPickerInfo:(NSMutableDictionary *)oi optionDetailLabelDefault:(NSString *)od;
-- (NSString*) optionPickerValueForIndexes:(NSString*)indexes;
+///Tells SHKFormController, if should be selected when the form is presented. In case multiple fields have this set to YES, only the first one is selected.
+@property (nonatomic) BOOL select;
+
+///It is a start value until user sets something. This holds actual value of a setting - this value is used when submitting the form, @see valueToSave.
+@property (nonatomic, strong) NSString *displayValue;
+
+- (id)initWithLabel:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
+
++ (SHKFormFieldSettings *)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s;
+
+///Value, which is saved to item, and will be used in share request. Mostly this value is user friendly, thus it just echoes displayValue.
+- (NSString *)valueToSave;
+
+///Form controller checks this. If it finds any field invalid, send button is disabled
+- (BOOL)isValid;
+
 @end

@@ -24,19 +24,11 @@
 //
 
 #import "SHKSharer.h"
+#import "SHKFormOptionController.h"
 
 // Needed for HTTP Basic Auth
 NSString *base64(NSData *plainText);
 
-@interface SHKKippt : SHKSharer <SHKFormOptionControllerOptionProvider> {
-@private
-    NSString *_username;
-    NSString *_password;
-}
-
-// Convenience method: trigger request with Basic Auth added
-- (void)sendRequest:(NSString *)url params:(NSString *)params isFinishedSelector:(SEL)sel method:(NSString *)method;
-
-- (void)didFetchLists:(SHKRequest *)aRequest;
+@interface SHKKippt : SHKSharer <SHKFormOptionControllerOptionProvider>
 
 @end

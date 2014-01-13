@@ -29,18 +29,12 @@
 
 
 @interface SHKActivityIndicator : UIView
-{
-	UILabel *centerMessageLabel;
-	UILabel *subMessageLabel;
-	
-	UIActivityIndicatorView *spinner;
-}
 
-@property (nonatomic, retain) UILabel *centerMessageLabel;
-@property (nonatomic, retain) UILabel *subMessageLabel;
+@property (nonatomic, strong) UILabel *centerMessageLabel;
+@property (nonatomic, strong) UILabel *subMessageLabel;
 
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIProgressView *progress;
 
 + (SHKActivityIndicator *)currentIndicator;
 
@@ -55,6 +49,8 @@
 - (void)setSubMessage:(NSString *)message;
 - (void)showSpinner;
 - (void)hideSpinner;
+- (void)showProgress;
+- (void)hideProgress;
 - (void)setProperRotation;
 - (void)setProperRotation:(BOOL)animated;
 

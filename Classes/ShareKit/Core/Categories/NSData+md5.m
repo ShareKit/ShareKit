@@ -6,7 +6,7 @@
 -(NSString*)md5{
 	const char *cStr = [self bytes];
 	unsigned char digest[CC_MD5_DIGEST_LENGTH];
-	CC_MD5( cStr, [self length], digest );
+	CC_MD5( cStr, (CC_LONG)[self length], digest );
 	NSString* s = [NSString stringWithFormat: @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 								 digest[0], digest[1], 
 								 digest[2], digest[3],

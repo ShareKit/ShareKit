@@ -1,0 +1,229 @@
+"Email" = "بريد إلكتروني";
+
+"Username" = "اسم المستخدم";
+
+"Password" = "كلمة المرور";
+
+"Follow %@" = "تابع %@";
+
+"Continue" = "أكمل";
+
+"Share" = "شارك";
+
+"More..." = "المزيد...";
+
+"Cancel" = "إلغاء";
+
+"Private" = "خاص";
+
+"Public" = "عام";
+
+"Caption" = "شرح";
+
+"Title" = "عنوان";
+
+"Close" = "إغلاق";
+
+"Notes" = "ملاحظات";
+
+"Note" = "ملاحظة";
+
+"Shared" = "مشارك";
+
+"Edit" = "تحرير";
+
+"Actions" = "إجراءات";
+
+"Services" = "خدمات";
+
+"Send to %@" = "أرسل إلى %@";
+
+"Copy" = "نسخ";
+
+"Copied!" = "تم النسخ!";
+
+"Saving to %@" = "جاري الحفظ في %@";
+
+"Saved!" = "تم الحفظ!";
+
+"Offline" = "غير متصل";
+
+"Error" = "خطأ";
+
+"Login" = "تسجيل دخول";
+
+"Logging In..." = "جاري تسجيل الدخول...";
+
+"Login Error" = "خطأ في تسجيل الدخول";
+
+"Connecting..." = "جاري الاتصال...";
+
+"Shortening URL..." = "جاري تقصير الرابط...";
+
+"Shorten URL Error" = "خطأ في تقصير الرابط";
+
+"We could not shorten the URL." = "لم نستطع تقصير الرابط";
+
+"Create a free account at %@" = "أنشئ حساب مجاني في %@";
+
+"Create an account at %@" = "أنشئ حساب في %@";
+
+"Send to Twitter" = "أرسل إلى تويتر";
+
+"Message is too long" = "الرسالة طويلة جداً";
+
+"Twitter posts can only be 140 characters in length." = "رسائل تويتر يجب أن لا تزيد عن ١٤٠ حرف.";
+
+"Message is empty" = "الرسالة فارغة";
+
+"You must enter a message in order to post." = "يجب أن تكتب رسالة حتى تتمكن من الإرسال.";
+
+"Enter your message:" = "أدخل رسالتك:";
+
+"The service encountered an error. Please try again later." = "توجد مشكلة في الخدمة. الرجاء المحاولة في وقت لاحق.";
+
+"Sorry, %@ did not accept your credentials. Please try again." = "عفواً، %@ لم يقبل معلومات الدخول. الرجاء المحاولة مرة أخرى.";
+"Sorry, %@ encountered an error. Please try again." = "عفواً، حصل خطأ لدى %@. الرجاء المحاولة مرة أخرى.";
+"There was a problem saving to %@." = "حصل خطأ أثناء الحفظ في %@.";
+
+"There was a problem saving your note." = "حصل خطأ في حفظ ملاحظتك.";
+
+"Open in Safari" = "افتح في سفاري";
+
+"Attached: %@" = "مرفق: %@";
+
+"You must be online to login to %@" = "يجب أن تكون متصل بالشبكة للدخول إلى %@";
+
+"Auto Share" = "مشاركة تلقائية";
+
+"Enable auto share to skip this step in the future." = "فعّل المشاركة التلقائية حتى تتجاوز هذه الخطوة في المستقبل.";
+
+"You must be online in order to share with %@" = "يجب أن تكون متصل بالشبكة حتى تتمكن من المشاركة في %@";
+
+"Could not authenticate you. Please relogin." = "لم نستطع التحقق من بيانات الدخول. الرجاء إعادة تسجيل الدخول.";
+
+"There was a problem requesting authorization from %@" = "حصلت مشكلة أثناء التأكد من بيانات الدخول لدى %@";
+
+"Request Error" = "خطأ في الطلب";
+
+"There was an error while sharing" = "حصل خطأ أثناء المشاركة";
+
+"Authorize Error" = "خطأ في التحقق من معلومات الدخول";
+
+"There was an error while authorizing" = "حصل خطأ أثناء التحقق من معلومات الدخول";
+
+"Authenticating..." = "جاري التحقق من بيانات الدخول...";
+
+"There was a problem requesting access from %@" = "حصلت مشكلة أثناء طلب الصلاحيات من %@";
+
+"Access Error" = "خطأ في الدخول";
+
+"Logout" = "تسجيل خروج";
+
+"Sharing a Link" = "مشاركة رابط";
+
+"Sharing an Image" = "مشاركة صورة";
+
+"Sharing Text" = "مشاركة نص";
+
+"Sharing a File" = "مشاركة ملف";
+
+"Are you sure you want to logout of all share services?" = "هل أنت متأكد من تسجيل الخروج من جميع خدمات المشاركة؟";
+
+"Examples" = "أمثلة";
+
+"EDMA Error" = "EDMA خطأ";
+
+"EDMA Version is too old." = "نسخة EDMA قديمة جداً.";
+
+"Your username and password did not match" = "اسم المستخدم وكلمة المرور غير متطابقين";
+
+"Untitled" = "بدون عنوان";
+
+"There was a problem sharing with Evernote" = "حصلت مشكلة أثناء المشاركة بايفر نوت";
+
+"Get" = "احصل على";
+
+"Description" = "وصف";
+
+"Is Public" = "هو عام";
+
+"Is Friend" = "هو صديق";
+
+"Is Family" = "هو عائلي";
+
+"Logged Out!" = "تم تسجيل الخروج!";
+
+"Sent from %@" = "تم الإرسال من %@";
+
+"Save to Photo Album" = "احفظ في ألبوم الصور";
+
+"Tag, tag" = "وسم، وسم";
+
+"Logout of All Services" = "تسجيل الخروج من جميع الخدمات";
+
+/* No comment provided by engineer. */
+"Check In" = "سجل حضورك";
+
+/* No comment provided by engineer. */
+"Could not find any" = "لا توجد نتائج";
+
+/* No comment provided by engineer. */
+"Determine your location..." = "جاري تحديد مكانك...";
+
+/* No comment provided by engineer. */
+"Loading..." = "جاري التحميل...";
+
+/* No comment provided by engineer. */
+"Nearby Places" = "الأماكن القريبة";
+
+/* No comment provided by engineer. */
+"No Options" = "لا توجد خيارات";
+
+/* No comment provided by engineer. */
+"Post To Groups" = "أرسل إلى المجموعات";
+
+/* No comment provided by engineer. */
+"Print" = "اطبع";
+
+/* No comment provided by engineer. */
+"Search places" = "ابحث في الأماكن";
+
+/* No comment provided by engineer. */
+"Searching places..." = "جاري البحث في الأماكن";
+
+"Select Group" = "اختر مجموعة";
+"Flickr Groups" = "مجموعات فليكر";
+
+//Demo app
+"Accounts" = "حسابات";
+
+//Tumblr V2
+"Publish type" = "نوع النشر";
+"Publish now" = "انشر الآن";
+"Draft" = "مسودة";
+"Add to queue" = "أضف إلى الطابور";
+"Publish" = "انشر";
+
+/* Sharers' titles */
+"SMS" = "رسالة نصيّة";
+"Delicious" = "ديليشيوس";
+"Diigo" = "Diigo";
+"Evernote" = "ايفرنوت";
+"Facebook" = "فيسبوك";
+"Flickr" = "فليكر";
+"Foursquare" = "فورسكوير";
+"Google+" = "جوجل+";
+"Hatena" = "Hatena";
+"Instapaper" = "Instapaper";
+"Kippt" = "Kippt";
+"LinkedIn" = "لينكد إن";
+"Pinboard" = "بن بورد";
+"Plurk" = "Plurk";
+"Pocket" = "بوكت";
+"Readability" = "Readability";
+"Sina Weibo" = "Sina Weibo";
+"Tumblr" = "تمبلر";
+"Twitter" = "تويتر";
+"Vkontakte" = "Vkontakte";
+"Instagram" = "إنستقرام";

@@ -25,23 +25,23 @@
 
 
 #import "OAHMAC_SHA1SignatureProvider.h"
+#import <CommonCrypto/CommonHMAC.h>
 
-#include "hmac.h"
 #include "Base64Transcoder.h"
 
 @implementation OAHMAC_SHA1SignatureProvider
 
-- (NSString *)name {
+- (NSString *)name 
+{
     return @"HMAC-SHA1";
 }
 
-- (NSString *)signClearText:(NSString *)text withSecret:(NSString *)secret {
-    NSData *secretData = [[secret dataUsingEncoding:NSUTF8StringEncoding] retain];
-    NSData *clearTextData = [[text dataUsingEncoding:NSUTF8StringEncoding] retain];
+- (NSString *)signClearText:(NSString *)text withSecret:(NSString *)secret 
+{
+    NSData *secretData = [secret dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *clearTextData = [text dataUsingEncoding:NSUTF8StringEncoding];
     unsigned char result[20];
-    hmac_sha1((unsigned char *)[clearTextData bytes], [clearTextData length], (unsigned char *)[secretData bytes], [secretData length], result);
-	[secretData release];
-	[clearTextData release];
+	CCHmac(kCCHmacAlgSHA1, [secretData bytes], [secretData length], [clearTextData bytes], [clearTextData length], result);
     
     //Base64 Encoding
     
@@ -50,9 +50,9 @@
     Base64EncodeData(result, 20, base64Result, &theResultLength);
     NSData *theData = [NSData dataWithBytes:base64Result length:theResultLength];
     
-    NSString *base64EncodedResult = [[[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding] autorelease];
+    NSString *base64EncodedResult = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
     
-    return base64EncodedResult;
+    return [base64EncodedResult autorelease];
 }
 
 @end

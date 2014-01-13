@@ -31,17 +31,12 @@
 @protocol SHKShareItemDelegate;
 
 @interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
-{		
-	NSMutableArray *sharers;
-	SHKItem *item;
-	id<SHKShareItemDelegate> shareDelegate;
-}
 
-@property (retain) NSMutableArray *sharers;
-@property (retain) SHKItem *item;
-@property (retain) id<SHKShareItemDelegate> shareDelegate;
+@property (strong) id<SHKShareItemDelegate> shareDelegate;
 
-+ (SHKActionSheet *)actionSheetForType:(SHKShareType)type;
 + (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;
+
+- (NSMutableArray *)sharersToShow;
+- (void)populateButtons;
 
 @end

@@ -26,10 +26,12 @@
 //
 
 #import "SHKConfiguration.h"
+#import "DefaultSHKConfigurator.h"
+#import "SuppressPerformSelectorWarning.h"
 
 @interface SHKConfiguration ()
 
-@property (readonly, retain) DefaultSHKConfigurator *configurator;
+@property (readonly, strong) DefaultSHKConfigurator *configurator;
 
 - (id)initWithConfigurator:(DefaultSHKConfigurator*)config;
 
@@ -38,8 +40,6 @@
 static SHKConfiguration *sharedInstance = nil;
 
 @implementation SHKConfiguration
-
-@synthesize configurator;
 
 #pragma mark -
 #pragma mark Instance methods
@@ -52,9 +52,9 @@ static SHKConfiguration *sharedInstance = nil;
 	if ([self.configurator respondsToSelector:sel]) {
 		id value;        
         if (object) {
-            value = [self.configurator performSelector:sel withObject:object];
+            SuppressPerformSelectorLeakWarning(value = [self.configurator performSelector:sel withObject:object]);
         } else {
-            value = [self.configurator performSelector:sel];
+            SuppressPerformSelectorLeakWarning(value = [self.configurator performSelector:sel]);
         }
 
 		if (value) {
@@ -85,53 +85,23 @@ static SHKConfiguration *sharedInstance = nil;
 
 + (SHKConfiguration*)sharedInstanceWithConfigurator:(DefaultSHKConfigurator*)config
 {
-    @synchronized(self)
-    {
-		if (sharedInstance != nil) {
-			[NSException raise:@"IllegalStateException" format:@"SHKConfiguration has already been configured with a delegate."];
-		}
-		sharedInstance = [[SHKConfiguration alloc] initWithConfigurator:config];
+    if (sharedInstance != nil) {
+		[NSException raise:@"IllegalStateException" format:@"SHKConfiguration has already been configured with a delegate."];
     }
+    
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        sharedInstance = [[self alloc] initWithConfigurator:config];
+    });
+    
     return sharedInstance;
-}
-
-
-+ (id)allocWithZone:(NSZone *)zone {
-    @synchronized(self) {
-        if (sharedInstance == nil) {
-            sharedInstance = [super allocWithZone:zone];
-            return sharedInstance;  // assignment and return on first allocation
-        }
-    }
-    return nil; // on subsequent allocation attempts return nil
 }
 
 - (id)initWithConfigurator:(DefaultSHKConfigurator*)config
 {
     if ((self = [super init])) {
-		configurator = [config retain];
+		_configurator = config;
     }
-    return self;
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain {
-    return self;
-}
-
-- (unsigned)retainCount {
-    return UINT_MAX;  // denotes an object that cannot be released
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
     return self;
 }
 

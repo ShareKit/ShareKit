@@ -26,54 +26,41 @@
 //
 
 #import "SHKFormFieldSettings.h"
-
+#import "SHKFormFieldOptionPickerSettings.h"
 
 @implementation SHKFormFieldSettings
 
-@synthesize label, key, type, start, value, optionPickerInfo, optionDetailLabelDefault;
-
-- (void)dealloc
++ (SHKFormFieldSettings *)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s
 {
-	[label release];
-	[key release];
-	[start release];
-    [value release];
-    [optionPickerInfo release];
-    [optionDetailLabelDefault release];
-	
-	[super dealloc];
+	SHKFormFieldSettings *result = [[SHKFormFieldSettings alloc] initWithLabel:l key:k type:t start:s];
+    return result;
 }
 
-+ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s
-{
-	return [SHKFormFieldSettings label:l key:k type:t start:s optionPickerInfo:nil optionDetailLabelDefault:nil];
+- (id)initWithLabel:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s {
+    
+    self = [super init];
+    if (self) {
+        _label = l;
+        _key = k;
+        _type = t;
+        _start = s;
+        _displayValue = s;
+        _select = NO;
+        _validationBlock = ^ (id formFieldSettings) { return YES; };
+    }
+    return self;
 }
 
-+ (id)label:(NSString *)l key:(NSString *)k type:(SHKFormFieldType)t start:(NSString *)s optionPickerInfo:(NSMutableDictionary*) oi optionDetailLabelDefault:(NSString *)od
-{
-	SHKFormFieldSettings *settings = [[SHKFormFieldSettings alloc] init];
-	settings.label = l;
-	settings.key = k;
-	settings.type = t;	
-	settings.start = s;
-    settings.value = s;
-	settings.optionPickerInfo = oi;
-    settings.optionDetailLabelDefault = od;
-	return [settings autorelease];
+- (NSString *)valueToSave {
+    
+    NSString *result = self.displayValue;
+    return result;
 }
 
-- (NSString*) optionPickerValueForIndexes:(NSString*)indexes
-{
-	NSString* resultVal = nil;
-	if(![indexes isEqualToString:@"-1"]){
-		NSArray* curIndexes = [indexes componentsSeparatedByString:@","];
-		NSArray* values = [self.optionPickerInfo objectForKey:@"itemsList"];
-		for (NSString* index in curIndexes) {
-			int indexVal = [index intValue];
-			resultVal = resultVal == nil ?  [values objectAtIndex:indexVal] : [NSString stringWithFormat:@"%@,%@", resultVal,[values objectAtIndex:indexVal]];
-		}
-	}	
-	return resultVal == nil ? @"-1" : resultVal;
+- (BOOL)isValid {
+    
+    __weak typeof(self) weakSelf = self;
+    return  self.validationBlock (weakSelf);
 }
 
 @end

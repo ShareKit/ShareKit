@@ -26,7 +26,7 @@
 //
 
 #import "SHKLogout.h"
-
+#import "SharersCommonHeaders.h"
 
 @implementation SHKLogout
 
@@ -55,7 +55,7 @@
 	return YES;
 }
 
-+ (BOOL)canShareFile
++ (BOOL)canShareFile:(SHKFile *)file
 {
 	return YES;
 }

@@ -1,8 +1,8 @@
 //
-//  SHKFlickr
-//  Flickr
+//  SHKFlickr.m
+//  ShareKit
 //
-//  Created by Neil Bostrom on 23/02/2011.
+//  Created by Vilem Kurz on 03/12/2013.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,384 +21,359 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
-//
-//  Flickr Library: ObjectiveFlickr - https://github.com/lukhnos/objectiveflickr
-
 
 #import "SHKFlickr.h"
-#import "SHKConfiguration.h"
-#import "NSHTTPCookieStorage+DeleteForURL.h"
 
-NSString *kFlickrAuthenticationURL = @"http://flickr.com/services/auth/";
+#import "SharersCommonHeaders.h"
+#import "SHKOAuthView.h"
+#import "NSDictionary+Recursive.h"
+#import "SHKXMLResponseParser.h"
 
-NSString *kStoredAuthTokenKeyName = @"FlickrAuthToken";
+#define kSHKFlickrUserInfo @"kSHKFlickrUserInfo"
+#define USER_REMOVED_ACCESS_CODE @"98"
+#define USER_EXCEEDED_UPLOAD_LIMIT_CODE @"6"
 
-NSString *kGetAuthTokenStep = @"kGetAuthTokenStep";
-NSString *kCheckTokenStep = @"kCheckTokenStep";
-NSString *kUploadImageStep = @"kUploadImageStep";
-NSString *kSetImagePropertiesStep = @"kSetImagePropertiesStep";
-NSString *kGetGroupsStep = @"kGetGroupsStep";
-NSString *kPutInGroupsStep = @"kPutInGroupsStep";
+@interface SHKFlickr ()
 
+@property (weak, nonatomic) OAAsynchronousDataFetcher *getGroupsFetcher;
 
-@interface SHKFlickr();
--(void) optionsEnumerated:(NSArray*)options;
--(void) optionsEnumerationFailed:(NSError*)error;
--(void) postToNextGroup;
-
-@property (nonatomic, retain) NSArray* fullOptionsData;
-@property (nonatomic, retain) NSString *postedPhotoID;
 @end
-
 
 @implementation SHKFlickr
 
-@synthesize flickrContext, flickrUserName, fullOptionsData, postedPhotoID;
+#pragma mark -
+#pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle
-{
-	return @"Flickr";
-}
++ (NSString *)sharerTitle { return SHKLocalizedString(@"Flickr"); }
 
-+ (BOOL)canShareImage
-{
-	return YES;
-}
-
-+ (BOOL)canShare
-{
-	return YES;
-}
-
-+ (BOOL)canAutoShare
-{
-	return NO;
-}
-
-- (BOOL)isAuthorized 
-{
-	return [self.flickrContext.authToken length];
-}
-
-- (OFFlickrAPIContext *)flickrContext
-{
-    if (!flickrContext) {
-        flickrContext = [[OFFlickrAPIContext alloc] initWithAPIKey: SHKCONFIG(flickrConsumerKey) sharedSecret: SHKCONFIG(flickrSecretKey)];
-		
-        NSString *authToken = [SHK getAuthValueForKey: kStoredAuthTokenKeyName forSharer:[self sharerId]];
-        if (authToken != nil) {
-            flickrContext.authToken = authToken;
-        }
-    }
++ (BOOL)canShareImage { return YES; }
++ (BOOL)canGetUserInfo { return YES; }
++ (BOOL)canShareFile:(SHKFile *)file {
     
-    return flickrContext;
+    NSArray *allowedFileTypes = @[@"image/jpeg",
+                                  @"image/png",
+                                  @"image/gif",
+                                  @"video/avi",
+                                  @"video/x-ms-wmv",
+                                  @"video/x-msvideo",
+                                  @"video/quicktime",
+                                  @"video/mpeg",
+                                  @"video/3gpp",
+                                  @"video/MP2T",
+                                  @"video/ogg"];
+    
+    if ([allowedFileTypes containsObject:file.mimeType]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
-- (OFFlickrAPIRequest *)flickrRequest
-{
-	if (!flickrRequest) {
-		flickrRequest = [[OFFlickrAPIRequest alloc] initWithAPIContext:self.flickrContext];
-		flickrRequest.delegate = self;	
-        [self retain]; //released in request delegate methods, OFFFlickrAPIRequest does not retain its delegate
-		flickrRequest.requestTimeoutInterval = 60.0;	
-	}
++ (BOOL)canAutoShare { return NO; }
+
+#pragma mark -
+#pragma mark Authentication
+
+- (id)init {
+    
+    self = [super init];
+    
+	if (self) {
+        
+		consumerKey = SHKCONFIG(flickrConsumerKey);
+		secretKey = SHKCONFIG(flickrSecretKey);
+ 		authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(flickrCallbackUrl)];
 	
-	return flickrRequest;
-}
-
-+ (void)logout
-{
-    [SHK removeAuthValueForKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
-    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:kFlickrAuthenticationURL]];
-}
-
-- (void)authorizationFormShow 
-{	
-	NSURL *loginURL = [self.flickrContext loginURLFromFrobDictionary:nil requestedPermission:OFFlickrWritePermission];
-	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:loginURL delegate:self];
-	[[SHK currentHelper] showViewController:auth];	
-	[auth release];
-}
-
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type{
-    if([self.item shareType] == SHKShareTypeImage){
-		NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Title")
-															 key:@"title"
-															type:SHKFormFieldTypeText
-														   start:self.item.title],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
-															 key:@"description"
-															type:SHKFormFieldTypeText
-														   start:self.item.text],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
-															 key:@"tags"
-															type:SHKFormFieldTypeText
-														   start:[self.item.tags componentsJoinedByString:@", "]],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
-															 key:@"is_public"
-															type:SHKFormFieldTypeSwitch
-														   start:SHKFormFieldSwitchOn],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Friend")
-															 key:@"is_friend"
-															type:SHKFormFieldTypeSwitch
-														   start:SHKFormFieldSwitchOn],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Is Family")
-															 key:@"is_family"
-															type:SHKFormFieldTypeSwitch
-														   start:SHKFormFieldSwitchOn],
-									 [SHKFormFieldSettings label:SHKLocalizedString(@"Post To Groups")
-															 key:@"postgroup"
-															type:SHKFormFieldTypeOptionPicker
-														   start:nil
-												optionPickerInfo:[NSMutableDictionary dictionaryWithObjectsAndKeys:SHKLocalizedString(@"Flickr Groups"), @"title",
-																  @"-1", @"curIndexes",
-																  [NSArray array],@"itemsList",
-																  [NSNumber numberWithBool:NO], @"static",
-																  [NSNumber numberWithBool:YES], @"allowMultiple",
-																  self, @"SHKFormOptionControllerOptionProvider",
-																  nil]
-                                        optionDetailLabelDefault:SHKLocalizedString(@"Select Group")],
-									 nil
-									 ];
+	    requestURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/request_token"];
+	    authorizeURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/authorize"];
+	    accessURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/access_token"];
 		
-		return baseArray;
-	}else {
-		return [super shareFormFieldsForType:type];
+		signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}
-	
+	return self;
 }
+
+- (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
+{
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+}
+
+//this method is overriden to add permissions (special Flickr quirk)
+- (void)tokenAuthorize
+{
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&perms=%@", authorizeURL.absoluteString, requestToken.key, SHKCONFIG(flickrPermissions)]];
+	
+	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
+	[[SHK currentHelper] showViewController:auth];
+}
+
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKFlickrUserInfo];
+    NSString *result = [userInfo findRecursivelyValueForKey:@"_content"];
+    return result;
+}
+
++ (void)logout {
+    
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFlickrUserInfo];
+    [super logout];
+}
+
+#pragma mark -
+#pragma mark Share Form
+
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+    
+    NSArray *result = nil;
+    switch (type) {
+        case SHKShareTypeImage:
+        case SHKShareTypeFile:
+            result = @[[SHKFormFieldSettings label:SHKLocalizedString(@"Title")
+                                               key:@"title"
+                                              type:SHKFormFieldTypeText
+                                             start:self.item.title],
+                       [SHKFormFieldSettings label:SHKLocalizedString(@"Description")
+                                               key:@"description"
+                                              type:SHKFormFieldTypeText
+                                             start:self.item.text],
+                       [SHKFormFieldSettings label:SHKLocalizedString(@"Tag, tag")
+                                               key:@"tags"
+                                              type:SHKFormFieldTypeText
+                                             start:[self.item.tags componentsJoinedByString:@", "]],
+                       [SHKFormFieldSettings label:SHKLocalizedString(@"Is Public")
+                                               key:@"is_public"
+                                              type:SHKFormFieldTypeSwitch
+                                             start:SHKFormFieldSwitchOn],
+                       [SHKFormFieldSettings label:SHKLocalizedString(@"Is Friend")
+                                               key:@"is_friend"
+                                              type:SHKFormFieldTypeSwitch
+                                             start:SHKFormFieldSwitchOn],
+                       [SHKFormFieldSettings label:SHKLocalizedString(@"Is Family")
+                                               key:@"is_family"
+                                              type:SHKFormFieldTypeSwitch
+                                             start:SHKFormFieldSwitchOn],
+                       [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Post To Groups")
+                                                           key:@"postgroup"
+                                                         start:SHKLocalizedString(@"Select Group")
+                                                   pickerTitle:SHKLocalizedString(@"Flickr Groups")
+                                               selectedIndexes:nil
+                                                 displayValues:nil
+                                                    saveValues:nil
+                                                 allowMultiple:YES
+                                                  fetchFromWeb:YES
+                                                      provider:self]];
+            break;
+        default:
+            break;
+    }
+    return result;
+ }
+
+#pragma mark -
+#pragma mark Implementation
 
 - (BOOL)send
-{	
-	if([item customValueForKey:@"is_public"] == nil)	// make sure we have all the data from the form.
+{
+	if (![self validateItem])
 		return NO;
-	
-	if (self.flickrUserName != nil) {
-		[self sendPhoto];
-	}
-	else {
-		
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-		
-		[self flickrRequest].sessionInfo = kCheckTokenStep;
-		[flickrRequest callAPIMethodWithGET:@"flickr.auth.checkToken" arguments:nil];
-	}
-	
-	return YES;
+
+    switch (self.item.shareType) {
+        case SHKShareTypeUserInfo:
+            self.quiet = YES;
+            [self sendFlickrRequestMethod:@"flickr.test.login" parameters:nil];
+            break;
+        case SHKShareTypeImage:
+        case SHKShareTypeFile:
+            [self uploadPhoto];
+            break;
+        default:
+            break;
+    }
+
+    [self sendDidStart];
+    return YES;
 }
 
-- (NSData*) generateImageData
-{
-	return UIImageJPEGRepresentation(item.image, .9);
-}
-
-- (void)sendPhoto {
-	
-	[self sendDidStart];
-	NSData *JPEGData = [self generateImageData];
-	self.flickrRequest.sessionInfo = kUploadImageStep;
+- (OAAsynchronousDataFetcher *)sendFlickrRequestMethod:(NSString *)method parameters:(NSArray *)parameters {
     
-    NSString *tagString = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil];
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.flickr.com/services/rest/"]
+                                                                    consumer:consumer
+                                                                       token:accessToken
+                                                                       realm:nil
+                                                           signatureProvider:signatureProvider];
+    [oRequest setHTTPMethod:@"POST"];
     
-	NSString* descript = [item customValueForKey:@"description"] != nil ? [item customValueForKey:@"description"] : @"";
-	NSString* titleVal = item.title != nil && ![item.title isEqualToString:@""] ? item.title : @"photo";
-	NSDictionary* args = [NSDictionary dictionaryWithObjectsAndKeys:
-						  titleVal, @"title",
-						  descript, @"description",
-						  item.tags == nil ? @"" : tagString, @"tags",
-						  [item customValueForKey:@"is_public"], @"is_public",
-						  [item customValueForKey:@"is_friend"], @"is_friend",
-						  [item customValueForKey:@"is_family"], @"is_family",
-						  nil];
-	[self.flickrRequest uploadImageStream:[NSInputStream inputStreamWithData:JPEGData] suggestedFilename:item.title MIMEType:@"image/jpeg" arguments:args];	
+    OARequestParameter *formatParam = [[OARequestParameter alloc] initWithName:@"format" value:@"json"];
+    OARequestParameter *noJSONCallbackParam = [[OARequestParameter alloc] initWithName:@"nojsoncallback" value:@"1"];
+    OARequestParameter *methodParam = [[OARequestParameter alloc] initWithName:@"method" value:method];
+    NSArray *completeParams = [@[formatParam, noJSONCallbackParam, methodParam] arrayByAddingObjectsFromArray:parameters];
+    [oRequest setParameters:completeParams];
+    
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    [fetcher start];
+    return fetcher;
 }
 
-- (NSURL *)authorizeCallbackURL {
-	return [NSURL URLWithString: SHKCONFIG(flickrCallbackUrl)];
-}
-
-- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
-	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	
-	if (!success)
-	{
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
-									 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
-	}
-	else 
-	{
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
-		
-		// query has the form of "&frob=", the rest is the frob
-		NSString *frob = [queryParams objectForKey:@"frob"];
-		
-		[self flickrRequest].sessionInfo = kGetAuthTokenStep;
-		[flickrRequest callAPIMethodWithGET:@"flickr.auth.getToken" arguments:[NSDictionary dictionaryWithObjectsAndKeys:frob, @"frob", nil]];
-	}
-	[self authDidFinish:success];
-}
-
-- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {
-	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-    [self authDidFinish:NO];
-}
-
-- (void)setAndStoreFlickrAuthToken:(NSString *)inAuthToken
-{
-	if (![inAuthToken length]) {
-		
-		[SHKFlickr logout];
-	}
-	else {
-		
-		self.flickrContext.authToken = inAuthToken;
-		[SHK setAuthValue:inAuthToken forKey:kStoredAuthTokenKeyName forSharer:[self sharerId]];
-	}
-}
-
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didCompleteWithResponse:(NSDictionary *)inResponseDictionary
-{
-	if(inRequest.sessionInfo == kGetGroupsStep){
-		if ([inResponseDictionary objectForKey:@"groups"] != nil && 
-			[[inResponseDictionary objectForKey:@"groups"] isKindOfClass:[NSDictionary class]] &&
-			[[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"] != nil &&
-			[[[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"] isKindOfClass:[NSArray class]]
-			) 
-		{
-			self.fullOptionsData = [[inResponseDictionary objectForKey:@"groups"] objectForKey:@"group"];
-			NSMutableArray* options = [NSMutableArray array];
-			for (NSDictionary* option in self.fullOptionsData) {
-				[options addObject:[option objectForKey:@"name"]];
-			}
-			[self optionsEnumerated:options];
-		}else {
-			NSError* err = [NSError errorWithDomain:OFFlickrAPIRequestErrorDomain code:OFFlickrAPIRequestFaultyXMLResponseError userInfo:nil];
-			[self optionsEnumerationFailed:err];
-		}
-		return;
-	}
-	if(inRequest.sessionInfo == kPutInGroupsStep){
-		[self postToNextGroup];
-		return;
-	}
-	
-	if (inRequest.sessionInfo == kUploadImageStep) {
-		self.postedPhotoID = [[inResponseDictionary valueForKeyPath:@"photoid"] textContent];
-		[self postToNextGroup];
-		return;
-	}else {
-		[[SHKActivityIndicator currentIndicator] hide];
-		
-		if (inRequest.sessionInfo == kGetAuthTokenStep) {
-			[self setAndStoreFlickrAuthToken:[[inResponseDictionary valueForKeyPath:@"auth.token"] textContent]];
-			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
-			
-			[self tryPendingAction];
-		}
-		else if (inRequest.sessionInfo == kCheckTokenStep) {
-			self.flickrUserName = [inResponseDictionary valueForKeyPath:@"auth.user.username"];
-			
-			[self sendPhoto];
-		}
-	}
-}
-
-- (void)flickrAPIRequest:(OFFlickrAPIRequest *)inRequest didFailWithError:(NSError *)inError
-{
-	if (inRequest.sessionInfo == kCheckTokenStep) {
+- (OAAsynchronousDataFetcher *)uploadPhoto {
+    
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://up.flickr.com/services/upload/"]
+                                                                    consumer:consumer
+                                                                       token:accessToken
+                                                                       realm:nil
+                                                           signatureProvider:signatureProvider];
+    [oRequest setHTTPMethod:@"POST"];
+    
+    NSMutableArray *params = [[NSMutableArray alloc] initWithCapacity:6];
+    if ([self.item.title length] > 0) {
+        [params addObject:[[OARequestParameter alloc] initWithName:@"title" value:self.item.title]];
+    }
+    if ([[self.item customValueForKey:@"description"] length] > 0) {
+        [params addObject:[[OARequestParameter alloc] initWithName:@"description" value:[self.item customValueForKey:@"description"]]];
+    }
+    if ([self.item.tags count] > 0) {
+        NSString *joinedTags = [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:nil tagSuffix:nil];
+        [params addObject:[[OARequestParameter alloc] initWithName:@"tags" value:joinedTags]];
+    }
+    [params addObject:[[OARequestParameter alloc] initWithName:@"is_public" value:[self.item customValueForKey:@"is_public"]]];
+    [params addObject:[[OARequestParameter alloc] initWithName:@"is_friend" value:[self.item customValueForKey:@"is_friend"]]];
+    [params addObject:[[OARequestParameter alloc] initWithName:@"is_family" value:[self.item customValueForKey:@"is_family"]]];
+    [oRequest setParameters:params];
+    [oRequest prepare];
+    
+    if (self.item.shareType == SHKShareTypeImage) {
         
-        //if user revoked app permissions, we should relogin
-        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
+        NSData *imageData = UIImageJPEGRepresentation(self.item.image, .9);
+        [oRequest attachFileWithParameterName:@"photo"
+                                     filename:[self.item.title length] > 0 ? self.item.title:@"Photo"
+                                  contentType:@"image/jpeg"
+                                         data:imageData];
+    } else {
+        
+        [oRequest attachFileWithParameterName:@"photo"
+                                     filename:self.item.file.filename
+                                  contentType:self.item.file.mimeType
+                                         data:self.item.file.data];
+    }
+    
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(uploadPhotoTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    [fetcher start];
+    return fetcher;
+}
+
+- (void)uploadPhotoTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    
+    if (ticket.didSucceed) {
+        
+        NSDictionary *response = [SHKXMLResponseParser dictionaryFromData:data];
+        NSString* photoID = [response findRecursivelyValueForKey:@"photoid"];
+        if (photoID) {
             
-            //after relogin silently share. User edited already.
-            self.flickrContext.authToken = nil;
-            [self shouldReloginWithPendingAction:SHKPendingSend];
+            [self sendDidFinish];
+            self.quiet = YES; //now we are going to add uploaded photo to groups. Let's not bother user with indicators...Photo is uploaded anyway.
+            NSArray *groupsArray = [[self.item customValueForKey:@"postgroup"] componentsSeparatedByString:@","];
+            for (NSString *groupNSID in groupsArray) {
+                
+                NSArray *parameters = @[[[OARequestParameter alloc] initWithName:@"photo_id" value:photoID],
+                                        [[OARequestParameter alloc] initWithName:@"group_id" value:groupNSID]];
+                [self sendFlickrRequestMethod:@"flickr.groups.pools.add" parameters:parameters];
+            }
+        } else {
+            
+            NSString *code = [response findRecursivelyValueForKey:@"code"];
+            if ([code isEqualToString:USER_REMOVED_ACCESS_CODE]) {
+                [self shouldReloginWithPendingAction:SHKPendingSend];
+            } else if ([code isEqualToString:USER_EXCEEDED_UPLOAD_LIMIT_CODE]) {
+                [self sendDidFailWithError:[SHK error:[response findRecursivelyValueForKey:@"msg"]]];
+            } else {
+                [self sendShowSimpleErrorAlert];
+            }
+            SHKLog(@"Flickr upload ticket failed with error:%@", [[SHKXMLResponseParser dictionaryFromData:data] description]);
         }
-    }
-    else if (inRequest.sessionInfo == kGetGroupsStep) {
-        
-        //if user revoked app permissions, we should relogin
-        if ([inError.domain isEqualToString:@"com.flickr"] && inError.code == 98) {
             
-            //after relogin continue editing
-            self.flickrContext.authToken = nil;
-            [self shouldReloginWithPendingAction:SHKPendingShare];
-        }    
-    }
-    else {
+    } else {
         
-        [self sendDidFailWithError:inError shouldRelogin:NO];
+        [self sendShowSimpleErrorAlert];
+        SHKLog(@"Flickr upload ticket failed with error:%@", [[SHKXMLResponseParser dictionaryFromData:data] description]);
     }
-    [self autorelease]; //see [self flickrRequest]
 }
 
--(void) postToNextGroup
+- (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
-	bool finished = true;
-	if(self.fullOptionsData != nil && [item customValueForKey:@"postgroup"] != nil){
-		NSString *postGroups = [item customValueForKey:@"postgroup"];
-		NSArray* indexes = [postGroups componentsSeparatedByString:@","];
-		if(postGroupCurIndex < [indexes count]){
-			NSString* postGroup = [indexes objectAtIndex:postGroupCurIndex++];
-			NSString *groupID = nil;
-			for (NSDictionary* group in self.fullOptionsData) {
-				if([[group objectForKey:@"name"] isEqualToString:postGroup]){
-					groupID = [group objectForKey:@"nsid"];
-					break;
-				}
-			}
-			if(groupID != nil){
-				finished = false;
-				flickrRequest.sessionInfo = kPutInGroupsStep;
-				[flickrRequest callAPIMethodWithPOST:@"flickr.groups.pools.add" arguments:[NSDictionary dictionaryWithObjectsAndKeys:self.postedPhotoID, @"photo_id", groupID, @"group_id", nil]];        		        
-			}
-		}
+	if (ticket.didSucceed)
+	{
+		NSError *error = nil;
+        NSMutableDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+
+        if ([response findRecursivelyValueForKey:@"_content"]) {
+            
+            //save userInfo
+            [[NSUserDefaults standardUserDefaults] setObject:response forKey:kSHKFlickrUserInfo];
+            [self sendDidFinish];
+            
+        } else if ([response findRecursivelyValueForKey:@"group"]) {
+            
+            //fill in OptionController with user's groups
+            NSArray *groups = [response findRecursivelyValueForKey:@"group"];
+            
+            if ([groups count] > 0) {
+                NSMutableArray *displayGroups = [[NSMutableArray alloc] initWithCapacity:[groups count]];
+                NSMutableArray *saveGroups = [[NSMutableArray alloc] initWithCapacity:[groups count]];
+                for (NSDictionary *group in groups) {
+                    [displayGroups addObject:group[@"name"]];
+                    [saveGroups addObject:group[@"nsid"]];
+                }
+                [self.curOptionController optionsEnumeratedDisplay:displayGroups save:saveGroups];
+            } else {
+                [self.curOptionController optionsEnumerationFailedWithError:nil];
+            }
+        } else {
+            
+            //error
+            if ([response[@"code"] integerValue] == [USER_REMOVED_ACCESS_CODE integerValue]) {
+                [self shouldReloginWithPendingAction:SHKPendingShare];
+            } else {
+                [self sendShowSimpleErrorAlert];
+            }
+            SHKLog(@"flickr got error%@", [response description]);
+        }
 	}
-	if (finished) {
-		[self sendDidFinish];
+	
+	else
+	{
+		[self sendShowSimpleErrorAlert];
+        NSError *error;
+        SHKLog(@"Flickr ticket did not succeed with error:%@", [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error] description]);
 	}
 }
-
-- (void)dealloc
+- (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
-    [flickrContext release];
-	[flickrRequest release];
-	[flickrUserName release];
-	[fullOptionsData release];
-	[postedPhotoID release];
-    [super dealloc];
+	if (self.curOptionController) {
+        [self.curOptionController optionsEnumerationFailedWithError:error];
+    } else {
+        [self sendShowSimpleErrorAlert];
+    }
 }
 
--(void) optionsEnumerated:(NSArray*)options{
-	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[curOptionController optionsEnumerated:options];
-	curOptionController = nil;
-}
--(void) optionsEnumerationFailed:(NSError*)error{
-	NSAssert(curOptionController != nil, @"Any pending requests should have been canceled in SHKFormOptionControllerCancelEnumerateOptions");
-	[curOptionController optionsEnumerationFailedWithError:error];
-	curOptionController = nil;
+#pragma mark - SHKFormOptionControllerOptionProvider delegate methods
+
+- (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
+    
+	NSAssert(self.curOptionController == nil, @"there should never be more than one picker open.");
+	self.curOptionController = optionController;
+    self.getGroupsFetcher = [self sendFlickrRequestMethod:@"flickr.groups.pools.getGroups" parameters:nil];
 }
 
--(void) SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController*) optionController
-{
-	NSAssert(curOptionController == nil, @"there should never be more than one picker open.");
-	curOptionController = optionController;
-	self.flickrRequest.sessionInfo = kGetGroupsStep;
-	[flickrRequest callAPIMethodWithGET:@"flickr.groups.pools.getGroups" arguments:[NSDictionary dictionary]];        		        
-}
--(void) SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController*) optionController
-{
-	NSAssert(curOptionController == optionController, @"there should never be more than one picker open.");
-	curOptionController = nil;
-	NSAssert(self.flickrRequest.sessionInfo == kGetGroupsStep, @"The active request should be kGetGroupsStep");
-	[self.flickrRequest cancel];
+- (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController {
+    
+	NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
+	[self.getGroupsFetcher cancel];
 }
 
 @end

@@ -23,11 +23,9 @@
 //
 //
 
-
-#import "SHKConfiguration.h"
 #import "SHKReadability.h"
-#import "JSONKit.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
+#import "SharersCommonHeaders.h"
 
 static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
@@ -71,7 +69,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
 + (NSString *)sharerTitle
 {
-	return @"Readability";
+	return SHKLocalizedString(@"Readability");
 }
 
 + (BOOL)canShareURL
@@ -110,35 +108,32 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	return SHKLocalizedString(@"Create a free account at %@", @"Readability.com");
 }
 
-+ (NSArray *)authorizationFormFields
+- (FormControllerCallback)authorizationFormValidate
 {
-	
-	return [NSArray arrayWithObjects:
-			  [SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
-			  [SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			  nil];
-}
-
-- (void)authorizationFormValidate:(SHKFormController *)form
-{
-	self.pendingForm = form;
-	[self tokenAccess];
+	__weak typeof(self) weakSelf = self;
+    
+    FormControllerCallback result = ^(SHKFormController *form) {
+        
+        weakSelf.pendingForm = form;
+        [weakSelf tokenAccess];
+    };
+    return result;
 }
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {	
 	if (xAuth)
 	{
-		NSDictionary *formValues = [pendingForm formValues];
+		NSDictionary *formValues = [self.pendingForm formValues];
 		
-		OARequestParameter *username = [[[OARequestParameter alloc] initWithName:@"x_auth_username"
-																								 value:[formValues objectForKey:@"username"]] autorelease];
+		OARequestParameter *username = [[OARequestParameter alloc] initWithName:@"x_auth_username"
+																								 value:[formValues objectForKey:@"username"]];
 		
-		OARequestParameter *password = [[[OARequestParameter alloc] initWithName:@"x_auth_password"
-																								 value:[formValues objectForKey:@"password"]] autorelease];
+		OARequestParameter *password = [[OARequestParameter alloc] initWithName:@"x_auth_password"
+																								 value:[formValues objectForKey:@"password"]];
 		
-		OARequestParameter *mode = [[[OARequestParameter alloc] initWithName:@"x_auth_mode"
-																							value:@"client_auth"] autorelease];
+		OARequestParameter *mode = [[OARequestParameter alloc] initWithName:@"x_auth_mode"
+																							value:@"client_auth"];
 		
 		[oRequest setParameters:[NSArray arrayWithObjects:username, password, mode, nil]];
 	}
@@ -150,12 +145,12 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 	{
 		if (ticket.didSucceed)
 		{
-			[pendingForm close];
+			[self.pendingForm close];
 		}
 		
 		else
 		{
-			NSString *response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+			NSString *response = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 			
 			SHKLog(@"tokenAccessTicket Response Body: %@", response);
 			
@@ -187,7 +182,7 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 
 - (BOOL)send
 {	
-	switch (item.shareType) {
+	switch (self.item.shareType) {
 			
 		case SHKShareTypeURL:            
 			[self sendBookmark];
@@ -218,16 +213,13 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
   BOOL shouldArchive = [[NSUserDefaults standardUserDefaults] boolForKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
   
 	OARequestParameter *bookmarkParam = [[OARequestParameter alloc] initWithName:@"url"
-																								value:[item.URL absoluteString]];
+																								value:[self.item.URL absoluteString]];
   OARequestParameter *favoriteParam = [[OARequestParameter alloc] initWithName:@"favorite"
                                                                          value:isFavorite?@"1":@"0"];
   OARequestParameter *archiveParam = [[OARequestParameter alloc] initWithName:@"archive"
                                                                          value:shouldArchive?@"1":@"0"];
 	NSArray *params = [NSArray arrayWithObjects:bookmarkParam, favoriteParam, archiveParam, nil];
 	[oRequest setParameters:params];
-	[bookmarkParam release];
-  [favoriteParam release];
-  [archiveParam release];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																													  delegate:self
@@ -235,7 +227,6 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 																											 didFailSelector:@selector(sendBookmarkTicket:didFailWithError:)];	
 	
 	[fetcher start];
-	[oRequest release];
 }
 
 - (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
@@ -261,16 +252,18 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 - (void)handleUnsuccessfulTicket:(NSData *)data
 {
 	if (SHKDebugShowLogs)
-		SHKLog(@"Readability Send Bookmark Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+		SHKLog(@"Readability Send Bookmark Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 		
-	NSString *errorMessage = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];			
+	NSString *errorMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];			
   
 	// this is the error message for revoked access, Readability Error Message: "You are unauthenticated.  (API protected by OAuth)."
 	if ([errorMessage rangeOfString:@"unauthenticated"].location != NSNotFound) {
 		[self shouldReloginWithPendingAction:SHKPendingSend];
         return;
 	}
-	NSDictionary *errorDict = [errorMessage objectFromJSONString];
+    
+    NSError *error = nil;
+    NSDictionary *errorDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
 
 	if ([[errorDict objectForKey:@"success"] intValue] == 0)
 	{
@@ -287,23 +280,28 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
     }
 }
 
-- (void)shareFormSave:(SHKFormController *)form
+- (FormControllerCallback)shareFormSave
 {
-	[super shareFormSave:form];
-  
-	// If the user turned autoshare on, record whether they want the links public or not when they're shared.
-	NSDictionary *formValues = [form formValues];
-	for(NSString *key in formValues)
-	{
-		if ([key isEqualToString:@"favorite"])
-		{
-			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
-		}
-    if ([key isEqualToString:@"archive"])
-		{
-			[[NSUserDefaults standardUserDefaults] setBool:[formValues objectForKey:key] == SHKFormFieldSwitchOn forKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
-		}
-	}
+	FormControllerCallback result = ^(SHKFormController *form) {
+        
+        FormControllerCallback superImplementation = [super shareFormSave];
+        superImplementation(form);
+        
+        // If the user turned autoshare on, record whether they want the links public or not when they're shared.
+        NSDictionary *formValues = [form formValues];
+        for(NSString *key in formValues)
+        {
+            if ([key isEqualToString:@"favorite"])
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:[[formValues objectForKey:key] isEqualToString:SHKFormFieldSwitchOn] forKey:[NSString stringWithFormat:@"%@_isFavorite", [self sharerId]]];
+            }
+            if ([key isEqualToString:@"archive"])
+            {
+                [[NSUserDefaults standardUserDefaults] setBool:[[formValues objectForKey:key] isEqualToString:SHKFormFieldSwitchOn] forKey:[NSString stringWithFormat:@"%@_shouldArchive", [self sharerId]]];
+            }
+        }
+    };
+    return result;
 }
 
 @end
