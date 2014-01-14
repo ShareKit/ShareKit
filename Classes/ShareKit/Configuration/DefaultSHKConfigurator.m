@@ -573,4 +573,10 @@
   return NSStringFromCGRect(CGRectZero);
 }
 
+/* SHKDropbox */
+//if set, no UI for choosing the target directory is presented to the user.
+- (NSString *)dropboxDestinationDirectory {
+    return nil;
+}
+
 @end

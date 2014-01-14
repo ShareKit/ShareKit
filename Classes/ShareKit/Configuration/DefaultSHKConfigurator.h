@@ -103,7 +103,15 @@
 - (Class)SHKShareMenuSubclass;
 - (Class)SHKShareMenuCellSubclass;
 - (Class)SHKFormControllerSubclass;
+//SHKDropbox
+-(NSString *)dropboxAppKey;
+-(NSString *)dropboxAppSecret;
+-(NSString *)dropboxRootFolder;
+-(NSNumber *)dropboxShouldOverwriteExistedFile;
+//SHKBuffer
+- (NSNumber *)bufferShouldShortenURLS;
 
+#pragma mark - default values for sharer specific extension SHKItem properties
 //SHKPrint
 - (NSNumber*)printOutputType;
 //SHKMail
@@ -119,10 +127,6 @@
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
 //SHKDropbox
--(NSString *)dropboxAppKey;
--(NSString *)dropboxAppSecret;
--(NSString *)dropboxRootFolder;
--(NSNumber *)dropboxShouldOverwriteExistedFile;
-//SHKBuffer
-- (NSNumber *)bufferShouldShortenURLS;
+- (NSString *)dropboxDestinationDirectory;
+
 @end

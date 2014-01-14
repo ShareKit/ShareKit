@@ -21,6 +21,7 @@
 static NSString *const kSHKDropboxUserInfo =@"SHKDropboxUserInfo";
 static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
+static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinationDirKeyName";
 
 @interface SHKDropbox () {
     long long   __fileOffset;
@@ -230,11 +231,15 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
     
     if (type == SHKShareTypeUserInfo) return nil;
-    if (type == SHKShareTypeFile && [self.item customValueForKey:kSHKDropboxDestinationDir]) return nil; //in destination dir is prefilled, do not let user choose
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    if (type == SHKShareTypeFile && [self.item customValueForKey:kSHKDropboxDestinationDir]) return nil;
+#pragma clang diagnostic pop
+    if (type == SHKShareTypeFile && self.item.dropboxDestinationDirectory) return nil; //if destination dir is prefilled, do not let user choose
     
     NSString *startDir = kSHKDropboxStartDirectory;
     SHKFormFieldOptionPickerSettings *directoryField = [SHKFormFieldOptionPickerSettings label:SHKLocalizedString(@"Path")
-                                                                                           key:kSHKDropboxDestinationDir
+                                                                                           key:kSHKDropboxDestinationDirKeyName
                                                                                          start:startDir
                                                                                    pickerTitle:SHKLocalizedString(@"Dropbox")
                                                                                selectedIndexes:nil
@@ -276,7 +281,7 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
         
         weakSelf.pendingForm = form;
         NSDictionary *formValues = [form formValues];
-        NSString *destinationDir = [formValues objectForKey:kSHKDropboxDestinationDir];
+        NSString *destinationDir = [formValues objectForKey:kSHKDropboxDestinationDirKeyName];
         
         [weakSelf checkFileOverwriteDestinationDir:destinationDir];
     };
@@ -379,7 +384,7 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 
 #pragma mark - Send
 
-- (BOOL) send
+- (BOOL)send
 {
 	if (self.item.shareType == SHKShareTypeImage) {
         
@@ -391,12 +396,26 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
     if (self.item.shareType == SHKShareTypeFile) {
         
         if (self.fileOverwriteChecked) {//is checked during form validation. Might be NO, if destination dir was supplied, thus no form was showed.
+            
             [self startSendingStoredObject];
+            
         } else {
-            [self checkFileOverwriteDestinationDir:[self.item customValueForKey:kSHKDropboxDestinationDir]];
+            
+            NSString *destinationDir;
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            if ([self.item customValueForKey:kSHKDropboxDestinationDir]) {
+                destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
+#pragma clang diagnostic pop
+            } else if (self.item.dropboxDestinationDirectory) {
+                destinationDir = self.item.dropboxDestinationDirectory;
+            } else {
+                destinationDir = kSHKDropboxStartDirectory;
+            }
+            [self.item setCustomValue:destinationDir forKey:kSHKDropboxDestinationDirKeyName];
+            [self checkFileOverwriteDestinationDir:destinationDir];
         }
-        
-        
         
     } else if (self.item.shareType == SHKShareTypeUserInfo) {
         
@@ -454,10 +473,8 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
     if (localPath.length < 1) {
         return;
     }
-    NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
-    if (destinationDir.length < 1) {
-        destinationDir = @"/";
-    }
+    NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDirKeyName];
+    NSAssert([destinationDir length] > 0, @"empty destination directory!");
     NSString *fileName = [self.item customValueForKey:kSHKDropboxStoredFileName];
     if (fileName.length < 1) {
         fileName = [localPath lastPathComponent];
@@ -540,7 +557,7 @@ static int outstandingRequests = 0;
         if (fileName.length < 1) {
             fileName = [NSString stringWithFormat:@"ShareKit-file-%lu", random() % 200];
         }
-        NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDir];
+        NSString *destinationDir = [self.item customValueForKey:kSHKDropboxDestinationDirKeyName];
         [self.item setCustomValue:localPath forKey:uploadId];
         if (destinationDir.length < 1) {
             destinationDir = @"/";
@@ -604,7 +621,7 @@ static int outstandingRequests = 0;
         
         [[SHKDropbox dropbox] unlinkAll];
         
-        if ([self.item customValueForKey:kSHKDropboxDestinationDir]) {//user already picked the path
+        if ([self.item customValueForKey:kSHKDropboxDestinationDirKeyName]) {//user already picked the path
             
             [self saveItemForLater:SHKPendingSend];
             [self shouldReloginWithPendingAction:SHKPendingSend];

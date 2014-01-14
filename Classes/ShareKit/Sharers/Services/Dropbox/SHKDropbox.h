@@ -18,7 +18,7 @@
 
 //
 //you could use customValue in SHK item to setup remote path to upload file
-static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
+static NSString *const kSHKDropboxDestinationDir __attribute__((deprecated ("use dropboxDestinationDirectory property of SHKItem instead"))) = @"SHKDropboxDestinationDir";
 //the key uses to send notifications with NSNotificationCenter
 static NSString *const kSHKDropboxUploadProgress =@"SHKDropboxUploadProgress";
 static NSString *const kSHKDropboxSharableLink __attribute__((deprecated ("use userInfo payload of SHKSendDidFinishNotification instead"))) = @"SHKDropboxSharableLink"; 

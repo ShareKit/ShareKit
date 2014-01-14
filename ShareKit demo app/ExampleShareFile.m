@@ -29,6 +29,7 @@
 
 #import "ShareKit.h"
 #import "SHK.h"
+#import "SHKDropbox.h"
 
 #define SHARE_FILE_WITH_PATH 1
 #define SHARE_LARGE_VIDEO 1
@@ -140,7 +141,7 @@
     }
     
     item.tags = [NSArray arrayWithObjects:@"file share", @"sharekit", nil];
-    //[item setCustomValue:@"/testDir" forKey:@"SHKDropboxDestinationDir"];
+    //item.dropboxDestinationDirectory = @"/testDir";
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
