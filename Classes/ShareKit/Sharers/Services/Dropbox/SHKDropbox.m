@@ -275,10 +275,10 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
         if (!weakSelf.quiet)
             [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
         
-        self.pendingForm = form;
+        weakSelf.pendingForm = form;
         
         NSString *dropboxFileName = [weakSelf.item.file.filename normalizedDropboxPath];
-        [self.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];
+        [weakSelf.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];
         
         NSDictionary *formValues = [form formValues];
         
@@ -289,7 +289,7 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
         
         NSString *remoteFilePath = [destinationDir stringByAppendingString:dropboxFileName];
         
-        [self startLoadMetadataForPath:remoteFilePath withHash:nil];
+        [weakSelf startLoadMetadataForPath:remoteFilePath withHash:nil];
     };
     return result;
 }
