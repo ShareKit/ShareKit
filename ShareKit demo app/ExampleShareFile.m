@@ -140,6 +140,7 @@
     }
     
     item.tags = [NSArray arrayWithObjects:@"file share", @"sharekit", nil];
+    //[item setCustomValue:@"/testDir" forKey:@"SHKDropboxDestinationDir"];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
     [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
