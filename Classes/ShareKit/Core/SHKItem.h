@@ -134,7 +134,7 @@ typedef enum
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 
 /* SHKFacebook */
-@property (nonatomic, strong) NSString *facebookURLSharePictureURI __attribute__((deprecated ("use URLPictureURI instead")));;
+@property (nonatomic, strong) NSString *facebookURLSharePictureURI __attribute__((deprecated ("use URLPictureURI instead")));
 @property (nonatomic, strong) NSString *facebookURLShareDescription __attribute__((deprecated ("use URLDescription instead")));
 
 /* SHKTextMessage */

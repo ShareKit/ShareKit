@@ -545,13 +545,19 @@ static int outstandingRequests = 0;
     if ([link rangeOfString:kDropboxDomain].length > 0) {
         link = [link stringByReplacingOccurrencesOfString:kDropboxDomain withString:kDropboxResourseDomain];
     }
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxSharableLink object:link];
-    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.2];
+#pragma clang diagnostic pop
+    [self performSelector:@selector(SHKDropboxDidFinishSuccessWithResponse:) withObject:@{SHKShareResponseKeyName:link} afterDelay:0.2];
 }
 
 - (void)restClient:(DBRestClient*)restClient loadSharableLinkFailedWithError:(NSError*)error {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxSharableLink object:error];
-    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.2];
+#pragma clang diagnostic pop
+    [self performSelector:@selector(SHKDropboxDidFinishSuccessWithResponse:) withObject:@{SHKShareResponseKeyName:error} afterDelay:0.2];
 }
 
 #pragma mark - Check API Error
@@ -611,9 +617,9 @@ static int outstandingRequests = 0;
 
 #pragma mark - Delegate Notifications
 
-- (void) SHKDropboxDidFinishSuccess {
+- (void)SHKDropboxDidFinishSuccessWithResponse:(NSDictionary *)response {
 
-    [self sendDidFinish];
+    [self sendDidFinishWithResponse:response];
     [self stopNetworkIndication];
     [[SHK currentHelper] removeSharerReference:self];
 }
@@ -625,7 +631,7 @@ static int outstandingRequests = 0;
 
 - (void) SHKDropboxGetSharableLink:(NSString *) remotePath {
     if (remotePath.length < 1) {
-        [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.1];
+        [self performSelector:@selector(SHKDropboxDidFinishSuccessWithResponse:) withObject:nil afterDelay:0.1];
     } else {
         NSString *path = [NSString stringWithString:remotePath];
         [[self restClient] loadSharableLinkForFile:path  shortUrl:FALSE];

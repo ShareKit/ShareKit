@@ -21,7 +21,7 @@
 static NSString *const kSHKDropboxDestinationDir =@"SHKDropboxDestinationDir";
 //the key uses to send notifications with NSNotificationCenter
 static NSString *const kSHKDropboxUploadProgress =@"SHKDropboxUploadProgress";
-static NSString *const kSHKDropboxSharableLink =@"SHKDropboxSharableLink";
+static NSString *const kSHKDropboxSharableLink __attribute__((deprecated ("use userInfo payload of SHKSendDidFinishNotification instead"))) = @"SHKDropboxSharableLink"; 
 
 @interface SHKDropbox : SHKSharer <DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate, SHKFormOptionControllerOptionProvider>
 
