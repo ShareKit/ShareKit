@@ -132,13 +132,6 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 + (BOOL)canShareFile:(SHKFile *)file { return YES; }
 
 #pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-- (BOOL) shouldOverwrite {
-    return [SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue];
-}
-
-#pragma mark -
 #pragma mark Authentication
 
 - (BOOL)isAuthorized
@@ -267,9 +260,7 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController {
     
-    //TODO: cancel all requests
-	//NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
-	//[self.getGroupsFetcher cancel];
+    //TODO: cancel metadata load (directory browse) request. Dropbox SDK allows only to cancel all requests. It can happen, that there are more requests, possibly uploads, in progress and we do not want to stop these. Implement this, after Dropbox SDK exposes running requests.
 }
 
 #pragma mark - Share form validation (check metadata - if file exists on Dropbox)
@@ -343,7 +334,7 @@ static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
             
             [self.item setCustomValue:metadata.rev forKey:kSHKDropboxParentRevision];
             
-            if ([self shouldOverwrite] || metadata.isDeleted) {
+            if ([SHKCONFIG(dropboxShouldOverwriteExistedFile) boolValue] || metadata.isDeleted) {
                 
                 [self.pendingForm saveForm]; //start sharing
                 

@@ -153,10 +153,9 @@
 }
 
 - (void) updateFromOptions{
-#warning think of some NSAssert counting for pushNewContentOnSelection type of option controller
-    /*
+    
 	NSAssert((!self.settings.fetchFromWeb && [self.settings.displayValues count] > 0 ) ||
-             (self.settings.fetchFromWeb && (!self.didLoad || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");*/
+             (self.settings.fetchFromWeb && (!self.didLoad || self.settings.pushNewContentOnSelection || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");
 	NSAssert(!self.settings.fetchFromWeb || self.provider, @"ShareKit: if you are fetching you must give a provider");
 	
 	if (self.settings.fetchFromWeb && !self.didLoad) {
@@ -197,11 +196,10 @@
         newSettings.displayValues = nil;
         newSettings.saveValues = nil;
         newSettings.pickerTitle = self.settings.displayValues[indexPath.row];
-        #warning hide implementation detail (selectedIndexes)
         [newSettings.selectedIndexes removeAllIndexes];
         
         SHKFormOptionController *newOptionController = [[SHKFormOptionController alloc] initWithOptionPickerSettings:newSettings client:self.client];
-        newOptionController.selectionValue = self.settings.saveValues[indexPath.row];
+        newOptionController.selectionValue = [self.settings valueToSave];
         [self.navigationController pushViewController:newOptionController animated:YES];
         
     } else {
