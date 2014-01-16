@@ -88,7 +88,7 @@
 
 // new with the 3.1 SDK facebook wants you to request read and publish permissions separatly. If you don't
 // you won't get a smooth login/auth flow. Since ShareKit does not require any read permissions.
-- (NSArray*)facebookWritePermissions {    
+- (NSArray*)facebookWritePermissions {
     return [NSArray arrayWithObjects:@"publish_actions", nil];
 }
 - (NSArray*)facebookReadPermissions {    
