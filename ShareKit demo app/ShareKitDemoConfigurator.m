@@ -251,10 +251,12 @@
 
 // Dropbox - https://www.dropbox.com/developers/apps
 - (NSString *) dropboxAppKey {
-    return @"n18olaziz6f8752";
+    //return @"n18olaziz6f8752"; //This app key has whole dropbox permission. Do not forget to change also dropboxAppSecret, dropboxRootFolder and url scheme in ShareKit demo app-info.plist if you wish to use it.
+    return @"gb82qlxy5dx728y"; //This app key has sandbox permission
 }
 - (NSString *) dropboxAppSecret {
-    return @"6cjsemxx6i2qdvc";
+    //return @"6cjsemxx6i2qdvc";
+    return @"rrk959vgkotv9v1";
 }
 
 /*
@@ -263,7 +265,8 @@
  @"dropbox" (set if you chose permission type "Full dropbox" == kDBRootDropbox)
  */
 - (NSString *) dropboxRootFolder {
-    return @"dropbox";
+    return @"sandbox";
+    //return @"dropbox";
 }
 - (NSNumber *)dropboxShouldOverwriteExistedFile {
     return [NSNumber numberWithBool:NO];

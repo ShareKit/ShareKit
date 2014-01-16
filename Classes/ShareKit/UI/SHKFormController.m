@@ -32,6 +32,7 @@
 #import "SHKFormFieldCellOptionPicker.h"
 #import "SHKFormFieldSettings.h"
 #import "SHKFormFieldLargeTextSettings.h"
+#import "SHKFormFieldOptionPickerSettings.h"
 
 #define CELL_IDENTIFIER_TEXT @"textCell"
 #define CELL_IDENTIFIER_LARGE_TEXT @"largeTextCell"
@@ -44,7 +45,9 @@
 
 @property (nonatomic, strong) UITextField *activeField;
 
-- (SHKFormFieldSettings *)rowSettingsForIndexPath:(NSIndexPath *)indexPath;
+///if pushNewContentOnSelection=YES on SHKFormOptionController, here is track of user selections
+@property (nonatomic) NSUInteger lastOptionControllersCount;
+
 
 @end
 
@@ -68,6 +71,7 @@
 																				 target:self
 																				 action:@selector(validateForm)];
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _lastOptionControllersCount = 1; //self is first on the nav controller stack
 	}
 	return self;
 }
@@ -165,6 +169,7 @@
         
         SHKFormFieldOptionPickerSettings *settingsForCell = (SHKFormFieldOptionPickerSettings *)[self rowSettingsForIndexPath:indexPath];
         SHKFormOptionController* optionsPicker = [[SHKFormOptionController alloc] initWithOptionPickerSettings:settingsForCell client:self];
+        if (settingsForCell.pushNewContentOnSelection) self.navigationController.delegate = self;
 		[self.navigationController pushViewController:optionsPicker animated:YES];
     }
 }
@@ -272,6 +277,14 @@
     return result;
 }
 
+- (void)setRowSettings:(SHKFormFieldSettings *)newSettings forIndexPath:(NSIndexPath *)indexPath {
+    
+    NSDictionary *section = [self.sections objectAtIndex:indexPath.section];
+    NSMutableArray *rows = [[section objectForKey:@"rows"] mutableCopy];
+    [rows replaceObjectAtIndex:indexPath.row withObject:newSettings];
+    [section setValue:rows forKey:@"rows"];
+}
+
 - (NSArray *)settingsPassingTest:(BOOL (^)(id obj, NSUInteger idx, BOOL *stop))predicate {
     
     NSMutableArray *result = [@[] mutableCopy];
@@ -315,8 +328,16 @@
 
 - (void)SHKFormOptionControllerDidFinish:(SHKFormOptionController *)optionController
 {	
+    self.navigationController.delegate = nil;
     [self.tableView reloadData];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)SHKFormOptionControllerPushedNewContent:(SHKFormOptionController *)optionController {
+    
+    //exchange settings with selection
+    SHKFormFieldOptionPickerSettings *newSettings = optionController.settings;
+    [self setRowSettings:newSettings forIndexPath:[self.tableView indexPathForSelectedRow]];
 }
 
 #pragma mark -
@@ -367,6 +388,35 @@
     }
 		
 	return formValues;	
+}
+
+//used for keeping track of position (and corresponding settings data) in case SHKFormOptionController is configured to pushNewContentOnSelection=YES
+#pragma mark - UINavigationController delegate methods
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(SHKFormOptionController *)viewController animated:(BOOL)animated {
+    
+    NSUInteger lastViewControllerIndex = [[navigationController viewControllers] count] - 2;
+    SHKFormOptionController *lastViewController = [navigationController viewControllers][lastViewControllerIndex];
+    
+    BOOL navigatingBack = self.lastOptionControllersCount > [[navigationController viewControllers] count];
+    if (navigatingBack) {
+        
+        [viewController.settings.selectedIndexes removeAllIndexes];
+        self.lastOptionControllersCount--;
+        
+    } else {
+        
+        //reset so that they are refetched in case of dismissing option controller and displaying again
+        if (![lastViewController isKindOfClass:[SHKFormOptionController class]] && viewController.settings.fetchFromWeb) {
+            viewController.settings.displayValues = nil;
+            viewController.settings.saveValues = nil;
+        }
+        self.lastOptionControllersCount++;
+    }
+    
+    if ([lastViewController isKindOfClass:[SHKFormOptionController class]]) {
+        [self SHKFormOptionControllerPushedNewContent:lastViewController];
+    }
 }
 
 @end

@@ -46,11 +46,18 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 	[self updateFromOptions];
-	[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-																							 target:self
-																							 action:@selector(cancel:)] animated:YES];
+    
+    BOOL isFirstOnNavigationController = [[self.navigationController viewControllers] indexOfObject:self] == 1; //so that if we navigate (pushNewContentOnSelection = YES) there is proper back button
+    
+    if (isFirstOnNavigationController) {
+        
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+                                                                                                target:self
+                                                                                                action:@selector(cancel:)] animated:YES];
+    }
 }
 
 - (void)optionsEnumeratedDisplay:(NSArray *)displayOptions save:(NSArray *)saveOptions
@@ -74,7 +81,7 @@
 
 	[self updateFromOptions];
 
-	if (self.settings.allowMultiple) {
+	if (self.settings.allowMultiple || self.settings.pushNewContentOnSelection) {
 		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 																								 target:self
 																								 action:@selector(done:)] animated:YES];
@@ -108,7 +115,7 @@
     [self.client SHKFormOptionControllerDidFinish:self];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
 }
@@ -146,9 +153,9 @@
 }
 
 - (void) updateFromOptions{
-	
+    
 	NSAssert((!self.settings.fetchFromWeb && [self.settings.displayValues count] > 0 ) ||
-             (self.settings.fetchFromWeb && (!self.didLoad || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");
+             (self.settings.fetchFromWeb && (!self.didLoad || self.settings.pushNewContentOnSelection || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");
 	NSAssert(!self.settings.fetchFromWeb || self.provider, @"ShareKit: if you are fetching you must give a provider");
 	
 	if (self.settings.fetchFromWeb && !self.didLoad) {
@@ -178,6 +185,22 @@
         }
         
         [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+    } else if (self.settings.pushNewContentOnSelection) {
+        
+        [self.settings.selectedIndexes removeAllIndexes];
+        [self.settings.selectedIndexes addIndex:indexPath.row];
+        
+        //create new option controller
+        SHKFormFieldOptionPickerSettings *newSettings = [self.settings copy];
+        newSettings.displayValues = nil;
+        newSettings.saveValues = nil;
+        newSettings.pickerTitle = self.settings.displayValues[indexPath.row];
+        [newSettings.selectedIndexes removeAllIndexes];
+        
+        SHKFormOptionController *newOptionController = [[SHKFormOptionController alloc] initWithOptionPickerSettings:newSettings client:self.client];
+        newOptionController.selectionValue = [self.settings valueToSave];
+        [self.navigationController pushViewController:newOptionController animated:YES];
         
     } else {
         

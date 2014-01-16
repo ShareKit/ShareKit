@@ -336,14 +336,14 @@
 }
 /*
  This setting should correspond with permission type set during your app registration with Dropbox. You can choose from these two values:
- @"sandbox" (set if you chose permission type "App folder" == kDBRootAppFolder. You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
- @"dropbox" (set if you chose permission type "Full dropbox" == kDBRootDropbox)
+ @"sandbox" (set if you chose permission type "App folder". You will have access only to the app folder you set in  https://www.dropbox.com/developers/apps)
+ @"dropbox" (set if you chose permission type "Full dropbox")
  */
 - (NSString *) dropboxRootFolder {
     return @"sandbox";
 }
 
-// if you set NO, a dialogue will appear where user can choose different filename, otherwise the file is silently overwritten.
+// if you set NO, a dialogue will appear to ask user if he really wants to overwrite. Otherwise the file is silently overwritten.
 - (NSNumber *)dropboxShouldOverwriteExistedFile {
     return [NSNumber numberWithBool:YES];
 }
@@ -571,6 +571,12 @@
 -(NSString*) popOverSourceRect;
  {
   return NSStringFromCGRect(CGRectZero);
+}
+
+/* SHKDropbox */
+//if set, no UI for choosing the target directory is presented to the user.
+- (NSString *)dropboxDestinationDirectory {
+    return nil;
 }
 
 @end

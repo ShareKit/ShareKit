@@ -32,7 +32,7 @@
 
 @class SHKFormFieldSettings;
 
-@interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient>
+@interface SHKFormController : UITableViewController <SHKFormFieldCellDelegate, SHKFormOptionControllerClient, UINavigationControllerDelegate>
 
 @property (strong) NSMutableArray *sections;
 @property (copy) FormControllerCallback validateBlock;

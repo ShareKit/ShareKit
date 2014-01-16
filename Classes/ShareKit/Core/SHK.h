@@ -38,6 +38,7 @@ extern NSString * const SHKSendDidFinishNotification;
 extern NSString * const SHKSendDidFailWithErrorNotification;
 extern NSString * const SHKSendDidCancelNotification;
 extern NSString * const SHKAuthDidFinishNotification;
+extern NSString * const SHKShareResponseKeyName;
 
 @interface SHK : NSObject 
 

@@ -907,11 +907,16 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)sendDidFinish
 {	
-	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFinishNotification object:self];
+    [self sendDidFinishWithResponse:nil];
+}
 
+- (void)sendDidFinishWithResponse:(NSDictionary *)response {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFinishNotification object:self userInfo:response];
+    
     if ([self.shareDelegate respondsToSelector:@selector(sharerFinishedSending:)])
 		[self.shareDelegate performSelector:@selector(sharerFinishedSending:) withObject:self];
-	}
+}
 
 - (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action
 {

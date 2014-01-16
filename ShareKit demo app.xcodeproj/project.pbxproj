@@ -59,6 +59,7 @@
 		7AD7D5C917EC46E300DE20F6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */; };
 		7AD7D5CB17EC5A8200DE20F6 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */; };
 		7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */; };
+		7AD89CB91876134B007D3740 /* demo_large_video_share.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */; };
 		7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE5333D18129CE300C66849 /* ImageIO.framework */; };
 /* End PBXBuildFile section */
 
@@ -429,6 +430,7 @@
 		7AD7D5C817EC46E300DE20F6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7AD7D5CA17EC5A8200DE20F6 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = Frameworks/DropboxSDK.framework; sourceTree = "<group>"; };
+		7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo_large_video_share.mp4; sourceTree = "<group>"; };
 		7AE5333D18129CE300C66849 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -559,6 +561,7 @@
 		7A04066D1740E3F6003404B9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */,
 				7A04069F1740F0A5003404B9 /* demo_audio_share.mp3 */,
 				7A0406A01740F0A5003404B9 /* demo_video_share.mov */,
 				7A0406A11740F0A5003404B9 /* example.pdf */,
@@ -1010,6 +1013,7 @@
 				7A0406791740E3F6003404B9 /* Default.png in Resources */,
 				7A04067B1740E3F6003404B9 /* Default@2x.png in Resources */,
 				7A04067D1740E3F6003404B9 /* Default-568h@2x.png in Resources */,
+				7AD89CB91876134B007D3740 /* demo_large_video_share.mp4 in Resources */,
 				7A0406B31740F0A6003404B9 /* demo_audio_share.mp3 in Resources */,
 				7A0406B41740F0A6003404B9 /* demo_video_share.mov in Resources */,
 				7A0406B51740F0A6003404B9 /* example.pdf in Resources */,

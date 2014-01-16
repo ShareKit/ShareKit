@@ -45,6 +45,7 @@ NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
 NSString * const SHKSendDidFailWithErrorNotification = @"SHKSendDidFailWithError";
 NSString * const SHKSendDidCancelNotification = @"SHKSendDidCancel";
 NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
+NSString * const SHKShareResponseKeyName = @"SHKShareResponseKeyName";
 
 NSString * SHKLocalizedStringFormat(NSString* key);
 

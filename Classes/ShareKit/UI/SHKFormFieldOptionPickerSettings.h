@@ -59,6 +59,9 @@
 
 @property (weak, nonatomic) id <SHKFormOptionControllerOptionProvider> provider;
 
+///if there is a need to push new content controller. For example Dropbox sharer needs to traverse files. Done button is added.
+@property (nonatomic) BOOL pushNewContentOnSelection;
+
 /*!
  @param label Presented bold on the left side
  @param key  Corresponding key in SHKItem
@@ -66,7 +69,7 @@
  @param start  Placeholder, or initial value
  @param pickerTitle Title to put at the top of the list
  @param selectedIndexes These indexes will be preselected on load (former curIndexes) and changed as per user choice. Save value will be calculated using this. Can be nil.
- @param displayValues This will be displayed to user. If you need different (non-readable) strings to save, map them in saveValues (former itemsList)
+ @param displayValues This will be displayed to user. Can be nil, if you fetch from web. If you need different (non-readable) strings to save, map them in saveValues (former itemsList)
  @param saveValues If nil, displayValues are saved. (former itemsValues)
  @param allowMultiple If true then multiple options can be picked and a done button is added.
  @param fetchFromWeb If the choices must be loaded with a network operation. If true, provider is mandatory (former static)

@@ -49,6 +49,9 @@
     
     NSArray *decisiveArray = self.saveValues ? self.saveValues : self.displayValues;
     NSString *result = [decisiveArray joinValuesForIndexes:self.selectedIndexes];
+    if (!result && self.pushNewContentOnSelection) { //might happen if user pressed done on the first navigationController (i.e. without actually selecting any option - actually picked start value)
+        result = self.start;
+    }
     return result;
 
 }
@@ -71,6 +74,26 @@
     } else {
         return NO;
     }
+}
+
+#pragma mark - NSCopying protocol
+
+- (id)copyWithZone:(NSZone *)zone {
+    
+    SHKFormFieldOptionPickerSettings *result = [SHKFormFieldOptionPickerSettings label:self.label
+                                                                                   key:self.key
+                                                                                 start:self.start
+                                                                           pickerTitle:self.pickerTitle
+                                                                       selectedIndexes:[self.selectedIndexes mutableCopy]
+                                                                         displayValues:self.displayValues
+                                                                            saveValues:self.saveValues
+                                                                         allowMultiple:self.allowMultiple
+                                                                          fetchFromWeb:self.fetchFromWeb
+                                                                              provider:self.provider];
+    result.pushNewContentOnSelection = self.pushNewContentOnSelection;
+    result.validationBlock = self.validationBlock;
+    
+    return result;
 }
 
 @end

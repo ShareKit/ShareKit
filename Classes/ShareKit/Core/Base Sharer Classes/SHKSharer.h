@@ -211,7 +211,14 @@ typedef enum
 #pragma mark Delegate Notifications
 
 - (void)sendDidStart;
+/*!
+ * Calls sendDidFinishWithResponse: with nil argument
+ */
 - (void)sendDidFinish;
+/*!
+ * Sends SHKSendDidFinishNotification with service's response in userInfo and calls sharerFinishedSending: on shareDelegate
+ */
+- (void)sendDidFinishWithResponse:(NSDictionary *)response;
 - (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action;
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
@@ -223,7 +230,7 @@ typedef enum
 /*	called when an auth request returns. This is helpful if you need to use a service somewhere else in your
 	application other than sharing. It lets you use the same stored auth creds and login screens.
  */
-- (void)authDidFinish:(BOOL)success;	
+- (void)authDidFinish:(BOOL)success;
 
 @end
 
