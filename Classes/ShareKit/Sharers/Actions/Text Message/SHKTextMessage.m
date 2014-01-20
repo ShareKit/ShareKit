@@ -32,6 +32,10 @@
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
++(BOOL)composerSupportsAttachment
+{
+	return [[MFMessageComposeViewController class] respondsToSelector:@selector(canSendAttachments) ];
+}
 
 + (NSString *)sharerTitle
 {
@@ -50,6 +54,14 @@
 
 + (BOOL)canShareImage
 {
+	return [self composerSupportsAttachment] && [MFMessageComposeViewController canSendAttachments];
+}
+
++ (BOOL)canShareFile:(SHKFile *)file {
+    if([self composerSupportsAttachment] && [MFMessageComposeViewController canSendAttachments]){
+		// there is probably some number that we should limit attachments to, for the moment just say ok.
+		return YES;
+	}
 	return NO;
 }
 
@@ -93,16 +105,16 @@
 }
 
 - (BOOL)sendText
-{	
+{
 	MFMessageComposeViewController *composeView = [[MFMessageComposeViewController alloc] init];
 	composeView.messageComposeDelegate = self;
-  
+	
 	NSString *body = self.item.text;
 	
 	if (!body) {
 		
 		if (self.item.URL != nil)
-		{	
+		{
 			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
@@ -117,18 +129,27 @@
 			body = @"";
 	}
 	[composeView setBody:body];
-  
-  NSArray *toRecipients = self.item.textMessageToRecipients;
-  if (toRecipients)
+	
+	NSArray *toRecipients = self.item.textMessageToRecipients;
+	if (toRecipients)
 		[composeView setRecipients:toRecipients];
-  
+	
+	if (self.item.shareType == SHKShareTypeImage) {
+        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG	quality:self.item.mailJPGQuality];
+		// using this function creates a properly named file.
+    }
+	if (self.item.file) {
+		[composeView addAttachmentURL:self.item.file.URL withAlternateFilename:nil];
+	}
+		
+	
 	[[SHK currentHelper] showViewController:composeView];
     [[SHK currentHelper] keepSharerReference:self]; //release is in callback, MFMessageComposeViewController does not retain its delegate
 	
 	return YES;
 }
 
-- (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller
 				 didFinishWithResult:(MessageComposeResult)result 
 {
     switch (result)
