@@ -258,12 +258,11 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     };
     
     // Progress
-    [[SHKActivityIndicator currentIndicator] showProgress];
     void (^uploadProgress)(GTLServiceTicket *ticket, unsigned long long numberOfBytesRead, unsigned long long dataLength) =
     ^(GTLServiceTicket *ticket, unsigned long long numberOfBytesRead, unsigned long long dataLength){
         float progress = (double)numberOfBytesRead / (double)dataLength;
         if(progress < 1)
-            [SHKActivityIndicator currentIndicator].progress.progress = progress;
+            [[SHKActivityIndicator currentIndicator] showProgress:progress];
         else{
             [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Processing Video...")];
             [[SHKActivityIndicator currentIndicator] hideProgress];

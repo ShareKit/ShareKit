@@ -13,7 +13,7 @@
 #define kSHKDropboxStartDirectory @"/"
 
 #define kDropboxMaxFileSize 150000000
-#define kSHKDropboxSizeChunks 104800
+#define kSHKDropboxSizeChunks 2097152 //this is the default size of Dropbox ios sdk made chunks.
 #define kDropboxErrorDomain @"dropbox.com"
 #define kDropboxDomain @"www.dropbox.com"
 #define kDropboxResourseDomain  @"dl.dropbox.com"
@@ -531,12 +531,14 @@ static int outstandingRequests = 0;
 //    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath, srcPath, [metadata description]);
     [self SHKDropboxGetSharableLink:destPath];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
+    [[SHKActivityIndicator currentIndicator] hideProgress];
 }
 
 - (void)restClient:(DBRestClient*)client uploadProgress:(CGFloat)progress
            forFile:(NSString*)destPath from:(NSString*)srcPath {
-//    SHKLog(@"%@ %@ %@ upload progress = %.2f %", [client description], destPath,srcPath, progress * 100);
+    //SHKLog(@"%@ %@ %@ upload progress = %.2f %", [client description], destPath,srcPath, progress);
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
+    [[SHKActivityIndicator currentIndicator] showProgress:progress];
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
@@ -549,6 +551,7 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient *)client uploadedFileChunk:(NSString *)uploadId newOffset:(unsigned long long)offset
           fromFile:(NSString *)localPath expires:(NSDate *)expiresDate {
     
+    //SHKLog(@"%@ new offset %.2llu progress %llu", [client description], offset, offset/__fileSize);
     __fileOffset = offset;
     if (__fileOffset < __fileSize) {
         [client uploadFileChunk:uploadId offset:__fileOffset fromPath:localPath];
@@ -569,6 +572,16 @@ static int outstandingRequests = 0;
     }
 }
 
+- (void)restClient:(DBRestClient *)client uploadFileChunkProgress:(CGFloat)progress
+           forFile:(NSString *)uploadId offset:(unsigned long long)offset fromPath:(NSString *)localPath {
+    
+    unsigned long long chunkUploadedBytes = kSHKDropboxSizeChunks * progress;
+    unsigned long long totalUploadedBytes = chunkUploadedBytes + offset;
+    float totalProgress = (float)totalUploadedBytes/__fileSize;
+    //SHKLog(@"%@ upload chunk progress = %.2f %", [client description], progress);
+    [[SHKActivityIndicator currentIndicator] showProgress:totalProgress];
+}
+
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error {
    
     [self checkDropboxAPIError:error];
@@ -577,6 +590,7 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
           metadata:(DBMetadata *)metadata {
 
+    [[SHKActivityIndicator currentIndicator] hideProgress];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
     [self SHKDropboxGetSharableLink:destPath];
 }
@@ -613,7 +627,7 @@ static int outstandingRequests = 0;
 - (void) checkDropboxAPIError:(NSError *) error {
     
     [[SHK currentHelper] removeSharerReference:self]; //see [self send]
-    
+    [[SHKActivityIndicator currentIndicator] hideProgress];
     //  Check 401 - Bad or expired token. This can happen if the user or Dropbox
     //  revoked or expired an access token.
     NSInteger dbErrorCode = error.code;

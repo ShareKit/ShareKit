@@ -27,31 +27,17 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface SHKActivityIndicator : UIView
-
-@property (nonatomic, strong) UILabel *centerMessageLabel;
-@property (nonatomic, strong) UILabel *subMessageLabel;
-
-@property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) UIProgressView *progress;
 
 + (SHKActivityIndicator *)currentIndicator;
 
-- (void)show;
-- (void)hideAfterDelay;
 - (void)hide;
-- (void)persist;
-- (void)hidden;
 - (void)displayActivity:(NSString *)m;
 - (void)displayCompleted:(NSString *)m;
-- (void)setCenterMessage:(NSString *)message;
-- (void)setSubMessage:(NSString *)message;
-- (void)showSpinner;
-- (void)hideSpinner;
-- (void)showProgress;
+/*!
+ Displays specified progress. The range is from 0.0 to 1.0.
+ */
+- (void)showProgress:(CGFloat)progress;
 - (void)hideProgress;
-- (void)setProperRotation;
-- (void)setProperRotation:(BOOL)animated;
 
 @end

@@ -31,6 +31,16 @@
 
 #define SHKdegreesToRadians(x) (M_PI * x / 180.0)
 
+@interface SHKActivityIndicator ()
+
+@property (nonatomic, strong) UILabel *centerMessageLabel;
+@property (nonatomic, strong) UILabel *subMessageLabel;
+
+@property (nonatomic, strong) UIActivityIndicatorView *spinner;
+@property (nonatomic, strong) UIProgressView *progress;
+
+@end
+
 @implementation SHKActivityIndicator
 
 + (SHKActivityIndicator *)currentIndicator
@@ -235,7 +245,7 @@
 {
 	if (self.progress == nil)
 	{
-        self.progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
+        self.progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
         
 		self.progress.frame = CGRectMake(15.0f,
                                    15.0f,
@@ -244,8 +254,10 @@
 		
 	}
 	
-	[self addSubview:self.progress];
-    self.progress.progress = 0;
+	if ([self.progress superview] == nil) {
+        self.progress.progress = 0;
+        [self addSubview:self.progress];
+    }
 }
 
 - (void)hideProgress
@@ -258,6 +270,18 @@
         [self.progress removeFromSuperview];
         self.progress.alpha = 1;
     }];
+}
+
+- (void)showProgress:(CGFloat)progress {
+    
+	[self showProgress];
+		
+	if ([self superview] == nil)
+		[self show];
+	else
+		[self persist];
+
+    self.progress.progress = progress;
 }
 
 #pragma mark -
