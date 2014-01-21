@@ -222,6 +222,12 @@
     }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
+    self.location = [locations lastObject];
+    [self startloadingVenues];
+}
+
 #pragma mark Public
 - (void)startMonitoringLocation
 {
