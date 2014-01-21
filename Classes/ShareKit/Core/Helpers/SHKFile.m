@@ -259,7 +259,6 @@ static NSString *kSHKFileData = @"kSHKFileData";
     CFStringRef uti = [self UTITypeForPath:path];
     if (uti) {
         result = CFBridgingRelease(uti);
-        CFRelease(uti);
     }
     return result;
 }
