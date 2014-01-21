@@ -103,7 +103,7 @@
 }
 
 - (IBAction)cancel:(id)sender {
-	[[SHKActivityIndicator currentIndicator] hide];		
+
 	if (self.provider != nil) {
 		[self.provider SHKFormOptionControllerCancelEnumerateOptions:self];
 	}
@@ -152,7 +152,7 @@
     return cell;
 }
 
-- (void) updateFromOptions{
+- (void)updateFromOptions {
     
 	NSAssert((!self.settings.fetchFromWeb && [self.settings.displayValues count] > 0 ) ||
              (self.settings.fetchFromWeb && (!self.didLoad || self.settings.pushNewContentOnSelection || [self.settings.displayValues count] > 0 )), @"ShareKit: there must be some choices or it must be fetchable");
@@ -162,10 +162,6 @@
         
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading...")];
 		[self.provider SHKFormOptionControllerEnumerateOptions:self];
-        
-	} else {
-        
-		[[SHKActivityIndicator currentIndicator] hide];	
 	}
     
 	[self.tableView reloadData];

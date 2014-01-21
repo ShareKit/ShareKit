@@ -86,10 +86,7 @@
 #pragma mark -
 #pragma mark SHKSharerDelegate
 
-- (void)sharerStartedSending:(SHKSharer *)aSharer
-{
-	
-}
+- (void)sharerStartedSending:(SHKSharer *)aSharer { }
 
 - (void)sharerFinishedSending:(SHKSharer *)aSharer
 {
@@ -106,19 +103,9 @@
     self.isShareFinished = YES;
 }
 
-- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
-{
-
-}
-
-- (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer
-{
-    
-}
-
-- (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer
-{
-    
-}
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success { }
+- (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer { }
+- (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer { }
+- (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer { }
 
 @end

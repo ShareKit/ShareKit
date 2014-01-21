@@ -79,8 +79,8 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                           params:params
                           method:@"POST"
                       completion:^ (SHKRequest *request) {
-                         
-                          [[SHKActivityIndicator currentIndicator] hide];
+                          
+                          [self hideActivityIndicator];
                           
                           if (request.success)
                               [weakSelf.pendingForm saveForm];

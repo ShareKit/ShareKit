@@ -235,7 +235,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
   
   if (SHKDebugShowLogs) {
     SHKLog(@"Plurk Upload Picture Status Code: %ld", (long)[ticket.response statusCode]);
@@ -262,7 +262,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError *)error
 {
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
   
 	[self alertUploadImageWithError:error];
 }

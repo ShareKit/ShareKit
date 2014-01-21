@@ -434,7 +434,9 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *notification) {
                                                       
-                                                      NSArray *userBlogURLs = [self userBlogURLs];
+                                                      [weakSelf hideActivityIndicator];
+                                                      
+                                                      NSArray *userBlogURLs = [weakSelf userBlogURLs];
                                                       [weakSelf blogsEnumerated:userBlogURLs];
                                                       
                                                       [[NSNotificationCenter defaultCenter] removeObserver:weakSelf.getUserBlogsObserver];
@@ -444,6 +446,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController
 {
+    [self hideActivityIndicator];
     [[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
     self.getUserBlogsObserver = nil;
     NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");

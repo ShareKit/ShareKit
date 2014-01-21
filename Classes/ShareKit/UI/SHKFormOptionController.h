@@ -34,10 +34,6 @@
 // called when an item is taped or cancel is clicked, cancel passes nil pickedOption.
 - (void)SHKFormOptionControllerDidFinish:(SHKFormOptionController *)optionController;
 
-@optional
-// called when user pushes new navigation item. Form settings should be updated with user selection now. Used only when pushNewContentOnSelection is YES.
-- (void)SHKFormOptionControllerPushedNewContent:(SHKFormOptionController *)optionController;
-
 @end
 
 @protocol SHKFormOptionControllerOptionProvider

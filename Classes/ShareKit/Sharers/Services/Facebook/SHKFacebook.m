@@ -119,7 +119,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         [FBSession setActiveSession:session];
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
 				completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-					if (allowLoginUI) [[SHKActivityIndicator currentIndicator] hide];
+					if (allowLoginUI) [self hideActivityIndicator];
 					[self sessionStateChanged:session state:state error:error];
 				}];
         result = session.isOpen;
@@ -351,7 +351,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                                   defaultAudience:FBSessionDefaultAudienceFriends
                                                 completionHandler:^(FBSession *session, NSError *error) {
                                                     [self restoreItem];
-                                                    [[SHKActivityIndicator currentIndicator] hide];
+                                                    [self hideActivityIndicator];
                                                     requestingPermisSHKFacebook = nil;
                                                     if (error && error.fberrorShouldNotifyUser) {
                                                         UIAlertView *alertView = [[UIAlertView alloc]
@@ -411,7 +411,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                                               defaultAudience:FBSessionDefaultAudienceFriends
                                             completionHandler:^(FBSession *session, NSError *error) {
                                                 [self restoreItem];
-                                                [[SHKActivityIndicator currentIndicator] hide];
+                                                [self hideActivityIndicator];
                                                 requestingPermisSHKFacebook = nil;
                                                 if (error) {
                                                     
@@ -484,14 +484,14 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         [self validateVideoLimits:^(NSError *error){
             
             if (error){
-                [[SHKActivityIndicator currentIndicator] hide];
+                [self hideActivityIndicator];
                 [self sendDidFailWithError:error];
                 [self sendDidFinish];
                 return;
             }
             
             if (error) {
-                [[SHKActivityIndicator currentIndicator] hide];
+                [self hideActivityIndicator];
                 [self sendDidFailWithError:error];
                 [self sendDidFinish];
                 return;
@@ -529,7 +529,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
         [self.pendingConnections removeObject:connection];
         
         if(error){
-            [[SHKActivityIndicator currentIndicator] hide];
+            [self hideActivityIndicator];
             [self sendDidFailWithError:error];
             
             return;
@@ -572,7 +572,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	[self.pendingConnections removeObject:connection];
 	if (error) {
-		[[SHKActivityIndicator currentIndicator] hide];
+		[self hideActivityIndicator];
 		[self sendDidFailWithError:error];
 	}else{
 		[result convertNSNullsToEmptyStrings];
@@ -591,7 +591,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 	}
 	[self.pendingConnections removeObject:connection];
 	if(error){
-		[[SHKActivityIndicator currentIndicator] hide];
+		[self hideActivityIndicator];
 		//check if user revoked app permissions
 		NSDictionary *response = [error.userInfo valueForKey:FBErrorParsedJSONResponseKey];
         

@@ -91,7 +91,7 @@
 	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenRequestTicket Response Body: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
 	
 	if (ticket.didSucceed) 
 	{
@@ -110,7 +110,7 @@
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
 	
 	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Request Error")
 								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
@@ -211,7 +211,7 @@
 	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenAccessTicket Response Body: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 	
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
 	
 	if (ticket.didSucceed) 
 	{
@@ -235,7 +235,7 @@
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
-	[[SHKActivityIndicator currentIndicator] hide];
+	[self hideActivityIndicator];
 	
 	[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
 								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")

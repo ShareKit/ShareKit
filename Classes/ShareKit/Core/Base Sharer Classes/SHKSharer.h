@@ -45,6 +45,7 @@
 - (void)sharerCancelledSending:(SHKSharer *)sharer;
 - (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer;
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer;
+- (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer;
 @optional
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success;	
 
@@ -115,19 +116,19 @@ typedef enum
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title __attribute__((deprecated("use shareFileData:filename:title or shareFilePath:title instead. Mimetype is derived from filename")));
 
-// use if you share in-memory data.
+/// use if you share in-memory data.
 + (id)shareFileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title;
 
-//use if you share file from disk.
+///use if you share file from disk.
 + (id)shareFilePath:(NSString *)path title:(NSString *)title;
 
-//only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
+///only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
 + (id)getUserInfo;
 
 #pragma mark - 
 #pragma mark Share Item Save Methods
 
-/* used by subclasses when user has to quit the app during share process - e.g. during Facebook SSO trip to facebook app or browser. These methods save item temporarily to defaults and read it back. Data attachments (filedata, image) are stored as separate files in cache dir */
+/*! used by subclasses when user has to quit the app during share process - e.g. during Facebook SSO trip to facebook app or browser. These methods save item temporarily to defaults and read it back. Data attachments (filedata, image) are stored as separate files in cache dir !*/
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
 - (BOOL)restoreItem;
 
@@ -192,6 +193,7 @@ typedef enum
 #pragma mark UI Implementation
 
 - (void)show;
+- (void)hideActivityIndicator;
 
 #pragma mark -
 #pragma mark Share Form

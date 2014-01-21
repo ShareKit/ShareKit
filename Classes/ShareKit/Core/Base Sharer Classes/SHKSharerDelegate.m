@@ -86,7 +86,7 @@
 }
 
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer
-{    
+{
     NSString *errorMessage = SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [[sharer class] sharerTitle]);
     
     [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
@@ -94,6 +94,11 @@
                                 delegate:nil
                        cancelButtonTitle:SHKLocalizedString(@"Close")
                        otherButtonTitles:nil] show];
+}
+
+- (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer {
+    
+    [[SHKActivityIndicator currentIndicator] hide];
 }
 
 @end

@@ -380,7 +380,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
                       method:@"GET"
                   completion:^(SHKRequest *request) {
                       
-                      [[SHKActivityIndicator currentIndicator] hide];
+                      [self hideActivityIndicator];
                       
                       NSString *result = [[request getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
                       
@@ -1007,6 +1007,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 - (void)sendShowSimpleErrorAlert {
     
     [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to %@.", [[self class] sharerTitle])]];
+}
+
+- (void)hideActivityIndicator {
+    
+    [self.shareDelegate hideActivityIndicatorForSharer:self];
 }
 
 @end

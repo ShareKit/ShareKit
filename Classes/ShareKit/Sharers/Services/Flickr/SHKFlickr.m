@@ -319,6 +319,8 @@
             
         } else if ([response findRecursivelyValueForKey:@"group"]) {
             
+            [self hideActivityIndicator];
+            
             //fill in OptionController with user's groups
             NSArray *groups = [response findRecursivelyValueForKey:@"group"];
             
@@ -372,6 +374,7 @@
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController {
     
+    [self hideActivityIndicator];
 	NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
 	[self.getGroupsFetcher cancel];
 }

@@ -268,6 +268,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController {
     
+    [self hideActivityIndicator];
     //TODO: cancel metadata load (directory browse) request. Dropbox SDK allows only to cancel all requests. It can happen, that there are more requests, possibly uploads, in progress and we do not want to stop these. Implement this, after Dropbox SDK exposes running requests.
 }
 
@@ -323,7 +324,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 
 - (void)restClient:(DBRestClient*)client loadedMetadata:(DBMetadata*)metadata {
     
-    [[SHKActivityIndicator currentIndicator] hide];
+    [self hideActivityIndicator];
     
     if (metadata && metadata.path.length > 0) {
         
@@ -372,7 +373,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 
 - (void)restClient:(DBRestClient*)client loadMetadataFailedWithError:(NSError*)error {
 
-    [[SHKActivityIndicator currentIndicator] hide];
+    [self hideActivityIndicator];
     
     if ([error.domain isEqualToString:kDropboxErrorDomain] == YES && error.code == 404) {
         [self startSharing];

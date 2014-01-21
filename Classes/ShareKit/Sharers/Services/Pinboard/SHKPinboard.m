@@ -71,8 +71,7 @@
 
         [SHKRequest startWithURL:url params:nil method:@"POST" completion:^ (SHKRequest *request) {
             
-            // Hide the activity indicator
-            [[SHKActivityIndicator currentIndicator] hide];
+            [self hideActivityIndicator];
             
             if (request.success)
             {

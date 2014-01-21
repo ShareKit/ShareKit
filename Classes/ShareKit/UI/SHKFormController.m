@@ -333,13 +333,6 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)SHKFormOptionControllerPushedNewContent:(SHKFormOptionController *)optionController {
-    
-    //exchange settings with selection
-    SHKFormFieldOptionPickerSettings *newSettings = optionController.settings;
-    [self setRowSettings:newSettings forIndexPath:[self.tableView indexPathForSelectedRow]];
-}
-
 #pragma mark -
 #pragma mark Completion
 
@@ -419,5 +412,11 @@
     }
 }
 
-@end
+- (void)SHKFormOptionControllerPushedNewContent:(SHKFormOptionController *)optionController {
+    
+    //exchange settings with selection
+    SHKFormFieldOptionPickerSettings *newSettings = optionController.settings;
+    [self setRowSettings:newSettings forIndexPath:[self.tableView indexPathForSelectedRow]];
+}
 
+@end

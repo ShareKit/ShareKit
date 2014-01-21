@@ -277,7 +277,7 @@
                                                  accessToken:self.delegate.accessToken
                                                   completion:^ (SHKRequest *request) {
                                                       
-                                                      [[SHKActivityIndicator currentIndicator] hide];
+                                                      [self.delegate hideActivityIndicator];
                                                       
                                                       self.venues = nil;
                                                       
