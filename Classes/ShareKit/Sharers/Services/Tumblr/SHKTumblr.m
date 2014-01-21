@@ -106,6 +106,12 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 	[super logout];
 }
 
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKTumblrUserInfo];
+    NSString *result = userInfo[@"response"][@"user"][@"name"];
+    return result;
+}
 
 #pragma mark -
 #pragma mark Share Form
@@ -438,7 +444,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (void)SHKFormOptionControllerCancelEnumerateOptions:(SHKFormOptionController *)optionController
 {
-	[[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
+    [[NSNotificationCenter defaultCenter] removeObserver:self.getUserBlogsObserver];
     self.getUserBlogsObserver = nil;
     NSAssert(self.curOptionController == optionController, @"there should never be more than one picker open.");
 }
