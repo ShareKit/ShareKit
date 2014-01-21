@@ -185,24 +185,37 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 + (id)shareItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forItem:i];
-	
-	// Create controller and set share options
-	SHKSharer *controller = [[self alloc] init];
-	controller.item = i;
-	
-	// share and/or show UI
-	[controller share];
-	
-	return controller;
+	if ([self canShareItem:i]) {
+        
+        [SHK pushOnFavorites:[self sharerId] forItem:i];
+        
+        // Create controller and set share options
+        SHKSharer *controller = [[self alloc] init];
+        controller.item = i;
+        
+        // share and/or show UI
+        [controller share];
+        
+        return controller;
+        
+    } else {
+        
+        SHKLog(@"Warning!!! You are loading sharer with incompatible item");
+        return nil;
+    }
 }
 
 - (void)loadItem:(SHKItem *)i
 {
-	[SHK pushOnFavorites:[self sharerId] forItem:i];
-	
-	// Create controller set share options
-	self.item = i;
+    if ([[self class] canShareItem:i]) {
+        
+        [SHK pushOnFavorites:[self sharerId] forItem:i];
+        self.item = i;
+        
+    } else {
+        
+        SHKLog(@"Warning!!! You are loading sharer with incompatible item");
+    }
 }
 
 + (id)shareURL:(NSURL *)url
@@ -289,19 +302,26 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     SHKItem *item = [[SHKItem alloc] init];
     item.shareType = SHKShareTypeUserInfo;
     
-    // Create controller and set share options
-	SHKSharer *controller = [[self alloc] init];
-	controller.item = item;
-    
-	// share and/or show UI
-	[controller share];
-    
-    return controller;
+    if ([self canShareItem:item]) {
+        
+        // Create controller and set share options
+        SHKSharer *controller = [[self alloc] init];
+        controller.item = item;
+        
+        // share and/or show UI
+        [controller share];
+        return controller;
+
+    } else {
+        
+        SHKLog(@"Warning!!! You are loading sharer with incompatible item");
+        return nil;
+    }
 }
 
 #pragma mark - Share Item temporary save
 
-- (BOOL)restoreItem{
+- (BOOL)restoreItem {
     
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSDictionary *storedShareInfo = [defaults objectForKey:kSHKStoredShareInfoKey];
