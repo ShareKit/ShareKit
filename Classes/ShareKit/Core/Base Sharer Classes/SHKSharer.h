@@ -47,6 +47,9 @@
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer;
 - (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer;
 - (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer;
+- (void)displayCompleted:(NSString *)completionText forSharer:(SHKSharer *)sharer;
+- (void)hideProgressForSharer:(SHKSharer *)sharer;
+- (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer;
 @optional
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success;	
 
@@ -196,6 +199,9 @@ typedef enum
 - (void)show;
 - (void)hideActivityIndicator;
 - (void)displayActivity:(NSString *)activityDescription;
+- (void)displayCompleted:(NSString *)completionText;
+- (void)hideProgress;
+- (void)showProgress:(CGFloat)progress;
 
 #pragma mark -
 #pragma mark Share Form

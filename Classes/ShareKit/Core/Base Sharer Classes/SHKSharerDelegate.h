@@ -24,6 +24,10 @@
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
 
+@class SHKActivityIndicator;
+
 @interface SHKSharerDelegate : NSObject <SHKSharerDelegate>
+
+@property (strong, nonatomic) SHKActivityIndicator *activityIndicator;
 
 @end

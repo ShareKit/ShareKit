@@ -31,24 +31,33 @@
 #pragma mark -
 #pragma mark SHKSharerDelegate protocol methods
 
-// These are used if you do not provide your own custom UI and delegate
+- (instancetype)init {
+    
+    self = [super init];
+    if (self) {
+        //this might be unneccessary, as it is better to supply indicator from outside, but for compatibility reasons it is here.
+        _activityIndicator = [SHKActivityIndicator currentIndicator];
+    }
+    return self;
+}
 
+// These are used if you do not provide your own custom UI and delegate
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
+		[self.activityIndicator displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
 }
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet)
-		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+		[self.activityIndicator displayCompleted:SHKLocalizedString(@"Saved!")];
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
     
-    [[SHKActivityIndicator currentIndicator] hide];
+    [self.activityIndicator hide];
 
     //if user sent the item already but needs to relogin we do not show alert
     if (!sharer.quiet && !shouldRelogin)
@@ -98,13 +107,30 @@
 
 - (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer {
     
-    [[SHKActivityIndicator currentIndicator] hide];
+    [self.activityIndicator hide];
 }
 
 - (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;
-    [[SHKActivityIndicator currentIndicator] displayActivity:activityDescription];
+    [self.activityIndicator displayActivity:activityDescription];
+}
+
+- (void)displayCompleted:(NSString *)completionText forSharer:(SHKSharer *)sharer {
+    
+    if (sharer.quiet) return;
+    [self.activityIndicator displayCompleted:completionText];
+}
+
+- (void)hideProgressForSharer:(SHKSharer *)sharer {
+    
+    [self.activityIndicator hideProgress];
+}
+
+- (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer {
+    
+    if (sharer.quiet) return;
+    [self.activityIndicator showProgress:progress];
 }
 
 @end

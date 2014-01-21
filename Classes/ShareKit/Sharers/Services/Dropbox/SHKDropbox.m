@@ -532,14 +532,14 @@ static int outstandingRequests = 0;
 //    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath, srcPath, [metadata description]);
     [self SHKDropboxGetSharableLink:destPath];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
-    [[SHKActivityIndicator currentIndicator] hideProgress];
+    [self hideProgress];
 }
 
 - (void)restClient:(DBRestClient*)client uploadProgress:(CGFloat)progress
            forFile:(NSString*)destPath from:(NSString*)srcPath {
     //SHKLog(@"%@ %@ %@ upload progress = %.2f %", [client description], destPath,srcPath, progress);
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
-    [[SHKActivityIndicator currentIndicator] showProgress:progress];
+    [self showProgress:progress];
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
@@ -580,7 +580,7 @@ static int outstandingRequests = 0;
     unsigned long long totalUploadedBytes = chunkUploadedBytes + offset;
     float totalProgress = (float)totalUploadedBytes/__fileSize;
     //SHKLog(@"%@ upload chunk progress = %.2f %", [client description], progress);
-    [[SHKActivityIndicator currentIndicator] showProgress:totalProgress];
+    [self showProgress:totalProgress];
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error {
@@ -591,7 +591,7 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
           metadata:(DBMetadata *)metadata {
 
-    [[SHKActivityIndicator currentIndicator] hideProgress];
+    [self hideProgress];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
     [self SHKDropboxGetSharableLink:destPath];
 }
@@ -628,7 +628,7 @@ static int outstandingRequests = 0;
 - (void) checkDropboxAPIError:(NSError *) error {
     
     [[SHK currentHelper] removeSharerReference:self]; //see [self send]
-    [[SHKActivityIndicator currentIndicator] hideProgress];
+    [self hideProgress];
     //  Check 401 - Bad or expired token. This can happen if the user or Dropbox
     //  revoked or expired an access token.
     NSInteger dbErrorCode = error.code;

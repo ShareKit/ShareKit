@@ -90,7 +90,7 @@
         [[UIPasteboard generalPasteboard] setString:self.item.text];
 	
 	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
+	[self displayCompleted:SHKLocalizedString(@"Copied!")];
 	
 	// Notify delegate, but quietly
 	self.quiet = YES;

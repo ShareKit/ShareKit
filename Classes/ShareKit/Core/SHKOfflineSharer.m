@@ -108,5 +108,8 @@
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer { }
 - (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer { }
 - (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer { }
+- (void)displayCompleted:(NSString *)completionText forSharer:(SHKSharer *)sharer { }
+- (void)hideProgressForSharer:(SHKSharer *)sharer { }
+- (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer { }
 
 @end

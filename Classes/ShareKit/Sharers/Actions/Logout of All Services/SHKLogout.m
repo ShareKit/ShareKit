@@ -87,7 +87,7 @@
 	[SHK logoutOfAll];
 	
 	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Logged Out!")];
+	[self displayCompleted:SHKLocalizedString(@"Logged Out!")];
 	
 	// Notify delegate, but quietly
 	self.quiet = YES;
