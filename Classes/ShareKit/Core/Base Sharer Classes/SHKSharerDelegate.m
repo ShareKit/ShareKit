@@ -51,7 +51,7 @@
     [[SHKActivityIndicator currentIndicator] hide];
 
     //if user sent the item already but needs to relogin we do not show alert
-    if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend && sharer.pendingAction != SHKPendingRefreshToken)
+    if (!sharer.quiet && !shouldRelogin)
 	{				
 		[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
 									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
@@ -59,9 +59,6 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] show];
     }		
-    if (shouldRelogin) {        
-        [sharer promptAuthorization];
-	}
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)sharer
