@@ -104,24 +104,20 @@
 	composeView.messageComposeDelegate = self;
 	
 	NSString *body = self.item.text;
-	
-	if (!body) {
-		
-		if (self.item.URL != nil)
-		{
-			NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-			
-			if (body != nil)
-				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
-			
-			else
-				body = urlStr;
-		}
-		
-		// fallback
-		if (body == nil)
-			body = @"";
-	}
+    
+    if (self.item.URL) {
+        NSString *urlStr = [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        body = [self appendText:urlStr toBody:body];
+    }
+    
+    if (self.item.title) {
+        body = [self appendText:self.item.title toBody:body];
+    }
+    
+    // fallback
+    if (body == nil)
+        body = @"";
+
 	[composeView setBody:body];
 	
 	NSArray *toRecipients = self.item.textMessageToRecipients;
@@ -141,6 +137,17 @@
     [[SHK currentHelper] keepSharerReference:self]; //release is in callback, MFMessageComposeViewController does not retain its delegate
 	
 	return YES;
+}
+
+- (NSString *)appendText:(NSString *)string toBody:(NSString *)body {
+    
+    NSString *result = nil;
+    if (body) {
+        result = [body stringByAppendingFormat:@"<br/><br/>%@", string];
+    } else {
+        result = string;
+    }
+    return result;
 }
 
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller
