@@ -107,5 +107,6 @@
 - (void)sharerShowBadCredentialsAlert:(SHKSharer *)sharer { }
 - (void)sharerShowOtherAuthorizationErrorAlert:(SHKSharer *)sharer { }
 - (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer { }
+- (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer { }
 
 @end

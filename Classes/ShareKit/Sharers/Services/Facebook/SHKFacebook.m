@@ -114,7 +114,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     
     if (allowLoginUI || (session.state == FBSessionStateCreatedTokenLoaded)) {
         
-		if (allowLoginUI) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+		if (allowLoginUI) [self displayActivity:SHKLocalizedString(@"Logging In...")];
         
         [FBSession setActiveSession:session];
         [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent
@@ -343,7 +343,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
 			 indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
 			// No permissions found in session, ask for it
 			[self saveItemForLater:SHKPendingSend];
-			[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+			[self displayActivity:SHKLocalizedString(@"Authenticating...")];
 			if(requestingPermisSHKFacebook == nil){
 				requestingPermisSHKFacebook = self;
 			}
@@ -403,7 +403,7 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
     if (self.item.shareType != SHKShareTypeUserInfo &&[FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound) {	// we need at least this.SHKCONFIG(facebookWritePermissions
         // No permissions found in session, ask for it
         [self saveItemForLater:SHKPendingSend];
-        [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+        [self displayActivity:SHKLocalizedString(@"Authenticating...")];
         if(requestingPermisSHKFacebook == nil){
             requestingPermisSHKFacebook = self;
         }

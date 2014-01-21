@@ -160,7 +160,6 @@
 	
 	if (self.settings.fetchFromWeb && !self.didLoad) {
         
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Loading...")];
 		[self.provider SHKFormOptionControllerEnumerateOptions:self];
 	}
     

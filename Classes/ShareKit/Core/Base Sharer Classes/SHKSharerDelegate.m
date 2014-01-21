@@ -101,4 +101,10 @@
     [[SHKActivityIndicator currentIndicator] hide];
 }
 
+- (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer {
+    
+    if (sharer.quiet) return;
+    [[SHKActivityIndicator currentIndicator] displayActivity:activityDescription];
+}
+
 @end

@@ -367,6 +367,7 @@
 
 - (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
     
+    [self displayActivity:SHKLocalizedString(@"Loading...")];
 	NSAssert(self.curOptionController == nil, @"there should never be more than one picker open.");
 	self.curOptionController = optionController;
     self.getGroupsFetcher = [self sendFlickrRequestMethod:@"flickr.groups.pools.getGroups" parameters:nil];

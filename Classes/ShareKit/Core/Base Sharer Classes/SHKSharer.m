@@ -369,7 +369,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         return;
     }
 	
-	if (!self.quiet) [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	[self displayActivity:SHKLocalizedString(@"Shortening URL...")];
     
 	[SHKRequest startWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
                                                    bitLyLogin,
@@ -1012,6 +1012,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 - (void)hideActivityIndicator {
     
     [self.shareDelegate hideActivityIndicatorForSharer:self];
+}
+
+- (void)displayActivity:(NSString *)activityDescription {
+    
+    [self.shareDelegate displayActivity:activityDescription forSharer:self];
 }
 
 @end

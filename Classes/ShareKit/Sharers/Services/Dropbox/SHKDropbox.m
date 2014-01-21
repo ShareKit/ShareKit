@@ -257,6 +257,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 - (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController {
     
 	self.curOptionController = optionController;
+    [self displayActivity:SHKLocalizedString(@"Loading...")];
     
     if (optionController.selectionValue) {
         [self.restClient loadMetadata:optionController.selectionValue];
@@ -292,8 +293,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 - (void)checkFileOverwriteDestinationDir:(NSString *)destinationDir {
     
     // Display an activity indicator
-    if (!self.quiet)
-        [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+    [self displayActivity:SHKLocalizedString(@"Connecting...")];
     
     NSString *dropboxFileName = [self.item.file.filename normalizedDropboxPath];
     [self.item setCustomValue:dropboxFileName forKey:kSHKDropboxStoredFileName];

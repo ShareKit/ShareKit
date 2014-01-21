@@ -142,9 +142,7 @@ NSString *base64(NSData *plainText) {
     FormControllerCallback result = ^ (SHKFormController *form) {
         
         // Display an activity indicator
-        if (!weakSelf.quiet) {
-            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging in...")];
-        }
+        [weakSelf displayActivity:SHKLocalizedString(@"Logging in...")];
         
         weakSelf.pendingForm = form;
 
@@ -215,6 +213,7 @@ NSString *base64(NSData *plainText) {
 - (void)SHKFormOptionControllerEnumerateOptions:(SHKFormOptionController *)optionController
 {
     self.curOptionController = optionController;
+    [self displayActivity:SHKLocalizedString(@"Loading...")];
     
     // This is our cue to fire a request
     [self sendRequest:kListsURL params:nil method:@"GET" completion:^(SHKRequest *request) {

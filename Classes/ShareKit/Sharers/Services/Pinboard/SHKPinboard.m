@@ -59,8 +59,7 @@
     FormControllerCallback result = ^(SHKFormController *form) {
         
         // Display an activity indicator
-        if (!weakSelf.quiet)
-           [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Logging In...")];
+        [weakSelf displayActivity:SHKLocalizedString(@"Logging In...")];
         
         weakSelf.pendingForm = form;
         

@@ -426,6 +426,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     NSAssert(self.curOptionController == nil, @"there should never be more than one picker open.");
 	self.curOptionController = optionController;
     
+    [self displayActivity:SHKLocalizedString(@"Loading...")];
+    
     SHKTumblr *infoSharer = [SHKTumblr getUserInfo];
     
     __weak SHKTumblr *weakSelf = self;

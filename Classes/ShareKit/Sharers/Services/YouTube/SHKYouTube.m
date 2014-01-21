@@ -188,7 +188,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 
 - (void)uploadVideoFile {
     
-    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Uploading Video...")];
+    [self displayActivity:SHKLocalizedString(@"Uploading Video...")];
     
     // Collect the metadata for the upload from the item.
     
@@ -264,7 +264,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
         if(progress < 1)
             [[SHKActivityIndicator currentIndicator] showProgress:progress];
         else{
-            [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Processing Video...")];
+            [self displayActivity:SHKLocalizedString(@"Processing Video...")];
             [[SHKActivityIndicator currentIndicator] hideProgress];
         }
         

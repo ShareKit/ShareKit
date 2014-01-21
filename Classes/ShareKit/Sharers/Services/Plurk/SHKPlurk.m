@@ -212,8 +212,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 
 - (void)uploadImage
 {
-	if (!self.quiet)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Uploading Image...")];
+    [self displayActivity:SHKLocalizedString(@"Uploading Image...")];
   
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.plurk.com/APP/Timeline/uploadPicture"]
                                                                   consumer:consumer

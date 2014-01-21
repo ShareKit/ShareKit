@@ -244,7 +244,7 @@
     self.locationManager = locationManager;
     
     if (self.location == nil) {
-        [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Determine your location...")];
+        [self.delegate displayActivity:SHKLocalizedString(@"Determine your location...")];
     }
 }
 
@@ -270,7 +270,7 @@
 
 - (void)startloadingVenues
 {
-    [[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Searching places...")];
+    [self.delegate displayActivity:SHKLocalizedString(@"Searching places...")];
     
     [SHKFoursquareV2Request startRequestVenuesSearchLocation:self.location
                                                        query:self.query
