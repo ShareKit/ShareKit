@@ -30,9 +30,6 @@
 #import "SHKSharer.h"
 
 @interface SHKTextMessage : SHKSharer <MFMessageComposeViewControllerDelegate>
-{
-	
-}
 
 - (BOOL)sendText;
 

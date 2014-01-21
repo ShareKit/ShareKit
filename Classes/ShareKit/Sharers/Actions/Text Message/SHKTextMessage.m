@@ -32,9 +32,10 @@
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
-+(BOOL)composerSupportsAttachment
+
++ (BOOL)composerSupportsAttachment
 {
-	return [[MFMessageComposeViewController class] respondsToSelector:@selector(canSendAttachments) ];
+	return [[MFMessageComposeViewController class] respondsToSelector:@selector(canSendAttachments)];
 }
 
 + (NSString *)sharerTitle
@@ -58,8 +59,9 @@
 }
 
 + (BOOL)canShareFile:(SHKFile *)file {
-    if([self composerSupportsAttachment] && [MFMessageComposeViewController canSendAttachments]){
-		// there is probably some number that we should limit attachments to, for the moment just say ok.
+    
+    if ([self composerSupportsAttachment] && [MFMessageComposeViewController canSendAttachments] && [MFMessageComposeViewController isSupportedAttachmentUTI:file.UTIType]) {
+
 		return YES;
 	}
 	return NO;
@@ -75,7 +77,6 @@
 	return NO;
 }
 
-
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
@@ -83,13 +84,6 @@
 {
 	return [MFMessageComposeViewController canSendText];
 }
-
-- (BOOL)shouldAutoShare
-{
-	return YES;
-}
-
-
 
 #pragma mark -
 #pragma mark Share API Methods
@@ -169,6 +163,5 @@
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     [[SHK currentHelper] removeSharerReference:self]; //retained in [self sendText] method
 }
-
 
 @end

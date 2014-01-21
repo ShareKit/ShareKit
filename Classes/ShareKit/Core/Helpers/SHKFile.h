@@ -48,7 +48,11 @@
     Derived from filename. Used by services to check, if they can handle the file. Also favorites are different for each mime type.
  */
 @property (nonatomic,readonly) NSString *mimeType;
-/*! 
+/*!
+ Derived from filename. Used by services to check, if they can handle the file.
+ */
+@property (nonatomic,readonly) NSString *UTIType;
+/*!
     Size in bytes
  */
 @property (nonatomic,readonly) NSUInteger size;

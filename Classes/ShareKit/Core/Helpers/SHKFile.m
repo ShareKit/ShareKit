@@ -54,7 +54,8 @@ static NSString *tempDirectory;
         
         _path = path;
         _filename = path.lastPathComponent;
-        _mimeType = [self MIMETypeForPath:self.filename];
+        _mimeType = [self MIMETypeForPath:_filename];
+        _UTIType = [self NSStringUTITypeForPath:_filename];
     }
     return self;
 }
@@ -70,7 +71,8 @@ static NSString *tempDirectory;
         if (!filename) filename = [NSString stringWithFormat:@"ShareKit_file_%li", random() % 100];
         
         _filename = filename;
-        _mimeType = [self MIMETypeForPath:self.filename];
+        _mimeType = [self MIMETypeForPath:filename];
+        _UTIType = [self NSStringUTITypeForPath:filename];
     }
     return self;
 }
@@ -87,12 +89,14 @@ static NSString *tempDirectory;
             
             _filename = _path.lastPathComponent;
             _mimeType = [self MIMETypeForPath:_filename];
+            _UTIType = [self NSStringUTITypeForPath:_filename];
         
         } else {
             
             _data = [decoder decodeObjectForKey:kSHKFileData];
             _filename = [decoder decodeObjectForKey:kSHKFileName];
             _mimeType = [self MIMETypeForPath:_filename];
+            _UTIType = [self NSStringUTITypeForPath:_filename];
         }
     }
     return self;
@@ -229,14 +233,32 @@ static NSString *kSHKFileData = @"kSHKFileData";
 #pragma mark Utility
 
 - (NSString *)MIMETypeForPath:(NSString *)path{
+    
     NSString *result = @"";
-    NSString *extension = [path pathExtension];
-    CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
+    CFStringRef uti = [self UTITypeForPath:path];
     if (uti) {
         CFStringRef cfMIMEType = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType);
         if (cfMIMEType) {
             result = CFBridgingRelease(cfMIMEType);
         }
+        CFRelease(uti);
+    }
+    return result;
+}
+
+- (CFStringRef)UTITypeForPath:(NSString *)path {
+    
+    NSString *extension = [path pathExtension];
+    CFStringRef result = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
+    return result;
+}
+
+- (NSString *)NSStringUTITypeForPath:(NSString *)path {
+    
+    NSString *result = nil;
+    CFStringRef uti = [self UTITypeForPath:path];
+    if (uti) {
+        result = CFBridgingRelease(uti);
         CFRelease(uti);
     }
     return result;
