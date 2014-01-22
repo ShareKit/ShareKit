@@ -196,6 +196,7 @@
 		7AC28F28165A21C2006D7441 /* libTwitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A1AFD3A160E14340086B98A /* libTwitter.a */; };
 		7AC28F29165A21C2006D7441 /* libVKontakte.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBED1B162F08A3009D46E4 /* libVKontakte.a */; };
 		7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */; };
+		7ACABC78188FDD6B00EBFDB1 /* SHKSharer_protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACABC77188FDD6B00EBFDB1 /* SHKSharer_protected.h */; };
 		7ACD3B00184DCD210096CEA5 /* SHKFlickr.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACD3AFE184DCD210096CEA5 /* SHKFlickr.h */; };
 		7ACD3B01184DCD210096CEA5 /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3AFF184DCD210096CEA5 /* SHKFlickr.m */; };
 		7ACD3B06184DE7CE0096CEA5 /* testXMLAttributes3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7ACD3B05184DE7CE0096CEA5 /* testXMLAttributes3.xml */; };
@@ -892,6 +893,7 @@
 		7AC2A38C16597CCC0089ABE8 /* SHKSinaWeibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
 		7AC2A38D16597CCC0089ABE8 /* SHKSinaWeibo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
 		7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSina Weibo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ACABC77188FDD6B00EBFDB1 /* SHKSharer_protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharer_protected.h; sourceTree = "<group>"; };
 		7ACD3AFE184DCD210096CEA5 /* SHKFlickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFlickr.h; sourceTree = "<group>"; };
 		7ACD3AFF184DCD210096CEA5 /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
 		7ACD3B05184DE7CE0096CEA5 /* testXMLAttributes3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLAttributes3.xml; sourceTree = "<group>"; };
@@ -1720,6 +1722,7 @@
 				43A5367411DBE3B9004A1712 /* SHKOAuthSharer.h */,
 				43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */,
 				43A5367611DBE3B9004A1712 /* SHKSharer.h */,
+				7ACABC77188FDD6B00EBFDB1 /* SHKSharer_protected.h */,
 				43A5367711DBE3B9004A1712 /* SHKSharer.m */,
 				7A36F42514B2021100372747 /* SHKSharerDelegate.h */,
 				7A36F42614B2021100372747 /* SHKSharerDelegate.m */,
@@ -2524,6 +2527,7 @@
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
 				7A8397431782CC9500E1F8B9 /* Debug.h in Headers */,
 				7ACD3B09184DF0C40096CEA5 /* NSDictionary+Recursive.h in Headers */,
+				7ACABC78188FDD6B00EBFDB1 /* SHKSharer_protected.h in Headers */,
 				7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */,
 				7A0FB85F17A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.h in Headers */,
 				7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */,

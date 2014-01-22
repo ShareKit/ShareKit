@@ -35,6 +35,7 @@
 #import "SSKeychain.h"
 #import "SHKReachability.h"
 #import "SHKMail.h"
+#import "SHKItem.h"
 
 #import <objc/runtime.h>
 #import <objc/message.h>

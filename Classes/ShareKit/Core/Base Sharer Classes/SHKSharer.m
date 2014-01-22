@@ -168,7 +168,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
-        self.shareDelegate = [[SHKSharerDelegate alloc] init];
+        _shareDelegate = [[SHKSharerDelegate alloc] init];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];
@@ -314,7 +314,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
     } else {
         
-        SHKLog(@"Warning!!! You are loading sharer with incompatible item");
+        SHKLog(@"Warning!!! This sharer does not fetch user info.");
         return nil;
     }
 }
@@ -1031,6 +1031,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)showProgress:(CGFloat)progress {
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendProgressNotification object:self];
     [self.shareDelegate showProgress:progress forSharer:self];
 }
 

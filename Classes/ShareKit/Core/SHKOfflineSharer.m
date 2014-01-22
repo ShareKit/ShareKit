@@ -26,7 +26,7 @@
 //
 
 #import "SHKOfflineSharer.h"
-#import "SHKSharer.h"
+#import "SHKSharer_protected.h"
 
 @interface SHKOfflineSharer ()
 

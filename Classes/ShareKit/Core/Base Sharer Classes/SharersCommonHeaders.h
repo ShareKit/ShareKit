@@ -19,5 +19,6 @@
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SHKFormController.h"
 #import "SHKConfiguration.h"
+#import "SHKSharer_protected.h"
 
 #endif

@@ -31,6 +31,7 @@
 
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
+#import "SHKSharer_protected.h"
 
 
 @implementation SHKFoursquareV2VenuesForm
@@ -351,7 +352,8 @@
 
 - (void)cancel
 {
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self.delegate hideActivityIndicator];
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 	[self.delegate sendDidCancel];
 }
 

@@ -13,8 +13,6 @@
 #import "SharersCommonHeaders.h"
 
 @implementation SHKEvernoteItem
-@synthesize note;
-
 
 @end
 
