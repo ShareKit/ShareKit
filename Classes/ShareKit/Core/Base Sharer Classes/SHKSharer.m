@@ -1031,6 +1031,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)showProgress:(CGFloat)progress {
     
+    self.progress = progress;
     [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendProgressNotification object:self];
     [self.shareDelegate showProgress:progress forSharer:self];
 }

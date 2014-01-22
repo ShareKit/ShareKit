@@ -49,7 +49,10 @@
 @property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 
 ///holds last error encountered by sharer. Useful if you need to present it to the user.
-@property (nonatomic, strong) NSError *lastError;
+@property (readonly, nonatomic, strong) NSError *lastError;
+
+///holds large file share progress.
+@property (readonly) CGFloat progress;
 
 ///YES means no alerts, no activity indicators are displayed during the share process.
 @property BOOL quiet;

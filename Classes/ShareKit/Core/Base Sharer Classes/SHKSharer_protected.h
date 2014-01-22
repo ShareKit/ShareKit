@@ -46,6 +46,10 @@ typedef enum
 @property (weak) SHKFormOptionController *curOptionController;
 @property SHKSharerPendingAction pendingAction;
 
+//readonly public properties
+@property (nonatomic, strong) NSError *lastError;
+@property CGFloat progress;
+
 #pragma mark -
 #pragma mark Configuration : Service Definition
 

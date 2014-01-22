@@ -538,7 +538,10 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient*)client uploadProgress:(CGFloat)progress
            forFile:(NSString*)destPath from:(NSString*)srcPath {
     //SHKLog(@"%@ %@ %@ upload progress = %.2f %", [client description], destPath,srcPath, progress);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
+#pragma clang diagnostic pop
     [self showProgress:progress];
 }
 
