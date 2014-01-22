@@ -29,6 +29,7 @@
 #import "SHKVkontakteOAuthView.h"
 #import "SHKVKontakteRequest.h"
 #import "SharersCommonHeaders.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 @interface SHKVkontakte()
 
@@ -259,19 +260,8 @@
 
 + (void)logout
 {
-	/*
-    NSString *logout = @"http://api.vk.com/oauth/logout";
-	
-	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:logout] 
-																												 cachePolicy:NSURLRequestReloadIgnoringLocalCacheData 
-																										 timeoutInterval:60.0]; 
-		NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-	if(responseData)
-	{
-		NSDictionary *dict = [[JSONDecoder decoder] parseJSONData:responseData];
-	}*/
-	
-  [self flushAccessToken];
+    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:@"http://api.vk.com/oauth/authorize"]];
+    [self flushAccessToken];
 }
 
 #pragma mark -
