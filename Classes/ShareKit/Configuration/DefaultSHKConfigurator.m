@@ -486,6 +486,10 @@
     return NSClassFromString(@"SHKFormController");
 }
 
+- (Class)SHKActivityIndicatorSubclass {
+    return NSClassFromString(@"SHKActivityIndicator");
+}
+
 /*
  Advanced Configuration
  ----------------------

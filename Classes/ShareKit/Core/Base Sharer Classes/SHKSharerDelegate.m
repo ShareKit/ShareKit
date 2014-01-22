@@ -23,6 +23,7 @@
 
 #import "SHKSharerDelegate.h"
 #import "SHKActivityIndicator.h"
+#import "SHKConfiguration.h"
 #import "SHK.h"
 #import "Debug.h"
 
@@ -35,8 +36,7 @@
     
     self = [super init];
     if (self) {
-        //this might be unneccessary, as it is better to supply indicator from outside, but for compatibility reasons it is here.
-        _activityIndicator = [SHKActivityIndicator currentIndicator];
+        _activityIndicator = [SHKCONFIG(SHKActivityIndicatorSubclass) currentIndicator];
     }
     return self;
 }
