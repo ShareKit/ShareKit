@@ -13,6 +13,7 @@
 #import "ExampleShareFile.h"
 #import "SHK.h"
 #import "ExampleAccountsViewController.h"
+#import "SHKUploadsViewController.h"
 
 @interface RootViewController ()
 
@@ -24,12 +25,15 @@
 {
 	[super loadView];
 	
-	self.toolbarItems = [NSArray arrayWithObjects:
-						 [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts") style:UIBarButtonItemStyleBordered target:self action:@selector(showAccounts)],
-                         /*
-                         [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Facebook Connect") style:UIBarButtonItemStyleBordered target:self action:@selector(facebookConnect)],*/
-						 nil
-						 ];	
+	self.toolbarItems = @[[[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Accounts")
+                                                           style:UIBarButtonItemStyleBordered
+                                                          target:self
+                                                          action:@selector(showAccounts)],
+                          [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Uploads")
+                                                           style:UIBarButtonItemStyleBordered
+                                                          target:self
+                                                          action:@selector(showUploads)]];
+
 }
 
 - (void)viewDidLoad
@@ -155,10 +159,12 @@
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
     
-    [self presentViewController:navigationController
-                       animated:YES
-                     completion:^{
-                     }];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)showUploads {
+    
+    [SHKUploadsViewController openFromViewController:self];
 }
 
 - (void)authDidFinish:(NSNotification*)notification
