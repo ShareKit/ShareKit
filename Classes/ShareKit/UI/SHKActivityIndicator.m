@@ -26,18 +26,25 @@
 //
 
 #import "SHKActivityIndicator.h"
+
 #import <QuartzCore/QuartzCore.h>
 #import "Singleton.h"
+#import "SHKSharer.h"
 
 #define SHKdegreesToRadians(x) (M_PI * x / 180.0)
+#define SUB_MESSAGE_MAX_FONT_SIZE 17
+#define SUB_MESSAGE_SMALLER_SIZE 12
 
 @interface SHKActivityIndicator ()
+
+@property (nonatomic, weak) SHKSharer *currentSharer;
 
 @property (nonatomic, strong) UILabel *centerMessageLabel;
 @property (nonatomic, strong) UILabel *subMessageLabel;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @property (nonatomic, strong) UIProgressView *progress;
+@property (nonatomic, strong) UITapGestureRecognizer *tapToDismissRecognizer;
 
 @end
 
@@ -83,6 +90,95 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
+- (UITapGestureRecognizer *)tapToDismissRecognizer {
+    
+    if (!_tapToDismissRecognizer) {
+        _tapToDismissRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+        [self addGestureRecognizer:_tapToDismissRecognizer];
+    }
+    return _tapToDismissRecognizer;
+}
+
+#pragma mark Public methods
+
+- (void)hideForSharer:(SHKSharer *)sharer {
+    
+    self.currentSharer = nil;
+
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         self.alpha = 0;
+                     }
+                     completion:^(BOOL finished) {
+                         [self hidden];
+                     }];
+}
+
+- (void)displayActivity:(NSString *)m forSharer:(SHKSharer *)sharer {
+    
+    self.currentSharer = sharer;
+
+    [self setSubMessage:m];
+	[self showSpinner];
+	
+	[self.centerMessageLabel removeFromSuperview];
+	self.centerMessageLabel = nil;
+	
+	if ([self superview] == nil)
+		[self show];
+	else
+		[self persist];
+}
+- (void)displayCompleted:(NSString *)m forSharer:(SHKSharer *)sharer {
+    
+    self.currentSharer = nil;
+    
+    [self setCenterMessage:@"✓"];
+	[self setSubMessage:m];
+	
+	[self.spinner removeFromSuperview];
+	self.spinner = nil;
+	
+	if ([self superview] == nil)
+		[self show];
+	else
+		[self persist];
+    
+	[self hideAfterDelay];
+}
+
+- (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer {
+
+    self.currentSharer = sharer;
+    
+    [self showProgress];
+    
+	if ([self superview] == nil)
+		[self show];
+	else
+		[self persist];
+    
+    self.progress.progress = progress;
+}
+
+- (void)hideProgressForSharer:(SHKSharer *)sharer {
+
+    self.currentSharer = sharer;
+    
+    if(self.progress.alpha < 1 || self.progress.superview == nil) return;
+    
+    [UIView animateWithDuration:0.35f animations:^{
+        self.progress.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self.progress removeFromSuperview];
+        self.progress.alpha = 1;
+        self.subMessageLabel.text = nil;
+        self.subMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_MAX_FONT_SIZE];
+        self.tapToDismissRecognizer.enabled = NO;
+        self.userInteractionEnabled = NO;
+    }];
+}
+
 #pragma mark Creating Message
 
 - (void)show
@@ -105,13 +201,7 @@
 
 - (void)hide
 {
-	[UIView animateWithDuration:0.4
-                     animations:^{
-                         self.alpha = 0;
-                     }
-                     completion:^(BOOL finished) {
-                         [self hidden];
-                     }];
+    [self hideForSharer:nil];
 }
 
 - (void)persist
@@ -137,32 +227,12 @@
 
 - (void)displayActivity:(NSString *)m
 {		
-	[self setSubMessage:m];
-	[self showSpinner];	
-	
-	[self.centerMessageLabel removeFromSuperview];
-	self.centerMessageLabel = nil;
-	
-	if ([self superview] == nil)
-		[self show];
-	else
-		[self persist];
+    [self displayActivity:m forSharer:nil];
 }
 
 - (void)displayCompleted:(NSString *)m
 {	
-	[self setCenterMessage:@"✓"];
-	[self setSubMessage:m];
-	
-	[self.spinner removeFromSuperview];
-	self.spinner = nil;
-	
-	if ([self superview] == nil)
-		[self show];
-	else
-		[self persist];
-		
-	[self hideAfterDelay];
+    [self displayCompleted:m forSharer:nil];
 }
 
 - (void)setCenterMessage:(NSString *)message
@@ -205,7 +275,7 @@
 			self.subMessageLabel.backgroundColor = [UIColor clearColor];
 			self.subMessageLabel.opaque = NO;
 			self.subMessageLabel.textColor = [UIColor whiteColor];
-			self.subMessageLabel.font = [UIFont boldSystemFontOfSize:17];
+			self.subMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_MAX_FONT_SIZE];
 			self.subMessageLabel.textAlignment = UITextAlignmentCenter;
 			self.subMessageLabel.shadowColor = [UIColor darkGrayColor];
 			self.subMessageLabel.shadowOffset = CGSizeMake(1,1);
@@ -257,31 +327,34 @@
 	if ([self.progress superview] == nil) {
         self.progress.progress = 0;
         [self addSubview:self.progress];
+        [self setCenterMessage:[self.subMessageLabel.text copy]];
+        [self setSubMessage:@"Tap to dismiss"];
+        self.subMessageLabel.font = [UIFont systemFontOfSize:SUB_MESSAGE_SMALLER_SIZE];
+        self.tapToDismissRecognizer.enabled = YES;
+        self.userInteractionEnabled = YES;
     }
+    
+    
 }
 
 - (void)hideProgress
 {
-    if(self.progress.alpha < 1 || self.progress.superview == nil) return;
-    
-    [UIView animateWithDuration:0.35f animations:^{
-        self.progress.alpha = 0;
-    } completion:^(BOOL finished) {
-        [self.progress removeFromSuperview];
-        self.progress.alpha = 1;
-    }];
+    [self hideProgressForSharer:nil];
 }
 
 - (void)showProgress:(CGFloat)progress {
     
-	[self showProgress];
-		
-	if ([self superview] == nil)
-		[self show];
-	else
-		[self persist];
+    [self showProgress:progress forSharer:nil];
+}
 
-    self.progress.progress = progress;
+- (void)handleTap:(UITapGestureRecognizer *)sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded)
+    {
+        self.currentSharer.quiet = YES;
+        [self hideProgressForSharer:nil];
+        [self hideForSharer:nil];
+    }
 }
 
 #pragma mark -

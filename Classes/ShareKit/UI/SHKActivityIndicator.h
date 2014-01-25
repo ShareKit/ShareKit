@@ -27,17 +27,30 @@
 
 #import <Foundation/Foundation.h>
 
+@class SHKSharer;
+
 @interface SHKActivityIndicator : UIView
 
 + (SHKActivityIndicator *)currentIndicator;
 
-- (void)hide;
-- (void)displayActivity:(NSString *)m;
-- (void)displayCompleted:(NSString *)m;
+- (void)hideForSharer:(SHKSharer *)sharer;
+- (void)displayActivity:(NSString *)m forSharer:(SHKSharer *)sharer;
+- (void)displayCompleted:(NSString *)m forSharer:(SHKSharer *)sharer;
 /*!
- Displays specified progress. The range is from 0.0 to 1.0.
+ Displays specified progress. Supply range from 0.0 to 1.0.
  */
-- (void)showProgress:(CGFloat)progress;
-- (void)hideProgress;
+- (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer;
+- (void)hideProgressForSharer:(SHKSharer *)sharer;
+
+#pragma mark - Deprecated methods
+
+- (void)hide __attribute__((deprecated("use hideForSharer: instead")));
+- (void)displayActivity:(NSString *)m __attribute__((deprecated("use displayActivity:forSharer: instead")));
+- (void)displayCompleted:(NSString *)m __attribute__((deprecated("use displayCompleted:forSharer: instead")));
+/*!
+ Displays specified progress. Supply range from 0.0 to 1.0.
+ */
+- (void)showProgress:(CGFloat)progress __attribute__((deprecated("use showProgress:forSharer: instead")));
+- (void)hideProgress __attribute__((deprecated("use hideProgressForSharer: instead")));
 
 @end

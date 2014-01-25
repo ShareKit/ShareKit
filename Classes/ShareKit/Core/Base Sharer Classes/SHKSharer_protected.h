@@ -45,10 +45,10 @@ typedef enum
 @property (weak) SHKFormController *pendingForm;
 @property (weak) SHKFormOptionController *curOptionController;
 @property SHKSharerPendingAction pendingAction;
+@property (nonatomic, strong) NSDictionary *uploadProgressUserInfo;
 
 //readonly public properties
 @property (nonatomic, strong) NSError *lastError;
-@property CGFloat progress;
 
 #pragma mark -
 #pragma mark Configuration : Service Definition
@@ -142,6 +142,9 @@ typedef enum
 #pragma mark -
 #pragma mark Delegate Notifications
 
+/*!
+ Each sharer should call this when actually starts sending the item to the service. Calling this causes SHKSendDidStartNotification to be sent, and calls sharerStartedSending: on the shareDelegate.
+ */
 - (void)sendDidStart;
 /*!
  * Calls sendDidFinishWithResponse: with nil argument

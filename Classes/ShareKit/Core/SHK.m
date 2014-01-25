@@ -50,6 +50,15 @@ NSString * const SHKSendProgressNotification = @"SHKSendProgress";
 
 NSString * const SHKShareResponseKeyName = @"SHKShareResponseKeyName";
 
+//uploadProgressUserInfoContent
+NSString * const SHKUploadProgressKeyName = @"SHKUploadProgressKeyName";
+NSString * const SHKBytesUploadedKeyName = @"SHKBytesUploadedKeyName";
+NSString * const SHKBytesTotalKeyName = @"SHKBytesTotalKeyName"; //upload total size
+NSString * const SHKFileNameKeyName = @"SHKFileNameKeyName";
+NSString * const SHKSharerKeyName = @"SHKSharerKeyName";
+NSString * const SHKFailedKeyName = @"SHKFailedKeyName"; //YES, if upload failed
+NSString * const SHKFinishedKeyName = @"SHKFinishedKeyName"; //YES, if upload finished successfully
+
 NSString * SHKLocalizedStringFormat(NSString* key);
 
 @interface SHK ()

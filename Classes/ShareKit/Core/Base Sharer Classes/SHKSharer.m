@@ -179,6 +179,22 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 	return self;
 }
 
+#pragma mark - Lazy loading properties
+
+- (NSDictionary *)uploadProgressUserInfo {
+    
+    if (!_uploadProgressUserInfo) {
+        
+        _uploadProgressUserInfo = [@{SHKSharerKeyName: [self sharerTitle],
+                                    SHKFileNameKeyName: self.item.file.filename,
+                                    SHKUploadProgressKeyName: @(0.0),
+                                    SHKFailedKeyName: @(NO),
+                                    SHKFinishedKeyName: @(NO),
+                                    SHKBytesTotalKeyName:@(self.item.file.size),
+                                    SHKBytesUploadedKeyName:@(0.0)} mutableCopy];
+    }
+    return _uploadProgressUserInfo;
+}
 
 #pragma mark -
 #pragma mark Share Item Loading Convenience Methods
@@ -435,7 +451,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     }
 }
 
-//insertion point for sharers, which must have fulfilled more conditions for sharing, e.g. available user account in settings.app for iOS sharers
+//insertion point for sharers, which must have fulfilled more conditions for sharing, e.g. available user account in settings.app for iOS sharers. Evaluated within share method, before actually sharing.
 - (BOOL)isSharerReady {
     
     return YES;
@@ -1031,8 +1047,12 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)showProgress:(CGFloat)progress {
     
-    self.progress = progress;
-    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendProgressNotification object:self];
+    NSUInteger *uploadedBytes = (NSUInteger)(self.item.file.size * progress);
+    
+    [self.uploadProgressUserInfo setValue:[NSNumber numberWithLong:uploadedBytes] forKey:SHKBytesUploadedKeyName];
+    [self.uploadProgressUserInfo setValue:@(progress) forKey:SHKUploadProgressKeyName];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendProgressNotification object:self userInfo:self.uploadProgressUserInfo];
     [self.shareDelegate showProgress:progress forSharer:self];
 }
 

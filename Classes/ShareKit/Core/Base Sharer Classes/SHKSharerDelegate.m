@@ -45,19 +45,19 @@
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet)
-		[self.activityIndicator displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
+		[self.activityIndicator displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle]) forSharer:sharer];
 }
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet)
-		[self.activityIndicator displayCompleted:SHKLocalizedString(@"Saved!")];
+		[self.activityIndicator displayCompleted:SHKLocalizedString(@"Saved!") forSharer:sharer];
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
     
-    [self.activityIndicator hide];
+    [self.activityIndicator hideForSharer:sharer];
 
     //if user sent the item already but needs to relogin we do not show alert
     if (!sharer.quiet && !shouldRelogin)
@@ -107,30 +107,30 @@
 
 - (void)hideActivityIndicatorForSharer:(SHKSharer *)sharer {
     
-    [self.activityIndicator hide];
+    [self.activityIndicator hideForSharer:sharer];
 }
 
 - (void)displayActivity:(NSString *)activityDescription forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;
-    [self.activityIndicator displayActivity:activityDescription];
+    [self.activityIndicator displayActivity:activityDescription forSharer:sharer];
 }
 
 - (void)displayCompleted:(NSString *)completionText forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;
-    [self.activityIndicator displayCompleted:completionText];
+    [self.activityIndicator displayCompleted:completionText forSharer:sharer];
 }
 
 - (void)hideProgressForSharer:(SHKSharer *)sharer {
     
-    [self.activityIndicator hideProgress];
+    [self.activityIndicator hideProgressForSharer:sharer];
 }
 
 - (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;
-    [self.activityIndicator showProgress:progress];
+    [self.activityIndicator showProgress:progress forSharer:sharer];
 }
 
 @end

@@ -42,6 +42,15 @@ extern NSString * const SHKSendProgressNotification;
 
 extern NSString * const SHKShareResponseKeyName;
 
+//uploadProgressUserInfoContent. Designed as a model for SHKUploadsViewController
+extern NSString * const SHKUploadProgressKeyName;//percentage, from 0.0 to 1.0
+extern NSString * const SHKBytesUploadedKeyName;
+extern NSString * const SHKBytesTotalKeyName; //upload total size
+extern NSString * const SHKFileNameKeyName;
+extern NSString * const SHKSharerKeyName; //The localized name of the sharer
+extern NSString * const SHKFailedKeyName; //YES, if upload failed
+extern NSString * const SHKFinishedKeyName; //YES, if upload finished successfully
+
 @interface SHK : NSObject 
 
 @property (nonatomic, strong) UIViewController *currentView;
