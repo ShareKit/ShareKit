@@ -31,6 +31,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 @property (nonatomic, strong) DBRestClient *restClient;
 @property (nonatomic, strong) UIAlertView *overwriteAlert;
 @property (nonatomic) BOOL fileOverwriteChecked;
+@property BOOL chunkedUploadFailReportedAlready;
 
 + (DBSession *) createNewDropbox;
 + (DBSession *) dropbox;
@@ -588,7 +589,13 @@ static int outstandingRequests = 0;
 
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error {
    
-    [self checkDropboxAPIError:error];
+    //this method is called more than once (a bug in the sdk?). Error checking should happen only once.
+    if (!self.chunkedUploadFailReportedAlready) {
+        
+        //must be delayed, otherwise premature sharer's dealloc.
+        [self performSelector:@selector(checkDropboxAPIError:) withObject:error afterDelay:0.1];
+        self.chunkedUploadFailReportedAlready = YES;
+    }
 }
 
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId

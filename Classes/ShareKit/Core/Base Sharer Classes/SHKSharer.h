@@ -54,10 +54,13 @@
 ///YES means no alerts, no activity indicators are displayed during the share process.
 @property BOOL quiet;
 
+@property (readonly, strong) SHKItem *item;
+
 #pragma mark -
 #pragma mark Configuration : Service Definition
 
 + (NSString *)sharerTitle;
+- (NSString *)sharerTitle;
 + (BOOL)canShareItem:(SHKItem *)item;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
@@ -100,6 +103,7 @@
 #pragma mark Commit Share
 
 - (void)share;
+- (void)cancel;
 
 #pragma mark -
 #pragma mark Authentication

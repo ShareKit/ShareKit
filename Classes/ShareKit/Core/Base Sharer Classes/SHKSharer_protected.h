@@ -23,8 +23,10 @@
 //  THE SOFTWARE.
 
 #import "SHKSharer.h"
-#import "SHKItem.h"
 #import "FormControllerCallback.h"
+#import "SHKItem.h"
+
+@class SHKUploadInfo;
 
 typedef enum
 {
@@ -45,7 +47,10 @@ typedef enum
 @property (weak) SHKFormController *pendingForm;
 @property (weak) SHKFormOptionController *curOptionController;
 @property SHKSharerPendingAction pendingAction;
-@property (nonatomic, strong) NSDictionary *uploadProgressUserInfo;
+
+///Sharers, which are able to report upload progress (usually large file sharers, such as Dropbox or YouTube) store upload info statistics here.
+@property (nonatomic, strong) SHKUploadInfo *uploadInfo;
+//@property (nonatomic) BOOL uploadProgressAvailable;
 
 //readonly public properties
 @property (nonatomic, strong) NSError *lastError;
@@ -53,7 +58,6 @@ typedef enum
 #pragma mark -
 #pragma mark Configuration : Service Definition
 
-- (NSString *)sharerTitle;
 + (NSString *)sharerId;
 - (NSString *)sharerId;
 + (BOOL)canShareText;

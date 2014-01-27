@@ -1,9 +1,9 @@
 //
-//  Singleton.h
+//  SHKUploadData.h
 //  ShareKit
 //
-//  Created by Vilem Kurz on 07/03/2013.
-
+//  Created by Vilém Kurz on 27/01/14.
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -22,12 +22,34 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-//Taken from http://lukeredpath.co.uk/blog/2011/07/01/a-note-on-objective-c-singletons/
+#import <Foundation/Foundation.h>
 
-#define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
-static dispatch_once_t pred = 0; \
-__strong static id _sharedObject = nil; \
-dispatch_once(&pred, ^{ \
-_sharedObject = block(); \
-}); \
-return _sharedObject; \
+@class SHKSharer;
+
+@interface SHKUploadInfo : NSObject <NSCoding>
+
+///The uploading sharer
+@property (weak) SHKSharer *sharer;
+@property (copy) NSString *sharerTitle;
+@property (copy) NSString *filename;
+
+///percentage, from 0.0 to 1.0
+@property CGFloat uploadProgress;
+
+///upload total size
+@property NSUInteger bytesTotal;
+@property NSUInteger bytesUploaded;
+
+///YES, if upload finished successfully
+@property BOOL uploadFinishedSuccessfully;
+
+///YES if user cancelled the share in SHKUploadsViewController
+@property BOOL uploadCancelled;
+
+- (instancetype)initWithSharer:(SHKSharer *)sharer;
+
+///Returns YES, if upload is failed.
+- (BOOL)isFailed;
+- (BOOL)isInProgress;
+
+@end

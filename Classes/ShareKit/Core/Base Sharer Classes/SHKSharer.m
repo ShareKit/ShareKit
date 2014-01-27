@@ -30,6 +30,7 @@
 #import "SHKSharerDelegate.h"
 #import "SHKRequest.h"
 #import "SharersCommonHeaders.h"
+#import "SHKUploadInfo.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
@@ -42,6 +43,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 @end
 
 @implementation SHKSharer
+
+- (void)dealloc {
+    
+    SHKLog(@"!!! %@ sharer deallocated!!!", [self sharerTitle]);
+}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -177,23 +183,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 			self.modalTransitionStyle = [SHK modalTransitionStyleForController:self];
 	}
 	return self;
-}
-
-#pragma mark - Lazy loading properties
-
-- (NSDictionary *)uploadProgressUserInfo {
-    
-    if (!_uploadProgressUserInfo) {
-        
-        _uploadProgressUserInfo = [@{SHKSharerKeyName: [self sharerTitle],
-                                    SHKFileNameKeyName: self.item.file.filename,
-                                    SHKUploadProgressKeyName: @(0.0),
-                                    SHKFailedKeyName: @(NO),
-                                    SHKFinishedKeyName: @(NO),
-                                    SHKBytesTotalKeyName:@(self.item.file.size),
-                                    SHKBytesUploadedKeyName:@(0.0)} mutableCopy];
-    }
-    return _uploadProgressUserInfo;
 }
 
 #pragma mark -
@@ -461,6 +450,11 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     
     BOOL result = [SHKCONFIG(allowAutoShare) boolValue] == TRUE && [self shouldAutoShare];
     return result;
+}
+
+- (void)cancel {
+    
+    SHKLog(@"Default implementation of cancel does nothing!!!");
 }
 
 #pragma mark -
@@ -942,11 +936,16 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 }
 
 - (void)sendDidFinish
-{	
+{
     [self sendDidFinishWithResponse:nil];
 }
 
 - (void)sendDidFinishWithResponse:(NSDictionary *)response {
+    
+    if (self.uploadInfo) {
+        self.uploadInfo.uploadFinishedSuccessfully = YES;
+        [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFinishNotification object:self userInfo:response];
     
@@ -977,6 +976,10 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
 	self.lastError = error;
+    
+    if (self.uploadInfo) {
+        [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];//to save last progress into defaults
+    }
     
 	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidFailWithErrorNotification object:self];
     
@@ -1047,12 +1050,23 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)showProgress:(CGFloat)progress {
     
-    NSUInteger *uploadedBytes = (NSUInteger)(self.item.file.size * progress);
+    //SHKLog(@"progress: %f", progress);
     
-    [self.uploadProgressUserInfo setValue:[NSNumber numberWithLong:uploadedBytes] forKey:SHKBytesUploadedKeyName];
-    [self.uploadProgressUserInfo setValue:@(progress) forKey:SHKUploadProgressKeyName];
+    //workaround for buggy sdk's, e.g Dropbox can upload 1.06 of a file :(
+    if (progress > 1.0) {
+        progress = 1.0;
+    }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendProgressNotification object:self userInfo:self.uploadProgressUserInfo];
+    long long *uploadedBytes = (long long)(self.item.file.size * progress);
+    self.uploadInfo.bytesUploaded = uploadedBytes;
+    self.uploadInfo.uploadProgress = progress;
+    
+    if (!self.uploadInfo) {
+        self.uploadInfo = [[SHKUploadInfo alloc] initWithSharer:self];
+        [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKUploadProgressNotification object:self userInfo:@{SHKUploadProgressInfoKeyName: self.uploadInfo}];
     [self.shareDelegate showProgress:progress forSharer:self];
 }
 

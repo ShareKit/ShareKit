@@ -27,6 +27,7 @@
 
 #import "SHK.h"
 #import "Singleton.h"
+#import "Debug.h"
 
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
@@ -36,28 +37,24 @@
 #import "SHKReachability.h"
 #import "SHKMail.h"
 #import "SHKItem.h"
+#import "SHKUploadInfo.h"
 
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <MessageUI/MessageUI.h>
 
+NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
+
 NSString * const SHKSendDidStartNotification = @"SHKSendDidStartNotification";
-NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
 NSString * const SHKSendDidFailWithErrorNotification = @"SHKSendDidFailWithError";
 NSString * const SHKSendDidCancelNotification = @"SHKSendDidCancel";
-NSString * const SHKAuthDidFinishNotification = @"SHKAuthDidFinish";
-NSString * const SHKSendProgressNotification = @"SHKSendProgress";
 
+NSString * const SHKSendDidFinishNotification = @"SHKSendDidFinish";
 NSString * const SHKShareResponseKeyName = @"SHKShareResponseKeyName";
 
-//uploadProgressUserInfoContent
-NSString * const SHKUploadProgressKeyName = @"SHKUploadProgressKeyName";
-NSString * const SHKBytesUploadedKeyName = @"SHKBytesUploadedKeyName";
-NSString * const SHKBytesTotalKeyName = @"SHKBytesTotalKeyName"; //upload total size
-NSString * const SHKFileNameKeyName = @"SHKFileNameKeyName";
-NSString * const SHKSharerKeyName = @"SHKSharerKeyName";
-NSString * const SHKFailedKeyName = @"SHKFailedKeyName"; //YES, if upload failed
-NSString * const SHKFinishedKeyName = @"SHKFinishedKeyName"; //YES, if upload finished successfully
+NSString * const SHKUploadProgressNotification = @"SHKUploadProgressNotification";
+NSString * const SHKUploadProgressInfoKeyName = @"SHKUploadProgressInfoKeyName";
+NSString * const SHKUploadInfosDefaultsKeyName = @"SHKUploadInfosDefaultsKeyName";
 
 NSString * SHKLocalizedStringFormat(NSString* key);
 
@@ -66,6 +63,7 @@ NSString * SHKLocalizedStringFormat(NSString* key);
 @property (nonatomic, weak) UIViewController *rootViewController;
 @property BOOL wrapViewController;
 @property (strong) NSMutableArray *sharerReferences;
+@property (strong, nonatomic) NSMutableOrderedSet *uploadProgressUserInfos;
 
 @end
 
@@ -85,8 +83,21 @@ BOOL SHKinit;
     self = [super init];
     if (self) {
         _sharerReferences = [@[] mutableCopy];
+        
+        NSData *data = [[NSUserDefaults standardUserDefaults] dataForKey:SHKUploadInfosDefaultsKeyName];
+      
+        if (data) {
+            NSArray *savedUploadUserInfosArray = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            _uploadProgressUserInfos = [[NSMutableOrderedSet alloc] initWithArray:savedUploadUserInfosArray];
+        } else {
+            _uploadProgressUserInfos = [[NSMutableOrderedSet alloc] initWithCapacity:10];
+        }
     }
     return self;
+}
+
+- (void)dealloc {
+    SHKLog(@"SHK base deallocated");
 }
 
 #pragma mark -
@@ -94,16 +105,35 @@ BOOL SHKinit;
 
 - (void)keepSharerReference:(SHKSharer *)sharer {
     
+    SHKLog(@"+++ %@ reference", [sharer sharerTitle]);
     [self.sharerReferences addObject:sharer];
 }
 
 - (void)removeSharerReference:(SHKSharer *)sharer {
     
+    SHKLog(@"--- %@ reference", [sharer sharerTitle]);
+    
     NSUInteger indexOfSharer = [self.sharerReferences indexOfObject:sharer];
     
     if (indexOfSharer != NSNotFound) {
         [self.sharerReferences removeObjectAtIndex:indexOfSharer];
+    } else {
+        SHKLog(@"Attempt to removeSharerReference NON Existing reference!!! Watch out, something is wrong with sharers implementation!!!");
     }
+}
+
+#pragma mark -
+#pragma mark - Uploads Progress Management
+
+- (void)uploadInfoChanged:(SHKUploadInfo *)uploadProgressUserInfo {
+    
+    [self.uploadProgressUserInfos addObject:uploadProgressUserInfo];
+    
+    //save change to NSUserDefaults
+    NSArray *array = [self.uploadProgressUserInfos array];
+    NSData *uploadInfosData = [NSKeyedArchiver archivedDataWithRootObject:array];
+    [[NSUserDefaults standardUserDefaults] setObject:uploadInfosData forKey:SHKUploadInfosDefaultsKeyName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark -

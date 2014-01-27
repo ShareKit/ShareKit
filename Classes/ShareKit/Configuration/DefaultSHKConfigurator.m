@@ -486,6 +486,10 @@
     return NSClassFromString(@"SHKFormController");
 }
 
+- (Class)SHKUploadsViewControllerSubclass {
+    return NSClassFromString(@"SHKUploadsViewController");
+}
+
 - (Class)SHKActivityIndicatorSubclass {
     return NSClassFromString(@"SHKActivityIndicator");
 }

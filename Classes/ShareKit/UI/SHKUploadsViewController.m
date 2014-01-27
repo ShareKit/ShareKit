@@ -7,11 +7,28 @@
 //
 
 #import "SHKUploadsViewController.h"
+
 #import "SHK.h"
+#import "SHKUploadsViewCell.h"
+#import "SHKConfiguration.h"
+#import "SHKUploadInfo.h"
+#import "Debug.h"
+
+#import "SHKDropbox.h" //for mock data only
+
+#define LOAD_MOCK_DATA 0
 
 @interface SHKUploadsViewController ()
 
 @property (weak, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) NSMutableOrderedSet *uploadInfoDataSource;
+@property (weak, nonatomic) id sendDidFinishObserver;
+@property (weak, nonatomic) id sendProgressObserver;
+@property (weak, nonatomic) id sendDidFailObserver;
+@property (strong, nonatomic) NSByteCountFormatter *byteFormatter;
+
+//to keep a mock sharer alive
+@property (strong, nonatomic) SHKDropbox *dropbox;
 
 @end
 
@@ -21,14 +38,89 @@
 
 + (instancetype)openFromViewController:(UIViewController *)rootViewController {
     
-    id result = [[self alloc] init];
+    id result = [[SHKCONFIG(SHKUploadsViewControllerSubclass) alloc] initWithUploadInfo:[[SHK currentHelper] uploadProgressUserInfos]];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:result];
     [rootViewController presentViewController:navigationController animated:YES completion:nil];
     return result;
 }
 
-- (void)viewDidLoad
-{
+- (Class)uploadsViewCellClass {
+    
+    return [SHKUploadsViewCell class];
+}
+
+- (instancetype)initWithUploadInfo:(NSMutableOrderedSet *)uploadInfo {
+    
+    self = [super init];
+    if (self) {
+        
+        if (LOAD_MOCK_DATA) {
+        
+            _dropbox = [[SHKDropbox alloc] init];
+            
+            SHKUploadInfo *mockUpload = [[SHKUploadInfo alloc] init];
+            mockUpload.sharer = _dropbox;
+            mockUpload.sharerTitle = [_dropbox sharerTitle];
+            mockUpload.filename = @"Long_file_name_____name.test";
+            mockUpload.uploadProgress = 0.54;
+            mockUpload.bytesTotal = 3044506;
+            mockUpload.bytesUploaded = 789456;
+            
+            _uploadInfoDataSource = [[NSMutableOrderedSet alloc] initWithCapacity:10];
+            [_uploadInfoDataSource addObject:mockUpload];
+
+        } else {
+            
+            _uploadInfoDataSource = uploadInfo;
+        }
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        _sendDidFinishObserver = [center addObserverForName:SHKSendDidFinishNotification
+                                                     object:nil
+                                                      queue:mainQueue
+                                                 usingBlock:^(NSNotification *note) {
+                                                     [weakSelf.tableView reloadData];
+                                                      }];
+        
+        _sendProgressObserver = [center addObserverForName:SHKUploadProgressNotification
+                                                    object:nil
+                                                     queue:mainQueue
+                                                usingBlock:^(NSNotification *note) {
+                                                    
+                                                    SHKUploadInfo *uploadInfo = [note.userInfo objectForKey:SHKUploadProgressInfoKeyName];
+                                                    NSUInteger index = [weakSelf.uploadInfoDataSource indexOfObject:uploadInfo];
+                                                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+                                                    SHKUploadsViewCell *cell = (SHKUploadsViewCell *)[weakSelf.tableView cellForRowAtIndexPath:indexPath];
+                                                    [cell updateWithUploadInfo:uploadInfo];
+                                                }];
+        
+        _sendDidFailObserver = [center addObserverForName:SHKSendDidFailWithErrorNotification
+                                                   object:nil
+                                                    queue:mainQueue
+                                               usingBlock:^(NSNotification *note) {
+                                                   [weakSelf.tableView reloadData];
+                                               }];
+    }
+    
+    return self;
+}
+
+- (void)dealloc {
+    
+    SHKLog(@"uploads VC dealloc");
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self.sendDidFinishObserver];
+    [center removeObserver:self.sendProgressObserver];
+    [center removeObserver:self.sendDidFailObserver];
+}
+
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
@@ -36,53 +128,67 @@
                                                                                           action:@selector(done:)];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
                                                                                            target:self
-                                                                                           action:@selector(clear:)];
+                                                                                           action:@selector(clear)];
     UITableView *tableView = [[UITableView alloc] initWithFrame:[self.view bounds]];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
     self.tableView = tableView;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)done:(id)sender
-{
+- (void)done:(id)sender {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)clear {
+    
+    NSMutableOrderedSet *uploads = [[SHK currentHelper] uploadProgressUserInfos];
+    NSMutableArray *infosToDelete = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    for (SHKUploadInfo *uploadInfo in uploads) {
+        if (![uploadInfo isInProgress]) {
+            [infosToDelete addObject:uploadInfo];
+        }
+    }
+    [uploads removeObjectsInArray:infosToDelete];
+    
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 30;
+    NSInteger result = [self.uploadInfoDataSource count];
+    return result;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    SHKUploadsViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[self uploadsViewCellClass] alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        [cell setupLayout];
     }
     
+    SHKUploadInfo *cellUploadData = self.uploadInfoDataSource[indexPath.row];
+    [cell updateWithUploadInfo:cellUploadData];
     return cell;
 }
 

@@ -1,9 +1,9 @@
 //
-//  Singleton.h
+//  SHKUploadsViewCell.h
 //  ShareKit
 //
-//  Created by Vilem Kurz on 07/03/2013.
-
+//  Created by Vilém Kurz on 25/01/14.
+//
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -22,12 +22,20 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-//Taken from http://lukeredpath.co.uk/blog/2011/07/01/a-note-on-objective-c-singletons/
+#import <UIKit/UIKit.h>
 
-#define DEFINE_SHARED_INSTANCE_USING_BLOCK(block) \
-static dispatch_once_t pred = 0; \
-__strong static id _sharedObject = nil; \
-dispatch_once(&pred, ^{ \
-_sharedObject = block(); \
-}); \
-return _sharedObject; \
+@class SHKUploadInfo;
+
+@interface SHKUploadsViewCell : UITableViewCell
+
+@property (strong, nonatomic) UILabel *filenameLabel;
+@property (strong, nonatomic) UILabel *progressLabel;
+@property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) UILabel *statusLabel;
+@property (strong, nonatomic) UIButton *actionButton;
+
+- (void)setupLayout;
+- (void)updateWithUploadInfo:(SHKUploadInfo *)uploadInfo;
+
+
+@end

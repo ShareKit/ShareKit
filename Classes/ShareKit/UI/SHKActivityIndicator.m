@@ -83,6 +83,14 @@
     });
 }
 
+- (void)setCurrentSharer:(SHKSharer *)currentSharer {
+    
+    if (_currentSharer && currentSharer && currentSharer != _currentSharer) {
+        _currentSharer.quiet = YES; //if there are more sharers sharing concurrently, display only the most recent one. (by shutting up the old one)
+    }
+    _currentSharer = currentSharer;
+}
+
 #pragma mark -
 
 - (void)dealloc
