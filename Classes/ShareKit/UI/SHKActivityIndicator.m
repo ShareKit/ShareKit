@@ -30,6 +30,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Singleton.h"
 #import "SHKSharer.h"
+#import "MBRoundProgressView.h"
+#import "SHK.h"
 
 #define SHKdegreesToRadians(x) (M_PI * x / 180.0)
 #define SUB_MESSAGE_MAX_FONT_SIZE 17
@@ -39,11 +41,12 @@
 
 @property (nonatomic, weak) SHKSharer *currentSharer;
 
+@property (nonatomic, strong) UILabel *upperMessageLabel;
 @property (nonatomic, strong) UILabel *centerMessageLabel;
 @property (nonatomic, strong) UILabel *subMessageLabel;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) UIProgressView *progress;
+@property (nonatomic, strong) MBRoundProgressView *progress;
 @property (nonatomic, strong) UITapGestureRecognizer *tapToDismissRecognizer;
 
 @end
@@ -145,6 +148,26 @@
     return _subMessageLabel;
 }
 
+- (UILabel *)upperMessageLabel {
+    
+    
+    if (!_upperMessageLabel) {
+        
+        _upperMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(12,12,self.bounds.size.width-24,30)];
+        _upperMessageLabel.backgroundColor = [UIColor clearColor];
+        _upperMessageLabel.opaque = NO;
+        _upperMessageLabel.textColor = [UIColor whiteColor];
+        _upperMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_SMALLER_SIZE];
+        _upperMessageLabel.textAlignment = UITextAlignmentCenter;
+        _upperMessageLabel.shadowColor = [UIColor darkGrayColor];
+        _upperMessageLabel.shadowOffset = CGSizeMake(1,1);
+        _upperMessageLabel.adjustsFontSizeToFitWidth = YES;
+        
+        [self addSubview:_upperMessageLabel];
+    }
+    return _upperMessageLabel;
+}
+
 - (UIActivityIndicatorView *)spinner {
     
     if (!_spinner) {
@@ -159,28 +182,25 @@
     return _spinner;
 }
 
-- (UIProgressView *)progress {
+- (MBRoundProgressView *)progress {
     
     if (!_progress) {
-        
-        _progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
-		_progress.frame = CGRectMake(15.0f,
-                                     15.0f,
-                                     self.bounds.size.width - 30.0f,
-                                     _progress.frame.size.height);
+        _progress = [[MBRoundProgressView alloc] init];
+        CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
+        _progress.center = center;
         [self addSubview:_progress];
         [self setupProgress];
-	}
+        _progress.annular = YES;
+    }
     return _progress;
 }
 
 - (void)setupProgress
 {
-    [self setCenterMessage:[self.subMessageLabel.text copy]];
-    [self setSubMessage:@"Tap to dismiss"];
-    self.subMessageLabel.font = [UIFont systemFontOfSize:SUB_MESSAGE_SMALLER_SIZE];
     self.tapToDismissRecognizer.enabled = YES;
     self.userInteractionEnabled = YES;
+    [self hideSpinner];
+    self.upperMessageLabel.text = SHKLocalizedString(@"Tap to dismiss");
 }
 
 
@@ -299,10 +319,9 @@
     [self.progress removeFromSuperview];
     self.progress = nil;
     
-    self.subMessageLabel.text = nil;
-    self.subMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_MAX_FONT_SIZE];
     self.tapToDismissRecognizer.enabled = NO;
     self.userInteractionEnabled = NO;
+    self.upperMessageLabel.text = nil;
 }
 
 #pragma mark Creating Message
