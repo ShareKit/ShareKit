@@ -265,7 +265,6 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
             [self showProgress:progress];
         else{
             [self displayActivity:SHKLocalizedString(@"Processing Video...")];
-            [self hideProgress];
         }
         
     };

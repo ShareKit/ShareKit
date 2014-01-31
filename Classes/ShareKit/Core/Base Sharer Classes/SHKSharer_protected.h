@@ -126,7 +126,6 @@ typedef enum
 - (void)hideActivityIndicator;
 - (void)displayActivity:(NSString *)activityDescription;
 - (void)displayCompleted:(NSString *)completionText;
-- (void)hideProgress;
 - (void)showProgress:(CGFloat)progress;
 
 #pragma mark -

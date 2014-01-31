@@ -122,11 +122,6 @@
     [self.activityIndicator displayCompleted:completionText forSharer:sharer];
 }
 
-- (void)hideProgressForSharer:(SHKSharer *)sharer {
-    
-    [self.activityIndicator hideProgressForSharer:sharer];
-}
-
 - (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;

@@ -25,6 +25,11 @@
 //
 //
 
+/*!
+ @class SHKActivityIndicator
+ @discussion Displays HUD with info about status of the sharing process. In case multiple sharers run at once, HUD displays info about the most recent sharer. Previous continue to share silently. 
+ */
+
 #import <Foundation/Foundation.h>
 
 @class SHKSharer;
@@ -40,7 +45,6 @@
  Displays specified progress. Supply range from 0.0 to 1.0.
  */
 - (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer;
-- (void)hideProgressForSharer:(SHKSharer *)sharer;
 
 #pragma mark - Deprecated methods
 
@@ -51,6 +55,5 @@
  Displays specified progress. Supply range from 0.0 to 1.0.
  */
 - (void)showProgress:(CGFloat)progress __attribute__((deprecated("use showProgress:forSharer: instead")));
-- (void)hideProgress __attribute__((deprecated("use hideProgressForSharer: instead")));
 
 @end

@@ -533,7 +533,6 @@ static int outstandingRequests = 0;
 //    SHKLog(@"%@ %@ %@ uploaded %@", [client description], destPath, srcPath, [metadata description]);
     [self SHKDropboxGetSharableLink:destPath];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
-    [self hideProgress];
 }
 
 - (void)restClient:(DBRestClient*)client uploadProgress:(CGFloat)progress
@@ -601,7 +600,6 @@ static int outstandingRequests = 0;
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath fromUploadId:(NSString *)uploadId
           metadata:(DBMetadata *)metadata {
 
-    [self hideProgress];
 //    [self performSelector:@selector(SHKDropboxDidFinishSuccess) withObject:nil afterDelay:0.01];
     [self SHKDropboxGetSharableLink:destPath];
 }
@@ -638,7 +636,7 @@ static int outstandingRequests = 0;
 - (void) checkDropboxAPIError:(NSError *) error {
     
     [[SHK currentHelper] removeSharerReference:self]; //see [self send]
-    [self hideProgress];
+    
     //  Check 401 - Bad or expired token. This can happen if the user or Dropbox
     //  revoked or expired an access token.
     NSInteger dbErrorCode = error.code;

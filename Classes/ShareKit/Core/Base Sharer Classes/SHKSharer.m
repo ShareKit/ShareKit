@@ -1043,11 +1043,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     [self.shareDelegate displayCompleted:completionText forSharer:self];
 }
 
-- (void)hideProgress {
-    
-    [self.shareDelegate hideProgressForSharer:self];
-}
-
 - (void)showProgress:(CGFloat)progress {
     
     //SHKLog(@"progress: %f", progress);
