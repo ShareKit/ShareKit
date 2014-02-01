@@ -147,8 +147,6 @@
     
     SHKSharer *sharer = self.uploadInfo.sharer;
     [sharer cancel];
-    self.uploadInfo.uploadCancelled = YES;
-    [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
 }
 
 @end

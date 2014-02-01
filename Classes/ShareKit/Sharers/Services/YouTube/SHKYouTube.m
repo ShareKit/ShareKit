@@ -184,6 +184,12 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     return NO;
 }
 
+- (void)cancel {
+    
+    [self stopUpload];
+    [self sendDidCancel];
+}
+
 #pragma mark - Upload
 
 - (void)uploadVideoFile {

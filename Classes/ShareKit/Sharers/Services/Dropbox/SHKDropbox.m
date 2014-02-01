@@ -8,6 +8,7 @@
 
 #import "SHKDropbox.h"
 #import "SharersCommonHeaders.h"
+#import "SHKUploadInfo.h"
 
 ///Where user starts to browse the save location
 #define kSHKDropboxStartDirectory @"/"
@@ -429,6 +430,19 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
     }
 	
 	return NO;
+}
+
+- (void)cancel {
+    
+    NSMutableSet *requests = [self.restClient valueForKey:@"requests"];
+    for (DBRequest *request in requests) {
+        if ([[request.sourcePath lastPathComponent] isEqualToString:self.item.file.filename]) {
+            [request cancel];
+            break;
+        }
+    }
+    [self sendDidCancel];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 
 #pragma mark - DBRestClientDelegate methods (loadAccountInfo)

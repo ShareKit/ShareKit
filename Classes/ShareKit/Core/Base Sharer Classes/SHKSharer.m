@@ -993,7 +993,13 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)sendDidCancel
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidCancelNotification object:self];
+    if (self.uploadInfo) {
+        
+        self.uploadInfo.uploadCancelled = YES;
+        [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:SHKSendDidCancelNotification object:self];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerCancelledSending:)])
 		[self.shareDelegate performSelector:@selector(sharerCancelledSending:) withObject:self];	

@@ -25,6 +25,7 @@
 @property (weak, nonatomic) id sendDidFinishObserver;
 @property (weak, nonatomic) id sendProgressObserver;
 @property (weak, nonatomic) id sendDidFailObserver;
+@property (weak, nonatomic) id sendDidCancelObserver;
 @property (strong, nonatomic) NSByteCountFormatter *byteFormatter;
 
 //to keep a mock sharer alive
@@ -104,8 +105,13 @@
                                                usingBlock:^(NSNotification *note) {
                                                    [weakSelf.tableView reloadData];
                                                }];
+        _sendDidCancelObserver = [center addObserverForName:SHKSendDidCancelNotification
+                                                     object:nil
+                                                      queue:mainQueue
+                                                 usingBlock:^(NSNotification *note) {
+                                                     [weakSelf.tableView reloadData];
+                                                 }];
     }
-    
     return self;
 }
 
@@ -159,7 +165,7 @@
         }
     }
     [uploads removeObjectsInArray:infosToDelete];
-    
+    [[SHK currentHelper] uploadInfoChanged:nil];
     [self.tableView reloadData];
 }
 
