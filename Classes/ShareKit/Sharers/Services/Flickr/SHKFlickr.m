@@ -60,7 +60,8 @@
                                   @"video/mpeg",
                                   @"video/3gpp",
                                   @"video/MP2T",
-                                  @"video/ogg"];
+                                  @"video/ogg",
+                                  @"video/mp4"];
     
     if ([allowedFileTypes containsObject:file.mimeType]) {
         return YES;
