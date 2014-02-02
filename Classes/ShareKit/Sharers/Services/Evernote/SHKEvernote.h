@@ -25,6 +25,8 @@
 
 #import "SHKItem.h"
 
+extern NSString *const kSHKEvernoteUserInfo;
+
 @class EDAMNote;
 
 #define kENMLPrefix @"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-note SYSTEM \"http://xml.evernote.com/pub/enml2.dtd\"><en-note style=\"word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;\">"
