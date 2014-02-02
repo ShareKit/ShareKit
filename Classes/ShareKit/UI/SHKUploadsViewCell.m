@@ -87,14 +87,14 @@
     
     self.uploadInfo = uploadInfo;
     
-    self.filenameLabel.text = [[NSString alloc] initWithFormat:@"%@ (%@)", uploadInfo.filename, uploadInfo.sharerTitle];
+    self.filenameLabel.text = SHKLocalizedString(@"%@ (%@)", uploadInfo.filename, uploadInfo.sharerTitle);
     self.progressView.progress = uploadInfo.uploadProgress;
     
     //SHKLog(@"showProgress:%f sharer:%@", uploadInfo.uploadProgress, uploadInfo.sharerTitle);
     
     NSString *progressBytes = [self.byteFormatter stringFromByteCount:uploadInfo.bytesUploaded];
     NSString *totalBytes = [self.byteFormatter stringFromByteCount:uploadInfo.bytesTotal];
-    NSString *bothBytesLabelText = [[NSString alloc] initWithFormat:@"%@ of %@", progressBytes, totalBytes];
+    NSString *bothBytesLabelText = SHKLocalizedString(@"%@ of %@", progressBytes, totalBytes);
     
     if (uploadInfo.uploadFinishedSuccessfully) {
         
