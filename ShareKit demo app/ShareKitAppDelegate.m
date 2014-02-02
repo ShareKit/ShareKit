@@ -74,10 +74,11 @@
     NSRange pocketPrefixKeyRange = [(NSString *)SHKCONFIG(pocketConsumerKey) rangeOfString:@"-"];
     NSRange range = {0, pocketPrefixKeyRange.location - 1};
     NSString *pocketPrefixKeyPart = [(NSString *)SHKCONFIG(pocketConsumerKey) substringWithRange:range];
+    NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
 
     if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]]) {
         return [SHKFacebook handleOpenURL:url];
-    } else if ([scheme isEqualToString:@"com.cocoaminers.sharekit-demo-app"]) {
+    } else if ([[scheme lowercaseString] isEqualToString:[bundleID lowercaseString]]) {
         return [SHKGooglePlus handleURL:url sourceApplication:sourceApplication annotation:annotation];
     } else if ([scheme hasPrefix:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]]) {
         return [SHKDropbox handleOpenURL:url];
