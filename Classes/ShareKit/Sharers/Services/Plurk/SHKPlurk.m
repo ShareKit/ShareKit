@@ -125,7 +125,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     if (self.item.shareType == SHKShareTypeUserInfo) return nil;
     
     //we need username to present share sheet. After download will try to present again.
-    NSString *username = [self username];
+    NSString *username = [[self class] username];
     if (!username) {
         
         SHKPlurk *infoSharer = [SHKPlurk getUserInfo];
@@ -201,7 +201,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     return @[userDoesField, commentField, privateField];
 }
 
-- (NSString *)username {
++ (NSString *)username {
     
     NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] objectForKey:kSHKPlurkUserInfo];
     NSString *result = userInfo[@"nick_name"];
