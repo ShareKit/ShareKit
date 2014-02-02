@@ -204,6 +204,7 @@
 
 - (void)getUserInfo
 {
+    self.quiet = YES;
     if ([self isAuthorized])
     {
         NSString *reqURl = [NSString stringWithFormat:@"https://api.vk.com/method/users.get?uids=%@&fields=uid,first_name,last_name,nickname,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,photo_rec&access_token=%@", self.accessUserId,self.accessToken];
@@ -223,6 +224,7 @@
                               if (userInfo)
                               {
                                   [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKVkonakteUserInfo];
+                                  [[NSUserDefaults standardUserDefaults] synchronize];
                                   [self sendDidFinish];
                               } else
                               {
@@ -240,13 +242,6 @@
     }
 }
 
-- (void)userInfoReceived:(SHKRequest *)aRequest
-{
-	}
-
-
-
-
 #pragma mark -
 
 - (void) authComplete 
@@ -262,6 +257,19 @@
 {
     [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:@"http://api.vk.com/oauth/authorize"]];
     [self flushAccessToken];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKVkonakteUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKVkonakteUserInfo];
+    if (userInfo) {
+        NSString *result = [[NSString alloc] initWithFormat:@"%@ %@", userInfo[@"first_name"], userInfo[@"last_name"]];
+        return result;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark -
