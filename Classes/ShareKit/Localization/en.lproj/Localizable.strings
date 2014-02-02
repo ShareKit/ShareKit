@@ -276,7 +276,7 @@
 //uploads view controller
 "Failed" = "Failed";
 "Cancelled" = "Cancelled";
-"%@ of %@" = @"%@ of %@";
+"%@ of %@" = "%@ of %@";
 
 //activity indicator
 "Tap to dismiss" = "Tap to dismiss";
