@@ -32,7 +32,8 @@
 //  2) The sharer needs the location services which are not available in the simulator
 //     (it will show up on a real device)
 //
-//
+
+extern NSString * const kSHKFoursquareUserInfo;
 
 #import "SHKSharer.h"
 

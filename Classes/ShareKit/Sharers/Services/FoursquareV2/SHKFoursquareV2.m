@@ -25,6 +25,8 @@
 //
 //
 
+NSString * const kSHKFoursquareUserInfo = @"kSHKFoursquareUserInfo";
+
 #import "SHKFoursquareV2.h"
 
 #import "SharersCommonHeaders.h"
@@ -61,10 +63,7 @@ static NSString *accessTokenKey = @"accessToken";
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"Foursquare");
-}
++ (NSString *)sharerTitle {	return SHKLocalizedString(@"Foursquare"); }
 
 + (BOOL)canShare
 {
@@ -75,24 +74,15 @@ static NSString *accessTokenKey = @"accessToken";
              [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined));
 }
 
-+ (BOOL)canShareText
-{
-	return YES;
-}
++ (BOOL)canShareText { return YES; }
++ (BOOL)canGetUserInfo { return YES; }
 
-+ (BOOL)canShareOffline
-{
-	return NO;
-}
++ (BOOL)canShareOffline { return NO; }
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
 
-- (BOOL)shouldAutoShare
-{
-	return NO;
-}
-
+- (BOOL)canAutoShare { return NO; }
 
 #pragma mark -
 #pragma mark Authorize 
@@ -102,7 +92,7 @@ static NSString *accessTokenKey = @"accessToken";
 	return [self restoreAccessToken];
 }
 
-- (void)promptAuthorization
+- (void)authorizationFormShow
 {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?client_id=%@&response_type=token&redirect_uri=%@", authorizeURL, self.clientId, [self.authorizeCallbackURL.absoluteString URLEncodedString]]];
 	
@@ -165,12 +155,28 @@ static NSString *accessTokenKey = @"accessToken";
 {
 	[self deleteStoredAccessToken];	
     [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:authorizeURL]];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFoursquareUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKFoursquareUserInfo];
+    
+    if (userInfo) {
+        NSString *result = [[NSString alloc] initWithFormat:@"%@ %@", userInfo[@"firstName"], userInfo[@"lastName"]];
+        return result;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark -
 #pragma mark UI
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+    
+    if (self.item.shareType == SHKShareTypeUserInfo) return nil;
     
     NSString *label = [SHKLocalizedString(@"Check In") stringByAppendingFormat:@" %@", SHKLocalizedString(@"Message")];
     
@@ -194,7 +200,9 @@ static NSString *accessTokenKey = @"accessToken";
 	if (self.item.shareType == SHKShareTypeText)
 	{
 		[self showFoursquareV2VenuesForm];
-	}
+	} else {
+        [super show];
+    }
 }
 
 - (void)showFoursquareV2VenuesForm
@@ -225,6 +233,11 @@ static NSString *accessTokenKey = @"accessToken";
 {
     if (![self validateItem]) return NO;
     
+    if (self.item.shareType == SHKShareTypeUserInfo) {
+        [self downloadUserInfo];
+        return YES;
+    }
+    
     [self sendDidStart];
     
     [SHKFoursquareV2Request startRequestCheckinLocation:self.location
@@ -247,6 +260,26 @@ static NSString *accessTokenKey = @"accessToken";
                                                  }
                                              }];
     return YES;
+}
+
+- (void)downloadUserInfo {
+    
+    self.quiet = YES;
+    
+    [SHKFoursquareV2Request startRequestProfileForUserId:@"self" accessToken:self.accessToken completion:^(SHKRequest *request) {
+        
+        if (request.success) {
+            NSError *error;
+            NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSDictionary *userInfoStripped = userInfo[@"response"][@"user"];
+            [[NSUserDefaults standardUserDefaults] setObject:userInfoStripped forKey:kSHKFoursquareUserInfo];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self sendDidFinish];
+        } else {
+            SHKLog(@"error while fetching user info from foursquare:%@", request.response);
+            [self sendDidFailWithError:nil];
+        }
+    }];
 }
 
 @end
