@@ -8,10 +8,9 @@
 
 #import "SHKHatena.h"
 #import "SharersCommonHeaders.h"
+#import "NSString+URLEncoding.h"
 
-@interface SHKHatena ()
-
-@end
+NSString * const kSHKHatenaUserInfo = @"kSHKHatenaUserInfo";
 
 @implementation SHKHatena
 
@@ -36,14 +35,23 @@
 	return self;
 }
 
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"Hatena");
++ (NSString *)sharerTitle { return SHKLocalizedString(@"Hatena"); }
+
++ (BOOL)canShareURL { return YES; }
++ (BOOL)canGetUserInfo { return YES; }
+
++ (NSString *)username {
+    
+    NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKHatenaUserInfo];
+    NSString *result = userInfo[@"display_name"];
+    return result;
 }
 
-+ (BOOL)canShareURL
-{
-	return YES;
++ (void)logout {
+    
+    [super logout];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKHatenaUserInfo];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 #pragma mark -
@@ -56,7 +64,7 @@
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[[authorizeResponseQueryVars objectForKey:@"oauth_verifier"] URLDecodedString]];
 }
 
 #pragma mark -
@@ -73,12 +81,14 @@
 
 - (BOOL)send
 {
+    OAMutableURLRequest *oRequest;
     if ([self validateItem] && self.item.shareType == SHKShareTypeURL) {
-        OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://b.hatena.ne.jp/atom/post"]
-                                                                        consumer:consumer
-                                                                           token:accessToken
-                                                                           realm:nil
-                                                               signatureProvider:signatureProvider];
+        
+        oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://b.hatena.ne.jp/atom/post"]
+                                                   consumer:consumer
+                                                      token:accessToken
+                                                      realm:nil
+                                          signatureProvider:signatureProvider];
         [oRequest setHTTPMethod:@"POST"];
         [oRequest prepare];
         
@@ -90,24 +100,45 @@
         [oRequest setHTTPBody:[body dataUsingEncoding:NSUTF8StringEncoding]];
         [oRequest setValue:@"text/xml;charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
         
-        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                              delegate:self
-                                                                                     didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];
-        [fetcher start];
+    } else if (self.item.shareType == SHKShareTypeUserInfo) {
         
-        [self sendDidStart];
+        self.quiet = YES;
+        oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://n.hatena.com/applications/my.json"]
+                                                   consumer:consumer
+                                                      token:accessToken
+                                                      realm:nil
+                                          signatureProvider:signatureProvider];
+    } else {
         
-        return YES;
+        return NO;
     }
+
     
-    return NO;
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    [fetcher start];
+    [self sendDidStart];
+    
+    return YES;
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
     if (ticket.didSucceed && ticket.response.statusCode == 201) {
+
         [self sendDidFinish];
+        
+    } else if (ticket.didSucceed && ticket.response.statusCode == 200) {
+       
+        NSError *error;
+        NSDictionary *userInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+        [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKHatenaUserInfo];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [self sendDidFinish];
+        
     } else {
         SHKLog(@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         

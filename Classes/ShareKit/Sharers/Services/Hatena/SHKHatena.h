@@ -8,6 +8,8 @@
 
 #import "SHKOAuthSharer.h"
 
+extern NSString * const kSHKHatenaUserInfo;
+
 @interface SHKHatena : SHKOAuthSharer
 
 @end
