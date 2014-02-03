@@ -64,7 +64,7 @@ NSString *const kSHKEvernoteUserInfo = @"kSHKEvernoteUserInfo";
     return session.isAuthenticated;
 }
 
-- (void)promptAuthorization {
+- (void)authorizationFormShow {
     
     EvernoteSession *session = [EvernoteSession sharedSession];
     [session authenticateWithViewController:[SHK currentHelper].rootViewForUIDisplay completionHandler:^(NSError *error) {
@@ -72,17 +72,21 @@ NSString *const kSHKEvernoteUserInfo = @"kSHKEvernoteUserInfo";
         BOOL success = (error == nil) && session.isAuthenticated;
         [self authDidFinish:success];
         
-        BOOL userCancelled = [error.domain isEqualToString:@"com.evernote.sdk"] && error.code == -2998;
-        if (!userCancelled) {
-            [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
-                                         message:SHKLocalizedString(@"There was an error while authorizing")
-                                        delegate:nil
-                                   cancelButtonTitle:SHKLocalizedString(@"Close")
-                                   otherButtonTitles:nil] show];
+        if (success) {
             
-        } else if (session.isAuthenticated && self.item) {
             [self tryPendingAction];
-        } 
+            
+        } else {
+            
+            BOOL userCancelled = [error.domain isEqualToString:@"com.evernote.sdk"] && error.code == -2998;
+            if (!userCancelled) {
+                [[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+                                            message:SHKLocalizedString(@"There was an error while authorizing")
+                                           delegate:nil
+                                  cancelButtonTitle:SHKLocalizedString(@"Close")
+                                  otherButtonTitles:nil] show];
+            }
+        }
     }];
 }
 
