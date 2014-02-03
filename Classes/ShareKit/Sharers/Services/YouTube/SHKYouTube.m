@@ -118,21 +118,36 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     }
 }
 
++ (NSString *)username {
+    
+    GTMOAuth2Authentication* userInfo = [SHKYouTube youTubeService].authorizer;
+    NSString *result = userInfo.userEmail;
+    return result;
+}
+
 #pragma mark -
 #pragma mark Authorization Form
 
 - (void)authorizationFormShow
 {
     // Our completion handler
+    
+    __weak typeof(self) weakSelf = self;
     void (^completionHandler)(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error) =
     ^(GTMOAuth2ViewControllerTouch *viewController, GTMOAuth2Authentication *auth, NSError *error) {
+        
         // Callback
-        if (error == nil) {
-            self.youTubeService.authorizer = auth;
-            [self tryPendingAction]; // Try to share again
+        [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+        
+        if (!error) {
+            weakSelf.youTubeService.authorizer = auth;
+            [weakSelf authDidFinish:YES];
+            [weakSelf tryPendingAction]; // Try to share again
         } else {
-            [self sendDidFailWithError:error shouldRelogin:NO];
+            [weakSelf authDidFinish:NO];
+            SHKLog(@"YouTube authentication finished with error:%@", [error description]);
         }
+        [[SHK currentHelper] removeSharerReference:self];
     };
     
     // Show the OAuth 2 sign-in controller.
@@ -148,11 +163,8 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
                                                                                    style:UIBarButtonItemStyleBordered
                                                                                    target:self
                                                                                   action:@selector(authorizationCanceled:)];
-    
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
- 	[self pushViewController:controller animated:NO];
-    
-    [[SHK currentHelper] showViewController:self];
+    [[SHK currentHelper] showViewController:controller];
+    [[SHK currentHelper] keepSharerReference:self];
 }
 
 - (void)authorizationCanceled:(id)sender
@@ -161,7 +173,8 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     [controller cancelSigningIn];
     
     [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	[self sendDidCancel];
+    [self authDidFinish:NO];
+    [[SHK currentHelper] removeSharerReference:self];
 }
 
 #pragma mark -
@@ -195,6 +208,10 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
 - (void)uploadVideoFile {
     
     [self displayActivity:SHKLocalizedString(@"Uploading Video...")];
+    
+    self.quiet = YES;
+    [self sendDidStart];
+    self.quiet = NO;
     
     // Collect the metadata for the upload from the item.
     
