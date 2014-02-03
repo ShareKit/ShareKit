@@ -6,27 +6,43 @@
 //
 //
 
-#import "ExampleAccountsViewController.h"
+#import "SHKAccountsViewController.h"
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKiOSSharer.h"
 #import "SHKiOSTwitter.h"
 #import "Debug.h"
+#import "SHKConfiguration.h"
 
 
-@interface ExampleAccountsViewController ()
+@interface SHKAccountsViewController ()
 
 @property(nonatomic, strong) UITableView *tableView;
 @property(nonatomic, strong) NSArray *sharers;
 
 @end
 
-@implementation ExampleAccountsViewController
+@implementation SHKAccountsViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (instancetype)openFromViewController:(UIViewController *)rootViewController {
+    
+    id result = [[SHKCONFIG(SHKAccountsViewControllerSubclass) alloc] initWithSharers:[SHK activeSharersRequiringAuthentication]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:result];
+    [rootViewController presentViewController:navigationController animated:YES completion:nil];
+    return result;
+}
+
+- (Class)accountsViewCellClass {
+    
+    return [UITableViewCell class];
+}
+
+- (instancetype)initWithSharers:(NSArray *)sharers
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
+        
+        _sharers = sharers;
         
         //makes checkmark appear after successful authentication
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -44,23 +60,17 @@
     return self;
 }
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    NSDictionary *sharersDictionary = [SHK sharersDictionary];
-    NSArray *services = [sharersDictionary objectForKey:@"services"];
-    NSMutableArray *canShareServices = [[NSMutableArray alloc] initWithCapacity:[services count]];
-    for (NSString *sharer in services) {
-        Class sharerClass = NSClassFromString(sharer);
-        if ([sharerClass canShare] && [sharerClass requiresAuthentication]) {
-            [canShareServices addObject:sharer];
-        }
-    }
-    self.sharers = canShareServices;  
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                            target:self
                                                                                            action:@selector(done:)];
     
@@ -105,12 +115,11 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        cell = [[[self accountsViewCellClass] alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
-    NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
-    Class sharerClass = NSClassFromString(sharerId);
-    cell.textLabel.text = sharerId;
+    Class sharerClass = [self.sharers objectAtIndex:indexPath.row];
+    cell.textLabel.text = [sharerClass sharerTitle];
     
     if ([sharerClass isServiceAuthorized]) {
         
@@ -136,8 +145,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSString *sharerId = [self.sharers objectAtIndex:indexPath.row];
-    Class sharerClass = NSClassFromString(sharerId);
+    Class sharerClass = [self.sharers objectAtIndex:indexPath.row];
     
     BOOL isiOSSharer = [sharerClass isSubclassOfClass:[SHKiOSSharer class]];
     
@@ -182,11 +190,6 @@
         [self.tableView reloadData];
         SHKLog(@"table reloaded");
     });
-}
-
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

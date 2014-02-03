@@ -583,6 +583,19 @@ static NSDictionary *sharersDictionary = nil;
 	return sharersDictionary;
 }
 
++ (NSArray *)activeSharersRequiringAuthentication {
+    
+    NSDictionary *sharersDictionary = [SHK sharersDictionary];
+    NSArray *services = [sharersDictionary objectForKey:@"services"];
+    NSMutableArray *result = [[NSMutableArray alloc] initWithCapacity:[services count]];
+    for (NSString *sharer in services) {
+        Class sharerClass = NSClassFromString(sharer);
+        if (sharerClass && [sharerClass canShare] && [sharerClass requiresAuthentication]) {
+            [result addObject:sharerClass];
+        }
+    }
+    return result;
+}
 
 #pragma mark -
 #pragma mark Offline Support

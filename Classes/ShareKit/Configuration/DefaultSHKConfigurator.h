@@ -104,6 +104,7 @@
 - (Class)SHKShareMenuCellSubclass;
 - (Class)SHKFormControllerSubclass;
 - (Class)SHKUploadsViewControllerSubclass;
+- (Class)SHKAccountsViewControllerSubclass;
 - (Class)SHKActivityIndicatorSubclass;
 //SHKDropbox
 -(NSString *)dropboxAppKey;

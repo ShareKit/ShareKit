@@ -12,7 +12,7 @@
 #import "ExampleShareText.h"
 #import "ExampleShareFile.h"
 #import "SHK.h"
-#import "ExampleAccountsViewController.h"
+#import "SHKAccountsViewController.h"
 #import "SHKUploadsViewController.h"
 
 @interface RootViewController ()
@@ -153,13 +153,9 @@
 
 #pragma mark -
 
-- (void)showAccounts
-{
-    ExampleAccountsViewController *accountsViewController = [[ExampleAccountsViewController alloc] init];
+- (void)showAccounts {
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:accountsViewController];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];
+    [SHKAccountsViewController openFromViewController:self];
 }
 
 - (void)showUploads {

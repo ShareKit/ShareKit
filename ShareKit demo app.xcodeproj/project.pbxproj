@@ -18,7 +18,6 @@
 		7A0406B31740F0A6003404B9 /* demo_audio_share.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A04069F1740F0A5003404B9 /* demo_audio_share.mp3 */; };
 		7A0406B41740F0A6003404B9 /* demo_video_share.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406A01740F0A5003404B9 /* demo_video_share.mov */; };
 		7A0406B51740F0A6003404B9 /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406A11740F0A5003404B9 /* example.pdf */; };
-		7A0406B61740F0A6003404B9 /* ExampleAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A31740F0A5003404B9 /* ExampleAccountsViewController.m */; };
 		7A0406B71740F0A6003404B9 /* ExampleShareFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A51740F0A5003404B9 /* ExampleShareFile.m */; };
 		7A0406B81740F0A6003404B9 /* ExampleShareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A71740F0A5003404B9 /* ExampleShareImage.m */; };
 		7A0406B91740F0A6003404B9 /* ExampleShareLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A91740F0A5003404B9 /* ExampleShareLink.m */; };
@@ -382,8 +381,6 @@
 		7A04069F1740F0A5003404B9 /* demo_audio_share.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = demo_audio_share.mp3; sourceTree = "<group>"; };
 		7A0406A01740F0A5003404B9 /* demo_video_share.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = demo_video_share.mov; sourceTree = "<group>"; };
 		7A0406A11740F0A5003404B9 /* example.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = example.pdf; sourceTree = "<group>"; };
-		7A0406A21740F0A5003404B9 /* ExampleAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleAccountsViewController.h; sourceTree = "<group>"; };
-		7A0406A31740F0A5003404B9 /* ExampleAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleAccountsViewController.m; sourceTree = "<group>"; };
 		7A0406A41740F0A5003404B9 /* ExampleShareFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleShareFile.h; sourceTree = "<group>"; };
 		7A0406A51740F0A5003404B9 /* ExampleShareFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExampleShareFile.m; sourceTree = "<group>"; };
 		7A0406A61740F0A5003404B9 /* ExampleShareImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExampleShareImage.h; sourceTree = "<group>"; };
@@ -537,8 +534,6 @@
 				7A04083B1741399E003404B9 /* MainWindow-iPad.xib */,
 				7A04083717413908003404B9 /* MainWindow.xib */,
 				7A04083817413908003404B9 /* RootViewController.xib */,
-				7A0406A21740F0A5003404B9 /* ExampleAccountsViewController.h */,
-				7A0406A31740F0A5003404B9 /* ExampleAccountsViewController.m */,
 				7A0406A41740F0A5003404B9 /* ExampleShareFile.h */,
 				7A0406A51740F0A5003404B9 /* ExampleShareFile.m */,
 				7A0406A61740F0A5003404B9 /* ExampleShareImage.h */,
@@ -1034,7 +1029,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A0406731740E3F6003404B9 /* main.m in Sources */,
-				7A0406B61740F0A6003404B9 /* ExampleAccountsViewController.m in Sources */,
 				7A0406B71740F0A6003404B9 /* ExampleShareFile.m in Sources */,
 				7A0406B81740F0A6003404B9 /* ExampleShareImage.m in Sources */,
 				7A0406B91740F0A6003404B9 /* ExampleShareLink.m in Sources */,

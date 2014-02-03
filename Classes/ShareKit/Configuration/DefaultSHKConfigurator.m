@@ -490,6 +490,10 @@
     return NSClassFromString(@"SHKUploadsViewController");
 }
 
+- (Class)SHKAccountsViewControllerSubclass {
+    return NSClassFromString(@"SHKAccountsViewController");
+}
+
 - (Class)SHKActivityIndicatorSubclass {
     return NSClassFromString(@"SHKActivityIndicator");
 }
