@@ -14,7 +14,7 @@
 #import "SHKUploadInfo.h"
 #import "Debug.h"
 
-#import "SHKDropbox.h" //for mock data only
+#import "SHKSharer.h" //for mock data only
 
 #define LOAD_MOCK_DATA 0
 
@@ -29,7 +29,7 @@
 @property (strong, nonatomic) NSByteCountFormatter *byteFormatter;
 
 //to keep a mock sharer alive
-@property (strong, nonatomic) SHKDropbox *dropbox;
+@property (strong, nonatomic) SHKSharer *sharer;
 
 @end
 
@@ -57,11 +57,11 @@
         
         if (LOAD_MOCK_DATA) {
         
-            _dropbox = [[SHKDropbox alloc] init];
+            _sharer = [[SHKSharer alloc] init];
             
             SHKUploadInfo *mockUpload = [[SHKUploadInfo alloc] init];
-            mockUpload.sharer = _dropbox;
-            mockUpload.sharerTitle = [_dropbox sharerTitle];
+            mockUpload.sharer = _sharer;
+            mockUpload.sharerTitle = @"Sharer title";
             mockUpload.filename = @"Long_file_name_____name.test";
             mockUpload.uploadProgress = 0.54;
             mockUpload.bytesTotal = 3044506;

@@ -10,7 +10,6 @@
 #import "SHK.h"
 #import "SHKSharer.h"
 #import "SHKiOSSharer.h"
-#import "SHKiOSTwitter.h"
 #import "Debug.h"
 #import "SHKConfiguration.h"
 
