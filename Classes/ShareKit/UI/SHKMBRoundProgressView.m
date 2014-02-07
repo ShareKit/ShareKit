@@ -6,9 +6,9 @@
 //
 //
 
-#import "MBRoundProgressView.h"
+#import "SHKMBRoundProgressView.h"
 
-@implementation MBRoundProgressView
+@implementation SHKMBRoundProgressView
 
 #pragma mark - Lifecycle
 

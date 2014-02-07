@@ -108,8 +108,8 @@
 		7A5C28D21894555C00E47E62 /* SHKUploadsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28D01894555C00E47E62 /* SHKUploadsViewCell.m */; };
 		7A5C28D51896C23D00E47E62 /* SHKUploadInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C28D31896C23D00E47E62 /* SHKUploadInfo.h */; };
 		7A5C28D61896C23D00E47E62 /* SHKUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28D41896C23D00E47E62 /* SHKUploadInfo.m */; };
-		7A5C28DF189BA57100E47E62 /* MBRoundProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C28DD189BA57100E47E62 /* MBRoundProgressView.h */; };
-		7A5C28E0189BA57100E47E62 /* MBRoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28DE189BA57100E47E62 /* MBRoundProgressView.m */; };
+		7A5C28DF189BA57100E47E62 /* SHKMBRoundProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C28DD189BA57100E47E62 /* SHKMBRoundProgressView.h */; };
+		7A5C28E0189BA57100E47E62 /* SHKMBRoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28DE189BA57100E47E62 /* SHKMBRoundProgressView.m */; };
 		7A72AD06189FD9490039D762 /* SHKAccountsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A72AD04189FD9490039D762 /* SHKAccountsViewController.h */; };
 		7A72AD07189FD9490039D762 /* SHKAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A72AD05189FD9490039D762 /* SHKAccountsViewController.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
@@ -806,8 +806,8 @@
 		7A5C28D01894555C00E47E62 /* SHKUploadsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKUploadsViewCell.m; sourceTree = "<group>"; };
 		7A5C28D31896C23D00E47E62 /* SHKUploadInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKUploadInfo.h; sourceTree = "<group>"; };
 		7A5C28D41896C23D00E47E62 /* SHKUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKUploadInfo.m; sourceTree = "<group>"; };
-		7A5C28DD189BA57100E47E62 /* MBRoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBRoundProgressView.h; sourceTree = "<group>"; };
-		7A5C28DE189BA57100E47E62 /* MBRoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBRoundProgressView.m; sourceTree = "<group>"; };
+		7A5C28DD189BA57100E47E62 /* SHKMBRoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKMBRoundProgressView.h; sourceTree = "<group>"; };
+		7A5C28DE189BA57100E47E62 /* SHKMBRoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKMBRoundProgressView.m; sourceTree = "<group>"; };
 		7A72AD04189FD9490039D762 /* SHKAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKAccountsViewController.h; sourceTree = "<group>"; };
 		7A72AD05189FD9490039D762 /* SHKAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKAccountsViewController.m; sourceTree = "<group>"; };
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
@@ -2008,8 +2008,8 @@
 				7A5C28D01894555C00E47E62 /* SHKUploadsViewCell.m */,
 				7A5C28D31896C23D00E47E62 /* SHKUploadInfo.h */,
 				7A5C28D41896C23D00E47E62 /* SHKUploadInfo.m */,
-				7A5C28DD189BA57100E47E62 /* MBRoundProgressView.h */,
-				7A5C28DE189BA57100E47E62 /* MBRoundProgressView.m */,
+				7A5C28DD189BA57100E47E62 /* SHKMBRoundProgressView.h */,
+				7A5C28DE189BA57100E47E62 /* SHKMBRoundProgressView.m */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -2560,7 +2560,7 @@
 				7A8397431782CC9500E1F8B9 /* Debug.h in Headers */,
 				7ACD3B09184DF0C40096CEA5 /* NSDictionary+Recursive.h in Headers */,
 				7ACABC78188FDD6B00EBFDB1 /* SHKSharer_protected.h in Headers */,
-				7A5C28DF189BA57100E47E62 /* MBRoundProgressView.h in Headers */,
+				7A5C28DF189BA57100E47E62 /* SHKMBRoundProgressView.h in Headers */,
 				7A83974B1782FBFD00E1F8B9 /* ShareKit.h in Headers */,
 				7A0FB85F17A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.h in Headers */,
 				7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */,
@@ -3793,7 +3793,7 @@
 				7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */,
 				7AD9861E16E78D730052A5B8 /* NSData+SaveItemAttachment.m in Sources */,
 				7A5C28D21894555C00E47E62 /* SHKUploadsViewCell.m in Sources */,
-				7A5C28E0189BA57100E47E62 /* MBRoundProgressView.m in Sources */,
+				7A5C28E0189BA57100E47E62 /* SHKMBRoundProgressView.m in Sources */,
 				7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */,
 				7A0FB86017A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.m in Sources */,
 				7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */,

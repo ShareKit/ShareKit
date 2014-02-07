@@ -30,7 +30,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "Singleton.h"
 #import "SHKSharer.h"
-#import "MBRoundProgressView.h"
+#import "SHKMBRoundProgressView.h"
 #import "SHK.h"
 
 #define SHKdegreesToRadians(x) (M_PI * x / 180.0)
@@ -46,7 +46,7 @@
 @property (nonatomic, strong) UILabel *subMessageLabel;
 
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
-@property (nonatomic, strong) MBRoundProgressView *progress;
+@property (nonatomic, strong) SHKMBRoundProgressView *progress;
 @property (nonatomic, strong) UITapGestureRecognizer *tapToDismissRecognizer;
 
 @end
@@ -182,10 +182,10 @@
     return _spinner;
 }
 
-- (MBRoundProgressView *)progress {
+- (SHKMBRoundProgressView *)progress {
     
     if (!_progress) {
-        _progress = [[MBRoundProgressView alloc] init];
+        _progress = [[SHKMBRoundProgressView alloc] init];
         CGPoint center = CGPointMake(self.bounds.size.width/2, self.bounds.size.height/2);
         _progress.center = center;
         [self addSubview:_progress];

@@ -30,7 +30,7 @@
 /**
  * A progress view for showing definite progress by filling up a circle (pie chart).
  */
-@interface MBRoundProgressView : UIView
+@interface SHKMBRoundProgressView : UIView
 
 /**
  * Progress (0.0 to 1.0)
