@@ -57,7 +57,7 @@
         
     UILabel *counter = [[UILabel alloc] initWithFrame:counterRect];
     counter.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
-    counter.textAlignment = UITextAlignmentRight;
+    counter.textAlignment = NSTextAlignmentRight;
     counter.font = [UIFont systemFontOfSize:17];
     counter.textColor = [UIColor darkGrayColor];
     counter.backgroundColor = [UIColor clearColor];
@@ -90,7 +90,7 @@
                                        CGRectGetHeight(self.clippedImageView.frame)/2);
     UILabel *extension = [[UILabel alloc] initWithFrame:extensionFrame];
     extension.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
-    extension.textAlignment = UITextAlignmentCenter;
+    extension.textAlignment = NSTextAlignmentCenter;
     extension.text = [self.settings extensionForThumbnail];
     extension.backgroundColor = [UIColor clearColor];
     extension.textColor = [UIColor darkGrayColor];

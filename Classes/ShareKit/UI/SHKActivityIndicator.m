@@ -119,7 +119,7 @@
         _centerMessageLabel.opaque = NO;
         _centerMessageLabel.textColor = [UIColor whiteColor];
         _centerMessageLabel.font = [UIFont boldSystemFontOfSize:40];
-        _centerMessageLabel.textAlignment = UITextAlignmentCenter;
+        _centerMessageLabel.textAlignment = NSTextAlignmentCenter;
         _centerMessageLabel.shadowColor = [UIColor darkGrayColor];
         _centerMessageLabel.shadowOffset = CGSizeMake(1,1);
         _centerMessageLabel.adjustsFontSizeToFitWidth = YES;
@@ -138,7 +138,7 @@
         _subMessageLabel.opaque = NO;
         _subMessageLabel.textColor = [UIColor whiteColor];
         _subMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_MAX_FONT_SIZE];
-        _subMessageLabel.textAlignment = UITextAlignmentCenter;
+        _subMessageLabel.textAlignment = NSTextAlignmentCenter;
         _subMessageLabel.shadowColor = [UIColor darkGrayColor];
         _subMessageLabel.shadowOffset = CGSizeMake(1,1);
         _subMessageLabel.adjustsFontSizeToFitWidth = YES;
@@ -158,7 +158,7 @@
         _upperMessageLabel.opaque = NO;
         _upperMessageLabel.textColor = [UIColor whiteColor];
         _upperMessageLabel.font = [UIFont boldSystemFontOfSize:SUB_MESSAGE_SMALLER_SIZE];
-        _upperMessageLabel.textAlignment = UITextAlignmentCenter;
+        _upperMessageLabel.textAlignment = NSTextAlignmentCenter;
         _upperMessageLabel.shadowColor = [UIColor darkGrayColor];
         _upperMessageLabel.shadowOffset = CGSizeMake(1,1);
         _upperMessageLabel.adjustsFontSizeToFitWidth = YES;

@@ -32,7 +32,6 @@
 #import "SharersCommonHeaders.h"
 #import "SHKXMLResponseParser.h"
 #import "SHKiOSTwitter.h"
-#import "SHKiOS5Twitter.h"
 #import "SHKTwitterCommon.h"
 
 #import <Social/Social.h>
@@ -137,75 +136,19 @@
 }
 
 #pragma mark -
-#pragma mark Commit Share
-
-- (void)share {
-
-	if ([[self class] canShare] && [[self class] twitterFrameworkAvailable])
-	{
-		SHKSharer *sharer = [SHKiOS5Twitter shareItem:self.item];
-		[self setupiOSSharer:sharer];
-	}
-	else
-	{
-        [super share];
-	}
-}
-
-- (void)setupiOSSharer:(SHKSharer *)sharer {
-    sharer.quiet = self.quiet;
-    sharer.shareDelegate = self.shareDelegate;
-    [SHKTwitter logout];//to clean credentials - we will not need them anymore
-}
-
-#pragma mark -
-
-+ (BOOL)twitterFrameworkAvailable {
-	
-    if ([SHKCONFIG(forcePreIOS5TwitterAccess) boolValue])
-    {
-        return NO;
-    }
-    
-	if (NSClassFromString(@"TWTweetComposeViewController")) {
-		return YES;
-	}
-	
-	return NO;
-}
-
-#pragma mark -
 #pragma mark Authorization
 
 - (BOOL)isAuthorized
-{		
-	BOOL result = NO;
-    
-    if ([[self class] canShare] && [[self class] twitterFrameworkAvailable]) {
-        
-		[SHKTwitter logout];
-	
-    } else {
-        
-        result = [self restoreAccessToken];
-        if (result) {
-            [self downloadAPIConfiguration]; //fetch fresh file size limits
-        }
+{
+    BOOL result = [self restoreAccessToken];
+    if (result) {
+        [self downloadAPIConfiguration]; //fetch fresh file size limits
     }
-    
-
-    
     return result;
 }
 
 - (void)promptAuthorization
 {	
-
-    if ([[self class] canShare] && [[self class] twitterFrameworkAvailable]) {
-		SHKLog(@"There is no need to authorize when we use iOS Twitter framework");
-		return;
-	}
-	
 	if (self.xAuth)
 		[super authorizationFormShow]; // xAuth process
 	

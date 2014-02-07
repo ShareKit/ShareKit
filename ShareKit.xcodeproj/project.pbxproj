@@ -101,7 +101,6 @@
 		7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A49DBC316BC193E004B7E78 /* libReadability.a */; };
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
-		7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */; };
 		7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */; };
 		7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A57618E17A8034900B38ACB /* SHKFormFieldCellTextLarge.m */; };
 		7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C28CF1894555C00E47E62 /* SHKUploadsViewCell.h */; };
@@ -798,8 +797,6 @@
 		7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer_Protected.h; sourceTree = "<group>"; };
 		7A56BFD816591FE000134F04 /* SHKiOSFacebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSFacebook.h; sourceTree = "<group>"; };
 		7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOSFacebook.m; sourceTree = "<group>"; };
-		7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
-		7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOS5Twitter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellTextLarge.h; sourceTree = "<group>"; };
 		7A57618E17A8034900B38ACB /* SHKFormFieldCellTextLarge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellTextLarge.m; sourceTree = "<group>"; };
 		7A5C28CF1894555C00E47E62 /* SHKUploadsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKUploadsViewCell.h; sourceTree = "<group>"; };
@@ -1960,8 +1957,6 @@
 				43A536E911DBE3B9004A1712 /* SHKTwitter.m */,
 				F92EF487148E915E0070F913 /* SHKiOSTwitter.h */,
 				F92EF488148E915E0070F913 /* SHKiOSTwitter.m */,
-				7A56BFDF1659278E00134F04 /* SHKiOS5Twitter.h */,
-				7A56BFE01659278E00134F04 /* SHKiOS5Twitter.m */,
 			);
 			path = Twitter;
 			sourceTree = "<group>";
@@ -3902,7 +3897,6 @@
 				7A1AFD3B160E14520086B98A /* SHKiOSTwitter.m in Sources */,
 				7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */,
 				7AD94F5E18293C6F0033E726 /* SHKTwitterCommon.m in Sources */,
-				7A56BFE21659278E00134F04 /* SHKiOS5Twitter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6410,7 +6404,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6427,7 +6421,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
