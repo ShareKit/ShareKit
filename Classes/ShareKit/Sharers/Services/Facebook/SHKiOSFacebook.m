@@ -101,6 +101,7 @@
                                                     
                                                     [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
                                                         [self iOSAuthorizationFailedWithError:error];
+                                                        [self authDidFinish:NO];
                                                     }];
                                                 }
                                         }];

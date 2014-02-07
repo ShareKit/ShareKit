@@ -102,6 +102,19 @@
  */
 - (NSNumber*)forcePreIOS6FacebookPosting {
 	return [NSNumber numberWithBool:false];
+    
+    /*
+     The default behavior (return NO from this function) causes user to be kind of locked in to use iOS settings.app credentials. If he has not Facebook credentials set in settings.app, the user is presented alert instructing him to add his credentials to settings.app if wants to share with Facebook. If you instead prefer your user to be automagically switched to legacy (Safari/Facebook app trip) authentication, use following implementation
+    */
+    
+    /*
+    BOOL result = NO;
+    //if they have an account on their device, then use it, but don't force a device level login
+    if (NSClassFromString(@"SLComposeViewController")) {
+        result = ![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
+    }
+    return [NSNumber numberWithBool:result];
+     */
 }
 
 /*
