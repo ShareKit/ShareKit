@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.5.3'
-  s.platform      = :ios, '5.1.1'
+  s.version       = '2.5.5'
+  s.platform      = :ios, '6.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
   s.author        = 'ShareKit Community'
@@ -52,7 +52,6 @@ Pod::Spec.new do |s|
   s.subspec 'Flickr' do |flickr|
     flickr.source_files = 'Classes/ShareKit/Sharers/Services/Flickr/SHK*.{h,m}'
     flickr.framework = 'SystemConfiguration', 'CFNetwork'
-    flickr.dependency 'objectiveflickr', "~> 2.0"
     flickr.dependency 'ShareKit/Core'
   end
 

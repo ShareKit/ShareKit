@@ -1058,7 +1058,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         progress = 1.0;
     }
     
-    long long *uploadedBytes = (long long)(self.item.file.size * progress);
+    long long uploadedBytes = (long long)(self.item.file.size * progress);
     self.uploadInfo.bytesUploaded = uploadedBytes;
     self.uploadInfo.uploadProgress = progress;
     
