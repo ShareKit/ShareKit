@@ -96,7 +96,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+	[oRequest setOAuthParameterName:@"oauth_verifier" withValue:[self.authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
 + (void)logout {
@@ -228,10 +228,10 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         {
             [self setQuiet:YES];
             oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
-                                                                          consumer:consumer // this is a consumer object already made available to us
-                                                                             token:accessToken // this is our accessToken already made available to us
+                                                                          consumer:self.consumer // this is a consumer object already made available to us
+                                                                             token:self.accessToken // this is our accessToken already made available to us
                                                                              realm:nil
-                                                                 signatureProvider:signatureProvider];
+                                                                 signatureProvider:self.signatureProvider];
             [oRequest setHTTPMethod:@"GET"];
             [self sendRequest:oRequest];
             return YES;
@@ -354,10 +354,10 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     
     NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
     OAMutableURLRequest *result = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
-                                               consumer:consumer // this is a consumer object already made available to us
-                                                  token:accessToken // this is our accessToken already made available to us
+                                               consumer:self.consumer // this is a consumer object already made available to us
+                                                  token:self.accessToken // this is our accessToken already made available to us
                                                   realm:nil
-                                      signatureProvider:signatureProvider];
+                                      signatureProvider:self.signatureProvider];
     [result setHTTPMethod:@"POST"];
     return result;
 }

@@ -81,28 +81,28 @@
     
 	if (self) {
         
-		consumerKey = SHKCONFIG(flickrConsumerKey);
-		secretKey = SHKCONFIG(flickrSecretKey);
- 		authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(flickrCallbackUrl)];
+		self.consumerKey = SHKCONFIG(flickrConsumerKey);
+		self.secretKey = SHKCONFIG(flickrSecretKey);
+ 		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(flickrCallbackUrl)];
 	
-	    requestURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/request_token"];
-	    authorizeURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/authorize"];
-	    accessURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/access_token"];
+	    self.requestURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/request_token"];
+	    self.authorizeURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/authorize"];
+	    self.accessURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/access_token"];
 		
-		signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
+		self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}
 	return self;
 }
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[self.authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
 //this method is overriden to add permissions (special Flickr quirk)
 - (void)tokenAuthorize
 {
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&perms=%@", authorizeURL.absoluteString, requestToken.key, SHKCONFIG(flickrPermissions)]];
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&perms=%@", self.authorizeURL.absoluteString, self.requestToken.key, SHKCONFIG(flickrPermissions)]];
 	
 	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
 	[[SHK currentHelper] showViewController:auth];
@@ -199,10 +199,10 @@
 - (OAAsynchronousDataFetcher *)sendFlickrRequestMethod:(NSString *)method parameters:(NSArray *)parameters {
     
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.flickr.com/services/rest/"]
-                                                                    consumer:consumer
-                                                                       token:accessToken
+                                                                    consumer:self.consumer
+                                                                       token:self.accessToken
                                                                        realm:nil
-                                                           signatureProvider:signatureProvider];
+                                                           signatureProvider:self.signatureProvider];
     [oRequest setHTTPMethod:@"POST"];
     
     OARequestParameter *formatParam = [[OARequestParameter alloc] initWithName:@"format" value:@"json"];
@@ -222,10 +222,10 @@
 - (OAAsynchronousDataFetcher *)uploadPhoto {
     
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://up.flickr.com/services/upload/"]
-                                                                    consumer:consumer
-                                                                       token:accessToken
+                                                                    consumer:self.consumer
+                                                                       token:self.accessToken
                                                                        realm:nil
-                                                           signatureProvider:signatureProvider];
+                                                           signatureProvider:self.signatureProvider];
     [oRequest setHTTPMethod:@"POST"];
     
     NSMutableArray *params = [[NSMutableArray alloc] initWithCapacity:6];

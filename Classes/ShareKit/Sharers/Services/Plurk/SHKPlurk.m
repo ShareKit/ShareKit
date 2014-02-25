@@ -107,7 +107,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-  [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+  [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[self.authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
 + (void)logout {
@@ -215,8 +215,8 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     [self displayActivity:SHKLocalizedString(@"Uploading Image...")];
   
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.plurk.com/APP/Timeline/uploadPicture"]
-                                                                  consumer:consumer
-                                                                     token:accessToken
+                                                                  consumer:self.consumer
+                                                                     token:self.accessToken
                                                                      realm:nil
                                                          signatureProvider:nil];
 	[oRequest setHTTPMethod:@"POST"];
@@ -303,16 +303,16 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     
     if (self.item.shareType == SHKShareTypeUserInfo) {
         oRequest = [[OAMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"http://www.plurk.com/APP/Users/currUser"]
-                                                   consumer:consumer
-                                                      token:accessToken
+                                                   consumer:self.consumer
+                                                      token:self.accessToken
                                                       realm:nil
                                           signatureProvider:nil];
         [oRequest setHTTPMethod:@"POST"];
     } else {
     
         oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://www.plurk.com/APP/Timeline/plurkAdd"]
-                                                   consumer:consumer
-                                                      token:accessToken
+                                                   consumer:self.consumer
+                                                      token:self.accessToken
                                                       realm:nil
                                           signatureProvider:nil];
         

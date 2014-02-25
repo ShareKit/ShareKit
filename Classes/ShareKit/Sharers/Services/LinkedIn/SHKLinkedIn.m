@@ -74,8 +74,8 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-	SHKLog(@"req: %@", authorizeResponseQueryVars);
-    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
+	SHKLog(@"req: %@", self.authorizeResponseQueryVars);
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[self.authorizeResponseQueryVars objectForKey:@"oauth_verifier"]];
 }
 
 - (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
@@ -161,10 +161,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 - (void)fetchUserInfo {
     
     OAMutableURLRequest *userInfoRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"]
-                                                                           consumer:consumer
-                                                                              token:accessToken
+                                                                           consumer:self.consumer
+                                                                              token:self.accessToken
                                                                               realm:nil
-                                                                  signatureProvider:signatureProvider];
+                                                                  signatureProvider:self.signatureProvider];
     [userInfoRequest setHTTPMethod:@"GET"];
     [userInfoRequest prepare];
     
@@ -181,10 +181,10 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
     
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
-                                                                    consumer:consumer // this is a consumer object already made available to us
-                                                                       token:accessToken // this is our accessToken already made available to us
+                                                                    consumer:self.consumer // this is a consumer object already made available to us
+                                                                       token:self.accessToken // this is our accessToken already made available to us
                                                                        realm:nil
-                                                           signatureProvider:signatureProvider];
+                                                           signatureProvider:self.signatureProvider];
     
     [oRequest setHTTPMethod:@"POST"];
     

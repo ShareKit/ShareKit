@@ -202,10 +202,10 @@ static NSString *const kSHKReadabilityUserInfo=@"kSHKReadabilityUserInfo";
 - (void)sendBookmark
 {
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.readability.com/api/rest/v1/bookmarks/"]
-                                                                  consumer:consumer // this is a consumer object already made available to us
-                                                                     token:accessToken // this is our accessToken already made available to us
+                                                                  consumer:self.consumer // this is a consumer object already made available to us
+                                                                     token:self.accessToken // this is our accessToken already made available to us
                                                                      realm:nil
-                                                         signatureProvider:signatureProvider];
+                                                         signatureProvider:self.signatureProvider];
 	
 	[oRequest setHTTPMethod:@"POST"];
 	

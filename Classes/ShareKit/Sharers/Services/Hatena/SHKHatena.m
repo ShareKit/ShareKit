@@ -64,7 +64,7 @@ NSString * const kSHKHatenaUserInfo = @"kSHKHatenaUserInfo";
 
 - (void)tokenAccessModifyRequest:(OAMutableURLRequest *)oRequest
 {
-    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[[authorizeResponseQueryVars objectForKey:@"oauth_verifier"] URLDecodedString]];
+    [oRequest setOAuthParameterName:@"oauth_verifier" withValue:[[self.authorizeResponseQueryVars objectForKey:@"oauth_verifier"] URLDecodedString]];
 }
 
 #pragma mark -
@@ -85,10 +85,10 @@ NSString * const kSHKHatenaUserInfo = @"kSHKHatenaUserInfo";
     if ([self validateItem] && self.item.shareType == SHKShareTypeURL) {
         
         oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://b.hatena.ne.jp/atom/post"]
-                                                   consumer:consumer
-                                                      token:accessToken
+                                                   consumer:self.consumer
+                                                      token:self.accessToken
                                                       realm:nil
-                                          signatureProvider:signatureProvider];
+                                          signatureProvider:self.signatureProvider];
         [oRequest setHTTPMethod:@"POST"];
         [oRequest prepare];
         
@@ -104,10 +104,10 @@ NSString * const kSHKHatenaUserInfo = @"kSHKHatenaUserInfo";
         
         self.quiet = YES;
         oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://n.hatena.com/applications/my.json"]
-                                                   consumer:consumer
-                                                      token:accessToken
+                                                   consumer:self.consumer
+                                                      token:self.accessToken
                                                       realm:nil
-                                          signatureProvider:signatureProvider];
+                                          signatureProvider:self.signatureProvider];
     } else {
         
         return NO;
