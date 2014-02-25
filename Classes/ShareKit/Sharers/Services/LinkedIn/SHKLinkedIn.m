@@ -251,16 +251,14 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 {	
     if (ticket.didSucceed)
     {
-        NSString *dataInString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        SHKLog(@"%@", dataInString);
+        SHKLog(@"%@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
         // The send was successful
         [self sendDidFinish];
         
         NSDictionary *userInfo = [SHKXMLResponseParser dictionaryFromData:responseData];
         if (userInfo[@"person"]) {
             [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKLinkedInUserInfo];
-            NSString *responseBody = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-            SHKLog(@"fetched user info: %@", [responseBody description]);
+            SHKLog(@"fetched user info: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
         }
     }
     else
