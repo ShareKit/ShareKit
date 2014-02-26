@@ -351,8 +351,9 @@
 	else
 	{
 		[self sendShowSimpleErrorAlert];
-        NSError *error;
-        SHKLog(@"Flickr ticket did not succeed with error:%@", [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error] description]);
+        NSError *error __attribute__((unused)) = nil;
+        SHKLog(@"Flickr ticket did not succeed with error:%@",  [[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error] description]);
+
 	}
 }
 - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error

@@ -66,6 +66,31 @@
 	return @"";
 }
 
+/*
+If you want to force use of old-style, posting path that does not use the native sheet. One of the troubles
+with the native sheet is that it gives IOS6 props on facebook instead of your app. This flag has no effect
+on the auth path. It will try to use native auth if availible.
+*/
+- (NSNumber*)forcePreIOS6FacebookPosting {
+	return [NSNumber numberWithBool:false];
+    
+    /*
+     The default behavior (return NO from this function) causes user to be kind of locked in to use iOS settings.app credentials. If he has not Facebook credentials set in settings.app, the user is presented alert instructing him to add his credentials to settings.app if wants to share with Facebook. If you instead prefer your user to be automagically switched to legacy (Safari/Facebook app trip) authentication, use following implementation
+     */
+    
+    /*
+     BOOL result = NO;
+     //if they have an account on their device, then use it, but don't force a device level login
+     if (NSClassFromString(@"SLComposeViewController")) {
+     result = ![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
+     }
+     return [NSNumber numberWithBool:result];
+     */
+}
+
+
+/* Bellow 2 conf items (appId and localAppId are needed only if you return YES from forcePreIOS6FacebookPosting */
+
 // Facebook - https://developers.facebook.com/apps
 // SHKFacebookAppID is the Application ID provided by Facebook
 // SHKFacebookLocalAppID is used if you need to differentiate between several iOS apps running against a single Facebook app. Useful, if you have full and lite versions of the same app,
@@ -93,28 +118,6 @@
 }
 - (NSArray*)facebookReadPermissions {    
     return nil;	// this is the defaul value for the SDK and will afford basic read permissions
-}
-
-/*
- If you want to force use of old-style, posting path that does not use the native sheet. One of the troubles
- with the native sheet is that it gives IOS6 props on facebook instead of your app. This flag has no effect
- on the auth path. It will try to use native auth if availible.
- */
-- (NSNumber*)forcePreIOS6FacebookPosting {
-	return [NSNumber numberWithBool:false];
-    
-    /*
-     The default behavior (return NO from this function) causes user to be kind of locked in to use iOS settings.app credentials. If he has not Facebook credentials set in settings.app, the user is presented alert instructing him to add his credentials to settings.app if wants to share with Facebook. If you instead prefer your user to be automagically switched to legacy (Safari/Facebook app trip) authentication, use following implementation
-    */
-    
-    /*
-    BOOL result = NO;
-    //if they have an account on their device, then use it, but don't force a device level login
-    if (NSClassFromString(@"SLComposeViewController")) {
-        result = ![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook];
-    }
-    return [NSNumber numberWithBool:result];
-     */
 }
 
 /*

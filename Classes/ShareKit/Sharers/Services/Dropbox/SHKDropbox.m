@@ -228,6 +228,17 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
     }
 }
 
+#pragma mark - Share
+
+- (void)share {
+    
+    if (self.item.shareType == SHKShareTypeImage && !self.item.file) {
+        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypePNG quality:0];
+    }
+    
+    [super share];
+}
+
 #pragma mark - UI
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
@@ -389,11 +400,6 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
 
 - (BOOL)send
 {
-	if (self.item.shareType == SHKShareTypeImage) {
-        
-        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypePNG quality:0];
-    }
-    
     if (![self validateItem]) return NO;
 
     if (self.item.shareType == SHKShareTypeFile) {
