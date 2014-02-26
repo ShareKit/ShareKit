@@ -29,7 +29,7 @@
 #import "NSString+URLEncoding.h"
 
 static NSString *apiURL = @"https://api.foursquare.com/v2";
-static NSString *apiDateVerified = @"20110927";
+static NSString *apiDateVerified = @"20140128";
 
 @interface SHKFoursquareV2Request ()
 
