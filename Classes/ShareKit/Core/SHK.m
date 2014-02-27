@@ -128,7 +128,7 @@ BOOL SHKinit;
 - (void)uploadInfoChanged:(SHKUploadInfo *)uploadProgressUserInfo {
     
     if (uploadProgressUserInfo) {
-        [self.uploadProgressUserInfos addObject:uploadProgressUserInfo];
+        [self.uploadProgressUserInfos insertObject:uploadProgressUserInfo atIndex:0];
     }
     
     //save change to NSUserDefaults
