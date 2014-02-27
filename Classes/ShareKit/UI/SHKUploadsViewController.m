@@ -63,7 +63,6 @@
             mockUpload.sharer = _sharer;
             mockUpload.sharerTitle = @"Sharer title";
             mockUpload.filename = @"Long_file_name_____name.test";
-            mockUpload.uploadProgress = 0.54;
             mockUpload.bytesTotal = 3044506;
             mockUpload.bytesUploaded = 789456;
             

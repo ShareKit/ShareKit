@@ -33,12 +33,9 @@
 @property (copy) NSString *sharerTitle;
 @property (copy) NSString *filename;
 
-///percentage, from 0.0 to 1.0
-@property CGFloat uploadProgress;
-
 ///upload total size
-@property NSUInteger bytesTotal;
-@property NSUInteger bytesUploaded;
+@property int64_t bytesTotal;
+@property int64_t bytesUploaded;
 
 ///YES, if upload finished successfully
 @property BOOL uploadFinishedSuccessfully;
@@ -51,5 +48,8 @@
 ///Returns YES, if upload is failed.
 - (BOOL)isFailed;
 - (BOOL)isInProgress;
+
+///percentage, from 0.0 to 1.0
+- (CGFloat)uploadProgress;
 
 @end

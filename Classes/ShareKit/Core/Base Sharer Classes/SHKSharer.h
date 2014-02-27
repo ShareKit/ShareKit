@@ -41,9 +41,11 @@
 
 @end
 
+#import "SHKSessionDelegate.h"
+
 @class SHKItem;
 
-@interface SHKSharer : UINavigationController
+@interface SHKSharer : UINavigationController <SHKSessionDelegate>
 
 @property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 

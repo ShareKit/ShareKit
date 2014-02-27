@@ -37,11 +37,21 @@
     return result;
 }
 
+- (CGFloat)uploadProgress {
+    
+    CGFloat result = (CGFloat)self.bytesUploaded / self.bytesTotal;
+    
+    //workaround for buggy sdk's, e.g Dropbox can upload 1.06 of a file :(
+    if (result > 1.0) {
+        result = 1.0;
+    }
+    return result;    
+}
+
 #pragma mark - NS Coding
 
 static NSString *sharerTitleKey = @"sharerTitleKey";
 static NSString *filenameKey = @"filenameKey";
-static NSString *uploadProgressKey = @"uploadProgressKey";
 static NSString *bytesTotalKey = @"bytesTotalKey";
 static NSString *bytesUploadedKey = @"bytesUploadedKey";
 static NSString *uploadFinishedSuccessfullyKey = @"uploadFinishedSuccessfullyKey";
@@ -52,7 +62,6 @@ static NSString *uploadCancelledKey = @"uploadCancelledKey";
     //we omit sharer. If app shuts down, sharer is deallocated anyway.
     [aCoder encodeObject:self.sharerTitle forKey:sharerTitleKey];
     [aCoder encodeObject:self.filename forKey:filenameKey];
-    [aCoder encodeFloat:self.uploadProgress forKey:uploadProgressKey];
     [aCoder encodeInt64:self.bytesTotal forKey:bytesTotalKey];
     [aCoder encodeInt64:self.bytesUploaded forKey:bytesUploadedKey];
     [aCoder encodeBool:self.uploadFinishedSuccessfully forKey:uploadFinishedSuccessfullyKey];
@@ -65,7 +74,6 @@ static NSString *uploadCancelledKey = @"uploadCancelledKey";
     if (self) {
         _sharerTitle = [aDecoder decodeObjectForKey:sharerTitleKey];
         _filename = [aDecoder decodeObjectForKey:filenameKey];
-        _uploadProgress = [aDecoder decodeFloatForKey:uploadProgressKey];
         _bytesTotal = [aDecoder decodeInt64ForKey:bytesTotalKey];
         _bytesUploaded = [aDecoder decodeInt64ForKey:bytesUploadedKey];
         _uploadFinishedSuccessfully = [aDecoder decodeBoolForKey:uploadFinishedSuccessfullyKey];

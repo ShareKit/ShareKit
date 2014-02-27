@@ -562,7 +562,9 @@ static int outstandingRequests = 0;
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [[NSNotificationCenter defaultCenter] postNotificationName:kSHKDropboxUploadProgress object:[NSNumber numberWithFloat:progress]];
 #pragma clang diagnostic pop
-    [self showProgress:progress];
+
+    int64_t uploadedBytes = self.item.file.size * progress;
+    [self showUploadedBytes:uploadedBytes totalBytes:self.item.file.size];
 }
 
 - (void)restClient:(DBRestClient*)client uploadFileFailedWithError:(NSError*)error {
@@ -601,9 +603,8 @@ static int outstandingRequests = 0;
     
     unsigned long long chunkUploadedBytes = kSHKDropboxSizeChunks * progress;
     unsigned long long totalUploadedBytes = chunkUploadedBytes + offset;
-    float totalProgress = (float)totalUploadedBytes/__fileSize;
     //SHKLog(@"%@ upload chunk progress = %.2f %", [client description], progress);
-    [self showProgress:totalProgress];
+    [self showUploadedBytes:totalUploadedBytes totalBytes:__fileSize];
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileChunkFailedWithError:(NSError *)error {

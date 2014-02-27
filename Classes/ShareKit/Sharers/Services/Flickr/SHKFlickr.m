@@ -28,6 +28,7 @@
 #import "SHKOAuthView.h"
 #import "NSDictionary+Recursive.h"
 #import "SHKXMLResponseParser.h"
+#import "SHKSession.h"
 
 #define kSHKFlickrUserInfo @"kSHKFlickrUserInfo"
 #define USER_REMOVED_ACCESS_CODE @"98"
@@ -245,6 +246,8 @@
     [oRequest setParameters:params];
     [oRequest prepare];
     
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    
     if (self.item.shareType == SHKShareTypeImage) {
         
         NSData *imageData = UIImageJPEGRepresentation(self.item.image, .9);
@@ -260,24 +263,54 @@
                                          data:self.item.file.data];
     }
     
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(uploadPhotoTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
-    [fetcher start];
-    return fetcher;
+    if (canUseNSURLSession) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            if (error.code == -999) {
+                [weakSelf sendDidCancel];
+            } else if (error) {
+                SHKLog(@"upload photo did fail with error:%@", [error description]);
+                [weakSelf sendTicket:nil didFailWithError:error];
+            } else {
+                BOOL success = [(NSHTTPURLResponse *)response statusCode] < 400;
+                [weakSelf uploadPhotoDidFinishWithData:data success:success];
+            }
+            [[SHK currentHelper] removeSharerReference:weakSelf];
+        }];
+        [[SHK currentHelper] keepSharerReference:self];
+        return nil;
+        
+    } else {
+        
+        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                              delegate:self
+                                                                                     didFinishSelector:@selector(uploadPhotoTicket:didFinishWithData:)
+                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];
+        [fetcher start];
+        return fetcher;
+    }
 }
 
 - (void)uploadPhotoTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
     
-    if (ticket.didSucceed) {
+    [self uploadPhotoDidFinishWithData:data success:ticket.didSucceed];
+}
+
+- (void)uploadPhotoDidFinishWithData:(NSData *)data success:(BOOL)success {
+    
+    if (success) {
         
         NSDictionary *response = [SHKXMLResponseParser dictionaryFromData:data];
         NSString* photoID = [response findRecursivelyValueForKey:@"photoid"];
+        
         if (photoID) {
             
             [self sendDidFinish];
-            self.quiet = YES; //now we are going to add uploaded photo to groups. Let's not bother user with indicators...Photo is uploaded anyway.
+            
+            //now we are going to add uploaded photo to groups. Let's not bother user with indicators...Photo is uploaded anyway.
+            self.quiet = YES;
             NSArray *groupsArray = [[self.item customValueForKey:@"postgroup"] componentsSeparatedByString:@","];
             for (NSString *groupNSID in groupsArray) {
                 
@@ -285,6 +318,7 @@
                                         [[OARequestParameter alloc] initWithName:@"group_id" value:groupNSID]];
                 [self sendFlickrRequestMethod:@"flickr.groups.pools.add" parameters:parameters];
             }
+            
         } else {
             
             NSString *code = [response findRecursivelyValueForKey:@"code"];
@@ -297,7 +331,7 @@
             }
             SHKLog(@"Flickr upload ticket failed with error:%@", [[SHKXMLResponseParser dictionaryFromData:data] description]);
         }
-            
+        
     } else {
         
         [self sendShowSimpleErrorAlert];
@@ -336,6 +370,8 @@
             } else {
                 [self.curOptionController optionsEnumerationFailedWithError:nil];
             }
+        } else if ([response findRecursivelyValueForKey:@"stat"]) {
+            //moved (or not, nevermind) uploaded photo to specified group
         } else {
             
             //error

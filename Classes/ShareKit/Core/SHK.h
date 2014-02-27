@@ -76,7 +76,7 @@ extern NSString * const SHKUploadInfosDefaultsKeyName;
 #pragma mark - Uploads Progress Management
 
 /*!
- Each time there is a progress with upload (start, finish, failure, cancel) this method should be called. Saves the upload info reference to uploadProgressUserInfos property, and saves the change persistently to NSUserDefaults.
+ Each time there is a change of upload status (start, finish, failure, cancel) this method should be called. Saves the upload info reference to uploadProgressUserInfos property, and saves the change persistently to NSUserDefaults. Do not call this each time when upload bytes progress is reported, because saving to NSUserDefaults is expensive and unneccessary. Bytes progress is reported using SHKUploadProgressNotification.
  @param uploadProgressUserInfo
  Changed upload info
  */

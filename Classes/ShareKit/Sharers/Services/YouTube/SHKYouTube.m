@@ -285,7 +285,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     ^(GTLServiceTicket *ticket, unsigned long long numberOfBytesRead, unsigned long long dataLength){
         float progress = (double)numberOfBytesRead / (double)dataLength;
         if(progress < 1)
-            [self showProgress:progress];
+            [self showUploadedBytes:numberOfBytesRead totalBytes:dataLength];
         else{
             [self displayActivity:SHKLocalizedString(@"Processing Video...")];
         }

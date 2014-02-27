@@ -140,6 +140,7 @@
 		7A8C03D81848E12E008E4C0A /* SHKXMLResponseParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */; };
 		7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A930ED3180D86180066C399 /* UIApplication+iOSVersion.h */; };
 		7A930ED6180D86180066C399 /* UIApplication+iOSVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A930ED4180D86180066C399 /* UIApplication+iOSVersion.m */; };
+		7A9E123318BE3F02006504BC /* SHKSessionDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A9E123218BE3F02006504BC /* SHKSessionDelegate.h */; };
 		7A9FEF35180403520053CB40 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A9FEF1E180403520053CB40 /* Localizable.strings */; };
 		7AA2E9E21743E44500B17434 /* SHKPocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9E01743E44500B17434 /* SHKPocket.h */; };
 		7AA2E9E31743E44500B17434 /* SHKPocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9E11743E44500B17434 /* SHKPocket.m */; };
@@ -280,6 +281,8 @@
 		7AECF40F171D52DF000722FA /* libYouTube.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AECF322171D5194000722FA /* libYouTube.a */; };
 		7AEEDC8E18508E3600AD7E69 /* NSString+LinkedIn.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AEEDC8C18508E3600AD7E69 /* NSString+LinkedIn.h */; };
 		7AEEDC8F18508E3600AD7E69 /* NSString+LinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */; };
+		7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF701F518BCCCF400438CE2 /* SHKSession.h */; };
+		7AF701F818BCCCF400438CE2 /* SHKSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF701F618BCCCF400438CE2 /* SHKSession.m */; };
 		9492063917302B4C00DF9530 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 949BCB95172A99AF00D706D4 /* SHKBuffer.h */; };
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
@@ -838,6 +841,7 @@
 		7A8C03D61848D5C2008E4C0A /* testXMLResponse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLResponse.xml; sourceTree = "<group>"; };
 		7A930ED3180D86180066C399 /* UIApplication+iOSVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+iOSVersion.h"; sourceTree = "<group>"; };
 		7A930ED4180D86180066C399 /* UIApplication+iOSVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+iOSVersion.m"; sourceTree = "<group>"; };
+		7A9E123218BE3F02006504BC /* SHKSessionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSessionDelegate.h; sourceTree = "<group>"; };
 		7A9FEF1F180403520053CB40 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A9FEF20180403520053CB40 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7A9FEF21180403520053CB40 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1039,6 +1043,8 @@
 		7AECF39A171D529D000722FA /* GTLYouTubeVideoTopicDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTLYouTubeVideoTopicDetails.m; path = "Submodules/google-api-objectivec/Source/Services/YouTube/Generated/GTLYouTubeVideoTopicDetails.m"; sourceTree = SOURCE_ROOT; };
 		7AEEDC8C18508E3600AD7E69 /* NSString+LinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+LinkedIn.h"; sourceTree = "<group>"; };
 		7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LinkedIn.m"; sourceTree = "<group>"; };
+		7AF701F518BCCCF400438CE2 /* SHKSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSession.h; sourceTree = "<group>"; };
+		7AF701F618BCCCF400438CE2 /* SHKSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSession.m; sourceTree = "<group>"; };
 		949BCB8C172A993000D706D4 /* libBuffer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuffer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		949BCB95172A99AF00D706D4 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		949BCB96172A99AF00D706D4 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
@@ -1791,6 +1797,9 @@
 				43A536A511DBE3B9004A1712 /* SHKRequest.m */,
 				7AB5FAB314D30AC700795BA9 /* SHKXMLResponseParser.h */,
 				7AB5FAB414D30AC700795BA9 /* SHKXMLResponseParser.m */,
+				7AF701F518BCCCF400438CE2 /* SHKSession.h */,
+				7AF701F618BCCCF400438CE2 /* SHKSession.m */,
+				7A9E123218BE3F02006504BC /* SHKSessionDelegate.h */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2551,8 +2560,10 @@
 				7A5C28D51896C23D00E47E62 /* SHKUploadInfo.h in Headers */,
 				7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
+				7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */,
 				7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */,
 				7A8397431782CC9500E1F8B9 /* Debug.h in Headers */,
+				7A9E123318BE3F02006504BC /* SHKSessionDelegate.h in Headers */,
 				7ACD3B09184DF0C40096CEA5 /* NSDictionary+Recursive.h in Headers */,
 				7ACABC78188FDD6B00EBFDB1 /* SHKSharer_protected.h in Headers */,
 				7A5C28DF189BA57100E47E62 /* SHKMBRoundProgressView.h in Headers */,
@@ -3796,6 +3807,7 @@
 				7A72AD07189FD9490039D762 /* SHKAccountsViewController.m in Sources */,
 				7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */,
 				7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */,
+				7AF701F818BCCCF400438CE2 /* SHKSession.m in Sources */,
 				7A107CEC17AA5674009A7F0E /* UIImage+OurBundle.m in Sources */,
 				7A5C28D61896C23D00E47E62 /* SHKUploadInfo.m in Sources */,
 			);

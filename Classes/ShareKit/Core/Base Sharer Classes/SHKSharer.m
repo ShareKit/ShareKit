@@ -31,6 +31,7 @@
 #import "SHKRequest.h"
 #import "SharersCommonHeaders.h"
 #import "SHKUploadInfo.h"
+#import "SHKSession.h"
 
 static NSString *const kSHKStoredItemKey=@"kSHKStoredItem";
 static NSString *const kSHKStoredActionKey=@"kSHKStoredAction";
@@ -454,7 +455,9 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)cancel {
     
-    SHKLog(@"Default implementation of cancel does nothing!!!");
+    if (!self.networkSession) SHKLog(@"This sharer does not use SHKSession. Default implementation of cancel does nothing!!!");
+    
+    [self.networkSession cancel];
 }
 
 #pragma mark -
@@ -1049,26 +1052,23 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     [self.shareDelegate displayCompleted:completionText forSharer:self];
 }
 
-- (void)showProgress:(CGFloat)progress {
+#pragma mark - SHKSessionDelegate
+
+- (void)showUploadedBytes:(int64_t)uploadedBytes totalBytes:(int64_t)totalBytes {
     
-    //SHKLog(@"progress: %f", progress);
-    
-    //workaround for buggy sdk's, e.g Dropbox can upload 1.06 of a file :(
-    if (progress > 1.0) {
-        progress = 1.0;
-    }
-    
-    long long uploadedBytes = (long long)(self.item.file.size * progress);
-    self.uploadInfo.bytesUploaded = uploadedBytes;
-    self.uploadInfo.uploadProgress = progress;
+    //SHKLog(@"totalSent:%lli, totalExpected:%lli", uploadedBytes, totalBytes);
     
     if (!self.uploadInfo) {
+        
         self.uploadInfo = [[SHKUploadInfo alloc] initWithSharer:self];
+        if (totalBytes) self.uploadInfo.bytesTotal = totalBytes;
         [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
     }
     
+    self.uploadInfo.bytesUploaded = uploadedBytes;
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:SHKUploadProgressNotification object:self userInfo:@{SHKUploadProgressInfoKeyName: self.uploadInfo}];
-    [self.shareDelegate showProgress:progress forSharer:self];
+    [self.shareDelegate showProgress:[self.uploadInfo uploadProgress] forSharer:self];
 }
 
 @end

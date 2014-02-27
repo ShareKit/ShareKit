@@ -242,7 +242,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 					 [[[self URL] URLStringWithoutQuery] URLEncodedString],
 					 [normalizedRequestParameters URLEncodedString]];
 	
-	SHKLog(@"OAMutableURLRequest parameters %@", normalizedRequestParameters);
+	//SHKLog(@"OAMutableURLRequest parameters %@ \n signature:%@", normalizedRequestParameters, ret);
 	
 	return ret;
 }
