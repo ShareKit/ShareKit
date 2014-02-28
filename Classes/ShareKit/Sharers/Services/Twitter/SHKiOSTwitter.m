@@ -153,18 +153,11 @@
                                                                          tagPrefix:@"#" tagSuffix:nil]];
     }
     
-    if (self.item.image) {
-    
-        NSData *imageData = nil;
-        BOOL sendViaTwitter = [SHKTwitterCommon canTwitterAcceptImage:self.item.image convertedData:&imageData];
-        
-        if (sendViaTwitter) {
-            [self sendStatusViaTwitter:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
-        } else {
-            [self sendDataViaYFrog:imageData mimeType:@"image/jpeg" filename:@"upload.jpg"];
+    if (self.item.image || self.item.file) {
+
+        if (self.item.image && !self.item.file) {
+            [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
         }
-        
-    } else if (self.item.file) {
         
         if ([SHKTwitterCommon canTwitterAcceptFile:self.item.file]) {
             [self sendStatusViaTwitter:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];

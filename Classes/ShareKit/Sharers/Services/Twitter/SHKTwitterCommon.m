@@ -123,16 +123,6 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
     return result;
 }
 
-+ (BOOL)canTwitterAcceptImage:(UIImage *)image convertedData:(NSData **)data {
-    
-    CGFloat compression = 1;
-	NSData *imageData = UIImageJPEGRepresentation(image, compression);
-    *data = imageData;
-    
-    BOOL result = [imageData length] < [self maxTwitterFileSize];
-    return result;
-}
-
 #pragma mark - UI Configuration
 
 + (NSUInteger)maxTextLengthForItem:(SHKItem *)item {

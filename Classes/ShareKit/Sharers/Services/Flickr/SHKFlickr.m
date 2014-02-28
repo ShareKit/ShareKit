@@ -244,24 +244,15 @@
     [params addObject:[[OARequestParameter alloc] initWithName:@"is_friend" value:[self.item customValueForKey:@"is_friend"]]];
     [params addObject:[[OARequestParameter alloc] initWithName:@"is_family" value:[self.item customValueForKey:@"is_family"]]];
     [oRequest setParameters:params];
-    [oRequest prepare];
     
     BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
     
     if (self.item.shareType == SHKShareTypeImage) {
         
-        NSData *imageData = UIImageJPEGRepresentation(self.item.image, .9);
-        [oRequest attachFileWithParameterName:@"photo"
-                                     filename:[self.item.title length] > 0 ? self.item.title:@"Photo"
-                                  contentType:@"image/jpeg"
-                                         data:imageData];
-    } else {
-        
-        [oRequest attachFileWithParameterName:@"photo"
-                                     filename:self.item.file.filename
-                                  contentType:self.item.file.mimeType
-                                         data:self.item.file.data];
-    }
+        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
+     }
+
+    [oRequest attachFile:self.item.file withParameterName:@"photo"];
     
     if (canUseNSURLSession) {
         

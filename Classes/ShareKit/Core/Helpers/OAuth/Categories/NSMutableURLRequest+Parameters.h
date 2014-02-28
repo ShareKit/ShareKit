@@ -23,14 +23,14 @@
 //  THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "OARequestParameter.h"
-#import "NSURL+Base.h"
+
+@class SHKFile;
 
 
 @interface NSMutableURLRequest (OAParameterAdditions)
 
 - (NSArray *)parameters;
 - (void)setParameters:(NSArray *)parameters;
-- (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data;
+- (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name;
 
 @end

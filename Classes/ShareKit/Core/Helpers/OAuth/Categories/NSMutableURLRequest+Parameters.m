@@ -25,6 +25,13 @@
 
 #import "NSMutableURLRequest+Parameters.h"
 
+#import "SHKPKMultipartInputStream.h"
+#import "SHKFile.h"
+#import "OARequestParameter.h"
+#import "OAMutableURLRequest.h"
+
+#import "NSURL+Base.h"
+
 static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBouNDaRy";
 
 @implementation NSMutableURLRequest (OAParameterAdditions)
@@ -98,6 +105,8 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
 //taken from https://github.com/jdg/oauthconsumer/
 - (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data {
     
+    [(OAMutableURLRequest *)self prepare]; //Prepare method makes OAuth signature prior appending the multipart/form-data
+    
 	NSArray *parameters = [self parameters];
 	[self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
     
@@ -118,6 +127,29 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
 	[self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[self setHTTPBody:bodyData];
 	[bodyData release];
+}
+
+- (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name {
+    
+    if ([file hasPath]) {
+        
+        NSArray *parameters = [self parameters];
+        SHKPKMultipartInputStream *body = [[SHKPKMultipartInputStream alloc] init];
+        
+        for (OARequestParameter *parameter in parameters) {
+            [body addPartWithName:[parameter URLEncodedName] string:[parameter value]];
+        }
+        
+        [body addPartWithName:name path:file.path];
+        
+        [self setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [body boundary]] forHTTPHeaderField:@"Content-Type"];
+        [self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
+        [self setHTTPBodyStream:body];
+
+    } else {
+        
+        [self attachFileWithParameterName:name filename:file.filename contentType:file.mimeType data:file.data];
+    }
 }
 
 @end

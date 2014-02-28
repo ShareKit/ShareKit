@@ -1061,7 +1061,9 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     if (!self.uploadInfo) {
         
         self.uploadInfo = [[SHKUploadInfo alloc] initWithSharer:self];
-        if (totalBytes) self.uploadInfo.bytesTotal = totalBytes;
+        if (totalBytes > 0) {
+            self.uploadInfo.bytesTotal = totalBytes;
+        }
         [[SHK currentHelper] uploadInfoChanged:self.uploadInfo];
     }
     

@@ -166,7 +166,6 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
                                                                               realm:nil
                                                                   signatureProvider:self.signatureProvider];
     [userInfoRequest setHTTPMethod:@"GET"];
-    [userInfoRequest prepare];
     
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:userInfoRequest
                                                                                           delegate:self

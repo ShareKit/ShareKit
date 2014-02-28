@@ -28,7 +28,6 @@ extern NSString * const SHKTwitterAPIUpdateURL;
 
 + (BOOL)canShareFile:(SHKFile *)file;
 + (BOOL)canTwitterAcceptFile:(SHKFile *)file;
-+ (BOOL)canTwitterAcceptImage:(UIImage *)image convertedData:(NSData **)data;
 + (BOOL)socialFrameworkAvailable;
 
 #pragma mark - Fetch Twitter API Configuration

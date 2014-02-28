@@ -27,6 +27,9 @@
 #import "OAMutableURLRequest.h"
 #import "Debug.h"
 
+#import "OARequestParameter.h"
+#import "NSURL+Base.h"
+
 
 @interface OAMutableURLRequest (Private)
 - (void)_generateTimestamp;

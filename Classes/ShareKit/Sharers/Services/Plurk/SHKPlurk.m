@@ -221,8 +221,9 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
                                                          signatureProvider:nil];
 	[oRequest setHTTPMethod:@"POST"];
   
-	NSData *imageData = UIImageJPEGRepresentation(self.item.image, 1);
-    [oRequest attachFileWithParameterName:@"image" filename:@"shk.jpg" contentType:@"image/jpeg" data:imageData];
+    [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
+
+    [oRequest attachFile:self.item.file withParameterName:@"image"];
   
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest

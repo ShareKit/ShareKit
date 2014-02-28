@@ -33,6 +33,8 @@
     result.delegate = delegate;
     [result.dataTask resume];
     
+    [result.uploadSession finishTasksAndInvalidate]; //to get rid of the session after finishing upload
+    
     return result;
 }
 

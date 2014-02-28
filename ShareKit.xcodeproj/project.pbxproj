@@ -213,6 +213,8 @@
 		7ACD3B09184DF0C40096CEA5 /* NSDictionary+Recursive.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACD3B07184DF0C40096CEA5 /* NSDictionary+Recursive.h */; };
 		7ACD3B0A184DF0C40096CEA5 /* NSDictionary+Recursive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */; };
 		7ACD3B0B184DF0C40096CEA5 /* NSDictionary+Recursive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */; };
+		7AD0377B18C0ADA0005277C6 /* SHKPKMultipartInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */; };
+		7AD0377C18C0ADA0005277C6 /* SHKPKMultipartInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */; };
 		7AD94F5D18293C6F0033E726 /* SHKTwitterCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */; };
 		7AD94F5E18293C6F0033E726 /* SHKTwitterCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */; };
 		7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */; };
@@ -920,6 +922,8 @@
 		7ACD3B05184DE7CE0096CEA5 /* testXMLAttributes3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLAttributes3.xml; sourceTree = "<group>"; };
 		7ACD3B07184DF0C40096CEA5 /* NSDictionary+Recursive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Recursive.h"; sourceTree = "<group>"; };
 		7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Recursive.m"; sourceTree = "<group>"; };
+		7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPKMultipartInputStream.h; sourceTree = "<group>"; };
+		7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPKMultipartInputStream.m; sourceTree = "<group>"; };
 		7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitterCommon.h; sourceTree = "<group>"; };
 		7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitterCommon.m; sourceTree = "<group>"; };
 		7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SaveItemAttachment.h"; sourceTree = "<group>"; };
@@ -1800,6 +1804,8 @@
 				7AF701F518BCCCF400438CE2 /* SHKSession.h */,
 				7AF701F618BCCCF400438CE2 /* SHKSession.m */,
 				7A9E123218BE3F02006504BC /* SHKSessionDelegate.h */,
+				7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */,
+				7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2559,6 +2565,7 @@
 				7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */,
 				7A5C28D51896C23D00E47E62 /* SHKUploadInfo.h in Headers */,
 				7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */,
+				7AD0377B18C0ADA0005277C6 /* SHKPKMultipartInputStream.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
 				7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */,
 				7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */,
@@ -3770,6 +3777,7 @@
 			files = (
 				7A930ED6180D86180066C399 /* UIApplication+iOSVersion.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
+				7AD0377C18C0ADA0005277C6 /* SHKPKMultipartInputStream.m in Sources */,
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,
 				7A0F91DC156BA2A0009CB40A /* SHKOAuthSharer.m in Sources */,

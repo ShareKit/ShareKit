@@ -328,18 +328,11 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     BOOL hasDataContent = self.item.image || self.item.file.data;
     if (hasDataContent) {
         
-        //media have to be sent as data. Prepare method makes OAuth signature prior appending the multipart/form-data 
-        [oRequest prepare];
-        
-        NSData *imageData = nil;
-        if (self.item.image) {
-            imageData = UIImageJPEGRepresentation(self.item.image, 0.9);
-        } else {
-            imageData = self.item.file.data;
+        if (self.item.image && !self.item.file) {
+            [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
         }
         
-        //append multipart/form-data
-        [oRequest attachFileWithParameterName:@"data" filename:self.item.file.filename contentType:self.item.file.mimeType data:imageData];
+        [oRequest attachFile:self.item.file withParameterName:@"data"];
     }
     
     [self sendRequest:oRequest];
