@@ -25,7 +25,7 @@
 
 #import "NSMutableURLRequest+Parameters.h"
 
-#import "SHKPKMultipartInputStream.h"
+#import "PKMultipartInputStream.h"
 #import "SHKFile.h"
 #import "OARequestParameter.h"
 #import "OAMutableURLRequest.h"
@@ -134,7 +134,7 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
     if ([file hasPath]) {
         
         NSArray *parameters = [self parameters];
-        SHKPKMultipartInputStream *body = [[SHKPKMultipartInputStream alloc] init];
+        PKMultipartInputStream *body = [[PKMultipartInputStream alloc] init];
         
         for (OARequestParameter *parameter in parameters) {
             [body addPartWithName:[parameter URLEncodedName] string:[parameter value]];

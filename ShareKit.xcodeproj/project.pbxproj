@@ -213,12 +213,13 @@
 		7ACD3B09184DF0C40096CEA5 /* NSDictionary+Recursive.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACD3B07184DF0C40096CEA5 /* NSDictionary+Recursive.h */; };
 		7ACD3B0A184DF0C40096CEA5 /* NSDictionary+Recursive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */; };
 		7ACD3B0B184DF0C40096CEA5 /* NSDictionary+Recursive.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */; };
-		7AD0377B18C0ADA0005277C6 /* SHKPKMultipartInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */; };
-		7AD0377C18C0ADA0005277C6 /* SHKPKMultipartInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */; };
 		7AD94F5D18293C6F0033E726 /* SHKTwitterCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */; };
 		7AD94F5E18293C6F0033E726 /* SHKTwitterCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */; };
 		7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */; };
 		7AD9861E16E78D730052A5B8 /* NSData+SaveItemAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */; };
+		7ADB644318C5C05800B5AF7F /* PKMultipartInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ADB644118C5C05800B5AF7F /* PKMultipartInputStream.h */; };
+		7ADB644418C5C05800B5AF7F /* PKMultipartInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB644218C5C05800B5AF7F /* PKMultipartInputStream.m */; };
+		7ADB644518C5C0FA00B5AF7F /* libPKMultipartInputStream.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */; };
 		7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */; };
 		7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */; };
 		7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */; };
@@ -551,6 +552,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7AC2A38E16597F4C0089ABE8;
 			remoteInfo = "Sina Weibo";
+		};
+		7ADB643F18C5BFF000B5AF7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7ADB642E18C5BF3B00B5AF7F;
+			remoteInfo = PKMultipartInputStream;
 		};
 		7AECF40A171D52D0000722FA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -922,12 +930,13 @@
 		7ACD3B05184DE7CE0096CEA5 /* testXMLAttributes3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLAttributes3.xml; sourceTree = "<group>"; };
 		7ACD3B07184DF0C40096CEA5 /* NSDictionary+Recursive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Recursive.h"; sourceTree = "<group>"; };
 		7ACD3B08184DF0C40096CEA5 /* NSDictionary+Recursive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Recursive.m"; sourceTree = "<group>"; };
-		7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPKMultipartInputStream.h; sourceTree = "<group>"; };
-		7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPKMultipartInputStream.m; sourceTree = "<group>"; };
 		7AD94F5B18293C6F0033E726 /* SHKTwitterCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTwitterCommon.h; sourceTree = "<group>"; };
 		7AD94F5C18293C6F0033E726 /* SHKTwitterCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTwitterCommon.m; sourceTree = "<group>"; };
 		7AD9861B16E78D730052A5B8 /* NSData+SaveItemAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SaveItemAttachment.h"; sourceTree = "<group>"; };
 		7AD9861C16E78D730052A5B8 /* NSData+SaveItemAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SaveItemAttachment.m"; sourceTree = "<group>"; };
+		7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPKMultipartInputStream.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7ADB644118C5C05800B5AF7F /* PKMultipartInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKMultipartInputStream.h; path = Submodules/PKMultipartInputStream/PKMultipartInputStream.h; sourceTree = SOURCE_ROOT; };
+		7ADB644218C5C05800B5AF7F /* PKMultipartInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKMultipartInputStream.m; path = Submodules/PKMultipartInputStream/PKMultipartInputStream.m; sourceTree = SOURCE_ROOT; };
 		7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SHKShareFileIcon.png; path = Classes/ShareKit/SHKShareFileIcon.png; sourceTree = SOURCE_ROOT; };
 		7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SHKShareFileIcon@2x.png"; path = "Classes/ShareKit/SHKShareFileIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyLibFile.h; path = ShareKitLibrary/DummyLibFile.h; sourceTree = "<group>"; };
@@ -1227,6 +1236,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ADB644518C5C0FA00B5AF7F /* libPKMultipartInputStream.a in Frameworks */,
 				7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */,
 				7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */,
 				9492063917302B4C00DF9530 /* libKippt.a in Frameworks */,
@@ -1274,6 +1284,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7AC2A39316597F4C0089ABE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ADB643218C5BF3B00B5AF7F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1497,6 +1514,7 @@
 				7A4E465A173E2B2900CCEE80 /* libPocket.a */,
 				7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */,
 				7A8C03BE1848CDEE008E4C0A /* Static Library Tests.xctest */,
+				7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1789,6 +1807,7 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7ADB643A18C5BF9700B5AF7F /* PKMultipartInputStream */,
 				7AB99E6817FD9C850050DD98 /* SSKeychain */,
 				7A107CA117AA4169009A7F0E /* SSToolkit */,
 				7AEAC53C178DA34F0032B0AA /* Declarations */,
@@ -1804,8 +1823,6 @@
 				7AF701F518BCCCF400438CE2 /* SHKSession.h */,
 				7AF701F618BCCCF400438CE2 /* SHKSession.m */,
 				7A9E123218BE3F02006504BC /* SHKSessionDelegate.h */,
-				7AD0377918C0ADA0005277C6 /* SHKPKMultipartInputStream.h */,
-				7AD0377A18C0ADA0005277C6 /* SHKPKMultipartInputStream.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -2271,6 +2288,15 @@
 			path = "Sina Weibo";
 			sourceTree = "<group>";
 		};
+		7ADB643A18C5BF9700B5AF7F /* PKMultipartInputStream */ = {
+			isa = PBXGroup;
+			children = (
+				7ADB644118C5C05800B5AF7F /* PKMultipartInputStream.h */,
+				7ADB644218C5C05800B5AF7F /* PKMultipartInputStream.m */,
+			);
+			name = PKMultipartInputStream;
+			sourceTree = "<group>";
+		};
 		7AEAC53C178DA34F0032B0AA /* Declarations */ = {
 			isa = PBXGroup;
 			children = (
@@ -2565,7 +2591,6 @@
 				7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */,
 				7A5C28D51896C23D00E47E62 /* SHKUploadInfo.h in Headers */,
 				7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */,
-				7AD0377B18C0ADA0005277C6 /* SHKPKMultipartInputStream.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
 				7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */,
 				7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */,
@@ -2701,6 +2726,14 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ADB643318C5BF3B00B5AF7F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ADB644318C5C05800B5AF7F /* PKMultipartInputStream.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3170,6 +3203,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7ADB644018C5BFF000B5AF7F /* PBXTargetDependency */,
 				7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */,
 				7A4E4665173E2C4F00CCEE80 /* PBXTargetDependency */,
 				9492063217302B0700DF9530 /* PBXTargetDependency */,
@@ -3244,6 +3278,23 @@
 			name = "Sina Weibo";
 			productName = ShareKitLibrary;
 			productReference = 7AC2A3A016597F4C0089ABE8 /* libSina Weibo.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7ADB642E18C5BF3B00B5AF7F /* PKMultipartInputStream */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7ADB643618C5BF3B00B5AF7F /* Build configuration list for PBXNativeTarget "PKMultipartInputStream" */;
+			buildPhases = (
+				7ADB642F18C5BF3B00B5AF7F /* Sources */,
+				7ADB643218C5BF3B00B5AF7F /* Frameworks */,
+				7ADB643318C5BF3B00B5AF7F /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PKMultipartInputStream;
+			productName = ShareKitLibrary;
+			productReference = 7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7AECF31A171D5194000722FA /* YouTube */ = {
@@ -3727,6 +3778,7 @@
 				7A4E4652173E2B2900CCEE80 /* Pocket */,
 				7A4E465B173E2C2500CCEE80 /* Pocket SDK */,
 				7A8C03BD1848CDEE008E4C0A /* Static Library Tests */,
+				7ADB642E18C5BF3B00B5AF7F /* PKMultipartInputStream */,
 			);
 		};
 /* End PBXProject section */
@@ -3777,7 +3829,6 @@
 			files = (
 				7A930ED6180D86180066C399 /* UIApplication+iOSVersion.m in Sources */,
 				7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */,
-				7AD0377C18C0ADA0005277C6 /* SHKPKMultipartInputStream.m in Sources */,
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,
 				7A0F91DC156BA2A0009CB40A /* SHKOAuthSharer.m in Sources */,
@@ -3994,6 +4045,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AC2A3A116597F9C0089ABE8 /* SHKSinaWeibo.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7ADB642F18C5BF3B00B5AF7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7ADB644418C5C05800B5AF7F /* PKMultipartInputStream.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4358,6 +4417,11 @@
 			isa = PBXTargetDependency;
 			target = 7AC2A38E16597F4C0089ABE8 /* Sina Weibo */;
 			targetProxy = 7AC28F09165A1EE7006D7441 /* PBXContainerItemProxy */;
+		};
+		7ADB644018C5BFF000B5AF7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7ADB642E18C5BF3B00B5AF7F /* PKMultipartInputStream */;
+			targetProxy = 7ADB643F18C5BFF000B5AF7F /* PBXContainerItemProxy */;
 		};
 		7AECF40B171D52D0000722FA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5318,6 +5382,55 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "Sina Weibo";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		7ADB643718C5BF3B00B5AF7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = PKMultipartInputStream;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7ADB643818C5BF3B00B5AF7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = PKMultipartInputStream;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -6659,6 +6772,15 @@
 			buildConfigurations = (
 				7AC2A39E16597F4C0089ABE8 /* Debug */,
 				7AC2A39F16597F4C0089ABE8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7ADB643618C5BF3B00B5AF7F /* Build configuration list for PBXNativeTarget "PKMultipartInputStream" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7ADB643718C5BF3B00B5AF7F /* Debug */,
+				7ADB643818C5BF3B00B5AF7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

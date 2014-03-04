@@ -22,3 +22,6 @@
 [submodule "Submodules/OpenInChrome"]
 	path = Submodules/OpenInChrome
 	url = https://github.com/GoogleChrome/OpenInChrome.git
+[submodule "Submodules/PKMultipartInputStream"]
+	path = Submodules/PKMultipartInputStream
+	url = https://github.com/pyke369/PKMultipartInputStream.git
