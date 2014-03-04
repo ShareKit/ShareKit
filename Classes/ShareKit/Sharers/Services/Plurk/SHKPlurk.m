@@ -25,7 +25,10 @@
 //
 
 #import "SHKPlurk.h"
+
 #import "SharersCommonHeaders.h"
+#import "SHKSession.h"
+
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 NSString * const kSHKPlurkUserInfo = @"kSHKPlurkUserInfo";
@@ -87,6 +90,15 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	return YES;
 }
 
++ (BOOL)canShareFile:(SHKFile *)file {
+    
+    if ([file.mimeType hasPrefix:@"image/"]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 + (BOOL)canGetUserInfo {
     
     return YES;
@@ -117,9 +129,9 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	[super logout];
 }
 
-
 #pragma mark -
 #pragma mark Share Form
+
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type
 {
     if (self.item.shareType == SHKShareTypeUserInfo) return nil;
@@ -154,7 +166,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
         [self.item setCustomValue:[NSString stringWithFormat:@"%@ (%@)", [self.item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], self.item.title] forKey:@"status"];
 	}
     
-	else if (self.item.shareType == SHKShareTypeImage)
+	else if (self.item.shareType == SHKShareTypeImage || self.item.shareType == SHKShareTypeFile)
 	{
 		if (!self.imageUploaded) return nil; //this means we continue to send silently
 	}
@@ -222,39 +234,70 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
 	[oRequest setHTTPMethod:@"POST"];
   
     [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
-
-    [oRequest attachFile:self.item.file withParameterName:@"image"];
+    
+    //Plurk is unable to handle NSInputStream, thus attachFile:withParameterName can not be used
+    //[oRequest attachFile:self.item.file withParameterName:@"image"];
+    [oRequest attachFileWithParameterName:@"image" filename:self.item.file.filename contentType:self.item.file.mimeType data:self.item.file.data];
   
-	// Start the request
-	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                        delegate:self
-                                                                               didFinishSelector:@selector(uploadImageTicket:didFinishWithData:)
-                                                                                 didFailSelector:@selector(uploadImageTicket:didFailWithError:)];
-	[fetcher start];
+	BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    if (canUseNSURLSession) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            if (error.code == -999) {
+                [weakSelf sendDidCancel];
+            } else if (!error) {
+                [weakSelf uploadFinishedWithData:data success:(NSHTTPURLResponse *)response];
+            } else {
+                [weakSelf uploadImageTicket:nil didFailWithError:error];
+            }
+            [[SHK currentHelper] removeSharerReference:self];
+        }];
+        [[SHK currentHelper] keepSharerReference:self];
+        
+    } else {
+        
+        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                              delegate:self
+                                                                                     didFinishSelector:@selector(uploadImageTicket:didFinishWithData:)
+                                                                                       didFailSelector:@selector(uploadImageTicket:didFailWithError:)];
+        [fetcher start];
+    }
 }
 
 - (void)uploadImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {
-	[self hideActivityIndicator];
-  
-  if (SHKDebugShowLogs) {
-    SHKLog(@"Plurk Upload Picture Status Code: %ld", (long)[ticket.response statusCode]);
-    SHKLog(@"Plurk Upload Picture Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-  }
-  
-	if (ticket.didSucceed) {
+    [self uploadFinishedWithData:data success:ticket.response];
+}
+
+- (void)uploadFinishedWithData:(NSData *)data success:(NSHTTPURLResponse *)response {
+    
+    [self hideActivityIndicator];
+    
+    if (SHKDebugShowLogs) {
+        SHKLog(@"Plurk Upload Picture Status Code: %ld", (long)[response statusCode]);
+        SHKLog(@"Plurk Upload Picture Response data: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    }
+    
+    BOOL success = response.statusCode < 400;
+	if (success) {
+        
 		// Finished uploading Image, now need to posh the message and url in twitter
         NSError *error = nil;
         NSDictionary *response = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
-    
+        
 		if ([response objectForKey:@"full"]) {
+            
 			NSString *urlString = [response objectForKey:@"full"];
 			[self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", self.item.title, urlString] forKey:@"status"];
             self.imageUploaded = YES;
 			[self show];
+            
 		} else {
 			[self alertUploadImageWithError:nil];
 		}
+        
 	} else {
 		[self alertUploadImageWithError:nil];
 	}
@@ -266,7 +309,6 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
   
 	[self alertUploadImageWithError:error];
 }
-
 
 - (void)alertUploadImageWithError:(NSError *)error
 {
@@ -289,7 +331,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     
     if (![self validateItem]) return NO;
   
-    if (self.item.shareType == SHKShareTypeImage && !self.imageUploaded) {
+    if ((self.item.shareType == SHKShareTypeImage || self.item.shareType == SHKShareTypeFile) && !self.imageUploaded) {
         [self uploadImage];
     } else {
         [self sendStatus];

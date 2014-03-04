@@ -31,6 +31,11 @@
 
 - (NSArray *)parameters;
 - (void)setParameters:(NSArray *)parameters;
+
+///The method resolves, if file hasPath or hasData. If has path, it is streamed via NSInputStream - thus the file is not read into memory. If hasData, it is packed directly within body's request. Preferred method for attaching files.
 - (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name;
+
+///Fallback method for services, which are not able to handle NSInputStream type of multipart/form-data request
+- (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data;
 
 @end
