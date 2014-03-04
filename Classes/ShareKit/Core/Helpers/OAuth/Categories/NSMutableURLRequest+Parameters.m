@@ -104,9 +104,7 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
 
 //taken from https://github.com/jdg/oauthconsumer/
 - (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data {
-    
-    [(OAMutableURLRequest *)self prepare]; //Prepare method makes OAuth signature prior appending the multipart/form-data
-    
+        
 	NSArray *parameters = [self parameters];
 	[self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
     

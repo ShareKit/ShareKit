@@ -25,6 +25,8 @@
 #import "SHKTumblr.h"
 
 #import "SharersCommonHeaders.h"
+#import "SHKSession.h"
+
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 #define MAX_SIZE_MB_PHOTO 10
@@ -46,7 +48,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 - (void)dealloc {
     
     [[NSNotificationCenter defaultCenter] removeObserver:getUserBlogsObserver];
-    
 }
 
 #pragma mark -
@@ -186,7 +187,8 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         case SHKShareTypeImage:
         case SHKShareTypeFile:
         {
-            result = [NSMutableArray arrayWithObjects:blogField, [self titleFieldWithLabel:SHKLocalizedString(@"Caption")], tagsField, publishField, nil];
+            SHKFormFieldSettings *attachmentCaptionField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Caption") key:@"title" start:self.item.title item:self.item];
+            result = [NSMutableArray arrayWithObjects:attachmentCaptionField, tagsField, blogField, publishField, nil];
         }
         default:
             break;
@@ -325,7 +327,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     [params addObjectsFromArray:@[tagsParam, publishParam]];
     [oRequest setParameters:params];
     
-    BOOL hasDataContent = self.item.image || self.item.file.data;
+    BOOL hasDataContent = self.item.image || self.item.file;
     if (hasDataContent) {
         
         if (self.item.image && !self.item.file) {
@@ -357,18 +359,44 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (void)sendRequest:(OAMutableURLRequest *)finalizedRequest {
     
-    // Start the request
-    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:finalizedRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(sendTicket:didFailWithError:)];
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
     
-    [fetcher start];
+    if (self.item.file && canUseNSURLSession) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.networkSession = [SHKSession startSessionWithRequest:finalizedRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            if (error.code == -999) {
+                [weakSelf sendDidCancel];
+            } else if (!error) {
+                [weakSelf sendDidFinishWithData:data response:(NSHTTPURLResponse *)response];
+            } else {
+                [weakSelf sendTicket:nil didFailWithError:error];
+            }
+            [[SHK currentHelper] removeSharerReference:self];
+        }];
+        [[SHK currentHelper] keepSharerReference:self];
+        
+    } else {
+
+        OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:finalizedRequest
+                                                                                              delegate:self
+                                                                                     didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                       didFailSelector:@selector(sendTicket:didFailWithError:)];
+        [fetcher start];
+    }
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
 {	
-	if (ticket.didSucceed) {
+    [self sendDidFinishWithData:data response:ticket.response];
+}
+
+- (void)sendDidFinishWithData:(NSData *)data response:(NSHTTPURLResponse *)response {
+    
+    BOOL success = response.statusCode < 400;
+    
+    if (success) {
 		
 		switch (self.item.shareType) {
             case SHKShareTypeUserInfo:
@@ -382,7 +410,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                 
                 [userInfo convertNSNullsToEmptyStrings];
                 [[NSUserDefaults standardUserDefaults] setObject:userInfo forKey:kSHKTumblrUserInfo];
-            
+                
                 break;
             }
             default:
@@ -393,7 +421,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 		
 	} else {
 		
-        if (ticket.response.statusCode == 401) {
+        if (response.statusCode == 401) {
             
             //user revoked acces, ask access again
             [self shouldReloginWithPendingAction:SHKPendingSend];
@@ -403,9 +431,9 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
             SHKLog(@"Tumblr send finished with error:%@", [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding]);
             [self sendShowSimpleErrorAlert];
         }
-
 	}
 }
+
 - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	SHKLog(@"Tumblr send failed with error:%@", [error description]);

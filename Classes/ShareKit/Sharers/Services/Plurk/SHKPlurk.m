@@ -237,6 +237,7 @@ NSString * const SHKPlurkPrivateKey = @"limited_to";
     
     //Plurk is unable to handle NSInputStream, thus attachFile:withParameterName can not be used
     //[oRequest attachFile:self.item.file withParameterName:@"image"];
+    [oRequest prepare];
     [oRequest attachFileWithParameterName:@"image" filename:self.item.file.filename contentType:self.item.file.mimeType data:self.item.file.data];
   
 	BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;

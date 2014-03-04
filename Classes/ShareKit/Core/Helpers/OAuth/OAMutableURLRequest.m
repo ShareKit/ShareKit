@@ -250,4 +250,11 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	return ret;
 }
 
+//not in NSMutableURLRequest category. A class should know nothing about its subclasses.
+- (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name {
+    
+    [self prepare];
+    [super attachFile:file withParameterName:name];
+}
+
 @end
