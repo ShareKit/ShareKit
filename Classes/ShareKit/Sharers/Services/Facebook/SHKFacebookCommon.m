@@ -9,6 +9,7 @@
 #import "SHKFacebookCommon.h"
 
 #import "SharersCommonHeaders.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 NSString *const kSHKFacebookUserInfo = @"kSHKFacebookUserInfo";
 NSString *const kSHKFacebookVideoUploadLimits = @"kSHKFacebookVideoUploadLimits";
@@ -168,6 +169,29 @@ NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/me/video
         [result insertObject:title atIndex:0];
     }
     return result;
+}
+
++ (void)refreshCurrentAccessTokenIfNeededWithCompletionBlock:(void (^)(NSError *))completion {
+    if (!completion) {
+        return;
+    }
+    //Testing access token with sending requestForMe. If it fails with access token validation error — trying to renew access token
+    [[FBRequest requestForMe] startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error){
+            // if access token is valid — call completion handler with success
+            completion(error);
+        } else if ([[error userInfo][FBErrorParsedJSONResponseKey][@"body"][@"error"][@"code"] compare:@190] == NSOrderedSame) {
+
+            //requestForMe failed due to error validating access token (code 190), so retry login
+            [FBSession openActiveSessionWithReadPermissions:nil allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError * accessTokenRenewingError) {
+                completion(accessTokenRenewingError);
+            }];
+        }
+        else {
+            // another facebook error
+            completion(error);
+        }
+    }];
 }
 
 @end

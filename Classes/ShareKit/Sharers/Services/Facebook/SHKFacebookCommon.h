@@ -29,4 +29,9 @@ extern NSString *const kSHKFacebookAPIVideosURL;
 + (NSMutableDictionary *)composeParamsForItem:(SHKItem *)item;
 + (NSMutableArray *)shareFormFieldsForItem:(SHKItem *)item;
 
+/**
+* Testing current opened session, if it's access token is not valid, try to reopen session
+*/
++ (void)refreshCurrentAccessTokenIfNeededWithCompletionBlock:(void (^)(NSError *))completion;
+
 @end
