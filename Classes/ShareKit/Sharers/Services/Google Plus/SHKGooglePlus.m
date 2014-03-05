@@ -80,7 +80,7 @@
 	return result;
 }
 
-- (void)promptAuthorization {
+- (void)authorizationFormShow {
     
     [self saveItemForLater:SHKPendingShare];
     
@@ -122,6 +122,10 @@
     } else {
         [self authDidFinish:NO];
         SHKLog(@"auth error: %@", [error description]);
+        if (error.code == 400) {//400 = "invalid_grant"
+            [self promptAuthorization];
+        }
+        
     }
     if (!self.isDisconnecting) {
         [[SHK currentHelper] removeSharerReference:self]; //ref will be removed in didDisconnectWithError: if logoff is in progress
