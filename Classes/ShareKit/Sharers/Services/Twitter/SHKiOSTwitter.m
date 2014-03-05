@@ -23,10 +23,16 @@
 
 #import "SHKiOSTwitter.h"
 #import "SHKiOSSharer_Protected.h"
+
 #import "SharersCommonHeaders.h"
 #import "SHKTwitterCommon.h"
 #import "SHKXMLResponseParser.h"
 #import "SHKRequest.h"
+#import "SHKSession.h"
+
+#import "NSMutableURLRequest+Parameters.h"
+
+typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlResponse, NSError *error);
 
 @implementation SHKiOSTwitter
 
@@ -160,7 +166,7 @@
         }
         
         if ([SHKTwitterCommon canTwitterAcceptFile:self.item.file]) {
-            [self sendStatusViaTwitter:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
+            [self sendStatusViaTwitter:self.item.file];
         } else {
             [self sendDataViaYFrog:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
         }
@@ -169,17 +175,17 @@
         self.quiet = YES;
         [self fetchUserInfo];
     } else {
-        [self sendStatusViaTwitter:nil mimeType:nil filename:nil];
+        [self sendStatusViaTwitter:nil];
     }
 
     [self sendDidStart];
     return YES;
 }
 
-- (void)sendStatusViaTwitter:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
+- (void)sendStatusViaTwitter:(SHKFile *)file {
     
     NSURL *url;
-    if (data) {
+    if (file) {
         url = [NSURL URLWithString:SHKTwitterAPIUpdateWithMediaURL];
     } else {
         url = [NSURL URLWithString:SHKTwitterAPIUpdateURL];
@@ -191,21 +197,35 @@
                                                       URL:url
                                                parameters:params];
     
-    if (data) [request addMultipartData:data withName:@"media" type:mimeType filename:filename];
+    if (file) [request addMultipartData:file.data withName:@"media" type:file.mimeType filename:file.filename];
+    request.account = [self selectedAccount];
     
-        request.account = [self selectedAccount];
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    if (file && canUseNSURLSession) {
+        NSURLRequest *preparedRequest = [request preparedURLRequest];
+        self.networkSession = [SHKSession startSessionWithRequest:preparedRequest delegate:self completion:[self twitterDataStatusRequestHandler]];
+    } else {
+        [request performRequestWithHandler:[self twitterDataStatusRequestHandler]];
+    }
+}
+
+- (SHKRequestHandlerBlock)twitterDataStatusRequestHandler {
     
-    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    SHKRequestHandlerBlock result = ^(NSData *responseData, NSURLResponse *urlResponse, NSError *error) {
         
         if (error) {
             
-            dispatch_async(dispatch_get_main_queue(), ^ {
-                [self sendDidFailWithError:error];
-            });
+            if (error.code == -999) {
+                [self sendDidCancel];
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    [self sendDidFailWithError:error];
+                });
+            }
             
         } else {
             
-            BOOL requestDidSucceed = urlResponse.statusCode < 400;
+            BOOL requestDidSucceed = [(NSHTTPURLResponse *)urlResponse statusCode] < 400;
             if (requestDidSucceed) {
                 
                 dispatch_async(dispatch_get_main_queue(), ^ {
@@ -215,7 +235,7 @@
                 
             } else {
                 
-                if (SHKDebugShowLogs) SHKLog(@"Twitter Send Status Error: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                if (SHKDebugShowLogs) SHKLog(@"Twitter Send Status Error: %@", [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
                 
                 NSMutableDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
                 NSDictionary *twitterError = parsedResponse[@"errors"][0];
@@ -226,28 +246,49 @@
                 });
             }
         }
-    }];
+    };
+    return result;
 }
 
 - (void)sendDataViaYFrog:(NSData *)data mimeType:(NSString *)mimeType filename:(NSString *)filename {
     
-    SLRequest *yFrogUploadRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                                       requestMethod:SLRequestMethodPOST
-                                                                 URL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]
-                                                          parameters:@{@"X-Auth-Service-Provider": @"https://api.twitter.com/1.1/account/verify_credentials.json",
-                                                                       @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]}];
-    [yFrogUploadRequest addMultipartData:data withName:@"media" type:mimeType filename:filename];
-    [yFrogUploadRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    if (canUseNSURLSession) {
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]];
+        [request setHTTPMethod:@"POST"];
+        request.allHTTPHeaderFields = @{@"X-Auth-Service-Provider": @"https://api.twitter.com/1.1/account/verify_credentials.json",
+                                        @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]};
+        
+        //encountered 411 length required, thus not attachFile:withParameterName
+        [request attachFileWithParameterName:@"media" filename:filename contentType:mimeType data:data];
+        self.networkSession = [SHKSession startSessionWithRequest:request delegate:self completion:[self yFrogRequestCompletion]];
+        
+    } else {
+        
+        SLRequest *yFrogUploadRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                                           requestMethod:SLRequestMethodPOST
+                                                                     URL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]
+                                                              parameters:@{@"X-Auth-Service-Provider": @"https://api.twitter.com/1.1/account/verify_credentials.json",
+                                                                           @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]}];
+        [yFrogUploadRequest addMultipartData:data withName:@"media" type:mimeType filename:filename];
+        [yFrogUploadRequest performRequestWithHandler:[self yFrogRequestCompletion]];
+    }
+}
+
+- (SHKRequestHandlerBlock)yFrogRequestCompletion {
+    
+    SHKRequestHandlerBlock result = ^(NSData *responseData, NSURLResponse *urlResponse, NSError *error) {
         
         if (!error) {
             
-            if (urlResponse.statusCode < 400) {
+            if ([(NSHTTPURLResponse *)urlResponse statusCode] < 400) {
                 
                 NSString *mediaURL = [SHKXMLResponseParser getValueForElement:@"mediaurl" fromXMLData:responseData];
                 if (mediaURL) {
                     
                     [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];
-                    [self sendStatusViaTwitter:nil mimeType:nil filename:nil];
+                    [self sendStatusViaTwitter:nil];
                     
                 } else {
                     
@@ -258,12 +299,17 @@
                 
                 [self sendShowSimpleErrorAlert];
             }
-        
+            
         } else {
             
-            [self sendDidFailWithError:error];
+            if (error.code == -999) {
+                [self sendDidCancel];
+            } else {
+                [self sendDidFailWithError:error];
+            }
         }
-    }];
+    };
+    return result;
 }
 
 - (void)fetchUserInfo {

@@ -35,7 +35,7 @@
 ///The method resolves, if file hasPath or hasData. If has path, it is streamed via NSInputStream - thus the file is not read into memory. If hasData, it is packed directly within body's request. Preferred method for attaching files.
 - (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name;
 
-///Fallback method for services, which are not able to handle NSInputStream type of multipart/form-data request
+///Fallback method for services, which are not able to handle NSInputStream type of multipart/form-data request without "Content-Length". It is a bug (or a feature) of NSURLSession that it discards original request's "Content-Length" header. For more info see https://devforums.apple.com/message/919330#919330 or https://github.com/AFNetworking/AFNetworking/issues/1398  In other words, all services, which encounter http error "411 Length Required" should use this method instead of attachFile:WithParameterName. Unfortunately, using this method shared file has to be read into memory.
 - (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data;
 
 @end

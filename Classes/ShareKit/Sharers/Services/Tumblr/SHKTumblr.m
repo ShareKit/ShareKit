@@ -360,7 +360,6 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 - (void)sendRequest:(OAMutableURLRequest *)finalizedRequest {
     
     BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
-    
     if (self.item.file && canUseNSURLSession) {
         
         __weak typeof(self) weakSelf = self;

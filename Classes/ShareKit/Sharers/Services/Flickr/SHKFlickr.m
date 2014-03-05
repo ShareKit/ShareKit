@@ -245,8 +245,6 @@
     [params addObject:[[OARequestParameter alloc] initWithName:@"is_family" value:[self.item customValueForKey:@"is_family"]]];
     [oRequest setParameters:params];
     
-    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
-    
     if (self.item.shareType == SHKShareTypeImage) {
         
         [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1];
@@ -254,6 +252,7 @@
 
     [oRequest attachFile:self.item.file withParameterName:@"photo"];
     
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
     if (canUseNSURLSession) {
         
         __weak typeof(self) weakSelf = self;
