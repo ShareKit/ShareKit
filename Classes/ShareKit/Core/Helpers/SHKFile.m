@@ -169,9 +169,13 @@ static NSString *kSHKFileData = @"kSHKFileData";
     _path = [tempDirectory stringByAppendingPathComponent:sanitizedFileName];
     
     // Create our file
-    if([[NSFileManager defaultManager] fileExistsAtPath:_path]) {
+    if([[NSFileManager defaultManager] fileExistsAtPath:_path]){
+        
         // TODO: This file already exists - throw an error
-        NSAssert(NO, @"file already exists?!");
+        
+        //SHKLog(@"file already exists, OK?");
+        //return;
+        //NSAssert(NO, @"file already exists?!");
     }
     
     // Read our file into the file system
