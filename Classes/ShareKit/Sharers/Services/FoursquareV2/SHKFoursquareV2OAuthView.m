@@ -31,7 +31,7 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
-	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString].location != NSNotFound)
+	if ([request.URL.absoluteString rangeOfString:[self.delegate authorizeCallbackURL].absoluteString].location != NSNotFound)
 	{
 		// Get query
 		NSMutableDictionary *queryParams = nil;
@@ -48,14 +48,12 @@
 			}
 		}
 		
-		[delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:queryParams error:nil];
+		[self.delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:queryParams error:nil];
 		self.delegate = nil;
 		
 		return NO;
 	}
-	
 	return YES;
 }
-
 
 @end

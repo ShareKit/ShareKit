@@ -28,7 +28,6 @@
 #import <UIKit/UIKit.h>
 
 @class SHKOAuthView;
-@class SHKOAuthSharer;
 
 @protocol SHKOAuthViewDelegate
 
@@ -38,13 +37,7 @@
 
 @end
 
-
 @interface SHKOAuthView : UIViewController <UIWebViewDelegate>
-{
-	UIWebView *webView;
-	id delegate;
-	UIActivityIndicatorView *spinner;
-}
 
 @property (nonatomic, strong) UIWebView *webView;
 @property (strong) id<SHKOAuthViewDelegate> delegate;

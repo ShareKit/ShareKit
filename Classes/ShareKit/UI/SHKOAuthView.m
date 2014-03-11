@@ -26,13 +26,17 @@
 //
 
 #import "SHKOAuthView.h"
+
 #import "SHK.h"
 #import "SHKOAuthSharer.h"
 
+@interface SHKOAuthView ()
+
+@property (strong, nonatomic) NSURL *authorizeURL;
+
+@end
+
 @implementation SHKOAuthView
-
-@synthesize webView, delegate, spinner;
-
 
 - (id)initWithURL:(NSURL *)authorizeURL delegate:(id)d
 {
@@ -41,29 +45,31 @@
 		[self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																								  target:self
 																								  action:@selector(cancel)] animated:NO];
-		
-		self.delegate = d;
-		
-		UIWebView *aWebView = [[UIWebView alloc] initWithFrame:CGRectZero];
-		webView = aWebView;
-		webView.delegate = self;
-		webView.scalesPageToFit = YES;
-		webView.dataDetectorTypes = UIDataDetectorTypeNone;
-				
-		[webView loadRequest:[NSURLRequest requestWithURL:authorizeURL]];		
-		
+		_delegate = d;
+        _authorizeURL = authorizeURL;
     }
     return self;
 }
 
-- (void)loadView 
-{ 	
-	self.view = webView;
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    UIWebView *aWebView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    aWebView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    aWebView.delegate = self;
+    aWebView.scalesPageToFit = YES;
+    aWebView.dataDetectorTypes = UIDataDetectorTypeNone;
+    [aWebView loadRequest:[NSURLRequest requestWithURL:self.authorizeURL]];
+    self.webView = aWebView;
+    [self.view addSubview:aWebView];
 }
+
+#pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
-	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
+	if ([request.URL.absoluteString rangeOfString:[self.delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
 	{
 		// Get query
 		NSMutableDictionary *queryParams = nil;
@@ -78,7 +84,7 @@
 				if (parts.count == 2)
 					[queryParams setObject:[parts objectAtIndex:1] forKey:[parts objectAtIndex:0]];
 			}
-            [delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:queryParams error:nil];
+            [self.delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:queryParams error:nil];
 		}
         else
         {
@@ -99,11 +105,15 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {	
-	[self stopSpinner];
+    //some web pages do not adjust to current size of a view, but apparently size of a screen(?). This helps them to keep disciplined.
+    NSString *javaFormatString = @"document.querySelector('meta[name=viewport]').setAttribute('content', 'width=%d;', false); ";
+    [aWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:javaFormatString, (int)aWebView.frame.size.width]];
+    
+    [self stopSpinner];
 	
 	// Extra sanity check for Twitter OAuth users to make sure they are using BROWSER with a callback instead of pin based auth
-	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
-		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
+	if ([self.webView.request.URL.host isEqualToString:@"api.twitter.com"] && [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
+		[self.delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -111,40 +121,40 @@
 	if ([error code] != NSURLErrorCancelled && [error code] != 102 && [error code] != NSURLErrorFileDoesNotExist)
 	{
 		[self stopSpinner];
-		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:error];
+		[self.delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:error];
 	}
 }
 
 - (void)startSpinner
 {
-	if (spinner == nil)
+	if (self.spinner == nil)
 	{
-		UIActivityIndicatorView *aSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+		UIActivityIndicatorView *aSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         self.spinner = aSpinner;
+        //self.spinner.color = self.view.tintColor;
 
-		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:spinner] animated:NO];
-		spinner.hidesWhenStopped = YES;
+		[self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:self.spinner] animated:NO];
+		self.spinner.hidesWhenStopped = YES;
 	}
 	
-	[spinner startAnimating];
+	[self.spinner startAnimating];
 }
 
 - (void)stopSpinner
 {
-	[spinner stopAnimating];	
+	[self.spinner stopAnimating];
 }
 
 
-#pragma mark -
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
+#pragma mark - View Rotation
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
 }
 
 - (void)cancel
 {
-	[delegate tokenAuthorizeCancelledView:self];
+	[self.delegate tokenAuthorizeCancelledView:self];
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 }
 
