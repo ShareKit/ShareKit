@@ -298,6 +298,18 @@
 	return @"1bf70db9032207624e2ad58fb24b1593";
 }
 
+- (NSString *)imgurClientID {
+    return @"a0467900dd97d89";
+}
+
+- (NSString *)imgurClientSecret {
+    return @"cd4b907f1de7c7a901f055d5d2cd27415e43f7f3";
+}
+
+- (NSString *)imgurCallbackURL {
+    return @"https://imgur.com";
+}
+
 /*
  UI Configuration : Basic
  ------------------------
