@@ -32,6 +32,9 @@
 @property (copy, nonatomic) NSString *accessTokenType;
 @property (copy, nonatomic) NSString *refreshTokenString;
 @property (copy, nonatomic) NSDate *expirationDate;
+
+@property (nonatomic) BOOL wantsGallery;
+@property (nonatomic) BOOL isGalleryRequest;
 @end
 
 @implementation SHKImgur
@@ -226,8 +229,19 @@
     // See http://getsharekit.com/docs/#forms for documentation on creating forms
     
     if (type == SHKShareTypeImage || type == SHKShareTypeFile) {
-        return @[[SHKFormFieldSettings label:@"Title" key:@"title" type:SHKFormFieldTypeText start:self.item.title],
-                 [SHKFormFieldSettings label:@"Description" key:@"description" type:SHKFormFieldTypeText start:nil]];
+        return @[[SHKFormFieldSettings label:@"Title"
+                                         key:@"title"
+                                        type:SHKFormFieldTypeText
+                                       start:self.item.title],
+                 [SHKFormFieldSettings label:@"Description"
+                                         key:@"description"
+                                        type:SHKFormFieldTypeText
+                                       start:self.item.text],
+                 [SHKFormFieldSettings label:SHKLocalizedString(@"Imgur Public Gallery")
+                                         key:@"is_gallery"
+                                        type:SHKFormFieldTypeSwitch
+                                       start:SHKFormFieldSwitchOff]
+                 ];
     }
     
     return nil;
@@ -282,11 +296,14 @@
 }
 
 - (OAAsynchronousDataFetcher *)uploadPhoto {
+    
+    self.wantsGallery = [self.item customBoolForSwitchKey:@"is_gallery"];
 
     NSMutableURLRequest *oRequest;
 
     oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.imgur.com/3/upload"]];
     [oRequest setHTTPMethod:@"POST"];
+    self.isGalleryRequest = NO;
     
     if ([self isAuthorized]) {
         // OAuth 2.0 header
@@ -318,6 +335,8 @@
         __weak typeof(self) weakSelf = self;
         self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
             
+            BOOL done = YES;
+            
             if (error.code == -999) {
                 [weakSelf sendDidCancel];
             } else if (error) {
@@ -326,8 +345,11 @@
             } else {
                 BOOL success = [(NSHTTPURLResponse *)response statusCode] < 400;
                 [weakSelf uploadPhotoDidFinishWithData:data success:success];
+                done = !self.wantsGallery;
             }
-            [[SHK currentHelper] removeSharerReference:weakSelf];
+            if (done) {
+                [[SHK currentHelper] removeSharerReference:weakSelf];
+            }
         }];
         [[SHK currentHelper] keepSharerReference:self];
         return nil;
@@ -362,14 +384,25 @@
 
     if (success) {
         
-        NSString *imageID = [response findRecursivelyValueForKey:@"id"];
-        
-        if (imageID) {
+        if (self.isGalleryRequest) {
             [self sendDidFinish];
             
         } else {
-            NSString *errorMessage = [response findRecursivelyValueForKey:@"error"];
-            [self sendDidFailWithError:[SHK error:errorMessage]];
+        
+            NSString *imageID = [response findRecursivelyValueForKey:@"id"];
+            
+            if (imageID) {
+                
+                if (self.wantsGallery) {
+                    [self submitImageToGallery:imageID];
+                } else {
+                    [self sendDidFinish];
+                }
+                
+            } else {
+                NSString *errorMessage = [response findRecursivelyValueForKey:@"error"];
+                [self sendDidFailWithError:[SHK error:errorMessage]];
+            }
         }
 
     } else {
@@ -385,6 +418,69 @@
         [self.curOptionController optionsEnumerationFailedWithError:error];
     } else {
         [self sendShowSimpleErrorAlert];
+    }
+}
+
+- (void)submitImageToGallery:(NSString *)imageID {
+    NSString *URLString = [NSString stringWithFormat:@"https://api.imgur.com/3/gallery/image/%@", imageID];
+    
+    NSMutableURLRequest *oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:URLString]];
+    [oRequest setHTTPMethod:@"POST"];
+    self.isGalleryRequest = YES;
+    
+    if ([self isAuthorized]) {
+        // OAuth 2.0 header
+        [oRequest addValue:[NSString stringWithFormat:@"Bearer %@", self.accessTokenString] forHTTPHeaderField:@"Authorization"];
+    } else {
+        // fail, gallery submission requires login
+        NSError *error = [[NSError alloc] initWithDomain:@"imgur.com"
+                                                    code:400
+                                                userInfo:@{NSLocalizedDescriptionKey: @"Imgur gallery submission requires login"}];
+        [self sendDidFailWithError:error];
+        return;
+    }
+    
+    NSMutableArray *params = [[NSMutableArray alloc] initWithCapacity:2];
+    if ([self.item.title length] > 0) {
+        [params addObject:[[OARequestParameter alloc] initWithName:@"title" value:self.item.title]];
+    }
+    if ([[self.item customValueForKey:@"description"] length] > 0) {
+        [params addObject:[[OARequestParameter alloc] initWithName:@"description" value:[self.item customValueForKey:@"description"]]];
+    }
+    [oRequest setParameters:params];
+    
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    if (canUseNSURLSession) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            if (error.code == -999) {
+                [weakSelf sendDidCancel];
+            } else if (error) {
+                SHKLog(@"submit to gallery did fail with error:%@", [error description]);
+                [weakSelf sendTicket:nil didFailWithError:error];
+            } else {
+                NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
+                BOOL success = statusCode < 400;
+                if (success) {
+                    [self sendDidFinish];
+                } else {
+                    SHKLog(@"submit to gallery did fail with error:%@", [error description]);
+                    NSError *error = [[NSError alloc] initWithDomain:@"imgur.com"
+                                                                code:statusCode
+                                                            userInfo:@{NSLocalizedDescriptionKey: @"Imgur gallery submission error"}];
+                    [weakSelf sendTicket:nil didFailWithError:error];
+                }
+            }
+            [[SHK currentHelper] removeSharerReference:weakSelf];
+        }];
+        [[SHK currentHelper] keepSharerReference:self];
+        
+    } else {
+        
+        NSURLConnection *connection = [NSURLConnection connectionWithRequest:oRequest delegate:self];
+        [connection start];
     }
 }
 
