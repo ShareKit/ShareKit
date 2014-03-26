@@ -116,6 +116,8 @@ NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/me/video
 
 + (NSMutableArray *)shareFormFieldsForItem:(SHKItem *)item {
     
+    if (item.shareType == SHKShareTypeUserInfo) return nil;
+    
     NSString *text;
     NSString *key;
     BOOL allowEmptyMessage = NO;
