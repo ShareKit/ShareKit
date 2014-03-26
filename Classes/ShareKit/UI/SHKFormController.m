@@ -104,17 +104,24 @@
 {
 	[super viewDidAppear:animated];
 	
+    NSIndexPath *fieldToSelect = nil;
 	if (self.autoSelect) {
-		[self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        fieldToSelect = [NSIndexPath indexPathForRow:0 inSection:0];
     } else {
+        fieldToSelect = [self fieldToSelect];
+    }
+    if (fieldToSelect) {
         
-        NSIndexPath *fieldToSelect = [self fieldToSelect];
-        if (fieldToSelect) {
-            [self.tableView selectRowAtIndexPath:fieldToSelect animated:NO scrollPosition:UITableViewScrollPositionNone];
-        }
+        //Fix for bug (or behaviour) introduced on iOS7, when on landscaped iPad form was displaced after selecting the row. Hate doing this, hopefully this is temporary...
+        [self performSelector:@selector(selectRowAfterDelay:) withObject:fieldToSelect afterDelay:0.1];
     }
     
     [self checkFieldValidity];
+}
+
+- (void)selectRowAfterDelay:(NSIndexPath *)path {
+    
+    [self.tableView selectRowAtIndexPath:path animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (NSIndexPath *)fieldToSelect {
