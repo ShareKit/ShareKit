@@ -60,6 +60,7 @@
 		7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */; };
 		7AD89CB91876134B007D3740 /* demo_large_video_share.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */; };
 		7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE5333D18129CE300C66849 /* ImageIO.framework */; };
+		AC87CBD818EDF81300BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
 		DBCA448818EB185300D4AD00 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -1037,6 +1038,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC87CBD818EDF81300BBA454 /* LiveSDK.framework in Resources */,
 				7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */,
 				7A0406711740E3F6003404B9 /* InfoPlist.strings in Resources */,
 				7A0406791740E3F6003404B9 /* Default.png in Resources */,
