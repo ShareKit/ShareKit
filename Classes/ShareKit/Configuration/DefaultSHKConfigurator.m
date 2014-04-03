@@ -60,6 +60,9 @@
  leaving that decision up to the user.
  */
 
+- (NSString*)onenoteClientId {
+    return @"";
+}
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {

@@ -39,7 +39,10 @@
  The core principle behind ShareKit is to leave the service choices up to the user.  Thus, you should not remove any services,
  leaving that decision up to the user.
  */
-
+// OneNote - https://account.live.com/developers/applications
+- (NSString*)onenoteClientId {
+    return @"000000004C10E500"; // DO NOT USE THIS CLIENT ID IN YOUR APP! You should get your own from above URL!!!!
+}
 
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte

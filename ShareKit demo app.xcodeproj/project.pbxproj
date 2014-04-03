@@ -60,6 +60,7 @@
 		7AD7D63617EC75FE00DE20F6 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */; };
 		7AD89CB91876134B007D3740 /* demo_large_video_share.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */; };
 		7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE5333D18129CE300C66849 /* ImageIO.framework */; };
+		DBCA448818EB185300D4AD00 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -371,6 +372,13 @@
 			remoteGlobalIDString = 7A4E4663173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
 		};
+		DBCA44B218EB185300D4AD00 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = AC2195F318EA885C003DF6BD;
+			remoteInfo = OneNote;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -436,6 +444,7 @@
 		7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = Frameworks/DropboxSDK.framework; sourceTree = "<group>"; };
 		7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo_large_video_share.mp4; sourceTree = "<group>"; };
 		7AE5333D18129CE300C66849 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		DBCA448718EB185300D4AD00 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = Frameworks/LiveSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +478,7 @@
 				7A040752174103EB003404B9 /* Security.framework in Frameworks */,
 				7A040750174103E4003404B9 /* SystemConfiguration.framework in Frameworks */,
 				7A0406671740E3F6003404B9 /* UIKit.framework in Frameworks */,
+				DBCA448818EB185300D4AD00 /* LiveSDK.framework in Frameworks */,
 				7AD6581C18576AA9002D6245 /* GoogleOpenSource.framework in Frameworks */,
 				7A0406691740E3F6003404B9 /* Foundation.framework in Frameworks */,
 				7A04066B1740E3F6003404B9 /* CoreGraphics.framework in Frameworks */,
@@ -501,6 +511,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DBCA448718EB185300D4AD00 /* LiveSDK.framework */,
 				7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */,
 				7AD6584718576FC3002D6245 /* GooglePlus.bundle */,
 				7AD6581B18576AA9002D6245 /* GoogleOpenSource.framework */,
@@ -632,6 +643,7 @@
 				94CC293817453A3100C31CD8 /* libPocket SDK.a */,
 				7AD6584618576AAA002D6245 /* Static Library Tests.xctest */,
 				7A11916118D7450A004353B7 /* libPKMultipartInputStream.a */,
+				DBCA44B318EB185300D4AD00 /* libOneNote.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1011,6 +1023,13 @@
 			remoteRef = 94CC293717453A3100C31CD8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		DBCA44B318EB185300D4AD00 /* libOneNote.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libOneNote.a;
+			remoteRef = DBCA44B218EB185300D4AD00 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -1160,7 +1179,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = $inherited;
+				FRAMEWORK_SEARCH_PATHS = (
+					$inherited,
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
@@ -1177,7 +1199,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
-				FRAMEWORK_SEARCH_PATHS = $inherited;
+				FRAMEWORK_SEARCH_PATHS = (
+					$inherited,
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
 				HEADER_SEARCH_PATHS = "";
