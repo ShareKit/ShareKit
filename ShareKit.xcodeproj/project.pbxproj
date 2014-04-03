@@ -318,6 +318,9 @@
 		AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961718EA88D7003DF6BD /* SHKOneNote.m */; };
 		AC21962318EA88D7003DF6BD /* SHKOneNoteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961918EA88D7003DF6BD /* SHKOneNoteRequest.m */; };
+		AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
+		AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
+		ACF2CD4318EDDFE3000C5CF0 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5360F1552E26800171BCE /* ShareKit.bundle */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
 		ACFC8BDB18EA8EC7008D72E9 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961E18EA88D7003DF6BD /* AFURLRequestSerialization.m */; };
 		ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */; };
@@ -1128,6 +1131,7 @@
 		AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISO8601DateFormatterLicense.txt; sourceTree = "<group>"; };
+		AC87CBA618EDE04600BBA454 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = Frameworks/LiveSDK.framework; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKDiigo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
@@ -1492,6 +1496,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */,
 				AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1590,6 +1595,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC87CBA618EDE04600BBA454 /* LiveSDK.framework */,
 				7A85B55D17FA204700C86E77 /* libxml2.dylib */,
 				7A3A0D90170CC94B00A0B717 /* CoreMedia.framework */,
 				7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */,
@@ -3899,7 +3905,9 @@
 				7A107CE617AA4E7A009A7F0E /* DETweetURLAttachment.png in Resources */,
 				7A107CE717AA4E7A009A7F0E /* DETweetURLAttachment@2x.png in Resources */,
 				7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */,
+				ACF2CD4318EDDFE3000C5CF0 /* ShareKit.bundle in Resources */,
 				7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */,
+				AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6424,6 +6432,10 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/OneNote.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jameslau/Documents/GitHub/ShareKit/Frameworks,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6466,6 +6478,10 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/OneNote.dst;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jameslau/Documents/GitHub/ShareKit/Frameworks,
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
