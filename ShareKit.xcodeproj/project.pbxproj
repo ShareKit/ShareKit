@@ -10,6 +10,11 @@
 		456BADAB169107D1005B3077 /* SHKGooglePlus.h in Headers */ = {isa = PBXBuildFile; fileRef = 456BADA9169107D1005B3077 /* SHKGooglePlus.h */; };
 		456BADAC169107D1005B3077 /* SHKGooglePlus.m in Sources */ = {isa = PBXBuildFile; fileRef = 456BADAA169107D1005B3077 /* SHKGooglePlus.m */; };
 		456BADAD1691095B005B3077 /* libGoogle Plus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4503EBC0169104470057294C /* libGoogle Plus.a */; };
+		4932D60F18DCBE080075FEE8 /* SHKImgur.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D5FF18DB695E0075FEE8 /* SHKImgur.m */; };
+		4932D61018DCBE200075FEE8 /* SHKImgur.h in Headers */ = {isa = PBXBuildFile; fileRef = 4932D5FE18DB695E0075FEE8 /* SHKImgur.h */; };
+		4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932D60E18DCBD840075FEE8 /* libImgur.a */; };
+		4979F31918DD0EA4000F1733 /* SHKImgurOAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */; };
+		4979F31A18DD0EA4000F1733 /* SHKImgurOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */; };
 		7A04074618313A5F00691F2B /* SHKFacebookCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A04074418313A5F00691F2B /* SHKFacebookCommon.h */; };
 		7A04074718313A5F00691F2B /* SHKFacebookCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04074518313A5F00691F2B /* SHKFacebookCommon.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -328,6 +333,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4503EBB8169104470057294C;
 			remoteInfo = "Google Plus";
+		};
+		4979F30C18DCE75B000F1733 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4932D60318DCBD840075FEE8;
+			remoteInfo = Imgur;
 		};
 		7A203D0D16EB7F5100421995 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -744,6 +756,11 @@
 		4503EBC0169104470057294C /* libGoogle Plus.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libGoogle Plus.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		456BADA9169107D1005B3077 /* SHKGooglePlus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKGooglePlus.h; path = "Google Plus/SHKGooglePlus.h"; sourceTree = "<group>"; };
 		456BADAA169107D1005B3077 /* SHKGooglePlus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKGooglePlus.m; path = "Google Plus/SHKGooglePlus.m"; sourceTree = "<group>"; };
+		4932D5FE18DB695E0075FEE8 /* SHKImgur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKImgur.h; path = Imgur/SHKImgur.h; sourceTree = "<group>"; };
+		4932D5FF18DB695E0075FEE8 /* SHKImgur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKImgur.m; path = Imgur/SHKImgur.m; sourceTree = "<group>"; };
+		4932D60E18DCBD840075FEE8 /* libImgur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libImgur.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKImgurOAuthView.h; path = Imgur/SHKImgurOAuthView.h; sourceTree = "<group>"; };
+		4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKImgurOAuthView.m; path = Imgur/SHKImgurOAuthView.m; sourceTree = "<group>"; };
 		7A04074418313A5F00691F2B /* SHKFacebookCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookCommon.h; sourceTree = "<group>"; };
 		7A04074518313A5F00691F2B /* SHKFacebookCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookCommon.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
@@ -1138,6 +1155,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4932D60618DCBD840075FEE8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9240156BA2A0009CB40A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1236,6 +1260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */,
 				7ADB644518C5C0FA00B5AF7F /* libPKMultipartInputStream.a in Frameworks */,
 				7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */,
 				7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */,
@@ -1515,6 +1540,7 @@
 				7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */,
 				7A8C03BE1848CDEE008E4C0A /* Static Library Tests.xctest */,
 				7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */,
+				4932D60E18DCBD840075FEE8 /* libImgur.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1942,6 +1968,7 @@
 				C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */,
 				7AECF32D171D51EB000722FA /* Google OAuth Services */,
 				7A203CFE16EB775400421995 /* Hatena */,
+				4932D5FD18DB5FCE0075FEE8 /* Imgur */,
 				7A16F3AC16134A5D0019645D /* Instagram */,
 				43150A8A11E78697008C6B68 /* Instapaper */,
 				1A52EDF315CB032B00A737D8 /* Kippt */,
@@ -2057,6 +2084,17 @@
 				456BADAA169107D1005B3077 /* SHKGooglePlus.m */,
 			);
 			name = "Google Plus";
+			sourceTree = "<group>";
+		};
+		4932D5FD18DB5FCE0075FEE8 /* Imgur */ = {
+			isa = PBXGroup;
+			children = (
+				4932D5FE18DB695E0075FEE8 /* SHKImgur.h */,
+				4932D5FF18DB695E0075FEE8 /* SHKImgur.m */,
+				4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */,
+				4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */,
+			);
+			name = Imgur;
 			sourceTree = "<group>";
 		};
 		7A0F91CB156B9FCE009CB40A /* Delicious */ = {
@@ -2584,6 +2622,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4932D60818DCBD840075FEE8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4932D61018DCBE200075FEE8 /* SHKImgur.h in Headers */,
+				4979F31918DD0EA4000F1733 /* SHKImgurOAuthView.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A0F9241156BA2A0009CB40A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -2970,6 +3017,23 @@
 			productReference = 4503EBC0169104470057294C /* libGoogle Plus.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		4932D60318DCBD840075FEE8 /* Imgur */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4932D60B18DCBD840075FEE8 /* Build configuration list for PBXNativeTarget "Imgur" */;
+			buildPhases = (
+				4932D60418DCBD840075FEE8 /* Sources */,
+				4932D60618DCBD840075FEE8 /* Frameworks */,
+				4932D60818DCBD840075FEE8 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Imgur;
+			productName = ShareKitLibrary;
+			productReference = 4932D60E18DCBD840075FEE8 /* libImgur.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7A0F91D1156BA2A0009CB40A /* Static Library Core */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A0F9243156BA2A0009CB40A /* Build configuration list for PBXNativeTarget "Static Library Core" */;
@@ -3203,6 +3267,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4979F30D18DCE75B000F1733 /* PBXTargetDependency */,
 				7ADB644018C5BFF000B5AF7F /* PBXTargetDependency */,
 				7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */,
 				7A4E4665173E2C4F00CCEE80 /* PBXTargetDependency */,
@@ -3779,6 +3844,7 @@
 				7A4E465B173E2C2500CCEE80 /* Pocket SDK */,
 				7A8C03BD1848CDEE008E4C0A /* Static Library Tests */,
 				7ADB642E18C5BF3B00B5AF7F /* PKMultipartInputStream */,
+				4932D60318DCBD840075FEE8 /* Imgur */,
 			);
 		};
 /* End PBXProject section */
@@ -3820,6 +3886,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				456BADAC169107D1005B3077 /* SHKGooglePlus.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4932D60418DCBD840075FEE8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4979F31A18DD0EA4000F1733 /* SHKImgurOAuthView.m in Sources */,
+				4932D60F18DCBE080075FEE8 /* SHKImgur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4258,6 +4333,11 @@
 			target = 4503EBB8169104470057294C /* Google Plus */;
 			targetProxy = 456BADAE16910966005B3077 /* PBXContainerItemProxy */;
 		};
+		4979F30D18DCE75B000F1733 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4932D60318DCBD840075FEE8 /* Imgur */;
+			targetProxy = 4979F30C18DCE75B000F1733 /* PBXContainerItemProxy */;
+		};
 		7A203D0E16EB7F5100421995 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 7A203D0216EB7DA200421995 /* Hatena */;
@@ -4538,6 +4618,53 @@
 				PRODUCT_NAME = "Google Plus";
 				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/**";
+			};
+			name = Release;
+		};
+		4932D60C18DCBD840075FEE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Imgur;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
+			};
+			name = Debug;
+		};
+		4932D60D18DCBD840075FEE8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Imgur;
+				SKIP_INSTALL = YES;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -6396,6 +6523,15 @@
 			buildConfigurations = (
 				4503EBBE169104470057294C /* Debug */,
 				4503EBBF169104470057294C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4932D60B18DCBD840075FEE8 /* Build configuration list for PBXNativeTarget "Imgur" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4932D60C18DCBD840075FEE8 /* Debug */,
+				4932D60D18DCBD840075FEE8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
