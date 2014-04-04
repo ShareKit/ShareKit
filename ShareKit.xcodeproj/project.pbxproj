@@ -6430,10 +6430,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/OneNote.dst;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/jameslau/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -6476,10 +6473,7 @@
 				COPY_PHASE_STRIP = YES;
 				DSTROOT = /tmp/OneNote.dst;
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/jameslau/Documents/GitHub/ShareKit/Frameworks,
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";

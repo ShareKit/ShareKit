@@ -60,6 +60,7 @@
  leaving that decision up to the user.
  */
 
+// OneNote - https://account.live.com/developers/applications
 - (NSString*)onenoteClientId {
     return @"";
 }
