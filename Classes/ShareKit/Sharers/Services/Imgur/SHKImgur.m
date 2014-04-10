@@ -22,7 +22,7 @@
 
 #import "NSDictionary+Recursive.h"
 #import "SharersCommonHeaders.h"
-#import "SHKImgurOAuthView.h"
+#import "SHKOAuth2View.h"
 #import "SHKSession.h"
 
 #define kSHKImgurUserInfo @"kSHKImgurUserInfo"
@@ -64,12 +64,6 @@
     return YES;
 }
 
-
-
-#pragma mark -
-#pragma mark Configuration : Dynamic Enable
-
-
 #pragma mark -
 #pragma mark Authentication
 
@@ -106,7 +100,7 @@
 {
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?response_type=token&client_id=%@", [self.authorizeURL absoluteString], self.consumerKey]];
 	
-	SHKImgurOAuthView *auth = [[SHKImgurOAuthView alloc] initWithURL:url delegate:self];
+	SHKOAuth2View *auth = [[SHKOAuth2View alloc] initWithURL:url delegate:self];
 	[[SHK currentHelper] showViewController:auth];
 }
 
@@ -180,7 +174,7 @@
     [userInfo setObject:username forKey:@"username"];
     [defaults setObject:[userInfo copy] forKey:kSHKImgurUserInfo];
 }
-
+/*
 + (id)getUserInfo
 {
     SHKItem *item = [[SHKItem alloc] init];
@@ -201,7 +195,7 @@
         SHKLog(@"Warning!!! This sharer does not fetch user info.");
         return nil;
     }
-}
+}*/
 
 + (void)logout {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKImgurUserInfo];

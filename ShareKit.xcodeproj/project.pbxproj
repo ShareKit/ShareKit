@@ -13,8 +13,6 @@
 		4932D60F18DCBE080075FEE8 /* SHKImgur.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D5FF18DB695E0075FEE8 /* SHKImgur.m */; };
 		4932D61018DCBE200075FEE8 /* SHKImgur.h in Headers */ = {isa = PBXBuildFile; fileRef = 4932D5FE18DB695E0075FEE8 /* SHKImgur.h */; };
 		4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932D60E18DCBD840075FEE8 /* libImgur.a */; };
-		4979F31918DD0EA4000F1733 /* SHKImgurOAuthView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */; };
-		4979F31A18DD0EA4000F1733 /* SHKImgurOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */; };
 		7A04074618313A5F00691F2B /* SHKFacebookCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A04074418313A5F00691F2B /* SHKFacebookCommon.h */; };
 		7A04074718313A5F00691F2B /* SHKFacebookCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04074518313A5F00691F2B /* SHKFacebookCommon.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -180,6 +178,8 @@
 		7AB99E7017FD9C850050DD98 /* SSKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB99E6C17FD9C850050DD98 /* SSKeychain.m */; };
 		7AB99E7117FD9C850050DD98 /* SSKeychainQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AB99E6D17FD9C850050DD98 /* SSKeychainQuery.h */; };
 		7AB99E7217FD9C850050DD98 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB99E6E17FD9C850050DD98 /* SSKeychainQuery.m */; };
+		7ABC3D6418F6CD9600ED37BC /* SHKOAuth2View.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */; };
+		7ABC3D6518F6CD9600ED37BC /* SHKOAuth2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */; };
 		7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABDD99617A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h */; };
@@ -784,8 +784,6 @@
 		4932D5FE18DB695E0075FEE8 /* SHKImgur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKImgur.h; path = Imgur/SHKImgur.h; sourceTree = "<group>"; };
 		4932D5FF18DB695E0075FEE8 /* SHKImgur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKImgur.m; path = Imgur/SHKImgur.m; sourceTree = "<group>"; };
 		4932D60E18DCBD840075FEE8 /* libImgur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libImgur.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKImgurOAuthView.h; path = Imgur/SHKImgurOAuthView.h; sourceTree = "<group>"; };
-		4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKImgurOAuthView.m; path = Imgur/SHKImgurOAuthView.m; sourceTree = "<group>"; };
 		7A04074418313A5F00691F2B /* SHKFacebookCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookCommon.h; sourceTree = "<group>"; };
 		7A04074518313A5F00691F2B /* SHKFacebookCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookCommon.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
@@ -956,6 +954,8 @@
 		7AB99E6C17FD9C850050DD98 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		7AB99E6D17FD9C850050DD98 /* SSKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychainQuery.h; sourceTree = "<group>"; };
 		7AB99E6E17FD9C850050DD98 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
+		7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuth2View.h; sourceTree = "<group>"; };
+		7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuth2View.m; sourceTree = "<group>"; };
 		7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellSwitch.h; sourceTree = "<group>"; };
 		7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellSwitch.m; sourceTree = "<group>"; };
 		7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellOptionPicker.h; sourceTree = "<group>"; };
@@ -2102,6 +2102,8 @@
 				AA511B7F14C893A10022332B /* SHKFormOptionController.m */,
 				43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */,
 				43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */,
+				7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */,
+				7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */,
 				43A536FC11DBE3B9004A1712 /* SHKShareMenu.h */,
 				43A536FD11DBE3B9004A1712 /* SHKShareMenu.m */,
 				133357A81767AD1800EB196B /* SHKShareItemDelegate.h */,
@@ -2142,8 +2144,6 @@
 			children = (
 				4932D5FE18DB695E0075FEE8 /* SHKImgur.h */,
 				4932D5FF18DB695E0075FEE8 /* SHKImgur.m */,
-				4979F31718DD0EA4000F1733 /* SHKImgurOAuthView.h */,
-				4979F31818DD0EA4000F1733 /* SHKImgurOAuthView.m */,
 			);
 			name = Imgur;
 			sourceTree = "<group>";
@@ -2704,7 +2704,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4932D61018DCBE200075FEE8 /* SHKImgur.h in Headers */,
-				4979F31918DD0EA4000F1733 /* SHKImgurOAuthView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2731,6 +2730,7 @@
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
 				7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */,
 				7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */,
+				7ABC3D6418F6CD9600ED37BC /* SHKOAuth2View.h in Headers */,
 				7A72AD06189FD9490039D762 /* SHKAccountsViewController.h in Headers */,
 				7A107CEB17AA5674009A7F0E /* UIImage+OurBundle.h in Headers */,
 			);
@@ -3990,7 +3990,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4979F31A18DD0EA4000F1733 /* SHKImgurOAuthView.m in Sources */,
 				4932D60F18DCBE080075FEE8 /* SHKImgur.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4033,6 +4032,7 @@
 				7A5C28E0189BA57100E47E62 /* SHKMBRoundProgressView.m in Sources */,
 				7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */,
 				7A0FB86017A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.m in Sources */,
+				7ABC3D6518F6CD9600ED37BC /* SHKOAuth2View.m in Sources */,
 				7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */,
 				7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */,
 				7A72AD07189FD9490039D762 /* SHKAccountsViewController.m in Sources */,

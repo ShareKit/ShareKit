@@ -8,6 +8,6 @@
 
 #import "SHKOAuthView.h"
 
-@interface SHKImgurOAuthView : SHKOAuthView
+@interface SHKOAuth2View : SHKOAuthView
 
 @end
