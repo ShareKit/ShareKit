@@ -51,11 +51,15 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-	if ([request.URL.absoluteString rangeOfString:[self.delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
+    if ([request.URL.absoluteString rangeOfString:[self.delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
 	{
 		// Get fragment instead of query, since OAuth 2.0 response_type=token
 		NSMutableDictionary *queryParams = nil;
-		if (request.URL.fragment != nil)
+		if ([request.URL.absoluteString rangeOfString:@"redirect"].location != NSNotFound)
+        {
+            return YES;
+        }
+        else if (request.URL.fragment != nil)
 		{
 			queryParams = [NSMutableDictionary dictionaryWithCapacity:0];
 			NSArray *vars = [request.URL.fragment componentsSeparatedByString:@"&"];
