@@ -31,15 +31,18 @@
 
 typedef void (^RequestCallback) (SHKRequest *request);
 
-@interface SHKRequest : NSObject 
+@interface SHKRequest : NSObject
 
-@property (strong) NSURL *url;
-@property (strong) NSString *params;
-@property (strong) NSString *method;
-@property (strong) NSDictionary *headerFields;
+///You can set this prior starting the request if needed
+@property (nonatomic, strong) NSDictionary *headerFields;
+
+@property (readonly, strong) NSURL *url;
+@property (readonly, strong) NSString *params;
+@property (readonly, strong) NSString *method;
 
 @property (strong) NSURLConnection *connection;
 
+//*** response properties ***
 @property (strong) NSHTTPURLResponse *response;
 @property (strong) NSDictionary *headers;
 
@@ -48,7 +51,10 @@ typedef void (^RequestCallback) (SHKRequest *request);
 @property (nonatomic) BOOL success;
 
 + (void)startWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
-- (id)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
+- (instancetype)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock;
+
++ (void)startWithRequest:(NSMutableURLRequest *)request completion:(RequestCallback)completionBlock;
+- (instancetype)initWithRequest:(NSMutableURLRequest *)request completion:(RequestCallback)completionBlock;
 
 - (void)start;
 - (void)finish;

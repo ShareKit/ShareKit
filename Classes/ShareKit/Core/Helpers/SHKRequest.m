@@ -34,6 +34,12 @@
 
 @property (copy) RequestCallback completion;
 
+@property (strong) NSURL *url;
+@property (strong) NSString *params;
+@property (strong) NSString *method;
+
+@property (strong) NSMutableURLRequest *request;
+
 @end
 
 @implementation SHKRequest
@@ -44,7 +50,7 @@
     [(SHKRequest *)request start];
 }
 
-- (id)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock
+- (instancetype)initWithURL:(NSURL *)u params:(NSString *)p method:(NSString *)m completion:(RequestCallback)completionBlock
 {
 	if (self = [super init])
 	{
@@ -56,6 +62,36 @@
 	return self;
 }
 
++ (void)startWithRequest:(NSMutableURLRequest *)request completion:(RequestCallback)completionBlock {
+    
+    id shkRequest = [[self alloc] initWithRequest:request completion:completionBlock];
+    [(SHKRequest *)shkRequest start];
+}
+
+- (instancetype)initWithRequest:(NSMutableURLRequest *)request completion:(RequestCallback)completionBlock {
+    
+    self = [super init];
+    if (self) {
+        _request = request;
+        _url = request.URL;
+        _method = request.HTTPMethod;
+        _params = [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding];
+        _completion = completionBlock;
+    }
+    return self;
+}
+
+#pragma mark - Setters overrides
+
+- (void)setHeaderFields:(NSDictionary *)headerFields {
+    
+    _headerFields = headerFields;
+    
+    if (self.request) {
+        [self.request setAllHTTPHeaderFields:headerFields];
+    }
+}
+
 #pragma mark -
 
 - (void)start
@@ -63,13 +99,25 @@
 	NSMutableData *aData = [[NSMutableData alloc] initWithLength:0];
     self.data = aData;
 	
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:self.url
-																  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-															  timeoutInterval:SHK_TIMEOUT];
+    if (!self.request) {
+        self.request = [self createRequest];
+    }
+		
+	// Start Connection
+	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", self.url, self.params);
+	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
+    self.connection = aConnection;	
+}
+
+- (NSMutableURLRequest *)createRequest {
+    
+    NSMutableURLRequest *result = [[NSMutableURLRequest alloc] initWithURL:self.url
+                                                                cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                            timeoutInterval:SHK_TIMEOUT];
 	
 	// overwrite header fields (generally for cookies)
 	if (self.headerFields != nil)
-		[request setAllHTTPHeaderFields:self.headerFields];
+		[result setAllHTTPHeaderFields:self.headerFields];
 	
 	// Setup Request Data/Params
 	if (self.params != nil)
@@ -77,16 +125,11 @@
 		NSData *paramsData = [ NSData dataWithBytes:[self.params UTF8String] length:[self.params length] ];
 		
 		// Fill Request
-		[request setHTTPMethod:self.method];
-		[request setHTTPBody:paramsData];
+		[result setHTTPMethod:self.method];
+		[result setHTTPBody:paramsData];
 	}
-	
-	// Start Connection
-	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", self.url, self.params);
-	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-    self.connection = aConnection;	
+    return result;
 }
-
 
 #pragma mark -
 
