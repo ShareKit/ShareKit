@@ -26,24 +26,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class SHKOAuthView;
-
-@protocol SHKOAuthViewDelegate
-
-- (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error;
-- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView;
-- (NSURL *)authorizeCallbackURL;
-
-@end
+#import "SHKOAuthViewDelegate.h"
 
 @interface SHKOAuthView : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (strong) id<SHKOAuthViewDelegate> delegate;
+@property (strong) id <SHKOAuthViewDelegate> delegate;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 
-- (id)initWithURL:(NSURL *)authorizeURL delegate:(id)d;
+- (id)initWithURL:(NSURL *)authorizeURL delegate:(id <SHKOAuthViewDelegate>)d;
 
 - (void)startSpinner;
 - (void)stopSpinner;

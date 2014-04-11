@@ -28,8 +28,9 @@
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
 #import "OAuthConsumer.h"
+#import "SHKOAuthViewDelegate.h"
 
-@interface SHKOAuthSharer : SHKSharer
+@interface SHKOAuthSharer : SHKSharer <SHKOAuthViewDelegate>
 
 @property (nonatomic, strong) NSString *consumerKey;
 @property (nonatomic, strong) NSString *secretKey;

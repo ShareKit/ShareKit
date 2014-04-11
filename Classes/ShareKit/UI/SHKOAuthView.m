@@ -38,7 +38,7 @@
 
 @implementation SHKOAuthView
 
-- (id)initWithURL:(NSURL *)authorizeURL delegate:(id)d
+- (id)initWithURL:(NSURL *)authorizeURL delegate:(id <SHKOAuthViewDelegate>)d
 {
     if ((self = [super initWithNibName:nil bundle:nil])) 
 	{

@@ -36,12 +36,13 @@
 extern NSString * const kSHKFoursquareUserInfo;
 
 #import "SHKSharer.h"
+#import "SHKOAuthViewDelegate.h"
 
 #import "SHKFoursquareV2Request.h"
 #import "SHKFoursquareV2Venue.h"
 #import "SHKFormOptionController.h"
 
-@interface SHKFoursquareV2 : SHKSharer
+@interface SHKFoursquareV2 : SHKSharer <SHKOAuthViewDelegate>
 
 @property (nonatomic, copy) NSString *clientId;
 @property (nonatomic, copy) NSURL *authorizeCallbackURL;

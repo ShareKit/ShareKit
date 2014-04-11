@@ -24,21 +24,21 @@
 #import "SharersCommonHeaders.h"
 #import "SHKOAuth2View.h"
 #import "SHKSession.h"
+#import "SHKRequest.h"
 
 #define kSHKImgurUserInfo @"kSHKImgurUserInfo"
+#define kSHKImgurSuppressUnreadTermsError @"1"
 
 @interface SHKImgur ()
+
 @property (copy, nonatomic) NSString *accessTokenString;
 @property (copy, nonatomic) NSString *accessTokenType;
 @property (copy, nonatomic) NSString *refreshTokenString;
 @property (copy, nonatomic) NSDate *expirationDate;
 
-@property (nonatomic) BOOL wantsGallery;
-@property (nonatomic) BOOL isGalleryRequest;
 @end
 
 @implementation SHKImgur
-
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -57,11 +57,6 @@
 {
     NSString *mimeType = [file mimeType];
     return [mimeType hasPrefix:@"image/"];
-}
-
-+ (BOOL)canGetUserInfo
-{
-    return YES;
 }
 
 #pragma mark -
@@ -86,6 +81,9 @@
 	return self;
 }
 
+#pragma mark - 
+#pragma mark OAuth2 overrides
+
 - (BOOL)isAuthorized {
     return [self restoreAccessToken];
 }
@@ -107,12 +105,8 @@
 - (void)tokenAuthorizeView:(SHKOAuthView *)authView didFinishWithSuccess:(BOOL)success queryParams:(NSMutableDictionary *)queryParams error:(NSError *)error {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
     if (success) {
-        self.accessTokenString  = [queryParams objectForKey:@"access_token"];
-        self.accessTokenType    = [queryParams objectForKey:@"token_type"];
-        self.refreshTokenString = [queryParams objectForKey:@"refresh_token"];
-        self.expirationDate     = [NSDate dateWithTimeIntervalSinceNow:[[queryParams objectForKey:@"expires_in"] doubleValue]];
-        [[self class] setUsername:[queryParams objectForKey:@"account_username"]];
-        [self storeAccessToken];
+
+        [self storeAccessToken:queryParams];
         [self tryPendingAction];
         
     } else {
@@ -125,11 +119,14 @@
     [self authDidFinish:success];
 }
 
-- (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView {
-}
-
-- (void)storeAccessToken
+- (void)storeAccessToken:(NSMutableDictionary *)queryParams
 {
+    self.accessTokenString  = [queryParams objectForKey:@"access_token"];
+    self.accessTokenType    = [queryParams objectForKey:@"token_type"];
+    self.refreshTokenString = [queryParams objectForKey:@"refresh_token"];
+    self.expirationDate     = [NSDate dateWithTimeIntervalSinceNow:[[queryParams objectForKey:@"expires_in"] doubleValue]];
+    [[self class] setUsername:[queryParams objectForKey:@"account_username"]];
+    
 	[SHK setAuthValue:self.accessTokenString
                forKey:@"accessToken"
             forSharer:[self sharerId]];
@@ -157,7 +154,6 @@
 	[SHK removeAuthValueForKey:@"expirationDate" forSharer:sharerId];
 }
 
-
 //if the sharer can get user info (and it should!) override these convenience methods too. Replace example implementation with the one specific for your sharer.
 + (NSString *)username {
     NSDictionary *userInfo = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKImgurUserInfo];
@@ -174,28 +170,6 @@
     [userInfo setObject:username forKey:@"username"];
     [defaults setObject:[userInfo copy] forKey:kSHKImgurUserInfo];
 }
-/*
-+ (id)getUserInfo
-{
-    SHKItem *item = [[SHKItem alloc] init];
-    item.shareType = SHKShareTypeUserInfo;
-    
-    if ([self canShareItem:item]) {
-        
-        // Create controller and set share options
-        SHKSharer *controller = [[self alloc] init];
-        controller.item = item;
-        
-        // share and/or show UI
-        [controller share];
-        return controller;
-        
-    } else {
-        
-        SHKLog(@"Warning!!! This sharer does not fetch user info.");
-        return nil;
-    }
-}*/
 
 + (void)logout {
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKImgurUserInfo];
@@ -203,6 +177,7 @@
 }
 
 - (BOOL)restoreAccessToken {
+    
     NSString *sharerId = [self sharerId];
     
     self.accessTokenString  = [SHK getAuthValueForKey:@"accessToken" forSharer:sharerId];
@@ -210,7 +185,34 @@
     self.refreshTokenString = [SHK getAuthValueForKey:@"refreshToken" forSharer:sharerId];
     self.expirationDate     = [NSDate dateWithTimeIntervalSinceReferenceDate:[[SHK getAuthValueForKey:@"expirationDate" forSharer:sharerId] doubleValue]];
     
-    return self.accessTokenString && ![@"" isEqualToString:self.accessTokenString] && [self.expirationDate compare:[NSDate date]] == NSOrderedDescending;
+    BOOL tokenExists = self.accessTokenString && ![@"" isEqualToString:self.accessTokenString];
+    
+    BOOL expired = [self.expirationDate compare:[NSDate date]] == NSOrderedAscending;
+    if (expired && tokenExists) {
+        [self refreshToken];
+    }
+    
+    return tokenExists;
+}
+
+- (void)refreshToken {
+    
+    NSString *params = [[NSString alloc] initWithFormat:@"&refresh_token=%@&client_id=%@&client_secret=%@&grant_type=refresh_token",
+    self.refreshTokenString,
+    self.consumerKey,
+    self.secretKey];
+    
+    [SHKRequest startWithURL:self.accessURL params:params method:@"POST" completion:^(SHKRequest *request) {
+        
+        NSError *error;
+        id response = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+        
+        if (request.success) {
+            [self storeAccessToken:response];
+        } else {
+            SHKLog(@"SHKImgur refreshToken failed with response:%@", [response description]);
+        }
+    }];
 }
 
 #pragma mark -
@@ -242,32 +244,8 @@
     
 }
 
-// If you have a share form the user will have the option to skip it in the future.
-// If your form has required information and should never be skipped, uncomment this section.
-/*
- + (BOOL)canAutoShare
- {
- return NO;
- }
- */
-
 #pragma mark -
 #pragma mark Implementation
-
-// When an attempt is made to share the item, verify that it has everything it needs, otherwise display the share form
-/*
- - (BOOL)validateItem
- {
- // The super class will verify that:
- // -if sharing a url	: item.url != nil
- // -if sharing an image : item.image != nil
- // -if sharing text		: item.text != nil
- // -if sharing a file	: item.data != nil
- // -if requesting user info : return YES
- 
- return [super validateItem];
- }
- */
 
 - (BOOL)send
 {
@@ -275,8 +253,6 @@
 		return NO;
     
     switch (self.item.shareType) {
-        case SHKShareTypeUserInfo:
-            return YES;
         case SHKShareTypeImage:
         case SHKShareTypeFile:
             [self uploadPhoto];
@@ -289,16 +265,12 @@
     return YES;
 }
 
-- (OAAsynchronousDataFetcher *)uploadPhoto {
-    
-    self.wantsGallery = [self.item customBoolForSwitchKey:@"is_gallery"];
+- (void)uploadPhoto {
 
-    NSMutableURLRequest *oRequest;
-
-    oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.imgur.com/3/upload"]];
+    NSMutableURLRequest *oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.imgur.com/3/upload"]];
     [oRequest setHTTPMethod:@"POST"];
-    self.isGalleryRequest = NO;
     
+#warning TODO: make anonymous configurable in configurator
     if ([self isAuthorized]) {
         // OAuth 2.0 header
         [oRequest addValue:[NSString stringWithFormat:@"Bearer %@", self.accessTokenString] forHTTPHeaderField:@"Authorization"];
@@ -328,47 +300,31 @@
         
         __weak typeof(self) weakSelf = self;
         self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
-            
-            BOOL done = YES;
-            
+#warning TODO: handle if user revokes access
             if (error.code == -999) {
+                
                 [weakSelf sendDidCancel];
+                
             } else if (error) {
+                
                 SHKLog(@"upload photo did fail with error:%@", [error description]);
-                [weakSelf sendTicket:nil didFailWithError:error];
+                [self sendDidFailWithError:error];
+                
             } else {
+                
                 BOOL success = [(NSHTTPURLResponse *)response statusCode] < 400;
                 [weakSelf uploadPhotoDidFinishWithData:data success:success];
-                done = !self.wantsGallery;
             }
-            if (done) {
-                [[SHK currentHelper] removeSharerReference:weakSelf];
-            }
+            [[SHK currentHelper] removeSharerReference:weakSelf];
         }];
         [[SHK currentHelper] keepSharerReference:self];
-        return nil;
         
     } else {
         
-        NSURLConnection *connection = [NSURLConnection connectionWithRequest:oRequest delegate:self];
-        [connection start];
-        return nil;
+        [SHKRequest startWithRequest:oRequest completion:^(SHKRequest *request) {
+            [self uploadPhotoDidFinishWithData:request.data success:request.success];
+        }];
     }
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-    [self uploadPhotoDidFinishWithData:data success:YES];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-    if ([httpResponse statusCode] >= 400) {
-        [self uploadPhotoDidFinishWithData:nil success:NO];
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    [self uploadPhotoDidFinishWithData:nil success:NO];
 }
 
 - (void)uploadPhotoDidFinishWithData:(NSData *)data success:(BOOL)success {
@@ -378,25 +334,20 @@
 
     if (success) {
         
-        if (self.isGalleryRequest) {
-            [self sendDidFinish];
+        NSString *imageID = [response findRecursivelyValueForKey:@"id"];
+        
+        if (imageID) {
+            
+            [self sendDidFinishWithResponse:response];
+            
+            if ([self.item customBoolForSwitchKey:@"is_gallery"]) {
+                [self submitImageToGallery:imageID];
+            }
             
         } else {
-        
-            NSString *imageID = [response findRecursivelyValueForKey:@"id"];
             
-            if (imageID) {
-                
-                if (self.wantsGallery) {
-                    [self submitImageToGallery:imageID];
-                } else {
-                    [self sendDidFinish];
-                }
-                
-            } else {
-                NSString *errorMessage = [response findRecursivelyValueForKey:@"error"];
-                [self sendDidFailWithError:[SHK error:errorMessage]];
-            }
+            NSString *errorMessage = [response findRecursivelyValueForKey:@"error"];
+            [self sendDidFailWithError:[SHK error:errorMessage]];
         }
 
     } else {
@@ -406,76 +357,23 @@
     }
 }
 
-- (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
-{
-	if (self.curOptionController) {
-        [self.curOptionController optionsEnumerationFailedWithError:error];
-    } else {
-        [self sendShowSimpleErrorAlert];
-    }
-}
-
 - (void)submitImageToGallery:(NSString *)imageID {
+    
     NSString *URLString = [NSString stringWithFormat:@"https://api.imgur.com/3/gallery/image/%@", imageID];
-    
-    NSMutableURLRequest *oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:URLString]];
-    [oRequest setHTTPMethod:@"POST"];
-    self.isGalleryRequest = YES;
-    
-    if ([self isAuthorized]) {
-        // OAuth 2.0 header
-        [oRequest addValue:[NSString stringWithFormat:@"Bearer %@", self.accessTokenString] forHTTPHeaderField:@"Authorization"];
-    } else {
-        // fail, gallery submission requires login
-        NSError *error = [[NSError alloc] initWithDomain:@"imgur.com"
-                                                    code:400
-                                                userInfo:@{NSLocalizedDescriptionKey: @"Imgur gallery submission requires login"}];
-        [self sendDidFailWithError:error];
-        return;
-    }
-    
-    NSMutableArray *params = [[NSMutableArray alloc] initWithCapacity:2];
-    if ([self.item.title length] > 0) {
-        [params addObject:[[OARequestParameter alloc] initWithName:@"title" value:self.item.title]];
-    }
-    if ([[self.item customValueForKey:@"description"] length] > 0) {
-        [params addObject:[[OARequestParameter alloc] initWithName:@"description" value:[self.item customValueForKey:@"description"]]];
-    }
-    [oRequest setParameters:params];
-    
-    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
-    if (canUseNSURLSession) {
+    NSString *params = [NSString stringWithFormat:@"&title=%@&terms=%@", SHKEncode(self.item.title), kSHKImgurSuppressUnreadTermsError];
+#warning TODO: check if terms is 0
+    SHKRequest *galleryRequest = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:URLString] params:params method:@"POST" completion:^(SHKRequest *request){
         
-        __weak typeof(self) weakSelf = self;
-        self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
-            
-            if (error.code == -999) {
-                [weakSelf sendDidCancel];
-            } else if (error) {
-                SHKLog(@"submit to gallery did fail with error:%@", [error description]);
-                [weakSelf sendTicket:nil didFailWithError:error];
-            } else {
-                NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
-                BOOL success = statusCode < 400;
-                if (success) {
-                    [self sendDidFinish];
-                } else {
-                    SHKLog(@"submit to gallery did fail with error:%@", [error description]);
-                    NSError *error = [[NSError alloc] initWithDomain:@"imgur.com"
-                                                                code:statusCode
-                                                            userInfo:@{NSLocalizedDescriptionKey: @"Imgur gallery submission error"}];
-                    [weakSelf sendTicket:nil didFailWithError:error];
-                }
-            }
-            [[SHK currentHelper] removeSharerReference:weakSelf];
-        }];
-        [[SHK currentHelper] keepSharerReference:self];
-        
-    } else {
-        
-        NSURLConnection *connection = [NSURLConnection connectionWithRequest:oRequest delegate:self];
-        [connection start];
-    }
+        if (request.success) {
+            SHKLog(@"image was submitted to Imgur public gallery");
+        } else {
+            SHKLog(@"imgur failed to move uploaded image to public gallery with error:%@", [[NSString alloc] initWithData:request.data encoding:NSUTF8StringEncoding]);
+        }
+    }];
+    
+    NSString *bearerHeader = [NSString stringWithFormat:@"Bearer %@", self.accessTokenString];
+    galleryRequest.headerFields = @{@"Authorization": bearerHeader};
+    [galleryRequest start];
 }
 
 @end

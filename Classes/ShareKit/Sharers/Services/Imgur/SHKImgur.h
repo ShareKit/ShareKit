@@ -23,6 +23,6 @@
 #import "SHKOAuthSharer.h"
 #import "SHKOAuthView.h"
 
-@interface SHKImgur : SHKOAuthSharer<SHKOAuthViewDelegate, NSURLConnectionDataDelegate>
+@interface SHKImgur : SHKOAuthSharer <SHKOAuthViewDelegate>
 
 @end

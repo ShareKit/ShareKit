@@ -180,6 +180,7 @@
 		7AB99E7217FD9C850050DD98 /* SSKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AB99E6E17FD9C850050DD98 /* SSKeychainQuery.m */; };
 		7ABC3D6418F6CD9600ED37BC /* SHKOAuth2View.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */; };
 		7ABC3D6518F6CD9600ED37BC /* SHKOAuth2View.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */; };
+		7ABC3D6718F83FF100ED37BC /* SHKOAuthViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABC3D6618F83FF100ED37BC /* SHKOAuthViewDelegate.h */; };
 		7ABCDBAC1577528B003BBFFD /* SHKFormFieldCellSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */; };
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ABDD99617A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h */; };
@@ -956,6 +957,7 @@
 		7AB99E6E17FD9C850050DD98 /* SSKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychainQuery.m; sourceTree = "<group>"; };
 		7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuth2View.h; sourceTree = "<group>"; };
 		7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuth2View.m; sourceTree = "<group>"; };
+		7ABC3D6618F83FF100ED37BC /* SHKOAuthViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthViewDelegate.h; sourceTree = "<group>"; };
 		7ABCDBA71577528B003BBFFD /* SHKFormFieldCellSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellSwitch.h; sourceTree = "<group>"; };
 		7ABCDBA81577528B003BBFFD /* SHKFormFieldCellSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellSwitch.m; sourceTree = "<group>"; };
 		7ABCDBAE157757D1003BBFFD /* SHKFormFieldCellOptionPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellOptionPicker.h; sourceTree = "<group>"; };
@@ -2102,6 +2104,7 @@
 				AA511B7F14C893A10022332B /* SHKFormOptionController.m */,
 				43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */,
 				43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */,
+				7ABC3D6618F83FF100ED37BC /* SHKOAuthViewDelegate.h */,
 				7ABC3D6218F6CD9600ED37BC /* SHKOAuth2View.h */,
 				7ABC3D6318F6CD9600ED37BC /* SHKOAuth2View.m */,
 				43A536FC11DBE3B9004A1712 /* SHKShareMenu.h */,
@@ -2714,6 +2717,7 @@
 				7AD9861D16E78D730052A5B8 /* NSData+SaveItemAttachment.h in Headers */,
 				7A5C28D51896C23D00E47E62 /* SHKUploadInfo.h in Headers */,
 				7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */,
+				7ABC3D6718F83FF100ED37BC /* SHKOAuthViewDelegate.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
 				7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */,
 				7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */,
