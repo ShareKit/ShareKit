@@ -27,7 +27,7 @@
 #import "SHKRequest.h"
 
 #define kSHKImgurUserInfo @"kSHKImgurUserInfo"
-#define kSHKImgurSuppressUnreadTermsError @"1"
+#define kSHKImgurSuppressUnreadTermsError @"0"
 
 @interface SHKImgur ()
 
@@ -59,6 +59,12 @@
     return [mimeType hasPrefix:@"image/"];
 }
 
++ (BOOL)requiresAuthentication
+{
+	BOOL result = ![SHKCONFIG(imgurAnonymousUploads) boolValue];
+    return result;
+}
+
 #pragma mark -
 #pragma mark Authentication
 
@@ -85,7 +91,12 @@
 #pragma mark OAuth2 overrides
 
 - (BOOL)isAuthorized {
-    return [self restoreAccessToken];
+    
+    if ([SHKCONFIG(imgurAnonymousUploads) boolValue]) {
+        return YES;
+    } else {
+        return [self restoreAccessToken];
+    }
 }
 
 - (void)tokenRequest {
@@ -209,7 +220,10 @@
         
         if (request.success) {
             [self storeAccessToken:response];
+            [self tryPendingAction];
+        
         } else {
+            [self promptAuthorization];
             SHKLog(@"SHKImgur refreshToken failed with response:%@", [response description]);
         }
     }];
@@ -225,23 +239,26 @@
     // See http://getsharekit.com/docs/#forms for documentation on creating forms
     
     if (type == SHKShareTypeImage || type == SHKShareTypeFile) {
-        return @[[SHKFormFieldSettings label:@"Title"
-                                         key:@"title"
-                                        type:SHKFormFieldTypeText
-                                       start:self.item.title],
-                 [SHKFormFieldSettings label:@"Description"
-                                         key:@"description"
-                                        type:SHKFormFieldTypeText
-                                       start:self.item.text],
-                 [SHKFormFieldSettings label:SHKLocalizedString(@"Imgur Public Gallery")
-                                         key:@"is_gallery"
-                                        type:SHKFormFieldTypeSwitch
-                                       start:SHKFormFieldSwitchOff]
-                 ];
+        
+        NSMutableArray *fields = [@[[SHKFormFieldSettings label:@"Title"
+                                                           key:@"title"
+                                                          type:SHKFormFieldTypeText
+                                                         start:self.item.title],
+                                   [SHKFormFieldSettings label:@"Description"
+                                                           key:@"description"
+                                                          type:SHKFormFieldTypeText
+                                                         start:self.item.text]] mutableCopy];
+        
+        if (![SHKCONFIG(imgurAnonymousUploads) boolValue]) {
+            
+            [fields addObject: [SHKFormFieldSettings label:SHKLocalizedString(@"Imgur Public Gallery")
+                                                       key:@"is_gallery"
+                                                      type:SHKFormFieldTypeSwitch
+                                                     start:SHKFormFieldSwitchOff]];
+        }
+        return fields;
     }
-    
     return nil;
-    
 }
 
 #pragma mark -
@@ -270,13 +287,15 @@
     NSMutableURLRequest *oRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.imgur.com/3/upload"]];
     [oRequest setHTTPMethod:@"POST"];
     
-#warning TODO: make anonymous configurable in configurator
-    if ([self isAuthorized]) {
-        // OAuth 2.0 header
-        [oRequest addValue:[NSString stringWithFormat:@"Bearer %@", self.accessTokenString] forHTTPHeaderField:@"Authorization"];
-    } else {
+    if ([SHKCONFIG(imgurAnonymousUploads) boolValue]) {
+        
         // Imgur Client-ID header, anonymous upload
         [oRequest addValue:[NSString stringWithFormat:@"Client-ID %@", SHKCONFIG(imgurClientID)] forHTTPHeaderField:@"Authorization"];
+        
+    } else {
+        
+        // OAuth 2.0 header
+        [oRequest addValue:[NSString stringWithFormat:@"Bearer %@", self.accessTokenString] forHTTPHeaderField:@"Authorization"];
     }
     
     NSMutableArray *params = [[NSMutableArray alloc] initWithCapacity:2];
@@ -300,7 +319,7 @@
         
         __weak typeof(self) weakSelf = self;
         self.networkSession = [SHKSession startSessionWithRequest:oRequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
-#warning TODO: handle if user revokes access
+            
             if (error.code == -999) {
                 
                 [weakSelf sendDidCancel];
@@ -310,6 +329,11 @@
                 SHKLog(@"upload photo did fail with error:%@", [error description]);
                 [self sendDidFailWithError:error];
                 
+            } else if ([(NSHTTPURLResponse *)response statusCode] == 403) { //invalid token (user revoked access, or expired token)
+                
+                self.pendingAction = SHKPendingSend;
+                [self refreshToken];
+            
             } else {
                 
                 BOOL success = [(NSHTTPURLResponse *)response statusCode] < 400;
@@ -361,7 +385,6 @@
     
     NSString *URLString = [NSString stringWithFormat:@"https://api.imgur.com/3/gallery/image/%@", imageID];
     NSString *params = [NSString stringWithFormat:@"&title=%@&terms=%@", SHKEncode(self.item.title), kSHKImgurSuppressUnreadTermsError];
-#warning TODO: check if terms is 0
     SHKRequest *galleryRequest = [[SHKRequest alloc] initWithURL:[NSURL URLWithString:URLString] params:params method:@"POST" completion:^(SHKRequest *request){
         
         if (request.success) {

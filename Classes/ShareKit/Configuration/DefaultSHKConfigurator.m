@@ -407,6 +407,11 @@ on the auth path. It will try to use native auth if availible.
     return @"";
 }
 
+///This removes user authorization. It allows image to be uploaded anonymously, without being tied to an account. More info is here: http://www.cimgf.com/2013/03/18/anonymous-image-file-upload-in-ios-with-imgur/
+- (NSNumber *)imgurAnonymousUploads {
+    return @NO;
+}
+
 /*
  UI Configuration : Basic
  ------------------------

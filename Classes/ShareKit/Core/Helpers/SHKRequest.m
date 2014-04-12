@@ -161,15 +161,9 @@
 
 - (void)finish
 {
-	self.success = (self.response.statusCode == 200 || self.response.statusCode == 201);
+	self.result = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
+    self.success = (self.response.statusCode == 200 || self.response.statusCode == 201);
     self.completion(self);
-}
-
-- (NSString *)getResult
-{
-	if (_result == nil)
-		_result = [[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding];
-	return _result;
 }
 
 #pragma mark -
