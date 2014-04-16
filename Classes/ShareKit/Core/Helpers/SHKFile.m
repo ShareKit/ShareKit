@@ -239,7 +239,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 - (NSString *)MIMETypeForPath:(NSString *)path{
     
     NSString *result = @"";
-    CFStringRef uti = [self UTITypeForPath:path];
+    CFStringRef uti = CreateUTITypeForPath(path);
     if (uti) {
         CFStringRef cfMIMEType = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType);
         if (cfMIMEType) {
@@ -250,7 +250,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
     return result;
 }
 
-- (CFStringRef)UTITypeForPath:(NSString *)path {
+CFStringRef CreateUTITypeForPath(NSString *path) {
     
     NSString *extension = [path pathExtension];
     CFStringRef result = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)extension, NULL);
@@ -260,7 +260,7 @@ static NSString *kSHKFileData = @"kSHKFileData";
 - (NSString *)NSStringUTITypeForPath:(NSString *)path {
     
     NSString *result = nil;
-    CFStringRef uti = [self UTITypeForPath:path];
+    CFStringRef uti = CreateUTITypeForPath(path);
     if (uti) {
         result = CFBridgingRelease(uti);
     }
