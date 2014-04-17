@@ -544,7 +544,7 @@ on the auth path. It will try to use native auth if availible.
 /*
  Advanced Configuration
  ----------------------
- These settings can be left as is.  This only need to be changed for uber custom installs.
+ These settings can be left as is.  This only needs to be changed for uber custom installs.
  */
 
 - (NSNumber*)maxFavCount {
