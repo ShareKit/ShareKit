@@ -9,7 +9,7 @@
 #import "SHKFormFieldCellTextLarge.h"
 #import "SHKFormFieldCell_PrivateProperties.h"
 #import "SHKFormFieldLargeTextSettings.h"
-#import "SSTextView.h"
+#import "SAMTextView.h"
 
 #import "UIImage+OurBundle.h"
 #import "UIApplication+iOSVersion.h"
@@ -27,7 +27,7 @@
 
 @interface SHKFormFieldCellTextLarge ()
 
-@property (weak, nonatomic) SSTextView *textView;
+@property (weak, nonatomic) SAMTextView *textView;
 @property (weak, nonatomic) UILabel *counter;
 @property (weak, nonatomic) UIImageView *clippedImageView;
 @property (weak, nonatomic) UIImageView *clipImageView;
@@ -41,7 +41,7 @@
 
 - (void)setupLayout {
     
-    SSTextView *textView = [[SSTextView alloc] initWithFrame:[self frameForTextview]];
+    SAMTextView *textView = [[SAMTextView alloc] initWithFrame:[self frameForTextview]];
     textView.delegate = self;
     textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     textView.contentInset = UIEdgeInsetsMake(-8, 0, 0, 0);
