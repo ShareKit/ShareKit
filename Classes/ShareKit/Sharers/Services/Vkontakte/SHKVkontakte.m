@@ -342,10 +342,11 @@
                                                                                  start:text
                                                                                   item:self.item];
     commentField.select = YES;
-    commentField.validationBlock = ^ (SHKFormFieldLargeTextSettings *formFieldSettings) {
+    commentField.validationBlock = ^(SHKFormFieldLargeTextSettings *formFieldSettings) {
         
-        BOOL result = formFieldSettings.valueToSave > 0;
-        return result;
+        BOOL isText = formFieldSettings && [formFieldSettings.valueToSave length] > 0;
+        BOOL resultReverted = !(!allowEmptyMessage && !isText);
+        return resultReverted;
     };
     
     return @[commentField];

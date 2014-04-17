@@ -143,6 +143,7 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
         [self setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [body boundary]] forHTTPHeaderField:@"Content-Type"];
         [self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
         [self setHTTPBodyStream:body];
+        [body release];
 
     } else {
         
