@@ -30,18 +30,22 @@
 
 @implementation DefaultSHKConfigurator
 
+#pragma mark - App Description
+
 /* 
  App Description 
  ---------------
  These values are used by any service that shows 'shared from XYZ'
  */
 - (NSString*)appName {
-	return @"My App Name";
+	return [[NSBundle mainBundle] infoDictionary][@"CFBundleDisplayName"];
 }
 
 - (NSString*)appURL {
 	return @"http://example.com";
 }
+
+#pragma mark - API Keys
 
 /*
  API Keys
@@ -411,6 +415,7 @@ on the auth path. It will try to use native auth if availible.
 - (NSNumber *)imgurAnonymousUploads {
     return @NO;
 }
+#pragma mark - Basic UI Configuration
 
 /*
  UI Configuration : Basic
@@ -470,6 +475,8 @@ on the auth path. It will try to use native auth if availible.
 	return [NSNumber numberWithBool:true];// Setting this to true will show More... button in SHKActionSheet, setting to false will leave the button out.
 }
 
+#pragma mark - Favorite Sharers
+
 /*
  Favorite Sharers
  ----------------
@@ -509,6 +516,8 @@ on the auth path. It will try to use native auth if availible.
     return [NSNumber numberWithBool:true];
 }
 
+#pragma mark - Advanced UI Configuration
+
 /*
  UI Configuration : Advanced
  ---------------------------
@@ -541,10 +550,12 @@ on the auth path. It will try to use native auth if availible.
     return NSClassFromString(@"SHKActivityIndicator");
 }
 
+#pragma mark - Advanced Configuration
+
 /*
  Advanced Configuration
  ----------------------
- These settings can be left as is.  This only need to be changed for uber custom installs.
+ These settings can be left as is.  This only needs to be changed for uber custom installs.
  */
 
 - (NSNumber*)maxFavCount {
@@ -566,6 +577,8 @@ on the auth path. It will try to use native auth if availible.
 - (NSNumber*)allowAutoShare {
 	return [NSNumber numberWithBool:true];
 }
+
+#pragma mark - Debugging Settings
 
 /* 
  Debugging settings
