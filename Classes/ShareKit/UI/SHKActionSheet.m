@@ -43,7 +43,7 @@
 
 @implementation SHKActionSheet
 
-- (id)initWithItem:(SHKItem *)item {
+- (instancetype)initWithItem:(SHKItem *)item {
     
     self = [super initWithTitle:SHKLocalizedString(@"Share")
                        delegate:nil
@@ -57,9 +57,9 @@
     return self;
 }
 
-+ (SHKActionSheet *)actionSheetForItem:(SHKItem *)item
++ (instancetype)actionSheetForItem:(SHKItem *)item
 {
-	SHKActionSheet *as = [[SHKActionSheet alloc] initWithItem:item];
+	SHKActionSheet *as = [[self alloc] initWithItem:item];
 	as.delegate = as;
 	as.sharers = [as sharersToShow];
     [as populateButtons];

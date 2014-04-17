@@ -34,7 +34,7 @@
 
 @property (strong) id<SHKShareItemDelegate> shareDelegate;
 
-+ (SHKActionSheet *)actionSheetForItem:(SHKItem *)i;
++ (instancetype)actionSheetForItem:(SHKItem *)i;
 
 - (NSMutableArray *)sharersToShow;
 - (void)populateButtons;
