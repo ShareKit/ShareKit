@@ -35,7 +35,6 @@
 #import "SHKFormFieldSettings.h"
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SHKRequest.h"
-#import "SHKOneNoteRequest.h"
 #import "SHKSharer_protected.h"
 
 static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
@@ -160,7 +159,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 - (void)logout {
-    [SHKOneNote sharedClient].logout;
+    [[SHKOneNote sharedClient] logout];
 }
 
 #pragma mark -
@@ -253,7 +252,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
     if ([SHKOneNote sharedClient].session) {
         [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
     }
-    SHKOneNoteRequest *request = [[SHKOneNoteRequest alloc] initWithRequest:multipartrequest
+    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
                                                                  completion:^(SHKRequest *request) {
                                                                      if (request.success) {
                                                                          [self sendDidFinish];
@@ -299,7 +298,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
         [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
     }
 
-    SHKOneNoteRequest *request = [[SHKOneNoteRequest alloc] initWithRequest:multipartrequest
+    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
                                                                  completion:^(SHKRequest *request) {
                                                                      if (request.success) {
                                                                          [self sendDidFinish];
@@ -345,7 +344,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
     if ([SHKOneNote sharedClient].session) {
         [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
     }
-    SHKOneNoteRequest *request = [[SHKOneNoteRequest alloc] initWithRequest:multipartrequest
+    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
                                                                  completion:^(SHKRequest *request) {
                                                                      if (request.success) {
                                                                          [self sendDidFinish];

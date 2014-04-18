@@ -323,7 +323,6 @@
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961718EA88D7003DF6BD /* SHKOneNote.m */; };
-		AC21962318EA88D7003DF6BD /* SHKOneNoteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961918EA88D7003DF6BD /* SHKOneNoteRequest.m */; };
 		AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
 		AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
@@ -1140,8 +1139,6 @@
 		AC2195F318EA885C003DF6BD /* libOneNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOneNote.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC21961618EA88D7003DF6BD /* SHKOneNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOneNote.h; sourceTree = "<group>"; };
 		AC21961718EA88D7003DF6BD /* SHKOneNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOneNote.m; sourceTree = "<group>"; };
-		AC21961818EA88D7003DF6BD /* SHKOneNoteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOneNoteRequest.h; sourceTree = "<group>"; };
-		AC21961918EA88D7003DF6BD /* SHKOneNoteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOneNoteRequest.m; sourceTree = "<group>"; };
 		AC21961B18EA88D7003DF6BD /* AFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFConstants.m; sourceTree = "<group>"; };
 		AC21961C18EA88D7003DF6BD /* AFNetworkingLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AFNetworkingLicense.txt; sourceTree = "<group>"; };
 		AC21961D18EA88D7003DF6BD /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
@@ -2581,8 +2578,6 @@
 			children = (
 				AC21961618EA88D7003DF6BD /* SHKOneNote.h */,
 				AC21961718EA88D7003DF6BD /* SHKOneNote.m */,
-				AC21961818EA88D7003DF6BD /* SHKOneNoteRequest.h */,
-				AC21961918EA88D7003DF6BD /* SHKOneNoteRequest.m */,
 				AC21961A18EA88D7003DF6BD /* ThirdParty */,
 			);
 			path = OneNote;
@@ -4426,7 +4421,6 @@
 				ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */,
 				ACFC8BDD18EA8ED2008D72E9 /* AFConstants.m in Sources */,
 				AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */,
-				AC21962318EA88D7003DF6BD /* SHKOneNoteRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
