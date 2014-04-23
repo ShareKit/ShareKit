@@ -13,6 +13,8 @@
 		4932D60F18DCBE080075FEE8 /* SHKImgur.m in Sources */ = {isa = PBXBuildFile; fileRef = 4932D5FF18DB695E0075FEE8 /* SHKImgur.m */; };
 		4932D61018DCBE200075FEE8 /* SHKImgur.h in Headers */ = {isa = PBXBuildFile; fileRef = 4932D5FE18DB695E0075FEE8 /* SHKImgur.h */; };
 		4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4932D60E18DCBD840075FEE8 /* libImgur.a */; };
+		78424C3C1900235400BB344F /* SAMTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 78424C391900235000BB344F /* SAMTextView.h */; };
+		78424C3D1900235800BB344F /* SAMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78424C381900235000BB344F /* SAMTextView.m */; };
 		7A04074618313A5F00691F2B /* SHKFacebookCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A04074418313A5F00691F2B /* SHKFacebookCommon.h */; };
 		7A04074718313A5F00691F2B /* SHKFacebookCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A04074518313A5F00691F2B /* SHKFacebookCommon.m */; };
 		7A0F91D9156BA2A0009CB40A /* SHK.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536A711DBE3B9004A1712 /* SHK.m */; };
@@ -40,8 +42,6 @@
 		7A0FB86017A5A3A000B88C87 /* SHKFormFieldOptionPickerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FB85E17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.m */; };
 		7A0FB86817A644AF00B88C87 /* NSArray+JoinValues.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A0FB86617A644AF00B88C87 /* NSArray+JoinValues.h */; };
 		7A0FB86917A644AF00B88C87 /* NSArray+JoinValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */; };
-		7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A107CA717AA419B009A7F0E /* SSTextView.h */; };
-		7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A107CA817AA419C009A7F0E /* SSTextView.m */; };
 		7A107CE417AA4E7A009A7F0E /* DETweetPaperClip.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */; };
 		7A107CE517AA4E7A009A7F0E /* DETweetPaperClip@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */; };
 		7A107CE617AA4E7A009A7F0E /* DETweetURLAttachment.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */; };
@@ -743,7 +743,7 @@
 		43A536A411DBE3B9004A1712 /* SHKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKRequest.h; sourceTree = "<group>"; };
 		43A536A511DBE3B9004A1712 /* SHKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRequest.m; sourceTree = "<group>"; };
 		43A536A611DBE3B9004A1712 /* SHK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHK.h; sourceTree = "<group>"; };
-		43A536A711DBE3B9004A1712 /* SHK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHK.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		43A536A711DBE3B9004A1712 /* SHK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHK.m; sourceTree = "<group>"; };
 		43A536A811DBE3B9004A1712 /* SHKItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKItem.h; path = ../SHKItem.h; sourceTree = "<group>"; };
 		43A536A911DBE3B9004A1712 /* SHKItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = SHKItem.m; path = ../SHKItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		43A536AA11DBE3B9004A1712 /* SHKOfflineSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOfflineSharer.h; sourceTree = "<group>"; };
@@ -785,6 +785,8 @@
 		4932D5FE18DB695E0075FEE8 /* SHKImgur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKImgur.h; path = Imgur/SHKImgur.h; sourceTree = "<group>"; };
 		4932D5FF18DB695E0075FEE8 /* SHKImgur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKImgur.m; path = Imgur/SHKImgur.m; sourceTree = "<group>"; };
 		4932D60E18DCBD840075FEE8 /* libImgur.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libImgur.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		78424C381900235000BB344F /* SAMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAMTextView.m; path = Submodules/samtextview/SAMTextView/SAMTextView.m; sourceTree = SOURCE_ROOT; };
+		78424C391900235000BB344F /* SAMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAMTextView.h; path = Submodules/samtextview/SAMTextView/SAMTextView.h; sourceTree = SOURCE_ROOT; };
 		7A04074418313A5F00691F2B /* SHKFacebookCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFacebookCommon.h; sourceTree = "<group>"; };
 		7A04074518313A5F00691F2B /* SHKFacebookCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebookCommon.m; sourceTree = "<group>"; };
 		7A0F91CD156B9FF2009CB40A /* SHKDelicious.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKDelicious.h; path = Delicious/SHKDelicious.h; sourceTree = "<group>"; };
@@ -794,8 +796,6 @@
 		7A0FB85E17A5A39F00B88C87 /* SHKFormFieldOptionPickerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldOptionPickerSettings.m; sourceTree = "<group>"; };
 		7A0FB86617A644AF00B88C87 /* NSArray+JoinValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+JoinValues.h"; sourceTree = "<group>"; };
 		7A0FB86717A644AF00B88C87 /* NSArray+JoinValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+JoinValues.m"; sourceTree = "<group>"; };
-		7A107CA717AA419B009A7F0E /* SSTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SSTextView.h; path = Submodules/sstoolkit/SSToolkit/SSTextView.h; sourceTree = SOURCE_ROOT; };
-		7A107CA817AA419C009A7F0E /* SSTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SSTextView.m; path = Submodules/sstoolkit/SSToolkit/SSTextView.m; sourceTree = SOURCE_ROOT; };
 		7A107CDE17AA4E75009A7F0E /* DETweetPaperClip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DETweetPaperClip.png; path = ../DETweetPaperClip.png; sourceTree = "<group>"; };
 		7A107CDF17AA4E76009A7F0E /* DETweetPaperClip@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DETweetPaperClip@2x.png"; path = "../DETweetPaperClip@2x.png"; sourceTree = "<group>"; };
 		7A107CE017AA4E78009A7F0E /* DETweetURLAttachment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DETweetURLAttachment.png; path = ../DETweetURLAttachment.png; sourceTree = "<group>"; };
@@ -1886,8 +1886,8 @@
 			isa = PBXGroup;
 			children = (
 				7ADB643A18C5BF9700B5AF7F /* PKMultipartInputStream */,
+				78424C371900233B00BB344F /* SAMTextView */,
 				7AB99E6817FD9C850050DD98 /* SSKeychain */,
-				7A107CA117AA4169009A7F0E /* SSToolkit */,
 				7AEAC53C178DA34F0032B0AA /* Declarations */,
 				43A5367F11DBE3B9004A1712 /* OAuth */,
 				43A536A811DBE3B9004A1712 /* SHKItem.h */,
@@ -2151,6 +2151,15 @@
 			name = Imgur;
 			sourceTree = "<group>";
 		};
+		78424C371900233B00BB344F /* SAMTextView */ = {
+			isa = PBXGroup;
+			children = (
+				78424C391900235000BB344F /* SAMTextView.h */,
+				78424C381900235000BB344F /* SAMTextView.m */,
+			);
+			name = SAMTextView;
+			sourceTree = "<group>";
+		};
 		7A0F91CB156B9FCE009CB40A /* Delicious */ = {
 			isa = PBXGroup;
 			children = (
@@ -2158,15 +2167,6 @@
 				7A0F91CE156B9FF2009CB40A /* SHKDelicious.m */,
 			);
 			name = Delicious;
-			sourceTree = "<group>";
-		};
-		7A107CA117AA4169009A7F0E /* SSToolkit */ = {
-			isa = PBXGroup;
-			children = (
-				7A107CA717AA419B009A7F0E /* SSTextView.h */,
-				7A107CA817AA419C009A7F0E /* SSTextView.m */,
-			);
-			name = SSToolkit;
 			sourceTree = "<group>";
 		};
 		7A107CE817AA4EC8009A7F0E /* graphics */ = {
@@ -2720,6 +2720,7 @@
 				7ABC3D6718F83FF100ED37BC /* SHKOAuthViewDelegate.h in Headers */,
 				7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */,
 				7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */,
+				78424C3C1900235400BB344F /* SAMTextView.h in Headers */,
 				7A5C28D11894555C00E47E62 /* SHKUploadsViewCell.h in Headers */,
 				7A8397431782CC9500E1F8B9 /* Debug.h in Headers */,
 				7A9E123318BE3F02006504BC /* SHKSessionDelegate.h in Headers */,
@@ -2732,7 +2733,6 @@
 				7A380C8F1891400600F7F054 /* SHKUploadsViewController.h in Headers */,
 				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
-				7A107CA917AA419C009A7F0E /* SSTextView.h in Headers */,
 				7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */,
 				7ABC3D6418F6CD9600ED37BC /* SHKOAuth2View.h in Headers */,
 				7A72AD06189FD9490039D762 /* SHKAccountsViewController.h in Headers */,
@@ -4018,6 +4018,7 @@
 				7ACD3B0A184DF0C40096CEA5 /* NSDictionary+Recursive.m in Sources */,
 				7A0F91FE156BA2A0009CB40A /* SHKConfiguration.m in Sources */,
 				7A0F9234156BA2A0009CB40A /* SHKActionSheet.m in Sources */,
+				78424C3D1900235800BB344F /* SAMTextView.m in Sources */,
 				7A0F9235156BA2A0009CB40A /* SHKActivityIndicator.m in Sources */,
 				7A380C901891400600F7F054 /* SHKUploadsViewController.m in Sources */,
 				7A0F9236156BA2A0009CB40A /* SHKFormController.m in Sources */,
@@ -4041,7 +4042,6 @@
 				7ABDD99917A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.m in Sources */,
 				7A72AD07189FD9490039D762 /* SHKAccountsViewController.m in Sources */,
 				7A57619017A8034A00B38ACB /* SHKFormFieldCellTextLarge.m in Sources */,
-				7A107CAA17AA419C009A7F0E /* SSTextView.m in Sources */,
 				7AF701F818BCCCF400438CE2 /* SHKSession.m in Sources */,
 				7A107CEC17AA5674009A7F0E /* UIImage+OurBundle.m in Sources */,
 				7A5C28D61896C23D00E47E62 /* SHKUploadInfo.m in Sources */,
@@ -6536,7 +6536,10 @@
 				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = Tumblr;
 				SKIP_INSTALL = YES;
 			};

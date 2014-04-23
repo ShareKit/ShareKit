@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
     core.exclude_files = non_arc_files
     core.frameworks    = 'SystemConfiguration', 'Security', 'MessageUI', "AVFoundation", "MobileCoreServices", "CoreMedia", "Social"
     core.dependency 'SSKeychain', '~> 0.2.1'
-    core.dependency 'SSToolkit', '~> 1.0.4'
+    core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'ShareKit/NoARC'
   end
