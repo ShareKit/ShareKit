@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'NoARC' do |noarc|
+    noarc.dependency 'PKMultipartInputStream'
     noarc.requires_arc = false
     noarc.source_files = non_arc_files
   end
