@@ -160,7 +160,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 - (void)logout {
-    [SHKOneNote sharedClient].logout;
+    [[SHKOneNote sharedClient] logout];
 }
 
 #pragma mark -
