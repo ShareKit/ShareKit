@@ -99,3 +99,9 @@
 "Sent from %@" = " %@から受信";
 "Save to Photo Album" = "アルバムに保存";
 "Tag, tag" = "タグ,タグ";
+
+/* iOS Sharers general, alert title when user has not configured service's account in Settings.app */
+"No %@ Accounts" = "%@アカウントをご確認ください";
+
+"There are no %@ accounts configured. You can add or create a %@ account in Settings." = "%@アカウントは未設定です。設定から %@ を認証してください。";
+
