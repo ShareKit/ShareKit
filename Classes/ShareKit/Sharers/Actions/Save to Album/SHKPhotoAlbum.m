@@ -49,14 +49,25 @@ typedef void (^SHKPhotoSharerCompletionBlock)(NSURL *assetURL, NSError *error);
 
 + (BOOL)canShareFile:(SHKFile *)file {
     
-    //if file is in-memory only, it would have to be synchronously saved to disc to obtain path. This is unacceptable long process, it would pause share sheet displaying.
-    if ([file.mimeType hasPrefix:@"video/"] && !file.hasPath) return NO;
-    
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    BOOL acceptedVideo = [library videoAtPathIsCompatibleWithSavedPhotosAlbum:file.URL];
-    BOOL isImage = [file.mimeType hasPrefix:@"image/"];
-    BOOL result = isImage || acceptedVideo;
-    return result;
+    if ([file.mimeType hasPrefix:@"image/"]) {
+        
+        return YES;
+
+    } else if ([file.mimeType hasPrefix:@"video/"] && !file.hasPath) {
+        
+        //if file is in-memory only, it would have to be synchronously saved to disc to obtain path. This is unacceptable long process, it would pause share sheet displaying.
+        return NO;
+        
+    } else if ([file.mimeType hasPrefix:@"video/"]) {
+        
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        BOOL result = [library videoAtPathIsCompatibleWithSavedPhotosAlbum:file.URL];
+        return result;
+        
+    } else {
+        
+        return NO;
+    }
 }
 
 + (BOOL)shareRequiresInternetConnection
