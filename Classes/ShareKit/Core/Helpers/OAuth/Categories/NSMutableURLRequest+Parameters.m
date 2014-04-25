@@ -32,7 +32,7 @@
 
 #import "NSURL+Base.h"
 
-static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBouNDaRy";
+static NSString *Boundary = @"0xCoCoaouTHeBouNDaRy";
 
 @implementation NSMutableURLRequest (OAParameterAdditions)
 
@@ -102,53 +102,98 @@ static NSString *Boundary = @"-----------------------------------0xCoCoaouTHeBou
     }
 }
 
-//taken from https://github.com/jdg/oauthconsumer/
+//inspired by https://github.com/jdg/oauthconsumer/
 - (void)attachFileWithParameterName:(NSString *)name filename:(NSString*)filename contentType:(NSString *)contentType data:(NSData*)data {
-        
-	NSArray *parameters = [self parameters];
-	[self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
     
-	NSMutableData *bodyData = [NSMutableData new];
-	for (OARequestParameter *parameter in parameters) {
-		NSString *param = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n",
-						   Boundary, [parameter URLEncodedName], [parameter value]];
-        
-		[bodyData appendData:[param dataUsingEncoding:NSUTF8StringEncoding]];
-	}
+    NSMutableData *bodyData = [self preparedBodyData];
     
-	NSString *filePrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n",
-                            Boundary, name, filename, contentType];
+	NSString *filePrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n", Boundary, name, filename, contentType];
 	[bodyData appendData:[filePrefix dataUsingEncoding:NSUTF8StringEncoding]];
 	[bodyData appendData:data];
+    
     
 	[bodyData appendData:[[[@"\r\n--" stringByAppendingString:Boundary] stringByAppendingString:@"--"] dataUsingEncoding:NSUTF8StringEncoding]];
 	[self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField:@"Content-Length"];
 	[self setHTTPBody:bodyData];
-	[bodyData release];
+}
+
+- (void)attachData:(NSData *)data withParameterName:(NSString *)parameterName contentType:(NSString *)contentType {
+    
+    NSMutableData *bodyData = [self preparedBodyData];
+    
+    NSString *dataPrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\nContent-Type: %@\r\n\r\n", Boundary, parameterName, contentType];
+    [bodyData appendData:[dataPrefix dataUsingEncoding:NSUTF8StringEncoding]];
+    [bodyData appendData:data];
+    
+    [bodyData appendData:[[[@"\r\n--" stringByAppendingString:Boundary] stringByAppendingString:@"--"] dataUsingEncoding:NSUTF8StringEncoding]];
+	[self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField:@"Content-Length"];
+	[self setHTTPBody:bodyData];
+}
+
+- (NSMutableData *)preparedBodyData {
+    
+    NSMutableData *result;
+    
+    if (self.HTTPBody) {
+        
+        result = (NSMutableData *)self.HTTPBody;
+        
+        //if trailing boundary already present, remove it
+        NSString *trailingBoundary = [[NSString alloc] initWithFormat:@"--%@--", Boundary];
+        NSString *bodyString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+        if ([bodyString hasSuffix:trailingBoundary]) {
+            bodyString = [bodyString substringToIndex:[result length]-[trailingBoundary length]];
+            result = [[bodyString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+        }
+
+    } else {
+        
+        result = [[NSMutableData new] autorelease];
+        
+        //for oauth parameters only
+        NSArray *parameters = [self parameters];
+        for (OARequestParameter *parameter in parameters) {
+            NSString *param = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n",
+                               Boundary, [parameter URLEncodedName], [parameter value]];
+            
+            [result appendData:[param dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+        
+        [self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
+    }
+    
+    return result;
 }
 
 - (void)attachFile:(SHKFile *)file withParameterName:(NSString *)name {
     
     if ([file hasPath]) {
         
-        NSArray *parameters = [self parameters];
-        PKMultipartInputStream *body = [[PKMultipartInputStream alloc] init];
-        
-        for (OARequestParameter *parameter in parameters) {
-            [body addPartWithName:[parameter URLEncodedName] string:[parameter value]];
-        }
-        
+        PKMultipartInputStream *body = [self preparedStream];
         [body addPartWithName:name path:file.path];
         
-        [self setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [body boundary]] forHTTPHeaderField:@"Content-Type"];
         [self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[body length]] forHTTPHeaderField:@"Content-Length"];
         [self setHTTPBodyStream:body];
-        [body release];
 
     } else {
         
         [self attachFileWithParameterName:name filename:file.filename contentType:file.mimeType data:file.data];
     }
+}
+
+- (PKMultipartInputStream *)preparedStream {
+    
+    PKMultipartInputStream *result = [[[PKMultipartInputStream alloc] init] autorelease];
+    
+    // for oauth parameters only
+    NSArray *parameters = [self parameters];
+    for (OARequestParameter *parameter in parameters) {
+        [result addPartWithName:[parameter URLEncodedName] string:[parameter value]];
+    }
+    
+    [self setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [result boundary]] forHTTPHeaderField:@"Content-Type"];
+    
+    return result;
 }
 
 @end

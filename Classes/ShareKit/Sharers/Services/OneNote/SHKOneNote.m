@@ -36,6 +36,10 @@
 #import "SHKFormFieldLargeTextSettings.h"
 #import "SHKRequest.h"
 #import "SHKSharer_protected.h"
+#import "PKMultipartInputStream.h"
+#import "SHKSession.h"
+#import "Debug.h"
+#import "NSMutableURLRequest+Parameters.h"
 
 static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 
@@ -66,6 +70,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 @end
 
 @interface SHKOneNote ()
+
 + (LiveConnectClient *)sharedClient;
 
 + (OneNoteController *)sharedController;
@@ -79,6 +84,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 - (void)sendFile;
 
 + (NSString *)getDate;
+
 @end
 
 @implementation SHKOneNote
@@ -160,6 +166,61 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 
 - (void)logout {
     [[SHKOneNote sharedClient] logout];
+}
+
+#pragma mark -
+#pragma mark Share Form
+
+- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
+    NSString *text;
+    NSString *key;
+    BOOL allowEmptyMessage = NO;
+    
+    switch (self.item.shareType) {
+        case SHKShareTypeText:
+            text = self.item.text;
+            key = @"text";
+            break;
+        case SHKShareTypeImage:
+            text = self.item.title;
+            key = @"title";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeURL:
+            text = self.item.text;
+            key = @"text";
+            allowEmptyMessage = YES;
+            break;
+        case SHKShareTypeFile:
+            text = self.item.text;
+            key = @"text";
+            break;
+        default:
+            return nil;
+    }
+    
+    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
+                                                                                   key:key
+                                                                                 start:text
+                                                                                  item:self.item];
+    commentField.select = YES;
+    commentField.validationBlock = ^(SHKFormFieldLargeTextSettings *formFieldSettings) {
+        BOOL result;
+        if (allowEmptyMessage) {
+            result = YES;
+        } else {
+            result = [formFieldSettings.valueToSave length] > 0;
+        }
+        return result;
+    };
+    
+    NSMutableArray *result = [@[commentField] mutableCopy];
+    
+    if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeFile) {
+        SHKFormFieldSettings *title = [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
+        [result insertObject:title atIndex:0];
+    }
+    return result;
 }
 
 #pragma mark -
@@ -266,6 +327,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 - (void)sendTextAndLink {
+    
     NSString *date = [SHKOneNote getDate];
     NSString *title = self.item.title ? self.item.title : @"Sharing a Link via ShareKit";
     NSString *strURL = [self.item.URL absoluteString];
@@ -312,110 +374,103 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 - (void)sendFile {
+    
+#warning TODO: comment field omitted?
+    NSMutableURLRequest *multipartrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:OneNoteHost]];
+    multipartrequest.HTTPMethod = @"POST";
+
+    NSString *defaultTitle = @"Sharing a File via ShareKit";
+    
+    NSString *bodyString = [[NSString alloc] initWithFormat:@"<object data-attachment=\"%@\" data=\"name:embedded1\" type=\"%@\" />",
+    self.item.file.filename, self.item.file.mimeType];
+    
+    NSData *simpleHTMLdata = [self htmlDataWithBody:bodyString defaultTitle:defaultTitle];
+    
+    if (self.item.file.hasPath) { //we use streaming, without loading complete file into memory
+        
+        PKMultipartInputStream *stream = [[PKMultipartInputStream alloc] init];
+        [stream addPartWithName:@"Presentation" data:simpleHTMLdata contentType:@"text/html"];
+        [stream addPartWithName:@"embedded1" filename:self.item.file.filename path:self.item.file.path];
+        multipartrequest.HTTPBodyStream = stream;
+        
+        [multipartrequest setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", [stream boundary]] forHTTPHeaderField:@"Content-Type"];
+
+    } else {
+        
+        [multipartrequest attachData:simpleHTMLdata withParameterName:@"Presentation" contentType:@"text/html"];
+        [multipartrequest attachFile:self.item.file withParameterName:@"embedded1"];
+    }
+    
+    [self send:multipartrequest trySession:YES];
+}
+
+- (NSData *)htmlDataWithBody:(NSString *)body defaultTitle:(NSString *)defaultTitle {
+    
     NSString *date = [SHKOneNote getDate];
-    NSString *title = self.item.title ? self.item.title : @"Sharing a File via ShareKit";
+    NSString *title = self.item.title ? self.item.title : defaultTitle;
     NSString *simpleHtml = [NSString stringWithFormat:
-            @"<html><head><title>%@</title><meta name=\"created\" content=\"%@\" /></head><body>",
-            title, date];
-
-    NSString *mime = self.item.file.mimeType;
-    NSData *embedded1 = [NSData dataWithContentsOfFile:self.item.file.path];
-    simpleHtml = [simpleHtml stringByAppendingFormat:
-            @"<object data-attachment=\"%@\" data=\"name:embedded1\" type=\"%@\" />",
-            self.item.file.path.lastPathComponent, mime];
-
-
+                            @"<html><head><title>%@</title><meta name=\"created\" content=\"%@\" /></head><body>",
+                            title, date];
+    simpleHtml = [simpleHtml stringByAppendingString:body];
     simpleHtml = [simpleHtml stringByAppendingString:@"</body></html>"];
-    NSData *presentation = [simpleHtml dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *result = [simpleHtml dataUsingEncoding:NSUTF8StringEncoding];
+    return result;
+}
 
-    NSMutableURLRequest *multipartrequest = [
-            [AFHTTPRequestSerializer serializer]
-            multipartFormRequestWithMethod:@"POST" URLString:OneNoteHost parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-                [formData appendPartWithHeaders:@{
-                        @"Content-Disposition" : @"form-data; name=\"Presentation\"",
-                        @"Content-Type" : @"text/html"}
-                                           body:presentation];
-                [formData appendPartWithHeaders:@{
-                        @"Content-Disposition" : @"form-data; name=\"embedded1\"",
-                        @"Content-Type" : mime}
-                                           body:embedded1];
-
-            }];
+- (void)send:(NSMutableURLRequest *)multipartrequest trySession:(BOOL)trySession {
+    
     if ([SHKOneNote sharedClient].session) {
         [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
     }
-    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
-                                                                 completion:^(SHKRequest *request) {
-                                                                     if (request.success) {
-                                                                         [self sendDidFinish];
-                                                                     } else {
-                                                                         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with OneNote")]];
-                                                                     }
-                                                                 }];
+    
+    BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
+    
+    if (trySession && canUseNSURLSession) {
+        
+        __weak typeof(self) weakSelf = self;
+        self.networkSession = [SHKSession startSessionWithRequest:multipartrequest delegate:self completion:^(NSData *data, NSURLResponse *response, NSError *error) {
+            
+            if (error.code == -999) {
+                [weakSelf sendDidCancel];
+            } else if (error) {
+                SHKLog(@"SHKOneNote upload file did fail with error:%@", [error description]);
+                [self sendShowSimpleErrorAlert];
+            } else {
+                BOOL success = [(NSHTTPURLResponse *)response statusCode] < 400;
+                if (success) {
+                    [self sendFinishedSuccessfullyWithData:data];
+                } else {
+#warning TODO: revoked access error handling
+                    [self sendShowSimpleErrorAlert];
+                }
+            }
+        }];
+        
+    } else {
+        
+        SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
+                                                       completion:^(SHKRequest *request) {
+                                                           if (request.success) {
+                                                               [self sendFinishedSuccessfullyWithData:request.data];
+                                                           } else {
+                                                               [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with OneNote")]];
+                                                           }
+                                                       }];
+        [request start];
+    }
+}
 
-    request.headerFields = [multipartrequest allHTTPHeaderFields];
-    [request start];
+- (void)sendFinishedSuccessfullyWithData:(NSData *)data {
+    
+    NSError *error;
+    NSDictionary *parsedResponse = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error];
+    [self sendDidFinishWithResponse:parsedResponse];
 }
 
 //- (NSString *)enMediaTagWithResource:(SHKFile *)file width:(CGFloat)width height:(CGFloat)height {
 //    NSString *sizeAtr = width > 0 && height > 0 ? [NSString stringWithFormat:@"height=\"%.0f\" width=\"%.0f\" ",height,width]:@"";
 //    return [NSString stringWithFormat:@"<en-media type=\"%@\" %@hash=\"%@\"/>",src.mime,sizeAtr,[src.data.body md5]];
 //}
-
-#pragma mark -
-#pragma mark Share Form
-
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type {
-    NSString *text;
-    NSString *key;
-    BOOL allowEmptyMessage = NO;
-
-    switch (self.item.shareType) {
-        case SHKShareTypeText:
-            text = self.item.text;
-            key = @"text";
-            break;
-        case SHKShareTypeImage:
-            text = self.item.title;
-            key = @"title";
-            allowEmptyMessage = YES;
-            break;
-        case SHKShareTypeURL:
-            text = self.item.text;
-            key = @"text";
-            allowEmptyMessage = YES;
-            break;
-        case SHKShareTypeFile:
-            text = self.item.text;
-            key = @"text";
-            break;
-        default:
-            return nil;
-    }
-
-    SHKFormFieldLargeTextSettings *commentField = [SHKFormFieldLargeTextSettings label:SHKLocalizedString(@"Comment")
-                                                                                   key:key
-                                                                                 start:text
-                                                                                  item:self.item];
-    commentField.select = YES;
-    commentField.validationBlock = ^(SHKFormFieldLargeTextSettings *formFieldSettings) {
-        BOOL result;
-        if (allowEmptyMessage) {
-            result = YES;
-        } else {
-            result = [formFieldSettings.valueToSave length] > 0;
-        }
-        return result;
-    };
-
-    NSMutableArray *result = [@[commentField] mutableCopy];
-
-    if (self.item.shareType == SHKShareTypeURL || self.item.shareType == SHKShareTypeFile) {
-        SHKFormFieldSettings *title = [SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:self.item.title];
-        [result insertObject:title atIndex:0];
-    }
-    return result;
-}
 
 #pragma mark -
 #pragma mark Helpers
@@ -429,7 +484,3 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 @end
-
-
-
-
