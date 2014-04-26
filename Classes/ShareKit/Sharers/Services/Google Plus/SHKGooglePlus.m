@@ -65,7 +65,7 @@
 
 - (BOOL)isAuthorized {
     
-    BOOL alreadyAuthenticated = [[GPPSignIn sharedInstance] authentication];
+    BOOL alreadyAuthenticated = [[GPPSignIn sharedInstance] authentication] != nil;
     BOOL result = alreadyAuthenticated;
     
     if (!alreadyAuthenticated) {
