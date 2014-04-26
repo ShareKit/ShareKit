@@ -19,13 +19,14 @@ Pod::Spec.new do |s|
     core.source_files  = 'Classes/ShareKit/{Configuration,Core,UI}/**/*.{h,m,c}', 'Classes/ShareKit/Sharers/Actions/**/*.{h,m,c}'
     core.exclude_files = non_arc_files
     core.frameworks    = 'SystemConfiguration', 'Security', 'MessageUI', "AVFoundation", "MobileCoreServices", "CoreMedia", "Social"
-    core.dependency 'SSKeychain', '~> 0.2.1'
-    core.dependency 'SSToolkit', '~> 1.0.4'
+    core.dependency 'SSKeychain', '~> 1.2.2'
+    core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'ShareKit/NoARC'
   end
 
   s.subspec 'NoARC' do |noarc|
+    noarc.dependency 'PKMultipartInputStream'
     noarc.requires_arc = false
     noarc.source_files = non_arc_files
   end
@@ -37,7 +38,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Evernote' do |evernote|
     evernote.source_files = 'Classes/ShareKit/Sharers/Services/Evernote/**/*.{h,m}'
-    evernote.dependency 'Evernote-SDK-iOS', '~> 1.3.0'
+    evernote.dependency 'Evernote-SDK-iOS', '~> 1.3.1'
     evernote.dependency 'ShareKit/Core'
     evernote.libraries = 'xml2'
     evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' }
@@ -164,10 +165,7 @@ Pod::Spec.new do |s|
   #s.subspec 'YouTube' do |youtube|
     #youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
     #youtube.dependency 'ShareKit/Core'
-    #youtube.dependency 'Google-API-Client/Services/YouTube'
-    #youtube.dependency 'Google-API-Client/Common'
-    #youtube.dependency 'Google-API-Client/Objects'
-    #youtube.dependency 'Google-API-Client/Utilities'
+    #youtube.dependency 'Google-API-Client/YouTube'
   #end
 
   #This version of GooglePlus subspec can coexist with YouTube. The prerequisite is that GooglePlus.framework can be used with 'Google-API-Client/Services/Plus'. Otherwise we must use GoogleOpenSource.framework, which causes conflicts with youtube subspec
@@ -178,10 +176,7 @@ Pod::Spec.new do |s|
     #googleplus.resource = "Frameworks/GooglePlus.bundle"
     #googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     #googleplus.dependency 'ShareKit/Core'
-    #googleplus.dependency 'Google-API-Client/Common'
-    #googleplus.dependency 'Google-API-Client/Objects'
-    #googleplus.dependency 'Google-API-Client/Utilities'
-    #googleplus.dependency 'Google-API-Client/Services/Plus'
+    #googleplus.dependency 'Google-API-Client/Plus'
     #googleplus.dependency 'OpenInChrome'
     #googleplus.dependency 'gtm-logger'
   #end
