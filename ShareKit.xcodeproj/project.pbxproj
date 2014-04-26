@@ -326,9 +326,7 @@
 		AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
 		AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
-		ACFC8BDB18EA8EC7008D72E9 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961E18EA88D7003DF6BD /* AFURLRequestSerialization.m */; };
 		ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */; };
-		ACFC8BDD18EA8ED2008D72E9 /* AFConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961B18EA88D7003DF6BD /* AFConstants.m */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -1139,10 +1137,6 @@
 		AC2195F318EA885C003DF6BD /* libOneNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOneNote.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC21961618EA88D7003DF6BD /* SHKOneNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOneNote.h; sourceTree = "<group>"; };
 		AC21961718EA88D7003DF6BD /* SHKOneNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOneNote.m; sourceTree = "<group>"; };
-		AC21961B18EA88D7003DF6BD /* AFConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFConstants.m; sourceTree = "<group>"; };
-		AC21961C18EA88D7003DF6BD /* AFNetworkingLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AFNetworkingLicense.txt; sourceTree = "<group>"; };
-		AC21961D18EA88D7003DF6BD /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		AC21961E18EA88D7003DF6BD /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
 		AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISO8601DateFormatterLicense.txt; sourceTree = "<group>"; };
@@ -2586,10 +2580,6 @@
 		AC21961A18EA88D7003DF6BD /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				AC21961B18EA88D7003DF6BD /* AFConstants.m */,
-				AC21961C18EA88D7003DF6BD /* AFNetworkingLicense.txt */,
-				AC21961D18EA88D7003DF6BD /* AFURLRequestSerialization.h */,
-				AC21961E18EA88D7003DF6BD /* AFURLRequestSerialization.m */,
 				AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */,
 				AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */,
 				AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */,
@@ -4417,9 +4407,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACFC8BDB18EA8EC7008D72E9 /* AFURLRequestSerialization.m in Sources */,
 				ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */,
-				ACFC8BDD18EA8ED2008D72E9 /* AFConstants.m in Sources */,
 				AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

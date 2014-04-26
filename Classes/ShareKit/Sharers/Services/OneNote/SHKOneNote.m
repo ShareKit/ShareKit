@@ -30,7 +30,6 @@
 #import "SHKConfiguration.h"
 #import "SHK.h"
 #import "LiveSDK/LiveConnectClient.h"
-#import "AFURLRequestSerialization.h"
 #import "ISO8601DateFormatter.h"
 #import "SHKFormFieldSettings.h"
 #import "SHKFormFieldLargeTextSettings.h"
@@ -254,128 +253,64 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
 }
 
 - (void)sendText {
-    NSString *date = [SHKOneNote getDate];
-    NSString *title = self.item.title ? self.item.title : @"Sharing Text via ShareKit";
-    NSString *simpleHtml = [NSString stringWithFormat:
-            @"<html><head><title>%@</title><meta name=\"created\" content=\"%@\" /></head><body>%@</body></html>",
-            title, date, self.item.text];
-    NSMutableDictionary *headers = [[NSMutableDictionary alloc] init];
-    [headers setValue:@"text/html" forKey:@"Content-Type"];
-
-    if ([SHKOneNote sharedClient].session) {
-        [headers setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forKey:@"Authorization"];
-    }
-
-    SHKRequest *request = [[SHKRequest alloc] initWithURL:[[NSURL alloc] initWithString:OneNoteHost]
-                                                   params:simpleHtml
-                                                   method:@"POST"
-                                               completion:^(SHKRequest *request) {
-                                                   if (request.success) {
-                                                       [self sendDidFinish];
-                                                   } else {
-                                                       [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with OneNote")]];
-                                                   }
-                                               }];
-
-    request.headerFields = headers;
-    [request start];
-
+    
+    NSMutableURLRequest *multipartrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:OneNoteHost]];
+    multipartrequest.HTTPMethod = @"POST";
+    
+    NSString *defaultTitle = @"Sharing Text via ShareKit";
+    
+    NSData *presentation = [self htmlDataWithBody:self.item.text defaultTitle:defaultTitle];
+    
+    [multipartrequest attachData:presentation withParameterName:@"Presentation" contentType:@"text/html"];
+    
+    [self send:multipartrequest trySession:NO];
 }
 
 - (void)sendImage {
-    NSString *date = [SHKOneNote getDate];
-    NSString *title = self.item.title ? self.item.title : @"Sharing an Image via ShareKit";
-
-    NSString *simpleHtml = [NSString stringWithFormat:
-            @"<html><head><title>%@</title><meta name=\"created\" content=\"%@\" /></head><body>"
-                    "<img src=\"name:image1\" width=\"%.0f\" height=\"%.0f\" />"
-                    "</body></html>",
-            title, date, self.item.image.size.width, self.item.image.size.height];
-    NSData *image1 = UIImageJPEGRepresentation(self.item.image, 1.0);
-    NSData *presentation = [simpleHtml dataUsingEncoding:NSUTF8StringEncoding];
-
-    NSMutableURLRequest *multipartrequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST"
-                                                                                              URLString:OneNoteHost
-                                                                                             parameters:nil
-                                                                              constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-                                                                                  [formData
-                                                                                          appendPartWithHeaders:@{
-                                                                                                  @"Content-Disposition" : @"form-data; name=\"Presentation\"",
-                                                                                                  @"Content-Type" : @"text/html"}
-                                                                                                           body:presentation];
-                                                                                  [formData
-                                                                                          appendPartWithHeaders:@{
-                                                                                                  @"Content-Disposition" : @"form-data; name=\"image1\"",
-                                                                                                  @"Content-Type" : @"image/jpeg"}
-                                                                                                           body:image1];
-                                                                              }];
-
-    if ([SHKOneNote sharedClient].session) {
-        [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
-    }
-    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
-                                                                 completion:^(SHKRequest *request) {
-                                                                     if (request.success) {
-                                                                         [self sendDidFinish];
-                                                                     } else {
-                                                                         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with OneNote")]];
-                                                                     }
-                                                                 }];
-
-    request.headerFields = [multipartrequest allHTTPHeaderFields];
-    [request start];
+    
+    NSMutableURLRequest *multipartrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:OneNoteHost]];
+    multipartrequest.HTTPMethod = @"POST";
+    
+    NSString *defaultTitle = @"Sharing an Image via ShareKit";
+    
+    NSString *bodyString = [[NSString alloc] initWithFormat:@"<img src=\"name:image1\" width=\"%.0f\" height=\"%.0f\" />", self.item.image.size.width, self.item.image.size.height];
+    
+    NSData *presentation = [self htmlDataWithBody:bodyString defaultTitle:defaultTitle];
+    
+    [multipartrequest attachData:presentation withParameterName:@"Presentation" contentType:@"text/html"];
+    
+    [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1.0];
+    [multipartrequest attachFile:self.item.file withParameterName:@"image1"];
+    
+    [self send:multipartrequest trySession:YES];
 }
 
 - (void)sendTextAndLink {
     
-    NSString *date = [SHKOneNote getDate];
-    NSString *title = self.item.title ? self.item.title : @"Sharing a Link via ShareKit";
+    NSMutableURLRequest *multipartrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:OneNoteHost]];
+    multipartrequest.HTTPMethod = @"POST";
+    
+    NSString *defaultTitle = @"Sharing a Link via ShareKit";
+    
     NSString *strURL = [self.item.URL absoluteString];
-    NSString *simpleHtml = [NSString stringWithFormat:@"<html><head><title>%@</title><meta name=\"created\" content=\"%@\" /></head><body>", title, date];
-    simpleHtml = [simpleHtml stringByAppendingFormat:
-            @"<p><div>%@</div><br/><a href=\"%@\">%@</a></p> <img data-render-src=\"%@\"/></body></html>",
-                    self.item.text, strURL, strURL, strURL];
-    simpleHtml = [simpleHtml stringByAppendingString:@"</body></html>"];
-
-    NSData *presentation = [simpleHtml dataUsingEncoding:NSUTF8StringEncoding];
-
-    NSMutableURLRequest *multipartrequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:OneNoteHost parameters:nil constructingBodyWithBlock:^(id <AFMultipartFormData> formData) {
-        [formData
-                appendPartWithHeaders:@{
-                        @"Content-Disposition" : @"form-data; name=\"Presentation\"",
-                        @"Content-Type" : @"text/html"}
-                                 body:presentation];
-        if (self.item.image) {
-            NSData *image1 = UIImageJPEGRepresentation(self.item.image, 1.0);
-            [formData
-                    appendPartWithHeaders:@{
-                            @"Content-Disposition" : @"form-data; name=\"image1\"",
-                            @"Content-Type" : @"image/jpeg"}
-                                     body:image1];
-
-        }
-    }];
-
-    if ([SHKOneNote sharedClient].session) {
-        [multipartrequest setValue:[@"Bearer " stringByAppendingString:[SHKOneNote sharedClient].session.accessToken] forHTTPHeaderField:@"Authorization"];
+    NSString *bodyString = [[NSString alloc] initWithFormat:@"<p><div>%@</div><br/><a href=\"%@\">%@</a></p> <img data-render-src=\"%@\"/></body></html>", self.item.text, strURL, strURL, strURL];
+    
+    NSData *presentation = [self htmlDataWithBody:bodyString defaultTitle:defaultTitle];
+    
+    [multipartrequest attachData:presentation withParameterName:@"Presentation" contentType:@"text/html"];
+    
+    if (self.item.image) {
+        [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:1.0];
+        [multipartrequest attachFile:self.item.file withParameterName:@"image1"];
     }
-
-    SHKRequest *request = [[SHKRequest alloc] initWithRequest:multipartrequest
-                                                                 completion:^(SHKRequest *request) {
-                                                                     if (request.success) {
-                                                                         [self sendDidFinish];
-                                                                     } else {
-                                                                         [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem sharing with OneNote")]];
-                                                                     }
-                                                                 }];
-
-    request.headerFields = [multipartrequest allHTTPHeaderFields];
-    [request start];
+    
+    BOOL trySession = self.item.file != nil;
+    [self send:multipartrequest trySession:trySession];
 }
 
 - (void)sendFile {
     
-#warning TODO: comment field omitted?
+//#warning TODO: comment field omitted?
     NSMutableURLRequest *multipartrequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:OneNoteHost]];
     multipartrequest.HTTPMethod = @"POST";
 
@@ -440,7 +375,7 @@ static NSString * const OneNoteHost = @"https://www.onenote.com/api/v1.0/pages";
                 if (success) {
                     [self sendFinishedSuccessfullyWithData:data];
                 } else {
-#warning TODO: revoked access error handling
+//#warning TODO: revoked access error handling
                     [self sendShowSimpleErrorAlert];
                 }
             }
