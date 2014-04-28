@@ -67,6 +67,7 @@
     self.actionButton.frame = CGRectMake(250, 0, 60, 40);
     [self.actionButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     self.actionButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.actionButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
     [self.contentView addSubview:self.actionButton];
     
     /*
