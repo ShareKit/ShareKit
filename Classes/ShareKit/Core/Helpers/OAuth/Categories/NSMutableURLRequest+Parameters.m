@@ -32,7 +32,7 @@
 
 #import "NSURL+Base.h"
 
-static NSString *Boundary = @"0xCoCoaouTHeBouNDaRy";
+static NSString *Boundary = @"----------0xCoCoaouTHeBouNDaRy";
 
 @implementation NSMutableURLRequest (OAParameterAdditions)
 
@@ -107,19 +107,25 @@ static NSString *Boundary = @"0xCoCoaouTHeBouNDaRy";
     
     NSMutableData *bodyData = [self preparedBodyData];
     
+    [self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
+    
 	NSString *filePrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\nContent-Type: %@\r\n\r\n", Boundary, name, filename, contentType];
 	[bodyData appendData:[filePrefix dataUsingEncoding:NSUTF8StringEncoding]];
+    
 	[bodyData appendData:data];
     
-    
 	[bodyData appendData:[[[@"\r\n--" stringByAppendingString:Boundary] stringByAppendingString:@"--"] dataUsingEncoding:NSUTF8StringEncoding]];
-	[self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField:@"Content-Length"];
-	[self setHTTPBody:bodyData];
+    
+    [self setValue:[NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]] forHTTPHeaderField:@"Content-Length"];
+    
+    [self setHTTPBody:bodyData];
 }
 
 - (void)attachData:(NSData *)data withParameterName:(NSString *)parameterName contentType:(NSString *)contentType {
     
     NSMutableData *bodyData = [self preparedBodyData];
+    
+    [self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
     
     NSString *dataPrefix = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\nContent-Type: %@\r\n\r\n", Boundary, parameterName, contentType];
     [bodyData appendData:[dataPrefix dataUsingEncoding:NSUTF8StringEncoding]];
@@ -138,30 +144,40 @@ static NSString *Boundary = @"0xCoCoaouTHeBouNDaRy";
         
         result = (NSMutableData *)self.HTTPBody;
         
+        NSString *trailingBoundary = [[[NSString alloc] initWithFormat:@"--%@--", Boundary] autorelease];
+        NSString *bodyString = [[[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding] autorelease];
+        
         //if trailing boundary already present, remove it
-        NSString *trailingBoundary = [[NSString alloc] initWithFormat:@"--%@--", Boundary];
-        NSString *bodyString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
         if ([bodyString hasSuffix:trailingBoundary]) {
-            bodyString = [bodyString substringToIndex:[result length]-[trailingBoundary length]];
-            result = [[bodyString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+            NSString *trimmedBodyString = [bodyString substringToIndex:[result length]-[trailingBoundary length]];
+            result = [[trimmedBodyString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+            [result autorelease];
+            
+        } else {
+            
+            //assume the body contains plain oauth parameters only. We need to convert them to multipart/form-data. It is a hacky workaround due to legacy sharers. It is easier to do it here than change all sharer's code.
+            result = [self convertParamsToMultipartData];
         }
 
     } else {
         
-        result = [[NSMutableData new] autorelease];
-        
-        //for oauth parameters only
-        NSArray *parameters = [self parameters];
-        for (OARequestParameter *parameter in parameters) {
-            NSString *param = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n",
-                               Boundary, [parameter URLEncodedName], [parameter value]];
-            
-            [result appendData:[param dataUsingEncoding:NSUTF8StringEncoding]];
-        }
-        
-        [self setValue:[@"multipart/form-data; boundary=" stringByAppendingString:Boundary] forHTTPHeaderField:@"Content-type"];
+        result = [self convertParamsToMultipartData];
     }
     
+    return result;
+}
+
+- (NSMutableData *)convertParamsToMultipartData {
+    
+    NSMutableData *result = [[NSMutableData new] autorelease];
+
+    //for oauth parameters only
+    NSArray *parameters = [self parameters];
+    for (OARequestParameter *parameter in parameters) {
+        NSString *param = [NSString stringWithFormat:@"--%@\r\nContent-Disposition: form-data; name=\"%@\"\r\n\r\n%@\r\n", Boundary, [parameter URLEncodedName], [parameter value]];
+        
+        [result appendData:[param dataUsingEncoding:NSUTF8StringEncoding]];
+    }
     return result;
 }
 
