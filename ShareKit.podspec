@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.5.6'
+  s.version       = '2.5.7'
   s.platform      = :ios, '6.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
     noarc.dependency 'PKMultipartInputStream'
     noarc.requires_arc = false
     noarc.source_files = non_arc_files
+    noarc.dependency 'ShareKit/Core'
   end
 
   s.subspec 'Reachability' do |reachability|
