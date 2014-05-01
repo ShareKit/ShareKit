@@ -144,7 +144,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
                                                                                  provider:self];
     blogField.validationBlock = ^ (SHKFormFieldOptionPickerSettings *formFieldSettings) {
         
-        BOOL result = [formFieldSettings valueToSave];
+        BOOL result = [formFieldSettings valueToSave].length > 0;
         return result;
     };
     
