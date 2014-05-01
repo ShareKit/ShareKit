@@ -175,7 +175,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 {
 	if (self = [super initWithNibName:nil bundle:nil])
 	{
-        _shareDelegate = [[SHKSharerDelegate alloc] init];
+        _shareDelegate = [[SHKCONFIG(SHKSharerDelegateSubclass) alloc] init];
 				
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyleForController:self];

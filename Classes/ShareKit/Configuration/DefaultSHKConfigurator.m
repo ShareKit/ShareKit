@@ -550,6 +550,10 @@ on the auth path. It will try to use native auth if availible.
     return NSClassFromString(@"SHKActivityIndicator");
 }
 
+//You can supply your own way to react to various ShareKit events. The default shows HUD with progress, Saved! or error alert. Except changing this you can also listen for ShareKit's notifications, or simply subclass activityIndicator to whatever you need.
+- (Class)SHKSharerDelegateSubclass {
+    return NSClassFromString(@"SHKSharerDelegate");
+}
 #pragma mark - Advanced Configuration
 
 /*

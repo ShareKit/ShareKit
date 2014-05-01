@@ -107,6 +107,7 @@
 - (Class)SHKUploadsViewControllerSubclass;
 - (Class)SHKAccountsViewControllerSubclass;
 - (Class)SHKActivityIndicatorSubclass;
+- (Class)SHKSharerDelegateSubclass;
 //SHKDropbox
 -(NSString *)dropboxAppKey;
 -(NSString *)dropboxAppSecret;
