@@ -86,9 +86,9 @@
 		self.secretKey = SHKCONFIG(flickrSecretKey);
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(flickrCallbackUrl)];
 	
-	    self.requestURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/request_token"];
-	    self.authorizeURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/authorize"];
-	    self.accessURL = [NSURL URLWithString:@"http://www.flickr.com/services/oauth/access_token"];
+	    self.requestURL = [NSURL URLWithString:@"https://www.flickr.com/services/oauth/request_token"];
+	    self.authorizeURL = [NSURL URLWithString:@"https://www.flickr.com/services/oauth/authorize"];
+	    self.accessURL = [NSURL URLWithString:@"https://www.flickr.com/services/oauth/access_token"];
 		
 		self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}
@@ -199,7 +199,7 @@
 
 - (OAAsynchronousDataFetcher *)sendFlickrRequestMethod:(NSString *)method parameters:(NSArray *)parameters {
     
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.flickr.com/services/rest/"]
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.flickr.com/services/rest/"]
                                                                     consumer:self.consumer
                                                                        token:self.accessToken
                                                                        realm:nil
@@ -222,7 +222,7 @@
 
 - (OAAsynchronousDataFetcher *)uploadPhoto {
     
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://up.flickr.com/services/upload/"]
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://up.flickr.com/services/upload/"]
                                                                     consumer:self.consumer
                                                                        token:self.accessToken
                                                                        realm:nil
