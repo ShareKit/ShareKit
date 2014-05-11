@@ -28,7 +28,7 @@
 #import "ExampleShareLink.h"
 #import "ShareKit.h"
 
-#define TRY_ENHANCED_URL_SHARE 0
+#define TRY_ENHANCED_URL_SHARE 1
 
 @interface ExampleShareLink () <UIWebViewDelegate>
 

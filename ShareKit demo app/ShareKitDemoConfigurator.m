@@ -233,6 +233,10 @@
     return @"https://imgur.com";
 }
 
+- (NSString *)pinterestClientId {
+    return @"1437704";
+}
+
 #pragma mark - UI Configuration : Basic
 
 - (NSNumber *)useAppleShareUI {

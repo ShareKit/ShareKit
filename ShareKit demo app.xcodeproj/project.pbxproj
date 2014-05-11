@@ -44,6 +44,8 @@
 		7A04083A17413908003404B9 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
 		7A04083C1741399E003404B9 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
 		7A0FB85017A4460C00B88C87 /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AA2E84D1743805E00B17434 /* libShareKit.a */; };
+		7A70B30D191F619A0070C5FB /* Pinterest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70B30A191F619A0070C5FB /* Pinterest.framework */; };
+		7A70B30E191F619A0070C5FB /* PinterestSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7A70B30C191F619A0070C5FB /* PinterestSDKResources.bundle */; };
 		7A85B55F17FA220100C86E77 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A85B53317FA1FD900C86E77 /* libxml2.dylib */; };
 		7A9FEF3C180741840053CB40 /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9FEF3B180741840053CB40 /* GooglePlus.framework */; };
 		7A9FEF661807422D0053CB40 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A9FEF651807422D0053CB40 /* CoreText.framework */; };
@@ -78,6 +80,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 7ADB643918C5BF3B00B5AF7F;
 			remoteInfo = PKMultipartInputStream;
+		};
+		7A70B2E7191C8BA70070C5FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4932D60E18DCBD840075FEE8;
+			remoteInfo = Imgur;
+		};
+		7A70B2E9191C8BA70070C5FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7A70B2AF191C7E950070C5FB;
+			remoteInfo = Pinterest;
 		};
 		7AA2E84C1743805E00B17434 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -430,6 +446,8 @@
 		7A04083717413908003404B9 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		7A04083817413908003404B9 /* RootViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RootViewController.xib; sourceTree = "<group>"; };
 		7A04083B1741399E003404B9 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainWindow-iPad.xib"; path = "Resources-iPad/MainWindow-iPad.xib"; sourceTree = "<group>"; };
+		7A70B30A191F619A0070C5FB /* Pinterest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pinterest.framework; sourceTree = "<group>"; };
+		7A70B30C191F619A0070C5FB /* PinterestSDKResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PinterestSDKResources.bundle; sourceTree = "<group>"; };
 		7A85B53317FA1FD900C86E77 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		7A9FEF3B180741840053CB40 /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GooglePlus.framework; path = Frameworks/GooglePlus.framework; sourceTree = "<group>"; };
 		7A9FEF651807422D0053CB40 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -466,6 +484,7 @@
 				7A040832174133C5003404B9 /* Social.framework in Frameworks */,
 				7A04076A17410472003404B9 /* QuartzCore.framework in Frameworks */,
 				7A04076617410442003404B9 /* libsqlite3.dylib in Frameworks */,
+				7A70B30D191F619A0070C5FB /* Pinterest.framework in Frameworks */,
 				7A04076417410435003404B9 /* Accounts.framework in Frameworks */,
 				7A0407621741042E003404B9 /* AdSupport.framework in Frameworks */,
 				7A04076017410423003404B9 /* Twitter.framework in Frameworks */,
@@ -512,6 +531,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7A70B309191F619A0070C5FB /* Pinterest.embeddedframework */,
 				DBCA448718EB185300D4AD00 /* LiveSDK.framework */,
 				7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */,
 				7AD6584718576FC3002D6245 /* GooglePlus.bundle */,
@@ -599,6 +619,24 @@
 			name = Submodules;
 			sourceTree = "<group>";
 		};
+		7A70B309191F619A0070C5FB /* Pinterest.embeddedframework */ = {
+			isa = PBXGroup;
+			children = (
+				7A70B30A191F619A0070C5FB /* Pinterest.framework */,
+				7A70B30B191F619A0070C5FB /* Resources */,
+			);
+			name = Pinterest.embeddedframework;
+			path = Frameworks/Pinterest.embeddedframework;
+			sourceTree = "<group>";
+		};
+		7A70B30B191F619A0070C5FB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A70B30C191F619A0070C5FB /* PinterestSDKResources.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7AA2E81F1743805E00B17434 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -644,7 +682,9 @@
 				94CC293817453A3100C31CD8 /* libPocket SDK.a */,
 				7AD6584618576AAA002D6245 /* Static Library Tests.xctest */,
 				7A11916118D7450A004353B7 /* libPKMultipartInputStream.a */,
+				7A70B2E8191C8BA70070C5FB /* libImgur.a */,
 				DBCA44B318EB185300D4AD00 /* libOneNote.a */,
+				7A70B2EA191C8BA70070C5FB /* libPinterest.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -735,6 +775,20 @@
 			fileType = archive.ar;
 			path = libPKMultipartInputStream.a;
 			remoteRef = 7A11916018D7450A004353B7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7A70B2E8191C8BA70070C5FB /* libImgur.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libImgur.a;
+			remoteRef = 7A70B2E7191C8BA70070C5FB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		7A70B2EA191C8BA70070C5FB /* libPinterest.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPinterest.a;
+			remoteRef = 7A70B2E9191C8BA70070C5FB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		7AA2E84D1743805E00B17434 /* libShareKit.a */ = {
@@ -1040,6 +1094,7 @@
 			files = (
 				AC87CBD818EDF81300BBA454 /* LiveSDK.framework in Resources */,
 				7AA2E93E1743828300B17434 /* ShareKit.bundle in Resources */,
+				7A70B30E191F619A0070C5FB /* PinterestSDKResources.bundle in Resources */,
 				7A0406711740E3F6003404B9 /* InfoPlist.strings in Resources */,
 				7A0406791740E3F6003404B9 /* Default.png in Resources */,
 				7A04067B1740E3F6003404B9 /* Default@2x.png in Resources */,
@@ -1184,6 +1239,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/Pinterest.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";
@@ -1204,6 +1260,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					$inherited,
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/Frameworks/Pinterest.embeddedframework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShareKit demo app/ShareKit demo app-Prefix.pch";

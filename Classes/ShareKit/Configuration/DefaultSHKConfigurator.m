@@ -415,6 +415,12 @@ on the auth path. It will try to use native auth if availible.
 - (NSNumber *)imgurAnonymousUploads {
     return @NO;
 }
+
+///You can get Pinterest client ID from https://developers.pinterest.com/manage/
+- (NSString *)pinterestClientId {
+    return @"";
+}
+
 #pragma mark - Basic UI Configuration
 
 /*

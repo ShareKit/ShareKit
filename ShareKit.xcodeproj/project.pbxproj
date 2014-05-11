@@ -112,6 +112,9 @@
 		7A5C28D61896C23D00E47E62 /* SHKUploadInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28D41896C23D00E47E62 /* SHKUploadInfo.m */; };
 		7A5C28DF189BA57100E47E62 /* SHKMBRoundProgressView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5C28DD189BA57100E47E62 /* SHKMBRoundProgressView.h */; };
 		7A5C28E0189BA57100E47E62 /* SHKMBRoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5C28DE189BA57100E47E62 /* SHKMBRoundProgressView.m */; };
+		7A70B2AA191C7E950070C5FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		7A70B2B5191C7F760070C5FB /* SHKPinterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A70B2B4191C7F760070C5FB /* SHKPinterest.m */; };
+		7A70B2ED191C91390070C5FB /* libPinterest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A70B2AF191C7E950070C5FB /* libPinterest.a */; };
 		7A72AD06189FD9490039D762 /* SHKAccountsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A72AD04189FD9490039D762 /* SHKAccountsViewController.h */; };
 		7A72AD07189FD9490039D762 /* SHKAccountsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A72AD05189FD9490039D762 /* SHKAccountsViewController.m */; };
 		7A74C18716E8A64400CFDFC3 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A74C18616E8A64400CFDFC3 /* Singleton.h */; };
@@ -323,8 +326,6 @@
 		AABBED6E162F0C1A009D46E4 /* SHKPinboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E311DBE3B9004A1712 /* SHKPinboard.m */; };
 		AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961718EA88D7003DF6BD /* SHKOneNote.m */; };
-		AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
-		AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = AC87CBA618EDE04600BBA454 /* LiveSDK.framework */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
 		ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
@@ -375,6 +376,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A4E465B173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
+		};
+		7A70B2EB191C912C0070C5FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A70B2A4191C7E950070C5FB;
+			remoteInfo = Pinterest;
 		};
 		7A8C03CC1848CDEF008E4C0A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -617,6 +625,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		7A70B2AB191C7E950070C5FB /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AC2195F118EA885C003DF6BD /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -856,6 +873,9 @@
 		7A5C28D41896C23D00E47E62 /* SHKUploadInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKUploadInfo.m; sourceTree = "<group>"; };
 		7A5C28DD189BA57100E47E62 /* SHKMBRoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKMBRoundProgressView.h; sourceTree = "<group>"; };
 		7A5C28DE189BA57100E47E62 /* SHKMBRoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKMBRoundProgressView.m; sourceTree = "<group>"; };
+		7A70B2AF191C7E950070C5FB /* libPinterest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPinterest.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A70B2B3191C7F760070C5FB /* SHKPinterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKPinterest.h; path = Pinterest/SHKPinterest.h; sourceTree = "<group>"; };
+		7A70B2B4191C7F760070C5FB /* SHKPinterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKPinterest.m; path = Pinterest/SHKPinterest.m; sourceTree = "<group>"; };
 		7A72AD04189FD9490039D762 /* SHKAccountsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKAccountsViewController.h; sourceTree = "<group>"; };
 		7A72AD05189FD9490039D762 /* SHKAccountsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKAccountsViewController.m; sourceTree = "<group>"; };
 		7A74C18616E8A64400CFDFC3 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
@@ -1140,7 +1160,6 @@
 		AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
 		AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
 		AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISO8601DateFormatterLicense.txt; sourceTree = "<group>"; };
-		AC87CBA618EDE04600BBA454 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = Frameworks/LiveSDK.framework; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKDiigo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
@@ -1270,6 +1289,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A70B2A8191C7E950070C5FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A70B2AA191C7E950070C5FB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A8C03BB1848CDEE008E4C0A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1291,6 +1318,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A70B2ED191C91390070C5FB /* libPinterest.a in Frameworks */,
 				4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */,
 				ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */,
 				7ADB644518C5C0FA00B5AF7F /* libPKMultipartInputStream.a in Frameworks */,
@@ -1513,7 +1541,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC87CBA718EDE04600BBA454 /* LiveSDK.framework in Frameworks */,
 				AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1583,6 +1610,7 @@
 				7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */,
 				4932D60E18DCBD840075FEE8 /* libImgur.a */,
 				AC2195F318EA885C003DF6BD /* libOneNote.a */,
+				7A70B2AF191C7E950070C5FB /* libPinterest.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1613,7 +1641,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AC87CBA618EDE04600BBA454 /* LiveSDK.framework */,
 				7A85B55D17FA204700C86E77 /* libxml2.dylib */,
 				7A3A0D90170CC94B00A0B717 /* CoreMedia.framework */,
 				7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */,
@@ -2001,6 +2028,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7A70B2A3191C7E530070C5FB /* Pinterest */,
 				AC21961518EA88D6003DF6BD /* OneNote */,
 				949BCB94172A998A00D706D4 /* Buffer */,
 				7A0F91CB156B9FCE009CB40A /* Delicious */,
@@ -2220,6 +2248,15 @@
 				7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */,
 			);
 			name = "Google OAuth";
+			sourceTree = "<group>";
+		};
+		7A70B2A3191C7E530070C5FB /* Pinterest */ = {
+			isa = PBXGroup;
+			children = (
+				7A70B2B3191C7F760070C5FB /* SHKPinterest.h */,
+				7A70B2B4191C7F760070C5FB /* SHKPinterest.m */,
+			);
+			name = Pinterest;
 			sourceTree = "<group>";
 		};
 		7A85B50D17FA1E4C00C86E77 /* ENMLWriter */ = {
@@ -3287,6 +3324,23 @@
 			productReference = 7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7A70B2A4191C7E950070C5FB /* Pinterest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A70B2AC191C7E950070C5FB /* Build configuration list for PBXNativeTarget "Pinterest" */;
+			buildPhases = (
+				7A70B2A5191C7E950070C5FB /* Sources */,
+				7A70B2A8191C7E950070C5FB /* Frameworks */,
+				7A70B2AB191C7E950070C5FB /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Pinterest;
+			productName = OneNote;
+			productReference = 7A70B2AF191C7E950070C5FB /* libPinterest.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7A8C03BD1848CDEE008E4C0A /* Static Library Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A8C03D31848CDEF008E4C0A /* Build configuration list for PBXNativeTarget "Static Library Tests" */;
@@ -3333,6 +3387,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A70B2EC191C912C0070C5FB /* PBXTargetDependency */,
 				4979F30D18DCE75B000F1733 /* PBXTargetDependency */,
 				7ADB644018C5BFF000B5AF7F /* PBXTargetDependency */,
 				7A4E4667173E2C5300CCEE80 /* PBXTargetDependency */,
@@ -3930,6 +3985,7 @@
 				7ADB642E18C5BF3B00B5AF7F /* PKMultipartInputStream */,
 				4932D60318DCBD840075FEE8 /* Imgur */,
 				AC2195F218EA885C003DF6BD /* OneNote */,
+				7A70B2A4191C7E950070C5FB /* Pinterest */,
 			);
 		};
 /* End PBXProject section */
@@ -3960,7 +4016,6 @@
 				7A107CE717AA4E7A009A7F0E /* DETweetURLAttachment@2x.png in Resources */,
 				7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */,
 				7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */,
-				AC87CBA818EDE07200BBA454 /* LiveSDK.framework in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4164,6 +4219,14 @@
 				7AA2E9F31743E51C00B17434 /* PocketAPILogin.m in Sources */,
 				7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */,
 				7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A70B2A5191C7E950070C5FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A70B2B5191C7F760070C5FB /* SHKPinterest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4452,6 +4515,11 @@
 			isa = PBXTargetDependency;
 			target = 7A4E465B173E2C2500CCEE80 /* Pocket SDK */;
 			targetProxy = 7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */;
+		};
+		7A70B2EC191C912C0070C5FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A70B2A4191C7E950070C5FB /* Pinterest */;
+			targetProxy = 7A70B2EB191C912C0070C5FB /* PBXContainerItemProxy */;
 		};
 		7A8C03CD1848CDEF008E4C0A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5244,6 +5312,91 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "Pocket SDK";
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A70B2AD191C7E950070C5FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/OneNote.dst;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/**",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Pinterest;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A70B2AE191C7E950070C5FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/OneNote.dst;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/**",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Pinterest;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -6813,6 +6966,15 @@
 			buildConfigurations = (
 				7A4E4661173E2C2500CCEE80 /* Debug */,
 				7A4E4662173E2C2500CCEE80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A70B2AC191C7E950070C5FB /* Build configuration list for PBXNativeTarget "Pinterest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A70B2AD191C7E950070C5FB /* Debug */,
+				7A70B2AE191C7E950070C5FB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
