@@ -369,6 +369,20 @@ BOOL SHKinit;
 {	
 	
     NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[self favoritesKeyForItem:item]];
+    
+    //temporary check for iOS sharers. They were separated from original sharers such as SHKFacebook. Under certain circumstances this caused no sharers in shareMenu, see https://github.com/ShareKit/ShareKit/issues/885.
+    BOOL favoritesContainSoloLegacyFacebook = [favoriteSharers containsObject:@"SHKFacebook"] && ![favoriteSharers containsObject:@"SHKiOSFacebook"];
+    if (favoritesContainSoloLegacyFacebook) {
+        NSMutableArray *mutableFavoriteSharers = [favoriteSharers mutableCopy];
+        [mutableFavoriteSharers addObject:@"SHKiOSFacebook"];
+        favoriteSharers = mutableFavoriteSharers;
+    }
+    BOOL favoritesContainSoloLegacyTwitter = [favoriteSharers containsObject:@"SHKTwitter"] && ![favoriteSharers containsObject:@"SHKiOSTwitter"];
+    if (favoritesContainSoloLegacyTwitter) {
+        NSMutableArray *mutableFavoriteSharers = [favoriteSharers mutableCopy];
+        [mutableFavoriteSharers addObject:@"SHKiOSTwitter"];
+        favoriteSharers = mutableFavoriteSharers;
+    }
 		
 	// set defaults
 	if (favoriteSharers == nil)
