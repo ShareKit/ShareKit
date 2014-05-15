@@ -112,24 +112,6 @@
     return result;
 }
 
-- (UIImage *)thumbnailImage {
-
-    UIImage *result = nil;
-    switch (self.settings.shareType) {
-        case SHKShareTypeImage:
-        case SHKShareTypeURL:
-            result = [self.settings imageForThumbnail];
-            break;
-        case SHKShareTypeFile:
-            result = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
-            break;
-        default:
-            break;
-    }
-    
-    return result;
-}
-
 - (void)setupWithSettings:(SHKFormFieldLargeTextSettings *)settings {
     
     [super setupWithSettings:settings];
@@ -145,7 +127,7 @@
     
     if ([self.settings shouldShowThumbnail]) {
         self.clippedImageView.hidden = NO;
-        self.clippedImageView.image = [self thumbnailImage];
+        [self.settings setupThumbnailOnImageView:self.clippedImageView];
         self.clipImageView.hidden = NO;
         self.fileExtension.hidden = NO;
     } else {
