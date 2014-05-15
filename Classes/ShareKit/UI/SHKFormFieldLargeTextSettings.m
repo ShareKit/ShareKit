@@ -37,9 +37,12 @@
 
 - (void)setupThumbnailOnImageView:(UIImageView *)imageView {
     
+    imageView.image = nil;
+    
     switch (self.item.shareType) {
         case SHKShareTypeImage:
         case SHKShareTypeURL:
+        case SHKShareTypeText:
             
             if (self.item.image) {
                 imageView.image = self.item.image;
@@ -59,7 +62,6 @@
             imageView.image = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
             break;
         default:
-            imageView.image = nil;
             break;
     }
 }
