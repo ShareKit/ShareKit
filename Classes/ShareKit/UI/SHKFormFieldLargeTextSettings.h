@@ -36,8 +36,7 @@
                                    start:(NSString *)s
                                     item:(SHKItem *)item;
 - (BOOL)shouldShowThumbnail;
-- (UIImage *)imageForThumbnail;
+- (void)setupThumbnailOnImageView:(UIImageView *)imageView;
 - (NSString *)extensionForThumbnail;
-- (SHKShareType)shareType;
 
 @end

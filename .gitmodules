@@ -25,3 +25,9 @@
 [submodule "Submodules/samtextview"]
 	path = Submodules/samtextview
 	url = https://github.com/soffes/SAMTextView.git
+[submodule "Submodules/SDWebImage"]
+	path = Submodules/SDWebImage
+	url = https://github.com/rs/SDWebImage.git
+[submodule "Submodules/UIActivityIndicator-for-SDWebImage"]
+	path = Submodules/UIActivityIndicator-for-SDWebImage
+	url = https://github.com/JJSaccolo/UIActivityIndicator-for-SDWebImage.git
