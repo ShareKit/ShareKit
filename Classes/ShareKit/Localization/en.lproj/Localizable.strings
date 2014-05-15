@@ -272,6 +272,8 @@
 //iOS Sharers general, alert title when user has not configured service's account in Settings.app
 "No %@ Accounts" = "No %@ Accounts";
 "There are no %@ accounts configured. You can add or create a %@ account in Settings." = "There are no %@ accounts configured. You can add or create a %@ account in Settings.";
+"No Access" = "No Access";
+"Access to %@ is not allowed for this app. You can allow access in Settings." = "Access to %@ is not allowed for this app. You can allow access in Settings.";
 
 //uploads view controller
 "Failed" = "Failed";
