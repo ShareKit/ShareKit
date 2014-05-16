@@ -135,51 +135,83 @@ static SHKFacebook *requestingPermisSHKFacebook=nil;
                       state:(FBSessionState) state
                       error:(NSError *)error
 {
-	if(FB_ISSESSIONOPENWITHSTATE(state)){
-		NSAssert(error == nil, @"ShareKit: Facebook sessionStateChanged open session, but errors?!?!");
-		if(requestingPermisSHKFacebook == self){
-			// in this case, we basically want to ignore the state change because the
-			// completion handler for the permission request handles the post.
-			// this happens when the permissions just get extended 
-		}else{
-			[self restoreItem];
-			
-			if (authingSHKFacebook == self) {
-				[self authDidFinish:true];
-			}
-			
-			[self tryPendingAction];
-		}
-	}else if (FB_ISSESSIONSTATETERMINAL(state)){
-		if (authingSHKFacebook == self) {	// the state can change for a lot of reasons that are out of the login loop
-			[self authDidFinish:NO];		// for exaple closing the session in dealloc.
-		}else{
-			// seems that if you expire the tolken that it thinks is valid it will close the session without reporting
-			// errors super awesome. So look for the errors in the FBRequestHandlerCallback
-		}
-	}
-	
-	// post a notification so that custom UI can show the login state.
+    if(FB_ISSESSIONOPENWITHSTATE(state)){
+        NSAssert(error == nil, @"ShareKit: Facebook sessionStateChanged open session, but errors?!?!");
+        if(requestingPermisSHKFacebook == self){
+            // in this case, we basically want to ignore the state change because the
+            // completion handler for the permission request handles the post.
+            // this happens when the permissions just get extended
+        }else{
+
+            /** In the case of authentication success in iOS 6+, FBSession gets accessToken that may be invalid
+            * (for example in the case of removing app from facebook app settings at https://www.facebook.com/settings?tab=applications)
+            *
+            * When Sharekit calls [FBSession openActiveSessionWithReadPermissions:...], the iOS 6+ device may think the token is valid and will let
+            * the state go to Open, so success gets called. Then authentication error will only occure after calling next Facebook request call.
+            * So for being sure that access token is surely valid, we test here Facebook request with opened session and test response.
+            * If error occured - we are trying to reopen session again.
+            */
+            [SHKFacebookCommon refreshCurrentAccessTokenIfNeededWithCompletionBlock:^(NSError *openingSessionError){
+                [self handleAuthCompletionWithError:openingSessionError];
+            }];
+        }
+    }else if (FB_ISSESSIONSTATETERMINAL(state)){
+        if (authingSHKFacebook == self) {	// the state can change for a lot of reasons that are out of the login loop
+            [self authDidFinish:NO];		// for exaple closing the session in dealloc.
+        }else{
+            // seems that if you expire the tolken that it thinks is valid it will close the session without reporting
+            // errors super awesome. So look for the errors in the FBRequestHandlerCallback
+        }
+        [self removeSharerReferenceIfNeeded];
+    }
+
+    // post a notification so that custom UI can show the login state.
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"SHKFacebookSessionStateChangeNotification"
-     object:session];
-    
+                   object:session];
+
+    [self handleAuthError:error];
+}
+
+
+- (void)handleAuthCompletionWithError:(NSError *)error {
+    if (!error){
+        //do something again, or consider recursive call with a max retry count.
+        [self restoreItem];
+        [self authDidFinish:true];
+        [self tryPendingAction];
+    }
+
+    [self handleAuthError:error];
+    [self removeSharerReferenceIfNeeded];
+}
+
+#pragma mark - Auth completion
+
+- (void)handleAuthError:(NSError *)error {
     if (error && error.fberrorShouldNotifyUser) {
-		[FBSession.activeSession closeAndClearTokenInformation];
-        
+        [FBSession.activeSession closeAndClearTokenInformation];
+
         UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.fberrorUserMessage
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
+         initWithTitle:@"Error"
+               message:error.fberrorUserMessage
+              delegate:nil
+     cancelButtonTitle:@"OK"
+     otherButtonTitles:nil];
         [alertView show];
     }
-	if (authingSHKFacebook == self) {
-		authingSHKFacebook = nil;
-		[[SHK currentHelper] removeSharerReference:self];
-	}
 }
+
+
+- (void)removeSharerReferenceIfNeeded {
+    if (authingSHKFacebook == self) {
+        authingSHKFacebook = nil;
+        [[SHK currentHelper] removeSharerReference:self];
+    }
+}
+
+
+#pragma mark - Handlers
 
 + (BOOL)handleOpenURL:(NSURL*)url
 {
