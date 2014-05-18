@@ -357,6 +357,9 @@
 		AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961718EA88D7003DF6BD /* SHKOneNote.m */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
 		ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */; };
+		C4823E10192931730099673A /* SHKChrome.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E0F192931730099673A /* SHKChrome.h */; };
+		C4823E1C1929328C0099673A /* SHKChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E111929317D0099673A /* SHKChrome.m */; };
+		C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E1B192932780099673A /* libOpen in Chrome.a */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -650,6 +653,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = AC2195F218EA885C003DF6BD;
 			remoteInfo = OneNote;
+		};
+		C4823E1E192932D30099673A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4823E13192932780099673A;
+			remoteInfo = "Open in Chrome";
 		};
 		DE334C2F16F333B000FF692B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1243,6 +1253,9 @@
 		C0AD00F2142B7B6D000862D9 /* SHKLinkedIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLinkedIn.h; sourceTree = "<group>"; };
 		C0AD00F3142B7B6D000862D9 /* SHKLinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKLinkedIn.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C4823E0F192931730099673A /* SHKChrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKChrome.h; sourceTree = "<group>"; };
+		C4823E111929317D0099673A /* SHKChrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKChrome.m; sourceTree = "<group>"; };
+		C4823E1B192932780099673A /* libOpen in Chrome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in Chrome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
 		CE857E3816771D78005003DA /* SHKVKontakteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVKontakteRequest.m; sourceTree = "<group>"; };
 		DE334C0516F3319800FF692B /* SHKDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKDropbox.h; sourceTree = "<group>"; };
@@ -1382,6 +1395,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */,
 				7A70B2ED191C91390070C5FB /* libPinterest.a in Frameworks */,
 				7AB8A5C719250A7D00EC73A2 /* libSDWebImage.a in Frameworks */,
 				4979F30E18DCE9B7000F1733 /* libImgur.a in Frameworks */,
@@ -1617,6 +1631,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4823E16192932780099673A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1E16F3339300FF692B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1684,6 +1705,7 @@
 				AC2195F318EA885C003DF6BD /* libOneNote.a */,
 				7A70B2AF191C7E950070C5FB /* libPinterest.a */,
 				7AB8A568192505B200EC73A2 /* libSDWebImage.a */,
+				C4823E1B192932780099673A /* libOpen in Chrome.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2065,6 +2087,7 @@
 				43A536BA11DBE3B9004A1712 /* Email */,
 				E68738B6141677C000D8C3DD /* Logout */,
 				43A536BD11DBE3B9004A1712 /* Open in Safari */,
+				C4823E0D192931500099673A /* Open in Chrome */,
 				BA465F1C14CC3C5000B52394 /* Print */,
 				432B147911FF4B0700291B37 /* Save to Album */,
 				4379F3AF1291C45700D2A41E /* Text Message */,
@@ -2788,6 +2811,15 @@
 			path = LinkedIn;
 			sourceTree = "<group>";
 		};
+		C4823E0D192931500099673A /* Open in Chrome */ = {
+			isa = PBXGroup;
+			children = (
+				C4823E0F192931730099673A /* SHKChrome.h */,
+				C4823E111929317D0099673A /* SHKChrome.m */,
+			);
+			path = "Open in Chrome";
+			sourceTree = "<group>";
+		};
 		DE334C0316F3315D00FF692B /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -2985,6 +3017,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */,
+				C4823E10192931730099673A /* SHKChrome.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3232,6 +3265,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AABBED82162F0C4D009D46E4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4823E17192932780099673A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3525,6 +3565,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C4823E1F192932D30099673A /* PBXTargetDependency */,
 				7A70B2EC191C912C0070C5FB /* PBXTargetDependency */,
 				7AB8A5C619250A7100EC73A2 /* PBXTargetDependency */,
 				4979F30D18DCE75B000F1733 /* PBXTargetDependency */,
@@ -4031,6 +4072,23 @@
 			productReference = AC2195F318EA885C003DF6BD /* libOneNote.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		C4823E13192932780099673A /* Open in Chrome */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4823E18192932780099673A /* Build configuration list for PBXNativeTarget "Open in Chrome" */;
+			buildPhases = (
+				C4823E14192932780099673A /* Sources */,
+				C4823E16192932780099673A /* Frameworks */,
+				C4823E17192932780099673A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Open in Chrome";
+			productName = ShareKitLibrary;
+			productReference = C4823E1B192932780099673A /* libOpen in Chrome.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		DE334C2016F3339300FF692B /* Dropbox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE334C2A16F3339400FF692B /* Build configuration list for PBXNativeTarget "Dropbox" */;
@@ -4143,6 +4201,7 @@
 				AC2195F218EA885C003DF6BD /* OneNote */,
 				7A70B2A4191C7E950070C5FB /* Pinterest */,
 				7AB8A55F192505B200EC73A2 /* SDWebImage */,
+				C4823E13192932780099673A /* Open in Chrome */,
 			);
 		};
 /* End PBXProject section */
@@ -4652,6 +4711,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4823E14192932780099673A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4823E1C1929328C0099673A /* SHKChrome.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1D16F3339300FF692B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4867,6 +4934,11 @@
 			isa = PBXTargetDependency;
 			target = AC2195F218EA885C003DF6BD /* OneNote */;
 			targetProxy = ACFC8BD818EA8D29008D72E9 /* PBXContainerItemProxy */;
+		};
+		C4823E1F192932D30099673A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4823E13192932780099673A /* Open in Chrome */;
+			targetProxy = C4823E1E192932D30099673A /* PBXContainerItemProxy */;
 		};
 		DE334C3016F333B000FF692B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7016,6 +7088,49 @@
 			};
 			name = Release;
 		};
+		C4823E19192932780099673A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Open in Chrome";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C4823E1A192932780099673A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Open in Chrome";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DE334C2B16F3339400FF692B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7479,6 +7594,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4823E18192932780099673A /* Build configuration list for PBXNativeTarget "Open in Chrome" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4823E19192932780099673A /* Debug */,
+				C4823E1A192932780099673A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
