@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
     core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'ShareKit/NoARC'
+    core.dependency 'UIActivityIndicator-for-SDWebImage'
   end
 
   s.subspec 'NoARC' do |noarc|
