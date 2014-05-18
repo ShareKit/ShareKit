@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.5.7'
+  s.version       = '2.5.9'
   s.platform      = :ios, '6.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -23,6 +23,8 @@ Pod::Spec.new do |s|
     core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'ShareKit/NoARC'
+    core.dependency 'SDWebImage'
+    core.dependency 'UIActivityIndicator-for-SDWebImage'
   end
 
   s.subspec 'NoARC' do |noarc|
@@ -150,6 +152,19 @@ Pod::Spec.new do |s|
   s.subspec 'Instagram' do |instagram|
     instagram.source_files = 'Classes/ShareKit/Sharers/Services/Instagram/**/*.{h,m}'
     instagram.dependency 'ShareKit/Core'
+  end
+
+  s.subspec 'Pinterest' do |pinterest|
+    pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
+    pinterest.dependency 'Pinterest-iOS'
+    pinterest.dependency 'ShareKit/Core'
+  end
+
+  s.subspec 'OneNote' do |onenote|
+    onenote.source_files = 'Classes/ShareKit/Sharers/Services/OneNote/**/*.{h,m}'
+    onenote.dependency 'ShareKit/Core'
+    onenote.vendored_frameworks = 'Frameworks/LiveSDK.framework'
+    onenote.resource = 'Frameworks/LiveSDK.framework'
   end
 
   s.subspec 'GooglePlus' do |googleplus|
