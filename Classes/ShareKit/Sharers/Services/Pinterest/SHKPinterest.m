@@ -25,7 +25,12 @@
 #import "SHKPinterest.h"
 #import "SharersCommonHeaders.h"
 
+#ifdef COCOAPODS
+#import "Pinterest.h"
+#else
 #import <Pinterest/Pinterest.h>
+#endif
+
 
 @implementation SHKPinterest
 
