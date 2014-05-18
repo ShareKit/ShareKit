@@ -360,6 +360,9 @@
 		C4823E10192931730099673A /* SHKChrome.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E0F192931730099673A /* SHKChrome.h */; };
 		C4823E1C1929328C0099673A /* SHKChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E111929317D0099673A /* SHKChrome.m */; };
 		C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E1B192932780099673A /* libOpen in Chrome.a */; };
+		C4823E24192935A90099673A /* SHK1Password.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E22192935A90099673A /* SHK1Password.h */; };
+		C4823E2F192936290099673A /* SHK1Password.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E23192935A90099673A /* SHK1Password.m */; };
+		C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E2E192936150099673A /* libOpen in 1Password.a */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -660,6 +663,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C4823E13192932780099673A;
 			remoteInfo = "Open in Chrome";
+		};
+		C4823E301929364D0099673A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4823E26192936150099673A;
+			remoteInfo = "Open in 1Password";
 		};
 		DE334C2F16F333B000FF692B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1256,6 +1266,9 @@
 		C4823E0F192931730099673A /* SHKChrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKChrome.h; sourceTree = "<group>"; };
 		C4823E111929317D0099673A /* SHKChrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKChrome.m; sourceTree = "<group>"; };
 		C4823E1B192932780099673A /* libOpen in Chrome.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in Chrome.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4823E22192935A90099673A /* SHK1Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHK1Password.h; sourceTree = "<group>"; };
+		C4823E23192935A90099673A /* SHK1Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHK1Password.m; sourceTree = "<group>"; };
+		C4823E2E192936150099673A /* libOpen in 1Password.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in 1Password.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
 		CE857E3816771D78005003DA /* SHKVKontakteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVKontakteRequest.m; sourceTree = "<group>"; };
 		DE334C0516F3319800FF692B /* SHKDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKDropbox.h; sourceTree = "<group>"; };
@@ -1395,6 +1408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */,
 				C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */,
 				7A70B2ED191C91390070C5FB /* libPinterest.a in Frameworks */,
 				7AB8A5C719250A7D00EC73A2 /* libSDWebImage.a in Frameworks */,
@@ -1638,6 +1652,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4823E29192936150099673A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1E16F3339300FF692B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1706,6 +1727,7 @@
 				7A70B2AF191C7E950070C5FB /* libPinterest.a */,
 				7AB8A568192505B200EC73A2 /* libSDWebImage.a */,
 				C4823E1B192932780099673A /* libOpen in Chrome.a */,
+				C4823E2E192936150099673A /* libOpen in 1Password.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2088,6 +2110,7 @@
 				E68738B6141677C000D8C3DD /* Logout */,
 				43A536BD11DBE3B9004A1712 /* Open in Safari */,
 				C4823E0D192931500099673A /* Open in Chrome */,
+				C4823E21192935620099673A /* Open in 1Password */,
 				BA465F1C14CC3C5000B52394 /* Print */,
 				432B147911FF4B0700291B37 /* Save to Album */,
 				4379F3AF1291C45700D2A41E /* Text Message */,
@@ -2820,6 +2843,15 @@
 			path = "Open in Chrome";
 			sourceTree = "<group>";
 		};
+		C4823E21192935620099673A /* Open in 1Password */ = {
+			isa = PBXGroup;
+			children = (
+				C4823E22192935A90099673A /* SHK1Password.h */,
+				C4823E23192935A90099673A /* SHK1Password.m */,
+			);
+			path = "Open in 1Password";
+			sourceTree = "<group>";
+		};
 		DE334C0316F3315D00FF692B /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -3017,6 +3049,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */,
+				C4823E24192935A90099673A /* SHK1Password.h in Headers */,
 				C4823E10192931730099673A /* SHKChrome.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3272,6 +3305,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C4823E17192932780099673A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4823E2A192936150099673A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3565,6 +3605,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C4823E311929364D0099673A /* PBXTargetDependency */,
 				C4823E1F192932D30099673A /* PBXTargetDependency */,
 				7A70B2EC191C912C0070C5FB /* PBXTargetDependency */,
 				7AB8A5C619250A7100EC73A2 /* PBXTargetDependency */,
@@ -4089,6 +4130,23 @@
 			productReference = C4823E1B192932780099673A /* libOpen in Chrome.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		C4823E26192936150099673A /* Open in 1Password */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4823E2B192936150099673A /* Build configuration list for PBXNativeTarget "Open in 1Password" */;
+			buildPhases = (
+				C4823E27192936150099673A /* Sources */,
+				C4823E29192936150099673A /* Frameworks */,
+				C4823E2A192936150099673A /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Open in 1Password";
+			productName = ShareKitLibrary;
+			productReference = C4823E2E192936150099673A /* libOpen in 1Password.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		DE334C2016F3339300FF692B /* Dropbox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE334C2A16F3339400FF692B /* Build configuration list for PBXNativeTarget "Dropbox" */;
@@ -4202,6 +4260,7 @@
 				7A70B2A4191C7E950070C5FB /* Pinterest */,
 				7AB8A55F192505B200EC73A2 /* SDWebImage */,
 				C4823E13192932780099673A /* Open in Chrome */,
+				C4823E26192936150099673A /* Open in 1Password */,
 			);
 		};
 /* End PBXProject section */
@@ -4719,6 +4778,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4823E27192936150099673A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4823E2F192936290099673A /* SHK1Password.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1D16F3339300FF692B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4939,6 +5006,11 @@
 			isa = PBXTargetDependency;
 			target = C4823E13192932780099673A /* Open in Chrome */;
 			targetProxy = C4823E1E192932D30099673A /* PBXContainerItemProxy */;
+		};
+		C4823E311929364D0099673A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4823E26192936150099673A /* Open in 1Password */;
+			targetProxy = C4823E301929364D0099673A /* PBXContainerItemProxy */;
 		};
 		DE334C3016F333B000FF692B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7131,6 +7203,49 @@
 			};
 			name = Release;
 		};
+		C4823E2C192936150099673A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Open in 1Password";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C4823E2D192936150099673A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Open in 1Password";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DE334C2B16F3339400FF692B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7603,6 +7718,15 @@
 			buildConfigurations = (
 				C4823E19192932780099673A /* Debug */,
 				C4823E1A192932780099673A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4823E2B192936150099673A /* Build configuration list for PBXNativeTarget "Open in 1Password" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4823E2C192936150099673A /* Debug */,
+				C4823E2D192936150099673A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
