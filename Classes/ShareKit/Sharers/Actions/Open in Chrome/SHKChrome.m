@@ -42,7 +42,8 @@
 
 + (BOOL)canShareURL
 {
-	return YES;
+    BOOL isChromeInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://localhost/"]];
+	return isChromeInstalled;
 }
 
 + (BOOL)shareRequiresInternetConnection

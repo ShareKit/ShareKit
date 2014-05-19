@@ -42,7 +42,8 @@
 
 + (BOOL)canShareURL
 {
-	return YES;
+    BOOL is1PasswordInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"ophttp://localhost/"]];
+	return is1PasswordInstalled;
 }
 
 + (BOOL)shareRequiresInternetConnection
