@@ -42,8 +42,7 @@
 
 + (BOOL)canShareURL
 {
-    BOOL isChromeInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://localhost/"]];
-	return isChromeInstalled;
+    return YES;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -56,10 +55,14 @@
 	return NO;
 }
 
-
-
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
+
++ (BOOL)canShare
+{
+	BOOL isChromeInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"googlechrome://localhost/"]];
+	return isChromeInstalled;
+}
 
 - (BOOL)shouldAutoShare
 {

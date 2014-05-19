@@ -30,8 +30,6 @@
 
 @implementation SHK1Password
 
-
-
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -42,8 +40,7 @@
 
 + (BOOL)canShareURL
 {
-    BOOL is1PasswordInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"ophttp://localhost/"]];
-	return is1PasswordInstalled;
+    return YES;
 }
 
 + (BOOL)shareRequiresInternetConnection
@@ -56,10 +53,14 @@
 	return NO;
 }
 
-
-
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
+
++ (BOOL)canShare {
+    
+    BOOL is1PasswordInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"ophttp://localhost/"]];
+	return is1PasswordInstalled;
+}
 
 - (BOOL)shouldAutoShare
 {
@@ -75,11 +76,11 @@
 	self.quiet = YES;
     
     // Convert to a 1Password URL
-    NSString *chromeScheme = nil;
+    NSString *onePasswordScheme = nil;
     if ([self.item.URL.scheme isEqualToString:@"http"]) {
-        chromeScheme = @"ophttp";
+        onePasswordScheme = @"ophttp";
     } else if ([self.item.URL.scheme isEqualToString:@"https"]) {
-        chromeScheme = @"ophttps";
+        onePasswordScheme = @"ophttps";
     }
     
     NSString *absoluteString = [self.item.URL absoluteString];
@@ -87,7 +88,7 @@
     NSString *urlNoScheme =
     [absoluteString substringFromIndex:rangeForScheme.location];
     NSString *chromeURLString =
-    [chromeScheme stringByAppendingString:urlNoScheme];
+    [onePasswordScheme stringByAppendingString:urlNoScheme];
     NSURL* actionURL = [NSURL URLWithString:chromeURLString];
 
 	[[UIApplication sharedApplication] openURL:actionURL];
