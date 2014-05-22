@@ -363,6 +363,10 @@
 		C4823E24192935A90099673A /* SHK1Password.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E22192935A90099673A /* SHK1Password.h */; };
 		C4823E2F192936290099673A /* SHK1Password.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E23192935A90099673A /* SHK1Password.m */; };
 		C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E2E192936150099673A /* libOpen in 1Password.a */; };
+		C4B1544D192E06A50080EBE3 /* SHKReadingList.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B1544B192E06A50080EBE3 /* SHKReadingList.h */; };
+		C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15458192E07A60080EBE3 /* SafariServices.framework */; };
+		C4B1545A192E07B80080EBE3 /* SHKReadingList.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1544C192E06A50080EBE3 /* SHKReadingList.m */; };
+		C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15457192E077E0080EBE3 /* libReadingList.a */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -670,6 +674,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = C4823E26192936150099673A;
 			remoteInfo = "Open in 1Password";
+		};
+		C4B1545C192E08100080EBE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C4B1544F192E077E0080EBE3;
+			remoteInfo = "Reading List";
 		};
 		DE334C2F16F333B000FF692B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1269,6 +1280,10 @@
 		C4823E22192935A90099673A /* SHK1Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHK1Password.h; sourceTree = "<group>"; };
 		C4823E23192935A90099673A /* SHK1Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHK1Password.m; sourceTree = "<group>"; };
 		C4823E2E192936150099673A /* libOpen in 1Password.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in 1Password.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4B1544B192E06A50080EBE3 /* SHKReadingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadingList.h; sourceTree = "<group>"; };
+		C4B1544C192E06A50080EBE3 /* SHKReadingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadingList.m; sourceTree = "<group>"; };
+		C4B15457192E077E0080EBE3 /* libReadingList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadingList.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4B15458192E07A60080EBE3 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
 		CE857E3816771D78005003DA /* SHKVKontakteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVKontakteRequest.m; sourceTree = "<group>"; };
 		DE334C0516F3319800FF692B /* SHKDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKDropbox.h; sourceTree = "<group>"; };
@@ -1284,7 +1299,7 @@
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKVkontakte.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakte.h; sourceTree = "<group>"; };
 		FDB495A21520349A00505A99 /* SHKReadability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadability.h; sourceTree = "<group>"; };
-		FDB495A31520349A00505A99 /* SHKReadability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKReadability.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		FDB495A31520349A00505A99 /* SHKReadability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKReadability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1408,6 +1423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */,
 				C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */,
 				C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */,
 				7A70B2ED191C91390070C5FB /* libPinterest.a in Frameworks */,
@@ -1659,6 +1675,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4B15452192E077E0080EBE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1E16F3339300FF692B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1728,6 +1752,7 @@
 				7AB8A568192505B200EC73A2 /* libSDWebImage.a */,
 				C4823E1B192932780099673A /* libOpen in Chrome.a */,
 				C4823E2E192936150099673A /* libOpen in 1Password.a */,
+				C4B15457192E077E0080EBE3 /* libReadingList.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1758,6 +1783,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4B15458192E07A60080EBE3 /* SafariServices.framework */,
 				7A85B55D17FA204700C86E77 /* libxml2.dylib */,
 				7A3A0D90170CC94B00A0B717 /* CoreMedia.framework */,
 				7A3A0D8E170CC70A00A0B717 /* MobileCoreServices.framework */,
@@ -2169,6 +2195,7 @@
 				7AAE8C9916EB94F200429C51 /* Plurk */,
 				7AA2E9DF1743E3B300B17434 /* Pocket */,
 				FDB495A11520349A00505A99 /* Readability */,
+				C4B1544A192E06520080EBE3 /* Reading List */,
 				7AC2A38B16597C680089ABE8 /* Sina Weibo */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
@@ -2852,6 +2879,15 @@
 			path = "Open in 1Password";
 			sourceTree = "<group>";
 		};
+		C4B1544A192E06520080EBE3 /* Reading List */ = {
+			isa = PBXGroup;
+			children = (
+				C4B1544B192E06A50080EBE3 /* SHKReadingList.h */,
+				C4B1544C192E06A50080EBE3 /* SHKReadingList.m */,
+			);
+			path = "Reading List";
+			sourceTree = "<group>";
+		};
 		DE334C0316F3315D00FF692B /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -3050,6 +3086,7 @@
 			files = (
 				7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */,
 				C4823E24192935A90099673A /* SHK1Password.h in Headers */,
+				C4B1544D192E06A50080EBE3 /* SHKReadingList.h in Headers */,
 				C4823E10192931730099673A /* SHKChrome.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3312,6 +3349,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C4823E2A192936150099673A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4B15453192E077E0080EBE3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3605,6 +3649,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C4B1545D192E08100080EBE3 /* PBXTargetDependency */,
 				C4823E311929364D0099673A /* PBXTargetDependency */,
 				C4823E1F192932D30099673A /* PBXTargetDependency */,
 				7A70B2EC191C912C0070C5FB /* PBXTargetDependency */,
@@ -4147,6 +4192,23 @@
 			productReference = C4823E2E192936150099673A /* libOpen in 1Password.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		C4B1544F192E077E0080EBE3 /* Reading List */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4B15454192E077E0080EBE3 /* Build configuration list for PBXNativeTarget "Reading List" */;
+			buildPhases = (
+				C4B15450192E077E0080EBE3 /* Sources */,
+				C4B15452192E077E0080EBE3 /* Frameworks */,
+				C4B15453192E077E0080EBE3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Reading List";
+			productName = ShareKitLibrary;
+			productReference = C4B15457192E077E0080EBE3 /* libReadingList.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		DE334C2016F3339300FF692B /* Dropbox */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DE334C2A16F3339400FF692B /* Build configuration list for PBXNativeTarget "Dropbox" */;
@@ -4261,6 +4323,7 @@
 				7AB8A55F192505B200EC73A2 /* SDWebImage */,
 				C4823E13192932780099673A /* Open in Chrome */,
 				C4823E26192936150099673A /* Open in 1Password */,
+				C4B1544F192E077E0080EBE3 /* Reading List */,
 			);
 		};
 /* End PBXProject section */
@@ -4786,6 +4849,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C4B15450192E077E0080EBE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4B1545A192E07B80080EBE3 /* SHKReadingList.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DE334C1D16F3339300FF692B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -5011,6 +5082,11 @@
 			isa = PBXTargetDependency;
 			target = C4823E26192936150099673A /* Open in 1Password */;
 			targetProxy = C4823E301929364D0099673A /* PBXContainerItemProxy */;
+		};
+		C4B1545D192E08100080EBE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C4B1544F192E077E0080EBE3 /* Reading List */;
+			targetProxy = C4B1545C192E08100080EBE3 /* PBXContainerItemProxy */;
 		};
 		DE334C3016F333B000FF692B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -7242,6 +7318,49 @@
 			};
 			name = Release;
 		};
+		C4B15455192E077E0080EBE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ReadingList;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		C4B15456192E077E0080EBE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = ReadingList;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		DE334C2B16F3339400FF692B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -7723,6 +7842,15 @@
 			buildConfigurations = (
 				C4823E2C192936150099673A /* Debug */,
 				C4823E2D192936150099673A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4B15454192E077E0080EBE3 /* Build configuration list for PBXNativeTarget "Reading List" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4B15455192E077E0080EBE3 /* Debug */,
+				C4B15456192E077E0080EBE3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

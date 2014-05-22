@@ -167,6 +167,12 @@ Pod::Spec.new do |s|
     onenote.resource = 'Frameworks/LiveSDK.framework'
   end
 
+  s.subspec 'ReadingList' do |readinglist|
+    readinglist.source_files = 'Classes/ShareKit/Sharers/Services/Reading List/**/*.{h,m}'
+    readinglist.dependency 'ShareKit/Core'
+    readinglist.weak_frameworks    = 'SafariServices'
+  end
+
   s.subspec 'GooglePlus' do |googleplus|
     googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
     googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework', 'Frameworks/GoogleOpenSource.framework'
