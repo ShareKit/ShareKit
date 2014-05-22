@@ -63,6 +63,7 @@
 		7AD89CB91876134B007D3740 /* demo_large_video_share.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */; };
 		7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE5333D18129CE300C66849 /* ImageIO.framework */; };
 		AC87CBD818EDF81300BBA454 /* LiveSDK.framework in Resources */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
+		C4DBEC9D192E4ED1009712AD /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DBEC9C192E4ED1009712AD /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DBCA448818EB185300D4AD00 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
 /* End PBXBuildFile section */
 
@@ -389,6 +390,34 @@
 			remoteGlobalIDString = 7A4E4663173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
 		};
+		C4DBECCD192E4ED1009712AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7AB8A568192505B200EC73A2;
+			remoteInfo = SDWebImage;
+		};
+		C4DBECCF192E4ED1009712AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4823E1B192932780099673A;
+			remoteInfo = "Open in Chrome";
+		};
+		C4DBECD1192E4ED1009712AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4823E2E192936150099673A;
+			remoteInfo = "Open in 1Password";
+		};
+		C4DBECD3192E4ED1009712AD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C4B15457192E077E0080EBE3;
+			remoteInfo = "Reading List";
+		};
 		DBCA44B218EB185300D4AD00 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7A0406C01740F1FD003404B9 /* ShareKit.xcodeproj */;
@@ -463,6 +492,7 @@
 		7AD7D63517EC75FE00DE20F6 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DropboxSDK.framework; path = Frameworks/DropboxSDK.framework; sourceTree = "<group>"; };
 		7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = demo_large_video_share.mp4; sourceTree = "<group>"; };
 		7AE5333D18129CE300C66849 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		C4DBEC9C192E4ED1009712AD /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		DBCA448718EB185300D4AD00 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LiveSDK.framework; path = Frameworks/LiveSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -471,6 +501,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4DBEC9D192E4ED1009712AD /* SafariServices.framework in Frameworks */,
 				7AB4D67F18631C8D00B54FE0 /* AddressBook.framework in Frameworks */,
 				7AE5333E18129CE300C66849 /* ImageIO.framework in Frameworks */,
 				7A9FEF6C1807430A0053CB40 /* MediaPlayer.framework in Frameworks */,
@@ -531,6 +562,7 @@
 		7A0406651740E3F6003404B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C4DBEC9C192E4ED1009712AD /* SafariServices.framework */,
 				7A70B309191F619A0070C5FB /* Pinterest.embeddedframework */,
 				DBCA448718EB185300D4AD00 /* LiveSDK.framework */,
 				7AB4D67E18631C8D00B54FE0 /* AddressBook.framework */,
@@ -685,6 +717,10 @@
 				7A70B2E8191C8BA70070C5FB /* libImgur.a */,
 				DBCA44B318EB185300D4AD00 /* libOneNote.a */,
 				7A70B2EA191C8BA70070C5FB /* libPinterest.a */,
+				C4DBECCE192E4ED1009712AD /* libSDWebImage.a */,
+				C4DBECD0192E4ED1009712AD /* libOpen in Chrome.a */,
+				C4DBECD2192E4ED1009712AD /* libOpen in 1Password.a */,
+				C4DBECD4192E4ED1009712AD /* libReadingList.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1076,6 +1112,34 @@
 			fileType = archive.ar;
 			path = "libPocket SDK.a";
 			remoteRef = 94CC293717453A3100C31CD8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4DBECCE192E4ED1009712AD /* libSDWebImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSDWebImage.a;
+			remoteRef = C4DBECCD192E4ED1009712AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4DBECD0192E4ED1009712AD /* libOpen in Chrome.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libOpen in Chrome.a";
+			remoteRef = C4DBECCF192E4ED1009712AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4DBECD2192E4ED1009712AD /* libOpen in 1Password.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libOpen in 1Password.a";
+			remoteRef = C4DBECD1192E4ED1009712AD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C4DBECD4192E4ED1009712AD /* libReadingList.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReadingList.a;
+			remoteRef = C4DBECD3192E4ED1009712AD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		DBCA44B318EB185300D4AD00 /* libOneNote.a */ = {

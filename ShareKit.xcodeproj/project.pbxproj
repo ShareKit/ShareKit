@@ -364,7 +364,7 @@
 		C4823E2F192936290099673A /* SHK1Password.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E23192935A90099673A /* SHK1Password.m */; };
 		C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E2E192936150099673A /* libOpen in 1Password.a */; };
 		C4B1544D192E06A50080EBE3 /* SHKReadingList.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B1544B192E06A50080EBE3 /* SHKReadingList.h */; };
-		C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15458192E07A60080EBE3 /* SafariServices.framework */; };
+		C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15458192E07A60080EBE3 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		C4B1545A192E07B80080EBE3 /* SHKReadingList.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1544C192E06A50080EBE3 /* SHKReadingList.m */; };
 		C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15457192E077E0080EBE3 /* libReadingList.a */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
