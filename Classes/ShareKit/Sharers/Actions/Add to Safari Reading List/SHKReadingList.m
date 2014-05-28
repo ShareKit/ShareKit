@@ -38,7 +38,7 @@
 
 + (NSString *)sharerTitle
 {
-	return SHKLocalizedString(@"Reading List");
+	return SHKLocalizedString(@"Add to Safari Reading List");
 }
 
 + (BOOL)canShareURL

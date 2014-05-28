@@ -258,6 +258,8 @@
 		7ADB644318C5C05800B5AF7F /* PKMultipartInputStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ADB644118C5C05800B5AF7F /* PKMultipartInputStream.h */; };
 		7ADB644418C5C05800B5AF7F /* PKMultipartInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADB644218C5C05800B5AF7F /* PKMultipartInputStream.m */; };
 		7ADB644518C5C0FA00B5AF7F /* libPKMultipartInputStream.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */; };
+		7ADE63EC19363CCD00826F63 /* SHKReadingList.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ADE63EA19363CCD00826F63 /* SHKReadingList.h */; };
+		7ADE63ED19363CCD00826F63 /* SHKReadingList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ADE63EB19363CCD00826F63 /* SHKReadingList.m */; };
 		7ADF828117ABBD7F007634E8 /* SHKShareFileIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */; };
 		7ADF828217ABBD7F007634E8 /* SHKShareFileIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */; };
 		7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */; };
@@ -363,9 +365,6 @@
 		C4823E24192935A90099673A /* SHK1Password.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E22192935A90099673A /* SHK1Password.h */; };
 		C4823E2F192936290099673A /* SHK1Password.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E23192935A90099673A /* SHK1Password.m */; };
 		C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E2E192936150099673A /* libOpen in 1Password.a */; };
-		C4B1544D192E06A50080EBE3 /* SHKReadingList.h in Headers */ = {isa = PBXBuildFile; fileRef = C4B1544B192E06A50080EBE3 /* SHKReadingList.h */; };
-		C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15458192E07A60080EBE3 /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C4B1545A192E07B80080EBE3 /* SHKReadingList.m in Sources */ = {isa = PBXBuildFile; fileRef = C4B1544C192E06A50080EBE3 /* SHKReadingList.m */; };
 		C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15457192E077E0080EBE3 /* libReadingList.a */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -1093,6 +1092,8 @@
 		7ADB643918C5BF3B00B5AF7F /* libPKMultipartInputStream.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPKMultipartInputStream.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7ADB644118C5C05800B5AF7F /* PKMultipartInputStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PKMultipartInputStream.h; path = Submodules/PKMultipartInputStream/PKMultipartInputStream.h; sourceTree = SOURCE_ROOT; };
 		7ADB644218C5C05800B5AF7F /* PKMultipartInputStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PKMultipartInputStream.m; path = Submodules/PKMultipartInputStream/PKMultipartInputStream.m; sourceTree = SOURCE_ROOT; };
+		7ADE63EA19363CCD00826F63 /* SHKReadingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadingList.h; sourceTree = "<group>"; };
+		7ADE63EB19363CCD00826F63 /* SHKReadingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadingList.m; sourceTree = "<group>"; };
 		7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SHKShareFileIcon.png; path = Classes/ShareKit/SHKShareFileIcon.png; sourceTree = SOURCE_ROOT; };
 		7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SHKShareFileIcon@2x.png"; path = "Classes/ShareKit/SHKShareFileIcon@2x.png"; sourceTree = SOURCE_ROOT; };
 		7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyLibFile.h; path = ShareKitLibrary/DummyLibFile.h; sourceTree = "<group>"; };
@@ -1280,8 +1281,6 @@
 		C4823E22192935A90099673A /* SHK1Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHK1Password.h; sourceTree = "<group>"; };
 		C4823E23192935A90099673A /* SHK1Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHK1Password.m; sourceTree = "<group>"; };
 		C4823E2E192936150099673A /* libOpen in 1Password.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in 1Password.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C4B1544B192E06A50080EBE3 /* SHKReadingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadingList.h; sourceTree = "<group>"; };
-		C4B1544C192E06A50080EBE3 /* SHKReadingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadingList.m; sourceTree = "<group>"; };
 		C4B15457192E077E0080EBE3 /* libReadingList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadingList.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B15458192E07A60080EBE3 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
@@ -1679,7 +1678,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B15459192E07A60080EBE3 /* SafariServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2131,6 +2129,7 @@
 		43A536B611DBE3B9004A1712 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				7ADE63E919363CCD00826F63 /* Add to Safari Reading List */,
 				43A536B711DBE3B9004A1712 /* Copy */,
 				43A536BA11DBE3B9004A1712 /* Email */,
 				E68738B6141677C000D8C3DD /* Logout */,
@@ -2195,7 +2194,6 @@
 				7AAE8C9916EB94F200429C51 /* Plurk */,
 				7AA2E9DF1743E3B300B17434 /* Pocket */,
 				FDB495A11520349A00505A99 /* Readability */,
-				C4B1544A192E06520080EBE3 /* Reading List */,
 				7AC2A38B16597C680089ABE8 /* Sina Weibo */,
 				43C91DF211EBAE4800F31FAE /* Tumblr */,
 				43A536E711DBE3B9004A1712 /* Twitter */,
@@ -2606,6 +2604,15 @@
 			name = PKMultipartInputStream;
 			sourceTree = "<group>";
 		};
+		7ADE63E919363CCD00826F63 /* Add to Safari Reading List */ = {
+			isa = PBXGroup;
+			children = (
+				7ADE63EA19363CCD00826F63 /* SHKReadingList.h */,
+				7ADE63EB19363CCD00826F63 /* SHKReadingList.m */,
+			);
+			path = "Add to Safari Reading List";
+			sourceTree = "<group>";
+		};
 		7AEAC53C178DA34F0032B0AA /* Declarations */ = {
 			isa = PBXGroup;
 			children = (
@@ -2879,15 +2886,6 @@
 			path = "Open in 1Password";
 			sourceTree = "<group>";
 		};
-		C4B1544A192E06520080EBE3 /* Reading List */ = {
-			isa = PBXGroup;
-			children = (
-				C4B1544B192E06A50080EBE3 /* SHKReadingList.h */,
-				C4B1544C192E06A50080EBE3 /* SHKReadingList.m */,
-			);
-			path = "Reading List";
-			sourceTree = "<group>";
-		};
 		DE334C0316F3315D00FF692B /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -3086,7 +3084,6 @@
 			files = (
 				7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */,
 				C4823E24192935A90099673A /* SHK1Password.h in Headers */,
-				C4B1544D192E06A50080EBE3 /* SHKReadingList.h in Headers */,
 				C4823E10192931730099673A /* SHKChrome.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3359,6 +3356,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ADE63EC19363CCD00826F63 /* SHKReadingList.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4853,7 +4851,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C4B1545A192E07B80080EBE3 /* SHKReadingList.m in Sources */,
+				7ADE63ED19363CCD00826F63 /* SHKReadingList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
