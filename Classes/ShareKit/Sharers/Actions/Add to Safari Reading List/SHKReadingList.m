@@ -76,8 +76,8 @@
 #pragma mark Share API Methods
 
 - (BOOL)send
-{
-	self.quiet = YES;
+{    
+    [self sendDidStart];
 
     NSError* error = nil;
     [[SSReadingList defaultReadingList] addReadingListItemWithURL:self.item.URL
