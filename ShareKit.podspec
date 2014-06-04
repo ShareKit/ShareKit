@@ -153,6 +153,11 @@ Pod::Spec.new do |s|
     instagram.source_files = 'Classes/ShareKit/Sharers/Services/Instagram/**/*.{h,m}'
     instagram.dependency 'ShareKit/Core'
   end
+  
+  s.subspec 'Imgur' do |imgur|
+    imgur.source_files = 'Classes/ShareKit/Sharers/Services/Imgur/**/*.{h,m}'
+    imgur.dependency 'ShareKit/Core'
+  end
 
   s.subspec 'Pinterest' do |pinterest|
     pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
