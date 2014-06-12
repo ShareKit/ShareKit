@@ -15,6 +15,7 @@
 
 /// Shared item. Cell might display its properties, such as image, file etc.
 @property (nonatomic, strong) SHKItem *item;
+@property (nonatomic) BOOL shouldShowExtension;
 
 @end
 
@@ -59,7 +60,22 @@
             break;
             
         case SHKShareTypeFile:
-            imageView.image = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
+        
+            self.shouldShowExtension = NO;
+            
+            if ([self.item.file hasData]) {
+                imageView.image = [UIImage imageWithData:self.item.file.data];
+            } else {
+                imageView.image = [UIImage imageWithContentsOfFile:self.item.file.path];
+            }
+            
+            if (!imageView.image && self.item.URLPictureURI) {
+                  [imageView setImageWithURL:self.item.URLPictureURI placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+            } else if (!imageView.image) {
+                self.shouldShowExtension = YES;
+                imageView.image = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
+            }
+            
             break;
         default:
             break;
@@ -68,7 +84,11 @@
 
 - (NSString *)extensionForThumbnail {
     
-    return [self.item.file.filename pathExtension];
+    if (self.shouldShowExtension) {
+        return [self.item.file.filename pathExtension];
+    } else {
+        return nil;
+    }
 }
 
 @end
