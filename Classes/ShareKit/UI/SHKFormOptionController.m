@@ -112,6 +112,9 @@
 
 - (IBAction)done:(id)sender {
 	
+    if (self.provider != nil) {
+    	[self.provider SHKFormOptionControllerCancelEnumerateOptions:self];
+    }	
     [self.client SHKFormOptionControllerDidFinish:self];
 }
 
