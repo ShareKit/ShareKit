@@ -31,9 +31,7 @@
 
 @interface SHKFacebook : SHKSharer
 
-@property (readonly,strong) NSMutableSet* pendingConnections; // sub classes can use the set. use a set so that connections can only be added once
-
-+ (BOOL)handleOpenURL:(NSURL*)url;
++ (BOOL)handleOpenURL:(NSURL*)url sourceApplication:(NSString *)sourceApplication;
 + (void)handleDidBecomeActive;
 + (void)handleWillTerminate;
 
