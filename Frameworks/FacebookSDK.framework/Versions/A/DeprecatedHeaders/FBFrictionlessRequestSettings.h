@@ -27,9 +27,9 @@
  */
 @interface FBFrictionlessRequestSettings : NSObject {
 @private
-    NSArray*            _allowedRecipients;
-    FBRequest*          _activeRequest;
-    BOOL                _enabled;
+    NSArray *_allowedRecipients;
+    FBRequest *_activeRequest;
+    BOOL _enabled;
 }
 
 /**
@@ -47,18 +47,18 @@
  *   1. query and cache the current set of frictionless recipients
  *   2. flag other facets of the sdk to behave in a frictionless way
  */
-- (void)enableWithFacebook:(Facebook*)facebook;
+- (void)enableWithFacebook:(Facebook *)facebook;
 
 /**
  * Reload recipient cache; called by the sdk to keep the cache fresh;
  * method makes graph request: me/apprequestformerrecipients
  */
-- (void)reloadRecipientCacheWithFacebook:(Facebook*)facebook;
+- (void)reloadRecipientCacheWithFacebook:(Facebook *)facebook;
 
 /**
  * Update the recipient cache; called by the sdk to keep the cache fresh;
  */
-- (void)updateRecipientCacheWithRecipients:(NSArray*)ids;
+- (void)updateRecipientCacheWithRecipients:(NSArray *)ids;
 
 /**
  * Update the recipient cache, using a request result
@@ -75,11 +75,6 @@
  * Given an array of user fbIDs, indicates whether they are enabled for
  * frictionless calls
  */
-- (BOOL)isFrictionlessEnabledForRecipients:(NSArray*)fbids;
-
-/**
- * init the frictionless cache object
- */
-- (id)init;
+- (BOOL)isFrictionlessEnabledForRecipients:(NSArray *)fbids;
 
 @end

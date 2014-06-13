@@ -25,8 +25,8 @@
 @interface FBSessionManualTokenCachingStrategy : FBSessionTokenCachingStrategy
 
 // set the properties before instantiating the FBSession object in order to seed a token
-@property (readwrite, copy) NSString* accessToken;
-@property (readwrite, copy) NSDate* expirationDate;
+@property (readwrite, copy) NSString *accessToken;
+@property (readwrite, copy) NSDate *expirationDate;
 
 @end
 

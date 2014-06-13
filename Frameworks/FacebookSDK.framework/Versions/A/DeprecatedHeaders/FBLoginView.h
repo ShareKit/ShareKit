@@ -18,18 +18,38 @@
 
 #import "FBGraphUser.h"
 #import "FBSession.h"
+#import "FBTooltipView.h"
 
 @protocol FBLoginViewDelegate;
 
 /*!
+ @typedef
+ @abstract Indicates the desired login tooltip behavior.
+ */
+typedef NS_ENUM(NSUInteger, FBLoginViewTooltipBehavior) {
+    /*! The default behavior. The tooltip will only be displayed if
+     the app is eligible (determined by server round trip) */
+    FBLoginViewTooltipBehaviorDefault = 0,
+    /*! Force display of the tooltip (typically for UI testing) */
+    FBLoginViewTooltipBehaviorForceDisplay = 1,
+    /*! Force disable. In this case you can still exert more refined
+     control by manually constructing a `FBLoginTooltipView` instance. */
+    FBLoginViewTooltipBehaviorDisable = 2
+};
+
+/*!
  @class FBLoginView
  @abstract FBLoginView is a custom UIView that renders a button to login or logout based on the
-  state of `FBSession.activeSession`
+ state of `FBSession.activeSession`
 
  @discussion This view is closely associated with `FBSession.activeSession`. Upon initialization,
-  it will attempt to open an active session without UI if the current active session is not open.
+ it will attempt to open an active session without UI if the current active session is not open.
 
-  The FBLoginView instance also monitors for changes to the active session.
+ The FBLoginView instance also monitors for changes to the active session.
+
+ Please note: Since FBLoginView observes the active session, using multiple FBLoginView instances
+ in different parts of your app can result in each instance's delegates being notified of changes
+ for one event.
  */
 @interface FBLoginView : UIView
 
@@ -44,8 +64,7 @@
 
 /*!
  @abstract
- The read permissions to request if the user logs in via this view. The basic_info permission must be explicitly requested at
- first login, and is no longer inferred, (subject to an active migration.)
+ The read permissions to request if the user logs in via this view.
 
  @discussion
  Note, that if read permissions are specified, then publish permissions should not be specified.
@@ -74,16 +93,27 @@
  The login behavior for the active session if the user logs in via this view
 
  @discussion
- The default value is FBSessionLoginBehaviorUseSystemAccountIfPresent.
+ The default value is FBSessionLoginBehaviorWithFallbackToWebView.
  */
 @property (nonatomic) FBSessionLoginBehavior loginBehavior;
 
+/*!
+ @abstract
+ Gets or sets the desired tooltip behavior.
+ */
+@property (nonatomic, assign) FBLoginViewTooltipBehavior tooltipBehavior;
+
+/*!
+ @abstract
+ Gets or sets the desired tooltip color style.
+ */
+@property (nonatomic, assign) FBTooltipColorStyle tooltipColorStyle;
 
 /*!
  @abstract
  Initializes and returns an `FBLoginView` object.  The underlying session has basic permissions granted to it.
  */
-- (id)init;
+- (instancetype)init;
 
 /*!
  @method
@@ -97,7 +127,7 @@
  @discussion Methods and properties that specify permissions without a read or publish
  qualification are deprecated; use of a read-qualified or publish-qualified alternative is preferred.
  */
-- (id)initWithPermissions:(NSArray *)permissions __attribute__((deprecated));
+- (instancetype)initWithPermissions:(NSArray *)permissions __attribute__((deprecated));
 
 /*!
  @method
@@ -109,7 +139,7 @@
  authentication flow. A value of nil will indicates basic permissions.
 
  */
-- (id)initWithReadPermissions:(NSArray *)readPermissions;
+- (instancetype)initWithReadPermissions:(NSArray *)readPermissions;
 
 /*!
  @method
@@ -124,8 +154,8 @@
  for permission requests that include publish or manage permissions.
 
  */
-- (id)initWithPublishPermissions:(NSArray *)publishPermissions
-                 defaultAudience:(FBSessionDefaultAudience)defaultAudience;
+- (instancetype)initWithPublishPermissions:(NSArray *)publishPermissions
+                           defaultAudience:(FBSessionDefaultAudience)defaultAudience;
 
 /*!
  @abstract
@@ -141,6 +171,11 @@
  @abstract
  The `FBLoginViewDelegate` protocol defines the methods used to receive event
  notifications from `FBLoginView` objects.
+
+ @discussion
+ Please note: Since FBLoginView observes the active session, using multiple FBLoginView instances
+ in different parts of your app can result in each instance's delegates being notified of changes
+ for one event.
  */
 @protocol FBLoginViewDelegate <NSObject>
 
