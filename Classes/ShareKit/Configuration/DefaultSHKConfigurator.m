@@ -75,9 +75,9 @@
 }
 
 /*
-If you want to force use of old-style, posting path that does not use the native sheet. One of the troubles
-with the native sheet is that it gives IOS6 props on facebook instead of your app. This flag has no effect
-on the auth path. It will try to use native auth if availible.
+Forces using Facebook-ios-sdk instead of Apple's native Social.framework and Accounts.framework. Pre iOS6 posting means using SHKFacebook, instead of SHKiOSFacebook. Consequences of this are that user logs in via SSO trip to Safari/Facebook.app. (Instead of getting credentials from iOS settings). This way also share form is ShareKit's instead of iOS native SLComposeViewController.
+One of the troubles with the native share form is that it gives IOS6 props on facebook instead of your app.
+  If you wish to use iOS user credentials, and still use ShareKit's share form, set - (NSNumber *)useAppleShareUI to NO.
 */
 - (NSNumber*)forcePreIOS6FacebookPosting {
 	return [NSNumber numberWithBool:false];

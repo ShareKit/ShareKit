@@ -194,6 +194,7 @@
     [FBSession openActiveSessionWithAllowLoginUI:NO]; //the session must be activated before clearing token
 	[FBSession.activeSession closeAndClearTokenInformation];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookUserInfo];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookVideoUploadLimits];
 }
 
 
@@ -375,8 +376,8 @@
             }
             
             // Check video duration
-            NSUInteger maxVideoDuration = (int)result[@"video_upload_limits"][@"length"];
-            BOOL isUnderDuration = maxVideoDuration >= self.item.file.duration;
+            NSNumber *maxVideoDuration = result[@"video_upload_limits"][@"length"];
+            BOOL isUnderDuration = [maxVideoDuration integerValue] >= self.item.file.duration;
             if(!isUnderDuration){
                 completionBlock([NSError errorWithDomain:@"video_upload_limits" code:200 userInfo:@{
                                                                                                     NSLocalizedDescriptionKey:SHKLocalizedString(@"Video's duration is too long for upload to Facebook.")}]);
