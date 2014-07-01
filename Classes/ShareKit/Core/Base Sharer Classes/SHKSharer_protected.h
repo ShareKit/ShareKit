@@ -84,6 +84,7 @@ typedef enum
 
 /*! used by subclasses when user has to quit the app during share process - e.g. during Facebook SSO trip to facebook app or browser. These methods save item temporarily to defaults and read it back. Data attachments (filedata, image) are stored as separate files in cache dir !*/
 - (void)saveItemForLater:(SHKSharerPendingAction)inPendingAction;
+///returns YES if item was found and restored.
 - (BOOL)restoreItem;
 
 // useful for handling custom posting error states
