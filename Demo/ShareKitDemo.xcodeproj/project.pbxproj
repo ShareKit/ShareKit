@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34260957912745FD98786641 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0D30B96F8CF409EBB6B1C6C /* libPods.a */; };
 		7A0406671740E3F6003404B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406661740E3F6003404B9 /* UIKit.framework */; };
 		7A0406691740E3F6003404B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406681740E3F6003404B9 /* Foundation.framework */; };
 		7A04066B1740E3F6003404B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04066A1740E3F6003404B9 /* CoreGraphics.framework */; };
@@ -64,6 +65,29 @@
 		C4DBEC9D192E4ED1009712AD /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4DBEC9C192E4ED1009712AD /* SafariServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		DBCA448818EB185300D4AD00 /* LiveSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBCA448718EB185300D4AD00 /* LiveSDK.framework */; };
 		E5595CAC196F779E00F1669B /* libShareKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5595C1A196E8FA400F1669B /* libShareKit.a */; };
+		E5CCE8A51912272A00BB4D9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406721740E3F6003404B9 /* main.m */; };
+		E5CCE8A61912272A00BB4D9B /* ExampleShareFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A51740F0A5003404B9 /* ExampleShareFile.m */; };
+		E5CCE8A71912272A00BB4D9B /* ExampleShareImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A71740F0A5003404B9 /* ExampleShareImage.m */; };
+		E5CCE8A81912272A00BB4D9B /* ExampleShareLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406A91740F0A5003404B9 /* ExampleShareLink.m */; };
+		E5CCE8A91912272A00BB4D9B /* ExampleShareText.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406AB1740F0A5003404B9 /* ExampleShareText.m */; };
+		E5CCE8AA1912272A00BB4D9B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406AD1740F0A5003404B9 /* RootViewController.m */; };
+		E5CCE8AB1912272A00BB4D9B /* ShareKitAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406B01740F0A5003404B9 /* ShareKitAppDelegate.m */; };
+		E5CCE8AC1912272A00BB4D9B /* ShareKitDemoConfigurator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A0406B21740F0A6003404B9 /* ShareKitDemoConfigurator.m */; };
+		E5CCE8C71912272A00BB4D9B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406661740E3F6003404B9 /* UIKit.framework */; };
+		E5CCE8CA1912272A00BB4D9B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A0406681740E3F6003404B9 /* Foundation.framework */; };
+		E5CCE8CB1912272A00BB4D9B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A04066A1740E3F6003404B9 /* CoreGraphics.framework */; };
+		E5CCE8D01912272A00BB4D9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 7A04066F1740E3F6003404B9 /* InfoPlist.strings */; };
+		E5CCE8D11912272A00BB4D9B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406781740E3F6003404B9 /* Default.png */; };
+		E5CCE8D21912272A00BB4D9B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A04067A1740E3F6003404B9 /* Default@2x.png */; };
+		E5CCE8D31912272A00BB4D9B /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7A04067C1740E3F6003404B9 /* Default-568h@2x.png */; };
+		E5CCE8D41912272A00BB4D9B /* demo_large_video_share.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 7AD89CB81876134B007D3740 /* demo_large_video_share.mp4 */; };
+		E5CCE8D51912272A00BB4D9B /* demo_audio_share.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7A04069F1740F0A5003404B9 /* demo_audio_share.mp3 */; };
+		E5CCE8D61912272A00BB4D9B /* demo_video_share.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406A01740F0A5003404B9 /* demo_video_share.mov */; };
+		E5CCE8D71912272A00BB4D9B /* example.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406A11740F0A5003404B9 /* example.pdf */; };
+		E5CCE8D81912272A00BB4D9B /* sanFran.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7A0406AE1740F0A5003404B9 /* sanFran.jpg */; };
+		E5CCE8D91912272A00BB4D9B /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083717413908003404B9 /* MainWindow.xib */; };
+		E5CCE8DA1912272A00BB4D9B /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083817413908003404B9 /* RootViewController.xib */; };
+		E5CCE8DB1912272A00BB4D9B /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A04083B1741399E003404B9 /* MainWindow-iPad.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -413,6 +437,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		38B5A90E88264317912C5C2C /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		7A0406631740E3F6003404B9 /* ShareKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A0406661740E3F6003404B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		7A0406681740E3F6003404B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -480,6 +505,7 @@
 		A0D30B96F8CF409EBB6B1C6C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4DBEC9C192E4ED1009712AD /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		DBCA448718EB185300D4AD00 /* LiveSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LiveSDK.framework; sourceTree = "<group>"; };
+		E5CCE8E11912272A00BB4D9B /* ShareKitDemo (CocoaPods).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ShareKitDemo (CocoaPods).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +549,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E5CCE8AD1912272A00BB4D9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5CCE8C71912272A00BB4D9B /* UIKit.framework in Frameworks */,
+				E5CCE8CA1912272A00BB4D9B /* Foundation.framework in Frameworks */,
+				E5CCE8CB1912272A00BB4D9B /* CoreGraphics.framework in Frameworks */,
+				34260957912745FD98786641 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -534,6 +571,7 @@
 				7AA2E8EF1743814A00B17434 /* Resources - ShareKit Library */,
 				7A0406651740E3F6003404B9 /* Frameworks */,
 				7A0406641740E3F6003404B9 /* Products */,
+				38B5A90E88264317912C5C2C /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -541,6 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				7A0406631740E3F6003404B9 /* ShareKitDemo.app */,
+				E5CCE8E11912272A00BB4D9B /* ShareKitDemo (CocoaPods).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -749,6 +788,25 @@
 			productReference = 7A0406631740E3F6003404B9 /* ShareKitDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E5CCE89F1912272A00BB4D9B /* ShareKitDemo (CocoaPods) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5CCE8DE1912272A00BB4D9B /* Build configuration list for PBXNativeTarget "ShareKitDemo (CocoaPods)" */;
+			buildPhases = (
+				156795BA66BB41C8A0A8424F /* Check Pods Manifest.lock */,
+				E5CCE8A41912272A00BB4D9B /* Sources */,
+				E5CCE8AD1912272A00BB4D9B /* Frameworks */,
+				E5CCE8CD1912272A00BB4D9B /* Resources */,
+				7DB48CB15E1E40938DA6592C /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ShareKitDemo (CocoaPods)";
+			productName = "ShareKit demo app";
+			productReference = E5CCE8E11912272A00BB4D9B /* ShareKitDemo (CocoaPods).app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -787,6 +845,7 @@
 			projectRoot = "";
 			targets = (
 				7A0406621740E3F5003404B9 /* ShareKitDemo */,
+				E5CCE89F1912272A00BB4D9B /* ShareKitDemo (CocoaPods) */,
 			);
 		};
 /* End PBXProject section */
@@ -1161,7 +1220,59 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E5CCE8CD1912272A00BB4D9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5CCE8D01912272A00BB4D9B /* InfoPlist.strings in Resources */,
+				E5CCE8D11912272A00BB4D9B /* Default.png in Resources */,
+				E5CCE8D21912272A00BB4D9B /* Default@2x.png in Resources */,
+				E5CCE8D31912272A00BB4D9B /* Default-568h@2x.png in Resources */,
+				E5CCE8D41912272A00BB4D9B /* demo_large_video_share.mp4 in Resources */,
+				E5CCE8D51912272A00BB4D9B /* demo_audio_share.mp3 in Resources */,
+				E5CCE8D61912272A00BB4D9B /* demo_video_share.mov in Resources */,
+				E5CCE8D71912272A00BB4D9B /* example.pdf in Resources */,
+				E5CCE8D81912272A00BB4D9B /* sanFran.jpg in Resources */,
+				E5CCE8D91912272A00BB4D9B /* MainWindow.xib in Resources */,
+				E5CCE8DA1912272A00BB4D9B /* RootViewController.xib in Resources */,
+				E5CCE8DB1912272A00BB4D9B /* MainWindow-iPad.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		156795BA66BB41C8A0A8424F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7DB48CB15E1E40938DA6592C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7A04065F1740E3F5003404B9 /* Sources */ = {
@@ -1176,6 +1287,21 @@
 				7A0406BB1740F0A6003404B9 /* RootViewController.m in Sources */,
 				7A0406BD1740F0A6003404B9 /* ShareKitAppDelegate.m in Sources */,
 				7A0406BE1740F0A6003404B9 /* ShareKitDemoConfigurator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E5CCE8A41912272A00BB4D9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5CCE8A51912272A00BB4D9B /* main.m in Sources */,
+				E5CCE8A61912272A00BB4D9B /* ExampleShareFile.m in Sources */,
+				E5CCE8A71912272A00BB4D9B /* ExampleShareImage.m in Sources */,
+				E5CCE8A81912272A00BB4D9B /* ExampleShareLink.m in Sources */,
+				E5CCE8A91912272A00BB4D9B /* ExampleShareText.m in Sources */,
+				E5CCE8AA1912272A00BB4D9B /* RootViewController.m in Sources */,
+				E5CCE8AB1912272A00BB4D9B /* ShareKitAppDelegate.m in Sources */,
+				E5CCE8AC1912272A00BB4D9B /* ShareKitDemoConfigurator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1433,36 @@
 			};
 			name = Release;
 		};
+		E5CCE8DF1912272A00BB4D9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38B5A90E88264317912C5C2C /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitDemo/ShareKitDemo-Prefix.pch";
+				INFOPLIST_FILE = "ShareKitDemo/ShareKitDemo (CocoaPods)-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "ShareKitDemo (CocoaPods)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E5CCE8E01912272A00BB4D9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38B5A90E88264317912C5C2C /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch *.xcode* (*) .DS_Store CVS .svn .git .hg *.framework";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitDemo/ShareKitDemo-Prefix.pch";
+				INFOPLIST_FILE = "ShareKitDemo/ShareKitDemo (CocoaPods)-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				PRODUCT_NAME = "ShareKitDemo (CocoaPods)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1324,6 +1480,15 @@
 			buildConfigurations = (
 				7A0406811740E3F6003404B9 /* Debug */,
 				7A0406821740E3F6003404B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E5CCE8DE1912272A00BB4D9B /* Build configuration list for PBXNativeTarget "ShareKitDemo (CocoaPods)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E5CCE8DF1912272A00BB4D9B /* Debug */,
+				E5CCE8E01912272A00BB4D9B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
