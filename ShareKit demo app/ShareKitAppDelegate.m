@@ -77,7 +77,7 @@
     NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
 
     if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]]) {
-        return [SHKFacebook handleOpenURL:url];
+        return [SHKFacebook handleOpenURL:url sourceApplication:sourceApplication];
     } else if ([[scheme lowercaseString] isEqualToString:[bundleID lowercaseString]]) {
         return [SHKGooglePlus handleURL:url sourceApplication:sourceApplication annotation:annotation];
     } else if ([scheme hasPrefix:[NSString stringWithFormat:@"db-%@", SHKCONFIG(dropboxAppKey)]]) {

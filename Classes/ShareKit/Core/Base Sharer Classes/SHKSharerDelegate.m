@@ -77,8 +77,8 @@
 
 - (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
 {
-    //it is convenient to fetch user info after successful authorization. Not only you have username etc at your disposal, but there can be also various limits used by ShareKit to determine if the service can accept particular item (eg. video size) for this user. If it does not, ShareKit does not offer this service in share menu. SHKFacebook has a bug - it is crashing if you fetch user info alone after authorization. You have to share something to be really authorized. SHKFacebook has a very confusing implementation, thus rather than fix the real root cause I have decided to do not fetch userinfo in this case. I suggest to use SHKiOSFacebook wherever possible.
-    if (success && ![[sharer class] isEqual:NSClassFromString(@"SHKFacebook")]) {
+    //it is convenient to fetch user info after successful authorization. Not only you have username etc at your disposal, but there can be also various limits used by ShareKit to determine if the service can accept particular item (eg. video size) for this user. If it does not, ShareKit does not offer this service in share menu.
+    if (success){
         [[sharer class] getUserInfo];
     }
 }

@@ -44,7 +44,7 @@
 }
 
 - (NSNumber*)forcePreIOS6FacebookPosting {
-	return [NSNumber numberWithBool:false];
+	return [NSNumber numberWithBool:true];
 }
 
 - (NSString*)googlePlusClientId {

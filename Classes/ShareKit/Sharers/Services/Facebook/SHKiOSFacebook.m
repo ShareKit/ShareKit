@@ -123,6 +123,7 @@ typedef void (^SHKRequestHandler)(NSData *responseData, NSURLResponse *urlRespon
 + (void)logout {
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookUserInfo];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookVideoUploadLimits];
 }
 
 #pragma mark - ShareKit UI
@@ -251,6 +252,7 @@ typedef void (^SHKRequestHandler)(NSData *responseData, NSURLResponse *urlRespon
                         [parsedResponse convertNSNullsToEmptyStrings];
                         [[NSUserDefaults standardUserDefaults] setObject:parsedResponse forKey:kSHKFacebookUserInfo];
                         SHKLog(@"saved Facebook UserInfo");
+                        
                     } else if (!parseError && parsedResponse[@"video_upload_limits"]) {
                         
                         [parsedResponse convertNSNullsToEmptyStrings];
