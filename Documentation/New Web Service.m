@@ -421,6 +421,9 @@ __weak typeof(self) weakSelf = self;
 
 
                       }];
+        
+        // if you are uploading a file, make sure you report upload progress using. Do not forget also to implement cancel method, and call [self sendDidCancel] in its implementation too.
+        [self showUploadedBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
 		
 		// Notify self and it's delegates that we started
 		[self sendDidStart];

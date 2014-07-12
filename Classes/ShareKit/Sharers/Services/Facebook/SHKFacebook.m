@@ -38,6 +38,7 @@
 
 @interface SHKFacebook ()
 
+///reference of an upload connection, so that it is cancellable (used in file/image uploads, which can report progress)
 @property (nonatomic, weak) FBRequestConnection *fbRequestConnection;
 
 @end
