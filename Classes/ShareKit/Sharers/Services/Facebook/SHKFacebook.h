@@ -4,6 +4,7 @@
 //
 //  Created by Nathan Weiner on 6/18/10.
 //	3.0 SDK rewrite - Steven Troppoli 9/25/2012
+//  3.16 SDK rewrite - Vilém Kurz 7/12/2014
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,13 +30,15 @@
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
 
-@interface SHKFacebook : SHKSharer
+#import <FacebookSDK/FBRequestConnection.h>
+
+@interface SHKFacebook : SHKSharer <FBRequestConnectionDelegate>
 
 + (BOOL)handleOpenURL:(NSURL*)url sourceApplication:(NSString *)sourceApplication;
 + (void)handleDidBecomeActive;
 + (void)handleWillTerminate;
 
-// override point for subclasses that want to do something interesting while sending non-nativly
+// override point for subclasses that want to do something interesting while sending
 - (void)doSend;
 
 @end

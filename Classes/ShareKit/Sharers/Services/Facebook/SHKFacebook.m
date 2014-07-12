@@ -36,6 +36,12 @@
 
 #import <FacebookSDK/FacebookSDK.h>
 
+@interface SHKFacebook ()
+
+@property (nonatomic, weak) FBRequestConnection *fbRequestConnection;
+
+@end
+
 @implementation SHKFacebook
 
 #pragma mark - 
@@ -283,11 +289,12 @@
 		[params setObject:self.item.image forKey:@"picture"];
 		// There does not appear to be a way to add the photo
 		// via the dialog option:
-		[FBRequestConnection startWithGraphPath:@"me/photos"
-                                     parameters:params
-                                     HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                         [self FBRequestHandlerCallback:connection result:result error:error];
-                                     }];
+		self.fbRequestConnection = [FBRequestConnection startWithGraphPath:@"me/photos"
+                                                                parameters:params
+                                                                HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                    [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                }];
+        self.fbRequestConnection.delegate = self;
 	}
     else if (self.item.shareType == SHKShareTypeFile)
 	{
@@ -302,11 +309,12 @@
             
             [params setObject:self.item.file.data forKey:self.item.file.filename];
             [params setObject:self.item.file.mimeType forKey:@"contentType"];
-            [FBRequestConnection startWithGraphPath:@"me/videos"
-                                         parameters:params
-                                         HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                             [self FBRequestHandlerCallback:connection result:result error:error];
-                                         }];
+            self.fbRequestConnection = [FBRequestConnection startWithGraphPath:@"me/videos"
+                                                                    parameters:params
+                                                                    HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                                        [self FBRequestHandlerCallback:connection result:result error:error];
+                                                                    }];
+            self.fbRequestConnection.delegate = self;
         }];
 	}
 	else if (self.item.shareType == SHKShareTypeUserInfo)
@@ -319,6 +327,12 @@
     }
     
     [self sendDidStart];
+}
+
+- (void)cancel {
+    
+    [self.fbRequestConnection cancel];
+    [self sendDidCancel];
 }
 
 -(void)FBRequestHandlerCallback:(FBRequestConnection *)connection
@@ -404,5 +418,16 @@
     [self sendDidFinish];
     [[SHK currentHelper] removeSharerReference:self];
 }
+
+#pragma mark - FBRequestConnectionDelegate methods
+
+- (void)requestConnection:(FBRequestConnection *)connection
+          didSendBodyData:(NSInteger)bytesWritten
+        totalBytesWritten:(NSInteger)totalBytesWritten
+totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
+    
+    [self showUploadedBytes:totalBytesWritten totalBytes:totalBytesExpectedToWrite];
+}
+
 
 @end
