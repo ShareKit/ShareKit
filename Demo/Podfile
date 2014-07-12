@@ -1,0 +1,12 @@
+
+platform :ios, '6.0'
+
+# Usually not needed
+link_with 'ShareKitDemo (CocoaPods)'
+
+# For regular projects
+#pod 'ShareKit'
+
+# For development
+pod 'ShareKit', :path => '../'
+
