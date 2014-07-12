@@ -79,33 +79,33 @@
 
 - (NSDictionary *)properResultDictElements {
     
-    NSMutableDictionary *result = @{@"person":@{@"first-name":@"Vilem",
-                                                @"last-name":@"Kurz",
-                                                @"headline":@"iOS developer",
-                                                @"site-standard-profile-request":@{@"url":@"http://www.linkedin.com/profile/view?id=159323245&authType=name&authToken=hj_Q&trk=api*a157605*s165834*",
-                                                                                   @"empty":@""}}};
+    NSDictionary *result = @{@"person":@{@"first-name":@"Vilem",
+                                         @"last-name":@"Kurz",
+                                         @"headline":@"iOS developer",
+                                         @"site-standard-profile-request":@{@"url":@"http://www.linkedin.com/profile/view?id=159323245&authType=name&authToken=hj_Q&trk=api*a157605*s165834*",
+                                                                            @"empty":@""}}};
     return result;
 }
 
 - (NSDictionary *)properResultDictAttributes {
     
-    NSMutableDictionary *result = @{@"result":@{@"code": @"url (or urls) required"}};
+    NSDictionary *result = @{@"result":@{@"code": @"url (or urls) required"}};
     return result;
 }
 
 - (NSDictionary *)properResultDictAttributes2 {
     
-    NSMutableDictionary *result = @{@"rsp": @{@"stat": @"ok",
-                                              @"mediaid": @"",
-                                              @"mediaurl": @"http://yfrog.com/"}};
+    NSDictionary *result = @{@"rsp": @{@"stat": @"ok",
+                                       @"mediaid": @"",
+                                       @"mediaurl": @"http://yfrog.com/"}};
     return result;
 }
 
 - (NSDictionary *)properResultDictAttributes3 {
     
-    NSMutableDictionary *result = @{@"rsp": @{@"stat": @"ok",
-                                              @"user": @{@"id": @"75231457@N02",
-                                                         @"username": @"Vito132"}}};
+    NSDictionary *result = @{@"rsp": @{@"stat": @"ok",
+                                       @"user": @{@"id": @"75231457@N02",
+                                                  @"username": @"Vito132"}}};
     return result;
 }
 
