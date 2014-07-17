@@ -179,12 +179,11 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'GooglePlus' do |googleplus|
-    googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
+    googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}', 'Frameworks/GoogleOpenSource.framework/Versions/A/Headers/*.h'
     googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework', 'Frameworks/GoogleOpenSource.framework'
     googleplus.resource = "Frameworks/GooglePlus.bundle"
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     googleplus.dependency 'ShareKit/Core'
-    googleplus.xcconfig = { 'HEADER_SEARCH_PATHS' => '"${PODS_ROOT}/ShareKit/Frameworks/GoogleOpenSource.framework/Versions/A/Headers"' }
   end
 
   #working version of YouTube subspec. It uses cutting edge Google-API-Client, which is incopatible with current GooglePlus (GooglePlus needs older version). Unfortunately older version of Google-API-Client is not available on CocoaPods. You have to choose between YouTube or GooglePlus - can not use both at the moment, as there would be duplicate symbols (Google-API-Client vs. GoogleOpenSource.framework).
