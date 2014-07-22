@@ -370,6 +370,8 @@
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
 		DE334C2E16F333A800FF692B /* libDropbox.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE334C2116F3339300FF692B /* libDropbox.a */; };
+		FA78C436197EE2F90062C10F /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = FA78C434197EE2F80062C10F /* UIView+WebCacheOperation.h */; };
+		FA78C437197EE2F90062C10F /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = FA78C435197EE2F90062C10F /* UIView+WebCacheOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1297,6 +1299,8 @@
 		FA5AA3B7149625460064DB24 /* SHKVkontakteOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakteOAuthView.h; sourceTree = "<group>"; };
 		FA5AA3BA149625460064DB24 /* SHKVkontakte.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKVkontakte.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		FA5AA3BB149625460064DB24 /* SHKVkontakte.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVkontakte.h; sourceTree = "<group>"; };
+		FA78C434197EE2F80062C10F /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../../../../SDWebImage/SDWebImage/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
+		FA78C435197EE2F90062C10F /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "../../../../../SDWebImage/SDWebImage/UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		FDB495A21520349A00505A99 /* SHKReadability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKReadability.h; sourceTree = "<group>"; };
 		FDB495A31520349A00505A99 /* SHKReadability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKReadability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2560,6 +2564,8 @@
 				7AB8A5A01925068700EC73A2 /* UIImage+WebP.m */,
 				7AB8A5A11925068700EC73A2 /* UIImageView+WebCache.h */,
 				7AB8A5A21925068700EC73A2 /* UIImageView+WebCache.m */,
+				FA78C434197EE2F80062C10F /* UIView+WebCacheOperation.h */,
+				FA78C435197EE2F90062C10F /* UIView+WebCacheOperation.m */,
 			);
 			name = SDWebImage;
 			sourceTree = "<group>";
@@ -3099,6 +3105,7 @@
 				7AB8A5AD1925068700EC73A2 /* SDWebImageDownloader.h in Headers */,
 				7AB8A5B41925068700EC73A2 /* SDWebImagePrefetcher.h in Headers */,
 				7AB8A5BA1925068700EC73A2 /* UIImage+MultiFormat.h in Headers */,
+				FA78C436197EE2F90062C10F /* UIView+WebCacheOperation.h in Headers */,
 				7AB8A5AF1925068700EC73A2 /* SDWebImageDownloaderOperation.h in Headers */,
 				7AB8A5B11925068700EC73A2 /* SDWebImageManager.h in Headers */,
 				7AB8A5A71925068700EC73A2 /* SDImageCache.h in Headers */,
@@ -4614,6 +4621,7 @@
 				7AB8A5B91925068700EC73A2 /* UIImage+GIF.m in Sources */,
 				7AB8A5AA1925068700EC73A2 /* SDWebImageCompat.m in Sources */,
 				7AB8A5AC1925068700EC73A2 /* SDWebImageDecoder.m in Sources */,
+				FA78C437197EE2F90062C10F /* UIView+WebCacheOperation.m in Sources */,
 				7AB8A5BD1925068700EC73A2 /* UIImage+WebP.m in Sources */,
 				7AB8A5AE1925068700EC73A2 /* SDWebImageDownloader.m in Sources */,
 				7AB8A5A81925068700EC73A2 /* SDImageCache.m in Sources */,
