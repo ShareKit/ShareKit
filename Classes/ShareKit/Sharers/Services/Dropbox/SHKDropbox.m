@@ -84,7 +84,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
         NSString *scheme = nil;
         
         for (NSDictionary *schemeDict in urlTypes) {
-            if ([schemeDict isKindOfClass:[NSDictionary class]] == YES && [@"Dropbox" isEqualToString:[schemeDict objectForKey:@"CFBundleTypeRole"]] == YES) {
+            if ([schemeDict isKindOfClass:[NSDictionary class]] == YES && ([@"Dropbox" isEqualToString:[schemeDict objectForKey:@"CFBundleTypeRole"]] == YES || ([@"Editor" isEqualToString:[schemeDict objectForKey:@"CFBundleTypeRole"]] == YES &&  [@"Dropbox" isEqualToString:[schemeDict objectForKey:@"CFBundleURLName"]] == YES))) {
                 scheme = [[schemeDict objectForKey:@"CFBundleURLSchemes"] lastObject];
                 break;
             }
