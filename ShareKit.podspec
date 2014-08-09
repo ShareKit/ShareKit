@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '2.5.9'
+  s.version       = '3.0.0'
   s.platform      = :ios, '6.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -23,8 +23,8 @@ Pod::Spec.new do |s|
     core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'ShareKit/NoARC'
-    core.dependency 'SDWebImage'
-    core.dependency 'UIActivityIndicator-for-SDWebImage'
+    core.dependency 'SDWebImage', '~> 3.7.1'
+    core.dependency 'UIActivityIndicator-for-SDWebImage', '~> 1.2'
   end
 
   s.subspec 'NoARC' do |noarc|
@@ -49,7 +49,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Facebook' do |facebook|
     facebook.source_files   = 'Classes/ShareKit/Sharers/Services/Facebook/**/*.{h,m}'
-    facebook.dependency 'Facebook-iOS-SDK'
+    facebook.dependency 'Facebook-iOS-SDK', '~> 3.16.2'
     facebook.dependency 'ShareKit/Core'
   end
 
@@ -88,7 +88,7 @@ Pod::Spec.new do |s|
    s.subspec 'Pocket' do |pocket|
     pocket.source_files = 'Classes/ShareKit/Sharers/Services/Pocket/**/*.{h,m}'
     pocket.dependency 'ShareKit/Core'
-    pocket.dependency 'PocketAPI', '~> 1.0'
+    pocket.dependency 'PocketAPI', '~> 1.0.2'
   end
 
   s.subspec 'Diigo' do |diigo|
@@ -99,7 +99,7 @@ Pod::Spec.new do |s|
   s.subspec 'Dropbox' do |dropbox|
     dropbox.source_files = 'Classes/ShareKit/Sharers/Services/Dropbox/**/*.{h,m}'
     dropbox.dependency 'ShareKit/Core'
-    dropbox.dependency 'Dropbox-iOS-SDK', '~> 1.3'
+    dropbox.dependency 'Dropbox-iOS-SDK', '~> 1.3.11'
   end
 
   s.subspec 'Instapaper' do |instapaper|
@@ -161,7 +161,7 @@ Pod::Spec.new do |s|
 
   s.subspec 'Pinterest' do |pinterest|
     pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
-    pinterest.dependency 'Pinterest-iOS'
+    pinterest.dependency 'Pinterest-iOS', '~> 2.3'
     pinterest.dependency 'ShareKit/Core'
   end
 
@@ -173,9 +173,19 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'ReadingList' do |readinglist|
-    readinglist.source_files = 'Classes/ShareKit/Sharers/Services/Reading List/**/*.{h,m}'
+    readinglist.source_files = 'Classes/ShareKit/Sharers/Actions/Add to Safari Reading List/**/*.{h,m}'
     readinglist.dependency 'ShareKit/Core'
     readinglist.weak_frameworks    = 'SafariServices'
+  end
+
+  s.subspec 'Open in Google Chrome' do |openinchrome|
+    openinchrome.source_files = 'Classes/ShareKit/Sharers/Actions/Open in Chrome/**/*.{h,m}'
+    openinchrome.dependency 'ShareKit/Core'
+  end
+
+  s.subspec 'Open in 1Password' do |onepassword|
+    onepassword.source_files = 'Classes/ShareKit/Sharers/Actions/Add to 1Password/**/*.{h,m}'
+    onepassword.dependency 'ShareKit/Core'
   end
 
   s.subspec 'GooglePlus' do |googleplus|
