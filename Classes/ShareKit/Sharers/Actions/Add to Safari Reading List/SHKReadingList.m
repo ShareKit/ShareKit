@@ -63,7 +63,7 @@
 {
     // the reading list API is only present on iOS 7 and above, so check for its existence
     Class ssReadingList = NSClassFromString(@"SSReadingList");
-	return ssReadingList;
+	return ssReadingList != nil;
 }
 
 - (BOOL)shouldAutoShare
