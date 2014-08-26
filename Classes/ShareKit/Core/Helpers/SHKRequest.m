@@ -105,8 +105,11 @@
 		
 	// Start Connection
 	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", self.url, self.params);
-	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:YES];
-    self.connection = aConnection;	
+	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:self.request delegate:self startImmediately:NO];
+    [aConnection scheduleInRunLoop:[NSRunLoop mainRunLoop]
+                           forMode:NSDefaultRunLoopMode];
+    self.connection = aConnection;
+    [aConnection start];
 }
 
 - (NSMutableURLRequest *)createRequest {
