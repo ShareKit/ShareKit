@@ -416,6 +416,9 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)share
 {
+    if (![NSThread isMainThread]) {
+        SHKLog(@"You are calling share on a secondary thread. You should always call share on a main thread to make sure a sharer works properly.");
+    }
 	// isAuthorized - If service requires login and details have not been saved, present login dialog
 	if (![self authorize]) {
         
