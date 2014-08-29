@@ -108,6 +108,7 @@
         } else {
             
             //I do not know why, but this completion handler is never called - instead the one provided during requestNewPublishPermissions: within send method is. This has a consequence, that if the app gets killed before the SSO trip to Safari/Facebook.app returns, the share does not continue after getting write permissions. The reason is that the block does not exist anymore.
+            [facebookSharer saveItemForLater:facebookSharer.pendingAction];
             [FBSession openActiveSessionWithPublishPermissions:SHKCONFIG(facebookWritePermissions) defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:NO completionHandler:nil];
         }
     }
