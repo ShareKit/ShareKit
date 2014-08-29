@@ -133,6 +133,7 @@
 - (NSString *)facebookURLShareDescription;
 //SHKTextMessage
 - (NSArray *)textMessageToRecipients;
+- (NSNumber*)isTextMessageHTML;
 //SHKInstagram and future others
 -(NSString*) popOverSourceRect;
 //SHKDropbox

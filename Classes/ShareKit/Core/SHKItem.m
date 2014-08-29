@@ -69,6 +69,7 @@ NSString * const SHKAttachmentSaveDir = @"SHKAttachmentSaveDir";
     _facebookURLSharePictureURI = SHKCONFIG(facebookURLSharePictureURI);
     
     _textMessageToRecipients = SHKCONFIG(textMessageToRecipients);
+	_isTextMessageHTML = [SHKCONFIG(isTextMessageHTML) boolValue];
 	_popOverSourceRect = CGRectFromString(SHKCONFIG(popOverSourceRect));
     
     _dropboxDestinationDirectory = SHKCONFIG(dropboxDestinationDirectory);
@@ -232,6 +233,7 @@ static NSString *kSHKMailShareWithAppSignature = @"kSHKMailShareWithAppSignature
 static NSString *kSHKFacebookURLShareDescription = @"kSHKFacebookURLShareDescription";
 static NSString *kSHKFacebookURLSharePictureURI = @"kSHKFacebookURLSharePictureURI";
 static NSString *kSHKTextMessageToRecipients = @"kSHKTextMessageToRecipients";
+static NSString *kSHKIsTextMessageHTML = @"kSHKIsTextMessageHTML";
 static NSString *kSHKPopOverSourceRect = @"kSHKPopOverSourceRect";
 static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
 
@@ -260,6 +262,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
         _facebookURLShareDescription = [decoder decodeObjectForKey:kSHKFacebookURLShareDescription];
         _facebookURLSharePictureURI = [decoder decodeObjectForKey:kSHKFacebookURLSharePictureURI];
         _textMessageToRecipients = [decoder decodeObjectForKey:kSHKTextMessageToRecipients];
+        _isTextMessageHTML = [decoder decodeBoolForKey:kSHKIsTextMessageHTML];
         _popOverSourceRect = CGRectFromString([decoder decodeObjectForKey:kSHKPopOverSourceRect]);
         _dropboxDestinationDirectory = [decoder decodeObjectForKey:kSHKDropboxDestinationDir];
     }
@@ -290,6 +293,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
     [encoder encodeObject:self.facebookURLSharePictureURI forKey:kSHKFacebookURLSharePictureURI];
 #pragma clang diagnostic pop
     [encoder encodeObject:self.textMessageToRecipients forKey:kSHKTextMessageToRecipients];
+    [encoder encodeBool:self.isTextMessageHTML forKey:kSHKIsTextMessageHTML];
     [encoder encodeObject:NSStringFromCGRect(self.popOverSourceRect) forKey:kSHKPopOverSourceRect];
     [encoder encodeObject:self.dropboxDestinationDirectory forKey:kSHKDropboxDestinationDir];
 }
@@ -314,6 +318,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
                                                     mailJPGQuality: %f\n\
                                                     mailShareWithAppSignature: %i\n\
                                                     textMessageToRecipients: %@\n\
+                                                    isTextMessageHTML: %i\n\
                                                     popOverSourceRect: %@\n\
                                                     dropboxDestinationDir: %@",
                         
@@ -333,6 +338,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
                                                     self.mailJPGQuality,
                                                     self.mailShareWithAppSignature,
                                                     self.textMessageToRecipients,
+                                                    self.isTextMessageHTML,
 													NSStringFromCGRect(self.popOverSourceRect),
                                                     self.dropboxDestinationDirectory];
     return result;

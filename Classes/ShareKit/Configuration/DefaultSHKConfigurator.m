@@ -643,6 +643,10 @@ on the auth path. It will try to use native auth if availible.
   return nil;
 }
 
+- (NSNumber*)isTextMessageHTML {
+    return [NSNumber numberWithInt:1];
+}
+
 -(NSString*) popOverSourceRect;
  {
   return NSStringFromCGRect(CGRectZero);
