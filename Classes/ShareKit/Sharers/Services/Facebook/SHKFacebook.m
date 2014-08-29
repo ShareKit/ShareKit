@@ -187,7 +187,10 @@
 {
     [self saveItemForLater:SHKPendingShare];
     
-    FBSession *authSession = [[FBSession alloc] initWithPermissions:SHKCONFIG(facebookReadPermissions)];
+    NSMutableArray* permissions = [NSMutableArray arrayWithArray:SHKCONFIG(facebookWritePermissions)];
+    [permissions addObjectsFromArray:SHKCONFIG(facebookReadPermissions)];
+    
+    FBSession *authSession = [[FBSession alloc] initWithPermissions:permissions];
     
     //completion happens within class method handleOpenURL:sourceApplication, thus nil handler here
     [authSession openWithCompletionHandler:nil];
