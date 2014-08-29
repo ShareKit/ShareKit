@@ -88,28 +88,30 @@
     BOOL itemRestored = [facebookSharer restoreItem];
     
     if (itemRestored) {
-        NSRange rangeOfWritePermissions = [[url absoluteString] rangeOfString:SHKCONFIG(facebookWritePermissions)[0]];
-        BOOL gotReadPermissionsOnly =  rangeOfWritePermissions.location == NSNotFound;
-        if (gotReadPermissionsOnly) {
-            [FBSession openActiveSessionWithReadPermissions:SHKCONFIG(facebookReadPermissions) allowLoginUI:NO completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+        FBSessionStateHandler handler = ^(FBSession *session, FBSessionState status, NSError *error) {
+            
+            if (error) {
+                [facebookSharer saveItemForLater:facebookSharer.pendingAction];
+                SHKLog(@"no read permissions: %@", [error description]);
+            } else {
                 
-                if (error) {
-                    [facebookSharer saveItemForLater:facebookSharer.pendingAction];
-                    SHKLog(@"no read permissions: %@", [error description]);
-                } else {
-                    
-                    //this allows for completion block to finish and continue sharing AFTER. Otherwise strange black windows and orphan webview login showed up.
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [facebookSharer tryPendingAction];
-                    });
-                }
-            }];
-            
+                //this allows for completion block to finish and continue sharing AFTER. Otherwise strange black windows and orphan webview login showed up.
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [facebookSharer tryPendingAction];
+                });
+            }
+        };
+        
+        if ([[FBSession activeSession] isOpen]) {
+            handler([FBSession activeSession], [FBSession activeSession].state, nil);
         } else {
-            
-            //I do not know why, but this completion handler is never called - instead the one provided during requestNewPublishPermissions: within send method is. This has a consequence, that if the app gets killed before the SSO trip to Safari/Facebook.app returns, the share does not continue after getting write permissions. The reason is that the block does not exist anymore.
-            [facebookSharer saveItemForLater:facebookSharer.pendingAction];
-            [FBSession openActiveSessionWithPublishPermissions:SHKCONFIG(facebookWritePermissions) defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:NO completionHandler:nil];
+            NSRange rangeOfWritePermissions = [[url absoluteString] rangeOfString:SHKCONFIG(facebookWritePermissions)[0]];
+            BOOL gotReadPermissionsOnly =  rangeOfWritePermissions.location == NSNotFound;
+            if (gotReadPermissionsOnly) {
+                [FBSession openActiveSessionWithReadPermissions:SHKCONFIG(facebookReadPermissions) allowLoginUI:NO completionHandler:handler];
+            } else {
+                [FBSession openActiveSessionWithPublishPermissions:SHKCONFIG(facebookWritePermissions) defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:NO completionHandler:handler];
+            }
         }
     }
     
