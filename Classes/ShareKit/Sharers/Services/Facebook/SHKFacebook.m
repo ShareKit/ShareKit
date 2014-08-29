@@ -182,7 +182,7 @@
 
 - (void)promptAuthorization
 {
-    [self saveItemForLater:self.pendingAction];
+    [self saveItemForLater:SHKPendingShare];
     
     FBSession *authSession = [[FBSession alloc] initWithPermissions:SHKCONFIG(facebookReadPermissions)];
     
