@@ -126,7 +126,7 @@
     NSString *apiMethod = @"add";
     PocketAPIHTTPMethod httpMethod = PocketAPIHTTPMethodPOST; // usually PocketAPIHTTPMethodPOST
     NSDictionary *arguments = @{@"url": [self.item.URL absoluteString],
-                                @"title": self.item.title,
+                                @"title": self.item.title ?: @"",
                                 @"tags": tags};
     
     [[PocketAPI sharedAPI] callAPIMethod:apiMethod
