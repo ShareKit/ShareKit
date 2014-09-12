@@ -74,6 +74,8 @@ typedef enum
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *text;
+///Optional. Some services (Mail, Text Message) can present HTML content in an enhanced way
+@property (nonatomic, strong) NSString *isHTMLText;
 @property (nonatomic, strong) NSArray *tags;
 
 @property (nonatomic, strong) NSURL *URL;
@@ -129,7 +131,7 @@ typedef enum
 
 /* SHKMail */
 @property (nonatomic, strong) NSArray *mailToRecipients;
-@property BOOL isMailHTML;
+@property BOOL isMailHTML __attribute__((deprecated ("use isHTMLText property instead")));
 @property CGFloat mailJPGQuality; 
 @property BOOL mailShareWithAppSignature; //default NO. Appends "Sent from <appName>"
 

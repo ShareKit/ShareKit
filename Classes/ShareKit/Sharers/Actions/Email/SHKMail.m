@@ -123,7 +123,7 @@
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
 	NSString *body = self.item.text ? self.item.text : @"";
-	BOOL isHTML = self.item.isMailHTML;
+	BOOL isHTML = self.item.isMailHTML || self.item.isHTMLText;
     NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
 		
 		if (self.item.URL != nil)

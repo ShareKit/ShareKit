@@ -143,7 +143,9 @@
     
     NSString *result = nil;
     if (body) {
-        result = [body stringByAppendingFormat:@"<br/><br/>%@", string];
+        const BOOL isHTML = self.item.isHTMLText;
+        NSString * const separator = (isHTML ? @"<br/><br/>" : @"\n\n");
+        result = [body stringByAppendingFormat:@"%@%@", separator, string];
     } else {
         result = string;
     }
