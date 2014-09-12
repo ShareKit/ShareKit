@@ -643,6 +643,10 @@ One of the troubles with the native share form is that it gives IOS6 props on fa
   return nil;
 }
 
+- (NSNumber*)isTextMessageHTML {
+    return [NSNumber numberWithInt:1];
+}
+
 -(NSString*) popOverSourceRect;
  {
   return NSStringFromCGRect(CGRectZero);

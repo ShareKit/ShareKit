@@ -139,6 +139,7 @@ typedef enum
 
 /* SHKTextMessage */
 @property (nonatomic, strong) NSArray *textMessageToRecipients;
+@property BOOL isTextMessageHTML;
 
 /* put in for SHKInstagram, but could be useful in some other place. This is the rect in the coordinates of the view of the viewcontroller set with
  setRootViewController: where a popover should eminate from. If this isn't provided the popover will be presented from the top left. */
