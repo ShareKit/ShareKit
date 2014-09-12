@@ -6,7 +6,7 @@ before_install:
 script:
 
 #check podspec
-- pod spec lint
+- pod spec lint ShareKit.podspec
 
 #build library
 - xctool -project "ShareKit.xcodeproj" -scheme "Static Library" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
