@@ -882,6 +882,7 @@
 		7A107CE117AA4E79009A7F0E /* DETweetURLAttachment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DETweetURLAttachment@2x.png"; path = "../DETweetURLAttachment@2x.png"; sourceTree = "<group>"; };
 		7A107CE917AA5674009A7F0E /* UIImage+OurBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OurBundle.h"; sourceTree = "<group>"; };
 		7A107CEA17AA5674009A7F0E /* UIImage+OurBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+OurBundle.m"; sourceTree = "<group>"; };
+		7A150E4C19C2E85A00E178CA /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.python; };
 		7A164DC0157662ED00D55DB4 /* SHKFormFieldCellText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCellText.h; sourceTree = "<group>"; };
 		7A164DC1157662ED00D55DB4 /* SHKFormFieldCellText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldCellText.m; sourceTree = "<group>"; };
 		7A16F37E161340DD0019645D /* libOAuth.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOAuth.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1767,6 +1768,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7A150E4C19C2E85A00E178CA /* .travis.yml */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7A9A255017256E33006B97C0 /* Resources - ShareKit Library */,
 				7AB536111552E26800171BCE /* ShareKitLibraryResources */,

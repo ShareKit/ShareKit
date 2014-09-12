@@ -1,0 +1,16 @@
+language: objective-c
+
+before_install:
+- git submodule update --init --recursive
+
+script:
+
+#check podspec
+- pod spec lint
+
+#build library
+- xctool -project "ShareKit.xcodeproj" -scheme "Static Library" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+
+#run tests
+- xctool test -project "ShareKit.xcodeproj" -target "Static Library Tests" -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+
