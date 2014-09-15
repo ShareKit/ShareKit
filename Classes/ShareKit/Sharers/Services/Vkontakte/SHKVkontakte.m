@@ -255,7 +255,15 @@
 
 + (void)logout
 {
-    [NSHTTPCookieStorage deleteCookiesForURL:[NSURL URLWithString:@"http://api.vk.com/oauth/authorize"]];
+    NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [storage cookies];
+    for (NSHTTPCookie *each in cookies)
+    {
+        if ([each.domain rangeOfString:@"vk.com"].location != NSNotFound) {
+            [storage deleteCookie:each];
+        }
+    }
+    
     [self flushAccessToken];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKVkonakteUserInfo];
     [[NSUserDefaults standardUserDefaults] synchronize];
