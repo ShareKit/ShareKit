@@ -366,6 +366,10 @@
 		C4823E2F192936290099673A /* SHK1Password.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E23192935A90099673A /* SHK1Password.m */; };
 		C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E2E192936150099673A /* libOpen in 1Password.a */; };
 		C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4B15457192E077E0080EBE3 /* libReadingList.a */; };
+		CCAC781919DBB38900D4121A /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = CCAC781719DBB38900D4121A /* UIView+WebCacheOperation.h */; };
+		CCAC781A19DBB38900D4121A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CCAC781819DBB38900D4121A /* UIView+WebCacheOperation.m */; };
+		CCAC781C19DBB39500D4121A /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CCAC781819DBB38900D4121A /* UIView+WebCacheOperation.m */; };
+		CCAC781D19DBB3B600D4121A /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = CCAC781719DBB38900D4121A /* UIView+WebCacheOperation.h */; };
 		CE857E3C16771F7C005003DA /* SHKVKontakteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE857E3816771D78005003DA /* SHKVKontakteRequest.m */; };
 		DE334C2216F3339300FF692B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		DE334C2D16F3339A00FF692B /* SHKDropbox.m in Sources */ = {isa = PBXBuildFile; fileRef = DE334C0616F3319800FF692B /* SHKDropbox.m */; };
@@ -1284,6 +1288,8 @@
 		C4823E2E192936150099673A /* libOpen in 1Password.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libOpen in 1Password.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B15457192E077E0080EBE3 /* libReadingList.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadingList.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B15458192E07A60080EBE3 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		CCAC781719DBB38900D4121A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.h"; sourceTree = SOURCE_ROOT; };
+		CCAC781819DBB38900D4121A /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.m"; sourceTree = SOURCE_ROOT; };
 		CE857E3716771D78005003DA /* SHKVKontakteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKVKontakteRequest.h; sourceTree = "<group>"; };
 		CE857E3816771D78005003DA /* SHKVKontakteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVKontakteRequest.m; sourceTree = "<group>"; };
 		DE334C0516F3319800FF692B /* SHKDropbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKDropbox.h; sourceTree = "<group>"; };
@@ -2569,6 +2575,8 @@
 		7AB8A5C01925069D00EC73A2 /* UIActivityIndicator-for-SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
+				CCAC781719DBB38900D4121A /* UIView+WebCacheOperation.h */,
+				CCAC781819DBB38900D4121A /* UIView+WebCacheOperation.m */,
 				7AB8A5C1192506C500EC73A2 /* UIImageView+UIActivityIndicatorForSDWebImage.h */,
 				7AB8A5C2192506C500EC73A2 /* UIImageView+UIActivityIndicatorForSDWebImage.m */,
 			);
@@ -3087,6 +3095,7 @@
 				7AE8DC7C165B549B004D99D2 /* DummyLibFile.h in Headers */,
 				C4823E24192935A90099673A /* SHK1Password.h in Headers */,
 				C4823E10192931730099673A /* SHKChrome.h in Headers */,
+				CCAC781919DBB38900D4121A /* UIView+WebCacheOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3094,6 +3103,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCAC781D19DBB3B600D4121A /* UIView+WebCacheOperation.h in Headers */,
 				7AB8A5AB1925068700EC73A2 /* SDWebImageDecoder.h in Headers */,
 				7AB8A5A51925068700EC73A2 /* NSData+ImageContentType.h in Headers */,
 				7AB8A5A91925068700EC73A2 /* SDWebImageCompat.h in Headers */,
@@ -4606,6 +4616,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCAC781C19DBB39500D4121A /* UIView+WebCacheOperation.m in Sources */,
 				7AB8A5BB1925068700EC73A2 /* UIImage+MultiFormat.m in Sources */,
 				7AB8A5BF1925068700EC73A2 /* UIImageView+WebCache.m in Sources */,
 				7AB8A5B51925068700EC73A2 /* SDWebImagePrefetcher.m in Sources */,
