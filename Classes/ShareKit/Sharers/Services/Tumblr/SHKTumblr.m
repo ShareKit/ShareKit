@@ -86,9 +86,9 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 		self.secretKey = SHKCONFIG(tumblrSecret);
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tumblrCallbackUrl)];
 		
-	    self.requestURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/request_token"];
-	    self.authorizeURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/authorize"];
-	    self.accessURL = [NSURL URLWithString:@"http://www.tumblr.com/oauth/access_token"];
+	    self.requestURL = [NSURL URLWithString:@"https://www.tumblr.com/oauth/request_token"];
+	    self.authorizeURL = [NSURL URLWithString:@"https://www.tumblr.com/oauth/authorize"];
+	    self.accessURL = [NSURL URLWithString:@"https://www.tumblr.com/oauth/access_token"];
 		
 		self.signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
 	}	
