@@ -31,14 +31,14 @@
  @abstract
  Passed to a handler to indicate the result of a dialog being displayed to the user.
  */
-typedef enum {
+typedef NS_ENUM(NSUInteger, FBOSIntegratedShareDialogResult) {
     /*! Indicates that the dialog action completed successfully. */
     FBOSIntegratedShareDialogResultSucceeded = 0,
     /*! Indicates that the dialog action was cancelled (either by the user or the system). */
     FBOSIntegratedShareDialogResultCancelled = 1,
     /*! Indicates that the dialog could not be shown (because not on ios6 or ios6 auth was not used). */
     FBOSIntegratedShareDialogResultError = 2
-} FBOSIntegratedShareDialogResult;
+};
 
 /*!
  @typedef
@@ -803,7 +803,8 @@ typedef void (^FBDialogAppCallCompletionHandler)(
  may be suspended or killed, the app must also give a fallbackHandler to the
  handleOpenURL: method in FBAppCall.
 
- @param params The parameters for the Message Dialog
+ @param params The parameters for the Message Dialog. The "friends" and "place" properties
+ will be ignored as the Facebook Messenger app does not support tagging.
 
  @param clientState An NSDictionary that's passed through when the completion handler
  is called. This is useful for the app to maintain state about the share request that
