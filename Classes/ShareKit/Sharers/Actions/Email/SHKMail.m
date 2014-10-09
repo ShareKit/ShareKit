@@ -123,7 +123,10 @@
 	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
 	NSString *body = self.item.text ? self.item.text : @"";
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	BOOL isHTML = self.item.isMailHTML || self.item.isHTMLText;
+#pragma clang diagnostic pop
     NSString *separator = (isHTML ? @"<br/><br/>" : @"\n\n");
 		
 		if (self.item.URL != nil)

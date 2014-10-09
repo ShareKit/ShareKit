@@ -75,7 +75,7 @@ typedef enum
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *text;
 ///Optional. Some services (Mail, Text Message) can present HTML content in an enhanced way
-@property (nonatomic, strong) NSString *isHTMLText;
+@property (nonatomic) BOOL isHTMLText;
 @property (nonatomic, strong) NSArray *tags;
 
 @property (nonatomic, strong) NSURL *URL;

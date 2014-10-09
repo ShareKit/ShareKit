@@ -593,6 +593,7 @@ One of the troubles with the native share form is that it gives IOS6 props on fa
  see Debug.h
  */
 
+#pragma mark - SHKItem sharer specific extension properties defaults
 /*
  SHKItem sharer specific values defaults
  -------------------------------------

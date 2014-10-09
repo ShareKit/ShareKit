@@ -220,6 +220,7 @@ static NSString *kSHKURLPictureURI = @"kSHKURLPictureURI";
 static NSString *kSHKURLDescription = @"kSHKURLDescription";
 static NSString *kSHKTitle = @"kSHKTitle";
 static NSString *kSHKText = @"kSHKText";
+static NSString *kSHKIsHTMLText = @"kSHKIsHTMLText";
 static NSString *kSHKTags = @"kSHKTags";
 static NSString *kSHKCustom = @"kSHKCustom";
 static NSString *kSHKFile = @"kSHKFile";
@@ -248,6 +249,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
         _URLDescription = [decoder decodeObjectForKey:kSHKURLDescription];
         _title = [decoder decodeObjectForKey:kSHKTitle];
         _text = [decoder decodeObjectForKey:kSHKText];
+        _isHTMLText = [decoder decodeObjectForKey:kSHKIsHTMLText];
         _tags = [decoder decodeObjectForKey:kSHKTags];
         _custom = [decoder decodeObjectForKey:kSHKCustom];
         _file = [decoder decodeObjectForKey:kSHKFile];
@@ -275,13 +277,17 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
     [encoder encodeObject:self.URLDescription forKey:kSHKURLDescription];
     [encoder encodeObject:self.title forKey:kSHKTitle];
     [encoder encodeObject:self.text forKey:kSHKText];
+    [encoder encodeBool:self.isHTMLText forKey:kSHKIsHTMLText];
     [encoder encodeObject:self.tags forKey:kSHKTags];
     [encoder encodeObject:self.custom forKey:kSHKCustom];
     [encoder encodeObject:self.file forKey:kSHKFile];
     [encoder encodeObject:self.image forKey:kSHKImage];
     [encoder encodeInt:self.printOutputType forKey:kSHKPrintOutputType];
     [encoder encodeObject:self.mailToRecipients forKey:kSHKMailToRecipients];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [encoder encodeBool:self.isMailHTML forKey:kSHKIsMailHTML];
+#pragma clang diagnostic pop
     [encoder encodeFloat:self.mailJPGQuality forKey:kSHKMailJPGQuality];
     [encoder encodeBool:self.mailShareWithAppSignature forKey:kSHKMailShareWithAppSignature];
 #pragma clang diagnostic push
@@ -329,7 +335,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
                                                     [self.custom description],
                                                     (long)self.printOutputType,
 													self.mailToRecipients,
-                                                    self.isMailHTML,
+                                                    self.isHTMLText,
                                                     self.mailJPGQuality,
                                                     self.mailShareWithAppSignature,
                                                     self.textMessageToRecipients,
