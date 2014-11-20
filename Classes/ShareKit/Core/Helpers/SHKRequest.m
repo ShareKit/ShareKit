@@ -155,6 +155,25 @@
 	[self finish];
 }
 
+- (NSURLRequest *)connection: (NSURLConnection *)connection
+             willSendRequest: (NSURLRequest *)request
+            redirectResponse: (NSURLResponse *)redirectResponse;
+{
+    if (redirectResponse) {
+        NSURL* newURL = [request URL];
+        if ([self.request.URL user]) {
+            // copy over the username and password if there was one.
+            newURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@:%@@%@%@?%@", [newURL scheme], self.request.URL.user, self.request.URL.password, [newURL host], [newURL path], [newURL query]]];
+            
+        }
+        NSMutableURLRequest *r = [self.request mutableCopy];
+        [r setURL: newURL];
+        return r;
+    } else {
+        return request;
+    }
+}
+
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error 
 {
 	[self finish];
