@@ -102,6 +102,8 @@
 		7A3A0D84170CBDD300A0B717 /* SHKFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3A0D82170CBDD300A0B717 /* SHKFile.m */; };
 		7A49DBBD16BC193E004B7E78 /* SHKReadability.m in Sources */ = {isa = PBXBuildFile; fileRef = FDB495A31520349A00505A99 /* SHKReadability.m */; };
 		7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A49DBC316BC193E004B7E78 /* libReadability.a */; };
+		7A5340BB1A1E517A00659425 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5340B91A1E517A00659425 /* UIView+WebCacheOperation.h */; };
+		7A5340BC1A1E517A00659425 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5340BA1A1E517A00659425 /* UIView+WebCacheOperation.m */; };
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */; };
@@ -927,6 +929,8 @@
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
 		7A4E465A173E2B2900CCEE80 /* libPocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPocket SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A5340B91A1E517A00659425 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.h"; sourceTree = SOURCE_ROOT; };
+		7A5340BA1A1E517A00659425 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.m"; sourceTree = SOURCE_ROOT; };
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
 		7A56BFC01659173D00134F04 /* SHKiOSSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOSSharer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer_Protected.h; sourceTree = "<group>"; };
@@ -2536,6 +2540,8 @@
 		7AB8A55E1925055900EC73A2 /* SDWebImage */ = {
 			isa = PBXGroup;
 			children = (
+				7A5340B91A1E517A00659425 /* UIView+WebCacheOperation.h */,
+				7A5340BA1A1E517A00659425 /* UIView+WebCacheOperation.m */,
 				7AB8A5C01925069D00EC73A2 /* UIActivityIndicator-for-SDWebImage */,
 				7AB8A5881925068700EC73A2 /* NSData+ImageContentType.h */,
 				7AB8A5891925068700EC73A2 /* NSData+ImageContentType.m */,
@@ -3101,6 +3107,7 @@
 				7AB8A5AD1925068700EC73A2 /* SDWebImageDownloader.h in Headers */,
 				7AB8A5B41925068700EC73A2 /* SDWebImagePrefetcher.h in Headers */,
 				7AB8A5BA1925068700EC73A2 /* UIImage+MultiFormat.h in Headers */,
+				7A5340BB1A1E517A00659425 /* UIView+WebCacheOperation.h in Headers */,
 				7AB8A5AF1925068700EC73A2 /* SDWebImageDownloaderOperation.h in Headers */,
 				7AB8A5B11925068700EC73A2 /* SDWebImageManager.h in Headers */,
 				7AB8A5A71925068700EC73A2 /* SDImageCache.h in Headers */,
@@ -4306,7 +4313,6 @@
 				AABBED7E162F0C4D009D46E4 /* Tumbl */,
 				7A1AFD2B160E14340086B98A /* Twitter */,
 				AABBED12162F08A3009D46E4 /* VKontakte */,
-				7AC2A38E16597F4C0089ABE8 /* Sina Weibo */,
 				7A49DBBB16BC193E004B7E78 /* Readability */,
 				7A203D0216EB7DA200421995 /* Hatena */,
 				7AAE8C9D16EB960500429C51 /* Plurk */,
@@ -4616,6 +4622,7 @@
 				7AB8A5B91925068700EC73A2 /* UIImage+GIF.m in Sources */,
 				7AB8A5AA1925068700EC73A2 /* SDWebImageCompat.m in Sources */,
 				7AB8A5AC1925068700EC73A2 /* SDWebImageDecoder.m in Sources */,
+				7A5340BC1A1E517A00659425 /* UIView+WebCacheOperation.m in Sources */,
 				7AB8A5BD1925068700EC73A2 /* UIImage+WebP.m in Sources */,
 				7AB8A5AE1925068700EC73A2 /* SDWebImageDownloader.m in Sources */,
 				7AB8A5A81925068700EC73A2 /* SDImageCache.m in Sources */,
