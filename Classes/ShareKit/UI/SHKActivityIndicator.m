@@ -408,6 +408,10 @@
 
 - (void)setProperRotation:(BOOL)animated
 {
+	if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
+		return;
+	}
+
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
 	
 	if (animated)
