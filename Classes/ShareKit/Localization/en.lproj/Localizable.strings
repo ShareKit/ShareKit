@@ -258,6 +258,7 @@
 
 //kippt option picker
 "List" = "List";
+"Select list" = "Select list";
 
 //linkedin text field placeholder
 "Comment" = "Comment";
@@ -286,3 +287,6 @@
 "Add to Safari Reading List" = "Add to Safari Reading List";
 "Open in Chrome" = "Open in Chrome";
 "Open in 1Password" = "Open in 1Password";
+
+//Tumblr
+"Select blog" = "Select blog";

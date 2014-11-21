@@ -156,9 +156,9 @@
        
     NSArray *invalidFields = [self settingsPassingTest:^BOOL (id obj, NSUInteger idx, BOOL *stop) {
         
-        BOOL result = ![(SHKFormFieldSettings *)obj isValid];
-        if (!result) *stop = YES;
-        return result;
+        BOOL isInvalid = ![(SHKFormFieldSettings *)obj isValid];
+        if (isInvalid) *stop = YES;
+        return isInvalid;
     }];
     
     BOOL allowSend = [invalidFields count] == 0;    
