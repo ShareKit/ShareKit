@@ -73,10 +73,11 @@
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		if (completed) {
 			[self sendDidFinish];
-		}
-		else {
-			[self sendDidFailWithError:error];
-		}
+		} else if (!error) {
+            [self sendDidCancel];
+        } else {
+            [self sendDidFailWithError:error];
+        }
 	};
 
 	if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
