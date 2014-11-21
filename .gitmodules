@@ -31,3 +31,6 @@
 [submodule "Submodules/UIActivityIndicator-for-SDWebImage"]
 	path = Submodules/UIActivityIndicator-for-SDWebImage
 	url = https://github.com/JJSaccolo/UIActivityIndicator-for-SDWebImage.git
+[submodule "Submodules/iso-8601-date-formatter"]
+	path = Submodules/iso-8601-date-formatter
+	url = https://github.com/boredzo/iso-8601-date-formatter.git

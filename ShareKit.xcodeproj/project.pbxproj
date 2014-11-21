@@ -104,6 +104,9 @@
 		7A49DBC716BC19BD004B7E78 /* libReadability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A49DBC316BC193E004B7E78 /* libReadability.a */; };
 		7A5340BB1A1E517A00659425 /* UIView+WebCacheOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5340B91A1E517A00659425 /* UIView+WebCacheOperation.h */; };
 		7A5340BC1A1E517A00659425 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5340BA1A1E517A00659425 /* UIView+WebCacheOperation.m */; };
+		7A5340CE1A1F3C3200659425 /* ISO8601DateFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5340CB1A1F3C3200659425 /* ISO8601DateFormatter.h */; };
+		7A5340CF1A1F3C3200659425 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A5340CC1A1F3C3200659425 /* ISO8601DateFormatter.m */; };
+		7A5340D21A1F3C6700659425 /* libiso-8601-date-formatter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A5340CA1A1F3B6100659425 /* libiso-8601-date-formatter.a */; };
 		7A56BFC41659173D00134F04 /* SHKiOSSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFC01659173D00134F04 /* SHKiOSSharer.m */; };
 		7A56BFDE16591FE000134F04 /* SHKiOSFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A56BFD916591FE000134F04 /* SHKiOSFacebook.m */; };
 		7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A57618D17A8034900B38ACB /* SHKFormFieldCellTextLarge.h */; };
@@ -360,7 +363,6 @@
 		AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21961718EA88D7003DF6BD /* SHKOneNote.m */; };
 		ACFC8BDA18EA8D6B008D72E9 /* libOneNote.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC2195F318EA885C003DF6BD /* libOneNote.a */; };
-		ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */; };
 		C4823E10192931730099673A /* SHKChrome.h in Headers */ = {isa = PBXBuildFile; fileRef = C4823E0F192931730099673A /* SHKChrome.h */; };
 		C4823E1C1929328C0099673A /* SHKChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = C4823E111929317D0099673A /* SHKChrome.m */; };
 		C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C4823E1B192932780099673A /* libOpen in Chrome.a */; };
@@ -416,6 +418,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A4E465B173E2C2500CCEE80;
 			remoteInfo = "Pocket SDK";
+		};
+		7A5340D01A1F3C5E00659425 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A5340C11A1F3B6100659425;
+			remoteInfo = "iso-8601-date-formatter";
 		};
 		7A70B2EB191C912C0070C5FB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -931,6 +940,11 @@
 		7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPocket SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A5340B91A1E517A00659425 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.h"; sourceTree = SOURCE_ROOT; };
 		7A5340BA1A1E517A00659425 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+WebCacheOperation.m"; path = "Submodules/SDWebImage/SDWebImage/UIView+WebCacheOperation.m"; sourceTree = SOURCE_ROOT; };
+		7A5340BD1A1F276500659425 /* ShareKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = ShareKit.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		7A5340CA1A1F3B6100659425 /* libiso-8601-date-formatter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libiso-8601-date-formatter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A5340CB1A1F3C3200659425 /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ISO8601DateFormatter.h; path = "Submodules/iso-8601-date-formatter/ISO8601DateFormatter.h"; sourceTree = SOURCE_ROOT; };
+		7A5340CC1A1F3C3200659425 /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ISO8601DateFormatter.m; path = "Submodules/iso-8601-date-formatter/ISO8601DateFormatter.m"; sourceTree = SOURCE_ROOT; };
+		7A5340CD1A1F3C3200659425 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE.txt; path = "Submodules/iso-8601-date-formatter/LICENSE.txt"; sourceTree = SOURCE_ROOT; };
 		7A56BFBF1659173D00134F04 /* SHKiOSSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer.h; sourceTree = "<group>"; };
 		7A56BFC01659173D00134F04 /* SHKiOSSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKiOSSharer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		7A56BFD716591D5500134F04 /* SHKiOSSharer_Protected.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SHKiOSSharer_Protected.h; sourceTree = "<group>"; };
@@ -1258,9 +1272,6 @@
 		AC2195F318EA885C003DF6BD /* libOneNote.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libOneNote.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC21961618EA88D7003DF6BD /* SHKOneNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOneNote.h; sourceTree = "<group>"; };
 		AC21961718EA88D7003DF6BD /* SHKOneNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOneNote.m; sourceTree = "<group>"; };
-		AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO8601DateFormatter.h; sourceTree = "<group>"; };
-		AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO8601DateFormatter.m; sourceTree = "<group>"; };
-		AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ISO8601DateFormatterLicense.txt; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SHKDiigo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
@@ -1392,6 +1403,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7A4E465E173E2C2500CCEE80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A5340C41A1F3B6100659425 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1661,6 +1679,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A5340D21A1F3C6700659425 /* libiso-8601-date-formatter.a in Frameworks */,
 				AC2195F418EA885C003DF6BD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1756,6 +1775,7 @@
 				C4823E1B192932780099673A /* libOpen in Chrome.a */,
 				C4823E2E192936150099673A /* libOpen in 1Password.a */,
 				C4B15457192E077E0080EBE3 /* libReadingList.a */,
+				7A5340CA1A1F3B6100659425 /* libiso-8601-date-formatter.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1772,6 +1792,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				7A5340BD1A1F276500659425 /* ShareKit.podspec */,
 				7A150E4C19C2E85A00E178CA /* .travis.yml */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				7A9A255017256E33006B97C0 /* Resources - ShareKit Library */,
@@ -2821,9 +2842,9 @@
 		AC21961A18EA88D7003DF6BD /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				AC21961F18EA88D7003DF6BD /* ISO8601DateFormatter.h */,
-				AC21962018EA88D7003DF6BD /* ISO8601DateFormatter.m */,
-				AC21962118EA88D7003DF6BD /* ISO8601DateFormatterLicense.txt */,
+				7A5340CB1A1F3C3200659425 /* ISO8601DateFormatter.h */,
+				7A5340CC1A1F3C3200659425 /* ISO8601DateFormatter.m */,
+				7A5340CD1A1F3C3200659425 /* LICENSE.txt */,
 			);
 			path = ThirdParty;
 			sourceTree = "<group>";
@@ -3076,6 +3097,14 @@
 				7AA2E9F41743E51C00B17434 /* PocketAPIOperation.h in Headers */,
 				7AA2E9F61743E51C00B17434 /* PocketAPITypes.h in Headers */,
 				7AA2E9F71743E51C00B17434 /* SFHFKeychainUtils.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A5340C51A1F3B6100659425 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5340CE1A1F3C3200659425 /* ISO8601DateFormatter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3591,6 +3620,23 @@
 			name = "Pocket SDK";
 			productName = ShareKitLibrary;
 			productReference = 7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7A5340C11A1F3B6100659425 /* iso-8601-date-formatter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A5340C71A1F3B6100659425 /* Build configuration list for PBXNativeTarget "iso-8601-date-formatter" */;
+			buildPhases = (
+				7A5340C21A1F3B6100659425 /* Sources */,
+				7A5340C41A1F3B6100659425 /* Frameworks */,
+				7A5340C51A1F3B6100659425 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iso-8601-date-formatter";
+			productName = ShareKitLibrary;
+			productReference = 7A5340CA1A1F3B6100659425 /* libiso-8601-date-formatter.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7A70B2A4191C7E950070C5FB /* Pinterest */ = {
@@ -4159,6 +4205,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A5340D11A1F3C5E00659425 /* PBXTargetDependency */,
 			);
 			name = OneNote;
 			productName = OneNote;
@@ -4330,6 +4377,7 @@
 				C4823E13192932780099673A /* Open in Chrome */,
 				C4823E26192936150099673A /* Open in 1Password */,
 				C4B1544F192E077E0080EBE3 /* Reading List */,
+				7A5340C11A1F3B6100659425 /* iso-8601-date-formatter */,
 			);
 		};
 /* End PBXProject section */
@@ -4563,6 +4611,14 @@
 				7AA2E9F31743E51C00B17434 /* PocketAPILogin.m in Sources */,
 				7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */,
 				7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A5340C21A1F3B6100659425 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A5340CF1A1F3C3200659425 /* ISO8601DateFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4835,7 +4891,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACFC8BDC18EA8ECD008D72E9 /* ISO8601DateFormatter.m in Sources */,
 				AC21962218EA88D7003DF6BD /* SHKOneNote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4904,6 +4959,11 @@
 			isa = PBXTargetDependency;
 			target = 7A4E465B173E2C2500CCEE80 /* Pocket SDK */;
 			targetProxy = 7A4E4666173E2C5300CCEE80 /* PBXContainerItemProxy */;
+		};
+		7A5340D11A1F3C5E00659425 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A5340C11A1F3B6100659425 /* iso-8601-date-formatter */;
+			targetProxy = 7A5340D01A1F3C5E00659425 /* PBXContainerItemProxy */;
 		};
 		7A70B2EC191C912C0070C5FB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5723,6 +5783,49 @@
 				PRODUCT_NAME = "Pocket SDK";
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A5340C81A1F3B6100659425 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "iso-8601-date-formatter";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A5340C91A1F3B6100659425 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "iso-8601-date-formatter";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -7543,6 +7646,15 @@
 			buildConfigurations = (
 				7A4E4661173E2C2500CCEE80 /* Debug */,
 				7A4E4662173E2C2500CCEE80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A5340C71A1F3B6100659425 /* Build configuration list for PBXNativeTarget "iso-8601-date-formatter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A5340C81A1F3B6100659425 /* Debug */,
+				7A5340C91A1F3B6100659425 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
