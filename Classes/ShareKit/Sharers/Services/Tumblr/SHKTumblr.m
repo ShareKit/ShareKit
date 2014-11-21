@@ -209,7 +209,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
     if (self.item.shareType == SHKShareTypeUserInfo) return [super validateItem];
 	
     NSString *blog = [self.item customValueForKey:@"blog"];
-    BOOL isBlogFilled = ![blog isEqualToString:@""] && ![blog isEqualToString:@"-1"];
+    BOOL isBlogFilled = ![blog isEqualToString:@""] && ![blog isEqualToString:@"-1"] && blog != nil;
     BOOL itemValid = isBlogFilled && [super validateItem];
     
 	return itemValid;
