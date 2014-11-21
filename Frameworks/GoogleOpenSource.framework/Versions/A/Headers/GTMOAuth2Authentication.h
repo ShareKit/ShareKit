@@ -20,8 +20,20 @@
 
 #import <Foundation/Foundation.h>
 
-// GTMHTTPFetcher.h brings in GTLDefines/GDataDefines
-#import "GTMHTTPFetcher.h"
+#if GTM_USE_SESSION_FETCHER
+  #import "GTMSessionFetcher.h"
+#else
+  #import "GTMHTTPFetcher.h"
+#endif  // GTM_USE_SESSION_FETCHER
+
+#define GTMOAuth2Fetcher GTMBridgeFetcher
+#define GTMOAuth2FetcherService GTMBridgeFetcherService
+#define GTMOAuth2FetcherServiceProtocol GTMBridgeFetcherServiceProtocol
+#define GTMOAuth2AssertValidSelector GTMBridgeAssertValidSelector
+#define GTMOAuth2CookieStorage GTMBridgeCookieStorage
+#define kGTMOAuth2FetcherStatusDomain kGTMBridgeFetcherStatusDomain
+#define kGTMOAuth2StatusBadRequest kGTMBridgeFetcherStatusBadRequest
+
 
 // Until all OAuth 2 providers are up to the same spec, we'll provide a crude
 // way here to override the "Bearer" string in the Authorization header
@@ -122,10 +134,10 @@ extern NSString *const kGTMOAuth2NetworkFound;
   NSDictionary *additionalGrantTypeRequestParameters_;
 
   // queue of requests for authorization waiting for a valid access token
-  GTMHTTPFetcher *refreshFetcher_;
+  GTMOAuth2Fetcher *refreshFetcher_;
   NSMutableArray *authorizationQueue_;
 
-  id <GTMHTTPFetcherServiceProtocol> fetcherService_; // WEAK
+  id <GTMOAuth2FetcherServiceProtocol> fetcherService_; // WEAK
 
   Class parserClass_;
 
@@ -219,7 +231,7 @@ extern NSString *const kGTMOAuth2NetworkFound;
 //
 // Fetcher service objects retain authorizations, so this is weak to avoid
 // circular retains.
-@property (assign) id <GTMHTTPFetcherServiceProtocol> fetcherService; // WEAK
+@property (assign) id <GTMOAuth2FetcherServiceProtocol> fetcherService; // WEAK
 
 // Alternative JSON parsing class; this should implement the
 // GTMOAuth2ParserClass informal protocol. If this property is
@@ -284,7 +296,7 @@ extern NSString *const kGTMOAuth2NetworkFound;
 //
 
 // Pending fetcher to get a new access token, if any
-@property (retain) GTMHTTPFetcher *refreshFetcher;
+@property (retain) GTMOAuth2Fetcher *refreshFetcher;
 
 // Check if a request is queued up to be authorized
 - (BOOL)isAuthorizingRequest:(NSURLRequest *)request;
@@ -316,7 +328,7 @@ extern NSString *const kGTMOAuth2NetworkFound;
 - (void)setKeysForPersistenceResponseString:(NSString *)str;
 
 // method to begin fetching an access token, used by the sign-in object
-- (GTMHTTPFetcher *)beginTokenFetchWithDelegate:(id)delegate
+- (GTMOAuth2Fetcher *)beginTokenFetchWithDelegate:(id)delegate
                               didFinishSelector:(SEL)finishedSel;
 
 // Entry point to post a notification about a fetcher currently used for
@@ -325,7 +337,7 @@ extern NSString *const kGTMOAuth2NetworkFound;
 //
 // Fetch type constants are above under "notifications for token fetches"
 - (void)notifyFetchIsRunning:(BOOL)isStarting
-                     fetcher:(GTMHTTPFetcher *)fetcher
+                     fetcher:(GTMOAuth2Fetcher *)fetcher
                         type:(NSString *)fetchType;
 
 // Arbitrary key-value properties retained for the user

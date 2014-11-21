@@ -39,6 +39,12 @@
 #ifndef MAC_OS_X_VERSION_10_7
   #define MAC_OS_X_VERSION_10_7 1070
 #endif
+#ifndef MAC_OS_X_VERSION_10_8
+  #define MAC_OS_X_VERSION_10_8 1080
+#endif
+#ifndef MAC_OS_X_VERSION_10_9
+  #define MAC_OS_X_VERSION_10_9 1090
+#endif
 
 // Not all __IPHONE_X macros defined in past SDKs
 #ifndef __IPHONE_3_0
@@ -58,6 +64,21 @@
 #endif
 #ifndef __IPHONE_5_0
   #define __IPHONE_5_0 50000
+#endif
+#ifndef __IPHONE_5_1
+  #define __IPHONE_5_1 50100
+#endif
+#ifndef __IPHONE_6_0
+  #define __IPHONE_6_0 60000
+#endif
+#ifndef __IPHONE_6_1
+  #define __IPHONE_6_1 60100
+#endif
+#ifndef __IPHONE_7_0
+  #define __IPHONE_7_0 70000
+#endif
+#ifndef __IPHONE_7_1
+  #define __IPHONE_7_1 70100
 #endif
 
 // ----------------------------------------------------------------------------
@@ -202,8 +223,16 @@
   // By default, GTM has provided it's own unittesting support, define this
   // to use the support provided by Xcode, especially for the Xcode4 support
   // for unittesting.
+  // This is going to be deprecated as Apple is deprecating SenTest.
   #ifndef GTM_IPHONE_USE_SENTEST
     #define GTM_IPHONE_USE_SENTEST 0
+  #endif
+  // Define this to use XCTest instead of OCUnit/SenTest.
+  #ifndef GTM_USING_XCTEST
+    #define GTM_USING_XCTEST 0
+  #endif
+  #if GTM_IPHONE_USE_SENTEST && GTM_USING_XCTEST
+    #error Can't define both GTM_IPHONE_USE_SENTEST and GTM_USING_XCTEST
   #endif
   #define GTM_MACOS_SDK 0
 #else
@@ -213,6 +242,7 @@
   #define GTM_IPHONE_SIMULATOR 0
   #define GTM_IPHONE_DEVICE 0
   #define GTM_IPHONE_USE_SENTEST 0
+  #define GTM_USING_XCTEST 0
 #endif
 
 // Some of our own availability macros
@@ -379,6 +409,8 @@
 #endif
 
 #ifndef GTMCFAutorelease
+  // GTMCFAutorelease returns an id.  In contrast, Apple's CFAutorelease returns
+  // a CFTypeRef.
   #if __has_feature(objc_arc)
     #define GTMCFAutorelease(x) CFBridgingRelease(x)
   #else

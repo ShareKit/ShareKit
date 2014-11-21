@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,9 +26,10 @@
 // Documentation:
 //   https://developers.google.com/+/api/
 // Classes:
-//   GTLPlusPerson (0 custom class methods, 26 custom properties)
+//   GTLPlusPerson (0 custom class methods, 30 custom properties)
 //   GTLPlusPersonAgeRange (0 custom class methods, 2 custom properties)
 //   GTLPlusPersonCover (0 custom class methods, 3 custom properties)
+//   GTLPlusPersonEmailsItem (0 custom class methods, 2 custom properties)
 //   GTLPlusPersonImage (0 custom class methods, 1 custom properties)
 //   GTLPlusPersonName (0 custom class methods, 6 custom properties)
 //   GTLPlusPersonOrganizationsItem (0 custom class methods, 9 custom properties)
@@ -47,6 +48,7 @@
 @class GTLPlusPersonCover;
 @class GTLPlusPersonCoverCoverInfo;
 @class GTLPlusPersonCoverCoverPhoto;
+@class GTLPlusPersonEmailsItem;
 @class GTLPlusPersonImage;
 @class GTLPlusPersonName;
 @class GTLPlusPersonOrganizationsItem;
@@ -63,7 +65,9 @@
 // A short biography for this person.
 @property (copy) NSString *aboutMe;
 
-// The age range of the person.
+// The age range of the person. Valid ranges are 17 or younger, 18 to 20, and 21
+// or older. Age is determined from the user's birthday using Western age
+// reckoning.
 @property (retain) GTLPlusPersonAgeRange *ageRange;
 
 // The person's date of birth, represented as YYYY-MM-DD.
@@ -72,8 +76,8 @@
 // The "bragging rights" line of this person.
 @property (copy) NSString *braggingRights;
 
-// If a Google+ Page and for followers who are visible, the number of people who
-// have added this page to a circle.
+// For followers who are visible, the number of people who have added this
+// person or page to a circle.
 @property (retain) NSNumber *circledByCount;  // intValue
 
 // The cover photo content.
@@ -84,6 +88,18 @@
 
 // The name of this person, which is suitable for display.
 @property (copy) NSString *displayName;
+
+// The hosted domain name for the user's Google Apps account. For instance,
+// example.com. The plus.profile.emails.read or email scope is needed to get
+// this domain name.
+@property (copy) NSString *domain;
+
+// A list of email addresses that this person has, including their Google
+// account email address, and the public verified email addresses on their
+// Google+ profile. The plus.profile.emails.read scope is needed to retrieve
+// these email addresses, or the email scope can be used to retrieve just the
+// Google account email address.
+@property (retain) NSArray *emails;  // of GTLPlusPersonEmailsItem
 
 // ETag of this response for caching purposes.
 @property (copy) NSString *ETag;
@@ -123,6 +139,9 @@
 // - "page" - represents a page.
 @property (copy) NSString *objectType;
 
+// The occupation of this person.
+@property (copy) NSString *occupation;
+
 // A list of current or past organizations with which this person is associated.
 @property (retain) NSArray *organizations;  // of GTLPlusPersonOrganizationsItem
 
@@ -144,6 +163,9 @@
 // - "in_domestic_partnership" - Person is in a domestic partnership.
 // - "in_civil_union" - Person is in a civil union.
 @property (copy) NSString *relationshipStatus;
+
+// The person's skills.
+@property (copy) NSString *skills;
 
 // The brief description (tagline) of this person.
 @property (copy) NSString *tagline;
@@ -167,10 +189,16 @@
 
 @interface GTLPlusPersonAgeRange : GTLObject
 
-// The age range's upper bound, if any.
+// The age range's upper bound, if any. Possible values include, but are not
+// limited to, the following:
+// - "17" - for age 17
+// - "20" - for age 20
 @property (retain) NSNumber *max;  // intValue
 
-// The age range's lower bound, if any.
+// The age range's lower bound, if any. Possible values include, but are not
+// limited to, the following:
+// - "21" - for age 21
+// - "18" - for age 18
 @property (retain) NSNumber *min;  // intValue
 
 @end
@@ -193,6 +221,27 @@
 // the following values:
 // - "banner" - One large image banner.
 @property (copy) NSString *layout;
+
+@end
+
+
+// ----------------------------------------------------------------------------
+//
+//   GTLPlusPersonEmailsItem
+//
+
+@interface GTLPlusPersonEmailsItem : GTLObject
+
+// The type of address. Possible values include, but are not limited to, the
+// following values:
+// - "account" - Google account email address.
+// - "home" - Home email address.
+// - "work" - Work email address.
+// - "other" - Other.
+@property (copy) NSString *type;
+
+// The email address.
+@property (copy) NSString *value;
 
 @end
 

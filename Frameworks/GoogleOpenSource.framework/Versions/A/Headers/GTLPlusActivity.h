@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -329,7 +329,7 @@
 // additional thumbnails from the album.
 @property (retain) NSArray *thumbnails;  // of GTLPlusActivityObjectAttachmentsItemThumbnailsItem
 
-// The link to the attachment; should be of type text/html.
+// The link to the attachment, which should be of type text/html.
 @property (copy) NSString *url;
 
 @end

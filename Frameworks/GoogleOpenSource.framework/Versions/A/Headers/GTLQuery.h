@@ -52,13 +52,7 @@
   NSDictionary *additionalHTTPHeaders_;
   Class expectedObjectClass_;
   BOOL skipAuthorization_;
-#if NS_BLOCKS_AVAILABLE
   void (^completionBlock_)(GTLServiceTicket *ticket, id object, NSError *error);
-#elif !__LP64__
-  // Placeholders: for 32-bit builds, keep the size of the object's ivar section
-  // the same with and without blocks
-  id completionPlaceholder_;
-#endif
 }
 
 // The rpc method name.
@@ -97,7 +91,6 @@
 // Clients may set this to YES to disallow authorization. Defaults to NO.
 @property (assign) BOOL shouldSkipAuthorization;
 
-#if NS_BLOCKS_AVAILABLE
 // Clients may provide an optional callback block to be called immediately
 // before the executeQuery: callback.
 //
@@ -114,7 +107,6 @@
 //     // the batch execution failed
 //   }
 @property (copy) void (^completionBlock)(GTLServiceTicket *ticket, id object, NSError *error);
-#endif
 
 // methodName is the RPC method name to use.
 + (id)queryWithMethodName:(NSString *)methodName GTL_NONNULL((1));

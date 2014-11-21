@@ -49,7 +49,11 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 // GTMHTTPFetcher brings in GTLDefines/GDataDefines
+#if GTM_USE_SESSION_FETCHER
+#import "GTMSessionFetcher.h"
+#else
 #import "GTMHTTPFetcher.h"
+#endif
 
 #import "GTMOAuth2Authentication.h"
 
@@ -67,7 +71,7 @@
 
   BOOL hasHandledCallback_;
 
-  GTMHTTPFetcher *pendingFetcher_;
+  GTMOAuth2Fetcher *pendingFetcher_;
 
 #if !GTM_OAUTH2_SKIP_GOOGLE_SUPPORT
   BOOL shouldFetchGoogleUserEmail_;
@@ -169,7 +173,7 @@
 // The auth object must have been created with appropriate scopes.
 //
 // The fetcher's response data can be parsed with NSJSONSerialization.
-+ (GTMHTTPFetcher *)userInfoFetcherWithAuth:(GTMOAuth2Authentication *)auth;
++ (GTMOAuth2Fetcher *)userInfoFetcherWithAuth:(GTMOAuth2Authentication *)auth;
 #endif
 
 #pragma mark -

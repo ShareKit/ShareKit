@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,17 @@
 #endif
 
 // Authorization scope
-// Know your name, basic info, and list of people you're connected to on Google+
-GTL_EXTERN NSString * const kGTLAuthScopePlusLogin;  // "https://www.googleapis.com/auth/plus.login"
+// Know your basic profile info and list of people in your circles.
+GTL_EXTERN NSString * const kGTLAuthScopePlusLogin;            // "https://www.googleapis.com/auth/plus.login"
 // Know who you are on Google
-GTL_EXTERN NSString * const kGTLAuthScopePlusMe;     // "https://www.googleapis.com/auth/plus.me"
+GTL_EXTERN NSString * const kGTLAuthScopePlusMe;               // "https://www.googleapis.com/auth/plus.me"
+// View your email address
+GTL_EXTERN NSString * const kGTLAuthScopePlusUserinfoEmail;    // "https://www.googleapis.com/auth/userinfo.email"
+// View basic information about your account
+GTL_EXTERN NSString * const kGTLAuthScopePlusUserinfoProfile;  // "https://www.googleapis.com/auth/userinfo.profile"
 
 // Collection
+GTL_EXTERN NSString * const kGTLPlusCollectionConnected;  // "connected"
 GTL_EXTERN NSString * const kGTLPlusCollectionPlusoners;  // "plusoners"
 GTL_EXTERN NSString * const kGTLPlusCollectionPublic;     // "public"
 GTL_EXTERN NSString * const kGTLPlusCollectionResharers;  // "resharers"

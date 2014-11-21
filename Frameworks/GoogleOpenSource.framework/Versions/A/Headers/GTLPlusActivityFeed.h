@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@
 // results.
 @property (copy) NSString *nextPageToken;
 
-// Link to this activities resource.
+// Link to this activity resource.
 @property (copy) NSString *selfLink;
 
 // The title of this collection of activities, which is a truncated portion of

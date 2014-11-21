@@ -39,6 +39,12 @@ extern "C" {
 
 extern NSString *const kGTMOAuth2KeychainErrorDomain;
 
+// Notifications that the view controller is swapping out and back in cookies.
+// Apps may use this to avoid relying on the cookie store while view controller
+// has them swapped out.
+extern NSString *const kGTMOAuth2CookiesWillSwapOut;
+extern NSString *const kGTMOAuth2CookiesDidSwapIn;
+
 #ifdef __cplusplus
 }
 #endif

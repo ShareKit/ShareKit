@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -221,7 +221,7 @@
 // The exchange traded instrument associated with a Corporation object. The
 // tickerSymbol is expressed as an exchange and an instrument name separated by
 // a space character. For the exchange component of the tickerSymbol attribute,
-// we reccommend using the controlled vocaulary of Market Identifier Codes (MIC)
+// we recommend using the controlled vocabulary of Market Identifier Codes (MIC)
 // specified in ISO15022.
 @property (copy) NSString *tickerSymbol;
 

@@ -9,6 +9,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @class GTLPlusPerson;
 @class GTLServicePlus;
@@ -29,9 +30,8 @@
 
 @end
 
-// This class signs the user in with Google. It provides single sign-on
-// via the Google+ app (if installed), Chrome for iOS (if installed), or Mobile
-// Safari.
+// This class signs the user in with Google. It also provides single sign-on
+// via a capable Google app if one is installed.
 //
 // For reference, please see "Google+ Sign-In for iOS" at
 // https://developers.google.com/+/mobile/ios/sign-in .
@@ -87,6 +87,9 @@
 // https://developers.google.com/accounts/docs/OAuth2Login#obtainuserinfo
 @property(nonatomic, copy) NSString *homeServerClientID;
 
+// An OAuth2 authorization code for the home server.
+@property(nonatomic, strong, readonly) NSString *homeServerAuthorizationCode;
+
 // The OpenID2 realm of the home web server. This allows Google to include
 // the user's OpenID Identifier in the JWT ID token.
 @property(nonatomic, copy) NSString *openIDRealm;
@@ -96,10 +99,8 @@
 @property(nonatomic, copy) NSArray *scopes;
 
 // Whether or not to attempt Single-Sign-On when signing in.
-// If |attemptSSO| is true, the sign-in button tries to authenticate with the
-// Google+ application if it is installed. If false, it always uses Google+ via
-// Chrome for iOS, if installed, or Mobile Safari for authentication.
-// The default value is |YES|.
+// If |attemptSSO| is true, |authenticate| will try to authenticate with
+// a capable Google app if one is installed.
 @property(nonatomic, assign) BOOL attemptSSO;
 
 // The language for sign-in, in the form of ISO 639-1 language code
@@ -161,9 +162,9 @@
 - (BOOL)trySilentAuthentication;
 
 // Starts the authentication process. Set |attemptSSO| to try single sign-on.
-// If |attemptSSO| is true, try to authenticate with the Google+ app, if
-// installed. If false, always use Google+ via Chrome or Mobile Safari for
-// authentication. The delegate will be called at the end of this process.
+// If |attemptSSO| is true, this method also tries to authenticate with a
+// capable Google app, if installed.
+// The delegate will be called at the end of this process.
 // Note that this method should not be called when the app is starting up,
 // (e.g in application:didFinishLaunchingWithOptions:). Instead use the
 // |trySilentAuthentication| method.

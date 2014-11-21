@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 Google Inc.
+/* Copyright (c) 2014 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -177,6 +177,7 @@
 //   debug: Return the moment as written. Should be used only for debugging.
 //  Authorization scope(s):
 //   kGTLAuthScopePlusLogin
+//   kGTLAuthScopePlusMe
 // Fetches a GTLPlusMoment.
 + (id)queryForMomentsInsertWithObject:(GTLPlusMoment *)object
                                userId:(NSString *)userId
@@ -201,6 +202,7 @@
 //   type: Only moments of this type will be returned.
 //  Authorization scope(s):
 //   kGTLAuthScopePlusLogin
+//   kGTLAuthScopePlusMe
 // Fetches a GTLPlusMomentsFeed.
 + (id)queryForMomentsListWithUserId:(NSString *)userId
                          collection:(NSString *)collection;
@@ -227,6 +229,8 @@
 //  Authorization scope(s):
 //   kGTLAuthScopePlusLogin
 //   kGTLAuthScopePlusMe
+//   kGTLAuthScopePlusUserinfoEmail
+//   kGTLAuthScopePlusUserinfoProfile
 // Fetches a GTLPlusPerson.
 + (id)queryForPeopleGetWithUserId:(NSString *)userId;
 
@@ -236,6 +240,10 @@
 //   userId: Get the collection of people for the person identified. Use "me" to
 //     indicate the authenticated user.
 //   collection: The collection of people to list.
+//      kGTLPlusCollectionConnected: The list of visible people in the
+//        authenticated user's circles who also use the requesting app. This
+//        list is limited to users who made their app activities visible to the
+//        authenticated user.
 //      kGTLPlusCollectionVisible: The list of people who this user has added to
 //        one or more circles, limited to the circles visible to the requesting
 //        application.
@@ -251,6 +259,7 @@
 //     value of "nextPageToken" from the previous response.
 //  Authorization scope(s):
 //   kGTLAuthScopePlusLogin
+//   kGTLAuthScopePlusMe
 // Fetches a GTLPlusPeopleFeed.
 + (id)queryForPeopleListWithUserId:(NSString *)userId
                         collection:(NSString *)collection;
