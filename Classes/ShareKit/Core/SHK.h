@@ -108,6 +108,8 @@ extern NSString * const SHKUploadInfosDefaultsKeyName;
 + (void)pushOnFavorites:(NSString *)className forItem:(SHKItem *)item;
 + (void)setFavorites:(NSArray *)favs forItem:(SHKItem *)item;
 
++ (NSMutableArray *)sharersToShowInActionSheetForItem:(SHKItem *)item;
+
 #pragma mark -
 #pragma mark Credentials
 

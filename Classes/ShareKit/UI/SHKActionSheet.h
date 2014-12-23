@@ -30,7 +30,14 @@
 
 @protocol SHKShareItemDelegate;
 
-@interface SHKActionSheet : UIActionSheet <UIActionSheetDelegate>
+__attribute__((availability(ios,
+                            introduced = 3.0,
+                            deprecated = 8.0,
+                            message = "SHKActionSheet is a subclass of deprecated UIActionSheet. Use SHKAlertController instead")))
+
+@interface SHKActionSheet : UIActionSheet  <UIActionSheetDelegate>
+
+
 
 @property (strong) id<SHKShareItemDelegate> shareDelegate;
 

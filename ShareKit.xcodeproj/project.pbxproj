@@ -331,6 +331,8 @@
 		7AEEDC8F18508E3600AD7E69 /* NSString+LinkedIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */; };
 		7AF701F718BCCCF400438CE2 /* SHKSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AF701F518BCCCF400438CE2 /* SHKSession.h */; };
 		7AF701F818BCCCF400438CE2 /* SHKSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF701F618BCCCF400438CE2 /* SHKSession.m */; };
+		7AFFA2731A48824800D38D0B /* SHKAlertController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AFFA2711A48824800D38D0B /* SHKAlertController.h */; };
+		7AFFA2741A48824800D38D0B /* SHKAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AFFA2721A48824800D38D0B /* SHKAlertController.m */; };
 		9492063917302B4C00DF9530 /* libKippt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AABBECFF162F0835009D46E4 /* libKippt.a */; };
 		949BCB97172A99AF00D706D4 /* SHKBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 949BCB95172A99AF00D706D4 /* SHKBuffer.h */; };
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
@@ -1234,6 +1236,8 @@
 		7AEEDC8D18508E3600AD7E69 /* NSString+LinkedIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+LinkedIn.m"; sourceTree = "<group>"; };
 		7AF701F518BCCCF400438CE2 /* SHKSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSession.h; sourceTree = "<group>"; };
 		7AF701F618BCCCF400438CE2 /* SHKSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSession.m; sourceTree = "<group>"; };
+		7AFFA2711A48824800D38D0B /* SHKAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKAlertController.h; sourceTree = "<group>"; };
+		7AFFA2721A48824800D38D0B /* SHKAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKAlertController.m; sourceTree = "<group>"; };
 		949BCB8C172A993000D706D4 /* libBuffer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuffer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		949BCB95172A99AF00D706D4 /* SHKBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKBuffer.h; sourceTree = "<group>"; };
 		949BCB96172A99AF00D706D4 /* SHKBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKBuffer.m; sourceTree = "<group>"; };
@@ -2271,6 +2275,8 @@
 				7A107CE817AA4EC8009A7F0E /* graphics */,
 				43A536EE11DBE3B9004A1712 /* SHKActionSheet.h */,
 				43A536EF11DBE3B9004A1712 /* SHKActionSheet.m */,
+				7AFFA2711A48824800D38D0B /* SHKAlertController.h */,
+				7AFFA2721A48824800D38D0B /* SHKAlertController.m */,
 				43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */,
 				43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */,
 				43A536F211DBE3B9004A1712 /* SHKFormController.h */,
@@ -3000,6 +3006,7 @@
 				7ABDD99817A7FF6D00E4B014 /* SHKFormFieldLargeTextSettings.h in Headers */,
 				7A57618F17A8034A00B38ACB /* SHKFormFieldCellTextLarge.h in Headers */,
 				7A930ED5180D86180066C399 /* UIApplication+iOSVersion.h in Headers */,
+				7AFFA2731A48824800D38D0B /* SHKAlertController.h in Headers */,
 				7ABC3D6418F6CD9600ED37BC /* SHKOAuth2View.h in Headers */,
 				7A72AD06189FD9490039D762 /* SHKAccountsViewController.h in Headers */,
 				7A107CEB17AA5674009A7F0E /* UIImage+OurBundle.h in Headers */,
@@ -4440,6 +4447,7 @@
 				7A0F91DA156BA2A0009CB40A /* SHKItem.m in Sources */,
 				7A0F91DB156BA2A0009CB40A /* SHKOfflineSharer.m in Sources */,
 				7A0F91DC156BA2A0009CB40A /* SHKOAuthSharer.m in Sources */,
+				7AFFA2741A48824800D38D0B /* SHKAlertController.m in Sources */,
 				7A0F91DD156BA2A0009CB40A /* SHKSharer.m in Sources */,
 				7A0F91DE156BA2A0009CB40A /* SHKSharerDelegate.m in Sources */,
 				7A0F91E1156BA2A0009CB40A /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */,

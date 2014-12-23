@@ -497,6 +497,25 @@ BOOL SHKinit;
     return result;
 }
 
++ (NSMutableArray *)sharersToShowInActionSheetForItem:(SHKItem *)item {
+    
+    NSMutableArray *result = [NSMutableArray arrayWithCapacity:0];
+    NSArray *favoriteSharers = [SHK favoriteSharersForItem:item];
+    
+    // Add buttons for each favorite sharer
+    id class;
+    for(NSString *sharerId in favoriteSharers)
+    {
+        //Do not add buttons for sharers, which are not able to share item
+        class = NSClassFromString(sharerId);
+        if ([class canShare] && [class canShareItem:item])
+        {
+            [result addObject:sharerId];
+        }
+    }
+    return result;    
+}
+
 #pragma mark -
 #pragma mark Credentials
 

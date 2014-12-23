@@ -68,20 +68,7 @@
 
 - (NSMutableArray *)sharersToShow {
     
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:0];
-	NSArray *favoriteSharers = [SHK favoriteSharersForItem:self.item];
-    
-	// Add buttons for each favorite sharer
-	id class;
-	for(NSString *sharerId in favoriteSharers)
-	{
-		//Do not add buttons for sharers, which are not able to share item
-        class = NSClassFromString(sharerId);
-		if ([class canShare] && [class canShareItem:self.item])
-		{
-			[result addObject:sharerId];
-		}
-	}
+    NSMutableArray *result = [SHK sharersToShowInActionSheetForItem:self.item];
     return result;    
 }
 
