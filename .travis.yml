@@ -2,6 +2,7 @@ language: objective-c
 
 before_install:
 - git submodule update --init --recursive
+- gem install cocoapods
 
 script:
 
