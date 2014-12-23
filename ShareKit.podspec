@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
     core.dependency 'SSKeychain', '~> 1.2.2'
     core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
-    core.dependency 'SDWebImage', '~> 3.7.1'
+    core.dependency 'SDWebImage', '~> 3.7'
     core.dependency 'PKMultipartInputStream'
     core.dependency 'UIActivityIndicator-for-SDWebImage', '~> 1.2'
   end
