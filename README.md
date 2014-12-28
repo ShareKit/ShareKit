@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ShareKit/ShareKit.svg?branch=master)](https://travis-ci.org/ShareKit/ShareKit)
+
 ShareKit allows you to share content easily:
 ```objective-c
 - (void)myButtonHandlerAction {
