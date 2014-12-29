@@ -28,6 +28,9 @@
 #import <Foundation/Foundation.h>
 
 @class SHKFile;
+@class UIColor;
+@class NSString;
+@class UIViewController;
 
 @interface DefaultSHKConfigurator : NSObject 
 
