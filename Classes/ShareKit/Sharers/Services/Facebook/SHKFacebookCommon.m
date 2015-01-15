@@ -12,10 +12,10 @@
 
 NSString *const kSHKFacebookUserInfo = @"kSHKFacebookUserInfo";
 NSString *const kSHKFacebookVideoUploadLimits = @"kSHKFacebookVideoUploadLimits";
-NSString *const kSHKFacebookAPIUserInfoURL = @"https://graph.facebook.com/me";
-NSString *const kSHKFacebookAPIFeedURL = @"https://graph.facebook.com/me/feed";
-NSString *const kSHKFacebookAPIPhotosURL = @"https://graph.facebook.com/me/photos";
-NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/me/videos";
+NSString *const kSHKFacebookAPIUserInfoURL = @"https://graph.facebook.com/v2.2/me";
+NSString *const kSHKFacebookAPIFeedURL = @"https://graph.facebook.com/v2.2/me/feed";
+NSString *const kSHKFacebookAPIPhotosURL = @"https://graph.facebook.com/v2.2/me/photos";
+NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/v2.2/me/videos";
 
 #define ACTIONS_API_KEY @"actions"
 #define LINK_API_KEY @"link"
