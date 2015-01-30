@@ -42,10 +42,8 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
 /*!
  @class FBTestSession
 
- @abstract
- Implements an FBSession subclass that knows about test users for a particular
- application. This should never be used from a real application, but may be useful
- for writing unit tests, etc.
+ @abstract Deprecated in favor of `FBTestUserSession`
+ and `FBTestUsersManager`
 
  @discussion
  Facebook allows developers to create test accounts for testing their applications'
@@ -67,6 +65,7 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
  seems to be in an invalid state, it can be deleted manually via the Web interface at
  https://developers.facebook.com/apps/APP_ID/permissions?role=test+users.
  */
+__attribute__ ((deprecated("use FBTestUsersManager and FBTestUserSession instead")))
 @interface FBTestSession : FBSession
 
 /// The app access token (composed of app ID and secret) to use for accessing test users.
@@ -79,8 +78,12 @@ FBSDK_EXTERN NSString *kThirdTestUserTag;
 @property (readonly, copy) NSString *testAppID;
 /// The App Secret of the test app as configured in the plist.
 @property (readonly, copy) NSString *testAppSecret;
-// Defaults to NO. If set to YES, reauthorize calls will fail with a nil token
-// as if the user had cancelled it reauthorize.
+/*!
+ @abstract Flag to disable reuathorize calls.
+ @discussion
+ Defaults to NO. If set to YES, reauthorize calls will fail with a nil token
+ as if the user had cancelled it reauthorize.
+*/
 @property (assign) BOOL disableReauthorize;
 
 /*!
