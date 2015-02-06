@@ -253,7 +253,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
         _tags = [decoder decodeObjectForKey:kSHKTags];
         _custom = [decoder decodeObjectForKey:kSHKCustom];
         _file = [decoder decodeObjectForKey:kSHKFile];
-        _image = [decoder decodeObjectForKey:kSHKImage];
+        _image = [UIImage imageWithData:[decoder decodeObjectForKey:kSHKImage]];
         _printOutputType = [decoder decodeIntForKey:kSHKPrintOutputType];
         _mailToRecipients = [decoder decodeObjectForKey:kSHKMailToRecipients];
         _isMailHTML = [decoder decodeBoolForKey:kSHKIsMailHTML];
@@ -281,7 +281,7 @@ static NSString *kSHKDropboxDestinationDir = @"kSHKDropboxDestinationDir";
     [encoder encodeObject:self.tags forKey:kSHKTags];
     [encoder encodeObject:self.custom forKey:kSHKCustom];
     [encoder encodeObject:self.file forKey:kSHKFile];
-    [encoder encodeObject:self.image forKey:kSHKImage];
+    [encoder encodeObject:UIImagePNGRepresentation(self.image) forKey:kSHKImage];
     [encoder encodeInt:self.printOutputType forKey:kSHKPrintOutputType];
     [encoder encodeObject:self.mailToRecipients forKey:kSHKMailToRecipients];
 #pragma clang diagnostic push
