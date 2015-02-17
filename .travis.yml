@@ -9,10 +9,10 @@ before_install:
 - pod repo update --silent
 
 #check podspec
-- pod spec lint ShareKit.podspec
+- travis_wait pod spec lint ShareKit.podspec
 
 #check podspec with current commit
-- pod lib lint ShareKit.podspec
+- travis_wait pod lib lint ShareKit.podspec
 
 script:
 
