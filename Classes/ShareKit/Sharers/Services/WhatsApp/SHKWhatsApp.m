@@ -105,7 +105,6 @@
     // fallback
     if (body == nil)
         body = @"";
-    
 
     body = [NSString stringWithFormat:@"whatsapp://send?text=%@",body];
     

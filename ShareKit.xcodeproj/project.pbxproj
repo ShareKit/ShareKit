@@ -91,6 +91,8 @@
 		7A1AFD3C160E14520086B98A /* SHKTwitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536E911DBE3B9004A1712 /* SHKTwitter.m */; };
 		7A203D0B16EB7E0100421995 /* SHKHatena.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A203D0116EB776D00421995 /* SHKHatena.m */; };
 		7A203D0C16EB7E2300421995 /* libHatena.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A203D0A16EB7DA200421995 /* libHatena.a */; };
+		7A278E861A93D1380065B351 /* SHKWhatsApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A278E831A93D1140065B351 /* SHKWhatsApp.m */; };
+		7A278E891A93D1620065B351 /* libWhatsApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A278E801A93D0B90065B351 /* libWhatsApp.a */; };
 		7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A536AC11DBE3B9004A1712 /* SHKSharers.plist */; };
 		7A3082B416DA0721005AF769 /* SHKTumblr.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3082B216D9E255005AF769 /* SHKTumblr.m */; };
 		7A367313184CBAFB00D63F4F /* testXMLAttributes.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7A367312184CBAFB00D63F4F /* testXMLAttributes.xml */; };
@@ -399,6 +401,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 7A203D0216EB7DA200421995;
 			remoteInfo = Hatena;
+		};
+		7A278E871A93D14E0065B351 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A278E781A93D0B90065B351;
+			remoteInfo = WhatsApp;
 		};
 		7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -917,6 +926,9 @@
 		7A26E5B6156CD8A70011E15F /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
 		7A26E5B7156CD8A70011E15F /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
 		7A26E5B8156CD8A70011E15F /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
+		7A278E801A93D0B90065B351 /* libWhatsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWhatsApp.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A278E821A93D1140065B351 /* SHKWhatsApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKWhatsApp.h; path = WhatsApp/SHKWhatsApp.h; sourceTree = "<group>"; };
+		7A278E831A93D1140065B351 /* SHKWhatsApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKWhatsApp.m; path = WhatsApp/SHKWhatsApp.m; sourceTree = "<group>"; };
 		7A288262155409CB007DC379 /* ShareKitLibrary-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "ShareKitLibrary-Prefix.pch"; path = "ShareKitLibrary/ShareKitLibrary-Prefix.pch"; sourceTree = "<group>"; };
 		7A2B025514A342D800E68A4C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		7A3082B116D9E255005AF769 /* SHKTumblr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTumblr.h; sourceTree = "<group>"; };
@@ -1392,6 +1404,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A278E7B1A93D0B90065B351 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A49DBBE16BC193E004B7E78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1449,6 +1468,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A278E891A93D1620065B351 /* libWhatsApp.a in Frameworks */,
 				C4B1545B192E08050080EBE3 /* libReadingList.a in Frameworks */,
 				C4823E32192936570099673A /* libOpen in 1Password.a in Frameworks */,
 				C4823E20192933070099673A /* libOpen in Chrome.a in Frameworks */,
@@ -1780,6 +1800,7 @@
 				C4823E2E192936150099673A /* libOpen in 1Password.a */,
 				C4B15457192E077E0080EBE3 /* libReadingList.a */,
 				7A5340CA1A1F3B6100659425 /* libiso-8601-date-formatter.a */,
+				7A278E801A93D0B90065B351 /* libWhatsApp.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2205,6 +2226,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				7A278E811A93D0F30065B351 /* WhatsApp */,
 				7A70B2A3191C7E530070C5FB /* Pinterest */,
 				AC21961518EA88D6003DF6BD /* OneNote */,
 				949BCB94172A998A00D706D4 /* Buffer */,
@@ -2409,6 +2431,15 @@
 				7A26E5B8156CD8A70011E15F /* sha1.h */,
 			);
 			path = Crypto;
+			sourceTree = "<group>";
+		};
+		7A278E811A93D0F30065B351 /* WhatsApp */ = {
+			isa = PBXGroup;
+			children = (
+				7A278E821A93D1140065B351 /* SHKWhatsApp.h */,
+				7A278E831A93D1140065B351 /* SHKWhatsApp.m */,
+			);
+			name = WhatsApp;
 			sourceTree = "<group>";
 		};
 		7A288261155409BC007DC379 /* ShareKitLibrary */ = {
@@ -3080,6 +3111,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A278E7C1A93D0B90065B351 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A49DBBF16BC193E004B7E78 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3579,6 +3617,23 @@
 			productReference = 7A203D0A16EB7DA200421995 /* libHatena.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		7A278E781A93D0B90065B351 /* WhatsApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A278E7D1A93D0B90065B351 /* Build configuration list for PBXNativeTarget "WhatsApp" */;
+			buildPhases = (
+				7A278E791A93D0B90065B351 /* Sources */,
+				7A278E7B1A93D0B90065B351 /* Frameworks */,
+				7A278E7C1A93D0B90065B351 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WhatsApp;
+			productName = ShareKitLibrary;
+			productReference = 7A278E801A93D0B90065B351 /* libWhatsApp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		7A49DBBB16BC193E004B7E78 /* Readability */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7A49DBC016BC193E004B7E78 /* Build configuration list for PBXNativeTarget "Readability" */;
@@ -3710,6 +3765,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A278E881A93D14E0065B351 /* PBXTargetDependency */,
 				C4B1545D192E08100080EBE3 /* PBXTargetDependency */,
 				C4823E311929364D0099673A /* PBXTargetDependency */,
 				C4823E1F192932D30099673A /* PBXTargetDependency */,
@@ -4386,6 +4442,7 @@
 				C4823E26192936150099673A /* Open in 1Password */,
 				C4B1544F192E077E0080EBE3 /* Reading List */,
 				7A5340C11A1F3B6100659425 /* iso-8601-date-formatter */,
+				7A278E781A93D0B90065B351 /* WhatsApp */,
 			);
 		};
 /* End PBXProject section */
@@ -4593,6 +4650,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A203D0B16EB7E0100421995 /* SHKHatena.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A278E791A93D0B90065B351 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A278E861A93D1380065B351 /* SHKWhatsApp.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4953,6 +5018,11 @@
 			isa = PBXTargetDependency;
 			target = 7A203D0216EB7DA200421995 /* Hatena */;
 			targetProxy = 7A203D0D16EB7F5100421995 /* PBXContainerItemProxy */;
+		};
+		7A278E881A93D14E0065B351 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A278E781A93D0B90065B351 /* WhatsApp */;
+			targetProxy = 7A278E871A93D14E0065B351 /* PBXContainerItemProxy */;
 		};
 		7A49DBC616BC199F004B7E78 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5660,6 +5730,50 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Hatena;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A278E7E1A93D0B90065B351 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = WhatsApp;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A278E7F1A93D0B90065B351 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = WhatsApp;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -7628,6 +7742,15 @@
 			buildConfigurations = (
 				7A203D0816EB7DA200421995 /* Debug */,
 				7A203D0916EB7DA200421995 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A278E7D1A93D0B90065B351 /* Build configuration list for PBXNativeTarget "WhatsApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A278E7E1A93D0B90065B351 /* Debug */,
+				7A278E7F1A93D0B90065B351 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
