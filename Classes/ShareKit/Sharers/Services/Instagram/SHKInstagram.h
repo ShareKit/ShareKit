@@ -25,7 +25,7 @@
 #import <Foundation/Foundation.h>
 #import "SHKSharer.h"
 
-@interface SHKInstagram : SHKSharer <UIDocumentInteractionControllerDelegate>
+@interface SHKInstagram : SHKSharer
 
 - (NSData*) generateImageData:(UIImage*)image;
 

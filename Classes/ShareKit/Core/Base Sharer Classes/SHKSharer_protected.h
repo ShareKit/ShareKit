@@ -57,6 +57,10 @@ typedef enum
 //readonly public properties
 @property (nonatomic, strong) NSError *lastError;
 
+///For use by sharers feeding local service's apps using UIDocumentInteractionController (instead of sharing via internet)
+@property (nonatomic, strong) UIDocumentInteractionController* dic;
+@property BOOL didSend;
+
 #pragma mark -
 #pragma mark Configuration : Service Definition
 
@@ -129,6 +133,9 @@ typedef enum
 - (void)hideActivityIndicator;
 - (void)displayActivity:(NSString *)activityDescription;
 - (void)displayCompleted:(NSString *)completionText;
+
+///Some sharers instead of showing regular UI feed local service's apps with UIDocumentInteractionController. This is a convenience method for such sharers.
+- (void)openInteractionControllerFileURL:(NSURL *)documentFileURL UTI:(NSString *)UTI annotation:(NSDictionary *)annotationDict;
 
 #pragma mark -
 #pragma mark Share Form

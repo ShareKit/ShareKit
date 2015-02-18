@@ -28,20 +28,7 @@
 #define MAX_RESOLUTION_IPHONE_3GS 1536.0f
 #define MAX_RESOLUTION_IPHONE_4 1936.0f
 
-@interface SHKInstagram()
-
-@property (nonatomic, strong) UIDocumentInteractionController* dic;
-@property BOOL didSend;
-
-@end
-
 @implementation SHKInstagram
-
-- (void)dealloc {
-    
-	_dic.delegate = nil;
-	
-}
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
@@ -75,7 +62,6 @@
 {
 	return NO;
 }
-
 
 #pragma mark -
 #pragma mark Configuration : Dynamic Enable
@@ -125,30 +111,19 @@
 		NSData* imgData = [self generateImageData:tmpImg];
 		[[NSFileManager defaultManager] createFileAtPath:docPath contents:imgData attributes:nil];
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
-		self.dic = [UIDocumentInteractionController interactionControllerWithURL:url];
+		
+        NSString *UTI;
         if (SHKCONFIG(instagramOnly)) {
-            self.dic.UTI = @"com.instagram.exclusivegram";
+            UTI = @"com.instagram.exclusivegram";
         } else {
-            self.dic.UTI = @"com.instagram.photo";
+            UTI = @"com.instagram.photo";
         }
-		NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([self.item.title length] ? self.item.title : @""), ([self.item.title length] && [self.item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
-		self.dic.annotation = @{@"InstagramCaption" : captionString};
-		self.dic.delegate = self;
-		UIView* bestView = self.view;
-		if(bestView.window == nil){
-			// we haven't been presented yet, so we're not in the hierarchy. On the iPad the DIC is
-			// presented in a popover and that really wants a view rooted in a window. Since we
-			// set the rootViewController in the controller that presents this one, we can use it
-			UIViewController* crvc = [[SHK currentHelper] rootViewForUIDisplay];
-			if (crvc != nil && crvc.view.window != nil ) {
-				bestView = crvc.view;
-			}
-		}
-		if(bestView.window != nil){
-			[[SHK currentHelper] keepSharerReference:self];	// retain ourselves until the menu has done it's job or we'll nuke the popup (see documentInteractionControllerDidDismissOpenInMenu)
-			[self.dic presentOpenInMenuFromRect:self.item.popOverSourceRect inView:bestView animated:YES];
-		}
-		return YES;
+        
+        NSString *captionString = [NSString stringWithFormat:@"%@%@%@", ([self.item.title length] ? self.item.title : @""), ([self.item.title length] && [self.item.tags count] ? @" " : @""), [self tagStringJoinedBy:@" " allowedCharacters:[NSCharacterSet alphanumericCharacterSet] tagPrefix:@"#" tagSuffix:nil]];
+        
+        [self openInteractionControllerFileURL:url UTI:UTI annotation:@{@"InstagramCaption" : captionString}];
+
+        return YES;
 	}
 	return NO;
 }
@@ -231,16 +206,4 @@
 	return UIImageJPEGRepresentation(image,1.0);
 }
 
-- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller{
-	if(self.didSend) {
-        self.quiet = YES; //so that we do not show "Saved!" prematurely
-		[self sendDidFinish];
-	} else {
-		[self sendDidCancel];
-    }
-	[[SHK currentHelper] removeSharerReference:self];
-}
-- (void) documentInteractionController: (UIDocumentInteractionController *) controller willBeginSendingToApplication: (NSString *) application{
-	self.didSend = true;
-}
 @end

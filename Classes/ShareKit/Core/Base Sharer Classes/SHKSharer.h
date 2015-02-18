@@ -45,7 +45,7 @@
 
 @class SHKItem;
 
-@interface SHKSharer : UINavigationController <SHKSessionDelegate>
+@interface SHKSharer : UINavigationController <SHKSessionDelegate, UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, strong) id <SHKSharerDelegate> shareDelegate;
 

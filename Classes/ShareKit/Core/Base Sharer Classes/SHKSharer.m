@@ -47,6 +47,7 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
 
 - (void)dealloc {
     
+    _dic.delegate = nil;
     SHKLog(@"!!! %@ sharer deallocated!!!", [self sharerTitle]);
 }
 
@@ -694,6 +695,29 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     rootView.cancelBlock = [self shareFormCancel];
 }
 
+- (void)openInteractionControllerFileURL:(NSURL *)documentFileURL UTI:(NSString *)UTI annotation:(NSDictionary *)annotationDict {
+    
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:documentFileURL];
+    self.dic.UTI = UTI;
+    self.dic.annotation = annotationDict;
+    self.dic.delegate = self;
+    
+    UIView* bestView = self.view;
+    if(bestView.window == nil){
+        // we haven't been presented yet, so we're not in the hierarchy. On the iPad the DIC is
+        // presented in a popover and that really wants a view rooted in a window. Since we
+        // set the rootViewController in the controller that presents this one, we can use it
+        UIViewController* crvc = [[SHK currentHelper] rootViewForUIDisplay];
+        if (crvc != nil && crvc.view.window != nil ) {
+            bestView = crvc.view;
+        }
+    }
+    if(bestView.window != nil){
+        [[SHK currentHelper] keepSharerReference:self];	// retain ourselves until the menu has done it's job or we'll nuke the popup (see documentInteractionControllerDidDismissOpenInMenu)
+        [self.dic presentOpenInMenuFromRect:self.item.popOverSourceRect inView:bestView animated:YES];
+    }
+}
+
 #pragma mark -
 #pragma mark Share Form
 
@@ -1074,6 +1098,27 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     
     [[NSNotificationCenter defaultCenter] postNotificationName:SHKUploadProgressNotification object:self userInfo:@{SHKUploadProgressInfoKeyName: self.uploadInfo}];
     [self.shareDelegate showProgress:[self.uploadInfo uploadProgress] forSharer:self];
+}
+
+#pragma mark - UIDocumentInteractionControllerDelegate
+
+- (void)documentInteractionControllerDidDismissOpenInMenu:(UIDocumentInteractionController *)controller {
+    
+    if (self.didSend) {
+        
+        self.quiet = YES; //so that we do not show "Saved!" prematurely
+        [self sendDidFinish];
+        
+    } else {
+        
+        [self sendDidCancel];
+    }
+    [[SHK currentHelper] removeSharerReference:self];
+}
+
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *) application {
+    
+    self.didSend = true;
 }
 
 @end
