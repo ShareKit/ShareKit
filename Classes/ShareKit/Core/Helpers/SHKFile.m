@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic) NSUInteger size;
 @property (nonatomic) NSUInteger duration;
+@property (nonatomic, strong) NSString *temporaryUIDocumentsInteractionControllerCopyPath;
 
 @end
 
@@ -265,6 +266,30 @@ CFStringRef CreateUTITypeForPath(NSString *path) {
         result = CFBridgingRelease(uti);
     }
     return result;
+}
+
+#pragma mark UIDocumentInteractionController helpers
+
+- (NSString *)makeTemporaryUIDICCopyWithFileExtension:(NSString *)extension {
+    
+    NSString *fileName = [@"tempCopy." stringByAppendingString:extension];
+    self.temporaryUIDocumentsInteractionControllerCopyPath = [tempDirectory stringByAppendingPathComponent:fileName];
+    
+    //just to be sure
+    [[NSFileManager defaultManager] removeItemAtPath:self.temporaryUIDocumentsInteractionControllerCopyPath error:nil];
+    
+    NSError *error;
+    BOOL success;
+    if (self.hasData) {
+        success = [self.data writeToFile:self.temporaryUIDocumentsInteractionControllerCopyPath atomically:YES];
+    } else {
+        [[NSFileManager defaultManager] copyItemAtPath:self.path toPath:self.temporaryUIDocumentsInteractionControllerCopyPath error:&error];
+        success = error == nil;
+    }
+    
+    if (!success) self.temporaryUIDocumentsInteractionControllerCopyPath = nil;
+    
+    return self.temporaryUIDocumentsInteractionControllerCopyPath;
 }
 
 @end

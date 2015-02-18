@@ -76,4 +76,13 @@
  */
 - (id)initWithFileData:(NSData *)data filename:(NSString *)filename;
 
+/**
+ * Convenience method useful for sharers utilizing UIDocumentInteractionController. Make sure you delete the file after use - the best place to do so is in UIDocumentInteractionControllerDelegate callback.
+ *
+ * @param extension Extension for a particular app. Without dot.
+ *
+ * @result NSString path of a new file copy
+ */
+- (NSString *)makeTemporaryUIDICCopyWithFileExtension:(NSString *)extension;
+
 @end

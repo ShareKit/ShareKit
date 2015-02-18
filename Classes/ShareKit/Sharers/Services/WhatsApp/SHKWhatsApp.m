@@ -29,26 +29,29 @@
 #import "SHKWhatsApp.h"
 #import "SharersCommonHeaders.h"
 
+#import <MobileCoreServices/MobileCoreServices.h>
+
 @implementation SHKWhatsApp
 
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-+ (NSString *)sharerTitle
-{
-	return SHKLocalizedString(@"WhatsApp");
++ (NSString *)sharerTitle {	return SHKLocalizedString(@"WhatsApp"); }
+
++ (BOOL)canShareURL { return YES; }
+
++ (BOOL)canShareImage { return YES; }
+
++ (BOOL)canShareText { return YES; }
+
++ (BOOL)canShareFile:(SHKFile *)file {
+    
+    if ([[self class] isFileSupportedImage:file] || [[self class] isFileSupportedVideo:file] || [[self class] isFileSupportedAudio:file]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
-
-+ (BOOL)canShareURL
-{
-    return YES;
-}
-
- + (BOOL)canShareText
- {
- return YES;
- }
-
 
 + (BOOL)shareRequiresInternetConnection
 {
@@ -74,7 +77,6 @@
 	return YES;
 }
 
-
 #pragma mark -
 #pragma mark Share API Methods
 
@@ -82,41 +84,91 @@
 {
     self.quiet = YES;
     
-	NSString *body = self.item.text;
-    
-    if (!body)
-    {
-        body = @"";
+    switch (self.item.shareType) {
+        case SHKShareTypeText:
+        case SHKShareTypeURL:
+        {
+            NSString *body = self.item.text;
+            
+            if (!body)
+            {
+                body = @"";
+            }
+            
+            if (self.item.title) {
+                body = [NSString stringWithFormat:@"%@%@",body,self.item.title];
+            }
+            
+            body= [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+            if (self.item.URL) {
+                NSString *urlStr = SHKEncodeURL(self.item.URL);
+                body = [NSString stringWithFormat:@"%@%%20%@",body,urlStr];
+            }
+            
+            
+            
+            // fallback
+            if (body == nil)
+                body = @"";
+            
+            body = [NSString stringWithFormat:@"whatsapp://send?text=%@",body];
+            
+            NSURL *whatsappURL = [NSURL URLWithString:body];
+            
+            [[UIApplication sharedApplication] openURL: whatsappURL];
+            
+            [self sendDidFinish];
+        }
+            break;
+        
+        case SHKShareTypeImage:
+            [self.item convertImageShareToFileShareOfType:SHKImageConversionTypePNG quality:0];
+        case SHKShareTypeFile:
+        {
+            if ([[self class] isFileSupportedImage:self.item.file]) {
+                
+                NSString *copyPath = [self.item.file makeTemporaryUIDICCopyWithFileExtension:@"wai"];
+                if (!copyPath) return NO;
+                [self openInteractionControllerFileURL:[NSURL fileURLWithPath:copyPath] UTI:@"net.whatsapp.image" annotation:nil];
+                
+            } else if ([[self class] isFileSupportedAudio:self.item.file]) {
+                
+                NSString *copyPath = [self.item.file makeTemporaryUIDICCopyWithFileExtension:@"waa"];
+                if (!copyPath) return NO;
+                [self openInteractionControllerFileURL:[NSURL fileURLWithPath:copyPath] UTI:@"net.whatsapp.audio" annotation:nil];
+            
+            } else {
+                
+                NSString *copyPath = [self.item.file makeTemporaryUIDICCopyWithFileExtension:@"wam"];
+                if (!copyPath) return NO;
+                [self openInteractionControllerFileURL:[NSURL fileURLWithPath:copyPath] UTI:@"net.whatsapp.movie" annotation:nil];
+            }
+        }
+            break;
+        default:
+            break;
     }
-    
-    if (self.item.title) {
-        body = [NSString stringWithFormat:@"%@%@",body,self.item.title];
-    }
-
-        body= [body stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    if (self.item.URL) {
-        NSString *urlStr = SHKEncodeURL(self.item.URL);
-        body = [NSString stringWithFormat:@"%@%%20%@",body,urlStr];
-    }
-  
-
-
-    // fallback
-    if (body == nil)
-        body = @"";
-
-    body = [NSString stringWithFormat:@"whatsapp://send?text=%@",body];
-    
-    NSURL *whatsappURL = [NSURL URLWithString:body];
-    
-    [[UIApplication sharedApplication] openURL: whatsappURL];
-    
-    [self sendDidFinish];
-    
+	    
     return YES;
 }
 
++ (BOOL)isFileSupportedImage:(SHKFile *)file {
+    
+    BOOL result = UTTypeConformsTo((__bridge CFStringRef)(file.UTIType), kUTTypeImage);
+    return result;
+}
 
++ (BOOL)isFileSupportedVideo:(SHKFile *)file {
+    
+    BOOL result = UTTypeConformsTo((__bridge CFStringRef)(file.UTIType), kUTTypeMovie);
+    return result;
+}
+
++ (BOOL)isFileSupportedAudio:(SHKFile *)file {
+    
+    BOOL result = UTTypeConformsTo((__bridge CFStringRef)(file.UTIType), kUTTypeAudio);
+    return result;
+}
 
 @end
