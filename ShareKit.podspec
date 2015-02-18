@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '4.0.2'
+  s.version       = '4.0.3'
   s.platform      = :ios, '6.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -155,6 +155,11 @@ Pod::Spec.new do |s|
     pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
     pinterest.dependency 'Pinterest-iOS', '~> 2.3'
     pinterest.dependency 'ShareKit/Core'
+  end
+  
+  s.subspec 'WhatsApp' do |whatsapp|
+      whatsapp.source_files = 'Classes/ShareKit/Sharers/Services/WhatsApp/**/*.{h,m}'
+      whatsapp.dependency 'ShareKit/Core'
   end
 
 
