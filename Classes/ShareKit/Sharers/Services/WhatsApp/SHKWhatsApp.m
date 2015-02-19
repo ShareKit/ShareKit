@@ -123,7 +123,7 @@
             break;
         
         case SHKShareTypeImage:
-            [self.item convertImageShareToFileShareOfType:SHKImageConversionTypePNG quality:0];
+            [self.item convertImageShareToFileShareOfType:SHKImageConversionTypeJPG quality:8];
         case SHKShareTypeFile:
         {
             if ([[self class] isFileSupportedImage:self.item.file]) {

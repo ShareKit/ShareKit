@@ -1113,7 +1113,6 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
         
         [self sendDidCancel];
     }
-    [[NSFileManager defaultManager] removeItemAtURL:controller.URL error:nil];
     [[SHK currentHelper] removeSharerReference:self];
 }
 

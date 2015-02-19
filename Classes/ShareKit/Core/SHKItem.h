@@ -107,7 +107,7 @@ typedef enum
 + (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title __attribute__((deprecated ("use new filePath:title or in case you share in-memory data fileData:filename:title. Mimetype is derived from filename, regardless of what you set")));
 + (id)fileData:(NSData *)data filename:(NSString *)filename title:(NSString *)title;
 
-///some sharers need to share UIImage as data file, this makes the conversion. Quality parameter is used only for jpg conversion type
+///some sharers need to share UIImage as data file, this makes the conversion. Quality parameter is used only for jpg conversion type. BEWARE!! png conversion is MUCH slower, should be done in background
 - (void)convertImageShareToFileShareOfType:(SHKImageConversionType)conversionType quality:(CGFloat)quality;
 
 /*** custom value methods ***/

@@ -275,7 +275,7 @@ CFStringRef CreateUTITypeForPath(NSString *path) {
     NSString *fileName = [@"tempCopy." stringByAppendingString:extension];
     self.temporaryUIDocumentsInteractionControllerCopyPath = [tempDirectory stringByAppendingPathComponent:fileName];
     
-    //just to be sure
+    //clear previous
     [[NSFileManager defaultManager] removeItemAtPath:self.temporaryUIDocumentsInteractionControllerCopyPath error:nil];
     
     NSError *error;
