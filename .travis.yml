@@ -1,6 +1,7 @@
 language: objective-c
 cache:
     - cocoapods
+    - bundler
 
 before_install:
 - git submodule update --init --recursive
