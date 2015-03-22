@@ -31,7 +31,7 @@
 #import "Debug.h"
 
 @implementation SHKVkontakteOAuthView
-@synthesize vkWebView, appID, delegate;
+@synthesize vkWebView, appID, delegate, scope;
 
 - (void) dealloc {
 	vkWebView.delegate = nil;
@@ -81,7 +81,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos,friends,offline,docs&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID];
+    NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID, [scope componentsJoinedByString:@","]];
     NSURL *url = [NSURL URLWithString:authLink];
 
     [vkWebView loadRequest:[NSURLRequest requestWithURL:url]];

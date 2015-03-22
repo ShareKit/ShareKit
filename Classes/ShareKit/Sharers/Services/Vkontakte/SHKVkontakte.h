@@ -37,5 +37,6 @@ static NSString *const kSHKVkonakteUserInfo=@"kSHKVkontakteUserInfo";
 @interface SHKVkontakte : SHKSharer
 
 - (void)authComplete;
++ (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication;
 
 @end

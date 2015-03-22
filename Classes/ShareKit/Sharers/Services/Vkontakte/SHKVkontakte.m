@@ -31,6 +31,8 @@
 #import "SharersCommonHeaders.h"
 #import "NSHTTPCookieStorage+DeleteForURL.h"
 
+__strong dispatch_block_t SSOCompletion;
+
 @interface SHKVkontakte()
 
 @property BOOL isCaptcha;
@@ -147,10 +149,64 @@
 					&& NSOrderedDescending == [self.expirationDate compare:[NSDate date]]);
 }
 
++ (BOOL)processOpenURL:(NSURL*)url
+{
+    if ([url.absoluteString rangeOfString:@"access_token"].location != NSNotFound) {
+        
+        NSString *accessToken = [SHKVkontakteOAuthView stringBetweenString:@"access_token="
+                                                                 andString:@"&"
+                                                               innerString:[url absoluteString]];
+        
+        NSArray *userAr = [[url absoluteString] componentsSeparatedByString:@"&user_id="];
+        NSString *user_id = [userAr lastObject];
+        SHKLog(@"User id: %@", user_id);
+        if(user_id){
+            [[NSUserDefaults standardUserDefaults] setObject:user_id forKey:kSHKVkonakteUserId];
+        }
+        
+        if(accessToken){
+            [[NSUserDefaults standardUserDefaults] setObject:accessToken forKey:kSHKVkontakteAccessTokenKey];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:[[NSDate date] dateByAddingTimeInterval:86400] forKey:kSHKVkontakteExpiryDateKey];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        if (SSOCompletion) {
+            SSOCompletion();
+        }
+    }
+    SSOCompletion = nil;
+    
+    return YES;
+}
+
++ (BOOL)processOpenURL:(NSURL *)passedUrl fromApplication:(NSString *)sourceApplication
+{
+    if ([passedUrl.scheme isEqualToString:[NSString stringWithFormat:@"vk%@", SHKCONFIG(vkontakteAppId)]]) {
+        BOOL result = [self processOpenURL:passedUrl];
+        return result;
+    }
+    return NO;
+}
+
 - (void)promptAuthorization
 {
+    NSURL *urlToOpen = [NSURL URLWithString:
+                        [NSString stringWithFormat:@"vkauthorize://authorize?client_id=%@&scope=%@", SHKCONFIG(vkontakteAppId), [SHKCONFIG(vkontakteScope) componentsJoinedByString:@","]]];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:urlToOpen]) {
+        
+        SSOCompletion = ^{
+            [self authComplete];
+        };
+        
+        [[UIApplication sharedApplication] openURL:urlToOpen];
+        return;
+    }
+    
 	SHKVkontakteOAuthView *rootView = [[SHKVkontakteOAuthView alloc] init];
 	rootView.appID = SHKCONFIG(vkontakteAppId);
+    rootView.scope = SHKCONFIG(vkontakteScope);
 	rootView.delegate = self;
 	
 	// force view to load so we can set textView text
@@ -169,8 +225,7 @@
     //we can request AccessCode only if we already authorized
     if ([self isAuthorized])
     {
-        NSString *appID = SHKCONFIG(vkontakteAppId);
-        NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=wall,photos&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", appID];
+        NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", SHKCONFIG(vkontakteAppId), [SHKCONFIG(vkontakteScope) componentsJoinedByString:@","]];
         [SHKRequest startWithURL:[NSURL URLWithString:reqURl]
                           params:nil
                           method:@"GET"
