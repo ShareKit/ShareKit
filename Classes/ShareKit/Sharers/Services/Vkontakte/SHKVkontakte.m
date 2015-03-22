@@ -359,7 +359,11 @@ __strong dispatch_block_t SSOCompletion;
             [self getUserInfo];
             break;
         case SHKShareTypeFile:
-            [self sendFileAction];
+            if ([self isVideoContent]) {
+                [self sendVideoAction];
+            } else {
+                [self sendFileAction];
+            }
             break;
         default:
             return NO;
@@ -466,6 +470,38 @@ __strong dispatch_block_t SSOCompletion;
             }
         }
     }];
+}
+
+- (void)sendVideoAction
+{
+    NSString *getWallUploadServer = [NSString stringWithFormat:@"https://api.vk.com/method/video.save?owner_id=%@&access_token=%@&wallpost=1", self.accessUserId, self.accessToken];
+    if (self.item.title) {
+        getWallUploadServer = [getWallUploadServer stringByAppendingFormat:@"&description=%@", [self URLEncodedString:self.item.title]];
+    }
+    if (self.item.text) {
+        getWallUploadServer = [getWallUploadServer stringByAppendingFormat:@"&name=%@", [self URLEncodedString:self.item.text]];
+    }
+    
+    [self sendRequest:getWallUploadServer withCaptcha:NO completion: ^(SHKRequest *request) {
+        
+        if ([self isRequestFinishedWithoutError:request])
+        {
+            // convert to JSON
+            NSError *error = nil;
+            NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:request.data options:NSJSONReadingMutableContainers error:&error];
+            NSString *upload_url = [[responseDict objectForKey:@"response"] objectForKey:@"upload_url"];
+            if (upload_url)
+            {
+                [self sendPOSTRequest:upload_url withFileData:self.item.file.data fileName:self.item.file.filename mime:self.item.file.mimeType];
+                return;
+            }
+        }
+    }];
+}
+
+- (BOOL)isVideoContent {
+    
+    return [self.item.file.mimeType hasPrefix:@"video/"];
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -675,7 +711,8 @@ __strong dispatch_block_t SSOCompletion;
     //creating body
 	NSMutableData *body = [NSMutableData data];
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",stringBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"file\"; filename=\"%@\"\r\n", filename] dataUsingEncoding:NSUTF8StringEncoding]];
+    NSString* type = [self isVideoContent] ? @"video_file" : @"file";
+    [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", type, filename] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n\r\n", mime] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:fileData];
 	[body appendData:[[NSString stringWithFormat:@"%@",endItemBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -708,6 +745,7 @@ __strong dispatch_block_t SSOCompletion;
             NSString *photo = [responseDict objectForKey:@"photo"];
             NSString *server = [responseDict objectForKey:@"server"];
             NSString *file = [responseDict objectForKey:@"file"];
+            NSString *video = [responseDict objectForKey:@"video_id"];
             
             if (hash && photo && server)
             {
@@ -761,6 +799,11 @@ __strong dispatch_block_t SSOCompletion;
                         }
                     }
                 }];
+            }
+            else if (video) {
+                //wallpost was set to 1
+                [self sendDidFinish];
+                return;
             }
         }
     };
