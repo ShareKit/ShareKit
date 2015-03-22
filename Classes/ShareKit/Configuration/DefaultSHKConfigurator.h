@@ -44,6 +44,7 @@
 - (NSArray*)defaultFavoriteSharersForFile:(SHKFile *)file;
 - (NSString*)onenoteClientId;
 - (NSString*)vkontakteAppId;
+- (NSArray*)vkontakteScope;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
 - (NSArray*)facebookWritePermissions;

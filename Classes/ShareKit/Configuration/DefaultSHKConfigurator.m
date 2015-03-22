@@ -73,6 +73,11 @@
 - (NSString*)vkontakteAppId {
 	return @"";
 }
+// Vkontakte
+// vkontakteScope is the app required scope
+- (NSArray*)vkontakteScope {
+    return @[@"wall"];
+}
 
 /*
 Forces using Facebook-ios-sdk instead of Apple's native Social.framework and Accounts.framework. Pre iOS6 posting means using SHKFacebook, instead of SHKiOSFacebook. Consequences of this are that user logs in via SSO trip to Safari/Facebook.app. (Instead of getting credentials from iOS settings). This way also share form is ShareKit's instead of iOS native SLComposeViewController.
