@@ -166,7 +166,7 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
         }
         
         if ([SHKTwitterCommon canTwitterAcceptFile:self.item.file]) {
-            [self sendStatusViaTwitter:self.item.file];
+            [self uploadMediaToTwitter:self.item.file];
         } else {
             [self sendDataViaYFrog:self.item.file.data mimeType:self.item.file.mimeType filename:self.item.file.filename];
         }
@@ -175,38 +175,72 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
         self.quiet = YES;
         [self fetchUserInfo];
     } else {
-        [self sendStatusViaTwitter:nil];
+        [self sendStatus];
     }
 
     [self sendDidStart];
     return YES;
 }
 
-- (void)sendStatusViaTwitter:(SHKFile *)file {
+- (void)uploadMediaToTwitter:(SHKFile *)file {
     
-    NSURL *url;
-    if (file) {
-        url = [NSURL URLWithString:SHKTwitterAPIUpdateWithMediaURL];
-    } else {
-        url = [NSURL URLWithString:SHKTwitterAPIUpdateURL];
-    }
-    
-    NSDictionary *params = @{@"status":[self.item customValueForKey:@"status"]};
-    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
-                                            requestMethod:SLRequestMethodPOST
-                                                      URL:url
-                                               parameters:params];
-    
-    if (file) [request addMultipartData:file.data withName:@"media" type:file.mimeType filename:file.filename];
-    request.account = [self selectedAccount];
+    NSURL *uploadURL = [NSURL URLWithString:SHKTwitterAPIMediaUploadURL];
+    SLRequest *mediaUploadRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodPOST URL:uploadURL parameters:nil];
+    [mediaUploadRequest addMultipartData:file.data withName:SHKTwitterAPIUploadMediaKey type:file.mimeType filename:file.filename];
+    mediaUploadRequest.account = [self selectedAccount];
     
     BOOL canUseNSURLSession = NSClassFromString(@"NSURLSession") != nil;
-    if (file && canUseNSURLSession) {
-        NSURLRequest *preparedRequest = [request preparedURLRequest];
-        self.networkSession = [SHKSession startSessionWithRequest:preparedRequest delegate:self completion:[self twitterDataStatusRequestHandler]];
+    if (canUseNSURLSession) {
+        NSURLRequest *preparedRequest = [mediaUploadRequest preparedURLRequest];
+        self.networkSession = [SHKSession startSessionWithRequest:preparedRequest delegate:self completion:[self twitterMediaUploadCompletion]];
     } else {
-        [request performRequestWithHandler:[self twitterDataStatusRequestHandler]];
+        [mediaUploadRequest performRequestWithHandler:[self twitterMediaUploadCompletion]];
     }
+}
+
+- (void)sendStatus {
+    
+    NSURL *statusUploadURL = [NSURL URLWithString:SHKTwitterAPIUpdateURL];
+
+    NSMutableDictionary *params = [@{@"status":[self.item customValueForKey:@"status"]} mutableCopy];
+    
+    NSString *mediaID = [self.item customValueForKey:SHKTwitterAPIUploadedMediaIDKey];
+    if (mediaID) {
+        [params setObject:mediaID forKey:SHKTwitterAPIStatusMediaKey];
+    }
+    
+    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                            requestMethod:SLRequestMethodPOST
+                                                      URL:statusUploadURL
+                                               parameters:params];
+    request.account = [self selectedAccount];
+    [request performRequestWithHandler:[self twitterDataStatusRequestHandler]];
+}
+
+- (SHKRequestHandlerBlock)twitterMediaUploadCompletion {
+    
+    SHKRequestHandlerBlock result = ^(NSData *responseData, NSURLResponse *urlResponse, NSError *error) {
+        
+        if (!error) {
+            
+            [SHKTwitterCommon saveMediaID:responseData toItem:self.item];
+            [self sendStatus];
+            
+        } else {
+            
+            if (error.code == -999) {
+                
+                [self sendDidCancel];
+                
+            } else {
+                
+                dispatch_async(dispatch_get_main_queue(), ^ {
+                    [self sendDidFailWithError:error];
+                });
+            }
+        }
+    };
+    return result;
 }
 
 - (SHKRequestHandlerBlock)twitterDataStatusRequestHandler {
@@ -261,7 +295,7 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
                                         @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]};
         
         //encountered 411 length required, thus not attachFile:withParameterName
-        [request attachFileWithParameterName:@"media" filename:filename contentType:mimeType data:data];
+        [request attachFileWithParameterName:SHKTwitterAPIUploadMediaKey filename:filename contentType:mimeType data:data];
         self.networkSession = [SHKSession startSessionWithRequest:request delegate:self completion:[self yFrogRequestCompletion]];
         
     } else {
@@ -271,7 +305,7 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
                                                                      URL:[[NSURL alloc] initWithString:@"https://yfrog.com/api/xauth_upload"]
                                                               parameters:@{@"X-Auth-Service-Provider": @"https://api.twitter.com/1.1/account/verify_credentials.json",
                                                                            @"X-Verify-Credentials-Authorization": [self authorizationYFrogHeader]}];
-        [yFrogUploadRequest addMultipartData:data withName:@"media" type:mimeType filename:filename];
+        [yFrogUploadRequest addMultipartData:data withName:SHKTwitterAPIUploadMediaKey type:mimeType filename:filename];
         [yFrogUploadRequest performRequestWithHandler:[self yFrogRequestCompletion]];
     }
 }
@@ -288,7 +322,7 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
                 if (mediaURL) {
                     
                     [self.item setCustomValue:[NSString stringWithFormat:@"%@ %@", [self.item customValueForKey:@"status"], mediaURL] forKey:@"status"];
-                    [self sendStatusViaTwitter:nil];
+                    [self sendStatus];
                     
                 } else {
                     

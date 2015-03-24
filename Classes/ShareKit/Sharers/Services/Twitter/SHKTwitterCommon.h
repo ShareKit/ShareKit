@@ -16,11 +16,14 @@ extern NSString * const kSHKTwitterUserInfo;
 extern NSString * const kSHKiOSTwitterUserInfo;
 extern NSString * const SHKTwitterAPIConfigurationDataKey;
 extern NSString * const SHKTwitterAPIConfigurationSaveDateKey;
+extern NSString * const SHKTwitterAPIUploadedMediaIDKey;
+extern NSString * const SHKTwitterAPIUploadMediaKey;
+extern NSString * const SHKTwitterAPIStatusMediaKey;
 extern NSString * const SHKTwitterAPIUserInfoURL;
 extern NSString * const SHKTwitterAPIUserInfoNameKey;
 extern NSString * const SHKTwitterAPIConfigurationURL;
-extern NSString * const SHKTwitterAPIUpdateWithMediaURL;
 extern NSString * const SHKTwitterAPIUpdateURL;
+extern NSString * const SHKTwitterAPIMediaUploadURL;
 
 @interface SHKTwitterCommon : NSObject
 
@@ -44,5 +47,6 @@ extern NSString * const SHKTwitterAPIUpdateURL;
 
 + (void)saveData:(NSData *)data defaultsKey:(NSString *)key;
 + (void)handleUnsuccessfulTicket:(NSData *)data forSharer:(SHKSharer *)sharer;
++ (void)saveMediaID:(NSData *)data toItem:(SHKItem *)item;
 
 @end

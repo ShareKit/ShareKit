@@ -347,7 +347,7 @@
 
 - (void)sendFileViaTwitter:(SHKFile *)file {
     
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIUpdateWithMediaURL]
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:SHKTwitterAPIMediaUploadURL]
                                                                     consumer:self.consumer
                                                                        token:self.accessToken
                                                                        realm:nil
@@ -355,13 +355,13 @@
 	[oRequest setHTTPMethod:@"POST"];
     [oRequest prepare];
     
-	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status" value:[self.item customValueForKey:@"status"]];
-	[oRequest setParameters:@[statusParam]];
-    [oRequest attachFile:file withParameterName:@"media"];
+	//OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status" value:[self.item customValueForKey:@"status"]];
+	//[oRequest setParameters:@[statusParam]];
+    [oRequest attachFile:file withParameterName:SHKTwitterAPIUploadMediaKey];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
-                                                                                 didFinishSelector:@selector(sendTicket:didFinishWithData:)
+                                                                                 didFinishSelector:@selector(sendMedia:didFinishWithData:)
                                                                                    didFailSelector:@selector(sendTicket:didFailWithError:)];
 	[fetcher start];
 }
@@ -376,7 +376,7 @@
     [uploadRequest setHTTPMethod:@"POST"];
     [uploadRequest setValue:@"https://api.twitter.com/1.1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
     [uploadRequest setValue:[self createOAuthHeaderForYFrog] forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
-    [uploadRequest attachFile:file withParameterName:@"media"];
+    [uploadRequest attachFile:file withParameterName:SHKTwitterAPIUploadMediaKey];
     
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:uploadRequest
                                                                                           delegate:self
@@ -427,9 +427,15 @@
 	
 	[oRequest setHTTPMethod:@"POST"];
 	
-	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
-																								value:[self.item customValueForKey:@"status"]];
-    NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
+	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status" value:[self.item customValueForKey:@"status"]];
+    NSMutableArray *params = [@[statusParam] mutableCopy];
+    
+    //if we have any uploaded media
+    NSString *mediaID = [self.item customValueForKey:SHKTwitterAPIUploadedMediaIDKey];
+    if (mediaID) {
+        OARequestParameter *mediaParam = [[OARequestParameter alloc] initWithName:SHKTwitterAPIStatusMediaKey value:mediaID];
+        [params addObject:mediaParam];
+    }
 	[oRequest setParameters:params];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
@@ -466,6 +472,19 @@
 - (void)sendTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[self sendDidFailWithError:error];
+}
+
+- (void)sendMedia:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    
+    if (ticket.didSucceed) {
+        
+        [SHKTwitterCommon saveMediaID:data toItem:self.item];
+        [self sendStatus];
+    
+    } else {
+        
+        [SHKTwitterCommon handleUnsuccessfulTicket:data forSharer:self];
+    }
 }
 
 - (void)sendTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
