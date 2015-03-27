@@ -76,7 +76,7 @@
 // Vkontakte
 // vkontakteScope is the app required scope
 - (NSArray*)vkontakteScope {
-    return @[@"wall"];
+    return @[@"wall", @"video", @"docs", @"photos"];
 }
 
 /*
