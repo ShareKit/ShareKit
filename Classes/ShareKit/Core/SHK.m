@@ -426,6 +426,15 @@ BOOL SHKinit;
 		[self setFavorites:favoriteSharers forItem:item];
 	}
     
+    int indexFacebook = -1;
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending &&
+        (indexFacebook = [favoriteSharers indexOfObject:@"SHKFacebook"]) != -1)
+    {
+        NSMutableArray *mutableFavoriteSharers = [favoriteSharers mutableCopy];
+        [mutableFavoriteSharers removeObjectAtIndex:indexFacebook];
+        favoriteSharers = mutableFavoriteSharers;
+    }
+    
     // Remove all sharers which are not part of the SHKSharers.plist
     NSDictionary *sharersDict = [self sharersDictionary];
     NSArray *keys = [sharersDict allKeys];
