@@ -246,7 +246,15 @@ BOOL SHKinit;
         vc.modalTransitionStyle = [SHK modalTransitionStyleForController:vc];
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
-    [topViewController presentViewController:vc animated:YES completion:nil];
+    
+    // Popover visible
+    if ([topViewController presentedViewController]){
+        [topViewController dismissViewControllerAnimated:YES completion:^{
+            [topViewController presentViewController:vc animated:YES completion:nil];
+        }];
+    }else{
+        [topViewController presentViewController:vc animated:YES completion:nil];
+    }
 
     self.currentView = vc;
 	self.pendingView = nil;
