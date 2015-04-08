@@ -150,9 +150,14 @@ BOOL SHKinit;
 - (UIViewController *)rootViewForUIDisplay {
     
     UIViewController *result = [self getCurrentRootViewController];
+    UIViewController *presentedController = [result presentedViewController];
     
     // Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	while (result.presentedViewController != nil) result = result.presentedViewController;
+    while (presentedController && [presentedController modalPresentationStyle] != UIModalPresentationPopover) {
+        result = presentedController;
+        presentedController = [presentedController presentedViewController];
+    }
+
     
     NSAssert(result, @"ShareKit: There is no view controller to display from");
 	return result;  
