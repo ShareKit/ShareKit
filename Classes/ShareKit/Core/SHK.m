@@ -559,6 +559,11 @@ BOOL SHKinit;
 
 #pragma mark -
 
++ (void) ShareKitBundlePath:(NSString*)path
+{
+    shareKitLibraryBundlePath = path;
+}
+
 static NSString *shareKitLibraryBundlePath = nil;
 
 + (NSString *)shareKitLibraryBundlePath
