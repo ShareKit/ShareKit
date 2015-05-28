@@ -1,0 +1,292 @@
+"Email" = "Email";
+
+"Username" = "Kullanıcı Adı";
+
+"Password" = "Şifre";
+
+"Follow %@" = "Takip Et %@";
+
+"Continue" = "Devam";
+
+"Share" = "Paylaş";
+
+"More..." = "Daha Fazla...";
+
+"Cancel" = "İptal";
+
+"Private" = "Kişisel";
+
+/* Belonged to removed Google Reader, currently unused. Left undeleted, since this is a common word which might be of use elsewhere */
+"Public" = "Ortak";
+
+"Caption" = "Caption";
+
+"Title" = "Başlık";
+
+"Close" = "Kapat";
+
+"Notes" = "Notlar";
+
+/* Belonged to removed Google Reader, currently unused. Left undeleted, since this is a common word which might be of use elsewhere */
+"Note" = "Not";
+
+"Shared" = "Paylaşıldı";
+
+"Edit" = "Düzenle";
+
+"Actions" = "Aksiyonlar";
+
+"Services" = "Servisler";
+
+"Send to %@" = "%@'a gönderildi";
+
+"Copy" = "Kopyala";
+
+"Copied!" = "Kopyalandı!";
+
+"Saving to %@" = "%@'a kaydediliyor";
+
+"Saved!" = "Kaydedildi!";
+
+"Offline" = "Çevirimdışı";
+
+"Error" = "Hata";
+
+"Login" = "Giriş";
+
+"Logging In..." = "Giriş Yapılıyor...";
+
+"Login Error" = "Oturum Hatası";
+
+"Connecting..." = "Bağlanıyor...";
+
+"Shortening URL..." = "URL Kısaltılıyor...";
+
+"Shorten URL Error" = "URL Kısaltma Hatası";
+
+"We could not shorten the URL." = "URL'yi kısaltamadık.";
+
+"Create a free account at %@" = "%@ üzerinden ücretsiz yeni hesap oluştur";
+
+"Create an account at %@" = "üzerinden yeni hesap oluştur";
+
+"Send to Twitter" = "Twitter'a Gönder";
+
+"Message is too long" = "Mesaj çok uzun";
+
+"Twitter posts can only be 140 characters in length." = "Twitter gönderileri maksimum 140 karakter uzunluğunda olabilir.";
+
+"Message is empty" = "Mesaj boş";
+
+"You must enter a message in order to post." = "Gönderebilmek için bir mesaj girmelisiniz.";
+
+"Enter your message:" = "Mesajınızı girin:";
+
+"The service encountered an error. Please try again later." = "Serviste bir hata oldu. Lütfen daha sonra tekrar deneyin.";
+
+"Sorry, %@ did not accept your credentials. Please try again." = "Üzgünüz, %@ bilgilerinizi unaylamadı. Lütfen daha sonra tekrar deneyin.";
+"Sorry, %@ encountered an error. Please try again." = "Üzgünüz, %@ bir hata ile karşılaştı. Lütfen daha sonra tekrar deneyin.";
+"There was a problem saving to %@." = "%@'a kaydederken bir problem oldu";
+
+"There was a problem saving your note." = "Kaydederken bir problem oldu.";
+
+"Open in Safari" = "Safaride aç";
+
+"Attached: %@" = "Eklendi: %@";
+
+"You must be online to login to %@" = "%@ ile login olmak için online olmalısınız";
+
+"Auto Share" = "Otomatik paylaş";
+
+"Enable auto share to skip this step in the future." = "Bu adımı atlamak için otomatik paylaşımı aktif edin";
+
+"You must be online in order to share with %@" = "%@ Paylaşımı için online olmalısnız. ";
+
+"Could not authenticate you. Please relogin." = "Doğrulama yapılamadı. Lütfen tekrar giriş yapın";
+
+"There was a problem requesting authorization from %@" = "Doğrulama sırasında %@ tarafında bir hata oluştu";
+
+"Request Error" = "İstek Hatası";
+
+"There was an error while sharing" = "Paylaşım yapılırken bir hata oluştu";
+
+"Authorize Error" = "Doğrulama Hatası";
+
+"There was an error while authorizing" = "Doğrulama yapılırken hata oluştu;
+
+"Authenticating..." = "Doğrulanıyor...";
+
+"There was a problem requesting access from %@" = "Erişim izni isterken %@ tarafında bir hata oluştu";
+
+"Access Error" = "Erişim Hatası";
+
+"Logout" = "Çıkış";
+
+"Sharing a Link" = "Link Paylaşılıyor";
+
+"Sharing an Image" = "Resim Paylaşılıyo ";
+
+"Sharing Text" = "Yazı Paylaşılıyor";
+
+"Sharing a File" = "Dosya Paylaşılıyor";
+
+"Are you sure you want to logout of all share services?" = "Tüm servislerde oturumu kapatmak istedinize eminmisiniz ?";
+
+"Examples" = "Örnekler";
+
+"EDMA Error" = "EDMA Hatası";
+
+"EDMA Version is too old." = "EDMA versiyonu çok eski.";
+
+"Your username and password did not match" = "Kullanıcı adı ve şifre eşleştirilemedi.";
+
+"Untitled" = "Başlıklsız";
+
+"There was a problem sharing with Evernote" = "Paylaşım yapılırken bir hata oluştu";
+
+"Get" = "Git";
+
+"Description" = "Açıkama";
+
+"Is Public" = "Ortak mı"";
+
+"Is Friend" = "Arkadaş mı";
+
+"Is Family" = "Aile mi";
+
+"Logged Out!" = "Oturum Kapatıldı!";
+
+"Sent from %@" = "%@'tan gönderildi";
+
+"Save to Photo Album" = "Foto Albümüne Kaydet";
+
+"Tag, tag" = "Etiket, etiket";
+
+"Logout of All Services" = "Tüm servislerde oturumu kapat";
+
+/* No comment provided by engineer. */
+"Check In" = "Konum bildir";
+
+/* No comment provided by engineer. */
+"Could not find any" = "Birşey bulunamadı";
+
+/* No comment provided by engineer. */
+"Determine your location..." = "Keşfet...";
+
+/* No comment provided by engineer. */
+"Loading..." = "Yükleniyor...";
+
+/* No comment provided by engineer. */
+"Nearby Places" = "Yakınlardaki Yerler";
+
+/* No comment provided by engineer. */
+"No Options" = "Seçenek Yok";
+
+/* No comment provided by engineer. */
+"Post To Groups" = "Gruplara Gönder";
+
+/* No comment provided by engineer. */
+"Print" = "Yazdır";
+
+/* No comment provided by engineer. */
+"Search places" = "Yer Ara";
+
+/* No comment provided by engineer. */
+"Searching places..." = "Aranıyor...";
+
+"Select Group" = "Grup Seç";
+"Flickr Groups" = "Flickr Grupları";
+
+//Demo app
+"Accounts" = "Hesaplar";
+
+//Tumblr V2
+"Publish type" = "Yayın tipi ";
+"Publish now" = "Yayınla";
+"Draft" = "Taslak";
+"Add to queue" = "Kuyruğa ekle";
+"Publish" = "Yayınla";
+
+/* Sharers' titles */
+"SMS" = "SMS";
+"Delicious" = "Delicious";
+"Diigo" = "Diigo";
+"Evernote" = "Evernote";
+"Facebook" = "Facebook";
+"Flickr" = "Flickr";
+"Foursquare" = "Foursquare";
+"Google+" = "Google+";
+"Hatena" = "Hatena";
+"Instapaper" = "Instapaper";
+"Kippt" = "Kippt";
+"LinkedIn" = "LinkedIn";
+"Pinboard" = "Pinboard";
+"Plurk" = "Plurk";
+"Pocket" = "Pocket";
+"Readability" = "Readability";
+"Sina Weibo" = "Sina Weibo";
+"Tumblr" = "Tumblr";
+"Twitter" = "Twitter";
+"Vkontakte" = "Vkontakte";
+"Instagram" = "Instagram";
+"YouTube" = "YouTube";
+"Dropbox" = "Dropbox";
+/*  SHKDropbox  */
+/*
+ *  "Path" uses as label to show the user remote dropbox directory, that uses
+ *  to save share object, ex. "Dropbox path"
+ */
+"Path" = "Yol";
+/*
+ *  The resourse that user want to share with Dropbox may exceed the service limits
+ */
+"You are over Dropbox storage quota" = "Dropbox depo kotasının dışındasınız.";
+/*
+ *  Dropbox could refuse the share file.
+ *  The reason could be: wrong path, or file name, or file name extenition is in Dropbox ignore list, etc..
+ */
+"File name is wrong" = "Dosya adı yanlış";
+/*
+ *  When file exist in dropbox remote directory SHKDropbox ask user permission to overwrite the file or enter new name.
+ *  Example "Do you want to overwrite existing file in Dropbox?"
+ */
+"Do you want to overwrite existing file in %@?" = "%@ üzerine yazılsın mı?";
+
+//youtube option picker
+"Privacy" = "Kişisel";
+"Unlisted" = "Listelenmemiş";
+
+//kippt option picker
+"List" = "Liste";
+"Select list" = "Liste Seç";
+
+//linkedin text field placeholder
+"Comment" = "Yorum";
+
+//twitter text filed placeholder
+"Tweet" = "Tweet";
+
+//universal
+"Message" = "Mesaj";
+"Account" = "Hesap";
+
+//iOS Sharers general, alert title when user has not configured service's account in Settings.app
+"No %@ Accounts" = "Hiç %@ hesabı yok";
+"There are no %@ accounts configured. You can add or create a %@ account in Settings." = "Hiçbir %@ hesabu yapılandırılmadı. Ayarlar menüsünden %@ hesabı oluşturabilirsiniz.";
+"No Access" = "Erişim İzni Yok";
+"Access to %@ is not allowed for this app. You can allow access in Settings." = "%@ erişimi için bu uygulamaya izin verilmedi. Ayarlar sayfasından erişim izni verebilirsiniz.";
+
+//uploads view controller
+"Failed" = "Hata";
+"Cancelled" = "İptal edildi";
+"%@ of %@" = "%@ of %@";
+
+//activity indicator
+"Tap to dismiss" = "Kapatmak için dokunun";
+
+"Add to Safari Reading List" = "Safari okuma listesine ekle";
+"Open in Chrome" = "Chrome da aç";
+"Open in 1Password" = "1Password da aç";
+
+//Tumblr
+"Select blog" = "Blog seç";
