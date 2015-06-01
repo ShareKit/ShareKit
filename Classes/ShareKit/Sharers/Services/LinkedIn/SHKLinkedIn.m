@@ -34,7 +34,7 @@
 NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 // The oauth scope we need to request at LinkedIn
-#define SHKLinkedInRequiredScope @"rw_nus"
+#define SHKLinkedInRequiredScope @"w_share"
 #define kSHKLinkedInUserInfo @"kSHKLinkedInUserInfo"
 #define URL_DESCRIPTION_LIMIT 256
 #define TITLE_LIMIT 200
