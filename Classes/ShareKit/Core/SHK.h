@@ -64,6 +64,8 @@ extern NSString * const SHKUploadInfosDefaultsKeyName;
 ///returns array of classes of existing sharers which can share and require authentication.
 + (NSArray *)activeSharersRequiringAuthentication;
 
++ (void) ShareKitBundlePath:(NSString*)path;
+
 #pragma mark -
 #pragma mark Sharer Management
 

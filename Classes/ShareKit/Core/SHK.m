@@ -150,9 +150,14 @@ BOOL SHKinit;
 - (UIViewController *)rootViewForUIDisplay {
     
     UIViewController *result = [self getCurrentRootViewController];
+    UIViewController *presentedController = [result presentedViewController];
     
     // Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	while (result.presentedViewController != nil) result = result.presentedViewController;
+    while (presentedController && [presentedController modalPresentationStyle] != UIModalPresentationPopover) {
+        result = presentedController;
+        presentedController = [presentedController presentedViewController];
+    }
+
     
     NSAssert(result, @"ShareKit: There is no view controller to display from");
 	return result;  
@@ -241,7 +246,15 @@ BOOL SHKinit;
         vc.modalTransitionStyle = [SHK modalTransitionStyleForController:vc];
     
     UIViewController *topViewController = [self rootViewForUIDisplay];
-    [topViewController presentViewController:vc animated:YES completion:nil];
+    
+    // Popover visible
+    if ([topViewController presentedViewController]){
+        [topViewController dismissViewControllerAnimated:YES completion:^{
+            [topViewController presentViewController:vc animated:YES completion:nil];
+        }];
+    }else{
+        [topViewController presentViewController:vc animated:YES completion:nil];
+    }
 
     self.currentView = vc;
 	self.pendingView = nil;
@@ -413,6 +426,15 @@ BOOL SHKinit;
 		[self setFavorites:favoriteSharers forItem:item];
 	}
     
+    int indexFacebook = -1;
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"6.0" options:NSNumericSearch] == NSOrderedAscending &&
+        (indexFacebook = [favoriteSharers indexOfObject:@"SHKFacebook"]) != -1)
+    {
+        NSMutableArray *mutableFavoriteSharers = [favoriteSharers mutableCopy];
+        [mutableFavoriteSharers removeObjectAtIndex:indexFacebook];
+        favoriteSharers = mutableFavoriteSharers;
+    }
+    
     // Remove all sharers which are not part of the SHKSharers.plist
     NSDictionary *sharersDict = [self sharersDictionary];
     NSArray *keys = [sharersDict allKeys];
@@ -558,6 +580,11 @@ BOOL SHKinit;
 
 
 #pragma mark -
+
++ (void) ShareKitBundlePath:(NSString*)path
+{
+    shareKitLibraryBundlePath = path;
+}
 
 static NSString *shareKitLibraryBundlePath = nil;
 
