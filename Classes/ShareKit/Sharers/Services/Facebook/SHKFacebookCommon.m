@@ -29,14 +29,28 @@ NSString *const kSHKFacebookAPIVideosURL = @"https://graph.facebook.com/v2.2/me/
 
 @implementation SHKFacebookCommon
 
++ (NSString *)mimeTypeWithSHKFile:(SHKFile *)file{
+    if (!file) {
+        return nil;
+    }
+    
+    NSString* mimeType = file.mimeType;
+    if (!mimeType || [mimeType length] ==0) {
+        mimeType = [file.filename pathExtension];
+    }
+    return mimeType;
+}
+
 + (BOOL)canFacebookAcceptFile:(SHKFile *)file {
     
-    NSArray *facebookValidTypes = @[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",
-                        @"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"];
+    NSArray *facebookValidTypes = @[@"3g2",@"3gp" ,@"3gpp" ,@"asf",@"avi",@"dat",@"flv",@"m4v",@"mkv",@"mod",@"mov",@"mp4",@"mpe",@"mpeg",@"mpeg4",@"mpg",@"nsv",@"ogm",@"ogv",@"qt" ,@"tod",@"vob",@"wmv"];
+    
+    NSString* mimeType = [SHKFacebookCommon mimeTypeWithSHKFile:file];
     
     for (NSString *extension in facebookValidTypes) {
         
-        if ([file.filename hasSuffix:extension]) {
+        if ([[mimeType lowercaseString] hasSuffix:extension]||
+            [[[file.path pathExtension] lowercaseString] isEqualToString:extension]) {
             
             NSDictionary *limits = [[NSUserDefaults standardUserDefaults] dictionaryForKey:kSHKFacebookVideoUploadLimits];
             
