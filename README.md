@@ -70,4 +70,4 @@ As ShareKit is now community driven, you are welcome to help, to judge new featu
 
 Credits
 ----------
-ShareKit was created by [Nate Weiner](www.ideashower.com), is updated by [contributors](https://github.com/ShareKit/ShareKit/contributors) and is maintained by [Vilém Kurz](http://www.cocoaminers.com/?page_id=2).
+ShareKit was created by [Nate Weiner](http://www.ideashower.com), is updated by [contributors](https://github.com/ShareKit/ShareKit/contributors) and is maintained by [Vilém Kurz](http://www.cocoaminers.com/?page_id=2).
