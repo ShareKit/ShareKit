@@ -15,7 +15,7 @@
 	url = git://github.com/Pocket/Pocket-ObjC-SDK.git
 [submodule "Submodules/google-toolbox-for-mac"]
 	path = Submodules/google-toolbox-for-mac
-	url = https://github.com/adinardi/google-toolbox-for-mac.git
+url=https://github.com/google/google-toolbox-for-mac.git
 [submodule "Submodules/OpenInChrome"]
 	path = Submodules/OpenInChrome
 	url = https://github.com/GoogleChrome/OpenInChrome.git
