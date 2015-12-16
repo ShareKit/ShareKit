@@ -165,8 +165,6 @@
 		7AA2E9F41743E51C00B17434 /* PocketAPIOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */; };
 		7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */; };
 		7AA2E9F61743E51C00B17434 /* PocketAPITypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */; };
-		7AA2E9F71743E51C00B17434 /* SFHFKeychainUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */; };
-		7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */; };
 		7AA2E9F91743E5B200B17434 /* libPocket SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4E4663173E2C2500CCEE80 /* libPocket SDK.a */; };
 		7AA2E9FA1743E5B200B17434 /* libPocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A4E465A173E2B2900CCEE80 /* libPocket.a */; };
 		7AA83C42170637CC009C483A /* ENAFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */; };
@@ -1041,8 +1039,6 @@
 		7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPIOperation.h; sourceTree = "<group>"; };
 		7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PocketAPIOperation.m; sourceTree = "<group>"; };
 		7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PocketAPITypes.h; sourceTree = "<group>"; };
-		7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFHFKeychainUtils.h; sourceTree = "<group>"; };
-		7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFHFKeychainUtils.m; sourceTree = "<group>"; };
 		7AA83C3D17063786009C483A /* TObjective-C.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TObjective-C.h"; sourceTree = "<group>"; };
 		7AA83C40170637CC009C483A /* ENAFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENAFURLConnectionOperation.h; path = AFNetworking/ENAFURLConnectionOperation.h; sourceTree = "<group>"; };
 		7AA83C41170637CC009C483A /* ENAFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENAFURLConnectionOperation.m; path = AFNetworking/ENAFURLConnectionOperation.m; sourceTree = "<group>"; };
@@ -2551,8 +2547,6 @@
 				7AA2E9EA1743E51C00B17434 /* PocketAPIOperation.h */,
 				7AA2E9EB1743E51C00B17434 /* PocketAPIOperation.m */,
 				7AA2E9EC1743E51C00B17434 /* PocketAPITypes.h */,
-				7AA2E9ED1743E51C00B17434 /* SFHFKeychainUtils.h */,
-				7AA2E9EE1743E51C00B17434 /* SFHFKeychainUtils.m */,
 			);
 			name = SDK;
 			path = "Submodules/Pocket-ObjC-SDK/SDK";
@@ -3142,7 +3136,6 @@
 				7AA2E9F21743E51C00B17434 /* PocketAPILogin.h in Headers */,
 				7AA2E9F41743E51C00B17434 /* PocketAPIOperation.h in Headers */,
 				7AA2E9F61743E51C00B17434 /* PocketAPITypes.h in Headers */,
-				7AA2E9F71743E51C00B17434 /* SFHFKeychainUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4684,7 +4677,6 @@
 				7AA2E9F11743E51C00B17434 /* PocketAPI.m in Sources */,
 				7AA2E9F31743E51C00B17434 /* PocketAPILogin.m in Sources */,
 				7AA2E9F51743E51C00B17434 /* PocketAPIOperation.m in Sources */,
-				7AA2E9F81743E51C00B17434 /* SFHFKeychainUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7440,9 +7432,10 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -7450,7 +7443,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/Submodules\"",
+					"\"$(PROJECT_DIR)/Submodules\"/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7462,8 +7455,9 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS = "\"$SRCROOT/Frameworks\"/**";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -7471,7 +7465,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"\"$(PROJECT_DIR)/Submodules\"",
+					"\"$(PROJECT_DIR)/Submodules\"/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
