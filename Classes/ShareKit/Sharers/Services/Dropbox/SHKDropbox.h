@@ -8,14 +8,8 @@
 
 #import "SHKSharer.h"
 
-#ifdef COCOAPODS
-#import "DropboxSDK.h"
-#else
-#import <DropboxSDK/DropboxSDK.h>
-#endif
-
 #import "SHKFormOptionController.h"
-
+#import <DropboxSDK/DropboxSDK.h>
 //
 //you could use customValue in SHK item to setup remote path to upload file
 static NSString *const kSHKDropboxDestinationDir __attribute__((deprecated ("use dropboxDestinationDirectory property of SHKItem instead. The value is available through [notification.object progress]"))) = @"SHKDropboxDestinationDir";
