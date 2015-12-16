@@ -39,6 +39,8 @@
 
 @implementation SHKFormFieldCellTextLarge
 
+@dynamic settings;
+
 - (void)setupLayout {
     
     SAMTextView *textView = [[SAMTextView alloc] initWithFrame:[self frameForTextview]];
