@@ -160,7 +160,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
 
 - (void)fetchUserInfo {
     
-    OAMutableURLRequest *userInfoRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~"]
+    OAMutableURLRequest *userInfoRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.linkedin.com/v1/people/~"]
                                                                            consumer:self.consumer
                                                                               token:self.accessToken
                                                                               realm:nil
@@ -179,7 +179,7 @@ NSString *SHKLinkedInVisibilityCodeKey = @"visibility.code";
     
     // For more information on OAMutableURLRequest see http://code.google.com/p/oauthconsumer/wiki/UsingOAuthConsumer
     
-    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.linkedin.com/v1/people/~/shares"]
+    OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.linkedin.com/v1/people/~/shares"]
                                                                     consumer:self.consumer // this is a consumer object already made available to us
                                                                        token:self.accessToken // this is our accessToken already made available to us
                                                                        realm:nil
