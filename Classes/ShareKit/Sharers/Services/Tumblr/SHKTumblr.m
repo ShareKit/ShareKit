@@ -82,7 +82,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 {
 	if (self = [super init])
 	{		
-		self.consumerKey = SHKCONFIG(tumblrConsumerKey);;		
+		self.consumerKey = SHKCONFIG(tumblrConsumerKey);		
 		self.secretKey = SHKCONFIG(tumblrSecret);
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tumblrCallbackUrl)];
 		
