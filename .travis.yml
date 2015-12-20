@@ -4,7 +4,7 @@ cache:
     - bundler
 
 before_install:
-- git submodule --init
+- git submodule init
 - git submodule sync
 - git submodule update --recursive
 - gem install cocoapods
