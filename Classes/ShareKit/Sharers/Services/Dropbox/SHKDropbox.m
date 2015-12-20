@@ -7,8 +7,16 @@
 //
 
 #import "SHKDropbox.h"
+
 #import "SharersCommonHeaders.h"
 #import "SHKUploadInfo.h"
+#import "SHKFormOptionController.h"
+
+#ifdef COCOAPODS
+#import "DropboxSDK.h"
+#else
+#import <DropboxSDK/DropboxSDK.h>
+#endif
 
 ///Where user starts to browse the save location
 #define kSHKDropboxStartDirectory @"/"
@@ -24,7 +32,7 @@ static NSString *const kSHKDropboxParentRevision =@"SHKDropboxParentRevision";
 static NSString *const kSHKDropboxStoredFileName =@"SHKDropboxStoredFileName";
 static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinationDirKeyName";
 
-@interface SHKDropbox () {
+@interface SHKDropbox () <DBNetworkRequestDelegate, DBRestClientDelegate, UIAlertViewDelegate, SHKFormOptionControllerOptionProvider> {
     long long   __fileOffset;
     long long   __fileSize;
 }
