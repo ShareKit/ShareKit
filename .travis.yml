@@ -15,7 +15,7 @@ before_install:
 - pod repo update --silent
 
 #check podspec
-- travis_wait 35 pod spec lint --allow-warnings --verbose ShareKit.podspec
+- travis_wait 35 pod spec lint --allow-warnings ShareKit.podspec
 
 #check podspec with current commit
 - travis_wait 35 pod lib lint ShareKit.podspec
