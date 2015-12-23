@@ -18,7 +18,7 @@ before_install:
 - travis_wait 35 pod spec lint --use-libraries --allow-warnings ShareKit.podspec
 
 #check podspec with current commit
-- travis_wait 35 pod lib lint --use-libraries ShareKit.podspec
+- travis_wait 35 pod lib lint --use-libraries --allow-warnings ShareKit.podspec
 
 script:
 
