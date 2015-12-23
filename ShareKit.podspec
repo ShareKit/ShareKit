@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
   s.version       = '4.0.9'
-  s.platform      = :ios, '6.0'
+  s.platform      = :ios, '7.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
   s.author        = 'ShareKit Community'
