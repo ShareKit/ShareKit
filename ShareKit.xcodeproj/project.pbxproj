@@ -1508,7 +1508,6 @@
 		7A4026941C21FF0B00F9F7EF /* GTLYouTubeVideoTopicDetails.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLYouTubeVideoTopicDetails.m; sourceTree = "<group>"; };
 		7A4026951C21FF0B00F9F7EF /* GTLYouTubeWatchSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTLYouTubeWatchSettings.h; sourceTree = "<group>"; };
 		7A4026961C21FF0B00F9F7EF /* GTLYouTubeWatchSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTLYouTubeWatchSettings.m; sourceTree = "<group>"; };
-		7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec/Source/OAuth2/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7A49DBC316BC193E004B7E78 /* libReadability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReadability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A4CAA161577BEF90010E6B3 /* SHKFormFieldCell_PrivateProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldCell_PrivateProperties.h; sourceTree = "<group>"; };
 		7A4E465A173E2B2900CCEE80 /* libPocket.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPocket.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1688,6 +1687,7 @@
 		7ADE63EB19363CCD00826F63 /* SHKReadingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKReadingList.m; sourceTree = "<group>"; };
 		7ADF827F17ABBD7F007634E8 /* SHKShareFileIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SHKShareFileIcon.png; path = Classes/ShareKit/SHKShareFileIcon.png; sourceTree = SOURCE_ROOT; };
 		7ADF828017ABBD7F007634E8 /* SHKShareFileIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "SHKShareFileIcon@2x.png"; path = "Classes/ShareKit/SHKShareFileIcon@2x.png"; sourceTree = SOURCE_ROOT; };
+		7AE8A04F1C2B63B800CE61DE /* GTMOAuth2ViewTouch.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GTMOAuth2ViewTouch.xib; path = "Submodules/google-api-objectivec-client/Deps/gtm-oauth2/Source/Touch/GTMOAuth2ViewTouch.xib"; sourceTree = "<group>"; };
 		7AE8DC7A165B549B004D99D2 /* DummyLibFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DummyLibFile.h; path = ShareKitLibrary/DummyLibFile.h; sourceTree = "<group>"; };
 		7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DummyLibFile.m; path = ShareKitLibrary/DummyLibFile.m; sourceTree = "<group>"; };
 		7AEAC536178DA3340032B0AA /* FormControllerCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FormControllerCallback.h; sourceTree = "<group>"; };
@@ -3221,7 +3221,7 @@
 		7A499AFD174153EA00210E3C /* Google OAuth */ = {
 			isa = PBXGroup;
 			children = (
-				7A46FCE4171DF2DB00CB8D64 /* GTMOAuth2ViewTouch.xib */,
+				7AE8A04F1C2B63B800CE61DE /* GTMOAuth2ViewTouch.xib */,
 			);
 			name = "Google OAuth";
 			sourceTree = "<group>";
@@ -7322,7 +7322,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = YouTube;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec-client\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec-client\" \"$(SOURCE_ROOT)/Submodules/gtm-http-fetcher\"/**";
 			};
 			name = Debug;
 		};
@@ -7341,7 +7341,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = YouTube;
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec-client\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec-client\" \"$(SOURCE_ROOT)/Submodules/gtm-http-fetcher\"/**";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -7368,7 +7368,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "YouTube SDK";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec-client\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec-client\"";
 			};
 			name = Debug;
 		};
@@ -7387,7 +7387,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "YouTube SDK";
 				SKIP_INSTALL = YES;
-				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec\"";
+				USER_HEADER_SEARCH_PATHS = "\"$(SOURCE_ROOT)/Submodules/google-api-objectivec-client\"/** \"$(PROJECT_TEMP_DIR)/../UninstalledProducts/google-api-objectivec-client\"";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
