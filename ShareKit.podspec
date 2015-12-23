@@ -157,15 +157,12 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
       whatsapp.dependency 'ShareKit/Core'
   end
 
-### one note subspec removed because https://github.com/GeLoInc/GeLoSDK-iOS/issues/2
-
-#  s.subspec 'OneNote' do |onenote|
-#   onenote.source_files = 'Classes/ShareKit/Sharers/Services/OneNote/**/*.{h,m}'
-#   onenote.dependency 'ShareKit/Core'
-#   onenote.dependency 'ISO8601DateFormatter'
-#   onenote.vendored_frameworks = 'Frameworks/LiveSDK.framework'
-#   onenote.resource = 'Frameworks/LiveSDK.framework'
-# end
+  s.subspec 'OneNote' do |onenote|
+   onenote.source_files = 'Classes/ShareKit/Sharers/Services/OneNote/**/*.{h,m}'
+   onenote.dependency 'ShareKit/Core'
+   onenote.dependency 'ISO8601DateFormatter'
+   onenote.dependency 'LiveSDK'
+  end
 
   s.subspec 'YouTube' do |youtube|
     youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
