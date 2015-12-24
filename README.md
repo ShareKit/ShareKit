@@ -46,7 +46,7 @@ should tell you everything you need.
 Documentation
 -------------
 
-The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki). To get a preview of new features see [What's new](https://github.com/ShareKit/ShareKit/wiki/What's-new) wiki page.
+The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki). To get a preview of new features see [Changelog](https://github.com/ShareKit/ShareKit/blob/master/CHANGELOG.md).
 
 !!! Updated new service creation guidelines for contributors + updated service templates are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
 
