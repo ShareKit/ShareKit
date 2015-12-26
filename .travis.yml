@@ -5,9 +5,9 @@ cache:
     - bundler
 
 before_install:
-- git submodule init
+
 - git submodule sync
-- git submodule update --recursive
+- git submodule update --init --recursive
 - rvm install 2.2.4
 - gem install cocoapods
 
