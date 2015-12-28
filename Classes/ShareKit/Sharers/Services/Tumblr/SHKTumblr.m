@@ -229,7 +229,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
         case SHKShareTypeUserInfo:
         {
             [self setQuiet:YES];
-            oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.tumblr.com/v2/user/info"]
+            oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://api.tumblr.com/v2/user/info"]
                                                                           consumer:self.consumer // this is a consumer object already made available to us
                                                                              token:self.accessToken // this is our accessToken already made available to us
                                                                              realm:nil
@@ -347,7 +347,7 @@ NSString * const kSHKTumblrUserInfo = @"kSHKTumblrUserInfo";
 
 - (OAMutableURLRequest *)setupPostRequest {
     
-    NSString *urlString = [[NSString alloc] initWithFormat:@"http://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
+    NSString *urlString = [[NSString alloc] initWithFormat:@"https://api.tumblr.com/v2/blog/%@/post", [self.item customValueForKey:@"blog"]];
     OAMutableURLRequest *result = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:urlString]
                                                consumer:self.consumer // this is a consumer object already made available to us
                                                   token:self.accessToken // this is our accessToken already made available to us
