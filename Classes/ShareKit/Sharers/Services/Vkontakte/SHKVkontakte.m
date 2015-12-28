@@ -225,7 +225,7 @@ __strong dispatch_block_t SSOCompletion;
     //we can request AccessCode only if we already authorized
     if ([self isAuthorized])
     {
-        NSString *reqURl = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=code", SHKCONFIG(vkontakteAppId), [SHKCONFIG(vkontakteScope) componentsJoinedByString:@","]];
+        NSString *reqURl = [NSString stringWithFormat:@"https://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=https://api.vk.com/blank.html&display=touch&response_type=code", SHKCONFIG(vkontakteAppId), [SHKCONFIG(vkontakteScope) componentsJoinedByString:@","]];
         [SHKRequest startWithURL:[NSURL URLWithString:reqURl]
                           params:nil
                           method:@"GET"

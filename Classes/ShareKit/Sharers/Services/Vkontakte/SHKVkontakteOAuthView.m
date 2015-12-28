@@ -81,7 +81,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
-    NSString *authLink = [NSString stringWithFormat:@"http://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=http://api.vk.com/blank.html&display=touch&response_type=token", appID, [scope componentsJoinedByString:@","]];
+    NSString *authLink = [NSString stringWithFormat:@"https://api.vk.com/oauth/authorize?client_id=%@&scope=%@&redirect_uri=https://api.vk.com/blank.html&display=touch&response_type=token", appID, [scope componentsJoinedByString:@","]];
     NSURL *url = [NSURL URLWithString:authLink];
 
     [vkWebView loadRequest:[NSURLRequest requestWithURL:url]];
@@ -109,7 +109,7 @@
 	
 	NSURL *URL = [request URL];
 
-	if ([[URL absoluteString] isEqualToString:@"http://api.vk.com/blank.html#error=access_denied&error_reason=user_denied&error_description=User%20denied%20your%20request"]) {
+	if ([[URL absoluteString] isEqualToString:@"https://api.vk.com/blank.html#error=access_denied&error_reason=user_denied&error_description=User%20denied%20your%20request"]) {
 		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
 		return NO;
 	}
