@@ -1,4 +1,7 @@
 [![Build Status](https://travis-ci.org/ShareKit/ShareKit.svg?branch=master)](https://travis-ci.org/ShareKit/ShareKit)
+[![CocoaPods](https://img.shields.io/cocoapods/v/ShareKit.svg)](https://cocoapods.org/pods/ShareKit)
+[![CocoaPods](https://img.shields.io/cocoapods/l/ShareKit.svg)](https://cocoapods.org/pods/ShareKit)
+[![CocoaPods](https://img.shields.io/cocoapods/p/ShareKit.svg)](https://cocoapods.org/pods/ShareKit)
 
 ShareKit allows you to share content easily:
 ```objective-c
