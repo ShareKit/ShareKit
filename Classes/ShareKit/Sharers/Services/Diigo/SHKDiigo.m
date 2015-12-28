@@ -129,8 +129,26 @@
 
     NSMutableCharacterSet *allowedCharacters = [NSMutableCharacterSet alphanumericCharacterSet];
     [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [allowedCharacters formUnionWithCharacterSet:[NSCharacterSet whitespaceCharacterSet]];
     [allowedCharacters removeCharactersInString:@","];
-    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(self.item.URL),SHKEncode(self.item.title),SHKEncode([self tagStringJoinedBy:@"," allowedCharacters:allowedCharacters tagPrefix:nil tagSuffix:nil]),SHKEncode(self.item.text),[self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
+    
+    NSCharacterSet* removeSet = [allowedCharacters invertedSet];
+
+    // The API is messed up. On the website, you enter tags delimited by spaces. If you want a tag with a space
+    // you put it in quotes. The API accepts tags that are _comma_ delimited. You'd expect it to allow spaces with
+    // %20 or a + but no... you have to put it in quotes.
+    NSMutableArray* sanitisedTags = [[NSMutableArray alloc] init];
+    for (NSString* t in self.item.tags) {
+        NSString* strippedTag = [[t componentsSeparatedByCharactersInSet:removeSet] componentsJoinedByString:@""];
+
+        if ([strippedTag containsString:@" "]) {
+            strippedTag = [NSString stringWithFormat:@"\"%@\"", strippedTag];
+        }
+        [sanitisedTags addObject:strippedTag];
+    }
+    NSString* tags = [sanitisedTags componentsJoinedByString:@","];
+    
+    NSString *params = [NSMutableString stringWithFormat:@"key=%@&url=%@&title=%@&tags=%@&desc=%@&shared=%@",SHKCONFIG(diigoKey),SHKEncodeURL(self.item.URL),SHKEncode(self.item.title),tags,SHKEncode(self.item.text),[self.item customBoolForSwitchKey:@"shared"]?@"yes":@"no"];
     
     NSString *password = [SHKEncode([self getAuthValueForKey:@"password"]) stringByReplacingOccurrencesOfString:@"/" withString:@"%2F"];
     

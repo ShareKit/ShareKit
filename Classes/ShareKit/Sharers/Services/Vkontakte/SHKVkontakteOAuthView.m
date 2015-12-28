@@ -122,7 +122,7 @@
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
-
+	self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
 	if ([vkWebView.request.URL.absoluteString rangeOfString:@"access_token"].location != NSNotFound) {
 		NSString *accessToken = [SHKVkontakteOAuthView stringBetweenString:@"access_token="
 																						andString:@"&" 

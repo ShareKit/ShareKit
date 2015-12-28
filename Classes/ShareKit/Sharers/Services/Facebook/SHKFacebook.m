@@ -108,9 +108,9 @@
             NSRange rangeOfWritePermissions = [[url absoluteString] rangeOfString:SHKCONFIG(facebookWritePermissions)[0]];
             BOOL gotReadPermissionsOnly =  rangeOfWritePermissions.location == NSNotFound;
             if (gotReadPermissionsOnly) {
-                [FBSession openActiveSessionWithReadPermissions:SHKCONFIG(facebookReadPermissions) allowLoginUI:NO completionHandler:handler];
+                [FBSession openActiveSessionWithReadPermissions:SHKCONFIG(facebookReadPermissions) allowLoginUI:NO fromViewController:nil completionHandler:handler];
             } else {
-                [FBSession openActiveSessionWithPublishPermissions:SHKCONFIG(facebookWritePermissions) defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:NO completionHandler:handler];
+                [FBSession openActiveSessionWithPublishPermissions:SHKCONFIG(facebookWritePermissions) defaultAudience:FBSessionDefaultAudienceFriends allowLoginUI:NO fromViewController:nil completionHandler:handler];
             }
         }
     }
@@ -193,7 +193,7 @@
     FBSession *authSession = [[FBSession alloc] initWithPermissions:permissions];
     
     //completion happens within class method handleOpenURL:sourceApplication, thus nil handler here
-    [authSession openWithCompletionHandler:nil];
+    [authSession openWithCompletionHandler:nil fromViewController:nil];
 }
 
 + (NSString *)username {
@@ -204,7 +204,7 @@
 + (void)logout
 {
 	[SHKFacebook clearSavedItem];
-    [FBSession openActiveSessionWithAllowLoginUI:NO]; //the session must be activated before clearing token
+    [FBSession openActiveSessionWithAllowLoginUI:NO fromViewController:nil]; //the session must be activated before clearing token
 	[FBSession.activeSession closeAndClearTokenInformation];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookUserInfo];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFacebookVideoUploadLimits];
@@ -225,7 +225,7 @@
 		return NO;
     
     if (FBSession.activeSession.state != FBSessionStateOpen && FBSession.activeSession.state != FBSessionStateOpenTokenExtended && FBSession.activeSession.state != FBSessionStateCreatedOpening) {
-        [[FBSession activeSession] openWithCompletionHandler:nil];
+        [[FBSession activeSession] openWithCompletionHandler:nil fromViewController:nil];
     }
 	
     // Ask for publish_actions permissions in context

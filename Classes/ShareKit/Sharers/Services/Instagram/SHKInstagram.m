@@ -113,7 +113,7 @@
 		NSURL* url = [NSURL fileURLWithPath:docPath isDirectory:NO ];
 		
         NSString *UTI;
-        if (SHKCONFIG(instagramOnly)) {
+        if ([SHKCONFIG(instagramOnly) boolValue]) {
             UTI = @"com.instagram.exclusivegram";
         } else {
             UTI = @"com.instagram.photo";

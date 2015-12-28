@@ -4,9 +4,6 @@
 [submodule "Submodules/evernote-ios-sdk"]
 	path = Submodules/evernote-ios-sdk
 	url = https://github.com/evernote/evernote-sdk-ios.git
-[submodule "Submodules/google-api-objectivec"]
-	path = Submodules/google-api-objectivec
-	url = git://github.com/jakemdunn/google-api-objectivec-client.git
 [submodule "Submodules/buffer-ios-sdk"]
 	path = Submodules/buffer-ios-sdk
 	url = git://github.com/bufferapp/buffer-ios-sdk.git
@@ -15,7 +12,7 @@
 	url = git://github.com/Pocket/Pocket-ObjC-SDK.git
 [submodule "Submodules/google-toolbox-for-mac"]
 	path = Submodules/google-toolbox-for-mac
-	url = https://github.com/adinardi/google-toolbox-for-mac.git
+url=https://github.com/google/google-toolbox-for-mac.git
 [submodule "Submodules/OpenInChrome"]
 	path = Submodules/OpenInChrome
 	url = https://github.com/GoogleChrome/OpenInChrome.git
@@ -34,3 +31,9 @@
 [submodule "Submodules/iso-8601-date-formatter"]
 	path = Submodules/iso-8601-date-formatter
 	url = https://github.com/boredzo/iso-8601-date-formatter.git
+[submodule "Submodules/google-api-objectivec-client"]
+	path = Submodules/google-api-objectivec-client
+	url = https://github.com/google/google-api-objectivec-client.git
+[submodule "Submodules/gtm-http-fetcher"]
+	path = Submodules/gtm-http-fetcher
+	url = https://github.com/google/gtm-http-fetcher.git

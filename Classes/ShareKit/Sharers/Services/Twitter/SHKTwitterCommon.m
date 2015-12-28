@@ -17,13 +17,18 @@ NSString * const kSHKTwitterUserInfo=@"kSHKTwitterUserInfo";
 NSString * const kSHKiOSTwitterUserInfo = @"kSHKiOSTwitterUserInfo";
 NSString * const SHKTwitterAPIConfigurationDataKey = @"SHKTwitterAPIConfigurationDataKey";
 NSString * const SHKTwitterAPIConfigurationSaveDateKey = @"SHKTwitterAPIConfigurationSaveDateKey";
+NSString * const SHKTwitterAPIUploadedMediaIDKey = @"media_id_string";
+NSString * const SHKTwitterAPIUploadMediaKey = @"media";
+NSString * const SHKTwitterAPIStatusMediaKey = @"media_ids";
 
 NSString * const SHKTwitterAPIUserInfoURL = @"https://api.twitter.com/1.1/account/verify_credentials.json";
 NSString * const SHKTwitterAPIUserInfoNameKey = @"screen_name";
 
 NSString * const SHKTwitterAPIConfigurationURL = @"https://api.twitter.com/1.1/help/configuration.json";
-NSString * const SHKTwitterAPIUpdateWithMediaURL = @"https://api.twitter.com/1.1/statuses/update_with_media.json";
+//NSString * const SHKTwitterAPIUpdateWithMediaURL = @"https://api.twitter.com/1.1/statuses/update_with_media.json";
 NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses/update.json";
+NSString * const SHKTwitterAPIMediaUploadURL = @"https://upload.twitter.com/1.1/media/upload.json";
+
 
 #define MAX_TWEET_LENGTH 140
 #define MAX_FILE_SIZE 3145728
@@ -204,6 +209,14 @@ NSString * const SHKTwitterAPIUpdateURL = @"https://api.twitter.com/1.1/statuses
 	
 	NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:twitterError[@"message"] forKey:NSLocalizedDescriptionKey]];
 	[sharer sendDidFailWithError:error];
+}
+
++ (void)saveMediaID:(NSData *)data toItem:(SHKItem *)item {
+    
+    NSError *error;
+    NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+    NSString *mediaID = [jsonDict valueForKey:SHKTwitterAPIUploadedMediaIDKey];
+    [item setCustomValue:mediaID forKey:SHKTwitterAPIUploadedMediaIDKey];
 }
 
 @end
