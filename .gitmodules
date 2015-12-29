@@ -37,3 +37,10 @@ url=https://github.com/google/google-toolbox-for-mac.git
 [submodule "Submodules/gtm-http-fetcher"]
 	path = Submodules/gtm-http-fetcher
 	url = https://github.com/google/gtm-http-fetcher.git
+[submodule "Submodules/ios-pdk"]
+	path = Submodules/ios-pdk
+	url = https://github.com/pinterest/ios-pdk.git
+[submodule "Submodules/AFNetworking"]
+	path = Submodules/AFNetworking
+	url = https://github.com/AFNetworking/AFNetworking.git
+	branch = 2.x

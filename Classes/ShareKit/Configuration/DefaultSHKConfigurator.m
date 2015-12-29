@@ -418,8 +418,12 @@ One of the troubles with the native share form is that it gives IOS6 props on fa
     return @NO;
 }
 
-///You can get Pinterest client ID from https://developers.pinterest.com/manage/
-- (NSString *)pinterestClientId {
+///You can choose to allow user to log in (via OAuth) and share within your app, or choose to create unauthenticated pins - this always mean trip to Safari or Pinterest app if present.
+- (NSNumber *)pinterestAllowUnauthenticatedPins {
+    return @YES;
+}
+///You can get Pinterest app ID from https://developers.pinterest.com
+- (NSString *)pinterestAppId {
     return @"";
 }
 

@@ -290,3 +290,10 @@
 
 //Tumblr
 "Select blog" = "Select blog";
+
+//Pinterest
+"Pinterest" = "Pinterest";
+"Board" = "Board";
+"Select board" = "Select board";
+"Failed to fetch boards." = "Failed to fetch boards.";
+

@@ -89,6 +89,8 @@
 - (NSNumber *)instagramOnly;
 - (NSString*)youTubeConsumerKey;
 - (NSString*)youTubeSecret;
+- (NSNumber *)pinterestAllowUnauthenticatedPins;
+- (NSString *)pinterestAppId;
 - (NSNumber *)useAppleShareUI;
 - (NSNumber*)shareMenuAlphabeticalOrder;
 - (NSString*)barStyle;
