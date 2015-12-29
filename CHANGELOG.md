@@ -1,4 +1,6 @@
-**4.0.10**
+- VKontakte video share
+
+**4.0.10 (2012-12-24)**
 - Fixed podspec (all sharers now work via cocoapods) + project. Sorry it took so long... but here it is, finally
 - Facebook iOS SDK updated to 3.24.1
 - Deployment target raised to 7.0 (due to Facebook-iOS-SDK)
