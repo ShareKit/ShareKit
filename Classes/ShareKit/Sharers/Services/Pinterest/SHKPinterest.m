@@ -39,6 +39,9 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
 
 @interface SHKPinterest () <SHKFormOptionControllerOptionProvider>
 
+//a cache used when sharing UIImage
+@property NSUInteger imageTotalBytes;
+
 @end
 
 @implementation SHKPinterest
@@ -65,14 +68,13 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
 
 + (NSString *)sharerTitle { return SHKLocalizedString(@"Pinterest"); }
 
-+ (BOOL)canShareURL { return YES; }
-
 + (BOOL)canShareItem:(SHKItem *)item {
  
-    BOOL isOfImageType = item.URLContentType == SHKShareTypeImage && item.URL != nil;
-    BOOL isPictureURI = item.URLPictureURI != nil;
+    BOOL isPictureURI = item.URLPictureURI && item.URL;
+    BOOL isImageWithURL = item.image && item.URL && [self requiresAuthentication]; //image uploads allowed only for fully authenticated users
+    BOOL isFileWithURL = [item.file.mimeType hasPrefix:@"image/"] && item.URL && [self requiresAuthentication]; //image uploads allowed only for fully authenticated users;
     
-    return isOfImageType || isPictureURI;
+    return isImageWithURL || isPictureURI || isFileWithURL;
 }
 
 + (BOOL)requiresAuthentication {
@@ -196,7 +198,31 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
         self.quiet = YES; //callbacks from Safari are not reliable on PinterestSDK, if the app is not installed. Otherwise activity indicator would spin forever
     }
     
-    if (self.item.URLPictureURI) {
+    if ((self.item.image || self.item.file) && [SHKPinterest requiresAuthentication]) {
+        
+        UIImage *imageToShare = nil;
+        
+        if (self.item.image) {
+            imageToShare = self.item.image;
+            NSData *imageData = UIImageJPEGRepresentation(self.item.image, 1.0f);
+            self.imageTotalBytes = [imageData length];
+        } else {
+            imageToShare = [UIImage imageWithData:self.item.file.data];
+            self.imageTotalBytes = self.item.file.size;
+        }
+        
+        [[PDKClient sharedInstance] createPinWithImage:imageToShare
+                                                  link:self.item.URL
+                                               onBoard:[self.item customValueForKey:SHKPinterestBoardCustomItemKey]
+                                           description:self.item.title
+                                              progress:^(CGFloat percentComplete) {
+                                                  
+                                                  [self showUploadedBytes:percentComplete*self.imageTotalBytes totalBytes:self.imageTotalBytes];
+                                              }
+                                           withSuccess:[self pinCreationSuccessBlock]
+                                            andFailure:[self pinCreationFailureBlock]];
+        
+    } else if (self.item.URLPictureURI) {
         
         if ([SHKPinterest requiresAuthentication]) {
             
@@ -217,25 +243,10 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
 
         }
         
-    } else {
+    }  else {
         
-        if ([SHKPinterest requiresAuthentication]) {
-            
-            [[PDKClient sharedInstance] createPinWithImageURL:self.item.URL
-                                                         link:nil
-                                                      onBoard:[self.item customValueForKey:SHKPinterestBoardCustomItemKey]
-                                                  description:self.item.title
-                                                  withSuccess:[self pinCreationSuccessBlock]
-                                                   andFailure:[self pinCreationFailureBlock]];
-        } else {
-            
-            [PDKPin pinWithImageURL:self.item.URL
-                               link:nil
-                 suggestedBoardName:nil
-                               note:self.item.title
-                        withSuccess:[self unauthPinCreationSuccessBlock]
-                         andFailure:[self unauthPinCreationFailureBlock]];
-        }
+        NSAssert(NO, @"Pinterest can not share this item");
+        return NO;
     }
     [self sendDidStart];
     return YES;
@@ -273,6 +284,11 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
     return result;
 }
 
+- (void)cancel {
+    
+    [[[PDKClient sharedInstance] operationQueue] cancelAllOperations];
+    [self sendDidCancel];
+}
 
 #pragma mark - 
 #pragma mark SHKFormOptionControllerOptionProvider
