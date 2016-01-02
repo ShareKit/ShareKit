@@ -196,6 +196,8 @@ BOOL SHKinit;
 
 - (void)showViewController:(UIViewController *)vc
 {
+    if (self.currentView == vc) return;
+    
     self.wrapViewController = YES;
     
     BOOL isHidingPreviousView = [self hidePreviousView:vc];
