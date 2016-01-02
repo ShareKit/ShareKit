@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
-  s.version       = '4.0.10'
+  s.version       = '5.0.0'
   s.platform      = :ios, '7.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
@@ -146,11 +146,11 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
     imgur.dependency 'ShareKit/Core'
   end
   
-  s.subspec 'Pinterest' do |pinterest|
-    pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
-    pinterest.dependency 'Pinterest-iOS', '~> 2.3'
-    pinterest.dependency 'ShareKit/Core'
-  end
+  #s.subspec 'Pinterest' do |pinterest|
+  #  pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
+  #  pinterest.dependency 'PinterestSDK'
+  #  pinterest.dependency 'ShareKit/Core'
+  #end
   
   s.subspec 'WhatsApp' do |whatsapp|
       whatsapp.source_files = 'Classes/ShareKit/Sharers/Services/WhatsApp/**/*.{h,m}'
