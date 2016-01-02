@@ -1,3 +1,6 @@
+**5.0.0 (2016-01-02)**
+- **Breaking change**: Pinterest sharer updated to a new sdk. You have to register your app again and obtain a new (oauth) app id. Pinterest.embeddedFramework was removed due to this change and replaced with submodule. Unfortunately, Pinterest sharer is not yet available via Cocoapods, due to [this PinterestSDK issue](https://github.com/pinterest/ios-pdk/issues/48).
+- Added image and file share to Pinterest sharer. Please note, that at the moment they need URL filled in SHKItem too, due to [another PinterestSDK issue](https://github.com/pinterest/ios-pdk/issues/47).
 - VKontakte video share
 
 **4.0.10 (2015-12-24)**
