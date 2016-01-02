@@ -988,10 +988,14 @@ static NSString *const kSHKStoredShareInfoKey=@"kSHKStoredShareInfo";
     if (action == SHKPendingShare) {
         
         if (self.curOptionController) {
+            
+            NSUInteger formIndex = [self.viewControllers count] - 2;
+            NSAssert([self.viewControllers[formIndex] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
+            SHKFormController *form = (SHKFormController *)self.viewControllers[formIndex];
             [self popViewControllerAnimated:NO];//dismiss option controller
-            NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
-            [self updateItemWithForm:(SHKFormController *)self.topViewController];
-        }        
+            
+            [self updateItemWithForm:form];
+        }
     }
     
     self.pendingAction = action;
