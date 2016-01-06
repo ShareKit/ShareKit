@@ -628,7 +628,6 @@
 		949BCB98172A99AF00D706D4 /* SHKBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 949BCB96172A99AF00D706D4 /* SHKBuffer.m */; };
 		94CC29011745399400C31CD8 /* BufferSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 94CC28FE1745399400C31CD8 /* BufferSDK.h */; };
 		94CC29021745399400C31CD8 /* libBufferSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94CC29001745399400C31CD8 /* libBufferSDK.a */; };
-		94CC29071745399800C31CD8 /* BufferSDKResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 94CC28FF1745399400C31CD8 /* BufferSDKResources.bundle */; };
 		AABBECB8162F063F009D46E4 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		AABBECC3162F0719009D46E4 /* SHKLogout.m in Sources */ = {isa = PBXBuildFile; fileRef = E68738BF1416795C00D8C3DD /* SHKLogout.m */; };
 		AABBECCC162F0756009D46E4 /* SHKCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B911DBE3B9004A1712 /* SHKCopy.m */; };
@@ -5479,7 +5478,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */,
-				94CC29071745399800C31CD8 /* BufferSDKResources.bundle in Resources */,
 				7A107CE417AA4E7A009A7F0E /* DETweetPaperClip.png in Resources */,
 				7A107CE517AA4E7A009A7F0E /* DETweetPaperClip@2x.png in Resources */,
 				7A9FEF35180403520053CB40 /* Localizable.strings in Resources */,
