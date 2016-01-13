@@ -91,32 +91,37 @@
 
 - (void)dismissWithClickedButtonIndex:(NSInteger)buttonIndex animated:(BOOL)animated
 {
-    NSInteger numberOfSharers = (NSInteger) [_sharers count];
-
-	// Sharers
-	if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
-	{
-		bool doShare = YES;
-		SHKSharer* sharer = [[NSClassFromString([self.sharers objectAtIndex:buttonIndex]) alloc] init];
-		[sharer loadItem:self.item];
-		if (self.shareDelegate != nil && [self.shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
-		{
-			doShare = [self.shareDelegate aboutToShareItem:self.item withSharer:sharer];
-		}
-		if(doShare)
-			[sharer share];
-	}
-	
-	// More
-	else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
-	{
-		SHKShareMenu *shareMenu = [[SHKCONFIG(SHKShareMenuSubclass) alloc] initWithStyle:UITableViewStyleGrouped];
-		shareMenu.shareDelegate = self.shareDelegate;
-		shareMenu.item = self.item;
-		[[SHK currentHelper] showViewController:shareMenu];
-	}
-	
 	[super dismissWithClickedButtonIndex:buttonIndex animated:animated];
+    [self performSelector:@selector(showShareOptions:) withObject:[NSNumber numberWithInteger:buttonIndex] afterDelay:1];
+}
+
+- (void) showShareOptions:(NSNumber*)index
+{
+    NSInteger numberOfSharers = (NSInteger) [_sharers count];
+    NSInteger buttonIndex = [index integerValue];
+    
+    // Sharers
+    if (buttonIndex >= 0 && buttonIndex < numberOfSharers)
+    {
+        bool doShare = YES;
+        SHKSharer* sharer = [[NSClassFromString([self.sharers objectAtIndex:buttonIndex]) alloc] init];
+        [sharer loadItem:self.item];
+        if (self.shareDelegate != nil && [self.shareDelegate respondsToSelector:@selector(aboutToShareItem:withSharer:)])
+        {
+            doShare = [self.shareDelegate aboutToShareItem:self.item withSharer:sharer];
+        }
+        if(doShare)
+            [sharer share];
+    }
+    
+    // More
+    else if ([SHKCONFIG(showActionSheetMoreButton) boolValue] && buttonIndex == numberOfSharers)
+    {
+        SHKShareMenu *shareMenu = [[SHKCONFIG(SHKShareMenuSubclass) alloc] initWithStyle:UITableViewStyleGrouped];
+        shareMenu.shareDelegate = self.shareDelegate;
+        shareMenu.item = self.item;
+        [[SHK currentHelper] showViewController:shareMenu];
+    }
 }
 
 @end

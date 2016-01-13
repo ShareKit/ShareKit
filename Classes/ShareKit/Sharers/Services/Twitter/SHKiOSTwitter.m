@@ -95,6 +95,7 @@ typedef void (^SHKRequestHandlerBlock)(NSData *responseData, NSURLResponse *urlR
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:SHKTwitterAPIConfigurationSaveDateKey];
 }
 
+
 #pragma mark - UI
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type {
