@@ -87,7 +87,7 @@ static NSString *const kSHKDropboxDestinationDirKeyName = @"kSHKDropboxDestinati
         NSData *plistData = [NSData dataWithContentsOfFile:plistPath];
         NSDictionary *loadedPlist =
         [NSPropertyListSerialization
-         propertyListFromData:plistData mutabilityOption:0 format:NULL errorDescription:NULL];
+         propertyListWithData:plistData options:0 format:NULL error:nil];
         NSDictionary *urlTypes = [loadedPlist objectForKey:@"CFBundleURLTypes"];
         NSString *scheme = nil;
         

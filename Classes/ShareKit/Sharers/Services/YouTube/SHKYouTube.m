@@ -160,7 +160,7 @@ NSString *const kKeychainItemName = @"ShareKit: YouTube";
     
     
     controller.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Cancel")
-                                                                                   style:UIBarButtonItemStyleBordered
+                                                                                   style:UIBarButtonItemStylePlain
                                                                                    target:self
                                                                                   action:@selector(authorizationCanceled:)];
     [[SHK currentHelper] showViewController:controller];
