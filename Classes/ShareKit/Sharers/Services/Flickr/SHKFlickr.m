@@ -116,6 +116,11 @@
     return result;
 }
 
+- (void)tokenRequestModifyRequest:(OAMutableURLRequest *)oRequest
+{
+    [oRequest setOAuthParameterName:@"oauth_callback" withValue:[self.authorizeCallbackURL absoluteString]];
+}
+
 + (void)logout {
     
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKFlickrUserInfo];
