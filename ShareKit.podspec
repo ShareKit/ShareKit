@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'Core' do |core|
     core.resource_bundle = {'ShareKit' => ['Classes/ShareKit/Core/SHKSharers.plist', 'Classes/ShareKit/Localization/*.lproj', 'Classes/ShareKit/*.png']}
-    core.source_files  = 'Classes/ShareKit/{Configuration,Core,UI}/**/*.{h,m,c}', 'Classes/ShareKit/Sharers/Actions/**/*.{h,m,c}', 'Classes/ShareKit/Core NoARC/**/*.{h,m,c}'
+    core.source_files  = 'Classes/ShareKit/{Configuration,Core,UI}/**/*.{h,m,c}', 'Classes/ShareKit/Sharers/Actions/**/*.{h,m,c}'
     core.requires_arc = 'Classes/ShareKit/{Configuration,Core,UI}/**/*.{h,m,c}', 'Classes/ShareKit/Sharers/Actions/**/*.{h,m,c}'
     core.frameworks    = 'SystemConfiguration', 'Security', 'MessageUI', 'AVFoundation', 'MobileCoreServices', 'CoreMedia', 'Social'
     core.weak_frameworks = 'SafariServices' #for Add to Safari reading list
@@ -24,6 +24,13 @@ Pod::Spec.new do |s|
     core.dependency 'SDWebImage', '~> 3.7'
     core.dependency 'PKMultipartInputStream'
     core.dependency 'UIActivityIndicator-for-SDWebImage', '~> 1.2'
+  end
+
+  s.subspec 'Core No ARC' do |core|
+    core.resource_bundle = {'ShareKit' => ['Classes/ShareKit/Core/SHKSharers.plist', 'Classes/ShareKit/Localization/*.lproj', 'Classes/ShareKit/*.png']}
+    core.source_files  = 'Classes/ShareKit/Core NoARC/**/*.{h,m,c}'
+    core.requires_arc = false
+    core.frameworks    = 'SystemConfiguration', 'Security', 'MessageUI', 'AVFoundation', 'MobileCoreServices', 'CoreMedia', 'Social'
   end
 
   s.subspec 'Reachability' do |reachability|
