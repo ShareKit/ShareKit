@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
   s.author        = 'ShareKit Community'
-  s.source        = { :git  => 'https://github.com/ShareKit/ShareKit.git', :tag => s.version.to_s }
+  s.source        = { :git  => 'https://github.com/fylfot/ShareKit.git', :tag => s.version.to_s }
   s.requires_arc = true
   s.license       = { :type => 'MIT',
                       :text => %Q|Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\n| +
@@ -167,7 +167,7 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
   s.subspec 'YouTube' do |youtube|
     youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
     youtube.dependency 'ShareKit/Core'
-    youtube.dependency 'Google-API-Client/YouTube'
+    youtube.dependency 'GoogleAPIClient/YouTube'
   end
 
   s.subspec 'GooglePlus' do |googleplus|
@@ -176,7 +176,7 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
     googleplus.resource = "Frameworks/GooglePlus.bundle"
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     googleplus.dependency 'ShareKit/Core'
-    googleplus.dependency 'Google-API-Client/Plus'
+    googleplus.dependency 'GoogleAPIClient/Plus'
     googleplus.dependency 'OpenInChrome'
     googleplus.dependency 'gtm-logger'
     end
