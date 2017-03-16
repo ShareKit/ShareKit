@@ -176,7 +176,6 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
     googleplus.resource = "Frameworks/GooglePlus.bundle"
     googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
     googleplus.dependency 'ShareKit/Core'
-    googleplus.dependency 'GoogleAPIClient/Core'
     googleplus.dependency 'GoogleAPIClient/Plus'
     googleplus.dependency 'OpenInChrome'
     googleplus.dependency 'gtm-logger'
