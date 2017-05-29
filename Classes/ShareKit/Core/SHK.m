@@ -726,8 +726,8 @@ static NSDictionary *sharersDictionary = nil;
 {
 	//return NO; // force for offline testing
 	SHKReachability *hostReach = [SHKReachability reachabilityForInternetConnection];	
-	NetworkStatus netStatus = [hostReach currentReachabilityStatus];	
-	return !(netStatus == NotReachable);
+	SHKReachabilityNetworkStatus netStatus = [hostReach currentReachabilityStatus];	
+	return !(netStatus == SHKReachabilityNotReachable);
 }
 
 @end

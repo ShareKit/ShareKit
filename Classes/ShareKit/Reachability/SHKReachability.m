@@ -188,34 +188,34 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 #pragma mark Network Flag Handling
 
-- (NetworkStatus) localWiFiStatusForFlags: (SCNetworkReachabilityFlags) flags
+- (SHKReachabilityNetworkStatus) localWiFiStatusForFlags: (SCNetworkReachabilityFlags) flags
 {
 	PrintReachabilityFlags(flags, "localWiFiStatusForFlags");
 
-	BOOL retVal = NotReachable;
+	BOOL retVal = SHKReachabilityNotReachable;
 	if((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
 	{
-		retVal = ReachableViaWiFi;	
+		retVal = SHKReachabilityReachableViaWiFi;	
 	}
 	return retVal;
 }
 
-- (NetworkStatus) networkStatusForFlags: (SCNetworkReachabilityFlags) flags
+- (SHKReachabilityNetworkStatus) networkStatusForFlags: (SCNetworkReachabilityFlags) flags
 {
 	PrintReachabilityFlags(flags, "networkStatusForFlags");
 	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
 	{
 		// if target host is not reachable
-		return NotReachable;
+		return SHKReachabilityNotReachable;
 	}
 
-	BOOL retVal = NotReachable;
+	BOOL retVal = SHKReachabilityNotReachable;
 	
 	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
 	{
 		// if target host is reachable and no connection is required
 		//  then we'll assume (for now) that your on Wi-Fi
-		retVal = ReachableViaWiFi;
+		retVal = SHKReachabilityReachableViaWiFi;
 	}
 	
 	
@@ -228,7 +228,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 			if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
 			{
 				// ... and no [user] intervention is needed
-				retVal = ReachableViaWiFi;
+				retVal = SHKReachabilityReachableViaWiFi;
 			}
 		}
 	
@@ -236,7 +236,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	{
 		// ... but WWAN connections are OK if the calling application
 		//     is using the CFNetwork (CFSocketStream?) APIs.
-		retVal = ReachableViaWWAN;
+		retVal = SHKReachabilityReachableViaWWAN;
 	}
 	return retVal;
 }
@@ -252,10 +252,10 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	return NO;
 }
 
-- (NetworkStatus) currentReachabilityStatus
+- (SHKReachabilityNetworkStatus) currentReachabilityStatus
 {
 	NSAssert(reachabilityRef != NULL, @"currentNetworkStatus called with NULL reachabilityRef");
-	NetworkStatus retVal = NotReachable;
+	SHKReachabilityNetworkStatus retVal = SHKReachabilityNotReachable;
 	SCNetworkReachabilityFlags flags;
 	if (SCNetworkReachabilityGetFlags(reachabilityRef, &flags))
 	{

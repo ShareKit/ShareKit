@@ -51,10 +51,10 @@
 #import <netinet/in.h>
 
 typedef enum {
-	NotReachable = 0,
-	ReachableViaWiFi,
-	ReachableViaWWAN
-} NetworkStatus;
+	SHKReachabilityNotReachable = 0,
+	SHKReachabilityReachableViaWiFi,
+	SHKReachabilityReachableViaWWAN
+} SHKReachabilityNetworkStatus;
 #define kReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
 
 @interface SHKReachability: NSObject
@@ -80,7 +80,7 @@ typedef enum {
 - (BOOL) startNotifier;
 - (void) stopNotifier;
 
-- (NetworkStatus) currentReachabilityStatus;
+- (SHKReachabilityNetworkStatus) currentReachabilityStatus;
 //WWAN may be available, but not active until a connection has been established.
 //WiFi may require a connection for VPN on Demand.
 - (BOOL) connectionRequired;
