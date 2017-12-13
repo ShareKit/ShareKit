@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
     core.requires_arc = 'Classes/ShareKit/{Configuration,Core,UI}/**/*.{h,m,c}', 'Classes/ShareKit/Sharers/Actions/**/*.{h,m,c}'
     core.frameworks    = 'SystemConfiguration', 'Security', 'MessageUI', 'AVFoundation', 'MobileCoreServices', 'CoreMedia', 'Social'
     core.weak_frameworks = 'SafariServices' #for Add to Safari reading list
-    core.dependency 'SSKeychain', '~> 1.2.2'
+    core.dependency 'SAMKeychain'
     core.dependency 'SAMTextView', '~> 0.2.1'
     core.dependency 'ShareKit/Reachability'
     core.dependency 'SDWebImage', '~> 3.7'

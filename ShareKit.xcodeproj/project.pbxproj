@@ -97,6 +97,11 @@
 		7A367313184CBAFB00D63F4F /* testXMLAttributes.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7A367312184CBAFB00D63F4F /* testXMLAttributes.xml */; };
 		7A367317184CC8D100D63F4F /* NSMutableDictionary+NSNullsToEmptyStrings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A25903614CD4E8000FBA124 /* NSMutableDictionary+NSNullsToEmptyStrings.m */; };
 		7A367319184CCCB100D63F4F /* testXMLAttributes2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7A367318184CCCB100D63F4F /* testXMLAttributes2.xml */; };
+		7A3681781FE1519B00598C9E /* SAMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681771FE1518100598C9E /* SAMKeychain.m */; };
+		7A3681791FE1519E00598C9E /* SAMKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681741FE1518000598C9E /* SAMKeychainQuery.m */; };
+		7A36817A1FE151A500598C9E /* SAMKeychainQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3681761FE1518100598C9E /* SAMKeychainQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A36817B1FE151AD00598C9E /* SAMKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3681751FE1518100598C9E /* SAMKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7A36817E1FE153CD00598C9E /* libSAMKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3681721FE14FE900598C9E /* libSAMKeychain.a */; };
 		7A380C8F1891400600F7F054 /* SHKUploadsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A380C8D1891400600F7F054 /* SHKUploadsViewController.h */; };
 		7A380C901891400600F7F054 /* SHKUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A380C8E1891400600F7F054 /* SHKUploadsViewController.m */; };
 		7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3A0D81170CBDD300A0B717 /* SHKFile.h */; };
@@ -695,6 +700,13 @@
 			remoteGlobalIDString = 7A278E781A93D0B90065B351;
 			remoteInfo = WhatsApp;
 		};
+		7A36817C1FE151E300598C9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7A3681671FE14FE900598C9E;
+			remoteInfo = SAMKeychain;
+		};
 		7A49DBC516BC199F004B7E78 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -1253,6 +1265,11 @@
 		7A333EE414CC5B9D0060900C /* NSHTTPCookieStorage+DeleteForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSHTTPCookieStorage+DeleteForURL.m"; sourceTree = "<group>"; };
 		7A367312184CBAFB00D63F4F /* testXMLAttributes.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLAttributes.xml; sourceTree = "<group>"; };
 		7A367318184CCCB100D63F4F /* testXMLAttributes2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testXMLAttributes2.xml; sourceTree = "<group>"; };
+		7A3681721FE14FE900598C9E /* libSAMKeychain.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSAMKeychain.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		7A3681741FE1518000598C9E /* SAMKeychainQuery.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SAMKeychainQuery.m; path = Submodules/SAMKeychain/Sources/SAMKeychainQuery.m; sourceTree = SOURCE_ROOT; };
+		7A3681751FE1518100598C9E /* SAMKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SAMKeychain.h; path = Submodules/SAMKeychain/Sources/SAMKeychain.h; sourceTree = SOURCE_ROOT; };
+		7A3681761FE1518100598C9E /* SAMKeychainQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SAMKeychainQuery.h; path = Submodules/SAMKeychain/Sources/SAMKeychainQuery.h; sourceTree = SOURCE_ROOT; };
+		7A3681771FE1518100598C9E /* SAMKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SAMKeychain.m; path = Submodules/SAMKeychain/Sources/SAMKeychain.m; sourceTree = SOURCE_ROOT; };
 		7A36F42514B2021100372747 /* SHKSharerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharerDelegate.h; sourceTree = "<group>"; };
 		7A36F42614B2021100372747 /* SHKSharerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSharerDelegate.m; sourceTree = "<group>"; };
 		7A380C8D1891400600F7F054 /* SHKUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKUploadsViewController.h; sourceTree = "<group>"; };
@@ -1921,6 +1938,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A36817E1FE153CD00598C9E /* libSAMKeychain.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1974,6 +1992,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		7A278E7B1A93D0B90065B351 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A36816B1FE14FE900598C9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2390,6 +2415,7 @@
 				7A278E801A93D0B90065B351 /* libWhatsApp.a */,
 				7AE8A13B1C32F91900CE61DE /* libPinterest SDK.a */,
 				7AE8A1931C3318C700CE61DE /* libAFNetworking.a */,
+				7A3681721FE14FE900598C9E /* libSAMKeychain.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2685,6 +2711,7 @@
 		43A5367B11DBE3B9004A1712 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7A3681731FE1510900598C9E /* SAMKeychain */,
 				7AB8A55E1925055900EC73A2 /* SDWebImage */,
 				7ADB643A18C5BF9700B5AF7F /* PKMultipartInputStream */,
 				78424C371900233B00BB344F /* SAMTextView */,
@@ -3037,6 +3064,17 @@
 				7AE8DC7B165B549B004D99D2 /* DummyLibFile.m */,
 			);
 			name = ShareKitLibrary;
+			sourceTree = "<group>";
+		};
+		7A3681731FE1510900598C9E /* SAMKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				7A3681751FE1518100598C9E /* SAMKeychain.h */,
+				7A3681771FE1518100598C9E /* SAMKeychain.m */,
+				7A3681761FE1518100598C9E /* SAMKeychainQuery.h */,
+				7A3681741FE1518000598C9E /* SAMKeychainQuery.m */,
+			);
+			name = SAMKeychain;
 			sourceTree = "<group>";
 		};
 		7A40205F1C21F90A00F9F7EF /* Generated */ = {
@@ -3981,6 +4019,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A36816C1FE14FE900598C9E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A36817B1FE151AD00598C9E /* SAMKeychain.h in Headers */,
+				7A36817A1FE151A500598C9E /* SAMKeychainQuery.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7A49DBBF16BC193E004B7E78 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -4462,6 +4509,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				7A36817D1FE151E300598C9E /* PBXTargetDependency */,
 			);
 			name = "Static Library Core";
 			productName = ShareKitLibrary;
@@ -4602,6 +4650,23 @@
 			name = WhatsApp;
 			productName = ShareKitLibrary;
 			productReference = 7A278E801A93D0B90065B351 /* libWhatsApp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7A3681671FE14FE900598C9E /* SAMKeychain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7A36816F1FE14FE900598C9E /* Build configuration list for PBXNativeTarget "SAMKeychain" */;
+			buildPhases = (
+				7A3681681FE14FE900598C9E /* Sources */,
+				7A36816B1FE14FE900598C9E /* Frameworks */,
+				7A36816C1FE14FE900598C9E /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SAMKeychain;
+			productName = ShareKitLibrary;
+			productReference = 7A3681721FE14FE900598C9E /* libSAMKeychain.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		7A49DBBB16BC193E004B7E78 /* Readability */ = {
@@ -5451,6 +5516,7 @@
 				7A278E781A93D0B90065B351 /* WhatsApp */,
 				7AE8A1321C32F91900CE61DE /* Pinterest SDK */,
 				7AE8A1811C3318C700CE61DE /* AFNetworking */,
+				7A3681671FE14FE900598C9E /* SAMKeychain */,
 			);
 		};
 /* End PBXProject section */
@@ -5664,6 +5730,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A278E861A93D1380065B351 /* SHKWhatsApp.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7A3681681FE14FE900598C9E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7A3681791FE1519E00598C9E /* SAMKeychainQuery.m in Sources */,
+				7A3681781FE1519B00598C9E /* SAMKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6220,6 +6295,11 @@
 			isa = PBXTargetDependency;
 			target = 7A278E781A93D0B90065B351 /* WhatsApp */;
 			targetProxy = 7A278E871A93D14E0065B351 /* PBXContainerItemProxy */;
+		};
+		7A36817D1FE151E300598C9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7A3681671FE14FE900598C9E /* SAMKeychain */;
+			targetProxy = 7A36817C1FE151E300598C9E /* PBXContainerItemProxy */;
 		};
 		7A49DBC616BC199F004B7E78 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -6983,6 +7063,49 @@
 				PRODUCT_NAME = WhatsApp;
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7A3681701FE14FE900598C9E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7A3681711FE14FE900598C9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/ShareKitLibrary.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ShareKitLibrary/ShareKitLibrary-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -9185,6 +9308,15 @@
 			buildConfigurations = (
 				7A278E7E1A93D0B90065B351 /* Debug */,
 				7A278E7F1A93D0B90065B351 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7A36816F1FE14FE900598C9E /* Build configuration list for PBXNativeTarget "SAMKeychain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7A3681701FE14FE900598C9E /* Debug */,
+				7A3681711FE14FE900598C9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

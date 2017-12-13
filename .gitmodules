@@ -44,3 +44,6 @@ url=https://github.com/google/google-toolbox-for-mac.git
 	path = Submodules/AFNetworking
 	url = https://github.com/AFNetworking/AFNetworking.git
 	branch = 2.x
+[submodule "Submodules/SAMKeychain"]
+	path = Submodules/SAMKeychain
+	url = https://github.com/soffes/SAMKeychain.git
