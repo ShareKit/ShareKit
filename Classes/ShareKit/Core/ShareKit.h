@@ -12,7 +12,6 @@
 #define ShareKit_ShareKit_h
 
 #import "SHKItem.h"
-#import "SHKActionSheet.h"
 #import "SHKAlertController.h"
 #import "SHK.h"
 

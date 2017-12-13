@@ -65,7 +65,6 @@
 /*!
  @param label Presented bold on the left side
  @param key  Corresponding key in SHKItem
- @param type  Type of form field to be created
  @param start  Placeholder, or initial value
  @param pickerTitle Title to put at the top of the list
  @param selectedIndexes These indexes will be preselected on load (former curIndexes) and changed as per user choice. Save value will be calculated using this. Can be nil.
@@ -76,9 +75,9 @@
  @param provider Provider delegate responsible for fetching options from network
  @result Instance of SHKFormFieldOptionPickerSettings
  */
-+ (SHKFormFieldOptionPickerSettings *)label:(NSString *)l
-                                        key:(NSString *)k
-                                      start:(NSString *)s
++ (SHKFormFieldOptionPickerSettings *)label:(NSString *)label
+                                        key:(NSString *)key
+                                      start:(NSString *)start
                                 pickerTitle:(NSString *)pickerTitle
                             selectedIndexes:(NSMutableIndexSet *)selectedIndexes
                               displayValues:(NSArray *)displayValues

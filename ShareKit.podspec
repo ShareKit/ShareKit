@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name          = 'ShareKit'
   s.version       = '5.0.0'
-  s.platform      = :ios, '7.0'
+  s.platform      = :ios, '8.0'
   s.summary       = 'Drop in sharing features for all iPhone and iPad apps.'
   s.homepage      = 'http://getsharekit.com/'
   s.author        = 'ShareKit Community'
@@ -88,11 +88,11 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
     diigo.dependency 'ShareKit/Core'
   end
   
-  s.subspec 'Dropbox' do |dropbox|
-    dropbox.source_files = 'Classes/ShareKit/Sharers/Services/Dropbox/**/*.{h,m}'
-    dropbox.dependency 'ShareKit/Core'
-    dropbox.dependency 'Dropbox-iOS-SDK', '~> 1.3.13'
-  end
+  #s.subspec 'Dropbox' do |dropbox|
+  #  dropbox.source_files = 'Classes/ShareKit/Sharers/Services/Dropbox/**/*.{h,m}'
+  #  dropbox.dependency 'ShareKit/Core'
+  #  dropbox.dependency 'Dropbox-iOS-SDK', '~> 1.3.13'
+  #end
 
   s.subspec 'Instapaper' do |instapaper|
     instapaper.source_files = 'Classes/ShareKit/Sharers/Services/Instapaper/**/*.{h,m}'
@@ -164,21 +164,22 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
    onenote.dependency 'LiveSDK'
   end
 
-  s.subspec 'YouTube' do |youtube|
-    youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
-    youtube.dependency 'ShareKit/Core'
-    youtube.dependency 'GoogleAPIClient/YouTube'
-  end
+#s.subspec 'YouTube' do |youtube|
+#   youtube.source_files = 'Classes/ShareKit/Sharers/Services/YouTube/**/*.{h,m}'
+#   youtube.dependency 'ShareKit/Core'
+#   youtube.dependency 'GoogleAPIClientForREST/YouTube'
+#   youtube.dependency 'Google/SignIn'
+# end
 
-  s.subspec 'GooglePlus' do |googleplus|
-    googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
-    googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework'
-    googleplus.resource = "Frameworks/GooglePlus.bundle"
-    googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
-    googleplus.dependency 'ShareKit/Core'
-    googleplus.dependency 'GoogleAPIClient/Plus'
-    googleplus.dependency 'OpenInChrome'
-    googleplus.dependency 'gtm-logger'
-    end
+#s.subspec 'GooglePlus' do |googleplus|
+#    googleplus.source_files = 'Classes/ShareKit/Sharers/Services/Google Plus/**/*.{h,m}'
+#    googleplus.vendored_frameworks = 'Frameworks/GooglePlus.framework',
+#    googleplus.resource = 'Frameworks/GooglePlus.bundle'
+#    googleplus.framework = 'AssetsLibrary', 'CoreLocation', 'CoreMotion', 'CoreGraphics', 'CoreText', 'MediaPlayer', 'Security', 'SystemConfiguration', 'AddressBook'
+#    googleplus.dependency 'ShareKit/Core'
+#    googleplus.dependency 'GoogleAPIClient/Plus'
+#    googleplus.dependency 'OpenInChrome'
+#    googleplus.dependency 'gtm-logger'
+#    end
 
 end

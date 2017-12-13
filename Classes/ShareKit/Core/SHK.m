@@ -31,7 +31,6 @@
 
 #import "SHKActivityIndicator.h"
 #import "SHKConfiguration.h"
-#import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"
 #import "SHKReachability.h"
