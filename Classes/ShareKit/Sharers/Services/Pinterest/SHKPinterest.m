@@ -70,8 +70,8 @@ static NSString *const SHKPinterestBoardCustomItemKey = @"board";
 
 + (BOOL)canShareItem:(SHKItem *)item {
  
-    BOOL isPictureURI = item.URLPictureURI && item.URL;
-    BOOL isImageWithURL = item.image && item.URL && [self requiresAuthentication]; //image uploads allowed only for fully authenticated users
+    BOOL isPictureURI = item.URLPictureURI;
+    BOOL isImageWithURL = item.image && [self requiresAuthentication]; //image uploads allowed only for fully authenticated users
     BOOL isFileWithURL = [item.file.mimeType hasPrefix:@"image/"] && item.URL && [self requiresAuthentication]; //image uploads allowed only for fully authenticated users;
     
     return isImageWithURL || isPictureURI || isFileWithURL;

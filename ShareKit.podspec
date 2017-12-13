@@ -146,11 +146,11 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
     imgur.dependency 'ShareKit/Core'
   end
   
-  #s.subspec 'Pinterest' do |pinterest|
-  #  pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
-  #  pinterest.dependency 'PinterestSDK'
-  #  pinterest.dependency 'ShareKit/Core'
-  #end
+  s.subspec 'Pinterest' do |pinterest|
+    pinterest.source_files = 'Classes/ShareKit/Sharers/Services/Pinterest/**/*.{h,m}'
+    pinterest.dependency 'PinterestSDK'
+    pinterest.dependency 'ShareKit/Core'
+  end
   
   s.subspec 'WhatsApp' do |whatsapp|
       whatsapp.source_files = 'Classes/ShareKit/Sharers/Services/WhatsApp/**/*.{h,m}'

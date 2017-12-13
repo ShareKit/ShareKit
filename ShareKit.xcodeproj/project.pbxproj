@@ -102,6 +102,15 @@
 		7A36817A1FE151A500598C9E /* SAMKeychainQuery.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3681761FE1518100598C9E /* SAMKeychainQuery.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A36817B1FE151AD00598C9E /* SAMKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3681751FE1518100598C9E /* SAMKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A36817E1FE153CD00598C9E /* libSAMKeychain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A3681721FE14FE900598C9E /* libSAMKeychain.a */; };
+		7A3681D61FE168BC00598C9E /* PDKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681C31FE168B800598C9E /* PDKImageInfo.m */; };
+		7A3681D71FE168BC00598C9E /* PDKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681C51FE168B800598C9E /* PDKUser.m */; };
+		7A3681D81FE168BC00598C9E /* PDKInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681C91FE168B900598C9E /* PDKInterest.m */; };
+		7A3681D91FE168BC00598C9E /* PDKPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681CA1FE168B900598C9E /* PDKPin.m */; };
+		7A3681DA1FE168BC00598C9E /* PDKClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681CC1FE168BA00598C9E /* PDKClient.m */; };
+		7A3681DB1FE168BC00598C9E /* PDKResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681CD1FE168BA00598C9E /* PDKResponseObject.m */; };
+		7A3681DC1FE168BC00598C9E /* PDKModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681D21FE168BB00598C9E /* PDKModelObject.m */; };
+		7A3681DD1FE168BC00598C9E /* PDKBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681D31FE168BB00598C9E /* PDKBoard.m */; };
+		7A3681DE1FE168BC00598C9E /* PDKCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A3681D51FE168BB00598C9E /* PDKCategories.m */; };
 		7A380C8F1891400600F7F054 /* SHKUploadsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A380C8D1891400600F7F054 /* SHKUploadsViewController.h */; };
 		7A380C901891400600F7F054 /* SHKUploadsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A380C8E1891400600F7F054 /* SHKUploadsViewController.m */; };
 		7A3A0D83170CBDD300A0B717 /* SHKFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A3A0D81170CBDD300A0B717 /* SHKFile.h */; };
@@ -596,23 +605,11 @@
 		7AE8A0BF1C2BF77C00CE61DE /* GTMSessionUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A0B11C2BF77B00CE61DE /* GTMSessionUploadFetcher.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		7AE8A1361C32F91900CE61DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		7AE8A13E1C32F99100CE61DE /* libPinterest SDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE8A13B1C32F91900CE61DE /* libPinterest SDK.a */; };
-		7AE8A1781C32FA1A00CE61DE /* PDKBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1661C32FA1900CE61DE /* PDKBoard.m */; };
-		7AE8A1791C32FA1A00CE61DE /* PDKCategories.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1681C32FA1900CE61DE /* PDKCategories.m */; };
-		7AE8A17A1C32FA1A00CE61DE /* PDKClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A16A1C32FA1900CE61DE /* PDKClient.m */; };
-		7AE8A17B1C32FA1A00CE61DE /* PDKImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A16C1C32FA1A00CE61DE /* PDKImageInfo.m */; };
-		7AE8A17C1C32FA1A00CE61DE /* PDKInterest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A16E1C32FA1A00CE61DE /* PDKInterest.m */; };
-		7AE8A17D1C32FA1A00CE61DE /* PDKModelObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1701C32FA1A00CE61DE /* PDKModelObject.m */; };
-		7AE8A17E1C32FA1A00CE61DE /* PDKPin.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1721C32FA1A00CE61DE /* PDKPin.m */; };
-		7AE8A17F1C32FA1A00CE61DE /* PDKResponseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1741C32FA1A00CE61DE /* PDKResponseObject.m */; };
-		7AE8A1801C32FA1A00CE61DE /* PDKUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1761C32FA1A00CE61DE /* PDKUser.m */; };
 		7AE8A18E1C3318C700CE61DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		7AE8A1961C33191F00CE61DE /* libAFNetworking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE8A1931C3318C700CE61DE /* libAFNetworking.a */; };
-		7AE8A1D11C331C5D00CE61DE /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1BF1C331C5D00CE61DE /* AFHTTPRequestOperation.m */; };
-		7AE8A1D21C331C5D00CE61DE /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1C11C331C5D00CE61DE /* AFHTTPRequestOperationManager.m */; };
 		7AE8A1D31C331C5D00CE61DE /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1C31C331C5D00CE61DE /* AFHTTPSessionManager.m */; };
 		7AE8A1D41C331C5D00CE61DE /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1C61C331C5D00CE61DE /* AFNetworkReachabilityManager.m */; };
 		7AE8A1D51C331C5D00CE61DE /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1C81C331C5D00CE61DE /* AFSecurityPolicy.m */; };
-		7AE8A1D61C331C5D00CE61DE /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1CA1C331C5D00CE61DE /* AFURLConnectionOperation.m */; };
 		7AE8A1D71C331C5D00CE61DE /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1CC1C331C5D00CE61DE /* AFURLRequestSerialization.m */; };
 		7AE8A1D81C331C5D00CE61DE /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1CE1C331C5D00CE61DE /* AFURLResponseSerialization.m */; };
 		7AE8A1D91C331C5D00CE61DE /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AE8A1D01C331C5D00CE61DE /* AFURLSessionManager.m */; };
@@ -1270,6 +1267,25 @@
 		7A3681751FE1518100598C9E /* SAMKeychain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SAMKeychain.h; path = Submodules/SAMKeychain/Sources/SAMKeychain.h; sourceTree = SOURCE_ROOT; };
 		7A3681761FE1518100598C9E /* SAMKeychainQuery.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SAMKeychainQuery.h; path = Submodules/SAMKeychain/Sources/SAMKeychainQuery.h; sourceTree = SOURCE_ROOT; };
 		7A3681771FE1518100598C9E /* SAMKeychain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SAMKeychain.m; path = Submodules/SAMKeychain/Sources/SAMKeychain.m; sourceTree = SOURCE_ROOT; };
+		7A3681C31FE168B800598C9E /* PDKImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKImageInfo.m; path = "Submodules/ios-pdk/Pod/Classes/PDKImageInfo.m"; sourceTree = SOURCE_ROOT; };
+		7A3681C41FE168B800598C9E /* PDKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKUser.h; path = "Submodules/ios-pdk/Pod/Classes/PDKUser.h"; sourceTree = SOURCE_ROOT; };
+		7A3681C51FE168B800598C9E /* PDKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKUser.m; path = "Submodules/ios-pdk/Pod/Classes/PDKUser.m"; sourceTree = SOURCE_ROOT; };
+		7A3681C61FE168B800598C9E /* PDKPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKPin.h; path = "Submodules/ios-pdk/Pod/Classes/PDKPin.h"; sourceTree = SOURCE_ROOT; };
+		7A3681C71FE168B800598C9E /* PDKImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKImageInfo.h; path = "Submodules/ios-pdk/Pod/Classes/PDKImageInfo.h"; sourceTree = SOURCE_ROOT; };
+		7A3681C81FE168B900598C9E /* PDKBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKBoard.h; path = "Submodules/ios-pdk/Pod/Classes/PDKBoard.h"; sourceTree = SOURCE_ROOT; };
+		7A3681C91FE168B900598C9E /* PDKInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKInterest.m; path = "Submodules/ios-pdk/Pod/Classes/PDKInterest.m"; sourceTree = SOURCE_ROOT; };
+		7A3681CA1FE168B900598C9E /* PDKPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKPin.m; path = "Submodules/ios-pdk/Pod/Classes/PDKPin.m"; sourceTree = SOURCE_ROOT; };
+		7A3681CB1FE168B900598C9E /* PDKInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKInterest.h; path = "Submodules/ios-pdk/Pod/Classes/PDKInterest.h"; sourceTree = SOURCE_ROOT; };
+		7A3681CC1FE168BA00598C9E /* PDKClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKClient.m; path = "Submodules/ios-pdk/Pod/Classes/PDKClient.m"; sourceTree = SOURCE_ROOT; };
+		7A3681CD1FE168BA00598C9E /* PDKResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKResponseObject.m; path = "Submodules/ios-pdk/Pod/Classes/PDKResponseObject.m"; sourceTree = SOURCE_ROOT; };
+		7A3681CE1FE168BA00598C9E /* PDKClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKClient.h; path = "Submodules/ios-pdk/Pod/Classes/PDKClient.h"; sourceTree = SOURCE_ROOT; };
+		7A3681CF1FE168BA00598C9E /* PinterestSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PinterestSDK.h; path = "Submodules/ios-pdk/Pod/Classes/PinterestSDK.h"; sourceTree = SOURCE_ROOT; };
+		7A3681D01FE168BA00598C9E /* PDKModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKModelObject.h; path = "Submodules/ios-pdk/Pod/Classes/PDKModelObject.h"; sourceTree = SOURCE_ROOT; };
+		7A3681D11FE168BB00598C9E /* PDKResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKResponseObject.h; path = "Submodules/ios-pdk/Pod/Classes/PDKResponseObject.h"; sourceTree = SOURCE_ROOT; };
+		7A3681D21FE168BB00598C9E /* PDKModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKModelObject.m; path = "Submodules/ios-pdk/Pod/Classes/PDKModelObject.m"; sourceTree = SOURCE_ROOT; };
+		7A3681D31FE168BB00598C9E /* PDKBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKBoard.m; path = "Submodules/ios-pdk/Pod/Classes/PDKBoard.m"; sourceTree = SOURCE_ROOT; };
+		7A3681D41FE168BB00598C9E /* PDKCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKCategories.h; path = "Submodules/ios-pdk/Pod/Classes/PDKCategories.h"; sourceTree = SOURCE_ROOT; };
+		7A3681D51FE168BB00598C9E /* PDKCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKCategories.m; path = "Submodules/ios-pdk/Pod/Classes/PDKCategories.m"; sourceTree = SOURCE_ROOT; };
 		7A36F42514B2021100372747 /* SHKSharerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSharerDelegate.h; sourceTree = "<group>"; };
 		7A36F42614B2021100372747 /* SHKSharerDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSharerDelegate.m; sourceTree = "<group>"; };
 		7A380C8D1891400600F7F054 /* SHKUploadsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKUploadsViewController.h; sourceTree = "<group>"; };
@@ -1784,30 +1800,7 @@
 		7AE8A0B01C2BF77B00CE61DE /* GTMSessionUploadFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GTMSessionUploadFetcher.h; path = "Submodules/google-api-objectivec-client/Deps/gtm-session-fetcher/Source/GTMSessionUploadFetcher.h"; sourceTree = SOURCE_ROOT; };
 		7AE8A0B11C2BF77B00CE61DE /* GTMSessionUploadFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GTMSessionUploadFetcher.m; path = "Submodules/google-api-objectivec-client/Deps/gtm-session-fetcher/Source/GTMSessionUploadFetcher.m"; sourceTree = SOURCE_ROOT; };
 		7AE8A13B1C32F91900CE61DE /* libPinterest SDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPinterest SDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AE8A1651C32FA1900CE61DE /* PDKBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKBoard.h; path = "Submodules/ios-pdk/Pod/Classes/PDKBoard.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1661C32FA1900CE61DE /* PDKBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKBoard.m; path = "Submodules/ios-pdk/Pod/Classes/PDKBoard.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1671C32FA1900CE61DE /* PDKCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKCategories.h; path = "Submodules/ios-pdk/Pod/Classes/PDKCategories.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1681C32FA1900CE61DE /* PDKCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKCategories.m; path = "Submodules/ios-pdk/Pod/Classes/PDKCategories.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1691C32FA1900CE61DE /* PDKClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKClient.h; path = "Submodules/ios-pdk/Pod/Classes/PDKClient.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A16A1C32FA1900CE61DE /* PDKClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKClient.m; path = "Submodules/ios-pdk/Pod/Classes/PDKClient.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A16B1C32FA1900CE61DE /* PDKImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKImageInfo.h; path = "Submodules/ios-pdk/Pod/Classes/PDKImageInfo.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A16C1C32FA1A00CE61DE /* PDKImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKImageInfo.m; path = "Submodules/ios-pdk/Pod/Classes/PDKImageInfo.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A16D1C32FA1A00CE61DE /* PDKInterest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKInterest.h; path = "Submodules/ios-pdk/Pod/Classes/PDKInterest.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A16E1C32FA1A00CE61DE /* PDKInterest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKInterest.m; path = "Submodules/ios-pdk/Pod/Classes/PDKInterest.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A16F1C32FA1A00CE61DE /* PDKModelObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKModelObject.h; path = "Submodules/ios-pdk/Pod/Classes/PDKModelObject.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1701C32FA1A00CE61DE /* PDKModelObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKModelObject.m; path = "Submodules/ios-pdk/Pod/Classes/PDKModelObject.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1711C32FA1A00CE61DE /* PDKPin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKPin.h; path = "Submodules/ios-pdk/Pod/Classes/PDKPin.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1721C32FA1A00CE61DE /* PDKPin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKPin.m; path = "Submodules/ios-pdk/Pod/Classes/PDKPin.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1731C32FA1A00CE61DE /* PDKResponseObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKResponseObject.h; path = "Submodules/ios-pdk/Pod/Classes/PDKResponseObject.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1741C32FA1A00CE61DE /* PDKResponseObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKResponseObject.m; path = "Submodules/ios-pdk/Pod/Classes/PDKResponseObject.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1751C32FA1A00CE61DE /* PDKUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PDKUser.h; path = "Submodules/ios-pdk/Pod/Classes/PDKUser.h"; sourceTree = SOURCE_ROOT; };
-		7AE8A1761C32FA1A00CE61DE /* PDKUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PDKUser.m; path = "Submodules/ios-pdk/Pod/Classes/PDKUser.m"; sourceTree = SOURCE_ROOT; };
-		7AE8A1771C32FA1A00CE61DE /* PinterestSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PinterestSDK.h; path = "Submodules/ios-pdk/Pod/Classes/PinterestSDK.h"; sourceTree = SOURCE_ROOT; };
 		7AE8A1931C3318C700CE61DE /* libAFNetworking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libAFNetworking.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		7AE8A1BE1C331C5D00CE61DE /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperation.h; path = Submodules/AFNetworking/AFNetworking/AFHTTPRequestOperation.h; sourceTree = SOURCE_ROOT; };
-		7AE8A1BF1C331C5D00CE61DE /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperation.m; path = Submodules/AFNetworking/AFNetworking/AFHTTPRequestOperation.m; sourceTree = SOURCE_ROOT; };
-		7AE8A1C01C331C5D00CE61DE /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPRequestOperationManager.h; path = Submodules/AFNetworking/AFNetworking/AFHTTPRequestOperationManager.h; sourceTree = SOURCE_ROOT; };
-		7AE8A1C11C331C5D00CE61DE /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPRequestOperationManager.m; path = Submodules/AFNetworking/AFNetworking/AFHTTPRequestOperationManager.m; sourceTree = SOURCE_ROOT; };
 		7AE8A1C21C331C5D00CE61DE /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = Submodules/AFNetworking/AFNetworking/AFHTTPSessionManager.h; sourceTree = SOURCE_ROOT; };
 		7AE8A1C31C331C5D00CE61DE /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = Submodules/AFNetworking/AFNetworking/AFHTTPSessionManager.m; sourceTree = SOURCE_ROOT; };
 		7AE8A1C41C331C5D00CE61DE /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFNetworking.h; path = Submodules/AFNetworking/AFNetworking/AFNetworking.h; sourceTree = SOURCE_ROOT; };
@@ -1815,8 +1808,6 @@
 		7AE8A1C61C331C5D00CE61DE /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFNetworkReachabilityManager.m; path = Submodules/AFNetworking/AFNetworking/AFNetworkReachabilityManager.m; sourceTree = SOURCE_ROOT; };
 		7AE8A1C71C331C5D00CE61DE /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFSecurityPolicy.h; path = Submodules/AFNetworking/AFNetworking/AFSecurityPolicy.h; sourceTree = SOURCE_ROOT; };
 		7AE8A1C81C331C5D00CE61DE /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFSecurityPolicy.m; path = Submodules/AFNetworking/AFNetworking/AFSecurityPolicy.m; sourceTree = SOURCE_ROOT; };
-		7AE8A1C91C331C5D00CE61DE /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = Submodules/AFNetworking/AFNetworking/AFURLConnectionOperation.h; sourceTree = SOURCE_ROOT; };
-		7AE8A1CA1C331C5D00CE61DE /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFURLConnectionOperation.m; path = Submodules/AFNetworking/AFNetworking/AFURLConnectionOperation.m; sourceTree = SOURCE_ROOT; };
 		7AE8A1CB1C331C5D00CE61DE /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = Submodules/AFNetworking/AFNetworking/AFURLRequestSerialization.h; sourceTree = SOURCE_ROOT; };
 		7AE8A1CC1C331C5D00CE61DE /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AFURLRequestSerialization.m; path = Submodules/AFNetworking/AFNetworking/AFURLRequestSerialization.m; sourceTree = SOURCE_ROOT; };
 		7AE8A1CD1C331C5D00CE61DE /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFURLResponseSerialization.h; path = Submodules/AFNetworking/AFNetworking/AFURLResponseSerialization.h; sourceTree = SOURCE_ROOT; };
@@ -3646,25 +3637,25 @@
 		7AE8A1311C32F8F100CE61DE /* PinterestSDK */ = {
 			isa = PBXGroup;
 			children = (
-				7AE8A1651C32FA1900CE61DE /* PDKBoard.h */,
-				7AE8A1661C32FA1900CE61DE /* PDKBoard.m */,
-				7AE8A1671C32FA1900CE61DE /* PDKCategories.h */,
-				7AE8A1681C32FA1900CE61DE /* PDKCategories.m */,
-				7AE8A1691C32FA1900CE61DE /* PDKClient.h */,
-				7AE8A16A1C32FA1900CE61DE /* PDKClient.m */,
-				7AE8A16B1C32FA1900CE61DE /* PDKImageInfo.h */,
-				7AE8A16C1C32FA1A00CE61DE /* PDKImageInfo.m */,
-				7AE8A16D1C32FA1A00CE61DE /* PDKInterest.h */,
-				7AE8A16E1C32FA1A00CE61DE /* PDKInterest.m */,
-				7AE8A16F1C32FA1A00CE61DE /* PDKModelObject.h */,
-				7AE8A1701C32FA1A00CE61DE /* PDKModelObject.m */,
-				7AE8A1711C32FA1A00CE61DE /* PDKPin.h */,
-				7AE8A1721C32FA1A00CE61DE /* PDKPin.m */,
-				7AE8A1731C32FA1A00CE61DE /* PDKResponseObject.h */,
-				7AE8A1741C32FA1A00CE61DE /* PDKResponseObject.m */,
-				7AE8A1751C32FA1A00CE61DE /* PDKUser.h */,
-				7AE8A1761C32FA1A00CE61DE /* PDKUser.m */,
-				7AE8A1771C32FA1A00CE61DE /* PinterestSDK.h */,
+				7A3681C81FE168B900598C9E /* PDKBoard.h */,
+				7A3681D31FE168BB00598C9E /* PDKBoard.m */,
+				7A3681D41FE168BB00598C9E /* PDKCategories.h */,
+				7A3681D51FE168BB00598C9E /* PDKCategories.m */,
+				7A3681CE1FE168BA00598C9E /* PDKClient.h */,
+				7A3681CC1FE168BA00598C9E /* PDKClient.m */,
+				7A3681C71FE168B800598C9E /* PDKImageInfo.h */,
+				7A3681C31FE168B800598C9E /* PDKImageInfo.m */,
+				7A3681CB1FE168B900598C9E /* PDKInterest.h */,
+				7A3681C91FE168B900598C9E /* PDKInterest.m */,
+				7A3681D01FE168BA00598C9E /* PDKModelObject.h */,
+				7A3681D21FE168BB00598C9E /* PDKModelObject.m */,
+				7A3681C61FE168B800598C9E /* PDKPin.h */,
+				7A3681CA1FE168B900598C9E /* PDKPin.m */,
+				7A3681D11FE168BB00598C9E /* PDKResponseObject.h */,
+				7A3681CD1FE168BA00598C9E /* PDKResponseObject.m */,
+				7A3681C41FE168B800598C9E /* PDKUser.h */,
+				7A3681C51FE168B800598C9E /* PDKUser.m */,
+				7A3681CF1FE168BA00598C9E /* PinterestSDK.h */,
 			);
 			name = PinterestSDK;
 			sourceTree = "<group>";
@@ -3672,10 +3663,6 @@
 		7AE8A1971C33192A00CE61DE /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				7AE8A1BE1C331C5D00CE61DE /* AFHTTPRequestOperation.h */,
-				7AE8A1BF1C331C5D00CE61DE /* AFHTTPRequestOperation.m */,
-				7AE8A1C01C331C5D00CE61DE /* AFHTTPRequestOperationManager.h */,
-				7AE8A1C11C331C5D00CE61DE /* AFHTTPRequestOperationManager.m */,
 				7AE8A1C21C331C5D00CE61DE /* AFHTTPSessionManager.h */,
 				7AE8A1C31C331C5D00CE61DE /* AFHTTPSessionManager.m */,
 				7AE8A1C41C331C5D00CE61DE /* AFNetworking.h */,
@@ -3683,8 +3670,6 @@
 				7AE8A1C61C331C5D00CE61DE /* AFNetworkReachabilityManager.m */,
 				7AE8A1C71C331C5D00CE61DE /* AFSecurityPolicy.h */,
 				7AE8A1C81C331C5D00CE61DE /* AFSecurityPolicy.m */,
-				7AE8A1C91C331C5D00CE61DE /* AFURLConnectionOperation.h */,
-				7AE8A1CA1C331C5D00CE61DE /* AFURLConnectionOperation.m */,
 				7AE8A1CB1C331C5D00CE61DE /* AFURLRequestSerialization.h */,
 				7AE8A1CC1C331C5D00CE61DE /* AFURLRequestSerialization.m */,
 				7AE8A1CD1C331C5D00CE61DE /* AFURLResponseSerialization.h */,
@@ -5860,15 +5845,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AE8A1801C32FA1A00CE61DE /* PDKUser.m in Sources */,
-				7AE8A17A1C32FA1A00CE61DE /* PDKClient.m in Sources */,
-				7AE8A17F1C32FA1A00CE61DE /* PDKResponseObject.m in Sources */,
-				7AE8A17E1C32FA1A00CE61DE /* PDKPin.m in Sources */,
-				7AE8A17C1C32FA1A00CE61DE /* PDKInterest.m in Sources */,
-				7AE8A17D1C32FA1A00CE61DE /* PDKModelObject.m in Sources */,
-				7AE8A1781C32FA1A00CE61DE /* PDKBoard.m in Sources */,
-				7AE8A17B1C32FA1A00CE61DE /* PDKImageInfo.m in Sources */,
-				7AE8A1791C32FA1A00CE61DE /* PDKCategories.m in Sources */,
+				7A3681D71FE168BC00598C9E /* PDKUser.m in Sources */,
+				7A3681DB1FE168BC00598C9E /* PDKResponseObject.m in Sources */,
+				7A3681DE1FE168BC00598C9E /* PDKCategories.m in Sources */,
+				7A3681DC1FE168BC00598C9E /* PDKModelObject.m in Sources */,
+				7A3681D91FE168BC00598C9E /* PDKPin.m in Sources */,
+				7A3681DD1FE168BC00598C9E /* PDKBoard.m in Sources */,
+				7A3681D81FE168BC00598C9E /* PDKInterest.m in Sources */,
+				7A3681D61FE168BC00598C9E /* PDKImageInfo.m in Sources */,
+				7A3681DA1FE168BC00598C9E /* PDKClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5879,12 +5864,9 @@
 				7AE8A1D91C331C5D00CE61DE /* AFURLSessionManager.m in Sources */,
 				7AE8A1D31C331C5D00CE61DE /* AFHTTPSessionManager.m in Sources */,
 				7AE8A1D51C331C5D00CE61DE /* AFSecurityPolicy.m in Sources */,
-				7AE8A1D21C331C5D00CE61DE /* AFHTTPRequestOperationManager.m in Sources */,
 				7AE8A1D41C331C5D00CE61DE /* AFNetworkReachabilityManager.m in Sources */,
-				7AE8A1D61C331C5D00CE61DE /* AFURLConnectionOperation.m in Sources */,
 				7AE8A1D71C331C5D00CE61DE /* AFURLRequestSerialization.m in Sources */,
 				7AE8A1D81C331C5D00CE61DE /* AFURLResponseSerialization.m in Sources */,
-				7AE8A1D11C331C5D00CE61DE /* AFHTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -125,7 +125,9 @@
 - (void)showProgress:(CGFloat)progress forSharer:(SHKSharer *)sharer {
     
     if (sharer.quiet) return;
-    [self.activityIndicator showProgress:progress forSharer:sharer];
+    dispatch_async(dispatch_get_main_queue(), ^(void) {
+        [self.activityIndicator showProgress:progress forSharer:sharer];
+    });
 }
 
 @end
