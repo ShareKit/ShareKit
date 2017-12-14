@@ -25,9 +25,6 @@ url=https://github.com/google/google-toolbox-for-mac.git
 [submodule "Submodules/SDWebImage"]
 	path = Submodules/SDWebImage
 	url = https://github.com/rs/SDWebImage.git
-[submodule "Submodules/UIActivityIndicator-for-SDWebImage"]
-	path = Submodules/UIActivityIndicator-for-SDWebImage
-	url = https://github.com/JJSaccolo/UIActivityIndicator-for-SDWebImage.git
 [submodule "Submodules/iso-8601-date-formatter"]
 	path = Submodules/iso-8601-date-formatter
 	url = https://github.com/boredzo/iso-8601-date-formatter.git
