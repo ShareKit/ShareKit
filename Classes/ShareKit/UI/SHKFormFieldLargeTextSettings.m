@@ -9,7 +9,8 @@
 #import "SHKFormFieldLargeTextSettings.h"
 
 #import "UIImage+OurBundle.h"
-#import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIView+WebCache.h>
 
 @interface SHKFormFieldLargeTextSettings ()
 
@@ -48,11 +49,15 @@
             if (self.item.image) {
                 imageView.image = self.item.image;
             } else if (self.item.URLPictureURI) {
-                [imageView setImageWithURL:self.item.URLPictureURI placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                [imageView sd_setShowActivityIndicatorView:YES];
+                [imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                [imageView sd_setImageWithURL:self.item.URLPictureURI placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"]];
             } else {
                 
                 if (self.item.URLContentType == SHKURLContentTypeImage) {
-                    [imageView setImageWithURL:self.item.URL placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                    [imageView sd_setShowActivityIndicatorView:YES];
+                    [imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                    [imageView sd_setImageWithURL:self.item.URL placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"]];
                 } else {
                     imageView.image = [UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"];
                 }
@@ -70,7 +75,9 @@
             }
             
             if (!imageView.image && self.item.URLPictureURI) {
-                  [imageView setImageWithURL:self.item.URLPictureURI placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"] usingActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                [imageView sd_setShowActivityIndicatorView:YES];
+                [imageView sd_setIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+                [imageView sd_setImageWithURL:self.item.URLPictureURI placeholderImage:[UIImage imageNamedFromOurBundle:@"DETweetURLAttachment.png"]];
             } else if (!imageView.image) {
                 self.shouldShowExtension = YES;
                 imageView.image = [UIImage imageNamedFromOurBundle:@"SHKShareFileIcon.png"];
