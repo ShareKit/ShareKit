@@ -80,7 +80,7 @@ evernote.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2' 
    s.subspec 'Pocket' do |pocket|
     pocket.source_files = 'Classes/ShareKit/Sharers/Services/Pocket/**/*.{h,m}'
     pocket.dependency 'ShareKit/Core'
-    pocket.dependency 'PocketAPI', '~> 1.0.2'
+    pocket.dependency 'PocketAPI', '~> 1.0'
   end
 
   s.subspec 'Diigo' do |diigo|
