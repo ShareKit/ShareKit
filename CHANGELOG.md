@@ -1,4 +1,4 @@
-**6.0.0 (2017-12-18)**
+**6.0.1 (2017-12-18)**
 - **Breaking change**: **Removed Google+ and YouTube** sharers from podspec. Their vendor's sdk do not work anymore, and these sharers should be rewritten from scratch.
 - **Breaking change**: **Commented out Pocket and Evernote** sharers from podspec. Their vendor's sdk do not work with `use_frameworks!` setting in podfile. So they are not available for Swift projects. You can still use them in objective-c projects though, just uncomment lines in the podspec. You might want to fork ShareKit for this.
 - **Breaking change**: Removed long deprecated `SHKActionSheet` in favor of `SHKAlertController`
