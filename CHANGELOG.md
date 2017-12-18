@@ -1,3 +1,9 @@
+**6.0.0 (2017-12-18)**
+- **Breaking change**: **Removed Google+ and YouTube** sharers from podspec. Their vendor's sdk do not work anymore, and these sharers should be rewritten from scratch.
+- **Breaking change**: **Commented out Pocket and Evernote** sharers from podspec. Their vendor's sdk do not work with `use_frameworks!` setting in podfile. So they are not available for Swift projects. You can still use them in objective-c projects though, just uncomment lines in the podspec. You might want to fork ShareKit for this.
+- **Breaking change**: Removed long deprecated `SHKActionSheet` in favor of `SHKAlertController`
+- This is a maintenance release to remove all blockers and dysfunctional parts so that ShareKit builds on Xcode9.
+
 **5.0.0 (2016-01-02)**
 - **Breaking change**: Pinterest sharer updated to a new sdk. You have to register your app again and obtain a new (oauth) app id. Pinterest.embeddedFramework was removed due to this change and replaced with submodule. Unfortunately, Pinterest sharer is not yet available via Cocoapods, due to [this PinterestSDK issue](https://github.com/pinterest/ios-pdk/issues/48). Other changes needed: see [install wiki](https://github.com/ShareKit/ShareKit/wiki/Installing-ShareKit) (ATS setting in info.plist, new url loading scheme, header search path set to submodules dir, `application:openURL:sourceApplication:annotation` callback for Pinterest due to SSO)
 - Added image and file share to Pinterest sharer. Please note, that at the moment they need URL filled in SHKItem too, due to [another PinterestSDK issue](https://github.com/pinterest/ios-pdk/issues/47).
@@ -38,15 +44,15 @@
 - added OneNote sharer. You need to add LiveSDK.framework to link binary with libraries AND copy bundle resources build phases of your app's target.
 - if the service supports it file uploads utilise NSInputStream (without loading complete file into memory)
 - more sharers can report upload progress (Flickr, Plurk, Tumblr, iOSTwitter, iOSFacebook)
-- added SHKAccountsViewController. It displays a list of available services, their authorisation status, logged in username and allows to login/logoff. 
-- more sharers canGetUserInfo:Hatena, Foursquare, Evernote. Now all sharers have implemented `+ (NSString *)username` 
-- added SHKUploadsViewController. It keeps a track of uploads progress + you can cancel uploads from there. Only sharers reporting progress are shown (currently Dropbox, YouTube). 
+- added SHKAccountsViewController. It displays a list of available services, their authorisation status, logged in username and allows to login/logoff.
+- more sharers canGetUserInfo:Hatena, Foursquare, Evernote. Now all sharers have implemented `+ (NSString *)username`
+- added SHKUploadsViewController. It keeps a track of uploads progress + you can cancel uploads from there. Only sharers reporting progress are shown (currently Dropbox, YouTube).
 
 **2.5.3**
 - Methods declared in SHKSharer.h intended to be used only by sharer subclasses were moved into SHKSharer_protected.h. **Possible breaking change: if you use your own SHKSharer subclass, import SHKSharer_protected.h in implementation file.**
 - You can supply custom SHKActivityIndicator subclass using ```- (Class)SHKActivityIndicatorSubclass``` method in your configurator.  **Possible breaking change: In case you have your own share delegate, make sure it implements, or inherits all new SHKActivityIndicator calls, otherwise indicator might not display, or dismiss well.**
 - Dropbox enhancements:
-     1. can get userInfo, 
+     1. can get userInfo,
      2. user can pick directory where to save the file or you can pre fill it via ```item.dropboxDestinationDirectory```.
      3. shows upload progress
 - TextMessage sharer can accept attachments for iMessage or MMS
