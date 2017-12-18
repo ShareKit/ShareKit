@@ -3,6 +3,8 @@
 [![CocoaPods](https://img.shields.io/cocoapods/l/ShareKit.svg)](https://cocoapods.org/pods/ShareKit)
 [![CocoaPods](https://img.shields.io/cocoapods/p/ShareKit.svg)](https://cocoapods.org/pods/ShareKit)
 
+**Important**: The easiest way by far to share content from iOS app is to use `UIActivityViewControler`. If this is not enough for you, than ShareKit might be useful. Beware though - ShareKit is rather dated, although kept updated as time permits. Some services might have changed their API's or deprecated their SDK's in the meantime. It is a lot of work to keep ShareKit updated, and urgent help is needed, so you are more than welcome to test, add issues or open pull requests.
+
 ShareKit allows you to share content easily:
 ```objective-c
 - (void)myButtonHandlerAction {
@@ -10,31 +12,20 @@ ShareKit allows you to share content easily:
     // Create the item to share (in this example, a url)
     NSURL *url = [NSURL URLWithString:@"http://getsharekit.com"];
     SHKItem *item = [SHKItem URL:url title:@"ShareKit is Awesome!" contentType:SHKURLContentTypeWebpage];
-    
+
     // Get the ShareKit action sheet
     SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 
     // ShareKit detects top view controller (the one intended to present ShareKit UI) automatically,
     // but sometimes it may not find one. To be safe, set it explicitly
     [SHK setRootViewController:self];
-    
-    // Display the action sheet
-    if (NSClassFromString(@"UIAlertController")) {
-        
-        //iOS 8+
-        SHKAlertController *alertController = [SHKAlertController actionSheetForItem:item];
-        [alertController setModalPresentationStyle:UIModalPresentationPopover];
-        UIPopoverPresentationController *popPresenter = [alertController popoverPresentationController];
-        popPresenter.barButtonItem = self.toolbarItems[1];
-        [self presentViewController:alertController animated:YES completion:nil];
-        
-    } else {
-        
-        //deprecated
-        SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
-        [actionSheet showFromToolbar:self.navigationController.toolbar];
-    }
 
+    // Display the action sheet
+    SHKAlertController *alertController = [SHKAlertController actionSheetForItem:item];
+    [alertController setModalPresentationStyle:UIModalPresentationPopover];
+    UIPopoverPresentationController *popPresenter = [alertController popoverPresentationController];
+    popPresenter.barButtonItem = self.toolbarItems[1];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 ```
 Everything else (user authentication, API calls, shareUI etc) is handled by ShareKit. Moreover, you can use and customise [SHKAccountsViewController](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/UI/SHKAccountsViewController.h) (where users can login/logoff, displays username if someone is logged to a particular service) and [SHKUploadsViewController](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/UI/SHKUploadsViewController.h) (similar to safari downloads, works with sharers able to report progress). For a brief introduction, check [the demo app](https://github.com/ShareKit/ShareKit-Demo-App). To know more about configuration options see [DefaultSHKConfigurator.m](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/Configuration/DefaultSHKConfigurator.m). To know more about what type of content can be shared, see [SHKItem.h](https://github.com/ShareKit/ShareKit/blob/master/Classes/ShareKit/Core/SHKItem.h). To find out what services and actions are supported, check [Sharer implementations](https://github.com/ShareKit/ShareKit/tree/master/Classes/ShareKit/Sharers). To get a picture of what they are capable of check their .m (implementation) files, methods named:
